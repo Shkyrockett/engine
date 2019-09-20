@@ -24,6 +24,7 @@ using System.Runtime.Serialization;
 using static Engine.Mathematics;
 using static Engine.Operations;
 using static System.Math;
+using static Engine.Polynomials;
 
 namespace Engine
 {
@@ -32,8 +33,8 @@ namespace Engine
     /// </summary>
     /// <seealso cref="IEquatable{T}" />
     /// <remarks>
-    /// Internally the polynomial is represented by an array of the coefficients in reverse order.
-    /// When accessed externally, the coefficients are generally in forward order.
+    /// <para>Internally the polynomial is represented by an array of the coefficients in reverse order.
+    /// When accessed externally, the coefficients are generally in forward order.</para>
     /// </remarks>
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -94,8 +95,8 @@ namespace Engine
         /// <param name="coefficients">The coefficients of the polynomial.</param>
         /// <exception cref="ArgumentNullException">coefficients</exception>
         /// <remarks>
-        /// While the coefficients are entered in left to right letter order, they are
-        /// stored in degree order to simplify operations on <see cref="Polynomial" /> structs.
+        /// <para>While the coefficients are entered in left to right letter order, they are
+        /// stored in degree order to simplify operations on <see cref="Polynomial" /> structs.</para>
         /// </remarks>
         [DebuggerStepThrough]
         public Polynomial(params double[] coefficients)
@@ -121,14 +122,14 @@ namespace Engine
         /// Gets or sets the coefficient at the given index.
         /// </summary>
         /// <value>
-        /// The <see cref="System.Double"/>.
+        /// The <see cref="double"/>.
         /// </value>
         /// <param name="index">The index of the coefficient to retrieve.</param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="ArgumentOutOfRangeException">index</exception>
         /// <remarks>
-        /// The indexer is in highest degree to lowest format.
+        /// <para>The indexer is in highest degree to lowest format.</para>
         /// </remarks>
         /// <acknowledgment>
         /// modified from the indexer used in Super Lloyd's Poly class https://github.com/superlloyd/Poly
@@ -165,14 +166,14 @@ namespace Engine
         /// Gets or sets the coefficient at the given term index.
         /// </summary>
         /// <value>
-        /// The <see cref="System.Double"/>.
+        /// The <see cref="double"/>.
         /// </value>
         /// <param name="index">The term index of the coefficient to retrieve.</param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="ArgumentOutOfRangeException">index</exception>
         /// <remarks>
-        /// The <see cref="PolynomialTerm" /> indexer is in highest degree to lowest format.
+        /// <para>The <see cref="PolynomialTerm" /> indexer is in highest degree to lowest format.</para>
         /// </remarks>
         /// <acknowledgment>
         /// modified from the indexer used in Super Lloyd's Poly class https://github.com/superlloyd/Poly
@@ -209,7 +210,7 @@ namespace Engine
         /// Gets or sets the coefficient of the given degree index.
         /// </summary>
         /// <value>
-        /// The <see cref="System.Double"/>.
+        /// The <see cref="double"/>.
         /// </value>
         /// <param name="index">The degree of the coefficient to retrieve.</param>
         /// <returns>
@@ -218,7 +219,7 @@ namespace Engine
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="ArgumentOutOfRangeException">index</exception>
         /// <remarks>
-        /// The <see cref="PolynomialDegree" /> indexer is in lowest degree to highest format.
+        /// <para>The <see cref="PolynomialDegree" /> indexer is in lowest degree to highest format.</para>
         /// </remarks>
         /// <acknowledgment>
         /// modified from the indexer used in Super Lloyd's Poly class https://github.com/superlloyd/Poly
@@ -277,7 +278,7 @@ namespace Engine
         /// Gets a value indicating whether the real roots for the polynomial can be solved with available methods.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance can solve real roots; otherwise, <c>false</c>.
+        ///   <see langword="true"/> if this instance can solve real roots; otherwise, <see langword="false"/>.
         /// </value>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -291,10 +292,10 @@ namespace Engine
         /// Useful for class that want to expose internal value that must not change.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is readonly; otherwise, <c>false</c>.
+        ///   <see langword="true"/> if this instance is readonly; otherwise, <see langword="false"/>.
         /// </value>
         /// <remarks>
-        /// Once set, this cannot become writable again.
+        /// <para>Once set, this cannot become writable again.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -322,7 +323,7 @@ namespace Engine
         /// The coefficients.
         /// </value>
         /// <remarks>
-        /// This property presents the <see cref="Coefficients" /> in the reverse order than they are internally stored.
+        /// <para>This property presents the <see cref="Coefficients" /> in the reverse order than they are internally stored.</para>
         /// </remarks>
         [TypeConverter(typeof(ArrayConverter))]
         public double[] Coefficients
@@ -1064,7 +1065,7 @@ namespace Engine
         /// The <see cref="ValueTuple{T1, T2}" />.
         /// </returns>
         /// <remarks>
-        /// Do not use this method on a polynomial that has been simplified or trimmed.
+        /// <para>Do not use this method on a polynomial that has been simplified or trimmed.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -1114,7 +1115,7 @@ namespace Engine
         /// Returns a <see cref="PolynomialDegree" /> value representing the order of degree of the polynomial.
         /// </returns>
         /// <remarks>
-        /// Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.
+        /// <para>Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.</para>
         /// </remarks>
         /// <acknowledgment>
         /// A hodge-podge helper method based on Simplify from of: http://www.kevlindev.com/
@@ -1290,16 +1291,16 @@ namespace Engine
             return (values?.Length - 1 switch
             {
                 var n when n < 1 => throw new ArgumentNullException(nameof(values), "At least 2 different points must be given"),
-                1 => LinearBezierCoefficients(values[0], values[1]),
-                2 => QuadraticBezierCoefficients(values[0], values[1], values[2]),
-                3 => CubicBezierCoefficients(values[0], values[1], values[2], values[3]),
-                4 => QuarticBezierCoefficients(values[0], values[1], values[2], values[3], values[4]),
-                5 => QuinticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5]),
-                6 => SexticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6]),
-                7 => SepticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]),
-                8 => OcticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]),
-                9 => NonicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]),
-                10 => DecicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]),
+                1 => LinearBezierPolynomial(values[0], values[1]),
+                2 => QuadraticBezierPolynomial(values[0], values[1], values[2]),
+                3 => CubicBezierPolynomial(values[0], values[1], values[2], values[3]),
+                4 => QuarticBezierPolynomial(values[0], values[1], values[2], values[3], values[4]),
+                5 => QuinticBezierPolynomial(values[0], values[1], values[2], values[3], values[4], values[5]),
+                6 => SexticBezierPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6]),
+                7 => SepticBezierPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]),
+                8 => OcticBezierPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]),
+                9 => NonicBezierPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]),
+                10 => DecicBezierPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]),
                 // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
                 _ => Bezier(0, values.Length - 1, values),
             }).Value;

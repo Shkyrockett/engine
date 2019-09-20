@@ -11,12 +11,14 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace Engine.Tweening
 {
     /// <summary>
     /// The tweener class.
     /// </summary>
+    [DataContract, Serializable]
     public class Tweener
     {
         #region Fields

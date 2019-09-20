@@ -994,7 +994,7 @@ namespace Engine
                             {
                                 // 3 roots
                                 var r = Sqrt(-p * p * p / 27);
-                                var phi = Acos(Operations.MinMax(-q / 2 / r, -1, 1));
+                                var phi = Acos(MinMax(-q / 2 / r, -1, 1));
                                 var t1 = 2 * Crt(r);
                                 yield return (t1 * Cos(phi / 3)) - (a / 3);
                                 yield return (t1 * Cos((phi + (2 * PI)) / 3)) - (a / 3);

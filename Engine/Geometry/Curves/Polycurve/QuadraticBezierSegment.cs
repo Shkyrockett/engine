@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static Engine.Operations;
+using static Engine.Polynomials;
 
 namespace Engine
 {
@@ -50,14 +51,13 @@ namespace Engine
         /// <param name="previous">The previous.</param>
         /// <param name="relitive">The relitive.</param>
         /// <param name="args">The args.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public QuadraticBezierSegment(CurveSegment previous, bool relitive, Point2D[] args)
             : this(previous, args.Length == 2 ? (Point2D?)args[0] : null, args.Length == 2 ? args[0] : args[1])
         {
             if (relitive)
             {
-                Handle = (Point2D)(Handle + previous.End);
-                End = (Point2D)(End + previous.End);
+                Handle = (Point2D)(Handle + previous.Tail);
+                Tail = (Point2D)(Tail + previous.Tail);
             }
         }
 
@@ -67,13 +67,12 @@ namespace Engine
         /// <param name="previous">The previous.</param>
         /// <param name="handle">The handle.</param>
         /// <param name="end">The end.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public QuadraticBezierSegment(CurveSegment previous, Point2D? handle, Point2D end)
         {
             Previous = previous;
             previous.Next = this;
-            Handle = handle ?? (Point2D)((2 * previous.End) - previous.NextToEnd);
-            End = end;
+            Handle = handle ?? (Point2D)((2 * previous.Tail) - previous.NextToEnd);
+            Tail = end;
         }
         #endregion Constructors
 
@@ -89,12 +88,12 @@ namespace Engine
         /// <param name="cy">The cy.</param>
         public void Deconstruct(out double ax, out double ay, out double bx, out double by, out double cx, out double cy)
         {
-            ax = Start.Value.X;
-            ay = Start.Value.Y;
+            ax = Head.Value.X;
+            ay = Head.Value.Y;
             bx = Handle.Value.X;
             by = Handle.Value.Y;
-            cx = End.Value.X;
-            cy = End.Value.Y;
+            cx = Tail.Value.X;
+            cy = Tail.Value.Y;
         }
         #endregion Deconstructors
 
@@ -103,21 +102,21 @@ namespace Engine
         /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? Start
-		{
-		    get { return Previous.End; }
-			set
-			{
-			    if (Previous is null)
-				{
-				    Previous = new PointSegment(value);
+        public override Point2D? Head
+        {
+            get { return Previous.Tail; }
+            set
+            {
+                if (Previous is null)
+                {
+                    Previous = new PointSegment(value);
                 }
                 else
                 {
-                    Previous.End = value;
-				}
-			}
-		}
+                    Previous.Tail = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the handle.
@@ -135,7 +134,7 @@ namespace Engine
         /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public override Point2D? End { get; set; }
+        public override Point2D? Tail { get; set; }
 
         /// <summary>
         /// Gets the grips.
@@ -143,7 +142,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public override List<Point2D> Grips
-            => new List<Point2D> { Start.Value, Handle.Value, End.Value };
+            => new List<Point2D> { Head.Value, Handle.Value, Tail.Value };
 
         /// <summary>
         /// Gets the bounds.
@@ -164,7 +163,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierCoefficients(Start.Value.X, Handle.Value.X, End.Value.X));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierPolynomial(Head.Value.X, Handle.Value.X, Tail.Value.X));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -178,7 +177,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierCoefficients(Start.Value.Y, Handle.Value.Y, End.Value.Y));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierPolynomial(Head.Value.Y, Handle.Value.Y, Tail.Value.Y));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -189,7 +188,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
-            => (double)CachingProperty(() => Measurements.QuadraticBezierArcLengthByIntegral(Start.Value.X, Start.Value.Y, Handle.Value.X, Handle.Value.Y, End.Value.X, End.Value.Y));
+            => (double)CachingProperty(() => Measurements.QuadraticBezierArcLengthByIntegral(Head.Value.X, Head.Value.Y, Handle.Value.X, Handle.Value.Y, Tail.Value.X, Tail.Value.Y));
         #endregion Properties
 
         /// <summary>
@@ -206,7 +205,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="QuadraticBezier"/>.</returns>
         public QuadraticBezier ToQuadtraticBezier()
-            => new QuadraticBezier(Start.Value, Handle.Value, End.Value);
+            => new QuadraticBezier(Head.Value, Handle.Value, Tail.Value);
         #endregion Methods
     }
 }

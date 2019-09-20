@@ -22,17 +22,17 @@ namespace Editor
         /// <summary>
         /// The arc.
         /// </summary>
-        public static readonly CircularArc Arc = new CircularArc(new Point2D(100, 100), 100, 60d.ToRadians(), 300d.ToRadians());
+        public static readonly CircularArc Arc = new CircularArc(new Point2D(100, 100), 100, 60d.DegreesToRadians(), 300d.DegreesToRadians());
 
         /// <summary>
         /// The ellipse.
         /// </summary>
-        public static readonly Ellipse Ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.ToRadians());
+        public static readonly Ellipse Ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.DegreesToRadians());
 
         /// <summary>
         /// The elliptic arc.
         /// </summary>
-        public static readonly EllipticalArc EllpticArc = new EllipticalArc(200d, 200d, 100d, 200d, 45d.ToRadians(), -45d.ToRadians(), 90d.ToRadians());
+        public static readonly EllipticalArc EllpticArc = new EllipticalArc(200d, 200d, 100d, 200d, 45d.DegreesToRadians(), -45d.DegreesToRadians(), 90d.DegreesToRadians());
 
         /// <summary>
         /// The inner polygon.

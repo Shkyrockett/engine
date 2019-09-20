@@ -12,20 +12,20 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Engine.Physics
+namespace Engine
 {
     /// <summary>
-    /// The velocity acquired class.
+    /// The velocity aquired class.
     /// </summary>
-    public class VelocityAcquired
-        : IVelocity, IEquatable<VelocityAcquired>
+    public class VelocityAquired
+        : IVelocity, IEquatable<VelocityAquired>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="VelocityAcquired"/> class.
+        /// Initializes a new instance of the <see cref="VelocityAquired"/> class.
         /// </summary>
         /// <param name="speed">The speed.</param>
         /// <param name="direction">The direction.</param>
-        public VelocityAcquired(IAcceleration speed, IDirection direction)
+        public VelocityAquired(IAcceleration speed, IDirection direction)
         {
             Direction = direction;
             Acceleration = speed;
@@ -66,7 +66,7 @@ namespace Engine.Physics
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator ==(VelocityAcquired left, VelocityAcquired right) => EqualityComparer<VelocityAcquired>.Default.Equals(left, right);
+        public static bool operator ==(VelocityAquired left, VelocityAquired right) => EqualityComparer<VelocityAquired>.Default.Equals(left, right);
 
         /// <summary>
         /// Implements the operator !=.
@@ -76,7 +76,7 @@ namespace Engine.Physics
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator !=(VelocityAcquired left, VelocityAcquired right) => !(left == right);
+        public static bool operator !=(VelocityAquired left, VelocityAquired right) => !(left == right);
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
@@ -85,7 +85,7 @@ namespace Engine.Physics
         /// <returns>
         ///   <see langword="true"/> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
-        public override bool Equals(object obj) => Equals(obj as VelocityAcquired);
+        public override bool Equals(object obj) => Equals(obj as VelocityAquired);
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
@@ -94,7 +94,7 @@ namespace Engine.Physics
         /// <returns>
         /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
         /// </returns>
-        public bool Equals(VelocityAcquired other) => other != null && EqualityComparer<IAcceleration>.Default.Equals(Acceleration, other.Acceleration) && EqualityComparer<IDirection>.Default.Equals(Direction, other.Direction);
+        public bool Equals(VelocityAquired other) => other != null && EqualityComparer<IAcceleration>.Default.Equals(Acceleration, other.Acceleration) && EqualityComparer<IDirection>.Default.Equals(Direction, other.Direction);
 
         /// <summary>
         /// Returns a hash code for this instance.

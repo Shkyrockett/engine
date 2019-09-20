@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
+using static Engine.Polynomials;
 
 namespace Engine
 {
@@ -341,10 +342,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double AngleDegrees
         {
-            get { return angle.ToDegrees(); }
+            get { return angle.RadiansToDegrees(); }
             set
             {
-                angle = value.ToRadians();
+                angle = value.DegreesToRadians();
                 ClearCache();
                 OnPropertyChanged(nameof(AngleDegrees));
                 update?.Invoke();
@@ -355,15 +356,13 @@ namespace Engine
         /// Gets the cos angle.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double CosAngle
-            => (double)CachingProperty(() => Cos(angle));
+        public double CosAngle => (double)CachingProperty(() => Cos(angle));
 
         /// <summary>
         /// Gets the sin angle.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double SinAngle
-            => (double)CachingProperty(() => Sin(angle));
+        public double SinAngle => (double)CachingProperty(() => Sin(angle));
 
         /// <summary>
         /// Gets the Focus Radius of the <see cref="Ellipse"/>.
@@ -372,8 +371,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The focus radius of the " + nameof(Ellipse) + ".")]
-        public double FocusRadius
-            => (double)CachingProperty(() => Measurements.EllipseFocusRadius(rX, rY));
+        public double FocusRadius => (double)CachingProperty(() => Measurements.EllipseFocusRadius(rX, rY));
 
         /// <summary>
         /// Gets the <see cref="Eccentricity"/> of the <see cref="Ellipse"/>.
@@ -382,8 +380,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the " + nameof(Ellipse) + ".")]
-        public double Eccentricity
-            => (double)CachingProperty(() => Measurements.Eccentricity(rX, rY));
+        public double Eccentricity => (double)CachingProperty(() => Measurements.Eccentricity(rX, rY));
 
         /// <summary>
         /// Gets the <see cref="Perimeter"/> of the <see cref="Ellipse"/>.
@@ -393,8 +390,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the " + nameof(Ellipse) + ".")]
-        public override double Perimeter
-            => (double)CachingProperty(() => Measurements.EllipsePerimeter(rX, rY));
+        public override double Perimeter => (double)CachingProperty(() => Measurements.EllipsePerimeter(rX, rY));
 
         /// <summary>
         /// Gets the <see cref="Area"/> of the <see cref="Ellipse"/>.
@@ -428,8 +424,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public List<double> ExtremeAngles
-            => (List<double>)CachingProperty(() => Measurements.EllipseExtremeAngles(rX, rY, angle));
+        public List<double> ExtremeAngles => (List<double>)CachingProperty(() => Measurements.EllipseExtremeAngles(rX, rY, angle));
 
         /// <summary>
         /// Get the points of the Cartesian extremes of a rotated ellipse.
@@ -445,8 +440,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public List<Point2D> ExtremePoints
-            => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(x, y, rX, rY, angle));
+        public List<Point2D> ExtremePoints => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(x, y, rX, rY, angle));
 
         /// <summary>
         /// Gets an sets the Bounding box of the <see cref="Ellipse"/>.
@@ -490,16 +484,28 @@ namespace Engine
         /// <summary>
         /// Gets the size and location of the ellipse, in double-point pixels, relative to the parent canvas.
         /// </summary>
-        /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
-        [Description("The unrotated rectangular bounds of the " + nameof(Ellipse) + ".")]
+        [Description("The orthogonal rectangular bounds of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public Rectangle2D UnrotatedBounds
-            => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(x, y, rX, rY));
+        public Rectangle2D OrthogonalBounds => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(x, y, rX, rY));
+
+        /// <summary>
+        /// Gets the <see cref="Ellipse"/> curve's conic polynomial representation.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Polynomial ConicSectionCurve
+        {
+            get
+            {
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)EllipseConicSectionPolynomial(x, y, rX, rY, CosAngle, SinAngle));
+                curveY.IsReadonly = true;
+                return curveY;
+            }
+        }
         #endregion Properties
 
         #region Operators

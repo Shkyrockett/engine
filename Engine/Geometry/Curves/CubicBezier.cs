@@ -18,6 +18,7 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static Engine.Operations;
 using static System.Math;
+using static Engine.Polynomials;
 
 namespace Engine
 {
@@ -518,7 +519,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierCoefficients(dx, cx, bx, ax));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierPolynomial(dx, cx, bx, ax));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -532,7 +533,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierCoefficients(dy, cy, by, ay));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierPolynomial(dy, cy, by, ay));
                 curveY.IsReadonly = true;
                 return curveY;
             }

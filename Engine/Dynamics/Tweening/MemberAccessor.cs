@@ -1,4 +1,4 @@
-﻿// <copyright file="MemberAccessor.cs" company="Shkyrockett" >
+﻿// <copyright file="MemberAccessor.cs" >
 //     Copyright © 2013 - 2018 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>

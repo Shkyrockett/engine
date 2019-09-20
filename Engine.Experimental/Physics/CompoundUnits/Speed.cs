@@ -11,8 +11,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
-namespace Engine.Physics
+namespace Engine
 {
     /// <summary>
     /// The speed struct.
@@ -79,11 +80,11 @@ namespace Engine.Physics
         public static bool operator !=(Speed left, Speed right) => !(left == right);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
         public override bool Equals(object obj) => obj is Speed speed && Equals(speed);
 
@@ -92,7 +93,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(Speed other) => EqualityComparer<ILength>.Default.Equals(Distance, other.Distance) && EqualityComparer<ITime>.Default.Equals(Time, other.Time);
 
@@ -114,7 +115,7 @@ namespace Engine.Physics
         /// The to string.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         public override string ToString() => $"{Value} {Distance.Abbreviation}/{Time.Abbreviation}";
     }

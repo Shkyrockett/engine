@@ -71,10 +71,10 @@ namespace Engine
         /// </value>
         public double Degrees
         {
-            get { return radians.ToDegrees(); }
+            get { return radians.RadiansToDegrees(); }
             set
             {
-                radians = value.ToRadians();
+                radians = value.DegreesToRadians();
                 cos = null;
                 sin = null;
             }

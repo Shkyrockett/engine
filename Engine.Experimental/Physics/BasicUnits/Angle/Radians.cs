@@ -16,7 +16,7 @@ using System.Runtime.CompilerServices;
 using static Engine.Mathematics;
 using System.Runtime.Serialization;
 
-namespace Engine.Physics
+namespace Engine
 {
     /// <summary>
     /// The radians struct.
@@ -54,7 +54,7 @@ namespace Engine.Physics
         /// <param name="degrees">The degrees.</param>
         public Radians(Degrees degrees)
         {
-            Value = degrees.Value.ToRadians();
+            Value = degrees.Value.DegreesToRadians();
         }
         #endregion Constructors
 
@@ -232,7 +232,7 @@ namespace Engine.Physics
         /// </summary>
         /// <returns></returns>
         public Radians ToDegrees()
-            => Value.ToDegrees();
+            => Value.RadiansToDegrees();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Radians" /> struct.

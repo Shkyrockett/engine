@@ -1762,7 +1762,7 @@ namespace Engine
             && Math.Abs(m1x0) < double.Epsilon && Math.Abs(m1x1 - 1d) < double.Epsilon && Math.Abs(m1x2) < double.Epsilon && Math.Abs(m1x3) < double.Epsilon && Math.Abs(m1x4) < double.Epsilon && Math.Abs(m1x5) < double.Epsilon
             && Math.Abs(m2x0) < double.Epsilon && Math.Abs(m2x1) < double.Epsilon && Math.Abs(m2x2 - 1d) < double.Epsilon && Math.Abs(m2x3) < double.Epsilon && Math.Abs(m2x4) < double.Epsilon && Math.Abs(m2x5) < double.Epsilon
             && Math.Abs(m3x0) < double.Epsilon && Math.Abs(m3x1) < double.Epsilon && Math.Abs(m3x2) < double.Epsilon && Math.Abs(m3x3 - 1d) < double.Epsilon && Math.Abs(m3x4) < double.Epsilon && Math.Abs(m3x5) < double.Epsilon
-            && Math.Abs(m4x0) < double.Epsilon && Math.Abs(m4x1) < double.Epsilon && Math.Abs(m4x2) < double.Epsilon && Math.Abs(m4x3) < double.Epsilon && Math.Abs(m4x4 - 1d) < double.Epsilon && Math.Abs(m3x5) < double.Epsilon
+            && Math.Abs(m4x0) < double.Epsilon && Math.Abs(m4x1) < double.Epsilon && Math.Abs(m4x2) < double.Epsilon && Math.Abs(m4x3) < double.Epsilon && Math.Abs(m4x4 - 1d) < double.Epsilon && Math.Abs(m4x5) < double.Epsilon
             && Math.Abs(m5x0) < double.Epsilon && Math.Abs(m5x1) < double.Epsilon && Math.Abs(m5x2) < double.Epsilon && Math.Abs(m5x3) < double.Epsilon && Math.Abs(m5x4) < double.Epsilon && Math.Abs(m5x5 - 1d) < double.Epsilon;
         #endregion Is Identity
 

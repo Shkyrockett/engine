@@ -11,7 +11,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Engine.Physics
+namespace Engine
 {
     /// <summary>
     /// Unit of Charge

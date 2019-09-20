@@ -11,17 +11,20 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
-namespace Engine.Physics
+namespace Engine
 {
     /// <summary>
     /// The momentum struct.
     /// </summary>
+    /// <seealso cref="IMomentum" />
+    /// <seealso cref="IEquatable{T}" />
     public struct Momentum
         : IMomentum, IEquatable<Momentum>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Momentum"/> class.
+        /// Initializes a new instance of the <see cref="Momentum" /> class.
         /// </summary>
         /// <param name="mass">The mass.</param>
         /// <param name="velocity">The velocity.</param>
@@ -34,27 +37,42 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the mass.
         /// </summary>
+        /// <value>
+        /// The mass.
+        /// </value>
         public IMass Mass { get; set; }
 
         /// <summary>
         /// Gets or sets the velocity.
         /// </summary>
+        /// <value>
+        /// The velocity.
+        /// </value>
         public ISpeed Velocity { get; set; }
 
         /// <summary>
         /// Gets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value => Mass.Value * Velocity.Value;
 
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Name => nameof(Momentum);
 
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abbreviation => $"{Value}{Mass.Abbreviation}";
 
@@ -79,11 +97,11 @@ namespace Engine.Physics
         public static bool operator !=(Momentum left, Momentum right) => !(left == right);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
         public override bool Equals(object obj) => obj is Momentum momentum && Equals(momentum);
 
@@ -92,7 +110,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(Momentum other) => EqualityComparer<IMass>.Default.Equals(Mass, other.Mass) && EqualityComparer<ISpeed>.Default.Equals(Velocity, other.Velocity);
 
@@ -114,7 +132,7 @@ namespace Engine.Physics
         /// The to string.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         public override string ToString() => $"{Value} {Mass.Abbreviation}{Velocity.Abbreviation}";
     }

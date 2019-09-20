@@ -23,7 +23,7 @@ namespace Engine
     /// <summary>
     /// The orientation struct.
     /// </summary>
-    /// <seealso cref="Engine.IVector{T}" />
+    /// <seealso cref="IVector{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     [DebuggerDisplay("{ToString()}")]

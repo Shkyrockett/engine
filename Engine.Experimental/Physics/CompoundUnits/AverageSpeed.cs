@@ -11,17 +11,20 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
-namespace Engine.Physics
+namespace Engine
 {
     /// <summary>
     /// The average speed struct.
     /// </summary>
+    /// <seealso cref="ISpeed" />
+    /// <seealso cref="IEquatable{T}" />
     public struct AverageSpeed
         : ISpeed, IEquatable<AverageSpeed>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AverageSpeed"/> class.
+        /// Initializes a new instance of the <see cref="AverageSpeed" /> class.
         /// </summary>
         /// <param name="speed">The speed.</param>
         /// <param name="time">The time.</param>
@@ -34,16 +37,25 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the speed.
         /// </summary>
+        /// <value>
+        /// The speed.
+        /// </value>
         public List<ISpeed> Speed { get; set; }
 
         /// <summary>
         /// Gets or sets the time.
         /// </summary>
+        /// <value>
+        /// The time.
+        /// </value>
         public ITime Time { get; set; }
 
         /// <summary>
         /// Gets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value
         {
             get
@@ -61,12 +73,18 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Name => "Average Speed";
 
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abbreviation => $"∆{Value}/{Speed[0].Abbreviation}";
 
@@ -91,11 +109,11 @@ namespace Engine.Physics
         public static bool operator !=(AverageSpeed left, AverageSpeed right) => !(left == right);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
         public override bool Equals(object obj) => obj is AverageSpeed speed && Equals(speed);
 
@@ -104,7 +122,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(AverageSpeed other) => EqualityComparer<List<ISpeed>>.Default.Equals(Speed, other.Speed) && EqualityComparer<ITime>.Default.Equals(Time, other.Time);
 
@@ -126,7 +144,7 @@ namespace Engine.Physics
         /// The to string.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         public override string ToString() => $"{Value} ∆{Speed[0].Abbreviation}/{Time.Abbreviation}";
     }

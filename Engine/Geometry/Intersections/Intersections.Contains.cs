@@ -396,44 +396,44 @@ namespace Engine
                         //inside += ScanbeamPointsToRightLineSegment(point.X, point.Y, l.Start.Value.X, l.Start.Value.Y, l.End.Value.X, l.End.Value.Y);
                         {
                             // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
-                            if ((l.End.Value.Y == point.Y) && ((l.End.Value.X == point.X) || ((l.Start.Value.Y == point.Y) && ((l.End.Value.X > point.X) == (l.Start.Value.X < point.X)))))
+                            if ((l.Tail.Value.Y == point.Y) && ((l.Tail.Value.X == point.X) || ((l.Head.Value.Y == point.Y) && ((l.Tail.Value.X > point.X) == (l.Head.Value.X < point.X)))))
                             //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
                             {
                                 return Inclusions.Boundary;
                             }
 
                             // At least one point is below the Y threshold and the other is above or equal
-                            if ((l.Start.Value.Y < point.Y) != (l.End.Value.Y < point.Y))
+                            if ((l.Head.Value.Y < point.Y) != (l.Tail.Value.Y < point.Y))
                             {
                                 // At least one point must be to the right of the test point
-                                if (l.Start.Value.X >= point.X)
+                                if (l.Head.Value.X >= point.X)
                                 {
-                                    if (l.End.Value.X > point.X)
+                                    if (l.Tail.Value.X > point.X)
                                     {
                                         inside = 1 - inside;
                                     }
                                     else
                                     {
-                                        var determinant = ((l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y)) - ((l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y));
+                                        var determinant = ((l.Head.Value.X - point.X) * (l.Tail.Value.Y - point.Y)) - ((l.Tail.Value.X - point.X) * (l.Head.Value.Y - point.Y));
                                         if (Abs(determinant) < epsilon)
                                         {
                                             return Inclusions.Boundary;
                                         }
-                                        else if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
+                                        else if ((determinant > 0) == (l.Tail.Value.Y > l.Head.Value.Y))
                                         {
                                             inside = 1 - inside;
                                         }
                                     }
                                 }
-                                else if (l.End.Value.X > point.X)
+                                else if (l.Tail.Value.X > point.X)
                                 {
-                                    var determinant = ((l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y)) - ((l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y));
+                                    var determinant = ((l.Head.Value.X - point.X) * (l.Tail.Value.Y - point.Y)) - ((l.Tail.Value.X - point.X) * (l.Head.Value.Y - point.Y));
                                     if (Abs(determinant) < epsilon)
                                     {
                                         return Inclusions.Boundary;
                                     }
 
-                                    if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
+                                    if ((determinant > 0) == (l.Tail.Value.Y > l.Head.Value.Y))
                                     {
                                         inside = 1 - inside;
                                     }
@@ -470,12 +470,12 @@ namespace Engine
                         break;
                     case QuadraticBezierSegment q:
                         {
-                            inside += ScanbeamPointsToRightQuadraticBezierSegment(point.X, point.Y, q.Start.Value.X, q.Start.Value.Y, q.Handle.Value.X, q.Handle.Value.Y, q.End.Value.X, q.End.Value.Y);
+                            inside += ScanbeamPointsToRightQuadraticBezierSegment(point.X, point.Y, q.Head.Value.X, q.Head.Value.Y, q.Handle.Value.X, q.Handle.Value.Y, q.Tail.Value.X, q.Tail.Value.Y);
                         }
                         break;
                     case CubicBezierSegment c:
                         {
-                            inside += ScanbeamPointsToRightCubicBezierSegment(point.X, point.Y, c.Start.Value.X, c.Start.Value.Y, c.Handle1.X, c.Handle1.Y, c.Handle2.Value.X, c.Handle2.Value.Y, c.End.Value.X, c.End.Value.Y);
+                            inside += ScanbeamPointsToRightCubicBezierSegment(point.X, point.Y, c.Head.Value.X, c.Head.Value.Y, c.Handle1.X, c.Handle1.Y, c.Handle2.Value.X, c.Handle2.Value.Y, c.Tail.Value.X, c.Tail.Value.Y);
                         }
                         break;
                     default:
@@ -503,7 +503,7 @@ namespace Engine
 
             if (path.Count < 2)
             {
-                return Contains(path[0].Start.Value, point);
+                return Contains(path[0].Head.Value, point);
             }
 
             foreach (var item in path)
@@ -512,7 +512,7 @@ namespace Engine
                 {
                     case PointSegment p:
                         {
-                            if (path[0].Start.Value == point)
+                            if (path[0].Head.Value == point)
                             {
                                 return Inclusions.Boundary;
                             }
@@ -522,7 +522,7 @@ namespace Engine
                     case LineCurveSegment l:
                         {
                             // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
-                            if (l.End.Value.Y == point.Y && (l.End.Value.X == point.X || ((l.Start.Value.Y == point.Y) && ((l.End.Value.X > point.X) == (l.Start.Value.X < point.X)))))
+                            if (l.Tail.Value.Y == point.Y && (l.Tail.Value.X == point.X || ((l.Head.Value.Y == point.Y) && ((l.Tail.Value.X > point.X) == (l.Head.Value.X < point.X)))))
                             //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
                             {
                                 return Inclusions.Boundary;
@@ -530,37 +530,37 @@ namespace Engine
 
                             // If Point between start and end points horizontally.
                             //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
-                            if ((l.Start.Value.Y < point.Y) != (l.End.Value.Y < point.Y))
+                            if ((l.Head.Value.Y < point.Y) != (l.Tail.Value.Y < point.Y))
                             {
                                 // If point between start and end points vertically.
-                                if (l.Start.Value.X >= point.X)
+                                if (l.Head.Value.X >= point.X)
                                 {
-                                    if (l.End.Value.X > point.X)
+                                    if (l.Tail.Value.X > point.X)
                                     {
                                         result = 1 - result;
                                     }
                                     else
                                     {
-                                        var determinant = ((l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y)) - ((l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y));
+                                        var determinant = ((l.Head.Value.X - point.X) * (l.Tail.Value.Y - point.Y)) - ((l.Tail.Value.X - point.X) * (l.Head.Value.Y - point.Y));
                                         if (Abs(determinant) < epsilon)
                                         {
                                             return Inclusions.Boundary;
                                         }
-                                        else if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
+                                        else if ((determinant > 0) == (l.Tail.Value.Y > l.Head.Value.Y))
                                         {
                                             result = 1 - result;
                                         }
                                     }
                                 }
-                                else if (l.End.Value.X > point.X)
+                                else if (l.Tail.Value.X > point.X)
                                 {
-                                    var determinant = ((l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y)) - ((l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y));
+                                    var determinant = ((l.Head.Value.X - point.X) * (l.Tail.Value.Y - point.Y)) - ((l.Tail.Value.X - point.X) * (l.Head.Value.Y - point.Y));
                                     if (Abs(determinant) < epsilon)
                                     {
                                         return Inclusions.Boundary;
                                     }
 
-                                    if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
+                                    if ((determinant > 0) == (l.Tail.Value.Y > l.Head.Value.Y))
                                     {
                                         result = 1 - result;
                                     }
@@ -622,28 +622,28 @@ namespace Engine
 
                             // If Point between start and end points horizontally.
                             //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
-                            if ((t.Start.Value.Y < point.Y) != (t.End.Value.Y < point.Y))
+                            if ((t.Head.Value.Y < point.Y) != (t.Tail.Value.Y < point.Y))
                             {
                                 // If point between start and end points vertically.
-                                if (t.Start.Value.X >= point.X)
+                                if (t.Head.Value.X >= point.X)
                                 {
-                                    if (t.End.Value.X > point.X)
+                                    if (t.Tail.Value.X > point.X)
                                     {
                                         result = 1 - result;
                                     }
                                     else
                                     {
-                                        var determinant2 = ((t.Start.Value.X - point.X) * (t.End.Value.Y - point.Y)) - ((t.End.Value.X - point.X) * (t.Start.Value.Y - point.Y));
-                                        if ((determinant2 > 0) == (t.End.Value.Y > t.Start.Value.Y))
+                                        var determinant2 = ((t.Head.Value.X - point.X) * (t.Tail.Value.Y - point.Y)) - ((t.Tail.Value.X - point.X) * (t.Head.Value.Y - point.Y));
+                                        if ((determinant2 > 0) == (t.Tail.Value.Y > t.Head.Value.Y))
                                         {
                                             result = 1 - result;
                                         }
                                     }
                                 }
-                                else if (t.End.Value.X > point.X)
+                                else if (t.Tail.Value.X > point.X)
                                 {
-                                    var determinant2 = ((t.Start.Value.X - point.X) * (t.End.Value.Y - point.Y)) - ((t.End.Value.X - point.X) * (t.Start.Value.Y - point.Y));
-                                    if ((determinant2 > 0) == (t.End.Value.Y > t.Start.Value.Y))
+                                    var determinant2 = ((t.Head.Value.X - point.X) * (t.Tail.Value.Y - point.Y)) - ((t.Tail.Value.X - point.X) * (t.Head.Value.Y - point.Y));
+                                    if ((determinant2 > 0) == (t.Tail.Value.Y > t.Head.Value.Y))
                                     {
                                         result = 1 - result;
                                     }

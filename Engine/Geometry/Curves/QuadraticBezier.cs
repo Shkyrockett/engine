@@ -17,7 +17,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static Engine.Operations;
-using static System.Math;
+using static Engine.Polynomials;
 
 namespace Engine
 {
@@ -378,7 +378,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierCoefficients(cx, bx, ax));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierPolynomial(cx, bx, ax));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -392,7 +392,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierCoefficients(cy, by, ay));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierPolynomial(cy, by, ay));
                 curveY.IsReadonly = true;
                 return curveY;
             }

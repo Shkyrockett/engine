@@ -275,7 +275,7 @@ namespace Engine
         public PolycurveContour Process(PolycurveContour contour)
         {
             if (contour is null) return contour;
-            var result = new PolycurveContour(Process(contour.Items[0].Start.Value));
+            var result = new PolycurveContour(Process(contour.Items[0].Head.Value));
             foreach (var item in contour)
             {
                 switch (item)
@@ -283,19 +283,19 @@ namespace Engine
                     case PointSegment t:
                         break;
                     case LineCurveSegment t:
-                        result.AddLineSegment(Process(t.End.Value));
+                        result.AddLineSegment(Process(t.Tail.Value));
                         break;
                     case ArcSegment t:
-                        result.AddArc(t.RX, t.RY, t.Angle, t.LargeArc, t.Sweep, Process(t.End.Value));
+                        result.AddArc(t.RX, t.RY, t.Angle, t.LargeArc, t.Sweep, Process(t.Tail.Value));
                         break;
                     case CardinalSegment t:
                         result.AddCardinalCurve(Process(t.CentralPoints));
                         break;
                     case QuadraticBezierSegment t:
-                        result.AddQuadraticBezier(Process(t.Handle.Value), Process(t.End.Value));
+                        result.AddQuadraticBezier(Process(t.Handle.Value), Process(t.Tail.Value));
                         break;
                     case CubicBezierSegment t:
-                        result.AddCubicBezier(Process(t.Handle1), Process(t.Handle2.Value), Process(t.End.Value));
+                        result.AddCubicBezier(Process(t.Handle1), Process(t.Handle2.Value), Process(t.Tail.Value));
                         break;
                     default:
                         break;

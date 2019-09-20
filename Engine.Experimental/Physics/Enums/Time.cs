@@ -8,7 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
-namespace Engine.Physics
+namespace Engine
 {
     /// <summary>
     /// The times enum.

@@ -175,7 +175,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Nodes
-            => Items.Select(item => item.End.Value).ToList();
+            => Items.Select(item => item.Tail.Value).ToList();
 
         /// <summary>
         /// Gets a listing of all end grips from the Figure.
@@ -239,16 +239,16 @@ namespace Engine
         {
             if (t == 0)
             {
-                return Items[0].Start.Value;
+                return Items[0].Head.Value;
             }
 
             if (t == 1)
             {
-                return Items[Items.Count - 1].End.Value;
+                return Items[Items.Count - 1].Tail.Value;
             }
 
             var weights = new (double length, double accumulated)[Items.Count];
-            var cursor = Items[0].End.Value;
+            var cursor = Items[0].Tail.Value;
             double accumulatedLength = 0;
 
             // Build up the weights map.
@@ -318,11 +318,11 @@ namespace Engine
                     AddLineSegment(p.Point);
                     break;
                 case LineSegment p:
-                    if (p.A == Items[Items.Count - 1].End)
+                    if (p.A == Items[Items.Count - 1].Tail)
                     {
                         AddLineSegment(p.B);
                     }
-                    else if (p.B == Items[Items.Count - 1].End)
+                    else if (p.B == Items[Items.Count - 1].Tail)
                     {
                         AddLineSegment(p.A);
                     }
@@ -333,16 +333,16 @@ namespace Engine
                     }
                     break;
                 case LineCurveSegment p:
-                    AddLineSegment(p.End.Value);
+                    AddLineSegment(p.Tail.Value);
                     break;
                 case ArcSegment p:
-                    AddArc(p.RX, p.RY, p.Angle, p.LargeArc, p.Sweep, p.End.Value);
+                    AddArc(p.RX, p.RY, p.Angle, p.LargeArc, p.Sweep, p.Tail.Value);
                     break;
                 case QuadraticBezierSegment p:
-                    AddQuadraticBezier(p.Handle.Value, p.End.Value);
+                    AddQuadraticBezier(p.Handle.Value, p.Tail.Value);
                     break;
                 case CubicBezierSegment p:
-                    AddCubicBezier(p.Handle1, p.Handle2.Value, p.End.Value);
+                    AddCubicBezier(p.Handle1, p.Handle2.Value, p.Tail.Value);
                     break;
                 case CardinalSegment p:
                     AddCardinalCurve(p.Nodes);
@@ -485,9 +485,9 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Close()
         {
-            if (Items[0].Start.Value != Items[Items.Count - 1].End.Value)
+            if (Items[0].Head.Value != Items[Items.Count - 1].Tail.Value)
             {
-                AddLineSegment(Items[0].Start.Value);
+                AddLineSegment(Items[0].Head.Value);
             }
 
             closed = true;
@@ -547,7 +547,7 @@ namespace Engine
                         goto case 'M';
                     case 'M': // Svg moveto
                         item = new PointSegment(item, relitive, args);
-                        startPoint = item.Start;
+                        startPoint = item.Head;
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -574,7 +574,7 @@ namespace Engine
                         relitive = true;
                         goto case 'H';
                     case 'H': // Svg horizontal-lineto
-                        item = new LineCurveSegment(item, relitive, item.End.Value.X, args[0]);
+                        item = new LineCurveSegment(item, relitive, item.Tail.Value.X, args[0]);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -583,7 +583,7 @@ namespace Engine
                         relitive = true;
                         goto case 'V';
                     case 'V': // Svg vertical-lineto
-                        item = new LineCurveSegment(item, relitive, args[0], item.End.Value.Y);
+                        item = new LineCurveSegment(item, relitive, args[0], item.Tail.Value.Y);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -667,42 +667,42 @@ namespace Engine
                 {
                     case PointSegment t when t.Previous is null:
                         // ToDo: Figure out how to separate M from Z.
-                        output.Append(t.Relitive ? $"m{t.Start.Value.X.ToString(format, provider)}{sep}{t.Start.Value.Y.ToString(format, provider)} " : $"M{t.Start.Value.X.ToString(format, provider)}{sep}{t.Start.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"m{t.Head.Value.X.ToString(format, provider)}{sep}{t.Head.Value.Y.ToString(format, provider)} " : $"M{t.Head.Value.X.ToString(format, provider)}{sep}{t.Head.Value.Y.ToString(format, provider)} ");
                         break;
                     case PointSegment t:
-                        output.Append(t.Relitive ? $"z{t.Start.Value.X.ToString(format, provider)}{sep}{t.Start.Value.Y.ToString(format, provider)} " : $"Z{t.Start.Value.X.ToString(format, provider)}{sep}{t.Start.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"z{t.Head.Value.X.ToString(format, provider)}{sep}{t.Head.Value.Y.ToString(format, provider)} " : $"Z{t.Head.Value.X.ToString(format, provider)}{sep}{t.Head.Value.Y.ToString(format, provider)} ");
                         break;
                     case LineCurveSegment t:
                         // L is a general line.
                         var l = t.Relitive ? 'l' : 'L';
-                        var coords = $"{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)}";
-                        if (t.Start.Value.X == t.End.Value.X)
+                        var coords = $"{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)}";
+                        if (t.Head.Value.X == t.Tail.Value.X)
                         {
                             // H is a horizontal line, so the x-coordinate can be omitted.
-                            coords = $"{t.End.Value.Y.ToString(format, provider)}";
+                            coords = $"{t.Tail.Value.Y.ToString(format, provider)}";
                             l = t.Relitive ? 'h' : 'H';
                         }
-                        else if (t.Start.Value.Y == t.End.Value.Y)
+                        else if (t.Head.Value.Y == t.Tail.Value.Y)
                         {
                             // V is a horizontal line, so the y-coordinate can be omitted.
-                            coords = $"{t.End.Value.X.ToString(format, provider)}";
+                            coords = $"{t.Tail.Value.X.ToString(format, provider)}";
                             l = t.Relitive ? 'v' : 'V';
                         }
                         output.Append($"{l}{coords} ");
                         break;
                     case CubicBezierSegment t:
                         // ToDo: Figure out how to tell if a point can be omitted for the smooth version.
-                        output.Append(t.Relitive ? $"c{t.Handle1.X.ToString(format, provider)}{sep}{t.Handle1.Y.ToString(format, provider)}{sep}{t.Handle2.Value.X.ToString(format, provider)}{sep}{t.Handle2.Value.Y.ToString(format, provider)}{sep}{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)} " : $"C{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)}v{t.Handle2.Value.X.ToString(format, provider)}{sep}{t.Handle2.Value.Y.ToString(format, provider)}{sep}{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"c{t.Handle1.X.ToString(format, provider)}{sep}{t.Handle1.Y.ToString(format, provider)}{sep}{t.Handle2.Value.X.ToString(format, provider)}{sep}{t.Handle2.Value.Y.ToString(format, provider)}{sep}{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)} " : $"C{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)}v{t.Handle2.Value.X.ToString(format, provider)}{sep}{t.Handle2.Value.Y.ToString(format, provider)}{sep}{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)} ");
                         break;
                     case QuadraticBezierSegment t:
                         // ToDo: Figure out how to tell if a point can be omitted for the smooth version.
-                        output.Append(t.Relitive ? $"q{t.Handle.Value.X.ToString(format, provider)}{sep}{t.Handle.Value.X.ToString(format, provider)}{sep}{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)} " : $"Q{t.Handle.Value.X.ToString(format, provider)}{sep}{t.Handle.Value.X.ToString(format, provider)}{sep}{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"q{t.Handle.Value.X.ToString(format, provider)}{sep}{t.Handle.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)} " : $"Q{t.Handle.Value.X.ToString(format, provider)}{sep}{t.Handle.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)} ");
                         break;
                     case ArcSegment t:
                         // Arc definition.
                         var largearc = t.LargeArc ? 1 : 0;
                         var sweep = t.Sweep ? 1 : 0;
-                        output.Append(t.Relitive ? $"a{t.RX.ToString(format, provider)}{sep}{t.RY.ToString(format, provider)}{sep}{t.Angle.ToString(format, provider)}{sep}{largearc}{sep}{sweep}{sep}{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)} " : $"A{t.RX.ToString(format, provider)}{sep}{t.RY.ToString(format, provider)}{sep}{t.Angle.ToString(format, provider)}{sep}{largearc}{sep}{sweep}{sep}{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"a{t.RX.ToString(format, provider)}{sep}{t.RY.ToString(format, provider)}{sep}{t.Angle.ToString(format, provider)}{sep}{largearc}{sep}{sweep}{sep}{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)} " : $"A{t.RX.ToString(format, provider)}{sep}{t.RY.ToString(format, provider)}{sep}{t.Angle.ToString(format, provider)}{sep}{largearc}{sep}{sweep}{sep}{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)} ");
                         break;
                     default:
                         break;

@@ -76,7 +76,7 @@ namespace Engine
         /// <param name="radius">The radius.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
         public ArcSegment(CurveSegment previous, double centerX, double centerY, double radius, double sweepAngle)
-            : this(previous, radius, radius, sweepAngle, false, sweepAngle <= 180, PolarToCartesian(centerX, centerY, radius, Atan2(previous.End.Value.Y, previous.End.Value.X) + sweepAngle))
+            : this(previous, radius, radius, sweepAngle, false, sweepAngle <= 180, PolarToCartesian(centerX, centerY, radius, Atan2(previous.Tail.Value.Y, previous.Tail.Value.X) + sweepAngle))
         { }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Engine
         {
             if (relitive)
             {
-                End = (Point2D)(End + previous.End);
+                Tail = (Point2D)(Tail + previous.Tail);
             }
         }
 
@@ -114,7 +114,7 @@ namespace Engine
             Angle = angle;
             LargeArc = largeArc;
             Sweep = sweep;
-            End = end.Value;
+            Tail = end.Value;
         }
         #endregion Constructors
 
@@ -149,9 +149,9 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the starting angle.")]
-        public override Point2D? Start
+        public override Point2D? Head
         {
-            get { return Previous.End; }
+            get { return Previous.Tail; }
             set
             {
                 if (Previous is null)
@@ -160,7 +160,7 @@ namespace Engine
                 }
                 else
                 {
-                    Previous.End = value;
+                    Previous.Tail = value;
                 }
 
                 ClearCache();
@@ -182,7 +182,7 @@ namespace Engine
         {
             get
             {
-                return (Point2D)CachingProperty(() => center(Start.Value, End.Value, Cos(Angle), Sin(Angle)));
+                return (Point2D)CachingProperty(() => center(Head.Value, Tail.Value, Cos(Angle), Sin(Angle)));
 
                 Point2D center(Point2D start, Point2D end, double cosT, double sinT)
                 {
@@ -290,10 +290,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double AngleDegrees
         {
-            get { return angle.ToDegrees(); }
+            get { return angle.RadiansToDegrees(); }
             set
             {
-                angle = value.ToRadians();
+                angle = value.DegreesToRadians();
                 ClearCache();
             }
         }
@@ -404,10 +404,10 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? NextToEnd
         {
-            get { return Start; }
+            get { return Head; }
             set
             {
-                Start = value;
+                Head = value;
                 ClearCache();
             }
         }
@@ -416,7 +416,7 @@ namespace Engine
         /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public override Point2D? End
+        public override Point2D? Tail
         {
             get { return end; }
             set
@@ -432,7 +432,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public override List<Point2D> Grips
-            => new List<Point2D> { Start.Value, End.Value };
+            => new List<Point2D> { Head.Value, Tail.Value };
 
         /// <summary>
         /// Gets the bounds.
@@ -474,7 +474,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="EllipticalArc"/>.</returns>
         public EllipticalArc ToEllipticalArc()
-            => (EllipticalArc)CachingProperty(() => new EllipticalArc(Start.Value.X, Start.Value.Y, RX, RY, Angle, LargeArc, Sweep, End.Value.X, End.Value.Y));
+            => (EllipticalArc)CachingProperty(() => new EllipticalArc(Head.Value.X, Head.Value.Y, RX, RY, Angle, LargeArc, Sweep, Tail.Value.X, Tail.Value.Y));
         #endregion Methods
     }
 }

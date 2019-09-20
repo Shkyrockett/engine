@@ -238,7 +238,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value) => Operations.UnaryAdd2D(value.I, value.J);
+        public static Vector2D operator +(Vector2D value) => UnaryAdd2D(value.I, value.J);
 
         /// <summary>
         /// Add Points
@@ -250,7 +250,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value, double addend) => Operations.Add2D(value.I, value.J, addend);
+        public static Vector2D operator +(Vector2D value, double addend) => Add2D(value.I, value.J, addend);
 
         /// <summary>
         /// Add Points
@@ -262,7 +262,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(double value, Vector2D addend) => Operations.Add2D(addend.I, addend.J, value);
+        public static Vector2D operator +(double value, Vector2D addend) => Add2D(addend.I, addend.J, value);
 
         /// <summary>
         /// Add Points
@@ -274,7 +274,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value, Vector2D addend) => Operations.Add2D(value.I, value.J, addend.I, addend.J);
+        public static Vector2D operator +(Vector2D value, Vector2D addend) => Add2D(value.I, value.J, addend.I, addend.J);
 
         /// <summary>
         /// The operator -.
@@ -285,7 +285,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value) => Operations.UnaryNegate2D(value.I, value.J);
+        public static Vector2D operator -(Vector2D value) => UnaryNegate2D(value.I, value.J);
 
         /// <summary>
         /// Subtract Points
@@ -297,7 +297,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value, double subend) => Operations.SubtractSubtrahend2D(value.I, value.J, subend);
+        public static Vector2D operator -(Vector2D value, double subend) => SubtractSubtrahend2D(value.I, value.J, subend);
 
         /// <summary>
         /// Subtract Points
@@ -309,7 +309,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(double value, Vector2D subend) => Operations.SubtractFromMinuend2D(value, subend.I, subend.J);
+        public static Vector2D operator -(double value, Vector2D subend) => SubtractFromMinuend2D(value, subend.I, subend.J);
 
         /// <summary>
         /// Subtract Points
@@ -321,7 +321,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value, Vector2D subend) => Operations.Subtract2D(value.I, value.J, subend.I, subend.J);
+        public static Vector2D operator -(Vector2D value, Vector2D subend) => Subtract2D(value.I, value.J, subend.I, subend.J);
 
         /// <summary>
         /// Scale a Vector
@@ -333,7 +333,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(Vector2D value, double factor) => Operations.Scale2D(value.I, value.J, factor);
+        public static Vector2D operator *(Vector2D value, double factor) => Scale2D(value.I, value.J, factor);
 
         /// <summary>
         /// Scale a Vector
@@ -345,7 +345,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(double factor, Vector2D value) => Operations.Scale2D(value.I, value.J, factor);
+        public static Vector2D operator *(double factor, Vector2D value) => Scale2D(value.I, value.J, factor);
 
         /// <summary>
         /// Divide a Vector2D
@@ -357,7 +357,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(Vector2D divisor, double dividend) => Operations.DivideByDividend2D(divisor.I, divisor.J, dividend);
+        public static Vector2D operator /(Vector2D divisor, double dividend) => DivideByDividend2D(divisor.I, divisor.J, dividend);
 
         /// <summary>
         /// Divide a Vector2D
@@ -369,7 +369,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(double divisor, Vector2D dividend) => Operations.DivideDivisor2D(divisor, dividend.I, dividend.I);
+        public static Vector2D operator /(double divisor, Vector2D dividend) => DivideDivisor2D(divisor, dividend.I, dividend.I);
 
         /// <summary>
         /// The operator ==.

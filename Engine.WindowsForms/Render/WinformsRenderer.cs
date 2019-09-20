@@ -272,7 +272,7 @@ namespace Engine.WindowsForms
         public void DrawArc(IStroke stroke, double x, double y, double width, double height, double startAngle, double sweepAngle)
         {
             using var pen = stroke.ToPen();
-            Graphics.DrawArc(pen, (float)x, (float)y, (float)width, (float)height, (float)startAngle, (float)sweepAngle);
+            Graphics.DrawArc(pen, (float)x, (float)y, (float)width, (float)height, (float)startAngle.RadiansToDegrees(), (float)sweepAngle.RadiansToDegrees());
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace Engine.WindowsForms
         public void FillArc(IFill fill, double x, double y, double width, double height, double startAngle, double sweepAngle)
         {
             using var path = new GraphicsPath();
-            path.AddArc((float)x, (float)y, (float)width, (float)height, (float)startAngle, (float)sweepAngle);
+            path.AddArc((float)x, (float)y, (float)width, (float)height, (float)startAngle.RadiansToDegrees(), (float)sweepAngle.RadiansToDegrees());
             using var brush = fill.ToBrush();
             Graphics.FillPath(brush, path);
         }
@@ -308,10 +308,10 @@ namespace Engine.WindowsForms
         {
             var center = new PointF((float)((0.5d * width) + x), (float)((0.5d * height) + y));
             var mat = new Matrix();
-            mat.RotateAt((float)angle.ToDegrees(), center);
+            mat.RotateAt((float)angle.RadiansToDegrees(), center);
             Graphics.Transform = mat;
             using var pen = stroke.ToPen();
-            Graphics.DrawArc(pen, (float)x, (float)y, (float)width, (float)height, (float)startAngle.ToDegrees(), (float)sweepAngle.ToDegrees());
+            Graphics.DrawArc(pen, (float)x, (float)y, (float)width, (float)height, (float)startAngle.RadiansToDegrees(), (float)sweepAngle.RadiansToDegrees());
             Graphics.ResetTransform();
         }
 
@@ -330,10 +330,10 @@ namespace Engine.WindowsForms
         {
             var center = new PointF((float)((0.5d * width) + x), (float)((0.5d * height) + y));
             var mat = new Matrix();
-            mat.RotateAt((float)angle.ToDegrees(), center);
+            mat.RotateAt((float)angle.RadiansToDegrees(), center);
             Graphics.Transform = mat;
             using var path = new GraphicsPath();
-            path.AddArc((float)x, (float)y, (float)width, (float)height, (float)startAngle.ToDegrees(), (float)sweepAngle.ToDegrees());
+            path.AddArc((float)x, (float)y, (float)width, (float)height, (float)startAngle.RadiansToDegrees(), (float)sweepAngle.RadiansToDegrees());
             using var brush = fill.ToBrush();
             Graphics.FillPath(brush, path);
             Graphics.ResetTransform();
@@ -352,7 +352,7 @@ namespace Engine.WindowsForms
         public void DrawPie(IStroke stroke, double x, double y, double width, double height, double startAngle, double sweepAngle)
         {
             using var pen = stroke.ToPen();
-            Graphics.DrawArc(pen, (float)x, (float)y, (float)width, (float)height, (float)startAngle, (float)sweepAngle);
+            Graphics.DrawArc(pen, (float)x, (float)y, (float)width, (float)height, (float)startAngle.RadiansToDegrees(), (float)sweepAngle.RadiansToDegrees());
         }
 
         /// <summary>
@@ -368,7 +368,7 @@ namespace Engine.WindowsForms
         public void FillPie(IFill fill, double x, double y, double width, double height, double startAngle, double sweepAngle)
         {
             using var brush = fill.ToBrush();
-            Graphics.FillPie(brush, (float)x, (float)y, (float)width, (float)height, (float)startAngle, (float)sweepAngle);
+            Graphics.FillPie(brush, (float)x, (float)y, (float)width, (float)height, (float)startAngle.RadiansToDegrees(), (float)sweepAngle.RadiansToDegrees());
         }
 
         /// <summary>
@@ -412,7 +412,7 @@ namespace Engine.WindowsForms
         {
             var mat = new Matrix();
             var center = new PointF((float)((0.5d * width) + x), (float)((0.5d * height) + y));
-            mat.RotateAt((float)angle.ToDegrees(), center);
+            mat.RotateAt((float)angle.RadiansToDegrees(), center);
             Graphics.Transform = mat;
             using var pen = stroke.ToPen();
             Graphics.DrawEllipse(pen, (float)x, (float)y, (float)width, (float)height);
@@ -432,7 +432,7 @@ namespace Engine.WindowsForms
         {
             var mat = new Matrix();
             var center = new PointF((float)((0.5d * width) + x), (float)((0.5d * height) + y));
-            mat.RotateAt((float)angle.ToDegrees(), center);
+            mat.RotateAt((float)angle.RadiansToDegrees(), center);
             Graphics.Transform = mat;
             using var brush = fill.ToBrush();
             Graphics.FillEllipse(brush, (float)x, (float)y, (float)width, (float)height);

@@ -1,6 +1,8 @@
-﻿# Mathematical Primer
+﻿# Mathematical Primer for Programming
 
-## Mathematical Structure
+## Basics
+
+### Mathematical Structure
 
 | Name | Example | Definition |
 |---|---|---|
@@ -9,87 +11,32 @@
 | **Expression** | $\begin{matrix}\color{red}2x^2+y+1\color{black}=\color{red}z\end{matrix}$ | **Expressions** are the sets of terms on both sides of the equals operator in an equation. |
 | **Solution** | $\begin{matrix}2x^2+y+1=\color{red}z\end{matrix}$ | A **Solution** is the result of a formula in an equation. |
 
-### Polynomial
+### Numerals
 
-| Name | Example | Definition |
+Numerals are the number component of an expression, often the constant component.  
+
+#### Bases
+
+Generally in arabic mathematical notation, numbers are written in base 10. However computers work in Base 2 also known as Binary.  
+
+In programming it is also common to use Base 16 known as Hexadecimal. This is because Computer binary is broken up into chunks of 8 bits known as a byte. Hexadecimal conveniently fits within the 8 bits as two significant units of Base 16 numerals.  
+
+Some commonly used bases are listed in the table below.
+
+| Base | Name | Numerals |
 |---|---|---|
-| **Polynomial** | $\begin{matrix}3x^3-2x^2+x+1\end{matrix}$ | A **Polynomial** is a general term for the sets of expressions set up with terms containing constants, coefficients, variables, and exponents. |
-| **Term** | $\color{red}2x^2\color{black}+\color{red}y\color{black}+\color{red}1\color{black}=\color{red}z$ | **Terms** are the parts of an expression separated by addition or subtraction operators. The terms are highlighted in red. |
-| **Constant** | $\begin{matrix}2x^2+y+\color{red}1\color{black}=z\end{matrix}$ | **Constants** are the Number terms, where the numbers are on their own, are called constants. The constant term is highlighted in red. |
-| **Coefficient** | $\begin{matrix}\color{red}2\color{black}x^2+\color{red}1\color{black}y\color{black}+\color{red}1\color{black}=z\end{matrix}$ | A **coefficient** is the number used to multiply a variable. The coefficient is highlighted below in red: |
+| **Base 2** | Binary | 0, 1 |
+| **Base 8** | Octal | 0, 1, 2, 3, 4, 5, 6, 7, 8 |
+| **Base 10** | Decimal | 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 |
+| **Base 12** | [Dozenal](http://www.dozenal.org/) | 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b |
+| **Base 16** | Hexadecimal | 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f |
+|  |  |  |
 
-#### Common and Uncommon Sub-Sets of Polynomials
+### Variables
 
-| Name | Example | Description|
-|:---:| ---: |---|
-| **Monomial** | $\begin{matrix}x\end{matrix}$ | A **Monomial** is a polynomial that consists of only a single term. |
-| **Multinomial** | $\begin{matrix}3x^3+2x^2+x+1\end{matrix}$ | A **Multinomial** is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considered a Multinomial. |
-| **Binomial** | $\begin{matrix}x+1\end{matrix}$ | A **Binomial** is a polynomial that consists of two terms. |
-| **Trinomial** | $\begin{matrix}2x^2+x+1\end{matrix}$ | A **Trinomial** is a polynomial that consists of three sets of terms. |
-| **Quadrinomial** | $\begin{matrix}3x^3+2x^2+x+1\end{matrix}$ | A **Quadrinomial** is a polynomial that consists of four sets of terms. |
-| **Quintinomial** | $\begin{matrix}4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Quintinomial** is a polynomial that consists of five sets of terms. |
-| **Sextomial** | $\begin{matrix}5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Sextomial** is a polynomial that consists of six sets of terms. |
-| **Septomial** | $\begin{matrix}6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Septomial** is a polynomial that consists of seven sets of terms. |
-| **Octomial** | $\begin{matrix}7x^7+6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Octomial** is a polynomial that consists of eight sets of terms. |
-| **Nonomial** | $\begin{matrix}8x^8+7x^7+6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Nonomial** is a polynomial that consists of nine sets of terms. |
-| **Decomial** | $\begin{matrix}9x^9+8x^8+7x^7+6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Decomial** is a polynomial that consists of ten sets of terms. |
-
-### Addition
-
-| Name | Example | Definition |
-|---|---|---|
-| **Add** |  | To join two or more numbers together. |
-| **Addition** | $3\color{red}+\color{black}\color{red}2\color{black}=5$ | The plus sign $+$ indicates addition. |
-| **Addend** | $\color{red}3\color{black}+\color{red}2\color{black}=5$ | One number that is added to another. |
-| **Sum** | $3+2=\color{red}5$ | The result when two or more numbers are added. |
-
-### Subtraction
-
-| Name | Example | Definition |
-|---|---|---|
-| **Subtract** |  | To take one number away from another. |
-| **Subtraction** |  | The act of Subtracting. |
-| **Minus** | $3\color{red}-\color{black}2=1$ | The minus sign $-$ is the sign of subtraction. |
-| **Minuend** | $\color{red}3\color{black}-2=1$ | The first number in a subtraction expression. The value being reduced. |
-| **Subtrahend** | $3-\color{red}2\color{black}=1$ | The second number in a subtraction expression. The value being removed from the Minuend. |
-| **Difference** | $3-2=\color{red}1\color{black}$ | The result of a subtraction expression, when one number is subtracted from another. |
-
-### Multiplication
-
-| Name | Example | Definition |
-|---|---|---|
-| **Multiply** |  | To add repeatedly the same addend to get an answer. |
-| **Multiplication** | $2\color{red}\times\color{black}3=6$ | The act of multiplying. The sign $\times$ indicates multiplication. |
-| **Multiplicand** | $\color{red}2\color{black}\times3=6$ | The value to be multiplied. |
-| **Multiplier** | $2\times\color{red}3\color{black}=6$ | The value that is doing the multiplying. |
-| **Product** | $2\times3=\color{red}6\color{black}$ | The result of multiplying two numbers together. |
-
-### Division
-
-| Name | Example | Definition |
-|---|---|---|
-| **Divide** | | To take one large group of objects and divide it equally into smaller groups. |
-| **Division** | $6\color{red}\div\color{black}2=3$ | The act of dividing. The sign $\div$ indicates Division. |
-| **Dividend** | $\color{red}6\color{black}\div2=3$ | The amount that you want to divide up. |
-| **Divisor** | $6\div\color{red}2\color{black}=3$ | The number you divide by. |
-| **Quotient** | $6\div2=\color{red}3\color{black}$ | The result of dividing the Dividend by the Divisor. |
-
-### Variable
-
-**Variables** are placeholder characters or text that stand in for a value or statement. The variables below are highlighted in red:
+**Variables** are placeholder characters or text that stand in for a value, unit, or statement. The variables below are highlighted in red:
 
 $2\color{red}x\color{black}^2+\color{red}y\color{black}+1=\color{red}z$
-
-#### Constant Variables
-
-In some instances a numerical value is replaced with a symbolic representation that is always represented with the same symbol.
-
-| Constant | Value | Notes |
-|:---:|---|---|
-| $\pi$ | $\approx3.1415926535897932384626433832795…$ | Pi is the irrational constant that represents the ratio of the circumference of a circle to it's radius. |
-| $\tau$ | $\approx6.283185307179586476925286766559…$ | Tau is a proposed irrational constant intended to represent the ratio of the circumference of a circle to it's diameter. Or 2Pi. |
-| $e$ | $\approx2.71828182845904523536028747135266249775724709369995…$ | Euler's number |
-| $\infty$ | Infinity | Infinity |
 
 #### Common Variables
 
@@ -118,6 +65,17 @@ In some instances a numerical value is replaced with a symbolic representation t
 | $\theta$ | Theta| The angle between two vectors|
 | $\phi$ | Phi | The opposite angle between two vectors|
 
+#### Constant Variables
+
+In some instances a numerical value is replaced with a symbolic representation that is always represented with the same symbol.
+
+| Constant | Value | Notes |
+|:---:|---|---|
+| $\pi$ | $\approx3.1415926535897932384626433832795…$ | Pi is the irrational constant that represents the ratio of the circumference of a circle to it's radius. |
+| $\tau$ | $\approx6.283185307179586476925286766559…$ | Tau is a proposed irrational constant intended to represent the ratio of the circumference of a circle to it's diameter. Or 2Pi. |
+| $e$ | $\approx2.71828182845904523536028747135266249775724709369995…$ | Euler's number |
+| $\infty$ | Infinity | Infinity |
+
 #### Other Variable like symbols
 
 | Symbol | Name | Description |
@@ -128,51 +86,19 @@ In some instances a numerical value is replaced with a symbolic representation t
 | $\Im$ |  | Imaginary component of a complex number. |
 | $\Re$ |  | Real component of a complex number. |
 
-#### Vectors and Matrices
+### Operations
 
-| Representations | Name| Description |
-|:---:|---|---|
-| $[x\,y\,z]$ | Vector Matrix| visual representation of a vector |
-| $\overrightarrow{u},\overrightarrow{v},\overrightarrow{w}$ | Generic Vectors | common generic vectors. |
-| $\widehat{u},\widehat{v},\widehat{w}$ | Unit Vectors | common generic unit  vectors (length = 1). |
-
-### Exponent
-
-**Exponents** tell how many times a number or variable should be multiplied.
-
-$2x\color{red}^2\color{black}+y+1=z$
-
-#### Exponential Identities
-
-|  |  |  |
-|---|---|---|
-| $1^n=1;$ |  |  |
-| $a^0=1$ |  | When the exponent is 0 it equals 1. |
-| $a\color{red}^1\color{black}=a$ |  | For exponents of 1, the exponent is dropped |
-| $a^{m}a^{n}=a^{m+n}, a ≠ 0, a ≠ m, n ≥ 0$ |  |  |
-| $(a^m)^n=a^{mn}, a ≠ 0, a ≠ m ≥ 0$ |  |  |
-| $(ab)^n=a^nb^n;$ |  |  |
-| $a^{−1}=\frac{1}{a}$ |  |  |
-| $x^{-a}=\frac{1}{x^a}$ |  |  |
-| $x^{(a/b)}=\sqrt[b]{x a} \sqrt[b]{x}^a$ |  |  |
-| $x^{a - b}=\frac{x^a}{x^b}$ |  |  |
-|  |  |  |
-
-#### Exponents Powers and Roots
-
-Roots can be represented as Exponents or Powers
-
-### Operator
+#### Operators
 
 **Operators** are symbols used to denote an operation that needs to occur between values. The operators are highlighted in red below:
 
 $2\color{red}\times\color{black}x^2\color{red}+\color{black}y\color{red}+\color{black}1\color{red}=\color{black}z$
 
-#### Common Operators
+##### Common Operators
 
 Below are tables of common operators.
 
-##### Relational Operators
+###### Relational Operators
 
 | Symbol | Name | Operation |
 |:---:|---|---|
@@ -188,18 +114,18 @@ Below are tables of common operators.
 | $\geq$ | Greater Than Or Equal To | Indicates that the expression to the left should be larger or equal to the expression to the right. |
 | $\ngeq$ | Not Greater Than Or Equal To | Indicates that the expression to the left should not be larger or equal to the expression to the right. |
 
-##### Binary/Unary Operators
+###### Binary/Unary Operators
 
 | Symbol | Name| Operation |
 |:---:|---|---|
 | $+$ | Add aka Plus | Adds the value of the left argument to the right. |
-| $\pm$ | plus or minus |  |
-| $\mp$ | minus or plus |  |
+| $\pm$ | plus or minus | There are two results, one positive, the other Negative. |
+| $\mp$ | minus or plus | The sign is opposite the one on the other side. |
 | $-$ | Minus aka Subtract | removes the value of the right argument from the left. |
 | $\times$ | Multiply aka Times | Repeatedly adds the right value to the left. |
 | $\div$ | Divide | Divides the left argument into the number of arguments on the right, or below. |
 
-### Functions
+###### Function Operators
 
 | Symbol | Name | Operation |
 |:---:|---|---|
@@ -207,7 +133,87 @@ Below are tables of common operators.
 | $\color{red}\sqrt[2]\color{black}{x}$ | Root, Radix, or Radical | An inverse of the exponent, in finding the zeros of a number. |
 | $\color{red}\log_{10}\color{black}{x}$ | Logarithm| An inverse of an exponential. Indicates how many of a number needs to be multiplied to get another. |
 
-#### Trigonometric Functions
+##### Order of Operations
+
+| Order | Operators| Name| Description|
+|:---:|:---:|---|---|
+| 0 | $()$, $[]$, $\{\}$, $\langle\rangle$ | Parenthesis, Brackets, Braces | Perform calculations within brackets first. |
+| 1 | $x^2$, $\sqrt[y]{x}$, $\log_{10}{x}$ | Exponents, Powers, Roots, Logarithms | Exponents, Powers, Roots, and Logarithms then follow. |
+| 2 | $\times$, $\div$ | Multiply, Divide| Then Multiply and Divide. |
+| 3 | $+$, $-$ | Addition Subtraction | All Addition and Subtraction is then done from left to right. |
+
+###### Operators and Order of Precedence
+
+There are a few quirks on the order of precedence of operations.
+
+###### Addition Subtraction
+
+When a negated bracketed set of terms is simplified, the addition, and subtraction operators change sign.
+
+For example: $x=1-(3\color{red}-\color{black}4)$ becomes $x=1-3\color{red}+\color{black}4$.
+
+#### Arithmetic
+
+##### Addition
+
+| Name | Example | Definition |
+|---|---|---|
+| **Add** |  | To join two or more numbers together. |
+| **Addition** | $3\color{red}+\color{black}\color{red}2\color{black}=5$ | The plus sign $+$ indicates addition. |
+| **Addend** | $\color{red}3\color{black}+\color{red}2\color{black}=5$ | One number that is added to another. |
+| **Sum** | $3+2=\color{red}5$ | The result when two or more numbers are added. |
+
+##### Subtraction
+
+| Name | Example | Definition |
+|---|---|---|
+| **Subtract** |  | To take one number away from another. |
+| **Subtraction** |  | The act of Subtracting. |
+| **Minus** | $3\color{red}-\color{black}2=1$ | The minus sign $-$ is the sign of subtraction. |
+| **Minuend** | $\color{red}3\color{black}-2=1$ | The first number in a subtraction expression. The value being reduced. |
+| **Subtrahend** | $3-\color{red}2\color{black}=1$ | The second number in a subtraction expression. The value being removed from the Minuend. |
+| **Difference** | $3-2=\color{red}1\color{black}$ | The result of a subtraction expression, when one number is subtracted from another. |
+
+##### Multiplication
+
+| Name | Example | Definition |
+|---|---|---|
+| **Multiply** |  | To add repeatedly the same addend to get an answer. |
+| **Multiplication** | $2\color{red}\times\color{black}3=6$ | The act of multiplying. The sign $\times$ indicates multiplication. |
+| **Multiplicand** | $\color{red}2\color{black}\times3=6$ | The value to be multiplied. |
+| **Multiplier** | $2\times\color{red}3\color{black}=6$ | The value that is doing the multiplying. |
+| **Product** | $2\times3=\color{red}6\color{black}$ | The result of multiplying two numbers together. |
+
+##### Division
+
+| Name | Example | Definition |
+|---|---|---|
+| **Divide** | | To take one large group of objects and divide it equally into smaller groups. |
+| **Division** | $6\color{red}\div\color{black}2=3$ | The act of dividing. The sign $\div$ indicates Division. |
+| **Dividend** | $\color{red}6\color{black}\div2=3$ | The amount that you want to divide up. |
+| **Divisor** | $6\div\color{red}2\color{black}=3$ | The number you divide by. |
+| **Quotient** | $6\div2=\color{red}3\color{black}$ | The result of dividing the Dividend by the Divisor. |
+
+#### Exponent Powers and Roots
+
+| Name | Example | Description |
+|---|---|---|
+| Exponents | $2x\color{red}^2\color{black}+y+1=z$ | Tell how many times a number or variable should be multiplied. |
+| Powers | $2a\color{red}^x\color{black}+y+1=z$ |  |
+| Roots | $\color{red}\sqrt{\color{black}a}\color{black} + \color{red}\sqrt[3]{\color{black}b}\color{black} + \color{red}\sqrt[4]{\color{black}c}\color{black} + d^{\color{red}\frac{1}{5}}$ | Roots can be represented as Radicals, Exponents, or Powers. |
+|  |  |  |
+
+#### Logarithms
+
+|  |  |  |
+|---|---|---|
+| Logarithm | $y = \color{red}\log\color{black}_b{(x)}$ |  |
+| Log Base | $y = \log\color{red}_b\color{black}{(x)}$ |  |
+|  |  |  |
+
+#### Functions
+
+##### Trigonometric Functions
 
 | Symbol | Name| Operation|
 |:---:|---|---|
@@ -218,7 +224,7 @@ Below are tables of common operators.
 | $\sec{\theta}$ | Secant |  |
 | $\cot{\theta}$ | Cotangent |  |
 
-#### Functional Ranges of Trigonometric Functions
+##### Functional Ranges of Trigonometric Functions
 
 | Function | Range | Description |
 |:---:|:---:|---|
@@ -235,7 +241,7 @@ Below are tables of common operators.
 | $y=\textrm{arccsc}\left(x\right)$ | $0\le y<\frac{\pi }{2}\:\bigcup \:\pi \le y<\frac{3\pi }{2}$ |  |
 | $y=\textrm{arcsec}\left(x\right)$ | $-\pi <y\le -\frac{\pi }{2}\:\bigcup \:0<y<\frac{\pi }{2}<\infty$ |  |
 
-### Table of Common Angles
+##### Table of Common Angles
 
 |Angle | $0°$ | $30°$ | $45°$ | $60°$ | $90°$ |
 |:---:|:---:|:---:|:---:|:---:|:---:|
@@ -243,7 +249,7 @@ Below are tables of common operators.
 | $\cos^2(\theta)$ | $\frac{4}{4}$ | $\frac{3}{4}$ | $\frac{2}{4}$ | $\frac{1}{4}$ | $\frac{0}{4}$ |
 | $\tan^2(\theta)$ | $\frac{0}{4}$ | $\frac{1}{3}$ | $\frac{2}{2}$ | $\frac{3}{1}$ | $\frac{4}{0}$ |
 
-### Function Values Table
+##### Function Values Table
 
 | Function <br /> Value| $\sin(\theta)$ | $\cos(\theta)$ | $\tan(\theta)$ | $\cot(\theta)$ |
 |:---:|:---:|:---:|:---:|:---:|
@@ -265,7 +271,17 @@ Below are tables of common operators.
 | $\frac{11\pi}{6}$ | $-\frac{1}{2}$ | $\frac{\sqrt{3}}{2}$ | $-\frac{\sqrt{3}}{3}$ | $-\sqrt{3}$ |
 | $2\pi$ | $0$ | $1$ | $0$ | $\mathrm{Undefined}$ |
 
-### Vector Functions
+##### Vectors
+
+###### Variables for Vectors and Matrices
+
+| Representations | Name| Description |
+|:---:|---|---|
+| $[x\,y\,z]$ | Vector Matrix| visual representation of a vector |
+| $\overrightarrow{u},\overrightarrow{v},\overrightarrow{w}$ | Generic Vectors | common generic vectors. |
+| $\widehat{u},\widehat{v},\widehat{w}$ | Unit Vectors | common generic unit  vectors (length = 1). |
+
+###### Vector Operations
 
 |Function| Name | Description |
 |:---:|---|---|
@@ -277,49 +293,33 @@ Below are tables of common operators.
 | $\cos{\theta}=\frac{\overrightarrow{u}\cdot\overrightarrow{w}}{\begin{vmatrix}\overrightarrow{v}\end{vmatrix}\begin{vmatrix}\overrightarrow{v}\end{vmatrix}}$ |  | cos in terms of dot product. |
 | $\sin{\theta}=\frac{\begin{vmatrix}\overrightarrow{u}\times\overrightarrow{w}\end{vmatrix}}{\begin{vmatrix}\overrightarrow{u}\end{vmatrix}\begin{vmatrix}\overrightarrow{w}\end{vmatrix}}$ |  | sin in terms of cross product. |
 
-### Order of Operations
+#### Operations on Matrices
 
-| Order | Operators| Name| Description|
-|:---:|:---:|---|---|
-| 0 | $()$, $[]$, $\{\}$, $\langle\rangle$ | Parenthesis, Brackets, Braces | Perform calculations within brackets first. |
-| 1 | $x^2$, $\sqrt[y]{x}$, $\log_{10}{x}$ | Exponents, Powers, Roots, Logarithms | Exponents, Powers, Roots, and Logarithms then follow. |
-| 2 | $\times$, $\div$ | Multiply, Divide| Then Multiply and Divide. |
-| 3 | $+$, $-$ | Addition Subtraction | All Addition and Subtraction is then done from left to right. |
+##### Adding Matrices
 
-#### Operators and Order of Precedence
+$\begin{bmatrix}a&b\\c&d\end{bmatrix}+\begin{bmatrix}e&f\\g&h\end{bmatrix}=\begin{bmatrix}a+e&b+f\\c+g&d+h\end{bmatrix}$
 
-There are a few quirks on the order of precedence of operations.
+$\begin{bmatrix}2&-1\\1&0\end{bmatrix}+\begin{bmatrix}1&4\\2&3\end{bmatrix}=\begin{bmatrix}2+1&-1+4\\1+2&0+3\end{bmatrix}=\begin{bmatrix}3&3\\3&3\end{bmatrix}$
 
-##### Addition Subtraction
+##### Subtracting Matrices
 
-When a negated bracketed set of terms is simplified, the addition, and subtraction operators change sign.
+$\begin{bmatrix}a&b\\c&d\end{bmatrix}-\begin{bmatrix}e&f\\g&h\end{bmatrix}=\begin{bmatrix}a-e&b-f\\c-g&d-h\end{bmatrix}$
 
-For example: $x=1-(3\color{red}-\color{black}4)$ becomes $x=1-3\color{red}+\color{black}4$.
+##### Scaling Matrices
 
-###### Arithmetic Addition Subtraction Identities
+$2\begin{bmatrix}a&b\\c&d\end{bmatrix}=\begin{bmatrix}2a&2b\\2c&2d\end{bmatrix}$
 
-|  |  |  |
-|---|---|---|
-| $a-(b\color{red}-\color{black}c)=a-b\color{red}+\color{black}c$ |  |  |
-|  |  |  |
+$2\begin{bmatrix}1&2\\3&4\end{bmatrix}=\begin{bmatrix}2\times1&2\times2\\2\times3&2\times4\end{bmatrix}=\begin{bmatrix}2&4\\6&8\end{bmatrix}$
 
-##### Multiplication Division
+##### Multiplying Matrices
 
-A negative times a negative is always a positive. As in $\color{red}-\color{black}1\times\color{red}-\color{black}1=1$.  
-A positive times a negative is a negative. As in $\color{red}-\color{black}1\times1=\color{red}-\color{black}1$.  
+[Awesome Visualization](http://matrixmultiplication.xyz/)
 
-###### Multiplicative identities
+$\begin{bmatrix}a&b\\c&d\end{bmatrix}\begin{bmatrix}e&f\\g&h\end{bmatrix}=\begin{bmatrix}ae+bg&af+bh\\ce+dg&cf+dh\end{bmatrix}$
 
-|  |  |  |
-|---|---|---|
-| $0a=0$ |  |  |
-| $1a=a$ |  |  |
-| $(−1)a=−a$ |  |  |
-| $(ab)c=a(bc)$ |  |  |
-| $ab + ac=a(b + c)$ <br /> $(a + b)c=ac + bc$ |  |  |
-|  |  |  |
+$\begin{bmatrix}a&b\\c&d\end{bmatrix}\begin{bmatrix}e&f&g\\h&i&j\end{bmatrix}=\begin{bmatrix}ae+bh&af+bi&ag+bj\\ce+dh&cf+di&cg+dj\end{bmatrix}$
 
-### Other Operations
+#### Other Operations
 
 | Operation | Description |
 |:---|---|
@@ -337,7 +337,140 @@ A positive times a negative is a negative. As in $\color{red}-\color{black}1\tim
 | Reciprocal| A reciprocal is a fraction flipped upside down. \[[Mathwords](http://www.mathwords.com/m/multiplicative_inverse_of_a_number.htm)\]|
 | Reorder/Sort Terms | Rearranging terms. |
 
-## Common Formulas
+### [Nomials](https://www.yourdictionary.com/nomial)
+
+| Name | Example | Definition |
+|---|---|---|
+| **Polynomial** | $\begin{matrix}3x^3-2x^2+x+1\end{matrix}$ | A **Polynomial** is a general term for the sets of expressions set up with terms containing constants, coefficients, variables, and exponents. |
+| **Term** | $\color{red}2x^2\color{black}+\color{red}y\color{black}+\color{red}1\color{black}=\color{red}z$ | **Terms** are the parts of an expression separated by addition or subtraction operators. The terms are highlighted in red. |
+| **Constant** | $\begin{matrix}2x^2+y+\color{red}1\color{black}=z\end{matrix}$ | **Constants** are the Number terms, where the numbers are on their own, are called constants. The constant term is highlighted in red. |
+| **Coefficient** | $\begin{matrix}\color{red}2\color{black}x^2+\color{red}1\color{black}y\color{black}+\color{red}1\color{black}=z\end{matrix}$ | A **coefficient** is the number used to multiply a variable. The coefficient is highlighted below in red: |
+
+#### Common and Uncommon Sub-Sets of Polynomials
+
+| Name | Example | Description|
+|:---:| ---: |---|
+| **Monomial** | $\begin{matrix}x\end{matrix}$ | A **Monomial** is a polynomial that consists of only a single term. |
+| **Multinomial** | $\begin{matrix}3x^3+2x^2+x+1\end{matrix}$ | A **Multinomial** is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considered a Multinomial. |
+| **Binomial** | $\begin{matrix}x+1\end{matrix}$ | A **Binomial** is a polynomial that consists of two terms. |
+| **Trinomial** | $\begin{matrix}2x^2+x+1\end{matrix}$ | A **Trinomial** is a polynomial that consists of three sets of terms. |
+| **Quadrinomial** | $\begin{matrix}3x^3+2x^2+x+1\end{matrix}$ | A **Quadrinomial** is a polynomial that consists of four sets of terms. |
+| **Quintinomial** | $\begin{matrix}4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Quintinomial** is a polynomial that consists of five sets of terms. |
+| **Sextomial** | $\begin{matrix}5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Sextomial** is a polynomial that consists of six sets of terms. |
+| **Septomial** | $\begin{matrix}6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Septomial** is a polynomial that consists of seven sets of terms. |
+| **Octomial** | $\begin{matrix}7x^7+6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Octomial** is a polynomial that consists of eight sets of terms. |
+| **Nonomial** | $\begin{matrix}8x^8+7x^7+6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Nonomial** is a polynomial that consists of nine sets of terms. |
+| **Decomial** | $\begin{matrix}9x^9+8x^8+7x^7+6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Decomial** is a polynomial that consists of ten sets of terms. |
+
+#### Polynomial Degrees
+
+| Name | Value |
+|---|---|
+| Constant | 0 |
+| Linear | 1 |
+| Quadratic | 2 |
+| Cubic | 3 |
+| Quartic | 4 |
+| Quintic | 5 |
+| Sextic | 6 |
+| Septic | 7 |
+| Octic | 8 |
+| Nonic | 9 |
+| Decic | 10 |
+| Undecic\* | 11 |
+| Duodecic\* | 12 |
+| Tredecic\* | 13 |
+| Quattuordecic\* | 14 |
+| Quindecic\* | 15 |
+| Sexdecic\* | 16 |
+| Septendecic\* | 17 |
+| Octodecic\* | 18 |
+| Novendecic\* | 19 |
+| Vigintic\* | 20 |
+| Unvigintic\* | 21 |
+| Duovigintic\* | 22 |
+| Trevigintic\* | 23 |
+| Quattuorvigintic\* | 24 |
+| Quinvigintic\* | 25 |
+| Sexvigintic\* | 26 |
+| Septenvigintic\* | 27 |
+| Octovigintic\* | 28 |
+| Novenvigintic\* | 29 |
+| Trigintic\* | 30 |
+| Untrigintic\* | 31 |
+| Duotrigintic\* | 32 |
+| Tretrigintic\* | 33 |
+| Quattuortrigintic\* | 34 |
+| Quintrigintic\* | 35 |
+| Sextrigintic\* | 36 |
+| Septentrigintic\* | 37 |
+| Octotrigintic\* | 38 |
+| Noventrigintic\* | 39 |
+| Quadragintic\* | 40 |
+| Unquadragintic\* | 41 |
+| Duoquadragintic\* | 42 |
+| Trequadragintic\* | 43 |
+| Quattuorquadragintic\* | 44 |
+| Quinquadragintic\* | 45 |
+| Sexquadragintic\* | 46 |
+| Septenquadragintic\* | 47 |
+| Octoquadragintic\* | 48 |
+| Novenquadragintic\* | 49 |
+| Quinquagintic\* | 50 |
+| Unquinquagintic\* | 51 |
+| Duoquinquagintic\* | 52 |
+| Trequinquagintic\* | 53 |
+| Quattuorquinquagintic\* | 54 |
+| Quinquinquagintic\* | 55 |
+| Sexquinquagintic\* | 56 |
+| Septenquinquagintic\* | 57 |
+| Octoquinquagintic\* | 58 |
+| Novenquinquagintic\* | 59 |
+| Sexagintic\* | 60 |
+| Unsexagintic\* | 61 |
+| Duosexagintic\* | 62 |
+| Tresexagintic\* | 63 |
+| Quattuorsexagintic\* | 64 |
+| Quinsexagintic\* | 65 |
+| Sexsexagintic\* | 66 |
+| Septensexagintic\* | 67 |
+| Octosexagintic\* | 68 |
+| Novensexagintic\* | 69 |
+| Septuagintic\* | 70 |
+| Unseptuagintic\* | 71 |
+| Duoseptuagintic\* | 72 |
+| Treseptuagintic\* | 73 |
+| Quattuorseptuagintic\* | 74 |
+| Quinseptuagintic\* | 75 |
+| Sexseptuagintic\* | 76 |
+| Septenseptuagintic\* | 77 |
+| Octoseptuagintic\* | 78 |
+| Novenseptuagintic\* | 79 |
+| Octogintic\* | 80 |
+| Unoctogintic\* | 81 |
+| Duooctogintic\* | 82 |
+| Treoctogintic\* | 83 |
+| Quattuoroctogintic\* | 84 |
+| Quinoctogintic\* | 85 |
+| Sexoctogintic\* | 86 |
+| Septenoctogintic\* | 87 |
+| Octooctogintic\* | 88 |
+| Novenoctogintic\* | 89 |
+| Nonagintic\* | 90 |
+| Unnonagintic\* | 91 |
+| Duononagintic\* | 92 |
+| Trenonagintic\* | 93 |
+| Quattuornonagintic\* | 94 |
+| Quinnonagintic\* | 95 |
+| Sexnonagintic\* | 96 |
+| Septennonagintic\* | 97 |
+| Octononagintic\* | 98 |
+| Novennonagintic\* | 99 |
+| Hectic | 100|
+
+<sub>\*Names are Non-official, but based on potential convention.</sub>
+
+## Shapes
 
 ### Linear Equations
 
@@ -367,6 +500,44 @@ Cubic equation is where the equation involves an exponent of 3.
 |:---:|---|---|
 | $\begin{matrix}ax^3+bx^2+cx+d=0\end{matrix}$ | Cubic equation |  |
 | $x=\sqrt[3]{\left(\frac{-b^3}{27a^3}+\frac{bc}{6a^2}-\frac{d}{2a}\right)+\sqrt{\left(\frac{-b^3}{27a^3}+\frac{bc}{6a^2}-\frac{d}{2a}\right)^2+\left(\frac{c}{3a}-\frac{b^2}{9a^2}\right)^3}}+\sqrt[3]{\left(\frac{-b^3}{27a^3}+\frac{bc}{6a^2}-\frac{d}{2a}\right)-\sqrt{\left(\frac{-b^3}{27a^3}+\frac{bc}{6a^2}-\frac{d}{2a}\right)^2+\left(\frac{c}{3a}-\frac{b^2}{9a^2}\right)^3}}-\frac{b}{3a}$ | Cubic Formula | <https://math.vanderbilt.edu/schectex/courses/cubic/> |
+
+### Bézier Curves
+
+#### Bézier Formulas
+
+The Polynomial form of Bézier curves.
+
+| Name | Equation |
+|---|---|
+| Linear Bézier curve | $c(t) = A(1-t) + Bt$ |
+| Quadratic Bézier curve | $c(t) = A(1-t)^{2} + B2t(1-t) + Ct^{2}$ |
+| Cubic Bézier curve | $c(t) = A(1-t)^{3} + B3t(1-t)^{2} + C3t^{2}(1-t) + Dt^{3}$ |
+| Quartic Bézier curve| $c(t) = A(1-t)^{4} + B4t(1-t)^{3} + C6t^{2}(1-t)^{2} + D4t^{3}(1-t) + Et^{4}$ |
+| Quintic Bézier curve| $c(t) = A(1-t)^{5} + B5t(1-t)^{4} + C10t^{2}(1-t)^{3} + D10t^{3}(1-t)^{2} + E5t^{4}(1-t) + Ft^{5}$ |
+| Sextic Bézier curve | $c(t) = A(1-t)^{6} + B6t(1-t)^{5} + C15t^{2}(1-t)^{4} + D20t^{3}(1-t)^{3} + E15t^{4}(1-t)^{2} + F6t^{5}(1-t) + Gt^{6}$ |
+| Septic Bézier curve | $c(t) = A(1-t)^{7} + B7t(1-t)^{6} + C21t^{2}(1-t)^{5} + D35t^{3}(1-t)^{4} + E35t^{4}(1-t)^{3} + F21t^{5}(1-t)^{2} + G7t^{6}(1-t) + Ht^{7}$ |
+| Octic Bézier curve | $c(t) = A(1-t)^{8} + B8t(1-t)^{7} + C28t^{2}(1-t)^{6} + D56t^{3}(1-t)^{5} + E70t^{4}(1-t)^{4} + F56t^{5}(1-t)^{3} + G28t^{6}(1-t)^{2} + H8t^{7}(1-t) + It^{8}$ |
+| Nonic Bézier curve | $c(t) = A(1-t)^{9}+ B9t(1-t)^{8} + C36t^{2}(1-t)^{7} + D84t^{3}(1-t)^{6} + E126t^{4}(1-t)^{5} + F126t^{5}(1-t)^{4} + G84t^{6}(1-t)^{3} + H36t^{7}(1-t)^{2} + I9t^{8}(1-t) + Jt^{9}$ |
+| Decic Bézier curve | $\begin{matrix}c(t) = A(1-t)^{10} + B10t(1-t)^{9} + C45t^{2}(1-t)^{8} + D120t^{3}(1-t)^{7} + E210t^{4}(1-t)^{6} + F252t^{5}(1-t)^{5} + G210t^{6}(1-t)^{4} + G120t^{7}(1-t)^{3} + G45t^{8}(1-t)^{2} + H10t^{9}(1-t) + It^{10}\end{matrix}$ |
+
+To make the Polynomial form of a Bézier curve: List out the Alphabetic coefficients A B C ... etc, insert (1-t) with powers decreasing from left to right. Insert t coefficients with powers decreasing from right to left. The numeric coefficients are from Pascal's Triangle for the row of the same length.
+
+#### Bézier Matrix Forms
+
+| Name | Equation |
+|---|---|
+| Linear Bézier Curve. Also known as a line segment. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \end{bmatrix}\begin{bmatrix} 1 & 0 \\ -1 & 1\end{bmatrix}\begin{bmatrix} P_0\\ P_1 \end{bmatrix}$ |
+| Quadratic Bézier Curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \end{bmatrix} \begin{bmatrix}1 & 0 & 0 \\ -2 & 2 & 0 \\ 1 & -2 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \end{bmatrix}$ |
+| Cubic Bézier Curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 \\ -3 & 3 & 0 & 0 \\ 3 & -6 & 3 & 0 \\ -1 & 3 & -3 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \end{bmatrix}$ |
+| Quartic Bézier Curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \\ (\frac{t}{2})^4 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 \\ -4 & 4 & 0 & 0 & 0 \\ 6 & -12 & 6 & 0 & 0 \\ -4 & 12 & -12 & 4 & 0 \\ 1 & -4 & 6 & -4 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \end{bmatrix}$ |
+| Quintic Bézier Curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \\ (\frac{t}{2})^4 \\ (\frac{t}{2})^5 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 \\ -5 & 5 & 0 & 0 & 0 & 0 \\ 10 & -20 & 10 & 0 & 0 & 0 \\ -10 & 30 & -30 & 10 & 0 & 0 \\ 5 & -20 & 30 & -20 & 5 & 0 \\ -1 & 5 & -10 & 10 & -5 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \\ P_5 \end{bmatrix}$ |
+| Sextic Bézier curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \\ (\frac{t}{2})^4 \\ (\frac{t}{2})^5 \\ (\frac{t}{2})^6 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ -6 & 6 & 0 & 0 & 0 & 0 & 0 \\ 15 & -30 & 15 & 0 & 0 & 0 & 0 \\ -20 & 60 & -60 & 20 & 0 & 0 & 0 \\ 15 & -60 & 90 & -60 & 15 & 0 & 0 \\ -6 & 30 & -60 & 60 & -30 & 6 & 0 \\ 1 & -6 & 15 & -20 & 15 & -6 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \\ P_5 \\ P_6 \end{bmatrix}$ |
+| Septic Bézier curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \\ (\frac{t}{2})^4 \\ (\frac{t}{2})^5 \\ (\frac{t}{2})^6 \\ (\frac{t}{2})^7 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ -7 & 7 & 0 & 0 & 0 & 0 & 0 & 0 \\ 21 & -42 & 21 & 0 & 0 & 0 & 0 & 0 \\ -35 & 105 & -105 & 35 & 0 & 0 & 0 & 0 \\ 35 & -140 & 210 & -140 & 35 & 0 & 0 & 0 \\ -21 & 105 & -210 & 210 & -105 & 21 & 0 & 0 \\ 7 & -42 & 105 & -140 & 105 & -42 & 7 & 0 \\ -1 & 7 & -21 & 35 & -35 & 21 & -7 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \\ P_5 \\ P_6 \\ P_7 \end{bmatrix}$ |
+| Octic Bézier curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \\ (\frac{t}{2})^4 \\ (\frac{t}{2})^5 \\ (\frac{t}{2})^6 \\ (\frac{t}{2})^7 \\ (\frac{t}{2})^8 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ -8 & 8 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 28 & -56 & 28 & 0 & 0 & 0 & 0 & 0 & 0 \\ -56 & 168 & -168 & 56 & 0 & 0 & 0 & 0 & 0 \\ 70 & -280 & 420 & -280 & 70 & 0 & 0 & 0 & 0 \\ -56 & 280 & -560 & 560 & -280 & 56 & 0 & 0 & 0 \\ 28 & -168 & 420 & -560 & 420 & -168 & 28 & 0 & 0 \\ -8 & 56 & -168 & 280 & -280 & 168 & -56 & 8 & 0 \\ 1 & -8 & 28 & -56 & 70 & -56 & 28 & -8 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \\ P_5 \\ P_6 \\ P_7 \\ P_8 \end{bmatrix}$ |
+| Nonic Bézier curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \\ (\frac{t}{2})^4 \\ (\frac{t}{2})^5 \\ (\frac{t}{2})^6 \\ (\frac{t}{2})^7 \\ (\frac{t}{2})^8 \\ (\frac{t}{2})^9 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ -9 & 9 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 36 & -72 & 36 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ -84 & 252 & -252 & 84 & 0 & 0 & 0 & 0 & 0 & 0 \\ 126 & -504 & 756 & -504 & 126 & 0 & 0 & 0 & 0 & 0 \\ -126 & 630 & -1260 & 1260 & -630 & 126 & 0 & 0 & 0 & 0 \\ 84 & -504 & 1260 & -1680 & 1260 & -504 & 84 & 0 & 0 & 0 \\ -36 & 252 & -756 & 1260 & -1260 & 756 & -252 & 36 & 0 & 0 \\ 9 & -72 & 252 & -504 & 630 & -504 & 252 & -72 & 9 & 0 \\ -1 & 9 & -36 & 84 & -126 & 126 & -84 & 36 & -9 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \\ P_5 \\ P_6 \\ P_7 \\ P_8 \\ P_9 \end{bmatrix}$ |
+| Decic Bézier curve. | $\begin{matrix}c(t)=\begin{bmatrix}1\\(\frac{t}{2})\\(\frac{t}{2})^2\\(\frac{t}{2})^3\\(\frac{t}{2})^4\\(\frac{t}{2})^5\\(\frac{t}{2})^6\\(\frac{t}{2})^7\\(\frac{t}{2})^8\\(\frac{t}{2})^9\\(\frac{t}{2})^{10}\end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ -10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 45 & -90 & 45 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ -120 & 360 & -360 & 120 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 210 & -840 & 1260 & -840 & 210 & 0 & 0 & 0 & 0 & 0 & 0 \\ -252 & 1260 & -2520 & 2520 & -1260 & 252 & 0 & 0 & 0 & 0 & 0 \\ 210 & -1260 & 3150 & -4200 & 3150 & -1260 & 210 & 0 & 0 & 0 & 0 \\ -120 & 840 & -2520 & 4200 & -4200 & 2520 & -840 & 120 & 0 & 0 & 0 \\ 45 & -360 & 1260 & -2520 & 3150 & -2520 & 1260 & -360 & 45 & 0 & 0 \\ -10 & 90 & -360 & 840 & -1260 & 1260 & -840 & 360 & -90 & 10 & 0 \\ 1 & -10 & 45 & -120 & 210 & -252 & 210 & -120 & 45 & -10 & 1 \end{bmatrix}\begin{bmatrix} P_0\\P_1\\P_2\\P_3\\P_4\\P_5\\P_6\\P_7\\P_8\\P_9\\P_{10} \end{bmatrix}\end{matrix}$ |
+
+For information on how to make the Matrix forms see: [Demofox Matrix Form of Bézier Curves](https://blog.demofox.org/2016/03/05/matrix-form-of-bezier-curves/)
 
 ### Parabolas
 
@@ -615,14 +786,16 @@ $h=\frac{2x_2+2x_1\frac{y_2-k}{y_1-k}\pm\sqrt{\left(2x_2+2x_1\frac{y_2-k}{y_1-k}
 
 | Function | Name | Description |
 |:---:|---|---|
-| $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ | Ellipse Equation. | The equation of an ellipse whose major and minor axes coincide with the Cartesian axes. |
-| $\frac{(x-h)^2}{a^2}+\frac{(y-k)^2}{b^2}=1$ | Translated Ellipse Equation. | The equation of an ellipse that has been Translated away from the Origin. Where h, and k are the new center point. |
-| $\begin{matrix}\frac{((x-h)\cos{(\alpha)}+(y-k)\sin{(\alpha)})^2}{a^2}+\frac{((x-h)\sin{(\alpha)}-(y-k)\cos{(\alpha)})^2}{b^2}=1\end{matrix}$ | Rotated and Translated Ellipse Equation. | The equation of an ellipse that has been Translated away from the Origin, and rotated. Where h, and k are the new center point, and α is the angle of rotation. |
-| $x=a\cos{(\alpha)}$ |  | Parametric form of ellipse for x c. |
-| $y=b\sin{(\alpha)}$ |  | Parametric form of ellipse for y. |
-| $x=h+a\cos{(\phi)}\cos{(\theta)}-b\sin{(\phi)}\sin{(\theta)}$ |  |  |
-| $y=k+a\sin{(\phi)}\cos{(theta)}+b\cos{(\phi)}\sin{(\theta)}$ |  |  |
-| $f=\sqrt{a^2-b^2}$ |  | The focus distance of the ellipse from the axi. |
+| $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ | Ellipse Equation, Standard form. | The equation of an ellipse whose major and minor axes coincide with the Cartesian axes. |
+| $\frac{(x-h)^2}{a^2}+\frac{(y-k)^2}{b^2}=1$ | Translated Ellipse Equation, Standard form. | The equation of an ellipse that has been Translated away from the Origin. Where h, and k are the new center point. |
+| $\frac{((x-h)\cos{(\alpha)}+(y-k)\sin{(\alpha)})^2}{a^2}+\frac{((x-h)\sin{(\alpha)}-(y-k)\cos{(\alpha)})^2}{b^2}=1$ | Rotated and Translated Ellipse Equation, Standard form. | The equation of an ellipse that has been Translated away from the Origin, and rotated. Where h, and k are the new center point, and α is the angle of rotation. |
+| $y=\frac{\pm\frac{\sqrt{2}\sqrt{a^2\cos{2\alpha}+a^2-b^2\cos{2\alpha}+b^2-2h^2+4hx-2x^2}}{ab}+\frac{2h\sin{\alpha}\cos{\alpha}}{a^2}+\frac{2k\sin^2{\alpha}}{a^2}-\frac{2x\sin{\alpha}\cos{\alpha}}{a^2}-\frac{2h\sin{\alpha}\cos{\alpha}}{b^2}+\frac{2k\cos^2{\alpha}}{b^2}+\frac{2x\sin{\alpha}\cos{\alpha}}{b^2}}{2(\frac{\sin^2{\alpha}}{a^2}+\frac{\cos^2{\alpha}}{b^2})}$ | Cartesian solution for y of rotated ellipse. |  |
+| $x=\frac{\pm\frac{\sqrt{2}\sqrt{a^2(-\cos{2\alpha})+a^2+b^2\cos{2\alpha}+b^2-2k^2+4ky-2y^2}}{ab}+\frac{2h\cos^2{\alpha}}{a^2}+\frac{2k\sin{\alpha}\cos{\alpha}}{a^2}-\frac{2y\sin{\alpha}\cos{\alpha}}{a^2}+\frac{2h\sin^2{\alpha}}{b^2}-\frac{2k\sin{\alpha}\cos{\alpha}}{b^2}+\frac{2y\sin{\alpha}\cos{\alpha}}{b^2}}{2(\frac{\cos^2{\alpha}}{a^2}+\frac{\sin^2{\alpha}}{b^2})}$ | Cartesian solution for x of rotated ellipse. |  |
+| $x=a\cos{(\alpha)}$ | Parametric form of ellipse for x. |  |
+| $y=b\sin{(\alpha)}$ | Parametric form of ellipse for y. |  |
+| $x=h+a\cos{(\phi)}\cos{(\theta)}-b\sin{(\phi)}\sin{(\theta)}$ | Parametric form of rotated and translated ellipse for x. |  |
+| $y=k+a\sin{(\phi)}\cos{(theta)}+b\cos{(\phi)}\sin{(\theta)}$ | Parametric form of rotated and translated ellipse for y. |  |
+| $f=\sqrt{a^2-b^2}$ | focus | The focus distance of the ellipse from the axi. |
 | $\varepsilon=\sqrt{\frac{a^2-b^2}{a^2}}$ | eccentricity. | The eccentricity of the ellipse. |
 | $\varepsilon=\sqrt{1-(\frac{b^2}{a})}$ | eccentricity. | The eccentricity of the ellipse. |
 | $\varepsilon=\frac{f}{a}$ | eccentricity. | The eccentricity of the ellipse. |
@@ -632,501 +805,55 @@ $h=\frac{2x_2+2x_1\frac{y_2-k}{y_1-k}\pm\sqrt{\left(2x_2+2x_1\frac{y_2-k}{y_1-k}
 | ... | ... | ... |
 | $k=\frac{1}{a^2b^2}\left(\frac{x^2}{a^2}+\frac{y^2}{b^2}\right)^{-\frac{3}{2}}$ | curvature. | The curvature of an ellipse. |
 
-### Trigonometric Identities
+#### Ellipses and Conics
 
-<center>
-<svg width="111" height="66">
-  <g stroke-width="1" stroke="black" fill="transparent">
- <polygon points="100,0  0,50 100,50" id="Triangle" />
- <polyline points="95,50  95,45 100,45" id="Right Angle" />
- <path d="M100 10 A 15 12 0 0 1 90 5" id="Cos Angle" />
- <path d="M12 50 A 15 12 0 0 0 11 45" id="Sin Angle" />
-  </g>
-  <g fill="black" font-family="san-serif" font-size="14">
- <text x="40" y="20" text-anchor="middle" id="c Letter">c</text>
- <text x="105" y="30" text-anchor="left" id="a Letter">a</text>
- <text x="55" y="65" text-anchor="middle" id="b Letter">b</text>
- <text x="25" y="48" text-anchor="left" id="theta Letter">θ</text>
- <text x="88" y="20" text-anchor="right" id="phi Letter">ɸ</text>
-  </g>
-</svg>
-</center>
+[General conic formula:](https://en.wikipedia.org/wiki/Ellipse#General_ellipse)
 
-[Neat Visualization of Sine Cosine](https://1ucasvb.tumblr.com/post/79557434791/the-sine-and-cosine-functions-for-the-circle-as)
+$Ax^2+B\color{red}xy\color{black}+C\color{red}y^2\color{black}+Dx+Ey+F=0$
 
-| Equation | Name | Description |
-|:---:|---|---|
-| $\sin(-\theta)=-\sin(\theta)$ | Change of Sign Odd Sine Identity. |  |
-| $\cos(-\theta)=\cos(\theta)$ | Change of Sign Even Cosine Identity. |  |
-| $\tan(-\theta)=-\tan(\theta)$ | Change of Sign Odd Tangent Identity. |  |
-| $\csc(-\theta)=-\csc(\theta)$ | Change of Sign Odd Cosecant Identity. |  |
-| $\sec(-\theta)=\sec(\theta)$ | Change of Sign Even Secant Identity. |  |
-| $\cot(-\theta)=-\cot(\theta)$ | Change of Sign Odd Cotangent Identity. |  |
-| $\sin(\theta)=\frac{1}{\csc(\theta)}=\frac{a}{c}$ | Sine Basic Identities. |  |
-| $\cos(\theta)=\frac{1}{\sec(\theta)}=\frac{b}{c}$ | Cosine Basic Identities. |  |
-| $\tan(\theta)=\frac{1}{\cot(\theta)}=\frac{\sin(\theta)}{\cos(\theta)}=\frac{a}{b}$ | Tangent Basic Identity. |  |
-| $\csc(\theta)=\frac{1}{\sin(\theta)}=\frac{c}{a}$ | Cosecant Basic  Identity. |  |
-| $\sec(\theta)=\frac{1}{\cos(\theta)}=\frac{c}{b}$ | Secant Basic Identity. |  |
-| $\cot(\theta)=\frac{1}{tan(\theta)}=\frac{\cos(\theta)}{\sin(\theta)}=\frac{b}{a}$ | Cotangent Basic Identity. |  |
-| $\frac{a}{\sin(A)}=\frac{b}{\sin(B)}=\frac{c}{\sin(C)}$ | Law of Sines Identities. |  |
-| $a^{2}=b^{2}+c^{2}-2bc\cos(A)$ </br> $b^{2}=a^{2}+c^{2}-2ac\cos(B)$ </br> $c^{2}=a^{2}+b^{2}-2ab\cos(C)$ | Law of Cosines Identities. |  |
-| $\frac{a-b}{a+ b}= \frac{\tan(\frac{A-B}{2})}{\tan(\frac{A+B}{2})}$ | Law of Tangents Identity. |  |
-| $\sin^{2}(\theta)+\cos^{2}(\theta) = 1$ | Sine Cosign Pythagorean Identity. |  |
-| $\tan^{2}(\theta)+1=\sec^{2}(\theta)$ | Tangent Secant Pythagorean Identity. |  |
-| $\cot^{2}(\theta)+1=\csc^{2}(\theta)$ | Cotangent Cosecant Pythagorean Identity. |  |
-| $\sin(\theta_1\pm\theta_2)=\sin(\theta_1)\cos(\theta_2)\pm\cos(\theta_1)\sin(\theta_2)$ <br /> $\sin(\theta_1+\theta_2)=\sin(\theta_1)\cos(\theta_2)+\cos(\theta_1)\sin(\theta_2)$ <br /> $\sin(\theta_1-\theta_2)=\sin(\theta_1)\cos(\theta_2)-\cos(\theta_1)\sin(\theta_2)$ | Sine Sum Difference Identities. |  |
-| $\cos(\theta_1\pm\theta_2)=\cos(\theta_1)\cos(\theta_2)\mp\sin(\theta_1)\sin(\theta_2)$ <br /> $\cos(\theta_1+\theta_2)=\cos(\theta_1)\cos(\theta_2)-\sin(\theta_1)\sin(\theta_2)$ <br /> $\cos(\theta_1-\theta_2)=\cos(\theta_1)\cos(\theta_2)+\sin(\theta_1)\sin(\theta_2)$ | Cosine Sum Difference Identities. |  |
-| $\tan(\theta_1\pm\theta_2)=\frac{\tan(\theta_1)\pm\tan(\theta_2)}{1\mp\tan(\theta_1)\tan(\theta_2)}$ <br /> $\tan(\theta_1+\theta_2)=\frac{\tan(\theta_1)+\tan(\theta_2)}{1-\tan(\theta_1)\tan(\theta_2)}$ <br /> $\tan(\theta_1-\theta_2)=\frac{\tan(\theta_1)-\tan(\theta_2)}{1+\tan(\theta_1)\tan(\theta_2)}$ | Tangent Sum Difference Identities. |  |
-| $\sin(2\theta)=2\sin(\theta )\cos(\theta )$ | Double Angle Sine Identity. |  |
-| $\cos(2\theta)=\cos^{2}(\theta)-\sin^{2}(\theta)=2\cos^{2}(\theta)-1=1-2\sin^{2}(\theta)$ | Cosine Double Angle Identity. |  |
-| $\tan(2\theta)=\frac{2\tan(\theta)}{1-\tan^{2}(\theta)}$ | Tangent Double Angle Identity. |  |
-| $\sin{(\frac{\theta}{2})}=\pm\sqrt{\frac{1-\cos{(\theta)}}{2}}$ <br /> $\sin^2(\theta)=\frac{1}{2}-\frac{1}{2}\cos(2\theta)=\frac{1}{2}[1-\cos(2\theta)]$ | Sine Half angle Identities. |  |
-| $\cos{(\frac{\theta}{2})}=\pm\sqrt{\frac{1+\cos{(\theta)}}{2}}$ <br /> $\cos^2(\theta)=\frac{1}{2}+\frac{1}{2}\cos(2\theta)=\frac{1}{2}[1+\cos(2\theta)]$ | Cosine Half angle Identities. |  |
-| $\tan{(\frac{\theta}{2})}=\pm\sqrt{\frac{1-\cos{(\theta)}}{1+\cos{(\theta)}}}=\frac{1-\cos{(\theta)}}{sin{(\theta)}}=\frac{\sin{(\theta)}}{1+\cos{(\theta)}}$ <br /> $\tan^2{(\theta)}=\frac{1-\cos{(\theta)}}{1+\cos{(\theta)}}$ | Tangent Half angle Identities. |  |
-| $\sin(\theta_1)+\sin(\theta_2)=2\sin(\frac{\theta_1+\theta_2}{2})\cos(\frac{\theta_1−\theta_2}{2})$ | Sum of Sines Identity. |  |
-| $\sin(\theta_1)-\sin(\theta_2)=2\cos{(\frac{\theta_1+\theta_2}{2})}\sin{(\frac{\theta_1-\theta_2}{2})}$ | Difference of Sines Identity. |  |
-| $\cos(\theta_1)+\cos(\theta_2)=2\cos(\frac{\theta_1+\theta_2}{2})\cos(\frac{\theta_1-\theta_2}{2})$ | Sum of Cosines Identity. |  |
-| $\cos(\theta_1)-\cos(\theta_2)=-2\sin(\frac{\theta_1+\theta_2}{2})\sin(\frac{\theta_1-\theta_2}{2})$ | Difference of Cosines Identity. |  |
-| $\sin(\theta_1)\cos(\theta_2)=\frac{\sin(\theta_1+\theta_2)+\sin(\theta_1−\theta_2)}{2}$ | Product of Sine Cosine Identity. |  |
-| $\cos(\theta_1)\sin(\theta_2)=\frac{\sin(\theta_1+\theta_2)-\sin(\theta_1−\theta_2)}{2}$ | Product of Cosine Sine identity. |  |
-| $\cos(\theta_1)\cos(\theta_2)=\frac{\cos(\theta_1-\theta_2)+\cos(\theta_1+\theta_2)}{2}$ | Product of two Cosines Identity. |  |
-| $\sin(\theta_1)\sin(\theta_2)=\frac{\cos(\theta_1−\theta_2)−\cos(\theta_1+\theta_2)}{2}$ | Product of two Sines Identity. |  |
-| $\sin\left(3\theta\right)=-\sin ^3\left(\theta\right)+3\cos ^2\left(\theta\right)\sin \left(\theta\right)=-4\sin ^3\left(\theta\right)+3\sin \left(\theta\right)$ | Triple Angle Sine Identities. |  |
-| $\cos \left(3\theta\right)=\cos ^3\left(\theta\right)-3\sin ^2\left(\theta\right)\cos \left(\theta\right)=4\cos ^3\left(\theta\right)-3\cos \left(\theta\right)$ | Triple Angle Cosine Identities. |  |
-| $\tan \left(3\theta\right)=\frac{3\tan \left(\theta\right)-\tan ^3\left(\theta\right)}{1-3\tan ^2\left(\theta\right)}$ | Triple Angle Tangent Identity. |  |
-| $\cot \left(3\theta\right)=\frac{3\cot \left(\theta\right)-\cot ^3\left(\theta\right)}{1-3\cot ^2\left(\theta\right)}$ | Triple Agent Cotangent Identity. |  |
+$A=a^2\sin^2{\theta}+b^2\cos^2{\theta}$  
+$B=2(b^2-a^2)\sin{\theta}\cos{\theta}$  
+$C=a^2\cos^2{\theta}+b^2\sin^2{\theta}$  
+$D=-2Ah-Bk$  
+$E=-Bh-2Ck$  
+$F=Ah^2+Bhk+Ck^2-a^2b^2$  
 
-## Logarithms
+Orthagonal reduces down to:
 
-|  |  |  |
-|---|---|---|
-| $y = \log_b(x)$ |  | If and only if $x=b^y$ |
-| $\log_b(1) = 0$ |  |  |
-| $\log_b(b) = 1$ |  |  |
-| $\log_b(xy) = \log_b(x) + \log_b(y)$ |  |  |
-| $\log_b(\frac{x}{y}) = \log_b(x) - \log_b(y)$ |  |  |
-| $\log_b(x^n) = n \log_b(x)$ |  |  |
-| $\log_b(x) = \log_b(c)\log_c(x) = \frac{\log_c(x)}{\log_c(b)}$ |  |  |
+$A=b^2$  
+$B=0$  
+$C=a^2$  
+$D=-2hb^2$  
+$E=-2ka^2$  
+$F=h^2b^2+k^2a^2-a^2b^2$  
 
-## Bézier Formulas
+[Ellipse Relationship to Conics](https://math.stackexchange.com/a/2989928)  
+$Ax^2+B\color{red}y^2\color{black}+C\color{red}xy\color{black}+Dx+Ey+F=0$
 
-The Polynomial form of Bézier curves.
+relates to ellipse $h$, $k$, $a$, $b$, $\theta$ with the following:
 
-| Name | Equation |
-|---|---|
-| Linear Bézier curve | $c(t) = A(1-t) + Bt$ |
-| Quadratic Bézier curve | $c(t) = A(1-t)^{2} + B2t(1-t) + Ct^{2}$ |
-| Cubic Bézier curve | $c(t) = A(1-t)^{3} + B3t(1-t)^{2} + C3t^{2}(1-t) + Dt^{3}$ |
-| Quartic Bézier curve| $c(t) = A(1-t)^{4} + B4t(1-t)^{3} + C6t^{2}(1-t)^{2} + D4t^{3}(1-t) + Et^{4}$ |
-| Quintic Bézier curve| $c(t) = A(1-t)^{5} + B5t(1-t)^{4} + C10t^{2}(1-t)^{3} + D10t^{3}(1-t)^{2} + E5t^{4}(1-t) + Ft^{5}$ |
-| Sextic Bézier curve | $c(t) = A(1-t)^{6} + B6t(1-t)^{5} + C15t^{2}(1-t)^{4} + D20t^{3}(1-t)^{3} + E15t^{4}(1-t)^{2} + F6t^{5}(1-t) + Gt^{6}$ |
-| Septic Bézier curve | $c(t) = A(1-t)^{7} + B7t(1-t)^{6} + C21t^{2}(1-t)^{5} + D35t^{3}(1-t)^{4} + E35t^{4}(1-t)^{3} + F21t^{5}(1-t)^{2} + G7t^{6}(1-t) + Ht^{7}$ |
-| Octic Bézier curve | $c(t) = A(1-t)^{8} + B8t(1-t)^{7} + C28t^{2}(1-t)^{6} + D56t^{3}(1-t)^{5} + E70t^{4}(1-t)^{4} + F56t^{5}(1-t)^{3} + G28t^{6}(1-t)^{2} + H8t^{7}(1-t) + It^{8}$ |
-| Nonic Bézier curve | $c(t) = A(1-t)^{9}+ B9t(1-t)^{8} + C36t^{2}(1-t)^{7} + D84t^{3}(1-t)^{6} + E126t^{4}(1-t)^{5} + F126t^{5}(1-t)^{4} + G84t^{6}(1-t)^{3} + H36t^{7}(1-t)^{2} + I9t^{8}(1-t) + Jt^{9}$ |
-| Decic Bézier curve | $\begin{matrix}c(t) = A(1-t)^{10} + B10t(1-t)^{9} + C45t^{2}(1-t)^{8} + D120t^{3}(1-t)^{7} + E210t^{4}(1-t)^{6} + F252t^{5}(1-t)^{5} + G210t^{6}(1-t)^{4} + G120t^{7}(1-t)^{3} + G45t^{8}(1-t)^{2} + H10t^{9}(1-t) + It^{10}\end{matrix}$ |
+$A=\frac{\cos^2{(\theta)}}{a^2}+\frac{\sin^2{(\theta)}}{b^2}$  
+$B=\frac{\sin^2{(\theta)}}{a^2}+\frac{\cos^2{(\theta)}}{b^2}$  
+$C=\frac{\sin{(2\theta)}}{a^2}−\frac{\sin{(2\theta)}}{b^2}$  
+$D=−\frac{2h\cos^2(\theta)}{a^2}−\frac{k\sin(2\theta)}{a^2}−\frac{2h\sin^2(\theta)}{b^2}+\frac{k\sin(2\theta)}{b^2}$  
+$E=−\frac{h\sin(2\theta)}{a^2}−\frac{2k\sin^2(\theta)}{a^2}+\frac{h\sin(2\theta)}{b^2}−\frac{2k\cos^2(\theta)}{b^2}$  
+$F=\frac{h^2\cos^2(\theta)}{a^2}+\frac{hk\sin(2\theta)}{a^2}+\frac{k^2\sin^2(\theta)}{a^2}+\frac{h^2\sin^2(\theta)}{b^2}−\frac{hk\sin(2\theta)}{b^2}+\frac{k^2\cos^2(\theta)}{b^2}−1$
 
-To make the Polynomial form of a Bézier curve: List out the Alphabetic coefficients A B C ... etc, insert (1-t) with powers decreasing from left to right. Insert t coefficients with powers decreasing from right to left. The numeric coefficients are from Pascal's Triangle for the row of the same length.
 
-## Bézier Matrix Forms
+| Conic Shape | General Form | Standard Form |  |
+|---|---|---|---|---|
+| **Point** | $$ | $$ | $$ |
+| **Line** | $Ax+By+C=0$ | $$ | $$ |
+| **Circle at Origin** | $$ | $x2+y2=r2$ |  |
+| **Circle** | $x^2+y^2+Dx+Ey+F=0$ | $(x-h)^2+(y-k)^2=r^2$ |  |
+| **Orthogonal Ellipse** | $Ax^2+Cy^2+Dx+Ey+F=0$ | $\frac{(x-h)^2}{a^2}+\frac{(y-k)^2}{b^2}=1$ | $$ |
+| **Orthogonal Parabola** | $Ax^2+Dx+Ey=0$ | $$ | $$ |
+| **Orthogonal Hyperbola at Origin** | $$ | $\frac{x^2}{a^2}-\frac{y^2}{b^2}=1$ | $$ |
+| **Orthogonal Hyperbola** | $Ax^2–Cy^2+Dx+Ey+F=0$ | $\frac{(x-h)^2}{a^2}-\frac{(y-k)^2}{b^2}=1$ | $$ |
+| **Hyperbola** | $$ | $\frac{((x-h)\cos{(\alpha)}+(y-k)\sin{(\alpha)})^2}{a^2}-\frac{((x-h)\sin{(\alpha)}-(y-k)\cos{(\alpha)})^2}{b^2}=1$ | $$ |
 
-| Name | Equation |
-|---|---|
-| Linear Bézier Curve. Also known as a line segment. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \end{bmatrix}\begin{bmatrix} 1 & 0 \\ -1 & 1\end{bmatrix}\begin{bmatrix} P_0\\ P_1 \end{bmatrix}$ |
-| Quadratic Bézier Curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \end{bmatrix} \begin{bmatrix}1 & 0 & 0 \\ -2 & 2 & 0 \\ 1 & -2 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \end{bmatrix}$ |
-| Cubic Bézier Curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 \\ -3 & 3 & 0 & 0 \\ 3 & -6 & 3 & 0 \\ -1 & 3 & -3 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \end{bmatrix}$ |
-| Quartic Bézier Curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \\ (\frac{t}{2})^4 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 \\ -4 & 4 & 0 & 0 & 0 \\ 6 & -12 & 6 & 0 & 0 \\ -4 & 12 & -12 & 4 & 0 \\ 1 & -4 & 6 & -4 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \end{bmatrix}$ |
-| Quintic Bézier Curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \\ (\frac{t}{2})^4 \\ (\frac{t}{2})^5 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 \\ -5 & 5 & 0 & 0 & 0 & 0 \\ 10 & -20 & 10 & 0 & 0 & 0 \\ -10 & 30 & -30 & 10 & 0 & 0 \\ 5 & -20 & 30 & -20 & 5 & 0 \\ -1 & 5 & -10 & 10 & -5 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \\ P_5 \end{bmatrix}$ |
-| Sextic Bézier curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \\ (\frac{t}{2})^4 \\ (\frac{t}{2})^5 \\ (\frac{t}{2})^6 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ -6 & 6 & 0 & 0 & 0 & 0 & 0 \\ 15 & -30 & 15 & 0 & 0 & 0 & 0 \\ -20 & 60 & -60 & 20 & 0 & 0 & 0 \\ 15 & -60 & 90 & -60 & 15 & 0 & 0 \\ -6 & 30 & -60 & 60 & -30 & 6 & 0 \\ 1 & -6 & 15 & -20 & 15 & -6 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \\ P_5 \\ P_6 \end{bmatrix}$ |
-| Septic Bézier curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \\ (\frac{t}{2})^4 \\ (\frac{t}{2})^5 \\ (\frac{t}{2})^6 \\ (\frac{t}{2})^7 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ -7 & 7 & 0 & 0 & 0 & 0 & 0 & 0 \\ 21 & -42 & 21 & 0 & 0 & 0 & 0 & 0 \\ -35 & 105 & -105 & 35 & 0 & 0 & 0 & 0 \\ 35 & -140 & 210 & -140 & 35 & 0 & 0 & 0 \\ -21 & 105 & -210 & 210 & -105 & 21 & 0 & 0 \\ 7 & -42 & 105 & -140 & 105 & -42 & 7 & 0 \\ -1 & 7 & -21 & 35 & -35 & 21 & -7 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \\ P_5 \\ P_6 \\ P_7 \end{bmatrix}$ |
-| Octic Bézier curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \\ (\frac{t}{2})^4 \\ (\frac{t}{2})^5 \\ (\frac{t}{2})^6 \\ (\frac{t}{2})^7 \\ (\frac{t}{2})^8 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ -8 & 8 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 28 & -56 & 28 & 0 & 0 & 0 & 0 & 0 & 0 \\ -56 & 168 & -168 & 56 & 0 & 0 & 0 & 0 & 0 \\ 70 & -280 & 420 & -280 & 70 & 0 & 0 & 0 & 0 \\ -56 & 280 & -560 & 560 & -280 & 56 & 0 & 0 & 0 \\ 28 & -168 & 420 & -560 & 420 & -168 & 28 & 0 & 0 \\ -8 & 56 & -168 & 280 & -280 & 168 & -56 & 8 & 0 \\ 1 & -8 & 28 & -56 & 70 & -56 & 28 & -8 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \\ P_5 \\ P_6 \\ P_7 \\ P_8 \end{bmatrix}$ |
-| Nonic Bézier curve. | $c(t) = \begin{bmatrix} 1 \\ (\frac{t}{2}) \\ (\frac{t}{2})^2 \\ (\frac{t}{2})^3 \\ (\frac{t}{2})^4 \\ (\frac{t}{2})^5 \\ (\frac{t}{2})^6 \\ (\frac{t}{2})^7 \\ (\frac{t}{2})^8 \\ (\frac{t}{2})^9 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ -9 & 9 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 36 & -72 & 36 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ -84 & 252 & -252 & 84 & 0 & 0 & 0 & 0 & 0 & 0 \\ 126 & -504 & 756 & -504 & 126 & 0 & 0 & 0 & 0 & 0 \\ -126 & 630 & -1260 & 1260 & -630 & 126 & 0 & 0 & 0 & 0 \\ 84 & -504 & 1260 & -1680 & 1260 & -504 & 84 & 0 & 0 & 0 \\ -36 & 252 & -756 & 1260 & -1260 & 756 & -252 & 36 & 0 & 0 \\ 9 & -72 & 252 & -504 & 630 & -504 & 252 & -72 & 9 & 0 \\ -1 & 9 & -36 & 84 & -126 & 126 & -84 & 36 & -9 & 1 \end{bmatrix}\begin{bmatrix} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \\ P_5 \\ P_6 \\ P_7 \\ P_8 \\ P_9 \end{bmatrix}$ |
-| Decic Bézier curve. | $\begin{matrix}c(t)=\begin{bmatrix}1\\(\frac{t}{2})\\(\frac{t}{2})^2\\(\frac{t}{2})^3\\(\frac{t}{2})^4\\(\frac{t}{2})^5\\(\frac{t}{2})^6\\(\frac{t}{2})^7\\(\frac{t}{2})^8\\(\frac{t}{2})^9\\(\frac{t}{2})^{10}\end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ -10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 45 & -90 & 45 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ -120 & 360 & -360 & 120 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 210 & -840 & 1260 & -840 & 210 & 0 & 0 & 0 & 0 & 0 & 0 \\ -252 & 1260 & -2520 & 2520 & -1260 & 252 & 0 & 0 & 0 & 0 & 0 \\ 210 & -1260 & 3150 & -4200 & 3150 & -1260 & 210 & 0 & 0 & 0 & 0 \\ -120 & 840 & -2520 & 4200 & -4200 & 2520 & -840 & 120 & 0 & 0 & 0 \\ 45 & -360 & 1260 & -2520 & 3150 & -2520 & 1260 & -360 & 45 & 0 & 0 \\ -10 & 90 & -360 & 840 & -1260 & 1260 & -840 & 360 & -90 & 10 & 0 \\ 1 & -10 & 45 & -120 & 210 & -252 & 210 & -120 & 45 & -10 & 1 \end{bmatrix}\begin{bmatrix} P_0\\P_1\\P_2\\P_3\\P_4\\P_5\\P_6\\P_7\\P_8\\P_9\\P_{10} \end{bmatrix}\end{matrix}$ |
-
-For information on how to make the Matrix forms see: [Demofox Matrix Form of Bézier Curves](https://blog.demofox.org/2016/03/05/matrix-form-of-bezier-curves/)
-
-## Polynomial Degrees
-
-| Name | Value |
-|---|---|
-| Constant | 0 |
-| Linear | 1 |
-| Quadratic | 2 |
-| Cubic | 3 |
-| Quartic | 4 |
-| Quintic | 5 |
-| Sextic | 6 |
-| Septic | 7 |
-| Octic | 8 |
-| Nonic | 9 |
-| Decic | 10 |
-| Undecic\* | 11 |
-| Duodecic\* | 12 |
-| Tredecic\* | 13 |
-| Quattuordecic\* | 14 |
-| Quindecic\* | 15 |
-| Sexdecic\* | 16 |
-| Septendecic\* | 17 |
-| Octodecic\* | 18 |
-| Novendecic\* | 19 |
-| Vigintic\* | 20 |
-| Unvigintic\* | 21 |
-| Duovigintic\* | 22 |
-| Trevigintic\* | 23 |
-| Quattuorvigintic\* | 24 |
-| Quinvigintic\* | 25 |
-| Sexvigintic\* | 26 |
-| Septenvigintic\* | 27 |
-| Octovigintic\* | 28 |
-| Novenvigintic\* | 29 |
-| Trigintic\* | 30 |
-| Untrigintic\* | 31 |
-| Duotrigintic\* | 32 |
-| Tretrigintic\* | 33 |
-| Quattuortrigintic\* | 34 |
-| Quintrigintic\* | 35 |
-| Sextrigintic\* | 36 |
-| Septentrigintic\* | 37 |
-| Octotrigintic\* | 38 |
-| Noventrigintic\* | 39 |
-| Quadragintic\* | 40 |
-| Unquadragintic\* | 41 |
-| Duoquadragintic\* | 42 |
-| Trequadragintic\* | 43 |
-| Quattuorquadragintic\* | 44 |
-| Quinquadragintic\* | 45 |
-| Sexquadragintic\* | 46 |
-| Septenquadragintic\* | 47 |
-| Octoquadragintic\* | 48 |
-| Novenquadragintic\* | 49 |
-| Quinquagintic\* | 50 |
-| Unquinquagintic\* | 51 |
-| Duoquinquagintic\* | 52 |
-| Trequinquagintic\* | 53 |
-| Quattuorquinquagintic\* | 54 |
-| Quinquinquagintic\* | 55 |
-| Sexquinquagintic\* | 56 |
-| Septenquinquagintic\* | 57 |
-| Octoquinquagintic\* | 58 |
-| Novenquinquagintic\* | 59 |
-| Sexagintic\* | 60 |
-| Unsexagintic\* | 61 |
-| Duosexagintic\* | 62 |
-| Tresexagintic\* | 63 |
-| Quattuorsexagintic\* | 64 |
-| Quinsexagintic\* | 65 |
-| Sexsexagintic\* | 66 |
-| Septensexagintic\* | 67 |
-| Octosexagintic\* | 68 |
-| Novensexagintic\* | 69 |
-| Septuagintic\* | 70 |
-| Unseptuagintic\* | 71 |
-| Duoseptuagintic\* | 72 |
-| Treseptuagintic\* | 73 |
-| Quattuorseptuagintic\* | 74 |
-| Quinseptuagintic\* | 75 |
-| Sexseptuagintic\* | 76 |
-| Septenseptuagintic\* | 77 |
-| Octoseptuagintic\* | 78 |
-| Novenseptuagintic\* | 79 |
-| Octogintic\* | 80 |
-| Unoctogintic\* | 81 |
-| Duooctogintic\* | 82 |
-| Treoctogintic\* | 83 |
-| Quattuoroctogintic\* | 84 |
-| Quinoctogintic\* | 85 |
-| Sexoctogintic\* | 86 |
-| Septenoctogintic\* | 87 |
-| Octooctogintic\* | 88 |
-| Novenoctogintic\* | 89 |
-| Nonagintic\* | 90 |
-| Unnonagintic\* | 91 |
-| Duononagintic\* | 92 |
-| Trenonagintic\* | 93 |
-| Quattuornonagintic\* | 94 |
-| Quinnonagintic\* | 95 |
-| Sexnonagintic\* | 96 |
-| Septennonagintic\* | 97 |
-| Octononagintic\* | 98 |
-| Novennonagintic\* | 99 |
-| Hectic | 100|
-
-<sub>\*Names are Non-official, but based on potential convention.</sub>
-
-## Operations on Matracies
-
-### Adding Matricies
-
-$\begin{bmatrix}a&b\\c&d\end{bmatrix}+\begin{bmatrix}e&f\\g&h\end{bmatrix}=\begin{bmatrix}a+e&b+f\\c+g&d+h\end{bmatrix}$
-
-$\begin{bmatrix}2&-1\\1&0\end{bmatrix}+\begin{bmatrix}1&4\\2&3\end{bmatrix}=\begin{bmatrix}2+1&-1+4\\1+2&0+3\end{bmatrix}=\begin{bmatrix}3&3\\3&3\end{bmatrix}$
-
-### Subtracting Matricies
-
-$\begin{bmatrix}a&b\\c&d\end{bmatrix}-\begin{bmatrix}e&f\\g&h\end{bmatrix}=\begin{bmatrix}a-e&b-f\\c-g&d-h\end{bmatrix}$
-
-### Scaling Matricies
-
-$2\begin{bmatrix}a&b\\c&d\end{bmatrix}=\begin{bmatrix}2a&2b\\2c&2d\end{bmatrix}$
-
-$2\begin{bmatrix}1&2\\3&4\end{bmatrix}=\begin{bmatrix}2\times1&2\times2\\2\times3&2\times4\end{bmatrix}=\begin{bmatrix}2&4\\6&8\end{bmatrix}$
-
-### Multiplying Matricies
-
-[Awesome Visualization](http://matrixmultiplication.xyz/)
-
-$\begin{bmatrix}a&b\\c&d\end{bmatrix}\begin{bmatrix}e&f\\g&h\end{bmatrix}=\begin{bmatrix}ae+bg&af+bh\\ce+dg&cf+dh\end{bmatrix}$
-
-$\begin{bmatrix}a&b\\c&d\end{bmatrix}\begin{bmatrix}e&f&g\\h&i&j\end{bmatrix}=\begin{bmatrix}ae+bh&af+bi&ag+bj\\ce+dh&cf+di&cg+dj\end{bmatrix}$
-
-## Physical Units
-
-### Lengths
-
-| Unit| Definition |
-|---|---|
-| Mils | One thousandth of an inch. |
-| Centimeters | One hundredth of a meter. |
-| Inches | One twelfth of a foot or 2.54 centimeters. |
-| Feet | 12 inches or 30.48 centimeters. |
-| Yards | 3 feet or 0.9144 meters. |
-| Meters | the length of the path travelled by light in a vacuum in 1/299,792,458 of a second. |
-| Smoots | 67 Inches |
-| Miles | 5,280 feet, 1,760 yards or approximately 1.609 kilometers. |
-| Nautical Miles (International) | Approximately 2,025 yards or 1,852 meters. |
-| kilometers | 1,000 meters or approximately 0.62 miles. |
-| petameters | 10<sup>15</sup> meters |
-| Astronomical Units | 149.6 million kilometers, the mean distance from the center of the earth to the center of the sun. |
-| Light-Years | 9460730472580800 meters. |
-| Parsecs | About 3.26 light years or 3.086 × 10<sup>13</sup> kilometers. |
-|  |  |
-| Angstroms | One hundred-millionth of a centimeter, 10<sup>−10</sup> meter |
-| Arpents | Equivalent to 3,420 square meters (about 1 acre). Linear measure equivalent to about 190 feet (58 meters). |
-| Cable Lengths (Imperial) |  |
-| Cable Lengths (International) |  |
-| Cable Lengths (U.S.) |  |
-| Chains |  |
-| Cubits |  |
-| Decameters |  |
-| Decimeters |  |
-| Ells |  |
-| Fathoms |  |
-| Feet (French measure) |  |
-| Feet (U.S. Survey) |  |
-| Fingers |  |
-| Fingers (cloth) |  |
-| French |  |
-| Furlongs |  |
-| Gigameters |  |
-| Hands |  |
-| Kilofeet |  |
-| Kilometers |  |
-| Leagues |  |
-| Leagues (land) |  |
-| Light Days |  |
-| Light Hours |  |
-| Light Minutes |  |
-| Light Seconds |  |
-| Light Years |  |
-| Line |  |
-| Links (Gunter's Surveyor's) |  |
-| Marathons |  |
-| Megameters |  |
-| Metric Feet |  |
-| Metric Inches |  |
-| Metric Miles |  |
-| Mickeys |  |
-| Microinches |  |
-| Micrometers |  |
-| Microns |  |
-| Millimeters |  |
-| Myriameters |  |
-| Nails (cloth) |  |
-| Nanometers |  |
-| Nautical Leagues |  |
-| Paces |  |
-| Palms |  |
-| Perch |  |
-| Picas |  |
-| Picometers |  |
-| Points (PostScript) |  |
-| Quarters |  |
-| Rods |  |
-| Ropes |  |
-| Shaku |  |
-| Spans |  |
-| Steps |  |
-| Terameters |  |
-| Twips |  |
-
-### Angular Units
-
-| Unit | Definition |
-|---|---|
-| Radians |  |
-| Degrees |  |
-|  |  |
-| Angular Mils |  |
-| Arcminutes |  |
-| Arcseconds |  |
-| Binary Degrees |  |
-| Centesimal minutes of arc |  |
-| Centesimal seconds of arc |  |
-| Centiturns |  |
-| Diameter Parts |  |
-| Gradians |  |
-| Hexacontades |  |
-| Hour Angles |  |
-| Milliturns |  |
-| Minutes of time |  |
-| Octants |  |
-| Pechus |  |
-| Points (navigation)|  |
-| Quadrants |  |
-| Quarter Points (navigation) |  |
-| Seconds of time |  |
-| Sextants |  |
-| Signs |  |
-| Turns |  |
-
-### Mass
-
-| Unit | Definition |
-|---|---|
-| Attograms |  |
-| Bags of Coffee |  |
-| Bags of Portland Cement|  |
-| Barges |  |
-| Carats |  |
-| Carats (metric) |  |
-| Centigrams |  |
-| Cloves |  |
-| Criths |  |
-| Decagrams |  |
-| Decigrams |  |
-| Drams (avoirdupois) |  |
-| Drams troy |  |
-| Exagrams |  |
-| Femtograms |  |
-| Gigagrams |  |
-| Gigatonnes |  |
-| Grains |  |
-| Grams |  |
-| Graves |  |
-| Hectograms |  |
-| Hundredweights (long) |  |
-| Hundredweights (short) |  |
-| Keels |  |
-| Kilograms |  |
-| Kilotonne |  |
-| Kips |  |
-| Long Tons |  |
-| Marks|  |
-| Megagrams |  |
-| Megatonnes |  |
-| Micrograms |  |
-| Milligrams |  |
-| Mites |  |
-| Mites (metric) |  |
-| Nanograms |  |
-| Newtons |  |
-| Ounces |  |
-| Ounces (apothecary; troy) |  |
-| Ounces (U.S. food nutrition labeling) |  |
-| Pennyweight |  |
-| Petagrams |  |
-| Petatonnes |  |
-| Picograms |  |
-| Points |  |
-| Pounds |  |
-| Pounds (metric) |  |
-| Pounds (troy) |  |
-| Quarters |  |
-| Quarters (long) |  |
-| Quarters (short) |  |
-| Quintals |  |
-| Scruples |  |
-| Sheets |  |
-| Short Tons |  |
-| Slugs |  |
-| Stones |  |
-| Teragrams |  |
-| Teratonnes |  |
-| Ton, Assay (long) |  |
-| Ton, Assay (short) |  |
-| Tonnes |  |
-| Weys |  |
-| Yoctograms |  |
-| Yottagrams |  |
-| Zeptograms |  |
-| Zettagrams |  |
-
-### Temperature
-
-| Unit | Definition |
-|---|---|
-| Degrees Celsius |  |
-| Degrees Delisle |  |
-| Degrees Fahrenheit |  |
-| Degrees Newton |  |
-| Degrees Rankine |  |
-| Degrees Reaumur |  |
-| Degrees Romer |  |
-| Gas Marks |  |
-| Kelvins |  |
-
-### Time
-
-| Unit | Definition |
-|---|---|
-| Callippic Cycles |  |
-| Centiseconds |  |
-| Centuries | 100 Years |
-| Days | 24 Hours|
-| Days (sidereal) |  |
-| Decades | 10 Years |
-| Decaseconds | Ten seconds |
-| Deciseconds | Tenth of seconds |
-| Femtoseconds | Quadrillionth of a second |
-| Fortnights | Two weeks |
-| Gigaseconds |  |
-| Hectoseconds |  |
-| Heleks |  |
-| Hipparchic Cycles |  |
-| Hours | 60 Minutes |
-| Jiffies |  |
-| Jiffies (alternative) |  |
-| Ke |  |
-| Ke (traditional) |  |
-| Kiloseconds | thousand seconds |
-| Lustres |  |
-| Megaseconds | million seconds |
-| Metonic Cycles |  |
-| Microfortnights |  |
-| Microseconds |  |
-| Millennia | Thousand Years |
-| Millidays |  |
-| Millifortnights |  |
-| Milliseconds | Thousandth of second |
-| Minutes | 60 Seconds |
-| Moments |  |
-| Months | 28 - 31 days |
-| Months (hollow) |  |
-| Nanofortnights |  |
-| Nanoseconds | Millionth of a second |
-| Octaeterides |  |
-| Picoseconds | Billionth of a Second |
-| Seconds | a 60th of a Minute |
-| Shakes |  |
-| Sigmas |  |
-| Sols |  |
-| Sothic Cycles |  |
-| Svedbergs |  |
-| Teraseconds |  |
-| Weeks | 7 Days |
-| Years | 360 - 361 days |
-| Years (Julian) |  |
-| Years (sidereal) |  |
-| Years (tropical) |  |
+[Conics Table](https://www.purplemath.com/modules/conics.htm)
+[Conics Information](https://www.intmath.com/plane-analytic-geometry/conic-sections-summary.php)
 
 ## Converting Mathmatical Notation Into Code
 
@@ -1159,7 +886,7 @@ Learn more in the PBS Infinite Series: Why Computers are Bad at Algebra.
 
 > [![IMAGE ALT TEXT](http://img.youtube.com/vi/pQs_wx8eoQ8/0.jpg)](https://youtu.be/pQs_wx8eoQ8)
 
-## On Pi in Folats and Doubles
+## On Pi in Floats and Doubles
 
 float and double are binary-based floating-point numbers and aren't actually able to represent any value that has 17 digits exactly, instead they get an approximation that is "close enough" for most purposes.
 
@@ -1187,19 +914,9 @@ Given the above, you would find that PI is not exactly representable and the val
 
 ## Mathematical Tricks
 
-### Multiplication Tricks
+### Dot pattern Addition Subtraction
 
-Multiplying single digit numbers by 11 can be fun, since all you have to do is put the same number next to it. But the two digit numbers look intimidating, such as $12\times11=132$. However, there is this little trick:  
- > Split the two digits up $1\gets12\to2$. Add them together $1+2=3$ place the sum in the middle and push them together $1\to3\gets2=123$. And there you have it.
-
-### Exponents Tricks
-
-This one is for finding the squares of numbers ending with 5. e.g. $(25)^2=625$.  
- > Take your number remove the 5 $2⇐25:5=2$. Then, multiply the first digit by its "plus one" $2×(2+1)=6$. To finish off append 25 $6⟸25:625$ and you are done.
-
-## Dot pattern Addition
-
-If visualising and associating is needed for learning, addition can be done by counting imagined dots on the usual numbers.
+If visualizing and associating is needed for learning, addition can be done by counting imagined dots on the usual numbers.
 
 <svg width="20" height="45" float="left"><g fill="black" font-family="san-serif" font-size="40"><text x="0" y="35" id="1">1</text></g><g><circle cx="10" cy="10" r="5" fill="black" id="dot"/></g></svg>
 One has one dot at the top.
@@ -1228,11 +945,20 @@ Eight has two dots on the left and right sides of the two circles.
 <svg width="20" height="45" float="left"><g fill="black" font-family="san-serif" font-size="40"><text x="0" y="35" id="9">9</text></g><g stroke-width="1" stroke="black" fill="transparent"><circle cx="10" cy="10" r="10" fill="white" id="dot"/><circle cx="10" cy="23" r="10" fill="white" id="dot"/><circle cx="10" cy="35" r="10" fill="white" id="dot"/></g><g stroke-width="1" stroke="black" fill="transparent"><circle cx="10" cy="10" r="7" fill="white" id="dot"/><circle cx="10" cy="23" r="7" fill="white" id="dot"/><circle cx="10" cy="35" r="7" fill="white" id="dot"/></g><g><circle cx="10" cy="10" r="5" fill="black" id="dot"/><circle cx="10" cy="23" r="5" fill="black" id="dot"/><circle cx="10" cy="35" r="5" fill="black" id="dot"/></g></svg>
 Nine, Think of it as a tic-tac-toe grid, or 10 - 1.
 
-## Tick-Tac-Toe Multiplecation
+### Multiplication Tricks
 
-One method for helping people who are pattern focused, and have trouble with wrote memorization, remember multiplecation is to use multiplecation paterns.
+Multiplying single digit numbers by 11 can be fun, since all you have to do is put the same number next to it. But the two digit numbers look intimidating, such as $12\times11=132$. However, there is this little trick:  
+ > Split the two digits up $1\gets12\to2$. Add them together $1+2=3$ place the sum in the middle and push them together $1\to3\gets2=123$. And there you have it.
 
-Once the pattern has been internalized, the chart can be easily written out and used as a lookup table for multiplecation and division.
+### Japanese Multiplication
+
+> [![IMAGE ALT TEXT](http://img.youtube.com/vi/oteruPivWjc/0.jpg)](https://youtu.be/oteruPivWjc)
+
+### Tick-Tac-Toe Multiplication
+
+One method for helping people who are pattern focused, and have trouble with wrote memorization, remember multiplication is to use multiplication patterns.
+
+Once the pattern has been internalized, the chart can be easily written out and used as a lookup table for multiplication and division.
 
 The table is layed out as follows. The first cell belonging to the One cell, then the one below it two the Two cell, then below that the Three cell. From there, go back to the top of the table to the next column to continue, and repeat to the Ten cell.
 
@@ -1252,7 +978,7 @@ The values of each cell are divided into Tens and Ones parts. Patterns often sta
 
 One common pattern for table smaller than 10, is to incrament the Tens column every time the Ones column is smaller than the previous Ones Column value in the table.
 
-### Zeros
+#### Zeros
 
 Zeros is the most simple pattern as anything times $0$ is $0$. So, just fill the grid with 0s.
 
@@ -1262,7 +988,7 @@ Zeros is the most simple pattern as anything times $0$ is $0$. So, just fill the
 | $0$ | $0$ | $0$ |
 | $0$ | $0$ | $0$ |
 
-### Ones
+#### Ones
 
 For Ones, just increment for each cell in the table.
 
@@ -1272,7 +998,7 @@ For Ones, just increment for each cell in the table.
 | $2$ | $5$ | $8$ |
 | $3$ | $6$ | $9$ |
 
-### Twos
+#### Twos
 
 The pattern for Twos is to start at two and skip every other number. The pattern then repeats after 5 x 2, but with an incremented tens place.
 
@@ -1282,7 +1008,7 @@ The pattern for Twos is to start at two and skip every other number. The pattern
 | $4$ | $10$ | $16$ |
 | $6$ | $12$ | $18$ |
 
-### Threes
+#### Threes
 
 For the Threes, start on the right column moving left then down to the next row on the right incrementing the numbers. Then go back to 1 x 3 cell and move down the column, and over to the right, incrementing the tens every time the ones is smaller than the previous.
 
@@ -1292,7 +1018,7 @@ For the Threes, start on the right column moving left then down to the next row 
 | $6$ | $15$ | $24$ |
 | $9$ | $18$ | $27$ |
 
-### Fours
+#### Fours
 
 |  |  |  |  |
 |-|-|-|-|
@@ -1300,7 +1026,7 @@ For the Threes, start on the right column moving left then down to the next row 
 | $8$ | $20$ | $32$ |
 | $12$ | $24$ | $36$ |
 
-### Fives
+#### Fives
 
 The pattern for fives is to start with 5 then alternate every other ending with a 5 or 0, while incramenting the tens on each 0.
 
@@ -1310,7 +1036,7 @@ The pattern for fives is to start with 5 then alternate every other ending with 
 | $10$ | $25$ | $40$ |
 | $15$ | $30$ | $45$ |
 
-### Sixes
+#### Sixes
 
 For the Sixes, start on the right column moving left then down to the next row on the right incrementing the numbers by two, restarting after 5 x 6. Then go back to 1 x 3 cell and move down the column, and over to the right, incrementing the tens every time the ones is smaller than the previous.
 
@@ -1320,7 +1046,7 @@ For the Sixes, start on the right column moving left then down to the next row o
 | $12$ | $30$ | $48$ |
 | $18$ | $36$ | $54$ |
 
-### Sevens
+#### Sevens
 
 For Sevens, Start at the bottom left, going right, then up, and incrament the ones. Then go back to 1 x 3 cell and move down the column, and over to the right, incrementing the tens every time the ones is smaller than the previous.
 
@@ -1330,7 +1056,7 @@ For Sevens, Start at the bottom left, going right, then up, and incrament the on
 | $14$ | $35$ | $56$ |
 | $21$ | $42$ | $63$ |
 
-### Eights
+#### Eights
 
 |  |  |  |  |
 |-|-|-|-|
@@ -1338,7 +1064,7 @@ For Sevens, Start at the bottom left, going right, then up, and incrament the on
 | $16$ | $40$ | $64$ |
 | $24$ | $48$ | $72$ |
 
-### Nines
+#### Nines
 
 Nines is possibly the most fun of the patterns. Incrament the ones column in reverse starting with 9, ending with 0 for 10 x 9. Then for the tens column incrament from 0 in the 1 x 9 cell to 9 in the 10 x 9 cell. It is even more fun to fill out the table counting down form the first cell, then reversing again at the tenth counting down again to the first cell.
 
@@ -1348,7 +1074,7 @@ Nines is possibly the most fun of the patterns. Incrament the ones column in rev
 | $18$ | $45$ | $72$ |
 | $27$ | $54$ | $81$ |
 
-### Tens
+#### Tens
 
 Tens is as simple as the Ones, just appending a 0 to the end.
 
@@ -1358,7 +1084,7 @@ Tens is as simple as the Ones, just appending a 0 to the end.
 | $20$ | $50$ | $80$ |
 | $30$ | $60$ | $90$ |
 
-### Elevens
+#### Elevens
 
 Elevens is another fun pattern, just duplicate the digits from the Ones table for both the Ones and Tens columns, up to 9. Then add a zero to 11 for the Tens cell.
 
@@ -1368,9 +1094,10 @@ Elevens is another fun pattern, just duplicate the digits from the Ones table fo
 | $22$ | $55$ | $88$ |
 | $33$ | $66$ | $99$ |
 
-## Japanese Multiplication
+### Exponents Tricks
 
-> [![IMAGE ALT TEXT](http://img.youtube.com/vi/oteruPivWjc/0.jpg)](https://youtu.be/oteruPivWjc)
+This one is for finding the squares of numbers ending with 5. e.g. $(25)^2=625$.  
+ > Take your number remove the 5 $2⇐25:5=2$. Then, multiply the first digit by its "plus one" $2×(2+1)=6$. To finish off append 25 $6⟸25:625$ and you are done.
 
 ## References
 

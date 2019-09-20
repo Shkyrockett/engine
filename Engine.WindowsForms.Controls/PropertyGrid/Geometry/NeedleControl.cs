@@ -271,7 +271,7 @@ namespace Engine
             var radiusOutside = rect.Width * 0.5f;
             var radiusInside = 0.9f * radiusOutside;
 
-            for (double i = 0; i < 2d * PI; i += 15d.ToRadians())
+            for (double i = 0; i < 2d * PI; i += 15d.DegreesToRadians())
             {
                 var pointInside = new PointF(
                     (float)(center.X + (radiusInside * Cos(i))),

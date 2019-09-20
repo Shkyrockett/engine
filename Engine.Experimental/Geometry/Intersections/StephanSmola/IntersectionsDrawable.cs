@@ -418,7 +418,7 @@ namespace Engine
 
             var angle = z - v; // Is z-v an angle? Can I get a direction vector instead?
 
-            return ((x1 - x2, y2 - y1), angle.ToRadians()); // Why don't the y values make any sense? They seem to always be near 0.
+            return ((x1 - x2, y2 - y1), angle.DegreesToRadians()); // Why don't the y values make any sense? They seem to always be near 0.
         }
     }
 }

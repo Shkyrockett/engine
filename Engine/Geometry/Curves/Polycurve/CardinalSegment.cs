@@ -50,9 +50,9 @@ namespace Engine
         /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? Start
+        public override Point2D? Head
         {
-            get { return Previous?.End; }
+            get { return Previous?.Tail; }
             set
             {
                 if (Previous is null)
@@ -61,7 +61,7 @@ namespace Engine
                 }
                 else
                 {
-                    Previous.End = value;
+                    Previous.Tail = value;
                 }
             }
         }
@@ -82,7 +82,7 @@ namespace Engine
         {
             get
             {
-                var nodes = new List<Point2D> { Start.Value };
+                var nodes = new List<Point2D> { Head.Value };
                 nodes.AddRange(CentralPoints);
                 return nodes;
             }
@@ -98,7 +98,7 @@ namespace Engine
         /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public override Point2D? End
+        public override Point2D? Tail
         {
             get { return CentralPoints?[CentralPoints.Count - 1]; }
             set
@@ -123,9 +123,9 @@ namespace Engine
         {
             get
             {
-                var result = new List<Point2D> { Start.Value };
+                var result = new List<Point2D> { Head.Value };
                 result.AddRange(CentralPoints);
-                result.Add(End.Value);
+                result.Add(Tail.Value);
                 return result;
             }
         }

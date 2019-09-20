@@ -2339,7 +2339,7 @@ namespace Engine
             var result = new Matrix3x2D();
 
             // We need to go counter-clockwise.
-            result.RotateAt((float)-angle.ToDegrees(), center.X, center.Y);
+            result.RotateAt((float)-angle.RadiansToDegrees(), center.X, center.Y);
 
             return result;
         }

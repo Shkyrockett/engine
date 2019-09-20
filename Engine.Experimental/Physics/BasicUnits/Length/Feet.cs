@@ -14,9 +14,9 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using static Engine.Physics.LengthUnits;
+using static Engine.LengthUnits;
 
-namespace Engine.Physics
+namespace Engine
 {
     /// <summary>
     /// The feet struct.

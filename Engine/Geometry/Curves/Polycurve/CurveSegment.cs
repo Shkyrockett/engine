@@ -64,7 +64,7 @@ namespace Engine
         /// Gets or sets the starting coordinates for the item.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public abstract Point2D? Start { get; set; }
+        public abstract Point2D? Head { get; set; }
 
         /// <summary>
         /// Gets or sets the next to last point of the item.
@@ -76,7 +76,7 @@ namespace Engine
         /// Gets or sets the ending coordinates for the item.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public abstract Point2D? End { get; set; }
+        public abstract Point2D? Tail { get; set; }
 
         /// <summary>
         /// Gets or sets the grips used for this path segment.

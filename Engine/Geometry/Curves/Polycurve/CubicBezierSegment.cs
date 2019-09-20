@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static Engine.Operations;
+using static Engine.Polynomials;
 
 namespace Engine
 {
@@ -53,9 +54,9 @@ namespace Engine
         {
             if (relitive)
             {
-                Handle1 = (Point2D)(Handle1 + item.End);
-                Handle2 = (Point2D)(Handle2 + item.End);
-                End = (Point2D)(End + item.End);
+                Handle1 = (Point2D)(Handle1 + item.Tail);
+                Handle2 = (Point2D)(Handle2 + item.Tail);
+                Tail = (Point2D)(Tail + item.Tail);
             }
         }
 
@@ -70,9 +71,9 @@ namespace Engine
         {
             Previous = previous;
             previous.Next = this;
-            Handle1 = handle1 ?? (Point2D)((2d * previous.End) - previous.NextToEnd);
+            Handle1 = handle1 ?? (Point2D)((2d * previous.Tail) - previous.NextToEnd);
             Handle2 = handle2;
-            End = end;
+            Tail = end;
         }
         #endregion Constructors
 
@@ -90,14 +91,14 @@ namespace Engine
         /// <param name="dy">The dy.</param>
         public void Deconstruct(out double ax, out double ay, out double bx, out double by, out double cx, out double cy, out double dx, out double dy)
         {
-            ax = Start.Value.X;
-            ay = Start.Value.Y;
+            ax = Head.Value.X;
+            ay = Head.Value.Y;
             bx = Handle1.X;
             by = Handle1.Y;
             cx = Handle2.Value.X;
             cy = Handle2.Value.Y;
-            dx = End.Value.X;
-            dy = End.Value.Y;
+            dx = Tail.Value.X;
+            dy = Tail.Value.Y;
         }
         #endregion Deconstructors
 
@@ -106,9 +107,9 @@ namespace Engine
         /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? Start
+        public override Point2D? Head
         {
-            get { return Previous?.End; }
+            get { return Previous?.Tail; }
             set
             {
                 if (Previous is null)
@@ -116,7 +117,7 @@ namespace Engine
                     Previous = new PointSegment(value);
                 }
                 else
-                { Previous.End = value; }
+                { Previous.Tail = value; }
             }
         }
 
@@ -142,7 +143,7 @@ namespace Engine
         /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public override Point2D? End { get; set; }
+        public override Point2D? Tail { get; set; }
 
         /// <summary>
         /// Gets the grips.
@@ -150,7 +151,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public override List<Point2D> Grips
-            => new List<Point2D> { Start.Value, Handle1, Handle2.Value, End.Value };
+            => new List<Point2D> { Head.Value, Handle1, Handle2.Value, Tail.Value };
 
         /// <summary>
         /// Gets the bounds.
@@ -171,7 +172,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierCoefficients(Start.Value.X, Handle1.X, Handle2.Value.X, End.Value.X));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierPolynomial(Head.Value.X, Handle1.X, Handle2.Value.X, Tail.Value.X));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -185,7 +186,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierCoefficients(Start.Value.Y, Handle1.Y, Handle2.Value.X, End.Value.Y));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierPolynomial(Head.Value.Y, Handle1.Y, Handle2.Value.X, Tail.Value.Y));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -196,7 +197,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
-            => (double)CachingProperty(() => Measurements.CubicBezierArcLength(Start.Value.X, Start.Value.Y, Handle1.X, Handle1.Y, Handle2.Value.X, Handle2.Value.Y, End.Value.X, End.Value.Y));
+            => (double)CachingProperty(() => Measurements.CubicBezierArcLength(Head.Value.X, Head.Value.Y, Handle1.X, Handle1.Y, Handle2.Value.X, Handle2.Value.Y, Tail.Value.X, Tail.Value.Y));
         #endregion Properties
 
         /// <summary>
@@ -213,7 +214,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="CubicBezier"/>.</returns>
         public CubicBezier ToCubicBezier()
-            => new CubicBezier(Start.Value, Handle1, Handle2.Value, End.Value);
+            => new CubicBezier(Head.Value, Handle1, Handle2.Value, Tail.Value);
         #endregion Methods
     }
 }

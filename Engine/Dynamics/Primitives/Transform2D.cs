@@ -23,8 +23,8 @@ namespace Engine
     /// <summary>
     /// The transform2d struct.
     /// </summary>
-    /// <seealso cref="Engine.IPrimitive" />
-    /// <seealso cref="System.IEquatable{T}" />
+    /// <seealso cref="IPrimitive" />
+    /// <seealso cref="IEquatable{T}" />
     [TypeConverter(typeof(ExpandableObjectConverter))]
     [DebuggerDisplay("{ToString()}")]
     public struct Transform2D
@@ -228,7 +228,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public double RotationDegrees { get { return Rotation.ToDegrees(); } set { Rotation = value.ToRadians(); } }
+        public double RotationDegrees { get { return Rotation.RadiansToDegrees(); } set { Rotation = value.DegreesToRadians(); } }
 
         /// <summary>
         /// Gets or sets the <see cref="Location" /> of the <see cref="Transform2D" />
@@ -449,7 +449,7 @@ namespace Engine
         /// Creates a human-readable string that represents this <see cref="Transform2D" />.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

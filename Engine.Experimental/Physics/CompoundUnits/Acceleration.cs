@@ -12,16 +12,18 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Engine.Physics
+namespace Engine
 {
     /// <summary>
     /// The acceleration struct.
     /// </summary>
+    /// <seealso cref="IAcceleration" />
+    /// <seealso cref="IEquatable{T}" />
     public struct Acceleration
         : IAcceleration, IEquatable<Acceleration>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Acceleration"/> class.
+        /// Initializes a new instance of the <see cref="Acceleration" /> class.
         /// </summary>
         /// <param name="velocityChange">The velocityChange.</param>
         /// <param name="timeInterval">The timeInterval.</param>
@@ -34,22 +36,34 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the velocity change.
         /// </summary>
+        /// <value>
+        /// The velocity change.
+        /// </value>
         public IVelocity VelocityChange { get; set; }
 
         /// <summary>
         /// Gets or sets the time interval.
         /// </summary>
+        /// <value>
+        /// The time interval.
+        /// </value>
         public ITime TimeInterval { get; set; }
 
         /// <summary>
         /// Gets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value
             => VelocityChange.Value / TimeInterval.Value;
 
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Name
             => nameof(Acceleration);
@@ -57,6 +71,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abbreviation
             => $"∆{Value}/∆{VelocityChange.Abbreviation}";
@@ -82,11 +99,11 @@ namespace Engine.Physics
         public static bool operator !=(Acceleration left, Acceleration right) => !(left == right);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
         public override bool Equals(object obj) => obj is Acceleration acceleration && Equals(acceleration);
 
@@ -95,10 +112,10 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(Acceleration other) => EqualityComparer<IVelocity>.Default.Equals(VelocityChange, other.VelocityChange) && EqualityComparer<ITime>.Default.Equals(TimeInterval, other.TimeInterval);
-
+        
         /// <summary>
         /// Returns a hash code for this instance.
         /// </summary>
@@ -116,7 +133,9 @@ namespace Engine.Physics
         /// <summary>
         /// The to string.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         public override string ToString()
             => $"{Value} {Abbreviation}";
     }

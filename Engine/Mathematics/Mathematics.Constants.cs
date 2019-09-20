@@ -207,6 +207,46 @@ namespace Engine
         /// <value>≈1.32471...</value>
         public static readonly double Rho = Root(0.5d + (1d / 6d * Sqrt(23d / 3d)), 3d) + Root(0.5d - (1d / 6d * Sqrt(23d / 3d)), 3d);
 
+        /// <summary>
+        /// The cosine of 0.
+        /// </summary>
+        public static readonly double Cos0 = Cos(0);
+
+        /// <summary>
+        /// The cosine of PI.
+        /// </summary>
+        public static readonly double CosHalfPi = Cos(HalfPi);
+
+        /// <summary>
+        /// The cosine of Pi.
+        /// </summary>
+        public static readonly double CosPi = Cos(PI);
+
+        /// <summary>
+        /// The cosine of Pau.
+        /// </summary>
+        public static readonly double CosPau = Cos(Pau);
+
+        /// <summary>
+        /// The sine of 0.
+        /// </summary>
+        public static readonly double Sin0 = Sin(0);
+
+        /// <summary>
+        /// The sine of half Pi.
+        /// </summary>
+        public static readonly double SinHalfPi = Sin(HalfPi);
+
+        /// <summary>
+        /// The sine of Pi.
+        /// </summary>
+        public static readonly double SinPi = Sin(Pi);
+
+        /// <summary>
+        /// The sine of Pau.
+        /// </summary>
+        public static readonly double SinPau = Sin(Pau);
+
         #region Roots
         /// <summary>
         /// Represents the inverse square root of 2.

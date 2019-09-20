@@ -13,6 +13,6 @@ namespace Engine
     /// <summary>
     /// The voronoi class.
     /// </summary>
-    internal class Voronoi
+    public class Voronoi
     { }
 }

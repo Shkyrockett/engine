@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -324,7 +325,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(PointSet)}{{{string.Join(sep.ToString(), Points)}}}";
+            IFormattable formatable = $"{nameof(PointSet)}{{{string.Join(sep.ToString(provider), Points)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

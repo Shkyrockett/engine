@@ -42,6 +42,7 @@ using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Measurements;
 using static Engine.Operations;
+using static Engine.Polynomials;
 
 namespace Engine
 {
@@ -60,8 +61,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Point2D a, Point2D b, double epsilon = Epsilon)
-            => PointPointIntersection(a.X, a.Y, b.X, b.Y, epsilon);
+        public static Intersection Intersection(this Point2D a, Point2D b, double epsilon = Epsilon) => PointPointIntersection(a.X, a.Y, b.X, b.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a point and a line.
@@ -72,8 +72,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Point2D p, Line l, double epsilon = Epsilon)
-            => PointLineIntersection(p.X, p.Y, l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, epsilon);
+        public static Intersection Intersection(this Point2D p, Line l, double epsilon = Epsilon) => PointLineIntersection(p.X, p.Y, l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, epsilon);
 
         /// <summary>
         /// Find the intersection of a Point and a Line segment.
@@ -84,8 +83,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Point2D p, LineSegment s, double epsilon = Epsilon)
-            => PointLineSegmentIntersection(p.X, p.Y, s.AX, s.AY, s.BX, s.BY, epsilon);
+        public static Intersection Intersection(this Point2D p, LineSegment s, double epsilon = Epsilon) => PointLineSegmentIntersection(p.X, p.Y, s.AX, s.AY, s.BX, s.BY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Point and a Line segment.
@@ -96,8 +94,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Point2D p, Ray r, double epsilon = Epsilon)
-            => PointRayIntersection(p.X, p.Y, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
+        public static Intersection Intersection(this Point2D p, Ray r, double epsilon = Epsilon) => PointRayIntersection(p.X, p.Y, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
 
         /// <summary>
         /// Find the intersection of two Bézier segments.
@@ -180,10 +177,12 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a Bézier segment and a Quadratic Bézier.
         /// </summary>
-        /// <param name="b">The Bézier segment <paramref name="b"/>.</param>
-        /// <param name="q">The quadratic Bézier curve segment <paramref name="q"/>.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <param name="b">The Bézier segment <paramref name="b" />.</param>
+        /// <param name="q">The quadratic Bézier curve segment <paramref name="q" />.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns an <see cref="Engine.Intersection" /> struct with a <see cref="Intersection.State" />, and an array of <see cref="Point2D" /> structs containing any points of intersection found.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX b, QuadraticBezier q, double epsilon = Epsilon)
@@ -234,8 +233,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, Point2D p, double epsilon = Epsilon)
-            => PointLineSegmentIntersection(p.X, p.Y, s.AX, s.AY, s.BX, s.BY, epsilon);
+        public static Intersection Intersection(this LineSegment s, Point2D p, double epsilon = Epsilon) => PointLineSegmentIntersection(p.X, p.Y, s.AX, s.AY, s.BX, s.BY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Line.
@@ -246,8 +244,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, Line l, double epsilon = Epsilon)
-            => LineLineSegmentIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, s.AX, s.AY, s.BX, s.BY, epsilon);
+        public static Intersection Intersection(this LineSegment s, Line l, double epsilon = Epsilon) => LineLineSegmentIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, s.AX, s.AY, s.BX, s.BY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Ray.
@@ -258,8 +255,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, Ray r, double epsilon = Epsilon)
-            => RayLineSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, s.AX, s.AY, s.BX, s.BY, epsilon);
+        public static Intersection Intersection(this LineSegment s, Ray r, double epsilon = Epsilon) => RayLineSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, s.AX, s.AY, s.BX, s.BY, epsilon);
 
         /// <summary>
         /// Find the intersection of a line segment and a Bézier segment.
@@ -270,8 +266,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, BezierSegmentX b, double epsilon = Epsilon)
-            => Intersection(b, s, epsilon);
+        public static Intersection Intersection(this LineSegment s, BezierSegmentX b, double epsilon = Epsilon) => Intersection(b, s, epsilon);
 
         /// <summary>
         /// Find the intersection of two lines segments.
@@ -282,8 +277,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment a, LineSegment b, double epsilon = Epsilon)
-            => LineSegmentLineSegmentIntersection(a.A.X, a.A.Y, a.B.X, a.B.Y, b.A.X, b.A.Y, b.B.X, b.B.Y, epsilon);
+        public static Intersection Intersection(this LineSegment a, LineSegment b, double epsilon = Epsilon) => LineSegmentLineSegmentIntersection(a.A.X, a.A.Y, a.B.X, a.B.Y, b.A.X, b.A.Y, b.B.X, b.B.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Quadratic Bézier.
@@ -294,8 +288,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, QuadraticBezier q, double epsilon = Epsilon)
-            => LineSegmentQuadraticBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, q.CurveX, q.CurveY, epsilon);
+        public static Intersection Intersection(this LineSegment s, QuadraticBezier q, double epsilon = Epsilon) => LineSegmentQuadraticBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, q.CurveX, q.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Cubic Bézier.
@@ -306,8 +299,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, CubicBezier c, double epsilon = Epsilon)
-            => LineSegmentCubicBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this LineSegment s, CubicBezier c, double epsilon = Epsilon) => LineSegmentCubicBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a triangle.
@@ -318,8 +310,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, Triangle t, double epsilon = Epsilon)
-            => LineSegmentTriangleIntersection(s.AX, s.AY, s.BX, s.BY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this LineSegment s, Triangle t, double epsilon = Epsilon) => LineSegmentTriangleIntersection(s.AX, s.AY, s.BX, s.BY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Rectangle.
@@ -330,8 +321,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, Rectangle2D a, double epsilon = Epsilon)
-            => LineSegmentRectangleIntersection(s.AX, s.AY, s.BX, s.BY, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this LineSegment s, Rectangle2D a, double epsilon = Epsilon) => LineSegmentRectangleIntersection(s.AX, s.AY, s.BX, s.BY, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Polygon contour.
@@ -342,8 +332,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, PolygonContour p, double epsilon = Epsilon)
-            => LineSegmentPolygonContourIntersection(s.AX, s.AY, s.BX, s.BY, p.Points, epsilon);
+        public static Intersection Intersection(this LineSegment s, PolygonContour p, double epsilon = Epsilon) => LineSegmentPolygonContourIntersection(s.AX, s.AY, s.BX, s.BY, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a line segment.
@@ -354,23 +343,23 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, Circle c, double epsilon = Epsilon)
-            => LineSegmentCircleIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, c.X, c.Y, c.Radius, 0, epsilon);
+        public static Intersection Intersection(this LineSegment s, Circle c, double epsilon = Epsilon) => LineSegmentCircleIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, c.X, c.Y, c.Radius, 0, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection of a line segment and a circular arc.
         /// </summary>
-        /// <param name="s">The line segment <paramref name="s"/>.</param>
-        /// <param name="c">The circular arc <paramref name="c"/>.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <param name="s">The line segment <paramref name="s" />.</param>
+        /// <param name="c">The circular arc <paramref name="c" />.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns an <see cref="Engine.Intersection" /> struct with a <see cref="Intersection.State" />, and an array of <see cref="Point2D" /> structs containing any points of intersection found.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, CircularArc c, double epsilon = Epsilon)
-            => LineSegmentCircularArcIntersection(s.A.X, s.A.Y, c.X, s.B.X, s.B.Y, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+        public static Intersection Intersection(this LineSegment s, CircularArc c, double epsilon = Epsilon) => LineSegmentCircularArcIntersection(s.A.X, s.A.Y, c.X, s.B.X, s.B.Y, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection of a line segment and an ellipse.
         /// </summary>
         /// <param name="s">The line segment <paramref name="s"/>.</param>
         /// <param name="e">The ellipse <paramref name="e"/>.</param>
@@ -378,11 +367,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, Ellipse e, double epsilon = Epsilon)
-            => LineSegmentEllipseIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this LineSegment s, Ellipse e, double epsilon = Epsilon) => LineSegmentEllipseIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection of a line segment and an elliptical arc.
         /// </summary>
         /// <param name="s">The line segment <paramref name="s"/>.</param>
         /// <param name="e">The elliptical arc <paramref name="e"/>.</param>
@@ -390,8 +378,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, EllipticalArc e, double epsilon = Epsilon)
-            => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this LineSegment s, EllipticalArc e, double epsilon = Epsilon) => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a Ray and a Point.
@@ -402,8 +389,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray r, Point2D p, double epsilon = Epsilon)
-            => PointRayIntersection(p.X, p.Y, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
+        public static Intersection Intersection(this Ray r, Point2D p, double epsilon = Epsilon) => PointRayIntersection(p.X, p.Y, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
 
         /// <summary>
         /// Find the intersection of a <see cref="Ray"/> and a <see cref="LineSegment"/>.
@@ -414,8 +400,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray r, LineSegment s, double epsilon = Epsilon)
-            => LineRayIntersection(s.AX, s.AY, s.BX, s.BY, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
+        public static Intersection Intersection(this Ray r, LineSegment s, double epsilon = Epsilon) => LineRayIntersection(s.AX, s.AY, s.BX, s.BY, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
 
         /// <summary>
         /// Find the intersection of two Rays.
@@ -426,8 +411,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray a, Ray b, double epsilon = Epsilon)
-            => RayRayIntersection(a.Location.X, a.Location.Y, a.Direction.I, a.Direction.J, b.Location.X, b.Location.Y, b.Direction.I, b.Direction.J, epsilon);
+        public static Intersection Intersection(this Ray a, Ray b, double epsilon = Epsilon) => RayRayIntersection(a.Location.X, a.Location.Y, a.Direction.I, a.Direction.J, b.Location.X, b.Location.Y, b.Direction.I, b.Direction.J, epsilon);
 
         /// <summary>
         /// Find the intersection of a <see cref="Ray"/> and a <see cref="Line"/>.
@@ -438,8 +422,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray r, Line l, double epsilon = Epsilon)
-            => LineRayIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
+        public static Intersection Intersection(this Ray r, Line l, double epsilon = Epsilon) => LineRayIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
 
         /// <summary>
         /// Find the intersection of a ray and a Quadratic Bézier.
@@ -450,8 +433,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray r, QuadraticBezier q, double epsilon = Epsilon)
-            => RayQuadraticBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, q.CurveX, q.CurveY, epsilon);
+        public static Intersection Intersection(this Ray r, QuadraticBezier q, double epsilon = Epsilon) => RayQuadraticBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, q.CurveX, q.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Ray and a Cubic Bézier.
@@ -462,8 +444,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray r, CubicBezier c, double epsilon = Epsilon)
-            => RayCubicBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this Ray r, CubicBezier c, double epsilon = Epsilon) => RayCubicBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Ray and a triangle.
@@ -474,8 +455,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray s, Triangle t, double epsilon = Epsilon)
-            => LineSegmentTriangleIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this Ray s, Triangle t, double epsilon = Epsilon) => LineSegmentTriangleIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a <see cref="Ray"/> and a <see cref="Rectangle2D"/>.
@@ -486,8 +466,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray s, Rectangle2D a, double epsilon = Epsilon)
-            => RayRectangleIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Ray s, Rectangle2D a, double epsilon = Epsilon) => RayRectangleIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Ray and a Polygon contour.
@@ -498,8 +477,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray r, PolygonContour p, double epsilon = Epsilon)
-            => RayPolygonContourIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, p.Points, epsilon);
+        public static Intersection Intersection(this Ray r, PolygonContour p, double epsilon = Epsilon) => RayPolygonContourIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a ray.
@@ -510,8 +488,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray r, Circle c, double epsilon = Epsilon)
-            => RayCircleIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.X, c.Y, c.Radius, 0, epsilon);
+        public static Intersection Intersection(this Ray r, Circle c, double epsilon = Epsilon) => RayCircleIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.X, c.Y, c.Radius, 0, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a ray.
@@ -522,11 +499,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray r, CircularArc c, double epsilon = Epsilon)
-            => RayCircularArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+        public static Intersection Intersection(this Ray r, CircularArc c, double epsilon = Epsilon) => RayCircularArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a ray.
+        /// Find the intersection of a ray ellipse and an ellipse.
         /// </summary>
         /// <param name="r">The Ray <paramref name="r"/>.</param>
         /// <param name="e">The ellipse <paramref name="e"/>.</param>
@@ -534,11 +510,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray r, Ellipse e, double epsilon = Epsilon)
-            => RayEllipseIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this Ray r, Ellipse e, double epsilon = Epsilon) => RayEllipseIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a ray segment.
+        /// Find the intersection of a ray and an elliptical arc.
         /// </summary>
         /// <param name="r">The Ray <paramref name="r"/>.</param>
         /// <param name="e">The elliptical arc <paramref name="e"/>.</param>
@@ -546,8 +521,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray r, EllipticalArc e, double epsilon = Epsilon)
-            => LineEllipticalArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this Ray r, EllipticalArc e, double epsilon = Epsilon) => LineEllipticalArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a line and a point.
@@ -558,8 +532,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, Point2D p, double epsilon = Epsilon)
-            => PointLineIntersection(p.X, p.Y, l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, epsilon);
+        public static Intersection Intersection(this Line l, Point2D p, double epsilon = Epsilon) => PointLineIntersection(p.X, p.Y, l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line and a Line segment.
@@ -570,8 +543,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, LineSegment s, double epsilon = Epsilon)
-            => LineLineSegmentIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, s.AX, s.AY, s.BX, s.BY, epsilon);
+        public static Intersection Intersection(this Line l, LineSegment s, double epsilon = Epsilon) => LineLineSegmentIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, s.AX, s.AY, s.BX, s.BY, epsilon);
 
         /// <summary>
         /// Find the intersection of a line and a ray.
@@ -582,8 +554,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, Ray r, double epsilon = Epsilon)
-            => LineRayIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
+        public static Intersection Intersection(this Line l, Ray r, double epsilon = Epsilon) => LineRayIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
 
         /// <summary>
         /// Find the intersection of to Lines.
@@ -594,13 +565,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line a, Line b, double epsilon = Epsilon)
-            => LineLineIntersection(
-                a.Location.X, a.Location.Y,
-                a.Direction.I, a.Direction.J,
-                b.Location.X, b.Location.Y,
-                b.Direction.I, b.Direction.J, epsilon
-                );
+        public static Intersection Intersection(this Line a, Line b, double epsilon = Epsilon) => LineLineIntersection(a.Location.X, a.Location.Y, a.Direction.I, a.Direction.J, b.Location.X, b.Location.Y, b.Direction.I, b.Direction.J, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Quadratic Bézier.
@@ -611,8 +576,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, QuadraticBezier q, double epsilon = Epsilon)
-            => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, q.CurveX, q.CurveY, epsilon);
+        public static Intersection Intersection(this Line l, QuadraticBezier q, double epsilon = Epsilon) => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, q.CurveX, q.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Cubic Bézier.
@@ -623,8 +587,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, CubicBezier c, double epsilon = Epsilon)
-            => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this Line l, CubicBezier c, double epsilon = Epsilon) => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line and a triangle.
@@ -635,8 +598,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, Triangle t, double epsilon = Epsilon)
-            => LineSegmentTriangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this Line l, Triangle t, double epsilon = Epsilon) => LineSegmentTriangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line and a Rectangle.
@@ -647,8 +609,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, Rectangle2D a, double epsilon = Epsilon)
-            => LineRectangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Line l, Rectangle2D a, double epsilon = Epsilon) => LineRectangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line and a Polygon contour.
@@ -659,8 +620,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, PolygonContour p, double epsilon = Epsilon)
-            => LinePolygonContourIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, p.Points, epsilon);
+        public static Intersection Intersection(this Line l, PolygonContour p, double epsilon = Epsilon) => LinePolygonContourIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a line.
@@ -671,8 +631,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, Circle c, double epsilon = Epsilon)
-            => LineCircleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.X, c.Y, c.Radius, epsilon);
+        public static Intersection Intersection(this Line l, Circle c, double epsilon = Epsilon) => LineCircleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.X, c.Y, c.Radius, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a line.
@@ -683,11 +642,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, CircularArc c, double epsilon = Epsilon)
-            => LineCircularArcIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+        public static Intersection Intersection(this Line l, CircularArc c, double epsilon = Epsilon) => LineCircularArcIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection of a line and an ellipse.
         /// </summary>
         /// <param name="l">The line <paramref name="l"/>.</param>
         /// <param name="e">The ellipse <paramref name="e"/>.</param>
@@ -695,11 +653,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, Ellipse e, double epsilon = Epsilon)
-            => LineEllipseIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this Line l, Ellipse e, double epsilon = Epsilon) => LineEllipseIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection of a line and an elliptical arc.
         /// </summary>
         /// <param name="l">The line <paramref name="l"/>.</param>
         /// <param name="e">The elliptical arc <paramref name="e"/>.</param>
@@ -719,8 +676,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier q, BezierSegmentX b, double epsilon = Epsilon)
-            => Intersection(b, q, epsilon);
+        public static Intersection Intersection(this QuadraticBezier q, BezierSegmentX b, double epsilon = Epsilon) => Intersection(b, q, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a Line segment.
@@ -731,8 +687,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier q, LineSegment l, double epsilon = Epsilon)
-            => LineSegmentQuadraticBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, q.CurveX, q.CurveY, epsilon);
+        public static Intersection Intersection(this QuadraticBezier q, LineSegment l, double epsilon = Epsilon) => LineSegmentQuadraticBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, q.CurveX, q.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a ray and a Quadratic Bézier.
@@ -743,8 +698,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier q, Ray r, double epsilon = Epsilon)
-            => RayQuadraticBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, q.CurveX, q.CurveY, epsilon);
+        public static Intersection Intersection(this QuadraticBezier q, Ray r, double epsilon = Epsilon) => RayQuadraticBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, q.CurveX, q.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a Line segment.
@@ -755,8 +709,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier q, Line l, double epsilon = Epsilon)
-            => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, q.CurveX, q.CurveY, epsilon);
+        public static Intersection Intersection(this QuadraticBezier q, Line l, double epsilon = Epsilon) => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, q.CurveX, q.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of two Quadratic Bézier curves.
@@ -767,8 +720,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier a, QuadraticBezier b, double epsilon = Epsilon)
-            => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
+        public static Intersection Intersection(this QuadraticBezier a, QuadraticBezier b, double epsilon = Epsilon) => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a Cubic Bézier.
@@ -779,8 +731,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier q, CubicBezier c, double epsilon = Epsilon)
-            => QuadraticBezierSegmentCubicBezierSegmentIntersection(q.CurveX, q.CurveY, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this QuadraticBezier q, CubicBezier c, double epsilon = Epsilon) => QuadraticBezierSegmentCubicBezierSegmentIntersection(q.CurveX, q.CurveY, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a triangle.
@@ -791,8 +742,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier q, Triangle t, double epsilon = Epsilon)
-            => QuadraticBezierSegmentTriangleIntersection(q.CurveX, q.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this QuadraticBezier q, Triangle t, double epsilon = Epsilon) => QuadraticBezierSegmentTriangleIntersection(q.CurveX, q.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a Rectangle.
@@ -803,8 +753,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier q, Rectangle2D a, double epsilon = Epsilon)
-            => QuadraticBezierSegmentRectangleIntersection(q.CurveX, q.CurveY, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this QuadraticBezier q, Rectangle2D a, double epsilon = Epsilon) => QuadraticBezierSegmentRectangleIntersection(q.CurveX, q.CurveY, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a Polygon Contour.
@@ -815,8 +764,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier q, PolygonContour p, double epsilon = Epsilon)
-            => QuadraticBezierSegmentPolygonContourIntersection(q.CurveX, q.CurveY, p.Points, epsilon);
+        public static Intersection Intersection(this QuadraticBezier q, PolygonContour p, double epsilon = Epsilon) => QuadraticBezierSegmentPolygonContourIntersection(q.CurveX, q.CurveY, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a Circle.
@@ -827,11 +775,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier q, Circle c, double epsilon = Epsilon)
-            => QuadraticBezierSegmentUnrotatedEllipseIntersection(q.CurveX, q.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
+        public static Intersection Intersection(this QuadraticBezier q, Circle c, double epsilon = Epsilon) => QuadraticBezierSegmentOrthogonalEllipseIntersection(q.CurveX, q.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Quadratic Bézier and an unrotated Ellipse.
+        /// Find the intersection of a Quadratic Bézier and an orthogonal Ellipse.
         /// </summary>
         /// <param name="q">The <paramref name="q"/>.</param>
         /// <param name="e">The <paramref name="e"/>.</param>
@@ -839,8 +786,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier q, Ellipse e, double epsilon = Epsilon)
-            => QuadraticBezierSegmentUnrotatedEllipseIntersection(q.CurveX, q.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
+        public static Intersection Intersection(this QuadraticBezier q, Ellipse e, double epsilon = Epsilon) => QuadraticBezierSegmentOrthogonalEllipseIntersection(q.CurveX, q.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Bézier segment.
@@ -851,8 +797,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier c, BezierSegmentX b, double epsilon = Epsilon)
-            => Intersection(b, c, epsilon);
+        public static Intersection Intersection(this CubicBezier c, BezierSegmentX b, double epsilon = Epsilon) => Intersection(b, c, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Line segment.
@@ -863,8 +808,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier c, LineSegment l, double epsilon = Epsilon)
-            => LineSegmentCubicBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this CubicBezier c, LineSegment l, double epsilon = Epsilon) => LineSegmentCubicBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Ray and a Cubic Bézier.
@@ -875,8 +819,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier c, Ray r, double epsilon = Epsilon)
-            => RayCubicBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this CubicBezier c, Ray r, double epsilon = Epsilon) => RayCubicBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Line segment.
@@ -887,8 +830,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier c, Line l, double epsilon = Epsilon)
-            => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this CubicBezier c, Line l, double epsilon = Epsilon) => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Quadratic Bézier.
@@ -899,8 +841,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier c, QuadraticBezier q, double epsilon = Epsilon)
-            => QuadraticBezierSegmentCubicBezierSegmentIntersection(q.CurveX, q.CurveY, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this CubicBezier c, QuadraticBezier q, double epsilon = Epsilon) => QuadraticBezierSegmentCubicBezierSegmentIntersection(q.CurveX, q.CurveY, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of two Cubic Bézier curves.
@@ -911,8 +852,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier a, CubicBezier b, double epsilon = Epsilon)
-            => CubicBezierSegmentCubicBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
+        public static Intersection Intersection(this CubicBezier a, CubicBezier b, double epsilon = Epsilon) => CubicBezierSegmentCubicBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Triangle.
@@ -923,8 +863,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier c, Triangle t, double epsilon = Epsilon)
-            => CubicBezierSegmentTriangleIntersection(c.CurveX, c.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this CubicBezier c, Triangle t, double epsilon = Epsilon) => CubicBezierSegmentTriangleIntersection(c.CurveX, c.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Rectangle.
@@ -935,8 +874,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier c, Rectangle2D r, double epsilon = Epsilon)
-            => CubicBezierSegmentRectangleIntersection(c.CurveX, c.CurveY, r.X, r.Y, r.Right, r.Bottom, epsilon);
+        public static Intersection Intersection(this CubicBezier c, Rectangle2D r, double epsilon = Epsilon) => CubicBezierSegmentRectangleIntersection(c.CurveX, c.CurveY, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Polygon Contour.
@@ -947,8 +885,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier c, PolygonContour p, double epsilon = Epsilon)
-            => CubicBezierSegmentPolygonIntersection(c.CurveX, c.CurveY, p.Points, epsilon);
+        public static Intersection Intersection(this CubicBezier c, PolygonContour p, double epsilon = Epsilon) => CubicBezierSegmentPolygonIntersection(c.CurveX, c.CurveY, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Circle.
@@ -959,11 +896,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier b, Circle c, double epsilon = Epsilon)
-            => CubicBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
+        public static Intersection Intersection(this CubicBezier b, Circle c, double epsilon = Epsilon) => CubicBezierSegmentOrthogonalEllipseIntersection(b.CurveX, b.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Cubic Bézier and an unrotated Ellipse.
+        /// Find the intersection of a Cubic Bézier and an orthogonal Ellipse.
         /// </summary>
         /// <param name="c">The <paramref name="c"/>.</param>
         /// <param name="e">The <paramref name="e"/>.</param>
@@ -971,8 +907,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier c, Ellipse e, double epsilon = Epsilon)
-            => CubicBezierSegmentUnrotatedEllipseIntersection(c.CurveX, c.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
+        public static Intersection Intersection(this CubicBezier c, Ellipse e, double epsilon = Epsilon) => CubicBezierSegmentOrthogonalEllipseIntersection(c.CurveX, c.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
 
         /// <summary>
         /// Find the intersection of a triangle and a Line segment.
@@ -983,8 +918,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Triangle t, LineSegment s, double epsilon = Epsilon)
-            => LineSegmentTriangleIntersection(s.AX, s.AY, s.BX, s.BY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this Triangle t, LineSegment s, double epsilon = Epsilon) => LineSegmentTriangleIntersection(s.AX, s.AY, s.BX, s.BY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a triangle and a Ray.
@@ -995,8 +929,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Triangle t, Ray r, double epsilon = Epsilon)
-            => RayTriangleIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this Triangle t, Ray r, double epsilon = Epsilon) => RayTriangleIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a triangle and a Line.
@@ -1007,8 +940,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Triangle t, Line l, double epsilon = Epsilon)
-            => LineSegmentTriangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this Triangle t, Line l, double epsilon = Epsilon) => LineSegmentTriangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a triangle.
@@ -1019,8 +951,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Triangle t, QuadraticBezier q, double epsilon = Epsilon)
-            => QuadraticBezierSegmentTriangleIntersection(q.CurveX, q.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this Triangle t, QuadraticBezier q, double epsilon = Epsilon) => QuadraticBezierSegmentTriangleIntersection(q.CurveX, q.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Triangle.
@@ -1031,8 +962,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Triangle t, CubicBezier c, double epsilon = Epsilon)
-            => CubicBezierSegmentTriangleIntersection(c.CurveX, c.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this Triangle t, CubicBezier c, double epsilon = Epsilon) => CubicBezierSegmentTriangleIntersection(c.CurveX, c.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of two triangles.
@@ -1043,8 +973,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Triangle a, Triangle b, double epsilon = Epsilon)
-            => TriangleTriangleIntersection(a.A.X, a.A.Y, a.B.X, a.B.Y, a.C.X, a.C.Y, b.A.X, b.A.Y, b.B.X, b.B.Y, b.C.X, b.C.Y, epsilon);
+        public static Intersection Intersection(this Triangle a, Triangle b, double epsilon = Epsilon) => TriangleTriangleIntersection(a.A.X, a.A.Y, a.B.X, a.B.Y, a.C.X, a.C.Y, b.A.X, b.A.Y, b.B.X, b.B.Y, b.C.X, b.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a triangle and a rectangle.
@@ -1055,8 +984,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Triangle t, Rectangle2D a, double epsilon = Epsilon)
-            => TriangleRectangleIntersection(t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Triangle t, Rectangle2D a, double epsilon = Epsilon) => TriangleRectangleIntersection(t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Polygon contour and a Rectangle.
@@ -1067,8 +995,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Triangle t, PolygonContour p, double epsilon = Epsilon)
-            => TrianglePolygonContourIntersection(t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, p.Points, epsilon);
+        public static Intersection Intersection(this Triangle t, PolygonContour p, double epsilon = Epsilon) => TrianglePolygonContourIntersection(t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a triangle and a circle.
@@ -1079,11 +1006,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Triangle t, Circle c, double epsilon = Epsilon)
-            => TriangleCircleIntersection(t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, c.X, c.Y, c.Radius, 0d, epsilon);
+        public static Intersection Intersection(this Triangle t, Circle c, double epsilon = Epsilon) => TriangleCircleIntersection(t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, c.X, c.Y, c.Radius, 0d, epsilon);
 
         /// <summary>
-        /// Find the points of the intersection of an unrotated ellipse and a triangle.
+        /// Find the points of the intersection of an orthogonal ellipse and a triangle.
         /// </summary>
         /// <param name="t">The <paramref name="t"/>.</param>
         /// <param name="e">The <paramref name="e"/>.</param>
@@ -1091,8 +1017,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Triangle t, Ellipse e, double epsilon = Epsilon)
-            => TriangleEllipseIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this Triangle t, Ellipse e, double epsilon = Epsilon) => TriangleEllipseIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a Line segment.
@@ -1103,8 +1028,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D a, LineSegment s, double epsilon = Epsilon)
-            => LineSegmentRectangleIntersection(s.AX, s.AY, s.BX, s.BY, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Rectangle2D a, LineSegment s, double epsilon = Epsilon) => LineSegmentRectangleIntersection(s.AX, s.AY, s.BX, s.BY, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a line.
@@ -1115,8 +1039,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D a, Line l, double epsilon = Epsilon)
-            => LineRectangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Rectangle2D a, Line l, double epsilon = Epsilon) => LineRectangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a <see cref="Ray"/> and a <see cref="Rectangle2D"/>.
@@ -1127,8 +1050,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D a, Ray r, double epsilon = Epsilon)
-            => RayRectangleIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Rectangle2D a, Ray r, double epsilon = Epsilon) => RayRectangleIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a Quadratic Bézier.
@@ -1139,8 +1061,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D a, QuadraticBezier q, double epsilon = Epsilon)
-            => QuadraticBezierSegmentRectangleIntersection(q.CurveX, q.CurveY, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Rectangle2D a, QuadraticBezier q, double epsilon = Epsilon) => QuadraticBezierSegmentRectangleIntersection(q.CurveX, q.CurveY, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a Cubic Bézier.
@@ -1151,8 +1072,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D a, CubicBezier c, double epsilon = Epsilon)
-            => CubicBezierSegmentRectangleIntersection(c.CurveX, c.CurveY, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Rectangle2D a, CubicBezier c, double epsilon = Epsilon) => CubicBezierSegmentRectangleIntersection(c.CurveX, c.CurveY, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a triangle.
@@ -1163,8 +1083,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D a, Triangle t, double epsilon = Epsilon)
-            => TriangleRectangleIntersection(t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Rectangle2D a, Triangle t, double epsilon = Epsilon) => TriangleRectangleIntersection(t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of two Rectangles.
@@ -1175,8 +1094,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D a, Rectangle2D b, double epsilon = Epsilon)
-            => RectangleRectangleIntersection(a.X, a.Y, a.Right, a.Bottom, b.X, b.Y, b.Right, b.Bottom, epsilon);
+        public static Intersection Intersection(this Rectangle2D a, Rectangle2D b, double epsilon = Epsilon) => RectangleRectangleIntersection(a.X, a.Y, a.Right, a.Bottom, b.X, b.Y, b.Right, b.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a Polygon contour.
@@ -1187,8 +1105,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D a, PolygonContour p, double epsilon = Epsilon)
-            => PolygonContourRectangleIntersection(p.Points, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Rectangle2D a, PolygonContour p, double epsilon = Epsilon) => PolygonContourRectangleIntersection(p.Points, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a Circle.
@@ -1199,11 +1116,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D a, Circle c, double epsilon = Epsilon)
-            => CircleRectangleIntersection(c.X, c.Y, c.Radius, 0, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Rectangle2D a, Circle c, double epsilon = Epsilon) => CircleRectangleIntersection(c.X, c.Y, c.Radius, 0, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
-        /// Find the points of the intersection of an unrotated ellipse and a rectangle.
+        /// Find the points of the intersection of an orthogonal ellipse and a rectangle.
         /// </summary>
         /// <param name="a">The <paramref name="a"/>.</param>
         /// <param name="e">The <paramref name="e"/>.</param>
@@ -1211,8 +1127,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D a, Ellipse e, double epsilon = Epsilon)
-            => EllipseRectangleIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Rectangle2D a, Ellipse e, double epsilon = Epsilon) => EllipseRectangleIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Polygon contour and a Line segment.
@@ -1223,8 +1138,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour p, LineSegment s, double epsilon = Epsilon)
-            => LineSegmentPolygonContourIntersection(s.AX, s.AY, s.BX, s.BY, p.Points, epsilon);
+        public static Intersection Intersection(this PolygonContour p, LineSegment s, double epsilon = Epsilon) => LineSegmentPolygonContourIntersection(s.AX, s.AY, s.BX, s.BY, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Polygon contour and a Ray.
@@ -1235,8 +1149,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour p, Ray r, double epsilon = Epsilon)
-            => RayPolygonContourIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, p.Points, epsilon);
+        public static Intersection Intersection(this PolygonContour p, Ray r, double epsilon = Epsilon) => RayPolygonContourIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Polygon contour and a Line.
@@ -1247,8 +1160,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour p, Line l, double epsilon = Epsilon)
-            => LinePolygonContourIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, p.Points, epsilon);
+        public static Intersection Intersection(this PolygonContour p, Line l, double epsilon = Epsilon) => LinePolygonContourIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Polygon contour and a Quadratic Bézier.
@@ -1259,8 +1171,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour p, QuadraticBezier q, double epsilon = Epsilon)
-             => QuadraticBezierSegmentPolygonContourIntersection(q.CurveX, q.CurveY, p.Points, epsilon);
+        public static Intersection Intersection(this PolygonContour p, QuadraticBezier q, double epsilon = Epsilon) => QuadraticBezierSegmentPolygonContourIntersection(q.CurveX, q.CurveY, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Polygon Contour and a Cubic Bézier.
@@ -1271,8 +1182,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour p, CubicBezier c, double epsilon = Epsilon)
-            => CubicBezierSegmentPolygonIntersection(c.CurveX, c.CurveY, p.Points, epsilon);
+        public static Intersection Intersection(this PolygonContour p, CubicBezier c, double epsilon = Epsilon) => CubicBezierSegmentPolygonIntersection(c.CurveX, c.CurveY, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Polygon contour and a Rectangle.
@@ -1283,8 +1193,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour p, Triangle t, double epsilon = Epsilon)
-            => TrianglePolygonContourIntersection(t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, p.Points, epsilon);
+        public static Intersection Intersection(this PolygonContour p, Triangle t, double epsilon = Epsilon) => TrianglePolygonContourIntersection(t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Polygon contour and a Rectangle.
@@ -1295,8 +1204,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour p, Rectangle2D a, double epsilon = Epsilon)
-            => PolygonContourRectangleIntersection(p.Points, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this PolygonContour p, Rectangle2D a, double epsilon = Epsilon) => PolygonContourRectangleIntersection(p.Points, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of two Polygon contours.
@@ -1307,11 +1215,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour a, PolygonContour b, double epsilon = Epsilon)
-             => PolygonContourPolygonContourIntersection(a.Points, b.Points, epsilon);
+        public static Intersection Intersection(this PolygonContour a, PolygonContour b, double epsilon = Epsilon) => PolygonContourPolygonContourIntersection(a.Points, b.Points, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a polygon.
+        /// Find the intersection of a circle and a polygon.
         /// </summary>
         /// <param name="p">The <paramref name="p"/>.</param>
         /// <param name="c">The <paramref name="c"/>.</param>
@@ -1319,11 +1226,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour p, Circle c, double epsilon = Epsilon)
-            => CirclePolygonContourIntersection(c.X, c.Y, c.Radius, 0, p.Points, epsilon);
+        public static Intersection Intersection(this PolygonContour p, Circle c, double epsilon = Epsilon) => CirclePolygonContourIntersection(c.X, c.Y, c.Radius, 0, p.Points, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a polygon.
+        /// Find the intersection of an ellipse and a polygon.
         /// </summary>
         /// <param name="p">The <paramref name="p"/>.</param>
         /// <param name="e">The <paramref name="e"/>.</param>
@@ -1331,8 +1237,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour p, Ellipse e, double epsilon = Epsilon)
-            => EllipsePolygonContourIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
+        public static Intersection Intersection(this PolygonContour p, Ellipse e, double epsilon = Epsilon) => EllipsePolygonContourIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a line segment.
@@ -1343,8 +1248,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle c, LineSegment s, double epsilon = Epsilon)
-            => LineSegmentCircleIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, c.X, c.Y, c.Radius, 0, epsilon);
+        public static Intersection Intersection(this Circle c, LineSegment s, double epsilon = Epsilon) => LineSegmentCircleIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, c.X, c.Y, c.Radius, 0, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a ray.
@@ -1355,8 +1259,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle c, Ray r, double epsilon = Epsilon)
-            => RayCircleIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.X, c.Y, c.Radius, 0, epsilon);
+        public static Intersection Intersection(this Circle c, Ray r, double epsilon = Epsilon) => RayCircleIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.X, c.Y, c.Radius, 0, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a line.
@@ -1367,8 +1270,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle c, Line l, double epsilon = Epsilon)
-            => LineCircleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.X, c.Y, c.Radius, epsilon);
+        public static Intersection Intersection(this Circle c, Line l, double epsilon = Epsilon) => LineCircleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.X, c.Y, c.Radius, epsilon);
 
         /// <summary>
         /// Find the intersection of a Circle and a Quadratic Bézier.
@@ -1379,8 +1281,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle c, QuadraticBezier q, double epsilon = Epsilon)
-            => QuadraticBezierSegmentUnrotatedEllipseIntersection(q.CurveX, q.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
+        public static Intersection Intersection(this Circle c, QuadraticBezier q, double epsilon = Epsilon) => QuadraticBezierSegmentOrthogonalEllipseIntersection(q.CurveX, q.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
 
         /// <summary>
         /// Find the intersection of a Circle and a Cubic Bézier.
@@ -1391,8 +1292,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle c, CubicBezier b, double epsilon = Epsilon)
-            => CubicBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
+        public static Intersection Intersection(this Circle c, CubicBezier b, double epsilon = Epsilon) => CubicBezierSegmentOrthogonalEllipseIntersection(b.CurveX, b.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
 
         /// <summary>
         /// Find the intersection of a Circle and a triangle.
@@ -1403,8 +1303,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle c, Triangle t, double epsilon = Epsilon)
-            => TriangleCircleIntersection(t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, c.X, c.Y, c.Radius, 0d, epsilon);
+        public static Intersection Intersection(this Circle c, Triangle t, double epsilon = Epsilon) => TriangleCircleIntersection(t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, c.X, c.Y, c.Radius, 0d, epsilon);
 
         /// <summary>
         /// Find the intersection of a Circle and a Rectangle.
@@ -1415,8 +1314,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle c, Rectangle2D a, double epsilon = Epsilon)
-            => CircleRectangleIntersection(c.X, c.Y, c.Radius, 0, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Circle c, Rectangle2D a, double epsilon = Epsilon) => CircleRectangleIntersection(c.X, c.Y, c.Radius, 0, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Circle and a polygon contour.
@@ -1427,8 +1325,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle c, PolygonContour p, double epsilon = Epsilon)
-            => CirclePolygonContourIntersection(c.X, c.Y, c.Radius, 0, p.Points, epsilon);
+        public static Intersection Intersection(this Circle c, PolygonContour p, double epsilon = Epsilon) => CirclePolygonContourIntersection(c.X, c.Y, c.Radius, 0, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection between two circles.
@@ -1439,11 +1336,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle a, Circle b, double epsilon = Epsilon)
-            => CircleCircleIntersection(a.X, a.Y, a.Radius, b.X, b.Y, b.Radius, epsilon);
+        public static Intersection Intersection(this Circle a, Circle b, double epsilon = Epsilon) => CircleCircleIntersection(a.X, a.Y, a.Radius, b.X, b.Y, b.Radius, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Circle and an unrotated Ellipse.
+        /// Find the intersection of a Circle and an orthogonal Ellipse.
         /// </summary>
         /// <param name="c">The <paramref name="c"/>.</param>
         /// <param name="e">The <paramref name="e"/>.</param>
@@ -1451,11 +1347,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle c, Ellipse e, double epsilon = Epsilon)
-            => UnrotatedEllipseUnrotatedEllipseIntersection(c.Center.X, c.Center.Y, c.Radius, c.Radius, e.Center.X, e.Center.Y, e.RX, e.RY, epsilon);
+        public static Intersection Intersection(this Circle c, Ellipse e, double epsilon = Epsilon) => OrthogonalEllipseOrthogonalEllipseIntersection(c.Center.X, c.Center.Y, c.Radius, c.Radius, e.Center.X, e.Center.Y, e.RX, e.RY, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection of an circular arc and a line segment.
         /// </summary>
         /// <param name="c">The <paramref name="c"/>.</param>
         /// <param name="s">The <paramref name="s"/>.</param>
@@ -1463,8 +1358,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CircularArc c, LineSegment s, double epsilon = Epsilon)
-            => LineSegmentCircularArcIntersection(s.A.X, s.A.Y, c.X, s.B.X, s.B.Y, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+        public static Intersection Intersection(this CircularArc c, LineSegment s, double epsilon = Epsilon) => LineSegmentCircularArcIntersection(s.A.X, s.A.Y, c.X, s.B.X, s.B.Y, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a ray.
@@ -1475,8 +1369,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CircularArc c, Ray r, double epsilon = Epsilon)
-            => RayCircularArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+        public static Intersection Intersection(this CircularArc c, Ray r, double epsilon = Epsilon) => RayCircularArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a line.
@@ -1487,11 +1380,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CircularArc c, Line s, double epsilon = Epsilon)
-            => LineCircularArcIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+        public static Intersection Intersection(this CircularArc c, Line s, double epsilon = Epsilon) => LineCircularArcIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection of an ellipse and a line segment.
         /// </summary>
         /// <param name="e">The <paramref name="e"/>.</param>
         /// <param name="s">The <paramref name="s"/>.</param>
@@ -1499,11 +1391,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, LineSegment s, double epsilon = Epsilon)
-            => LineSegmentEllipseIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this Ellipse e, LineSegment s, double epsilon = Epsilon) => LineSegmentEllipseIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a ray.
+        /// Find the intersection of an ellipse and a ray.
         /// </summary>
         /// <param name="r">The Ray <paramref name="r"/>.</param>
         /// <param name="e">The ellipse <paramref name="e"/>.</param>
@@ -1511,11 +1402,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, Ray r, double epsilon = Epsilon)
-            => RayEllipseIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this Ellipse e, Ray r, double epsilon = Epsilon) => RayEllipseIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection of an ellipse and a line segment.
         /// </summary>
         /// <param name="e">The <paramref name="e"/>.</param>
         /// <param name="l">The <paramref name="l"/>.</param>
@@ -1523,11 +1413,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, Line l, double epsilon = Epsilon)
-            => LineEllipseIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this Ellipse e, Line l, double epsilon = Epsilon) => LineEllipseIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated Ellipse and a Quadratic Bézier.
+        /// Find the intersection of an orthogonal Ellipse and a Quadratic Bézier.
         /// </summary>
         /// <param name="e">The <paramref name="e"/>.</param>
         /// <param name="q">The <paramref name="q"/>.</param>
@@ -1535,11 +1424,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, QuadraticBezier q, double epsilon = Epsilon)
-             => QuadraticBezierSegmentUnrotatedEllipseIntersection(q.CurveX, q.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
+        public static Intersection Intersection(this Ellipse e, QuadraticBezier q, double epsilon = Epsilon) => QuadraticBezierSegmentOrthogonalEllipseIntersection(q.CurveX, q.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a Cubic Bézier.
+        /// Find the intersection of an orthogonal ellipse and a Cubic Bézier.
         /// </summary>
         /// <param name="e">The <paramref name="e"/>.</param>
         /// <param name="c">The <paramref name="c"/>.</param>
@@ -1547,11 +1435,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, CubicBezier c, double epsilon = Epsilon)
-            => CubicBezierSegmentUnrotatedEllipseIntersection(c.CurveX, c.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
+        public static Intersection Intersection(this Ellipse e, CubicBezier c, double epsilon = Epsilon) => CubicBezierSegmentOrthogonalEllipseIntersection(c.CurveX, c.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
 
         /// <summary>
-        /// Find the points of the intersection of an unrotated ellipse and a triangle.
+        /// Find the points of the intersection of an ellipse and a triangle.
         /// </summary>
         /// <param name="e">The <paramref name="e"/>.</param>
         /// <param name="t">The <paramref name="t"/>.</param>
@@ -1559,11 +1446,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, Triangle t, double epsilon = Epsilon)
-            => TriangleEllipseIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this Ellipse e, Triangle t, double epsilon = Epsilon) => TriangleEllipseIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a rectangle.
+        /// Find the intersection of an ellipse and a rectangle.
         /// </summary>
         /// <param name="e">The <paramref name="e"/>.</param>
         /// <param name="a">The <paramref name="a"/>.</param>
@@ -1571,11 +1457,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, Rectangle2D a, double epsilon = Epsilon)
-            => EllipseRectangleIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Ellipse e, Rectangle2D a, double epsilon = Epsilon) => EllipseRectangleIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a polygon.
+        /// Find the intersection of an ellipse and a polygon.
         /// </summary>
         /// <param name="e">The <paramref name="e"/>.</param>
         /// <param name="p">The <paramref name="p"/>.</param>
@@ -1583,11 +1468,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, PolygonContour p, double epsilon = Epsilon)
-            => EllipsePolygonContourIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
+        public static Intersection Intersection(this Ellipse e, PolygonContour p, double epsilon = Epsilon) => EllipsePolygonContourIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated Ellipse and a Circle.
+        /// Find the intersection of an orthogonal Ellipse and a Circle.
         /// </summary>
         /// <param name="e">The <paramref name="e"/>.</param>
         /// <param name="c">The <paramref name="c"/>.</param>
@@ -1595,11 +1479,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, Circle c, double epsilon = Epsilon)
-            => UnrotatedEllipseUnrotatedEllipseIntersection(c.Center.X, c.Center.Y, c.Radius, c.Radius, e.Center.X, e.Center.Y, e.RX, e.RY, epsilon);
+        public static Intersection Intersection(this Ellipse e, Circle c, double epsilon = Epsilon) => OrthogonalEllipseOrthogonalEllipseIntersection(c.Center.X, c.Center.Y, c.Radius, c.Radius, e.Center.X, e.Center.Y, e.RX, e.RY, epsilon);
 
         /// <summary>
-        /// Find the intersection of two unrotated Ellipses.
+        /// Find the intersection of two orthogonal Ellipses.
         /// </summary>
         /// <param name="a">The <paramref name="a"/>.</param>
         /// <param name="b">The <paramref name="b"/>.</param>
@@ -1607,11 +1490,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse a, Ellipse b, double epsilon = Epsilon)
-            => UnrotatedEllipseUnrotatedEllipseIntersection(a.Center.X, a.Center.Y, a.RX, a.RY, b.Center.X, b.Center.Y, b.RX, b.RY, epsilon);
+        public static Intersection Intersection(this Ellipse a, Ellipse b, double epsilon = Epsilon) => OrthogonalEllipseOrthogonalEllipseIntersection(a.Center.X, a.Center.Y, a.RX, a.RY, b.Center.X, b.Center.Y, b.RX, b.RY, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection of an elliptical arc and a line segment.
         /// </summary>
         /// <param name="e">The <paramref name="e"/>.</param>
         /// <param name="s">The <paramref name="s"/>.</param>
@@ -1619,11 +1501,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this EllipticalArc e, LineSegment s, double epsilon = Epsilon)
-            => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this EllipticalArc e, LineSegment s, double epsilon = Epsilon) => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a ray.
+        /// Find the intersection of an elliptical arc and a ray.
         /// </summary>
         /// <param name="e">The elliptical arc <paramref name="e"/>.</param>
         /// <param name="r">The ray <paramref name="r"/>.</param>
@@ -1631,11 +1512,10 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this EllipticalArc e, Ray r, double epsilon = Epsilon)
-            => LineEllipticalArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this EllipticalArc e, Ray r, double epsilon = Epsilon) => LineEllipticalArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// Find the intersection of an elliptical arc and a line segment.
         /// </summary>
         /// <param name="e">The <paramref name="e"/>.</param>
         /// <param name="l">The <paramref name="l"/>.</param>
@@ -1643,8 +1523,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this EllipticalArc e, Line l, double epsilon = Epsilon)
-            => LineEllipticalArcIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this EllipticalArc e, Line l, double epsilon = Epsilon) => LineEllipticalArcIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
         #endregion Intersection Extension Method Overloads
 
         #region Intersection Methods
@@ -2121,11 +2000,7 @@ namespace Engine
             double x1, double y1, double x2, double y2,
             double b0x, double b0y, double b1x, double b1y, double b2x, double b2y,
             double epsilon = Epsilon)
-            => LineQuadraticBezierIntersection(
-                x1, y1, x2, y2,
-                QuadraticBezierCoefficients(b0x, b1x, b2x),
-                QuadraticBezierCoefficients(b0y, b1y, b2y),
-                epsilon);
+            => LineQuadraticBezierIntersection(x1, y1, x2, y2, QuadraticBezierPolynomial(b0x, b1x, b2x), QuadraticBezierPolynomial(b0y, b1y, b2y), epsilon);
 
         /// <summary>
         /// Find the intersection between a line and a quadratic Bézier.
@@ -2204,8 +2079,8 @@ namespace Engine
             double epsilon = Epsilon)
             => LineCubicBezierIntersection(
                 x1, y1, x2, y2,
-                CubicBezierCoefficients(b0x, b1x, b2x, b3x),
-                CubicBezierCoefficients(b0y, b1y, b2y, b3y),
+                CubicBezierPolynomial(b0x, b1x, b2x, b3x),
+                CubicBezierPolynomial(b0y, b1y, b2y, b3y),
                 epsilon);
 
         /// <summary>
@@ -2461,32 +2336,32 @@ namespace Engine
 
             // Calculate the quadratic parameters.
             var a = (li * li) + (lj * lj);
-            var b = 2 * ((li * (lx - cX)) + (lj * (ly - cY)));
+            var b = 2d * ((li * (lx - cX)) + (lj * (ly - cY)));
             var c = ((lx - cX) * (lx - cX)) + ((ly - cY) * (ly - cY)) - (r * r);
 
             // Calculate the discriminant.
-            var discriminant = (b * b) - (4 * a * c);
+            var discriminant = (b * b) - (4d * a * c);
 
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 result.State |= IntersectionStates.Outside;
                 return result;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One possible solution.
-                var t = -b / (2 * a);
+                var t = -b / (2d * a);
 
                 // Add the points.
                 result = new Intersection(IntersectionStates.Intersection);
                 result.AppendPoint(new Point2D(lx + (t * li), ly + (t * lj)));
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two possible solutions.
-                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
-                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
+                var t1 = (-b + Sqrt(discriminant)) / (2d * a);
+                var t2 = (-b - Sqrt(discriminant)) / (2d * a);
 
                 // Add the points.
                 result = new Intersection(IntersectionStates.Intersection);
@@ -2534,7 +2409,7 @@ namespace Engine
 
             // Calculate the quadratic parameters.
             var a = (li * li) + (lj * lj);
-            var b = 2 * ((li * (lx - cX)) + (lj * (ly - cY)));
+            var b = 2d * ((li * (lx - cX)) + (lj * (ly - cY)));
             var c = ((lx - cX) * (lx - cX)) + ((ly - cY) * (ly - cY)) - (r * r);
 
             // Find the points of the chord.
@@ -2542,19 +2417,19 @@ namespace Engine
             var endPoint = new Point2D(cX + (Cos(angle + startAngle + sweepAngle) * r), cY + (Sin(angle + startAngle + sweepAngle) * r));
 
             // Calculate the discriminant.
-            var discriminant = (b * b) - (4 * a * c);
+            var discriminant = (b * b) - (4d * a * c);
 
             // Check for intersections.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 result.State |= IntersectionStates.Outside;
                 return result;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One possible solution.
-                var t = -b / (2 * a);
+                var t = -b / (2d * a);
 
                 // Find the point.
                 var pX = lx + (t * li);
@@ -2570,11 +2445,11 @@ namespace Engine
                     result.AppendPoint(new Point2D(pX, pY));
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two possible solutions.
-                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
-                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
+                var t1 = (-b + Sqrt(discriminant)) / (2d * a);
+                var t2 = (-b - Sqrt(discriminant)) / (2d * a);
 
                 // Find the point.
                 var pX = lx + (t1 * li);
@@ -2661,6 +2536,9 @@ namespace Engine
             double cx, double cy, double rx, double ry, double cosA, double sinA,
             double epsilon = Epsilon)
         {
+            // Fix imprecise handling of Cos(PI/2).
+            if (sinA == 1d || sinA == -1d) cosA = 0d;
+
             // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionStates.NoIntersection);
 
@@ -2750,11 +2628,7 @@ namespace Engine
             double x0, double y0, double x1, double y1,
             double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
-        {
-            _ = startAngle;
-            _ = sweepAngle;
-            return LineSegmentEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
-        }
+            => LineEllipticalArcIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), startAngle, sweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection between a line and an elliptical arc.
@@ -2783,6 +2657,9 @@ namespace Engine
             double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
         {
+            // Fix imprecise handling of Cos(PI/2).
+            if (sinA == 1d || sinA == -1d) cosA = 0d;
+
             // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionStates.NoIntersection);
 
@@ -3549,6 +3426,9 @@ namespace Engine
             double cx, double cy, double rx, double ry, double cosA, double sinA,
             double epsilon = Epsilon)
         {
+            // Fix imprecise handling of Cos(PI/2).
+            if (sinA == 1d || sinA == -1d) cosA = 0d;
+
             // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionStates.NoIntersection);
 
@@ -3654,6 +3534,9 @@ namespace Engine
             double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
         {
+            // Fix imprecise handling of Cos(PI/2).
+            if (sinA == 1d || sinA == -1d) cosA = 0d;
+
             // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionStates.NoIntersection);
 
@@ -3670,7 +3553,7 @@ namespace Engine
             var u1 = x0 + i0 - cx;
             var v1 = y0 + j0 - cy;
 
-            // Apply Rotation Transform to line at the origin to align it with the unrotated ellipse.
+            // Apply Rotation Transform to line at the origin to align it with the ellipse orthogonally.
             var u0A = (u0 * cosA) - (v0 * -sinA);
             var v0A = (u0 * -sinA) + (v0 * cosA);
             var u1A = (u1 * cosA) - (v1 * -sinA);
@@ -3860,8 +3743,8 @@ namespace Engine
             double epsilon = Epsilon)
             => LineSegmentQuadraticBezierSegmentIntersection(
                 x1, y1, x2, y2,
-                QuadraticBezierCoefficients(b0x, b1x, b2x),
-                QuadraticBezierCoefficients(b0y, b1y, b2y),
+                QuadraticBezierPolynomial(b0x, b1x, b2x),
+                QuadraticBezierPolynomial(b0y, b1y, b2y),
                 epsilon);
 
         /// <summary>
@@ -3953,8 +3836,8 @@ namespace Engine
             double epsilon = Epsilon)
             => LineSegmentCubicBezierSegmentIntersection(
                 x1, y1, x2, y2,
-                CubicBezierCoefficients(b0x, b1x, b2x, b3x),
-                CubicBezierCoefficients(b0y, b1y, b2y, b3y),
+                CubicBezierPolynomial(b0x, b1x, b2x, b3x),
+                CubicBezierPolynomial(b0y, b1y, b2y, b3y),
                 epsilon);
 
         /// <summary>
@@ -4233,7 +4116,7 @@ namespace Engine
             var b = 2 * (((lBX - lAX) * (lAX - cX)) + ((lBY - lAY) * (lAY - cY)));
             var c = (cX * cX) + (cY * cY) + (lAX * lAX) + (lAY * lAY) - (2 * ((cX * lAX) + (cY * lAY))) - (r * r);
 
-            var determinant = (b * b) - (4 * a * c);
+            var determinant = (b * b) - (4d * a * c);
             if (determinant < 0d)
             {
                 result = new Intersection(IntersectionStates.Outside);
@@ -4443,6 +4326,9 @@ namespace Engine
             double cx, double cy, double rx, double ry, double cosA, double sinA,
             double epsilon = Epsilon)
         {
+            // Fix imprecise handling of Cos(PI/2).
+            if (sinA == 1d || sinA == -1d) cosA = 0d;
+
             // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionStates.NoIntersection);
 
@@ -4543,11 +4429,7 @@ namespace Engine
             double x0, double y0, double x1, double y1,
             double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
-        {
-            _ = startAngle;
-            _ = sweepAngle;
-            return LineSegmentEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
-        }
+            => LineSegmentEllipticalArcIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), startAngle, sweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection between a line segment and an elliptical arc.
@@ -4577,6 +4459,9 @@ namespace Engine
             double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
         {
+            // Fix imprecise handling of Cos(PI/2).
+            if (sinA == 1d || sinA == -1d) cosA = 0d;
+
             // Initialize the resulting intersection structure.
             var result = new Intersection(IntersectionStates.NoIntersection);
 
@@ -4593,7 +4478,7 @@ namespace Engine
             var u1 = x1 - cx;
             var v1 = y1 - cy;
 
-            // Apply Rotation Transform to line at the origin to align it with the unrotated ellipse.
+            // Apply Rotation Transform to line at the origin to align it with the ellipse Orthogonally.
             var u0A = (u0 * cosA) - (v0 * -sinA);
             var v0A = (u0 * -sinA) + (v0 * cosA);
             var u1A = (u1 * cosA) - (v1 * -sinA);
@@ -4724,10 +4609,10 @@ namespace Engine
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(
-                QuadraticBezierCoefficients(a1X, a2X, a3X),
-                QuadraticBezierCoefficients(a1Y, a2Y, a3Y),
-                QuadraticBezierCoefficients(b1X, b2X, b3X),
-                QuadraticBezierCoefficients(b1Y, b2Y, b3Y),
+                QuadraticBezierPolynomial(a1X, a2X, a3X),
+                QuadraticBezierPolynomial(a1Y, a2Y, a3Y),
+                QuadraticBezierPolynomial(b1X, b2X, b3X),
+                QuadraticBezierPolynomial(b1Y, b2Y, b3Y),
                 epsilon);
 
         /// <summary>
@@ -4856,10 +4741,10 @@ namespace Engine
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentCubicBezierSegmentIntersection(
-                QuadraticBezierCoefficients(a1X, a2X, a3X),
-                QuadraticBezierCoefficients(a1Y, a2Y, a3Y),
-                CubicBezierCoefficients(b1X, b2X, b3X, b4X),
-                CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y),
+                QuadraticBezierPolynomial(a1X, a2X, a3X),
+                QuadraticBezierPolynomial(a1Y, a2Y, a3Y),
+                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
                 epsilon);
 
         /// <summary>
@@ -4979,8 +4864,8 @@ namespace Engine
             List<Point2D> points,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentPolylineIntersection(
-                QuadraticBezierCoefficients(b1X, b2X, b3X),
-                QuadraticBezierCoefficients(b1Y, b2Y, b3Y),
+                QuadraticBezierPolynomial(b1X, b2X, b3X),
+                QuadraticBezierPolynomial(b1Y, b2Y, b3Y),
                 points,
                 epsilon);
 
@@ -5048,8 +4933,8 @@ namespace Engine
             List<Point2D> points,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentPolygonContourIntersection(
-                QuadraticBezierCoefficients(b1X, b2X, b3X),
-                QuadraticBezierCoefficients(b1Y, b2Y, b3Y),
+                QuadraticBezierPolynomial(b1X, b2X, b3X),
+                QuadraticBezierPolynomial(b1Y, b2Y, b3Y),
                 points,
                 epsilon);
 
@@ -5122,8 +5007,8 @@ namespace Engine
             double t1X, double t1Y, double t2X, double t2Y, double t3X, double t3Y,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentTriangleIntersection(
-                QuadraticBezierCoefficients(p1X, p2X, p3X),
-                QuadraticBezierCoefficients(p1Y, p2Y, p3Y),
+                QuadraticBezierPolynomial(p1X, p2X, p3X),
+                QuadraticBezierPolynomial(p1Y, p2Y, p3Y),
                 t1X, t1Y, t2X, t2Y, t3X, t3Y,
                 epsilon);
 
@@ -5191,8 +5076,8 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentRectangleIntersection(
-                QuadraticBezierCoefficients(p1X, p2X, p3X),
-                QuadraticBezierCoefficients(p1Y, p2Y, p3Y),
+                QuadraticBezierPolynomial(p1X, p2X, p3X),
+                QuadraticBezierPolynomial(p1Y, p2Y, p3Y),
                 r1X, r1Y, r2X, r2Y,
                 epsilon);
 
@@ -5257,8 +5142,8 @@ namespace Engine
             double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3,
             double epsilon = Epsilon)
             => CubicBezierSegmentSelfIntersection(
-                CubicBezierCoefficients(x0, x1, x2, x3),
-                CubicBezierCoefficients(y0, y1, y2, y3),
+                CubicBezierPolynomial(x0, x1, x2, x3),
+                CubicBezierPolynomial(y0, y1, y2, y3),
                 epsilon);
 
         /// <summary>
@@ -5370,10 +5255,10 @@ namespace Engine
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = Epsilon)
             => CubicBezierSegmentCubicBezierSegmentIntersection(
-                CubicBezierCoefficients(a1X, a2X, a3X, a4X),
-                CubicBezierCoefficients(a1Y, a2Y, a3Y, a4Y),
-                CubicBezierCoefficients(b1X, b2X, b3X, b4X),
-                CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierPolynomial(a1X, a2X, a3X, a4X),
+                CubicBezierPolynomial(a1Y, a2Y, a3Y, a4Y),
+                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
                 epsilon);
 
         /// <summary>
@@ -5518,8 +5403,8 @@ namespace Engine
             List<Point2D> points,
             double epsilon = Epsilon)
             => CubicBezierSegmentPolylineIntersection(
-                CubicBezierCoefficients(b1X, b2X, b3X, b4X),
-                CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
                 points,
                 epsilon);
 
@@ -5591,8 +5476,8 @@ namespace Engine
             List<Point2D> points,
             double epsilon = Epsilon)
             => CubicBezierSegmentPolygonIntersection(
-                CubicBezierCoefficients(b1X, b2X, b3X, b4X),
-                CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
                 points,
                 epsilon);
 
@@ -5669,8 +5554,8 @@ namespace Engine
             double t1X, double t1Y, double t2X, double t2Y, double t3X, double t3Y,
             double epsilon = Epsilon)
             => CubicBezierSegmentTriangleIntersection(
-                CubicBezierCoefficients(b1X, b2X, b3X, b4X),
-                CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
                 t1X, t1Y, t2X, t2Y, t3X, t3Y,
                 epsilon);
 
@@ -5742,8 +5627,8 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
             => CubicBezierSegmentRectangleIntersection(
-                CubicBezierCoefficients(b1X, b2X, b3X, b4X),
-                CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
                 r1X, r1Y, r2X, r2Y,
                 epsilon);
 
@@ -6829,7 +6714,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a quadratic Bézier and an unrotated ellipse.
+        /// Find the intersection between a quadratic Bézier and an orthogonal ellipse.
         /// </summary>
         /// <param name="b1X">The b1X.</param>
         /// <param name="b1Y">The b1Y.</param>
@@ -6845,18 +6730,18 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentUnrotatedEllipseIntersection(
+        public static Intersection QuadraticBezierSegmentOrthogonalEllipseIntersection(
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
             double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
-            => QuadraticBezierSegmentUnrotatedEllipseIntersection(
-                QuadraticBezierCoefficients(b1X, b2X, b3X),
-                QuadraticBezierCoefficients(b1Y, b2Y, b3Y),
+            => QuadraticBezierSegmentOrthogonalEllipseIntersection(
+                QuadraticBezierPolynomial(b1X, b2X, b3X),
+                QuadraticBezierPolynomial(b1Y, b2Y, b3Y),
                 ecX, ecY, rx, ry,
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a quadratic Bézier and an unrotated ellipse.
+        /// Find the intersection between a quadratic Bézier and an orthogonal ellipse.
         /// </summary>
         /// <param name="xCurve">The set of Polynomial Bézier Coefficients of the x coordinates of the Bézier curve.</param>
         /// <param name="yCurve">The set of Polynomial Bézier Coefficients of the y coordinates of the Bézier curve.</param>
@@ -6871,7 +6756,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentUnrotatedEllipseIntersection(
+        public static Intersection QuadraticBezierSegmentOrthogonalEllipseIntersection(
             Polynomial xCurve, Polynomial yCurve,
             double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
@@ -6913,7 +6798,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a cubic Bézier and an unrotated ellipse.
+        /// Find the intersection between a cubic Bézier and an orthogonal ellipse.
         /// </summary>
         /// <param name="b1X">The b1X.</param>
         /// <param name="b1Y">The b1Y.</param>
@@ -6934,18 +6819,18 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection CubicBezierSegmentUnrotatedEllipseIntersection(
+        public static Intersection CubicBezierSegmentOrthogonalEllipseIntersection(
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
-            => CubicBezierSegmentUnrotatedEllipseIntersection(
-                CubicBezierCoefficients(b1X, b2X, b3X, b4X),
-                CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y),
+            => CubicBezierSegmentOrthogonalEllipseIntersection(
+                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
                 ecX, ecY, rx, ry,
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a cubic Bézier and an unrotated ellipse.
+        /// Find the intersection between a cubic Bézier and an orthogonal ellipse.
         /// </summary>
         /// <param name="xCurve">The set of Polynomial Bézier Coefficients of the x coordinates of the Bézier curve.</param>
         /// <param name="yCurve">The set of Polynomial Bézier Coefficients of the y coordinates of the Bézier curve.</param>
@@ -6960,7 +6845,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection CubicBezierSegmentUnrotatedEllipseIntersection(
+        public static Intersection CubicBezierSegmentOrthogonalEllipseIntersection(
             Polynomial xCurve, Polynomial yCurve,
             double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
@@ -7001,7 +6886,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between two unrotated ellipses.
+        /// Find the intersection between two orthogonal ellipses.
         /// </summary>
         /// <param name="c1X">The c1X.</param>
         /// <param name="c1Y">The c1Y.</param>
@@ -7018,34 +6903,34 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection UnrotatedEllipseUnrotatedEllipseIntersection(
+        public static Intersection OrthogonalEllipseOrthogonalEllipseIntersection(
             double c1X, double c1Y, double rx1, double ry1,
             double c2X, double c2Y, double rx2, double ry2,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionStates.NoIntersection);
-
-            var a = new double[] { ry1 * ry1, 0d, rx1 * rx1, -2 * ry1 * ry1 * c1X, -2d * rx1 * rx1 * c1Y, (ry1 * ry1 * c1X * c1X) + (rx1 * rx1 * c1Y * c1Y) - (rx1 * rx1 * ry1 * ry1) };
-            var b = new double[] { ry2 * ry2, 0d, rx2 * rx2, -2 * ry2 * ry2 * c2X, -2d * rx2 * rx2 * c2Y, (ry2 * ry2 * c2X * c2X) + (rx2 * rx2 * c2Y * c2Y) - (rx2 * rx2 * ry2 * ry2) };
+            // Polynomials representing the orthogonal Ellipses.
+            var a = OrthogonalEllipseConicSectionPolynomial(c1X, c1Y, rx1, ry1);
+            var b = OrthogonalEllipseConicSectionPolynomial(c2X, c2Y, rx2, ry2);
 
             var yRoots = Bezout(a, b).Trim().Roots();
 
-            var norm0 = ((a[0] * a[0]) + (2d * a[1] * a[1]) + (a[2] * a[2])) * epsilon;
-            //var norm1 = ((b[0] * b[0]) + (2d * b[1] * b[1]) + (b[2] * b[2])) * epsilon;
+            var norm0 = ((a.a * a.a) + (2d * a.b * a.b) + (a.c * a.c)) * epsilon;
+            //var norm1 = ((b.a * b.a) + (2d * b.b * b.b) + (b.c * b.c)) * epsilon;
 
+            var result = new Intersection(IntersectionStates.NoIntersection);
             for (var y = 0; y < yRoots.Length; y++)
             {
                 var xRoots = new Polynomial(
-                    a[0],
-                    a[3] + (yRoots[y] * a[1]),
-                    a[5] + (yRoots[y] * (a[4] + (yRoots[y] * a[2]))),
+                    a.a,
+                    a.d + (yRoots[y] * a.b),
+                    a.f + (yRoots[y] * (a.e + (yRoots[y] * a.c))),
                     epsilon).Trim().Roots();
                 for (var x = 0; x < xRoots.Length; x++)
                 {
-                    var test = (((a[0] * xRoots[x]) + (a[1] * yRoots[y]) + a[3]) * xRoots[x]) + (((a[2] * yRoots[y]) + a[4]) * yRoots[y]) + a[5];
+                    var test = (((a.a * xRoots[x]) + (a.b * yRoots[y]) + a.d) * xRoots[x]) + (((a.c * yRoots[y]) + a.e) * yRoots[y]) + a.f;
                     if (Abs(test) < norm0)
                     {
-                        test = (((b[0] * xRoots[x]) + (b[1] * yRoots[y]) + b[3]) * xRoots[x]) + (((b[2] * yRoots[y]) + b[4]) * yRoots[y]) + b[5];
+                        test = (((b.a * xRoots[x]) + (b.b * yRoots[y]) + b.d) * xRoots[x]) + (((b.c * yRoots[y]) + b.e) * yRoots[y]) + b.f;
                         if (Abs(test) < 1)//norm1) // Using norm1 breaks when an ellipse intersects another ellipse that 
                         {
                             result.AppendPoint(new Point2D(xRoots[x], yRoots[y]));
@@ -7061,194 +6946,103 @@ namespace Engine
 
             return result;
         }
+
+        /// <summary>
+        /// Ellipse, Ellipse intersection.
+        /// </summary>
+        /// <param name="c1X">The c1 x.</param>
+        /// <param name="c1Y">The c1 y.</param>
+        /// <param name="rx1">The RX1.</param>
+        /// <param name="ry1">The ry1.</param>
+        /// <param name="angle1">The angle1.</param>
+        /// <param name="c2X">The c2 x.</param>
+        /// <param name="c2Y">The c2 y.</param>
+        /// <param name="rx2">The RX2.</param>
+        /// <param name="ry2">The ry2.</param>
+        /// <param name="angle2">The angle2.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection EllipseEllipseIntersection(
+            double c1X, double c1Y, double rx1, double ry1, double angle1,
+            double c2X, double c2Y, double rx2, double ry2, double angle2,
+            double epsilon = Epsilon)
+            => EllipseEllipseIntersection(c1X, c1Y, rx1, ry1, Cos(angle1), Sin(angle1), c2X, c2Y, rx2, ry2, Cos(angle2), Sin(angle2), epsilon);
+
+        /// <summary>
+        /// Find the intersection between two ellipses.
+        /// </summary>
+        /// <param name="h1">The h1.</param>
+        /// <param name="k1">The k1.</param>
+        /// <param name="rX1">The r x1.</param>
+        /// <param name="rY1">The r y1.</param>
+        /// <param name="cos1">The cos1.</param>
+        /// <param name="sin1">The sin1.</param>
+        /// <param name="h2">The h2.</param>
+        /// <param name="k2">The k2.</param>
+        /// <param name="rX2">The r x2.</param>
+        /// <param name="rY2">The r y2.</param>
+        /// <param name="cos2">The cos2.</param>
+        /// <param name="sin2">The sin2.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns an <see cref="Engine.Intersection" /> struct with a <see cref="Intersection.State" />, and an array of <see cref="Point2D" /> structs containing any points of intersection found.
+        /// </returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// https://www.geometrictools.com/Documentation/IntersectionOfEllipses.pdf
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection EllipseEllipseIntersection(
+            double h1, double k1, double rX1, double rY1, double cos1, double sin1,
+            double h2, double k2, double rX2, double rY2, double cos2, double sin2,
+            double epsilon = Epsilon)
+        {
+            if (sin2 == 1d || sin2 == -1d) cos2 = 0d;
+
+            // Polynomials representing the Ellipses.
+            var a = EllipseConicSectionPolynomial(h1, k1, rX1, rY1, cos1, sin1);
+            var b = EllipseConicSectionPolynomial(h2, k2, rX2, rY2, cos2, sin2);
+
+            var yRoots = Bezout(a, b).Trim().Roots();
+
+            var norm0 = ((a.a * a.a) + (2d * a.b * a.b) + (a.c * a.c)) * epsilon;
+            //var norm1 = ((b.a * b.a) + (2d * b.b * b.b) + (b.c * b.c)) * epsilon;
+
+            var result = new Intersection(IntersectionStates.NoIntersection);
+            for (var y = 0; y < yRoots.Length; y++)
+            {
+                var xRoots = new Polynomial(
+                    a.a,
+                    a.d + (yRoots[y] * a.b),
+                    a.f + (yRoots[y] * (a.e + (yRoots[y] * a.c))),
+                    epsilon).Trim().Roots();
+                for (var x = 0; x < xRoots.Length; x++)
+                {
+                    var test = (((a.a * xRoots[x]) + (a.b * yRoots[y]) + a.d) * xRoots[x]) + (((a.c * yRoots[y]) + a.e) * yRoots[y]) + a.f;
+                    if (Abs(test) < norm0)
+                    {
+                        test = (((b.a * xRoots[x]) + (b.b * yRoots[y]) + b.d) * xRoots[x]) + (((b.c * yRoots[y]) + b.e) * yRoots[y]) + b.f;
+                        if (Abs(test) < 1d)//norm1) // Using norm1 breaks when an ellipse intersects certain other ellipses. 
+                        {
+                            result.AppendPoint(new Point2D(xRoots[x], yRoots[y]));
+                        }
+                    }
+                }
+            }
+
+            if (result.Points.Count > 0)
+            {
+                result.State = IntersectionStates.Intersection;
+            }
+
+            return result;
+        }
         #endregion Intersection Methods
-
-        #region Helpers
-        /// <summary>
-        /// Calculate the Bézier curve polynomial of ellipses.
-        /// </summary>
-        /// <param name="e1">First Ellipse parameters.</param>
-        /// <param name="e2">Second Ellipse parameters.</param>
-        /// <returns>Returns a <see cref="Polynomial"/> of the ellipse.</returns>
-        /// <acknowledgment>
-        /// http://www.kevlindev.com/
-        /// This code is based on MgcIntr2DElpElp.cpp written by David Eberly.
-        /// His code along with many other excellent examples formerly available
-        /// at his site but the latest version now at: https://www.geometrictools.com/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Bezout(double[] e1, double[] e2)
-        {
-            var ab = (e1[0] * e2[1]) - (e2[0] * e1[1]);
-            var ac = (e1[0] * e2[2]) - (e2[0] * e1[2]);
-            var ad = (e1[0] * e2[3]) - (e2[0] * e1[3]);
-            var ae = (e1[0] * e2[4]) - (e2[0] * e1[4]);
-            var af = (e1[0] * e2[5]) - (e2[0] * e1[5]);
-
-            var bc = (e1[1] * e2[2]) - (e2[1] * e1[2]);
-            var be = (e1[1] * e2[4]) - (e2[1] * e1[4]);
-            var bf = (e1[1] * e2[5]) - (e2[1] * e1[5]);
-
-            var cd = (e1[2] * e2[3]) - (e2[2] * e1[3]);
-
-            var de = (e1[3] * e2[4]) - (e2[3] * e1[4]);
-            var df = (e1[3] * e2[5]) - (e2[3] * e1[5]);
-
-            var bfPde = bf + de;
-            var beMcd = be - cd;
-
-            return new Polynomial(
-                /* x⁴ */ (ab * bc) - (ac * ac),
-                /* x³ */ (ab * beMcd) + (ad * bc) - (2d * ac * ae),
-                /* x² */ (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
-                /* x¹ */ (ab * df) + (ad * bfPde) - (2d * ae * af),
-                /* c  */ (ad * df) - (af * af));
-        }
-
-        /// <summary>
-        /// Calculate the Bézier curve polynomial of ellipses.
-        /// </summary>
-        /// <param name="a1">The a1.</param>
-        /// <param name="b1">The b1.</param>
-        /// <param name="c1">The c1.</param>
-        /// <param name="d1">The d1.</param>
-        /// <param name="e1">The e1.</param>
-        /// <param name="f1">The f1.</param>
-        /// <param name="a2">The a2.</param>
-        /// <param name="b2">The b2.</param>
-        /// <param name="c2">The c2.</param>
-        /// <param name="d2">The d2.</param>
-        /// <param name="e2">The e2.</param>
-        /// <param name="f2">The f2.</param>
-        /// <returns>Returns a <see cref="Polynomial"/> of the ellipse.</returns>
-        /// <acknowledgment>
-        /// http://www.kevlindev.com/
-        /// This code is based on MgcIntr2DElpElp.cpp written by David Eberly.
-        /// His code along with many other excellent examples formerly available
-        /// at his site but the latest version now at: https://www.geometrictools.com/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Bezout(
-            double a1, double b1, double c1, double d1, double e1, double f1,
-            double a2, double b2, double c2, double d2, double e2, double f2)
-        {
-            // 1 | a | b | c | d | e | f |
-            // 2 | a | b | c | d | e | f |
-
-            var ab = (a1 * b2) - (a2 * b1);
-            var ac = (a1 * c2) - (a2 * c1);
-            var ad = (a1 * d2) - (a2 * d1);
-            var ae = (a1 * e2) - (a2 * e1);
-            var af = (a1 * f2) - (a2 * f1);
-
-            var bc = (b1 * c2) - (b2 * c1);
-            var be = (b1 * e2) - (b2 * e1);
-            var bf = (b1 * f2) - (b2 * f1);
-
-            var cd = (c1 * d2) - (c2 * d1);
-
-            var de = (d1 * e2) - (d2 * e1);
-            var df = (d1 * f2) - (d2 * f1);
-
-            var bfPde = bf + de;
-            var beMcd = be - cd;
-
-            return new Polynomial(
-                /* x⁴ */ (ab * bc) - (ac * ac),
-                /* x³ */ (ab * beMcd) + (ad * bc) - (2d * ac * ae),
-                /* x² */ (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
-                /* x¹ */ (ab * df) + (ad * bfPde) - (2d * ae * af),
-                /* c  */ (ad * df) - (af * af));
-        }
-
-        /// <summary>
-        /// Calculate the Bézier curve polynomial of ellipses.
-        /// </summary>
-        /// <param name="a1">The a1.</param>
-        /// <param name="b1">The b1.</param>
-        /// <param name="c1">The c1.</param>
-        /// <param name="d1">The d1.</param>
-        /// <param name="e1">The e1.</param>
-        /// <param name="f1">The f1.</param>
-        /// <param name="a2">The a2.</param>
-        /// <param name="b2">The b2.</param>
-        /// <param name="c2">The c2.</param>
-        /// <param name="d2">The d2.</param>
-        /// <param name="e2">The e2.</param>
-        /// <param name="f2">The f2.</param>
-        /// <returns>Returns a <see cref="Polynomial"/> of the ellipse.</returns>
-        /// <acknowledgment>
-        /// http://www.kevlindev.com/
-        /// This code is based on MgcIntr2DElpElp.cpp written by David Eberly.
-        /// His code along with many other excellent examples formerly available
-        /// at his site but the latest version now at: https://www.geometrictools.com/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e) BezoutTuple(
-            double a1, double b1, double c1, double d1, double e1, double f1,
-            double a2, double b2, double c2, double d2, double e2, double f2)
-        {
-            // 1 | a | b | c | d | e | f |
-            // 2 | a | b | c | d | e | f |
-
-            var ab = (a1 * b2) - (a2 * b1);
-            var ac = (a1 * c2) - (a2 * c1);
-            var ad = (a1 * d2) - (a2 * d1);
-            var ae = (a1 * e2) - (a2 * e1);
-            var af = (a1 * f2) - (a2 * f1);
-
-            var bc = (b1 * c2) - (b2 * c1);
-            var be = (b1 * e2) - (b2 * e1);
-            var bf = (b1 * f2) - (b2 * f1);
-
-            var cd = (c1 * d2) - (c2 * d1);
-
-            var de = (d1 * e2) - (d2 * e1);
-            var df = (d1 * f2) - (d2 * f1);
-
-            var bfPde = bf + de;
-            var beMcd = be - cd;
-
-            return (
-                /* x⁴ */ a: (ab * bc) - (ac * ac),
-                /* x³ */ b: (ab * beMcd) + (ad * bc) - (2d * ac * ae),
-                /* x² */ c: (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
-                /* x¹ */ d: (ab * df) + (ad * bfPde) - (2d * ae * af),
-                /* c  */ e: (ad * df) - (af * af)
-                );
-            // (-a2 * d1 * d1 * f2) + (a1 * d2) + (a2 * f1) - (a1 * f2) + (a1 * a2 f1 * f2) - (d2 * f1)
-        }
-
-        /// <summary>
-        /// Calculate the coefficient of the quartic.
-        /// The solution to intersecting ellipses are the solutions to f(y), a quartic function where f(y) = z0 + z1 * y + z2 * y^2 + z3 * y^3 + z4 * y^4  = 0
-        /// getQuartic generates the coefficients z0 .. z4 given the two ellipses el and el1 in "bivariate" form.
-        /// See http://www.math.niu.edu/~rusin/known-math/99/2ellipses
-        /// </summary>
-        /// <param name="el1">The el1.</param>
-        /// <param name="el2">The el2.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5}"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672
-        /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
-        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
-        /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e) GetEllipseQuartic(
-            (double a, double b, double c, double d, double e, double f) el1,
-            (double a, double b, double c, double d, double e, double f) el2)
-            => (
-                /* x⁴ */ a: (el1.f * el1.a * el2.d * el2.d) + (el1.a * el1.a * el2.f * el2.f) - (el1.d * el1.a * el2.d * el2.f) + (el2.a * el2.a * el1.f * el1.f) - (2d * el1.a * el2.f * el2.a * el1.f) - (el1.d * el2.d * el2.a * el1.f) + (el2.a * el1.d * el1.d * el2.f),
-                /* x³ */ b: (el2.e * el1.d * el1.d * el2.a) - (el2.f * el2.d * el1.a * el1.b) - (2d * el1.a * el2.f * el2.a * el1.e) - (el1.f * el2.a * el2.b * el1.d) + (2d * el2.d * el2.b * el1.a * el1.f) + (2d * el2.e * el2.f * el1.a * el1.a) + (el2.d * el2.d * el1.a * el1.e) - (el2.e * el2.d * el1.a * el1.d) - (2d * el1.a * el2.e * el2.a * el1.f) - (el1.f * el2.a * el2.d * el1.b) + (2d * el1.f * el1.e * el2.a * el2.a) - (el2.f * el2.b * el1.a * el1.d) - (el1.e * el2.a * el2.d * el1.d) + (2d * el2.f * el1.b * el2.a * el1.d),
-                /* x² */ c: (el2.e * el2.e * el1.a * el1.a) + (2d * el2.c * el2.f * el1.a * el1.a) - (el1.e * el2.a * el2.d * el1.b) + (el2.f * el2.a * el1.b * el1.b) - (el1.e * el2.a * el2.b * el1.d) - (el2.f * el2.b * el1.a * el1.b) - (2d * el1.a * el2.e * el2.a * el1.e) + (2d * el2.d * el2.b * el1.a * el1.e) - (el2.c * el2.d * el1.a * el1.d) - (2d * el1.a * el2.c * el2.a * el1.f) + (el2.b * el2.b * el1.a * el1.f) + (2d * el2.e * el1.b * el2.a * el1.d) + (el1.e * el1.e * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.d) - (el2.e * el2.b * el1.a * el1.d) + (2d * el1.f * el1.c * el2.a * el2.a) - (el1.f * el2.a * el2.b * el1.b) + (el2.c * el1.d * el1.d * el2.a) + (el2.d * el2.d * el1.a * el1.c) - (el2.e * el2.d * el1.a * el1.b) - (2d * el1.a * el2.f * el2.a * el1.c),
-                /* x¹ */ d: (-2d * el1.a * el2.a * el1.c * el2.e) + (el2.e * el2.a * el1.b * el1.b) + (2d * el2.c * el1.b * el2.a * el1.d) - (el1.c * el2.a * el2.b * el1.d) + (el2.b * el2.b * el1.a * el1.e) - (el2.e * el2.b * el1.a * el1.b) - (2d * el1.a * el2.c * el2.a * el1.e) - (el1.e * el2.a * el2.b * el1.b) - (el2.c * el2.b * el1.a * el1.d) + (2d * el2.e * el2.c * el1.a * el1.a) + (2d * el1.e * el1.c * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.b) + (2d * el2.d * el2.b * el1.a * el1.c) - (el2.c * el2.d * el1.a * el1.b),
-                /* c  */ e: (el1.a * el1.a * el2.c * el2.c) - (2d * el1.a * el2.c * el2.a * el1.c) + (el2.a * el2.a * el1.c * el1.c) - (el1.b * el1.a * el2.b * el2.c) - (el1.b * el2.b * el2.a * el1.c) + (el1.b * el1.b * el2.a * el2.c) + (el1.c * el1.a * el2.b * el2.b)
-                );
-        #endregion Helpers
     }
 }

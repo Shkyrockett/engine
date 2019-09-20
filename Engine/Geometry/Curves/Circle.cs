@@ -16,6 +16,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
+using static Engine.Polynomials;
 
 namespace Engine
 {
@@ -363,6 +364,20 @@ namespace Engine
                 ClearCache();
                 OnPropertyChanged(nameof(Bounds));
                 update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="Circle"/> curve's conic polynomial representation.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Polynomial ConicSectionCurve
+        {
+            get
+            {
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)CircleConicSectionPolynomial(x, y, radius));
+                curveY.IsReadonly = true;
+                return curveY;
             }
         }
         #endregion Properties

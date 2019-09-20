@@ -252,7 +252,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator +(Vector3D value) => Operations.UnaryAdd3D(value.I, value.J, value.K);
+        public static Vector3D operator +(Vector3D value) => UnaryAdd3D(value.I, value.J, value.K);
 
         /// <summary>
         /// Add Points
@@ -264,7 +264,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator +(Vector3D value, double addend) => Operations.Add3D(value.I, value.J, value.K, addend);
+        public static Vector3D operator +(Vector3D value, double addend) => Add3D(value.I, value.J, value.K, addend);
 
         /// <summary>
         /// Add Points
@@ -276,7 +276,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator +(double value, Vector3D addend) => Operations.Add3D(addend.I, addend.J, addend.K, value);
+        public static Vector3D operator +(double value, Vector3D addend) => Add3D(addend.I, addend.J, addend.K, value);
 
         /// <summary>
         /// Add Points
@@ -288,7 +288,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator +(Vector3D value, Vector3D addend) => Operations.Add3D(value.I, value.J, value.K, addend.I, addend.J, addend.K);
+        public static Vector3D operator +(Vector3D value, Vector3D addend) => Add3D(value.I, value.J, value.K, addend.I, addend.J, addend.K);
 
         /// <summary>
         /// The operator -.
@@ -299,7 +299,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator -(Vector3D value) => Operations.UnaryNegate3D(value.I, value.J, value.K);
+        public static Vector3D operator -(Vector3D value) => UnaryNegate3D(value.I, value.J, value.K);
 
         /// <summary>
         /// Subtract Points
@@ -311,7 +311,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator -(Vector3D value, double subend) => Operations.SubtractSubtrahend3D(value.I, value.J, value.K, subend);
+        public static Vector3D operator -(Vector3D value, double subend) => SubtractSubtrahend3D(value.I, value.J, value.K, subend);
 
         /// <summary>
         /// Subtract Points
@@ -323,7 +323,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator -(double value, Vector3D subend) => Operations.SubtractFromMinuend3D(value, subend.I, subend.J, subend.K);
+        public static Vector3D operator -(double value, Vector3D subend) => SubtractFromMinuend3D(value, subend.I, subend.J, subend.K);
 
         /// <summary>
         /// Subtract Vectors
@@ -335,7 +335,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator -(Vector3D value, Vector3D subend) => Operations.Subtract3D(value.I, value.J, value.K, subend.I, subend.J, subend.K);
+        public static Vector3D operator -(Vector3D value, Vector3D subend) => Subtract3D(value.I, value.J, value.K, subend.I, subend.J, subend.K);
 
         /// <summary>
         /// Scale a Vector
@@ -347,7 +347,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator *(Vector3D value, double factor) => Operations.Scale3D(value.I, value.J, value.K, factor);
+        public static Vector3D operator *(Vector3D value, double factor) => Scale3D(value.I, value.J, value.K, factor);
 
         /// <summary>
         /// Scale a Vector
@@ -359,7 +359,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator *(double factor, Vector3D value) => Operations.Scale3D(value.I, value.J, value.K, factor);
+        public static Vector3D operator *(double factor, Vector3D value) => Scale3D(value.I, value.J, value.K, factor);
 
         /// <summary>
         /// Divide a <see cref="Vector3D" />
@@ -371,7 +371,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator /(Vector3D divisor, double dividend) => Operations.DivideByDividend3D(divisor.I, divisor.J, divisor.K, dividend);
+        public static Vector3D operator /(Vector3D divisor, double dividend) => DivideByDividend3D(divisor.I, divisor.J, divisor.K, dividend);
 
         /// <summary>
         /// Divide a <see cref="Vector3D" />
@@ -383,7 +383,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator /(double divisor, Vector3D dividend) => Operations.DivideDivisor3D(divisor, dividend.I, dividend.I, dividend.K);
+        public static Vector3D operator /(double divisor, Vector3D dividend) => DivideDivisor3D(divisor, dividend.I, dividend.I, dividend.K);
 
         /// <summary>
         /// The operator ==.

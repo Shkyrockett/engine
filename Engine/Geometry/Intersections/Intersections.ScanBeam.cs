@@ -44,6 +44,7 @@ using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Measurements;
 using static Engine.Operations;
+using static Engine.Polynomials;
 
 namespace Engine
 {
@@ -192,8 +193,8 @@ namespace Engine
             => ScanbeamQuadraticBezierSegment(
                 ref scanlist,
                 x, y,
-                QuadraticBezierCoefficients(b0x, b1x, b2x),
-                QuadraticBezierCoefficients(b0y, b1y, b2y),
+                QuadraticBezierPolynomial(b0x, b1x, b2x),
+                QuadraticBezierPolynomial(b0y, b1y, b2y),
                 epsilon);
 
         /// <summary>
@@ -251,8 +252,8 @@ namespace Engine
             => ScanbeamCubicBezierSegment(
                 ref scanlist,
                 x, y,
-                CubicBezierCoefficients(b0x, b1x, b2x, b3x),
-                CubicBezierCoefficients(b0y, b1y, b2y, b3y),
+                CubicBezierPolynomial(b0x, b1x, b2x, b3x),
+                CubicBezierPolynomial(b0y, b1y, b2y, b3y),
                 epsilon);
 
         /// <summary>
@@ -690,16 +691,16 @@ namespace Engine
                 switch (segment)
                 {
                     case PointSegment t:
-                        ScanbeamPoint(ref scanlist, x, y, t.Start.Value.X, t.Start.Value.Y, epsilon);
+                        ScanbeamPoint(ref scanlist, x, y, t.Head.Value.X, t.Head.Value.Y, epsilon);
                         break;
                     case LineCurveSegment t:
-                        ScanbeamLineSegment(ref scanlist, x, y, t.Start.Value.X, t.Start.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+                        ScanbeamLineSegment(ref scanlist, x, y, t.Head.Value.X, t.Head.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
                         break;
                     case QuadraticBezierSegment t:
-                        ScanbeamQuadraticBezierSegment(ref scanlist, x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+                        ScanbeamQuadraticBezierSegment(ref scanlist, x, y, t.Head.Value.X, t.Head.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
                         break;
                     case CubicBezierSegment t:
-                        ScanbeamCubicBezierSegment(ref scanlist, x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+                        ScanbeamCubicBezierSegment(ref scanlist, x, y, t.Head.Value.X, t.Head.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
                         break;
                     case ArcSegment t:
                         ScanbeamEllipticalArc(ref scanlist, x, y, t.Center.X, t.Center.Y, t.RX, t.RY, t.CosAngle, t.SinAngle, t.StartAngle, t.SweepAngle, epsilon);
@@ -862,8 +863,8 @@ namespace Engine
             double epsilon = Epsilon)
             => ScanbeamPointsToLeftQuadraticBezierSegment(
                 x, y,
-                QuadraticBezierCoefficients(p0x, p1x, p2x),
-                QuadraticBezierCoefficients(p0y, p1y, p2y),
+                QuadraticBezierPolynomial(p0x, p1x, p2x),
+                QuadraticBezierPolynomial(p0y, p1y, p2y),
                 epsilon);
 
         /// <summary>
@@ -921,8 +922,8 @@ namespace Engine
             double epsilon = Epsilon)
             => ScanbeamPointsToLeftCubicBezierSegment(
                 x, y,
-                CubicBezierCoefficients(b0x, b1x, b2x, b3x),
-                CubicBezierCoefficients(b0y, b1y, b2y, b3y),
+                CubicBezierPolynomial(b0x, b1x, b2x, b3x),
+                CubicBezierPolynomial(b0y, b1y, b2y, b3y),
                 epsilon);
 
         /// <summary>
@@ -1413,16 +1414,16 @@ namespace Engine
                 switch (segment)
                 {
                     case PointSegment t:
-                        results += ScanbeamPointsToLeftPoint(x, y, t.Start.Value.X, t.Start.Value.Y, epsilon);
+                        results += ScanbeamPointsToLeftPoint(x, y, t.Head.Value.X, t.Head.Value.Y, epsilon);
                         break;
                     case LineCurveSegment t:
-                        results += ScanbeamPointsToLeftLineSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+                        results += ScanbeamPointsToLeftLineSegment(x, y, t.Head.Value.X, t.Head.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
                         break;
                     case QuadraticBezierSegment t:
-                        results += ScanbeamPointsToLeftQuadraticBezierSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+                        results += ScanbeamPointsToLeftQuadraticBezierSegment(x, y, t.Head.Value.X, t.Head.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
                         break;
                     case CubicBezierSegment t:
-                        results += ScanbeamPointsToLeftCubicBezierSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+                        results += ScanbeamPointsToLeftCubicBezierSegment(x, y, t.Head.Value.X, t.Head.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
                         break;
                     case ArcSegment t:
                         results += ScanbeamPointsToLeftEllipticalArc(x, y, t.Center.X, t.Center.Y, t.RX, t.RY, t.CosAngle, t.SinAngle, t.StartAngle, t.SweepAngle, epsilon);
@@ -1582,8 +1583,8 @@ namespace Engine
             double epsilon = Epsilon)
             => ScanbeamPointsToRightQuadraticBezierSegment(
                 x, y,
-                QuadraticBezierCoefficients(b0x, b1x, b2x),
-                QuadraticBezierCoefficients(b0y, b1y, b2y),
+                QuadraticBezierPolynomial(b0x, b1x, b2x),
+                QuadraticBezierPolynomial(b0y, b1y, b2y),
                 epsilon);
 
         /// <summary>
@@ -1641,8 +1642,8 @@ namespace Engine
             double epsilon = Epsilon)
             => ScanbeamPointsToRightCubicBezierSegment(
                 x, y,
-                CubicBezierCoefficients(b0x, b1x, b2x, b3x),
-                CubicBezierCoefficients(b0y, b1y, b2y, b3y),
+                CubicBezierPolynomial(b0x, b1x, b2x, b3x),
+                CubicBezierPolynomial(b0y, b1y, b2y, b3y),
                 epsilon);
 
         /// <summary>
@@ -2132,16 +2133,16 @@ namespace Engine
                 switch (segment)
                 {
                     case PointSegment t:
-                        results += ScanbeamPointsToRightPoint(x, y, t.Start.Value.X, t.Start.Value.Y, epsilon);
+                        results += ScanbeamPointsToRightPoint(x, y, t.Head.Value.X, t.Head.Value.Y, epsilon);
                         break;
                     case LineCurveSegment t:
-                        results += ScanbeamPointsToRightLineSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+                        results += ScanbeamPointsToRightLineSegment(x, y, t.Head.Value.X, t.Head.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
                         break;
                     case QuadraticBezierSegment t:
-                        results += ScanbeamPointsToRightQuadraticBezierSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+                        results += ScanbeamPointsToRightQuadraticBezierSegment(x, y, t.Head.Value.X, t.Head.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
                         break;
                     case CubicBezierSegment t:
-                        results += ScanbeamPointsToRightCubicBezierSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+                        results += ScanbeamPointsToRightCubicBezierSegment(x, y, t.Head.Value.X, t.Head.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
                         break;
                     case ArcSegment t:
                         results += ScanbeamPointsToRightEllipticalArc(x, y, t.Center.X, t.Center.Y, t.RX, t.RY, t.CosAngle, t.SinAngle, t.StartAngle, t.SweepAngle, epsilon);

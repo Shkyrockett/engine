@@ -299,11 +299,11 @@ namespace EngineTests
         {
             var cases = new Dictionary<(double r, double sweepAngle), double>
             {
-                { (0d, 90d.ToRadians()), 0d },
-                { (1d, 90d.ToRadians()), -9.869604401089358d },
-                { (2d, 90d.ToRadians()), -19.739208802178716d },
-                { (3d, 90d.ToRadians()), -29.608813203268074d },
-                { (4d, 90d.ToRadians()), -39.478417604357432d },
+                { (0d, 90d.DegreesToRadians()), 0d },
+                { (1d, 90d.DegreesToRadians()), -9.869604401089358d },
+                { (2d, 90d.DegreesToRadians()), -19.739208802178716d },
+                { (3d, 90d.DegreesToRadians()), -29.608813203268074d },
+                { (4d, 90d.DegreesToRadians()), -39.478417604357432d },
             };
 
             foreach (var test in cases)
@@ -491,7 +491,7 @@ namespace EngineTests
 
             foreach (var arc in results.Keys)
             {
-                var area = Measurements.CircularArcSectorArea(arc.radius, arc.sweepAngle.ToRadians());
+                var area = Measurements.CircularArcSectorArea(arc.radius, arc.sweepAngle.DegreesToRadians());
                 Assert.AreEqual(results[arc], area, testEpsilon);
             }
         }
@@ -761,8 +761,8 @@ namespace EngineTests
             {
                 { (0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
                 { (0d, 0d, 2d, 0d, 0d), (-2d, -2d, 4d, 4d) },
-                { (0d, 0d, 2d, 0d, 180d.ToRadians()), (-2d, 0d, 4d, 2d) },
-                { (0d, 0d, 2d, 0d, -180d.ToRadians()), (-2d, -2d, 4d, 2d) },
+                { (0d, 0d, 2d, 0d, 180d.DegreesToRadians()), (-2d, 0d, 4d, 2d) },
+                { (0d, 0d, 2d, 0d, -180d.DegreesToRadians()), (-2d, -2d, 4d, 2d) },
                 { (1d, 1d, 2d, 0d, 0d), (-1d, -1d, 4d, 4d) },
             };
 
@@ -816,8 +816,8 @@ namespace EngineTests
             var cases = new Dictionary<EllipticalArc, Rectangle2D>
             {
                 { (0d, 0d, 0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
-                { (0d, 0d, 2d, 2d, 0d, 0d, 270d.ToRadians()), (-2d, -2d, 4d, 4d) },
-                { (1d, 1d, 2d, 2d, 0d, 0d, 270d.ToRadians()), (-1d, -1d, 4d, 4d) },
+                { (0d, 0d, 2d, 2d, 0d, 0d, 270d.DegreesToRadians()), (-2d, -2d, 4d, 4d) },
+                { (1d, 1d, 2d, 2d, 0d, 0d, 270d.DegreesToRadians()), (-1d, -1d, 4d, 4d) },
             };
 
             foreach (var k in cases.Keys)

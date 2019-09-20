@@ -274,7 +274,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator +(Vector4D value) => Operations.UnaryAdd4D(value.I, value.J, value.K, value.L);
+        public static Vector4D operator +(Vector4D value) => UnaryAdd4D(value.I, value.J, value.K, value.L);
 
         /// <summary>
         /// Add Points
@@ -286,7 +286,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator +(Vector4D value, double addend) => Operations.Add4D(value.I, value.J, value.K, value.L, addend);
+        public static Vector4D operator +(Vector4D value, double addend) => Add4D(value.I, value.J, value.K, value.L, addend);
 
         /// <summary>
         /// Add Points
@@ -298,7 +298,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator +(double value, Vector4D addend) => Operations.Add4D(addend.I, addend.J, addend.K, addend.L, value);
+        public static Vector4D operator +(double value, Vector4D addend) => Add4D(addend.I, addend.J, addend.K, addend.L, value);
 
         /// <summary>
         /// Add Points
@@ -310,7 +310,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator +(Vector4D value, Vector4D addend) => Operations.Add4D(value.I, value.J, value.K, value.L, addend.I, addend.J, addend.K, addend.L);
+        public static Vector4D operator +(Vector4D value, Vector4D addend) => Add4D(value.I, value.J, value.K, value.L, addend.I, addend.J, addend.K, addend.L);
 
         /// <summary>
         /// The operator -.
@@ -321,7 +321,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator -(Vector4D value) => Operations.UnaryNegate4D(value.I, value.J, value.K, value.L);
+        public static Vector4D operator -(Vector4D value) => UnaryNegate4D(value.I, value.J, value.K, value.L);
 
         /// <summary>
         /// Subtract Points
@@ -333,7 +333,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator -(Vector4D value, double subend) => Operations.SubtractSubtrahend4D(value.I, value.J, value.K, value.L, subend);
+        public static Vector4D operator -(Vector4D value, double subend) => SubtractSubtrahend4D(value.I, value.J, value.K, value.L, subend);
 
         /// <summary>
         /// Subtract Points
@@ -345,7 +345,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator -(double value, Vector4D subend) => Operations.SubtractFromMinuend4D(value, subend.I, subend.J, subend.K, subend.L);
+        public static Vector4D operator -(double value, Vector4D subend) => SubtractFromMinuend4D(value, subend.I, subend.J, subend.K, subend.L);
 
         /// <summary>
         /// Subtract Vectors
@@ -357,7 +357,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator -(Vector4D value, Vector4D subend) => Operations.Subtract4D(value.I, value.J, value.K, value.L, subend.I, subend.J, subend.K, subend.L);
+        public static Vector4D operator -(Vector4D value, Vector4D subend) => Subtract4D(value.I, value.J, value.K, value.L, subend.I, subend.J, subend.K, subend.L);
 
         /// <summary>
         /// Scale a Vector
@@ -369,7 +369,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator *(Vector4D value, double factor) => Operations.Scale4D(value.I, value.J, value.K, value.L, factor);
+        public static Vector4D operator *(Vector4D value, double factor) => Scale4D(value.I, value.J, value.K, value.L, factor);
 
         /// <summary>
         /// Scale a Vector
@@ -381,7 +381,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator *(double factor, Vector4D value) => Operations.Scale4D(value.I, value.J, value.K, value.L, factor);
+        public static Vector4D operator *(double factor, Vector4D value) => Scale4D(value.I, value.J, value.K, value.L, factor);
 
         /// <summary>
         /// Divide a <see cref="Vector4D" />
@@ -393,7 +393,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator /(Vector4D divisor, double dividend) => Operations.DivideByDividend4D(divisor.I, divisor.J, divisor.K, divisor.L, dividend);
+        public static Vector4D operator /(Vector4D divisor, double dividend) => DivideByDividend4D(divisor.I, divisor.J, divisor.K, divisor.L, dividend);
 
         /// <summary>
         /// Divide a <see cref="Vector4D" />
@@ -405,7 +405,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator /(double divisor, Vector4D dividend) => Operations.DivideDivisor4D(divisor, dividend.I, dividend.I, dividend.K, dividend.L);
+        public static Vector4D operator /(double divisor, Vector4D dividend) => DivideDivisor4D(divisor, dividend.I, dividend.I, dividend.K, dividend.L);
 
         /// <summary>
         /// The operator ==.

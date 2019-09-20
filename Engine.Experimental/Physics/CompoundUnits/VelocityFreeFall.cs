@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Engine.Physics
+namespace Engine
 {
     /// <summary>
     /// The velocity free fall class.

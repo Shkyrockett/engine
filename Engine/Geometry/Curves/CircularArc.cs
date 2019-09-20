@@ -325,10 +325,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngleDegrees
         {
-            get { return startAngle.ToDegrees(); }
+            get { return startAngle.RadiansToDegrees(); }
             set
             {
-                startAngle = value.ToRadians();
+                startAngle = value.DegreesToRadians();
                 ClearCache();
                 OnPropertyChanged(nameof(StartAngleDegrees));
                 update?.Invoke();
@@ -369,10 +369,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double SweepAngleDegrees
         {
-            get { return sweepAngle.ToDegrees(); }
+            get { return sweepAngle.RadiansToDegrees(); }
             set
             {
-                sweepAngle = value.ToRadians();
+                sweepAngle = value.DegreesToRadians();
                 ClearCache();
                 OnPropertyChanged(nameof(SweepAngleDegrees));
                 update?.Invoke();
@@ -413,10 +413,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngleDegrees
         {
-            get { return (startAngle + sweepAngle).ToDegrees(); }
+            get { return (startAngle + sweepAngle).RadiansToDegrees(); }
             set
             {
-                sweepAngle = value.ToRadians() - startAngle;
+                sweepAngle = value.DegreesToRadians() - startAngle;
                 ClearCache();
                 OnPropertyChanged(nameof(EndAngleDegrees));
                 update?.Invoke();

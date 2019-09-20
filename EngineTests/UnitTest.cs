@@ -39,11 +39,7 @@ namespace EngineTests
         /// </summary>
         /// <param name="context">The context.</param>
         [AssemblyInitialize]
-        public static void AssemblyInit(TestContext context)
-        {
-            _ = context;
-            //MessageBox.Show("AssemblyInit " + context.TestName);
-        }
+        public static void AssemblyInit(TestContext context) => _ = context;//MessageBox.Show("AssemblyInit " + context.TestName);
 
         /// <summary>
         /// The assembly cleanup.
@@ -61,11 +57,7 @@ namespace EngineTests
         /// </summary>
         /// <param name="context">The context.</param>
         [ClassInitialize]
-        public static void ClassInit(TestContext context)
-        {
-            _ = context;
-            //MessageBox.Show("ClassInit " + context.TestName);
-        }
+        public static void ClassInit(TestContext context) => _ = context;//MessageBox.Show("ClassInit " + context.TestName);
 
         /// <summary>
         /// TestInitialize runs code before running each test.

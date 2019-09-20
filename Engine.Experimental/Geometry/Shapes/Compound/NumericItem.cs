@@ -55,7 +55,7 @@ namespace Engine.Experimental
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals([AllowNull] NumericItem other) => Value == other.Value;
+        public bool Equals(NumericItem other) => Value == other.Value;
 
         /// <summary>
         /// Returns a hash code for this instance.

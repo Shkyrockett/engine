@@ -11,17 +11,20 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
-namespace Engine.Physics
+namespace Engine
 {
     /// <summary>
     /// The potential energy struct.
     /// </summary>
+    /// <seealso cref="IEnergy" />
+    /// <seealso cref="IEquatable{T}" />
     public struct PotentialEnergy
         : IEnergy, IEquatable<PotentialEnergy>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PotentialEnergy"/> class.
+        /// Initializes a new instance of the <see cref="PotentialEnergy" /> class.
         /// </summary>
         /// <param name="height">The height.</param>
         /// <param name="weight">The weight.</param>
@@ -34,27 +37,42 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the height.
         /// </summary>
+        /// <value>
+        /// The height.
+        /// </value>
         public ILength Height { get; set; }
 
         /// <summary>
         /// Gets or sets the weight.
         /// </summary>
+        /// <value>
+        /// The weight.
+        /// </value>
         public IMass Weight { get; set; }
 
         /// <summary>
         /// Gets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value => Weight.Value * Height.Value;
 
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Name => "Potential Energy";
 
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abbreviation => $"{Value}{Weight.Abbreviation}";
 
@@ -79,11 +97,11 @@ namespace Engine.Physics
         public static bool operator !=(PotentialEnergy left, PotentialEnergy right) => !(left == right);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
         public override bool Equals(object obj) => obj is PotentialEnergy energy && Equals(energy);
 
@@ -92,7 +110,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(PotentialEnergy other) => EqualityComparer<ILength>.Default.Equals(Height, other.Height) && EqualityComparer<IMass>.Default.Equals(Weight, other.Weight);
 
@@ -114,7 +132,7 @@ namespace Engine.Physics
         /// The to string.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         public override string ToString() => $"{Value} {Weight.Abbreviation}{Height.Abbreviation}";
     }

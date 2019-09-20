@@ -10,7 +10,7 @@
 
 using System.ComponentModel;
 
-namespace Engine.Physics
+namespace Engine
 {
     /// <summary>
     /// The ILength interface.

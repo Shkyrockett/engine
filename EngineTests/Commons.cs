@@ -263,253 +263,252 @@ namespace EngineTests
             /// <summary>
             /// The ellipse 0 0 1 1 0.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_0 = new Ellipse(0, 0, 1, 1, 0d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_0 = new Ellipse(0, 0, 1, 1, 0d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 15.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_15 = new Ellipse(0, 0, 1, 1, 15d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_15 = new Ellipse(0, 0, 1, 1, 15d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 30.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_30 = new Ellipse(0, 0, 1, 1, 30d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_30 = new Ellipse(0, 0, 1, 1, 30d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 45.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_45 = new Ellipse(0, 0, 1, 1, 45d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_45 = new Ellipse(0, 0, 1, 1, 45d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 60.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_60 = new Ellipse(0, 0, 1, 1, 60d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_60 = new Ellipse(0, 0, 1, 1, 60d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 75.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_75 = new Ellipse(0, 0, 1, 1, 75d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_75 = new Ellipse(0, 0, 1, 1, 75d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 90.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_90 = new Ellipse(0, 0, 1, 1, 90d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_90 = new Ellipse(0, 0, 1, 1, 90d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 105.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_105 = new Ellipse(0, 0, 1, 1, 105d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_105 = new Ellipse(0, 0, 1, 1, 105d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 120.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_120 = new Ellipse(0, 0, 1, 1, 120d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_120 = new Ellipse(0, 0, 1, 1, 120d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 135.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_135 = new Ellipse(0, 0, 1, 1, 135d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_135 = new Ellipse(0, 0, 1, 1, 135d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 150.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_150 = new Ellipse(0, 0, 1, 1, 150d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_150 = new Ellipse(0, 0, 1, 1, 150d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 165.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_165 = new Ellipse(0, 0, 1, 1, 165d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_165 = new Ellipse(0, 0, 1, 1, 165d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 180.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_180 = new Ellipse(0, 0, 1, 1, 180d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_180 = new Ellipse(0, 0, 1, 1, 180d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 195.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_195 = new Ellipse(0, 0, 1, 1, 195d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_195 = new Ellipse(0, 0, 1, 1, 195d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 210.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_210 = new Ellipse(0, 0, 1, 1, 210d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_210 = new Ellipse(0, 0, 1, 1, 210d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 225.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_225 = new Ellipse(0, 0, 1, 1, 225d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_225 = new Ellipse(0, 0, 1, 1, 225d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 240.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_240 = new Ellipse(0, 0, 1, 1, 240d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_240 = new Ellipse(0, 0, 1, 1, 240d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 255.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_255 = new Ellipse(0, 0, 1, 1, 255d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_255 = new Ellipse(0, 0, 1, 1, 255d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 270.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_270 = new Ellipse(0, 0, 1, 1, 270d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_270 = new Ellipse(0, 0, 1, 1, 270d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 285.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_285 = new Ellipse(0, 0, 1, 1, 285d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_285 = new Ellipse(0, 0, 1, 1, 285d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 300.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_300 = new Ellipse(0, 0, 1, 1, 300d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_300 = new Ellipse(0, 0, 1, 1, 300d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 315.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_315 = new Ellipse(0, 0, 1, 1, 315d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_315 = new Ellipse(0, 0, 1, 1, 315d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 330.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_330 = new Ellipse(0, 0, 1, 1, 330d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_330 = new Ellipse(0, 0, 1, 1, 330d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 345.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_345 = new Ellipse(0, 0, 1, 1, 345d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_345 = new Ellipse(0, 0, 1, 1, 345d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 1 360.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_1_360 = new Ellipse(0, 0, 1, 1, 360d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_1_360 = new Ellipse(0, 0, 1, 1, 360d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 0.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_0 = new Ellipse(0, 0, 1, 2, 0d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_0 = new Ellipse(0, 0, 1, 2, 0d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 15.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_15 = new Ellipse(0, 0, 1, 2, 15d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_15 = new Ellipse(0, 0, 1, 2, 15d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 30.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_30 = new Ellipse(0, 0, 1, 2, 30d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_30 = new Ellipse(0, 0, 1, 2, 30d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 45.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_45 = new Ellipse(0, 0, 1, 2, 45d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_45 = new Ellipse(0, 0, 1, 2, 45d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 60.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_60 = new Ellipse(0, 0, 1, 2, 60d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_60 = new Ellipse(0, 0, 1, 2, 60d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 75.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_75 = new Ellipse(0, 0, 1, 2, 75d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_75 = new Ellipse(0, 0, 1, 2, 75d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 90.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_90 = new Ellipse(0, 0, 1, 2, 90d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_90 = new Ellipse(0, 0, 1, 2, 90d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 105.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_105 = new Ellipse(0, 0, 1, 2, 105d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_105 = new Ellipse(0, 0, 1, 2, 105d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 120.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_120 = new Ellipse(0, 0, 1, 2, 120d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_120 = new Ellipse(0, 0, 1, 2, 120d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 135.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_135 = new Ellipse(0, 0, 1, 2, 135d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_135 = new Ellipse(0, 0, 1, 2, 135d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 150.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_150 = new Ellipse(0, 0, 1, 2, 150d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_150 = new Ellipse(0, 0, 1, 2, 150d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 165.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_165 = new Ellipse(0, 0, 1, 2, 165d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_165 = new Ellipse(0, 0, 1, 2, 165d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 180.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_180 = new Ellipse(0, 0, 1, 2, 180d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_180 = new Ellipse(0, 0, 1, 2, 180d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 195.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_195 = new Ellipse(0, 0, 1, 2, 195d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_195 = new Ellipse(0, 0, 1, 2, 195d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 210.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_210 = new Ellipse(0, 0, 1, 2, 210d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_210 = new Ellipse(0, 0, 1, 2, 210d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 225.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_225 = new Ellipse(0, 0, 1, 2, 225d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_225 = new Ellipse(0, 0, 1, 2, 225d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 240.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_240 = new Ellipse(0, 0, 1, 2, 240d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_240 = new Ellipse(0, 0, 1, 2, 240d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 255.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_255 = new Ellipse(0, 0, 1, 2, 255d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_255 = new Ellipse(0, 0, 1, 2, 255d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 270.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_270 = new Ellipse(0, 0, 1, 2, 270d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_270 = new Ellipse(0, 0, 1, 2, 270d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 285.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_285 = new Ellipse(0, 0, 1, 2, 285d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_285 = new Ellipse(0, 0, 1, 2, 285d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 300.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_300 = new Ellipse(0, 0, 1, 2, 300d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_300 = new Ellipse(0, 0, 1, 2, 300d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 315.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_315 = new Ellipse(0, 0, 1, 2, 315d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_315 = new Ellipse(0, 0, 1, 2, 315d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 330.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_330 = new Ellipse(0, 0, 1, 2, 330d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_330 = new Ellipse(0, 0, 1, 2, 330d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 345.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_345 = new Ellipse(0, 0, 1, 2, 345d.ToRadians());
+            public static readonly Ellipse ellipse_0_0_1_2_345 = new Ellipse(0, 0, 1, 2, 345d.DegreesToRadians());
 
             /// <summary>
             /// The ellipse 0 0 1 2 360.
             /// </summary>
-            public static readonly Ellipse ellipse_0_0_1_2_360 = new Ellipse(0, 0, 1, 2, 360d.ToRadians());
-
+            public static readonly Ellipse ellipse_0_0_1_2_360 = new Ellipse(0, 0, 1, 2, 360d.DegreesToRadians());
         }
     }
 }

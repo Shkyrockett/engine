@@ -44,7 +44,7 @@ namespace Engine
         {
             if (relitive)
             {
-                End = (Point2D)(End + previous.End);
+                Tail = (Point2D)(Tail + previous.Tail);
             }
         }
 
@@ -58,7 +58,7 @@ namespace Engine
         {
             Previous = previous;
             previous.Next = this;
-            End = end;
+            Tail = end;
         }
         #endregion Constructors
 
@@ -72,10 +72,10 @@ namespace Engine
         /// <param name="by">The by.</param>
         public void Deconstruct(out double ax, out double ay, out double bx, out double by)
         {
-            ax = Start.Value.X;
-            ay = Start.Value.Y;
-            bx = End.Value.X;
-            by = End.Value.Y;
+            ax = Head.Value.X;
+            ay = Head.Value.Y;
+            bx = Tail.Value.X;
+            by = Tail.Value.Y;
         }
         #endregion Deconstructors
 
@@ -84,9 +84,9 @@ namespace Engine
         /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? Start
+        public override Point2D? Head
         {
-            get { return Previous?.End; }
+            get { return Previous?.Tail; }
             set
             {
                 if (Previous is null)
@@ -95,7 +95,7 @@ namespace Engine
                 }
                 else
                 {
-                    Previous.End = value;
+                    Previous.Tail = value;
                 }
             }
         }
@@ -104,13 +104,13 @@ namespace Engine
         /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd { get { return Start; } set { Start = value; } }
+        public override Point2D? NextToEnd { get { return Head; } set { Head = value; } }
 
         /// <summary>
         /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public override Point2D? End { get; set; }
+        public override Point2D? Tail { get; set; }
 
         /// <summary>
         /// Gets the grips.
@@ -118,7 +118,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public override List<Point2D> Grips
-            => new List<Point2D> { Start.Value, End.Value };
+            => new List<Point2D> { Head.Value, Tail.Value };
 
         /// <summary>
         /// Gets the bounds.
@@ -128,7 +128,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(Start.Value.X, Start.Value.Y, End.Value.X, End.Value.Y));
+            => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(Head.Value.X, Head.Value.Y, Tail.Value.X, Tail.Value.Y));
 
         /// <summary>
         /// Gets the length.
@@ -152,7 +152,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="LineSegment"/>.</returns>
         public LineSegment ToLineSegment()
-            => new LineSegment(Start.Value, End.Value);
+            => new LineSegment(Head.Value, Tail.Value);
         #endregion Methods
     }
 }

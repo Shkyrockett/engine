@@ -173,11 +173,11 @@ namespace Engine.Tools
         {
             var output = new StringBuilder();
             output.Append("Angle: ");
-            output.Append(Round(Angle.ToDegrees(), 3).ToString("N3").PadLeft(8));
+            output.Append(Round(Angle.RadiansToDegrees(), 3).ToString("N3").PadLeft(8));
             output.Append(", Snap to: ");
-            output.Append(Round(Theta.ToDegrees(), 3).ToString("N0").PadLeft(3));
+            output.Append(Round(Theta.RadiansToDegrees(), 3).ToString("N0").PadLeft(3));
             output.Append(", Difference: ");
-            output.Append(Round(Delta.ToDegrees(), 3).ToString("N3").PadLeft(8));
+            output.Append(Round(Delta.RadiansToDegrees(), 3).ToString("N3").PadLeft(8));
             output.Append(".");
             return output.ToString();
         }

@@ -99,8 +99,8 @@ namespace Engine.Imaging
             var fill = new SolidFill(RGBA.FromRGBA(Colors.MediumPurple, 128));
             var stroke = new Stroke(new SolidFill(RGBA.FromRGBA(Colors.Purple, 128)));
 
-            var bounds = shape.Bounds;
-            renderer.FillPie(fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
+            var bounds = shape?.Bounds;
+            renderer?.FillPie(fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
             renderer.DrawPie(stroke, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
 
             var num = 1;
@@ -109,7 +109,7 @@ namespace Engine.Imaging
                 var tickStroke = shape.InSweep(angle) ? SolidStrokes.Lime : SolidStrokes.Red;
                 var anglePoint = shape.TestPoint(angle);
                 renderer.DrawLine(tickStroke, shape.Location.X, shape.Location.Y, anglePoint.X, anglePoint.Y);
-                renderer.DrawString($"a{num}", new RenderFont("GenericSansSerif", 12, Engine.TextStyles.Regular), SolidFills.Black, anglePoint.X, anglePoint.Y, new TextFormat(TextBoxFormatFlags.NoWrap, 0));
+                renderer.DrawString($"a{num}", new RenderFont("GenericSansSerif", 12, TextStyles.Regular), SolidFills.Black, anglePoint.X, anglePoint.Y, new TextFormat(TextBoxFormatFlags.NoWrap, 0));
                 num++;
             }
         }
@@ -131,7 +131,7 @@ namespace Engine.Imaging
 
             if (shape?.Points.Count > 1 && shape.ConnectPoints)
             {
-                renderer.DrawLines(dashPen, shape?.Points);
+                renderer?.DrawLines(dashPen, shape?.Points);
             }
 
             foreach (var point in shape?.Points)

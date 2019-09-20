@@ -179,7 +179,7 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(PolycurveContour contour)
         {
-            var result = new PolycurveContour(Process(contour.Items[0].Start.Value));
+            var result = new PolycurveContour(Process(contour.Items[0].Head.Value));
             foreach (var side in contour)
             {
                 switch (side)
@@ -187,13 +187,13 @@ namespace Engine
                     case PointSegment p:
                         if (p != result[0])
                         {
-                            result.Add(Process(p.Start.Value));
+                            result.Add(Process(p.Head.Value));
                         }
 
                         continue;
                     case LineCurveSegment l:
                         {
-                            var c = Conversions.LineSegmentToCubicBezier(l.Start.Value, l.End.Value);
+                            var c = Conversions.LineSegmentToCubicBezier(l.Head.Value, l.Tail.Value);
                             result.AddCubicBezier(Process(c.B), Process(c.C), Process(c.D));
                             continue;
                         }
@@ -214,7 +214,7 @@ namespace Engine
                         }
                     case CubicBezierSegment b:
                         {
-                            result.AddCubicBezier(Process(b.Handle1), Process(b.Handle2.Value), Process(b.End.Value));
+                            result.AddCubicBezier(Process(b.Handle1), Process(b.Handle2.Value), Process(b.Tail.Value));
                             continue;
                         }
                     case CardinalSegment s:

@@ -12,6 +12,7 @@ using Engine;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using static Engine.Polynomials;
 
 namespace EngineTests
 {
@@ -19,7 +20,7 @@ namespace EngineTests
     /// The maths tests unit test class.
     /// </summary>
     [TestClass()]
-    public class MathsTests
+    public class OperationsTests
     {
         #region Constants
         /// <summary>
@@ -84,7 +85,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void IsOneTest()
         {
@@ -100,7 +101,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void IsZeroTest()
         {
@@ -116,7 +117,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void LessThanTest()
         {
@@ -132,7 +133,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void LessThanOrCloseTest()
         {
@@ -148,7 +149,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void GreaterThanTest()
         {
@@ -164,7 +165,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void GreaterThanOrCloseTest()
         {
@@ -180,7 +181,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void IsBetweenZeroAndOneTest()
         {
@@ -201,7 +202,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         //[DeploymentItem("System.ValueTuple.dll")]
         [DeploymentItem("Engine.dll")]
         public void IsAdditionSafeTest()
@@ -574,7 +575,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         //[DeploymentItem("System.ValueTuple.dll")]
         [DeploymentItem("Engine.dll")]
         public void IsSubtractionSafeTest()
@@ -947,7 +948,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void IsMultiplicationSafeTest()
         {
@@ -1322,7 +1323,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void Atan2Test()
@@ -1338,7 +1339,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void SecantTest()
@@ -1354,7 +1355,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void CosecantTest()
@@ -1370,7 +1371,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void CotangentTest()
@@ -1386,7 +1387,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseSineTest()
@@ -1402,7 +1403,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseCosineTest()
@@ -1418,7 +1419,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseSecantTest()
@@ -1434,7 +1435,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseCosecantTest()
@@ -1450,7 +1451,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseCotangentTest()
@@ -1466,7 +1467,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void HyperbolicSineTest()
@@ -1482,7 +1483,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void HyperbolicCosineTest()
@@ -1498,7 +1499,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void HyperbolicTangentTest()
@@ -1514,7 +1515,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void HyperbolicSecantTest()
@@ -1530,7 +1531,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void HyperbolicCosecantTest()
@@ -1546,7 +1547,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void HyperbolicCotangentTest()
@@ -1562,7 +1563,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseHyperbolicSineTest()
@@ -1578,7 +1579,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseHyperbolicCosineTest()
@@ -1594,7 +1595,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseHyperbolicTangentTest()
@@ -1610,7 +1611,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseHyperbolicSecantTest()
@@ -1626,7 +1627,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseHyperbolicCosecantTest()
@@ -1642,7 +1643,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseHyperbolicCotangentTest()
@@ -1658,7 +1659,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void LogarithmToBaseNTest()
@@ -1670,7 +1671,7 @@ namespace EngineTests
 
         #region Bézier Polynomial Coefficients Tests
         /// <summary>
-        /// Test the <see cref="Operations.LinearBezierCoefficientsStack(double, double)"/> method.
+        /// Test the <see cref="LinearBezierPolynomialStack(double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1680,12 +1681,12 @@ namespace EngineTests
         public void LinearBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(1, 1);
-            var result = Operations.LinearBezierCoefficientsStack(1, 2);
+            var result = LinearBezierPolynomialStack(1, 2);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.LinearBezierCoefficients(double, double)"/> method.
+        /// Test the <see cref="LinearBezierPolynomial(double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1695,12 +1696,12 @@ namespace EngineTests
         public void LinearBezierCoefficientsTest()
         {
             var expected = new Polynomial(1, 1);
-            var result = (Polynomial)Operations.LinearBezierCoefficients(1, 2);
+            var result = (Polynomial)LinearBezierPolynomial(1, 2);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.QuadraticBezierCoefficientsStack(double, double, double)"/> method.
+        /// Test the <see cref="QuadraticBezierPolynomialStack(double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1710,12 +1711,12 @@ namespace EngineTests
         public void QuadraticBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 2, 1);
-            var result = Operations.QuadraticBezierCoefficientsStack(1, 2, 3);
+            var result = QuadraticBezierPolynomialStack(1, 2, 3);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.QuadraticBezierCoefficients(double, double, double)"/> method.
+        /// Test the <see cref="QuadraticBezierPolynomial(double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1725,12 +1726,12 @@ namespace EngineTests
         public void QuadraticBezierCoefficientsTest()
         {
             var expected = new Polynomial(0, 2, 1);
-            var result = (Polynomial)Operations.QuadraticBezierCoefficients(1, 2, 3);
+            var result = (Polynomial)QuadraticBezierPolynomial(1, 2, 3);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.CubicBezierCoefficientsStack(double, double, double, double)"/> method.
+        /// Test the <see cref="CubicBezierPolynomialStack(double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1740,12 +1741,12 @@ namespace EngineTests
         public void CubicBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 3, 1);
-            var result = Operations.CubicBezierCoefficientsStack(1, 2, 3, 4);
+            var result = CubicBezierPolynomialStack(1, 2, 3, 4);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.CubicBezierCoefficients(double, double, double, double)"/> method.
+        /// Test the <see cref=".CubicBezierCoefficients(double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1755,12 +1756,12 @@ namespace EngineTests
         public void CubicBezierCoefficientsTest()
         {
             var expected = new Polynomial(0, 0, 3, 1);
-            var result = (Polynomial)Operations.CubicBezierCoefficients(1, 2, 3, 4);
+            var result = (Polynomial)CubicBezierPolynomial(1, 2, 3, 4);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.QuarticBezierCoefficientsStack(double, double, double, double, double)"/> method.
+        /// Test the <see cref="QuarticBezierPolynomialStack(double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1770,12 +1771,12 @@ namespace EngineTests
         public void QuarticBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 4, 1);
-            var result = Operations.QuarticBezierCoefficientsStack(1, 2, 3, 4, 5);
+            var result = QuarticBezierPolynomialStack(1, 2, 3, 4, 5);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.QuarticBezierCoefficients(double, double, double, double, double)"/> method.
+        /// Test the <see cref="QuarticBezierPolynomial(double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1785,12 +1786,12 @@ namespace EngineTests
         public void QuarticBezierCoefficientsTest()
         {
             var expected = new Polynomial(0, 0, 0, 4, 1);
-            var result = (Polynomial)Operations.QuarticBezierCoefficients(1, 2, 3, 4, 5);
+            var result = (Polynomial)QuarticBezierPolynomial(1, 2, 3, 4, 5);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.QuinticBezierCoefficientsStack(double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="QuinticBezierPolynomialStack(double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1800,12 +1801,12 @@ namespace EngineTests
         public void QuinticBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 5, 1);
-            var result = Operations.QuinticBezierCoefficientsStack(1, 2, 3, 4, 5, 6);
+            var result = QuinticBezierPolynomialStack(1, 2, 3, 4, 5, 6);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.QuinticBezierCoefficients(double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="QuinticBezierPolynomial(double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1815,12 +1816,12 @@ namespace EngineTests
         public void QuinticBezierCoefficientsTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 5, 1);
-            var result = Operations.QuinticBezierCoefficients(1, 2, 3, 4, 5, 6);
+            var result = QuinticBezierPolynomial(1, 2, 3, 4, 5, 6);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.SexticBezierCoefficientsStack(double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="SexticBezierPolynomialStack(double, double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1830,12 +1831,12 @@ namespace EngineTests
         public void SexticBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 0, 6, 1);
-            var result = Operations.SexticBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7);
+            var result = SexticBezierPolynomialStack(1, 2, 3, 4, 5, 6, 7);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.SepticBezierCoefficientsStack(double, double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="SepticBezierPolynomialStack(double, double, double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1845,12 +1846,12 @@ namespace EngineTests
         public void SepticBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 0, 0, 7, 1);
-            var result = Operations.SepticBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8);
+            var result = SepticBezierPolynomialStack(1, 2, 3, 4, 5, 6, 7, 8);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.OcticBezierCoefficientsStack(double, double, double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="OcticBezierPolynomialStack(double, double, double, double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1860,12 +1861,12 @@ namespace EngineTests
         public void OcticBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 0, 0, 0, 8, 1);
-            var result = Operations.OcticBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8, 9);
+            var result = OcticBezierPolynomialStack(1, 2, 3, 4, 5, 6, 7, 8, 9);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.NonicBezierCoefficientsStack(double, double, double, double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="NonicBezierPolynomialStack(double, double, double, double, double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1875,12 +1876,12 @@ namespace EngineTests
         public void NonicBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 0, 0, 0, 0, 9, 1);
-            var result = Operations.NonicBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+            var result = NonicBezierPolynomialStack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Operations.DecicBezierCoefficientsStack(double, double, double, double, double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="DecicBezierPolynomialStack(double, double, double, double, double, double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1890,7 +1891,7 @@ namespace EngineTests
         public void DecicBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1);
-            var result = Operations.DecicBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+            var result = DecicBezierPolynomialStack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
             Assert.AreEqual(expected, result);
         }
         #endregion Bézier Polynomial Coefficients Tests
@@ -1902,43 +1903,43 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void ToRadiansTest()
         {
-            var value = Operations.ToRadians(0);
+            var value = Operations.DegreesToRadians(0);
             Assert.AreEqual(0, value);
-            value = Operations.ToRadians(30);
+            value = Operations.DegreesToRadians(30);
             Assert.AreEqual(30 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(45);
+            value = Operations.DegreesToRadians(45);
             Assert.AreEqual(45 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(60);
+            value = Operations.DegreesToRadians(60);
             Assert.AreEqual(60 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(90);
+            value = Operations.DegreesToRadians(90);
             Assert.AreEqual(90 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(120);
+            value = Operations.DegreesToRadians(120);
             Assert.AreEqual(120 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(135);
+            value = Operations.DegreesToRadians(135);
             Assert.AreEqual(135 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(150);
+            value = Operations.DegreesToRadians(150);
             Assert.AreEqual(150 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(180);
+            value = Operations.DegreesToRadians(180);
             Assert.AreEqual(180 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(210);
+            value = Operations.DegreesToRadians(210);
             Assert.AreEqual(210 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(225);
+            value = Operations.DegreesToRadians(225);
             Assert.AreEqual(225 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(240);
+            value = Operations.DegreesToRadians(240);
             Assert.AreEqual(240 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(270);
+            value = Operations.DegreesToRadians(270);
             Assert.AreEqual(270 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(300);
+            value = Operations.DegreesToRadians(300);
             Assert.AreEqual(300 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(315);
+            value = Operations.DegreesToRadians(315);
             Assert.AreEqual(315 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(330);
+            value = Operations.DegreesToRadians(330);
             Assert.AreEqual(330 * (Math.PI / 180f), value);
-            value = Operations.ToRadians(360);
+            value = Operations.DegreesToRadians(360);
             Assert.AreEqual(360 * (Math.PI / 180f), value);
         }
 
@@ -1948,43 +1949,43 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void ToDegreesTest()
         {
-            var value = Operations.ToDegrees(0);
+            var value = Operations.RadiansToDegrees(0);
             Assert.AreEqual(0, value);
-            value = Operations.ToDegrees(30);
+            value = Operations.RadiansToDegrees(30);
             Assert.AreEqual(30 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(45);
+            value = Operations.RadiansToDegrees(45);
             Assert.AreEqual(45 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(60);
+            value = Operations.RadiansToDegrees(60);
             Assert.AreEqual(60 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(90);
+            value = Operations.RadiansToDegrees(90);
             Assert.AreEqual(90 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(120);
+            value = Operations.RadiansToDegrees(120);
             Assert.AreEqual(120 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(135);
+            value = Operations.RadiansToDegrees(135);
             Assert.AreEqual(135 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(150);
+            value = Operations.RadiansToDegrees(150);
             Assert.AreEqual(150 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(180);
+            value = Operations.RadiansToDegrees(180);
             Assert.AreEqual(180 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(210);
+            value = Operations.RadiansToDegrees(210);
             Assert.AreEqual(210 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(225);
+            value = Operations.RadiansToDegrees(225);
             Assert.AreEqual(225 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(240);
+            value = Operations.RadiansToDegrees(240);
             Assert.AreEqual(240 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(270);
+            value = Operations.RadiansToDegrees(270);
             Assert.AreEqual(270 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(300);
+            value = Operations.RadiansToDegrees(300);
             Assert.AreEqual(300 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(315);
+            value = Operations.RadiansToDegrees(315);
             Assert.AreEqual(315 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(330);
+            value = Operations.RadiansToDegrees(330);
             Assert.AreEqual(330 * (180f / Math.PI), value);
-            value = Operations.ToDegrees(360);
+            value = Operations.RadiansToDegrees(360);
             Assert.AreEqual(360 * (180f / Math.PI), value);
         }
 
@@ -1994,7 +1995,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void RoundToMultipleTest()
         {
@@ -2008,7 +2009,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void ModuloTest()
         {
@@ -2022,7 +2023,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void AverageTest()
         {
@@ -2037,7 +2038,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void SumTest()
         {
@@ -2052,7 +2053,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void HiWordTest()
         {
@@ -2068,7 +2069,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void SignedHiWordTest()
         {
@@ -2084,7 +2085,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void LoWordTest()
         {
@@ -2100,7 +2101,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         public void SignedLoWordTest()
         {
@@ -2117,7 +2118,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void RandomTest()
@@ -2133,7 +2134,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ToFloatTest()
@@ -2149,7 +2150,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void FloatToIntTest()
@@ -2165,7 +2166,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(MathsTests))]
+        [TestProperty(nameof(Engine), nameof(OperationsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void DoubleToIntTest()

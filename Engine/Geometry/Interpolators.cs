@@ -1031,7 +1031,7 @@ namespace Engine
 
         #region Ellipse Interpolation
         /// <summary>
-        /// Interpolates the unrotated elliptical Arc.
+        /// Interpolates the orthogonal elliptical Arc.
         /// </summary>
         /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
@@ -1052,11 +1052,11 @@ namespace Engine
             var x = Sqrt(r1 * r1 * (r2 * r2) / ((r2 * r2) + (r1 * r1 * (tanAngle * tanAngle))));
             var y = x * tanAngle;
 
-            return (theta >= 0d) && (theta < 90d.ToRadians())
+            return (theta >= 0d) && (theta < 90d.DegreesToRadians())
                 ? (cX + x, cY + y)
-                : (theta >= 90d.ToRadians()) && (theta < 180d.ToRadians())
+                : (theta >= 90d.DegreesToRadians()) && (theta < 180d.DegreesToRadians())
                 ? (cX - x, cY + y)
-                : (theta >= 180d.ToRadians()) && (theta < 270d.ToRadians()) ? (cX - x, cY - y) : (cX + x, cY - y);
+                : (theta >= 180d.DegreesToRadians()) && (theta < 270d.DegreesToRadians()) ? (cX - x, cY - y) : (cX + x, cY - y);
         }
 
         /// <summary>

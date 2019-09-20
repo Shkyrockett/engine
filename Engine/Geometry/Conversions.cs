@@ -336,8 +336,7 @@ namespace Engine
         /// <returns>Returns  <see cref="ValueTuple{T1, T2, T3}"/> representing the a, h, and k values of the vertex form of a parabola.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double h, double k) StandardParabolaToVertexParabola(double a, double b, double c)
-            => (a, h: -(b / (2d * a)), k: -(b * b / (4d * a)) + c);
+        public static (double a, double h, double k) StandardParabolaToVertexParabola(double a, double b, double c) => (a, h: -(b / (2d * a)), k: -(b * b / (4d * a)) + c);
 
         /// <summary>
         /// Convert a parabola from vertex form into standard form.
@@ -565,8 +564,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double FindParabolaAFromAPointAndVertex(double x, double y, double h, double k)
-            => x - h == 0d ? 0d : (y - k) / ((x - h) * (x - h));
+        public static double FindParabolaAFromAPointAndVertex(double x, double y, double h, double k) => x - h == 0d ? 0d : (y - k) / ((x - h) * (x - h));
         #endregion
 
         #region Rectangle

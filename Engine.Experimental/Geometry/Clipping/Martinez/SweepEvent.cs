@@ -21,9 +21,8 @@ namespace Engine
     /// as the sweep line passes through the polygons.
     /// </summary>
     /// <seealso cref="IComparable{T}" />
-    /// <seealso cref="IEquatable{T}" />
     public class SweepEvent
-        : IComparable<SweepEvent>, IEquatable<SweepEvent>
+        : IComparable<SweepEvent>
     {
         #region Fields
         /// <summary>
@@ -278,26 +277,6 @@ namespace Engine
         /// The result of the operator.
         /// </returns>
         public static bool operator >=(SweepEvent left, SweepEvent right) => left is null ? right is null : SweepEventComp(left, right) >= 0;
-
-        /// <summary>
-        /// Implements the operator ==.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static bool operator ==(SweepEvent left, SweepEvent right) => EqualityComparer<SweepEvent>.Default.Equals(left, right);
-
-        /// <summary>
-        /// Implements the operator !=.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static bool operator !=(SweepEvent left, SweepEvent right) => !(left == right);
         #endregion Operators
 
         #region Methods
@@ -310,24 +289,6 @@ namespace Engine
         /// </returns>
         public int CompareTo(SweepEvent other)
             => SweepEventComp(this, other);
-
-        /// <summary>
-        /// Determines whether the specified <see cref="object" />, is equal to this instance.
-        /// </summary>
-        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
-        /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
-        /// </returns>
-        public override bool Equals(object obj) => Equals(obj as SweepEvent);
-
-        /// <summary>
-        /// Indicates whether the current object is equal to another object of the same type.
-        /// </summary>
-        /// <param name="other">An object to compare with this object.</param>
-        /// <returns>
-        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
-        /// </returns>
-        public bool Equals(SweepEvent other) => CompareTo(other) == 0;
 
         /// <summary>
         /// Returns a hash code for this instance.

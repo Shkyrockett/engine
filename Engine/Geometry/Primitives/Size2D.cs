@@ -157,7 +157,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value) => Operations.UnaryAdd2D(value.Width, value.Height);
+        public static Size2D operator +(Size2D value) => UnaryAdd2D(value.Width, value.Height);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point2D" /> classes.
@@ -169,7 +169,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value, double addend) => Operations.Add2D(value.Width, value.Height, addend);
+        public static Size2D operator +(Size2D value, double addend) => Add2D(value.Width, value.Height, addend);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point2D" /> classes.
@@ -181,7 +181,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(double value, Size2D addend) => Operations.Add2D(addend.Width, addend.Height, value);
+        public static Size2D operator +(double value, Size2D addend) => Add2D(addend.Width, addend.Height, value);
 
         /// <summary>
         /// Add two <see cref="Size2D" /> classes together.
@@ -193,7 +193,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value, Size2D addend) => Operations.Add2D(value.Width, value.Height, addend.Width, addend.Height);
+        public static Size2D operator +(Size2D value, Size2D addend) => Add2D(value.Width, value.Height, addend.Width, addend.Height);
 
         /// <summary>
         /// Add two <see cref="Size2D" /> classes together.
@@ -205,7 +205,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator +(Size2D value, Point2D addend) => Operations.Add2D(value.Width, value.Height, addend.X, addend.Y);
+        public static Point2D operator +(Size2D value, Point2D addend) => Add2D(value.Width, value.Height, addend.X, addend.Y);
 
         /// <summary>
         /// Add a <see cref="Point2D" /> and a <see cref="Size2D" /> classes together.
@@ -217,7 +217,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator +(Point2D value, Size2D addend) => Operations.Add2D(value.X, value.Y, addend.Width, addend.Height);
+        public static Point2D operator +(Point2D value, Size2D addend) => Add2D(value.X, value.Y, addend.Width, addend.Height);
 
         /// <summary>
         /// Add a <see cref="Size2D" /> to a <see cref="Vector2D" /> class.
@@ -229,7 +229,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Size2D value, Vector2D addend) => Operations.Add2D(value.Width, value.Height, addend.I, addend.J);
+        public static Vector2D operator +(Size2D value, Vector2D addend) => Add2D(value.Width, value.Height, addend.I, addend.J);
 
         /// <summary>
         /// Add a <see cref="Vector2D" /> and a <see cref="Size2D" /> classes together.
@@ -241,7 +241,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value, Size2D addend) => Operations.Add2D(value.I, value.J, addend.Width, addend.Height);
+        public static Vector2D operator +(Vector2D value, Size2D addend) => Add2D(value.I, value.J, addend.Width, addend.Height);
 
         /// <summary>
         /// The operator -.
@@ -252,7 +252,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D value) => Operations.UnaryNegate2D(value.Width, value.Height);
+        public static Size2D operator -(Size2D value) => UnaryNegate2D(value.Width, value.Height);
 
         /// <summary>
         /// Subtract a <see cref="Size2D" /> from a <see cref="double" /> value.
@@ -264,7 +264,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D value, double subend) => Operations.SubtractSubtrahend2D(value.Width, value.Height, subend);
+        public static Size2D operator -(Size2D value, double subend) => SubtractSubtrahend2D(value.Width, value.Height, subend);
 
         /// <summary>
         /// Subtract a <see cref="double" /> value from a <see cref="Size2D" />.
@@ -276,7 +276,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(double value, Size2D subend) => Operations.SubtractSubtrahend2D(value, subend.Width, subend.Height);
+        public static Size2D operator -(double value, Size2D subend) => SubtractSubtrahend2D(value, subend.Width, subend.Height);
 
         /// <summary>
         /// Subtract a <see cref="Size2D" /> from another <see cref="Size2D" /> class.
@@ -288,7 +288,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D value, Size2D subend) => Operations.Subtract2D(value.Width, value.Height, subend.Width, subend.Height);
+        public static Size2D operator -(Size2D value, Size2D subend) => Subtract2D(value.Width, value.Height, subend.Width, subend.Height);
 
         /// <summary>
         /// Subtract a <see cref="Size2D" /> from a <see cref="Point2D" /> class.
@@ -300,7 +300,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator -(Size2D value, Point2D subend) => Operations.Subtract2D(value.Width, value.Height, subend.X, subend.Y);
+        public static Point2D operator -(Size2D value, Point2D subend) => Subtract2D(value.Width, value.Height, subend.X, subend.Y);
 
         /// <summary>
         /// Subtract a <see cref="Point2D" /> from another <see cref="Size2D" /> class.
@@ -312,7 +312,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator -(Point2D value, Size2D subend) => Operations.Subtract2D(value.X, value.Y, subend.Width, subend.Height);
+        public static Point2D operator -(Point2D value, Size2D subend) => Subtract2D(value.X, value.Y, subend.Width, subend.Height);
 
         /// <summary>
         /// Subtract a <see cref="Size2D" /> from a <see cref="Vector2D" /> class.
@@ -324,7 +324,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Size2D value, Vector2D subend) => Operations.Subtract2D(value.Width, value.Height, subend.I, subend.J);
+        public static Vector2D operator -(Size2D value, Vector2D subend) => Subtract2D(value.Width, value.Height, subend.I, subend.J);
 
         /// <summary>
         /// Subtract a <see cref="Vector2D" /> from another <see cref="Size2D" /> class.
@@ -336,7 +336,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value, Size2D subend) => Operations.Subtract2D(value.I, value.J, subend.Width, subend.Height);
+        public static Vector2D operator -(Vector2D value, Size2D subend) => Subtract2D(value.I, value.J, subend.Width, subend.Height);
 
         /// <summary>
         /// Scale a point
@@ -348,7 +348,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator *(double value, Size2D factor) => Operations.Scale2D(factor.Width, factor.Height, value);
+        public static Size2D operator *(double value, Size2D factor) => Scale2D(factor.Width, factor.Height, value);
 
         /// <summary>
         /// Scale a point.
@@ -360,7 +360,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator *(Size2D value, double factor) => Operations.Scale2D(value.Width, value.Height, factor);
+        public static Size2D operator *(Size2D value, double factor) => Scale2D(value.Width, value.Height, factor);
 
         /// <summary>
         /// Scale a Size2D
@@ -372,7 +372,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator *(Size2D value, Size2D factor) => Operations.ParametricScale2D(value.Width, value.Height, factor.Width, factor.Height);
+        public static Size2D operator *(Size2D value, Size2D factor) => ParametricScale2D(value.Width, value.Height, factor.Width, factor.Height);
 
         /// <summary>
         /// Scale a Point
@@ -384,7 +384,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator *(Point2D value, Size2D factor) => Operations.ParametricScale2D(value.X, value.Y, factor.Width, factor.Height);
+        public static Point2D operator *(Point2D value, Size2D factor) => ParametricScale2D(value.X, value.Y, factor.Width, factor.Height);
 
         /// <summary>
         /// Scale a Point
@@ -396,7 +396,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator *(Size2D value, Point2D factor) => Operations.ParametricScale2D(value.Width, value.Height, factor.X, factor.Y);
+        public static Point2D operator *(Size2D value, Point2D factor) => ParametricScale2D(value.Width, value.Height, factor.X, factor.Y);
 
         /// <summary>
         /// Scale a Vector
@@ -408,7 +408,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(Vector2D value, Size2D factor) => Operations.ParametricScale2D(value.I, value.J, factor.Width, factor.Height);
+        public static Vector2D operator *(Vector2D value, Size2D factor) => ParametricScale2D(value.I, value.J, factor.Width, factor.Height);
 
         /// <summary>
         /// Scale a Vector
@@ -420,7 +420,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(Size2D value, Vector2D factor) => Operations.ParametricScale2D(value.Width, value.Height, factor.I, factor.J);
+        public static Vector2D operator *(Size2D value, Vector2D factor) => ParametricScale2D(value.Width, value.Height, factor.I, factor.J);
 
         /// <summary>
         /// Divide a <see cref="Size2D" /> by a <see cref="double" /> value.
@@ -432,7 +432,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator /(Size2D divisor, double dividend) => Operations.DivideByDividend2D(divisor.Width, divisor.Height, dividend);
+        public static Size2D operator /(Size2D divisor, double dividend) => DivideByDividend2D(divisor.Width, divisor.Height, dividend);
 
         /// <summary>
         /// Divide a <see cref="double" /> by a <see cref="Size2D" /> value.
@@ -444,7 +444,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator /(double divisor, Size2D dividend) => Operations.DivideDivisor2D(divisor, dividend.Width, dividend.Height);
+        public static Size2D operator /(double divisor, Size2D dividend) => DivideDivisor2D(divisor, dividend.Width, dividend.Height);
 
         /// <summary>
         /// Divide a Size2D
@@ -456,7 +456,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator /(Size2D value, Size2D factor) => Operations.ParametricDivide2D(value.Width, value.Height, factor.Width, factor.Height);
+        public static Size2D operator /(Size2D value, Size2D factor) => ParametricDivide2D(value.Width, value.Height, factor.Width, factor.Height);
 
         /// <summary>
         /// Divide a Point
@@ -468,7 +468,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator /(Point2D value, Size2D factor) => Operations.ParametricDivide2D(value.X, value.Y, factor.Width, factor.Height);
+        public static Point2D operator /(Point2D value, Size2D factor) => ParametricDivide2D(value.X, value.Y, factor.Width, factor.Height);
 
         /// <summary>
         /// Divide a Point
@@ -480,7 +480,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator /(Size2D value, Point2D factor) => Operations.ParametricDivide2D(value.Width, value.Height, factor.X, factor.Y);
+        public static Point2D operator /(Size2D value, Point2D factor) => ParametricDivide2D(value.Width, value.Height, factor.X, factor.Y);
 
         /// <summary>
         /// Divide a Vector
@@ -492,7 +492,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(Vector2D value, Size2D factor) => Operations.ParametricDivide2D(value.I, value.J, factor.Width, factor.Height);
+        public static Vector2D operator /(Vector2D value, Size2D factor) => ParametricDivide2D(value.I, value.J, factor.Width, factor.Height);
 
         /// <summary>
         /// Divide a Vector
@@ -504,7 +504,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(Size2D value, Vector2D factor) => Operations.ParametricScale2D(value.Width, value.Height, factor.I, factor.J);
+        public static Vector2D operator /(Size2D value, Vector2D factor) => ParametricScale2D(value.Width, value.Height, factor.I, factor.J);
 
         /// <summary>
         /// Compares two <see cref="Size2D" /> objects.

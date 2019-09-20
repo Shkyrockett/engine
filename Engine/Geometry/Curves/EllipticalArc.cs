@@ -477,8 +477,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Elements")]
         [Description("The larger radius of the elliptical arc.")]
-        public double MajorRadius
-            => rX >= rY ? rX : rY;
+        public double MajorRadius => rX >= rY ? rX : rY;
 
         /// <summary>
         /// Gets the Minor radius of the elliptical arc.
@@ -488,8 +487,7 @@ namespace Engine
         [Category("Elements")]
         [Description("The smaller radius of the elliptical arc.")]
         [RefreshProperties(RefreshProperties.All)]
-        public double MinorRadius
-            => rX <= rY ? rX : rY;
+        public double MinorRadius => rX <= rY ? rX : rY;
 
         /// <summary>
         /// Gets or sets the Aspect ratio of the elliptical arc.
@@ -539,7 +537,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Angle of the elliptical arc in Degrees.
         /// </summary>
-
         [XmlAttribute(nameof(angle))]
         [Browsable(false)]
         [GeometryAngleDegrees]
@@ -550,10 +547,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double AngleDegrees
         {
-            get { return angle.ToDegrees(); }
+            get { return angle.RadiansToDegrees(); }
             set
             {
-                angle = value.ToRadians();
+                angle = value.DegreesToRadians();
                 ClearCache();
                 OnPropertyChanged(nameof(Angle));
                 update?.Invoke();
@@ -571,8 +568,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double CosAngle
-            => (double)CachingProperty(() => Cos(angle));
+        public double CosAngle => (double)CachingProperty(() => Cos(angle));
 
         /// <summary>
         /// Gets the Sine of the angle of rotation.
@@ -585,8 +581,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double SinAngle
-            => (double)CachingProperty(() => Sin(angle));
+        public double SinAngle => (double)CachingProperty(() => Sin(angle));
 
         /// <summary>
         /// Gets or sets the start angle of the elliptical arc.
@@ -624,10 +619,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double StartAngleDegrees
         {
-            get { return startAngle.ToDegrees(); }
+            get { return startAngle.RadiansToDegrees(); }
             set
             {
-                startAngle = value.ToRadians();
+                startAngle = value.DegreesToRadians();
                 ClearCache();
                 OnPropertyChanged(nameof(StartAngle));
                 update?.Invoke();
@@ -639,8 +634,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
-        public double PolarStartAngle
-            => (double)CachingProperty(() => EllipticalPolarAngle(startAngle, rX, rY));
+        public double PolarStartAngle => (double)CachingProperty(() => EllipticalPolarAngle(startAngle, rX, rY));
 
         /// <summary>
         /// Gets or sets the Cosine of the start angle of the elliptical arc.
@@ -653,8 +647,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double StartAngleCos
-            => (double)CachingProperty(() => Cos(startAngle));
+        public double StartAngleCos => (double)CachingProperty(() => Cos(startAngle));
 
         /// <summary>
         /// Gets or sets the Sine of the start angle of the elliptical arc.
@@ -667,8 +660,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double StartAngleSin
-            => (double)CachingProperty(() => Sin(startAngle));
+        public double StartAngleSin => (double)CachingProperty(() => Sin(startAngle));
 
         /// <summary>
         /// Gets or sets the sweep angle of the elliptical arc.
@@ -706,10 +698,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double SweepAngleDegrees
         {
-            get { return sweepAngle.ToDegrees(); }
+            get { return sweepAngle.RadiansToDegrees(); }
             set
             {
-                sweepAngle = value.ToRadians();
+                sweepAngle = value.DegreesToRadians();
                 ClearCache();
                 OnPropertyChanged(nameof(SweepAngleDegrees));
                 update?.Invoke();
@@ -727,8 +719,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double SweepAngleCos
-            => (double)CachingProperty(() => Cos(sweepAngle));
+        public double SweepAngleCos => (double)CachingProperty(() => Cos(sweepAngle));
 
         /// <summary>
         /// Gets or sets the Sine of the sweep angle of the elliptical arc.
@@ -741,8 +732,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double SweepAngleSin
-            => (double)CachingProperty(() => Sin(sweepAngle));
+        public double SweepAngleSin => (double)CachingProperty(() => Sin(sweepAngle));
 
         /// <summary>
         /// Gets or sets the end angle of the elliptical arc.
@@ -780,10 +770,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double EndAngleDegrees
         {
-            get { return (startAngle + sweepAngle).ToDegrees(); }
+            get { return (startAngle + sweepAngle).RadiansToDegrees(); }
             set
             {
-                sweepAngle = value.ToRadians() - startAngle;
+                sweepAngle = value.DegreesToRadians() - startAngle;
                 ClearCache();
                 OnPropertyChanged(nameof(EndAngleDegrees));
                 update?.Invoke();
@@ -801,8 +791,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double EndAngleCos
-            => (double)CachingProperty(() => Cos(EndAngle));
+        public double EndAngleCos => (double)CachingProperty(() => Cos(EndAngle));
 
         /// <summary>
         /// Gets or sets the Sine of the end angle of the elliptical arc.
@@ -815,16 +804,14 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double EndAngleSin
-            => (double)CachingProperty(() => Sin(EndAngle));
+        public double EndAngleSin => (double)CachingProperty(() => Sin(EndAngle));
 
         /// <summary>
         /// Gets the Polar corrected end angle of the <see cref="Ellipse"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
-        public double PolarEndAngle
-            => (double)CachingProperty(() => EllipticalPolarAngle(startAngle + sweepAngle, rX, rY));
+        public double PolarEndAngle => (double)CachingProperty(() => EllipticalPolarAngle(startAngle + sweepAngle, rX, rY));
 
         /// <summary>
         /// Gets the Focus Radius of the elliptical arc.
@@ -833,8 +820,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The focus radius of the elliptical arc.")]
-        public double FocusRadius
-            => (double)CachingProperty(() => Measurements.EllipseFocusRadius(rX, rY));
+        public double FocusRadius => (double)CachingProperty(() => Measurements.EllipseFocusRadius(rX, rY));
 
         /// <summary>
         /// Gets the <see cref="Eccentricity"/> of the elliptical arc.
@@ -843,8 +829,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the elliptical arc.")]
-        public double Eccentricity
-            => (double)CachingProperty(() => Measurements.Eccentricity(rX, rY));
+        public double Eccentricity => (double)CachingProperty(() => Measurements.Eccentricity(rX, rY));
 
         /// <summary>
         /// Gets the arc length of the elliptical arc.
@@ -853,8 +838,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The arc length of the elliptical arc.")]
-        public double ArcLength
-            => (double)CachingProperty(() => this.Length());
+        public double ArcLength => (double)CachingProperty(() => this.Length());
 
         /// <summary>
         /// Gets the <see cref="Perimeter"/> of the elliptical arc.
@@ -864,8 +848,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Perimeter) + " of the elliptical arc.")]
-        public override double Perimeter
-            => ArcLength;
+        public override double Perimeter => ArcLength;
 
         /// <summary>
         /// Gets the <see cref="Area"/> of the elliptical arc.
@@ -874,8 +857,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Area) + " of the elliptical arc.")]
-        public override double Area
-            => (double)CachingProperty(() => Measurements.EllipticalArcSectorArea(rX, rY, startAngle, sweepAngle));
+        public override double Area => (double)CachingProperty(() => Measurements.EllipticalArcSectorArea(rX, rY, startAngle, sweepAngle));
 
         /// <summary>
         /// Gets the angles of the extreme points of the rotated ellipse.
@@ -886,8 +868,7 @@ namespace Engine
         [Description("The angles of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public List<double> ExtremeAngles
-            => (List<double>)CachingProperty(() => Measurements.EllipseExtremeAngles(rX, rY, angle));
+        public List<double> ExtremeAngles => (List<double>)CachingProperty(() => Measurements.EllipseExtremeAngles(rX, rY, angle));
 
         /// <summary>
         /// Get the points of the Cartesian extremes of a rotated ellipse.
@@ -898,8 +879,7 @@ namespace Engine
         [Description("The locations of the extreme points of the " + nameof(Ellipse) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public List<Point2D> ExtremePoints
-            => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(cx, cy, rX, rY, angle));
+        public List<Point2D> ExtremePoints => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(cx, cy, rX, rY, angle));
 
         /// <summary>
         /// Gets the Bounding box of the elliptical arc.
@@ -911,8 +891,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.EllipticalArcBounds(cx, cy, rX, rY, angle, startAngle, sweepAngle));
+        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Measurements.EllipticalArcBounds(cx, cy, rX, rY, angle, startAngle, sweepAngle));
 
         /// <summary>
         /// Gets the size and location of the elliptical arc, in double-point pixels, relative to the parent canvas.
@@ -921,12 +900,11 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
-        [Description("The unrotated rectangular bounds of the elliptical arc.")]
+        [Description("The orthogonal rectangular bounds of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public Rectangle2D DrawingBounds
-            => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(cx, cy, rX, rY));
+        public Rectangle2D OrthogonalBounds => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(cx, cy, rX, rY));
         #endregion Properties
 
         #region Operators

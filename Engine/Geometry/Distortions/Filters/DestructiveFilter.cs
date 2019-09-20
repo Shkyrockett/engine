@@ -228,7 +228,7 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(PolycurveContour contour)
         {
-            var result = new PolycurveContour(Process(contour.Items[0].Start.Value));
+            var result = new PolycurveContour(Process(contour.Items[0].Head.Value));
             if (contour.Count > 1)
             {
                 for (var i = 1; i < contour.Count; i++)

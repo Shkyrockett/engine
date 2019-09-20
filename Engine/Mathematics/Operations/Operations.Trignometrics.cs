@@ -28,7 +28,7 @@ namespace Engine
         /// <returns>Angle in Radians.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ToRadians(this double degrees)
+        public static double DegreesToRadians(this double degrees)
             => degrees * Radian;
 
         /// <summary>
@@ -38,8 +38,17 @@ namespace Engine
         /// <returns>Angle in Degrees.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ToDegrees(this double radians)
+        public static double RadiansToDegrees(this double radians)
             => radians * Degree;
+
+        /// <summary>
+        /// Slopes to radians.
+        /// </summary>
+        /// <param name="slope">The slope.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SlopeToRadians(this double slope) => Atan(slope);
 
         /// <summary>
         /// The polar to Cartesian.

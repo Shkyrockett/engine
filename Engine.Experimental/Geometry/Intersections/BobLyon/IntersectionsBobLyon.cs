@@ -289,7 +289,7 @@ namespace Engine
             y -= ey;
             if (cosine != 1 | sine != 0)
             {
-                (x, y) = Operations.RotatePoint2D(x, y, cosine, sine);
+                (x, y) = RotatePoint2D(x, y, cosine, sine);
             }
             var termX = 2 * x / w;  /* sqrt of first term */
             var termY = 2 * y / h;  /* sqrt of second term */

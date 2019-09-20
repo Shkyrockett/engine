@@ -1641,10 +1641,7 @@ namespace Engine
         /// <returns>Calculates an Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop an ellipse.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D EllipseBounds(
-            double cX, double cY,
-            double r1, double r2)
-            => new Rectangle2D(cX - r1, cY - r2, r1 * 2, r2 * 2);
+        public static Rectangle2D EllipseBounds(double cX, double cY, double r1, double r2) => new Rectangle2D(cX - r1, cY - r2, r1 * 2d, r2 * 2d);
 
         /// <summary>
         /// Calculates the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated ellipse.
@@ -1655,14 +1652,9 @@ namespace Engine
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
         /// <returns>Returns a Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop a rotated ellipse.</returns>
-
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D EllipseBounds(
-            double cX, double cY,
-            double r1, double r2,
-            double angle)
-            => EllipseBounds(cX, cY, r1, r2, Cos(angle), Sin(angle));
+        public static Rectangle2D EllipseBounds(double cX, double cY, double r1, double r2, double angle) => EllipseBounds(cX, cY, r1, r2, Cos(angle), Sin(angle));
 
         /// <summary>
         /// Calculates the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated ellipse.
@@ -1674,7 +1666,6 @@ namespace Engine
         /// <param name="cosAngle">The Cosine component of the Angle of rotation of Ellipse about it's center.</param>
         /// <param name="sinAngle">The Sine component of the Angle of rotation of Ellipse about it's center.</param>
         /// <returns>Returns a Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop a rotated ellipse.</returns>
-
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
@@ -1692,8 +1683,8 @@ namespace Engine
             var d = r2 * cosAngle;
 
             // Get the height and width.
-            var width = Sqrt((a * a) + (b * b)) * 2;
-            var height = Sqrt((c * c) + (d * d)) * 2;
+            var width = Sqrt((a * a) + (b * b)) * 2d;
+            var height = Sqrt((c * c) + (d * d)) * 2d;
 
             // Get the location point.
             var x2 = cX - (width * 0.5d);
@@ -1714,7 +1705,6 @@ namespace Engine
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
         /// <returns>The close bounding box of a rotated elliptical arc.</returns>
-
         /// <acknowledgment>
         /// Helpful hints on how this might be implemented came from:
         /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
@@ -1813,10 +1803,7 @@ namespace Engine
         /// <returns>Returns an Axis Aligned Bounding Box (AABB) Rectangle with the location and height, width bounding the rotated rectangle.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D RotatedRectangleBounds(
-            double width, double height,
-            Point2D fulcrum, double angle)
-            => RotatedRectangleBounds(width, height, fulcrum.X, fulcrum.Y, angle);
+        public static Rectangle2D RotatedRectangleBounds(double width, double height, Point2D fulcrum, double angle) => RotatedRectangleBounds(width, height, fulcrum.X, fulcrum.Y, angle);
 
         /// <summary>
         /// Calculate the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated rectangle.
@@ -1910,7 +1897,7 @@ namespace Engine
         public static Rectangle2D PolycurveContourBounds(PolycurveContour contour)
         {
             var start = contour.Items[0] as PointSegment;
-            var result = new Rectangle2D(start.Start.Value, start.End.Value);
+            var result = new Rectangle2D(start.Head.Value, start.Tail.Value);
 
             foreach (var member in contour.Items)
             {
@@ -1968,8 +1955,7 @@ namespace Engine
         /// <returns>Returns the signed area of a triangle composed of two points and the origin.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SignedArea(Point2D p1, Point2D p2)
-            => (-p2.X * (p1.Y - p2.Y)) - (-p2.Y * (p1.X - p2.X));
+        public static double SignedArea(Point2D p1, Point2D p2) => (-p2.X * (p1.Y - p2.Y)) - (-p2.Y * (p1.X - p2.X));
 
         /// <summary>
         /// Calculates the signed area of a triangle.
@@ -1980,8 +1966,7 @@ namespace Engine
         /// <returns>Returns the signed area of a triangle.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SignedTriangleArea(Point2D p0, Point2D p1, Point2D p2)
-            => SignedTriangleArea(p0.X, p0.Y, p1.X, p1.Y, p2.X, p2.Y);
+        public static double SignedTriangleArea(Point2D p0, Point2D p1, Point2D p2) => SignedTriangleArea(p0.X, p0.Y, p1.X, p1.Y, p2.X, p2.Y);
 
         /// <summary>
         /// Calculates the signed area of the triangle (p0, p1, p2).
@@ -1992,8 +1977,7 @@ namespace Engine
         /// <returns>Returns the signed area of a triangle.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SignedTriangleArea2(Point2D p0, Point2D p1, Point2D p2)
-            => ((p0.X - p2.X) * (p1.Y - p2.Y)) - ((p1.X - p2.X) * (p0.Y - p2.Y));
+        public static double SignedTriangleArea2(Point2D p0, Point2D p1, Point2D p2) => ((p0.X - p2.X) * (p1.Y - p2.Y)) - ((p1.X - p2.X) * (p0.Y - p2.Y));
 
         /// <summary>
         /// Calculates the signed area of a triangle.
@@ -2012,8 +1996,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SignedTriangleArea(double aX, double aY, double bX, double bY, double cX, double cY)
-            => (aX * (bY - cY)) + (bX * (cY - aY)) + (cX * (aY - bY));
+        public static double SignedTriangleArea(double aX, double aY, double bX, double bY, double cX, double cY) => (aX * (bY - cY)) + (bX * (cY - aY)) + (cX * (aY - bY));
 
         /// <summary>
         /// Calculates the area of a circle.
@@ -2022,8 +2005,7 @@ namespace Engine
         /// <returns>Returns the area of the circle.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CircleArea(double r)
-            => PI * r * r;
+        public static double CircleArea(double r) => PI * r * r;
 
         /// <summary>
         /// Calculates the area of a circular arc sector.
@@ -2033,8 +2015,7 @@ namespace Engine
         /// <returns>Returns the area of the circular arc sector.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CircularArcSectorArea(double r, double sweepAngle)
-            => Abs(r * r * 0.5d * (sweepAngle - Sin(sweepAngle)));
+        public static double CircularArcSectorArea(double r, double sweepAngle) => Abs(r * r * 0.5d * (sweepAngle - Sin(sweepAngle)));
 
         /// <summary>
         /// Calculates the area of an ellipse.
@@ -2044,8 +2025,7 @@ namespace Engine
         /// <returns>Returns the area of the ellipse.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipseArea(double rX, double rY)
-            => PI * rY * rX;
+        public static double EllipseArea(double rX, double rY) => PI * rY * rX;
 
         /// <summary>
         /// Calculates the area of an elliptical arc sector.
@@ -2055,14 +2035,12 @@ namespace Engine
         /// <param name="startAngle">The start angle of the arc.</param>
         /// <param name="sweepAngle">The sweep angle of the arc.</param>
         /// <returns>Returns the area of the elliptical arc sector.</returns>
-
         /// <acknowledgment>
         /// http://math.stackexchange.com/questions/114371/deriving-the-area-of-a-sector-of-an-ellipse?rq=1
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipticalArcSectorArea(double rX, double rY, double startAngle, double sweepAngle)
-            => 0.5d * rX * rY * (Atan(rX * Tan(startAngle) / rY) - Atan(rX * Tan(startAngle + sweepAngle) / rY));
+        public static double EllipticalArcSectorArea(double rX, double rY, double startAngle, double sweepAngle) => 0.5d * rX * rY * (Atan(rX * Tan(startAngle) / rY) - Atan(rX * Tan(startAngle + sweepAngle) / rY));
 
         /// <summary>
         /// Calculates the area of a rectangle.
@@ -2072,8 +2050,7 @@ namespace Engine
         /// <returns>Returns the area of the rectangle.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double RectangleArea(double width, double height)
-            => width * height;
+        public static double RectangleArea(double width, double height) => width * height;
 
         /// <summary>
         /// Calculates the area of a square.
@@ -2082,8 +2059,7 @@ namespace Engine
         /// <returns>Returns the area of the square.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SquareArea(double depth)
-            => depth * depth;
+        public static double SquareArea(double depth) => depth * depth;
 
         /// <summary>
         /// Calculates the signed area of a polygon.
@@ -2092,8 +2068,7 @@ namespace Engine
         /// <returns>Returns the signed area of a polygon contour.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonArea(List<Point2D> contour)
-            => Abs(SignedPolygonArea(contour));
+        public static double PolygonArea(List<Point2D> contour) => Abs(SignedPolygonArea(contour));
 
         /// <summary>
         /// Calculates the signed area of a polygon.
@@ -2132,8 +2107,7 @@ namespace Engine
         /// <param name="y">The Vertical value.</param>
         /// <returns>Returns the aspect ratio of the horizontal an vertical components.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Aspect(double x, double y)
-            => x == 0 ? double.PositiveInfinity : y / x;
+        public static double Aspect(double x, double y) => x == 0 ? double.PositiveInfinity : y / x;
 
         /// <summary>
         /// Finds the <see cref="Eccentricity"/> of the elliptical arc or rectangle.
@@ -2145,8 +2119,7 @@ namespace Engine
         /// https://en.wikipedia.org/wiki/Ellipse
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Eccentricity(double rX, double rY)
-            => Sqrt(1 - (rX / rY * (rX / rY)));
+        public static double Eccentricity(double rX, double rY) => Sqrt(1 - (rX / rY * (rX / rY)));
 
         /// <summary>
         /// Finds the Focus Radius of an <see cref="Ellipse"/>.
@@ -2158,8 +2131,7 @@ namespace Engine
         /// https://en.wikipedia.org/wiki/Ellipse
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipseFocusRadius(double rX, double rY)
-            => Sqrt((rX * rX) - (rY * rY));
+        public static double EllipseFocusRadius(double rX, double rY) => Sqrt((rX * rX) - (rY * rY));
 
         /// <summary>
         /// Finds the closest parameter of two polynomials.
@@ -2187,7 +2159,6 @@ namespace Engine
         /// <param name="segment">The line segment.</param>
         /// <param name="point">The point to test.</param>
         /// <returns>The perpendicular distance to the line.</returns>
-
         /// <acknowledgment>
         /// Based on: https://github.com/burningmime/curves
         /// See: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
@@ -2289,7 +2260,6 @@ namespace Engine
         /// <param name="rY">The vertical radius of the ellipse.</param>
         /// <param name="angle">The angle of orientation of the ellipse.</param>
         /// <returns>Returns a list of the extreme angles of a rotated ellipse.</returns>
-
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
@@ -2317,8 +2287,8 @@ namespace Engine
             return new List<double>
             {
                 Atan2((u1 * sinT) - (v1 * cosT), (u1 * cosT) + (v1 * sinT)),
-                Atan2((u2 * sinT) - (v2 * cosT), (u2 * cosT) + (v2 * sinT)),
                 Atan2((u2 * sinT) - (v2 * cosT), (u2 * cosT) + (v2 * sinT)) + PI,
+                Atan2((u2 * sinT) - (v2 * cosT), (u2 * cosT) + (v2 * sinT)),
                 Atan2((u1 * sinT) - (v1 * cosT), (u1 * cosT) + (v1 * sinT)) + PI
             };
         }
@@ -2343,7 +2313,6 @@ namespace Engine
         /// <param name="rY">The vertical radius of the ellipse.</param>
         /// <param name="angle">The angle of orientation of the ellipse.</param>
         /// <returns>Returns a list of the extreme angles of a rotated ellipse.</returns>
-
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
@@ -2384,7 +2353,6 @@ namespace Engine
         /// <param name="y">The y-coordinate of the center of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <returns>Returns a list of the points representing the extremes of a circle.</returns>
-
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
@@ -2400,6 +2368,31 @@ namespace Engine
             };
 
         /// <summary>
+        /// Get the points of the Cartesian extremes of an orthogonal ellipse.
+        /// </summary>
+        /// <param name="x">The x-coordinate of the center of the ellipse.</param>
+        /// <param name="y">The y-coordinate of the center of the ellipse.</param>
+        /// <param name="rX">The horizontal radius of the ellipse.</param>
+        /// <param name="rY">The vertical radius of the ellipse.</param>
+        /// <returns>
+        /// Returns the points of extreme for an ellipse.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<Point2D> OrthogonalEllipseExtremePoints(double x, double y, double rX, double rY)
+        {
+            if (rX == rY)
+                return CircleExtremePoints(x, y, rX);
+
+            return new List<Point2D>
+            {
+                (X: x, Y: y - rY),
+                (X: x - rX, Y: y),
+                (X: x, Y: y + rY),
+                (X: x + rX, Y: y),
+            };
+        }
+
+        /// <summary>
         /// Get the points of the Cartesian extremes of a rotated ellipse.
         /// </summary>
         /// <param name="x">The x-coordinate of the center of the ellipse.</param>
@@ -2408,7 +2401,6 @@ namespace Engine
         /// <param name="rY">The vertical radius of the ellipse.</param>
         /// <param name="angle">The angle of orientation of the ellipse.</param>
         /// <returns>Returns the points of extreme for an ellipse.</returns>
-
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
@@ -2427,7 +2419,6 @@ namespace Engine
         /// <param name="cosAngle">The cosine component of the angle of orientation of the ellipse.</param>
         /// <param name="sinAngle">The sine component of the angle of orientation of the ellipse.</param>
         /// <returns>Returns the points of extreme for an ellipse.</returns>
-
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
@@ -2435,41 +2426,47 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> EllipseExtremePoints(double x, double y, double rX, double rY, double cosAngle, double sinAngle)
         {
+            if (rX == rY)
+                return CircleExtremePoints(x, y, rX);
+
+            if (cosAngle == Cos0 && sinAngle == Sin0)
+                return OrthogonalEllipseExtremePoints(x, y, rX, rY);
+
             // Calculate the radii of the angle of rotation.
             var a = rX * cosAngle;
             var b = rY * sinAngle;
             var c = rX * sinAngle;
             var d = rY * cosAngle;
 
-            //// Find the angles of the Cartesian extremes.
-            //var a1 = Atan2(-b, a);
-            //var a2 = Atan2(-b, a) + PI;
-            //var a3 = Atan2(d, c);
-            //var a4 = Atan2(d, c) + PI;
+            // Find the angles of the Cartesian extremes.
+            var a1 = Atan2(-b, a);
+            var a2 = Atan2(b, -a); // + PI; // sin(t + pi) = -sin(t); cos(t + pi)=-cos(t)
+            var a3 = Atan2(d, c);
+            var a4 = Atan2(-d, -c); // + PI; // sin(t + pi) = -sin(t); cos(t + pi)=-cos(t)
 
-            //// Return the points of Cartesian extreme of the rotated ellipse.
-            //return new List<Point2D>
-            //{
-            //    Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a1),
-            //    Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a2),
-            //    Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a3),
-            //    Interpolators.Ellipse(x, y, rX, rY, cosAngle, sinAngle, a4)
-            //};
-
-            // ToDo: Replace the previous two sections with this return and profile to see if there is a performance improvement, and check for accuracy.
-            var hypotonuseAB = Sqrt((a * a) + (b * b));
-            var hypotonuseCD = Sqrt((c * c) + (d * d));
+            // Return the points of Cartesian extreme of the rotated ellipse.
             return new List<Point2D>
             {
-                new Point2D(x +                   hypotonuseAB,
-                            y + (((a * a) - (b * b)) / hypotonuseAB)),
-                new Point2D(x -                   hypotonuseAB,
-                            y - (((a * a) - (b * b)) / hypotonuseAB)),
-                new Point2D(x + (((d * a) - (b * c)) / hypotonuseCD),
-                            y + (rX * rY       / hypotonuseCD)),
-                new Point2D(x - (((d * a) - (b * c)) / hypotonuseCD),
-                            y - (rX * rY       / hypotonuseCD)),
+                Interpolators.Ellipse(a1, x, y, rX, rY, cosAngle, sinAngle),
+                Interpolators.Ellipse(a3, x, y, rX, rY, cosAngle, sinAngle),
+                Interpolators.Ellipse(a2, x, y, rX, rY, cosAngle, sinAngle),
+                Interpolators.Ellipse(a4, x, y, rX, rY, cosAngle, sinAngle)
             };
+
+            //// ToDo: Replace the previous two sections with this return and profile to see if there is a performance improvement, and check for accuracy.
+            //var hypotonuseAB = Sqrt((a * a) + (b * b));
+            //var hypotonuseCD = Sqrt((c * c) + (d * d));
+            //return new List<Point2D>
+            //{
+            //    new Point2D(x + hypotonuseAB,
+            //                y + (((a * a) - (b * b)) / hypotonuseAB)),
+            //    new Point2D(x + (((d * a) - (b * c)) / hypotonuseCD),
+            //                y + (rX * rY / hypotonuseCD)),
+            //    new Point2D(x - hypotonuseAB,
+            //                y - (((a * a) - (b * b)) / hypotonuseAB)),
+            //    new Point2D(x - (((d * a) - (b * c)) / hypotonuseCD),
+            //                y - (rX * rY / hypotonuseCD)),
+            //};
         }
         #endregion Other
     }

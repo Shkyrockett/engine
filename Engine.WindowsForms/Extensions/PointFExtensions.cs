@@ -406,7 +406,7 @@ namespace Engine
             var result = new Matrix();
 
             // We need to go counter-clockwise.
-            result.RotateAt((float)-angle.ToDegrees(), center);
+            result.RotateAt((float)-angle.RadiansToDegrees(), center);
 
             return result;
         }

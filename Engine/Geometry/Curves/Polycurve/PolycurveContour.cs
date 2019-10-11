@@ -76,6 +76,11 @@ namespace Engine
         /// <param name="polygon">The polygon.</param>
         public PolycurveContour(PolygonContour polygon)
         {
+            if (polygon is null)
+            {
+                throw new ArgumentNullException(nameof(polygon));
+            }
+
             items = new List<CurveSegment>();
             CurveSegment cursor = new PointSegment(polygon[0]);
             items.Add(cursor);
@@ -101,6 +106,11 @@ namespace Engine
         /// <param name="curves">The curves.</param>
         public PolycurveContour(CubicBezier[] curves)
         {
+            if (curves is null)
+            {
+                throw new ArgumentNullException(nameof(curves));
+            }
+
             items = new List<CurveSegment> { new PointSegment(curves[0].A) };
             foreach (var curve in curves)
             {
@@ -426,6 +436,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour AddQuadraticBeziers(QuadraticBezier[] curves)
         {
+            if (curves is null)
+            {
+                throw new ArgumentNullException(nameof(curves));
+            }
+
             foreach (var curve in curves)
             {
                 AddQuadraticBezier(curve.B, curve.C);
@@ -458,6 +473,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour AddCubicBeziers(CubicBezier[] curves)
         {
+            if (curves is null)
+            {
+                throw new ArgumentNullException(nameof(curves));
+            }
+
             foreach (var curve in curves)
             {
                 AddCubicBezier(curve.B, curve.C, curve.D);

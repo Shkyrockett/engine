@@ -99,6 +99,7 @@ namespace Engine
         /// stored in degree order to simplify operations on <see cref="Polynomial" /> structs.</para>
         /// </remarks>
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial(params double[] coefficients)
         {
             if (coefficients is null)
@@ -115,6 +116,87 @@ namespace Engine
             isReadonly = false;
             degree = null;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b) tuple)
+            : this(tuple.a, tuple.b)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c) tuple)
+            : this(tuple.a, tuple.b, tuple.c)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d, double e) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d, double e, double f) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d, double e, double f, double g) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d, double e, double f, double g, double h) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h, tuple.i)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i, double j) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h, tuple.i, tuple.j)
+        { }
         #endregion Constructors
 
         #region Indexers
@@ -1291,16 +1373,16 @@ namespace Engine
             return (values?.Length - 1 switch
             {
                 var n when n < 1 => throw new ArgumentNullException(nameof(values), "At least 2 different points must be given"),
-                1 => LinearBezierPolynomial(values[0], values[1]),
-                2 => QuadraticBezierPolynomial(values[0], values[1], values[2]),
-                3 => CubicBezierPolynomial(values[0], values[1], values[2], values[3]),
-                4 => QuarticBezierPolynomial(values[0], values[1], values[2], values[3], values[4]),
-                5 => QuinticBezierPolynomial(values[0], values[1], values[2], values[3], values[4], values[5]),
-                6 => SexticBezierPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6]),
-                7 => SepticBezierPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]),
-                8 => OcticBezierPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]),
-                9 => NonicBezierPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]),
-                10 => DecicBezierPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]),
+                1 => LinearBezierBernsteinPolynomial(values[0], values[1]),
+                2 => QuadraticBezierBernsteinPolynomial(values[0], values[1], values[2]),
+                3 => CubicBezierBernsteinPolynomial(values[0], values[1], values[2], values[3]),
+                4 => QuarticBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4]),
+                5 => QuinticBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4], values[5]),
+                6 => SexticBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6]),
+                7 => SepticBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]),
+                8 => OcticBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]),
+                9 => NonicBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]),
+                10 => DecicBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]),
                 // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
                 _ => Bezier(0, values.Length - 1, values),
             }).Value;

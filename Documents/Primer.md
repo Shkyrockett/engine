@@ -589,6 +589,7 @@ For information on how to make the Matrix forms see: [Demofox Matrix Form of Bé
 |---|---|
 | $y=a(x-h)^2+k$ | General vertex form of a parabola. $(h, k)$ is the vertex. |
 | $y=a(x+\frac{b}{2a})^2-\frac{b^2}{4a}+c$ | Intermediate standard form using vertex form variables. |
+| $-x\sin{\theta}+y\cos{\theta}=a\left(x\cos{\theta}+y\sin{\theta}-h\right)^2+k$ |  |
 | $y=ax^2 + bx + c$ | Standard form of a parabola. |
 | $y=x(ax+b)+c$ | Alternate standard form if all variables are positive. |
 | $a=\frac{y-bx-c}{x^2}$ | Find $a$ from the standard form. |
@@ -602,6 +603,22 @@ For information on how to make the Matrix forms see: [Demofox Matrix Form of Bé
 | $x=\frac{-b+\sqrt{b^2+4ac}}{2a}$ <br/> $x=\frac{-b-\sqrt{b^2+4ac}}{2a}$ | x-intercept of standard form. |
 | $y=c$? | y-intercept of standard form. |
 | $d=k-a$? | Find the Directrix. |
+
+$A(x\cos{\theta}−y\sin{\theta})^2+B(x\cos{\theta}−y\sin{\theta})(x\sin{\theta}+y\cos{\theta})+C(x\sin{\theta}+y\cos{\theta})^2+D(x\cos{\theta}−y\sin{\theta})+E(x\sin{\theta}+y\cos{\theta})+F=0$
+
+$-x\sin{\theta}+y\cos{\theta}=a\left(x\cos{\theta}+y\sin{\theta}-h\right)^{2}+k$
+
+$-x\sin{\theta}+y\cos{\theta}=a(x\cos{\theta}−y\sin{\theta})^2+bx+c$
+
+$x^2−2xy+y^2−x\sqrt{2}–y\sqrt{2}=0$
+
+$b2x^2−2abxy+a^2y^2−2bcax−2b^2cy=(bc)^2$
+
+$b^2(x−h)^2−2ab(x−h)(y−k)+a^2(y−k)^2−2bca(x−h)−2b^2c(y−k)=(bc)^2$
+
+$y=-\frac{\csc^2{t}\sqrt{4ah\sin{2t}+4ak\cos{2t}-4ak-8ax\sin{t}+\cos{2t}+1}}{\sqrt{2}}+2ah\csc{t}-2ax\cot{t}+\frac{\cot{t}\csc{t})}{2a}$
+
+$y=-\frac{\sqrt{4ah2\sin{t}\cos{t}-4ak\sin^{2}{t}-\sin^{2}{t}-4ak-8ax\sin{t}+4ak\cos^{2}{t}+\cos^{2}{t}+1}}{\sin^2{t}\sqrt{2}}+\frac{2ah}{\sin{t}}-\frac{2ax\cos{t}}{\sin{t}}+\frac{\cos{t}}{2a\sin^2{t}}$
 
 #### Solving for $h$ given $p_1(x_1, y_1)$, $p_2(x_2, y_2)$, and $k$ from $(h, k)$
 

@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static Engine.Polynomials;
 
 namespace Engine
 {
@@ -38,7 +39,6 @@ namespace Engine
         /// <param name="previous">The previous.</param>
         /// <param name="relitive">The relitive.</param>
         /// <param name="args">The args.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LineCurveSegment(CurveSegment previous, bool relitive, params double[] args)
             : this(previous, args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
         {
@@ -53,9 +53,13 @@ namespace Engine
         /// </summary>
         /// <param name="previous">The previous.</param>
         /// <param name="end">The end.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LineCurveSegment(CurveSegment previous, Point2D? end)
         {
+            if (previous is null)
+            {
+                throw new ArgumentNullException(nameof(previous));
+            }
+
             Previous = previous;
             previous.Next = this;
             Tail = end;
@@ -129,6 +133,34 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(Head.Value.X, Head.Value.Y, Tail.Value.X, Tail.Value.Y));
+
+        /// <summary>
+        /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the x-axis.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Polynomial CurveX
+        {
+            get
+            {
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)LinearBezierBernsteinPolynomial(Head.Value.X, Tail.Value.X));
+                curveX.IsReadonly = true;
+                return curveX;
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the y-axis.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Polynomial CurveY
+        {
+            get
+            {
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)LinearBezierBernsteinPolynomial(Head.Value.Y, Tail.Value.Y));
+                curveY.IsReadonly = true;
+                return curveY;
+            }
+        }
 
         /// <summary>
         /// Gets the length.

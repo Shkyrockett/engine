@@ -57,7 +57,6 @@ namespace Editor
             //Parabola(vectorMap);
             //DrawParabola(vectorMap);
             //IntersectionsDrawableEllipseEllipseIntersection(vectorMap);
-            IntersectionsEllipseEllipseIntersection(vectorMap);
             //EnvelopeWarp(vectorMap);
             //Clipper(vectorMap);
             //ComplexPolygonClipping(vectorMap);
@@ -94,9 +93,11 @@ namespace Editor
             /* Regression Test Cases */
             //SelfIntersectingCubicBezier(vectorMap);
             //GridHitTest(vectorMap);
+            //IntersectionsEllipseEllipseIntersection(vectorMap);
+            //IntersectionsCircleCircleIntersection(vectorMap);
             //IntersectingsEllipseEllipse(vectorMap);
             //IntersectingsEllipseQuadraticSegment(vectorMap);
-            //IntersectingsEllipseCubicSegment(vectorMap);
+            IntersectingsEllipseCubicSegment(vectorMap, form);
             //EllipticalArcLineSegmentIntersections(vectorMap);
             //EllipticalArcRayIntersections(vectorMap);
             //EllipticalArcLineIntersections(vectorMap);
@@ -558,210 +559,6 @@ namespace Editor
             vectorMap?.Add(extents12NodeItem);
             vectorMap?.Add(ellipse13Item);
             vectorMap?.Add(extents13NodeItem);
-            vectorMap?.Add(intersectionNodeItem6);
-        }
-
-        /// <summary>
-        /// The ellipse, ellipse intersection testing.
-        /// </summary>
-        /// <param name="vectorMap">The vectorMap.</param>
-        public static void IntersectionsEllipseEllipseIntersection(VectorMap vectorMap)
-        {
-            var e0 = new Ellipse(150, 150, 100, 50, 30d.DegreesToRadians());
-            var ellipse0Item = new GraphicItem(e0, intersectionRed)
-            {
-                Name = "Ellipse 0"
-            };
-            //var extents0 = e0.ExtremePoints;
-            //var extents0NodeItem = new GraphicItem(new NodeRevealer(extents0, 5d), handleStyle);
-
-            var e1 = new Ellipse(200, 150, 100, 50, -30d.DegreesToRadians());
-            var ellipse1Item = new GraphicItem(e1, intersectionBlue)
-            {
-                Name = "Ellipse 1"
-            };
-            //var extents1 = e1.ExtremePoints;
-            //var extents1NodeItem = new GraphicItem(new NodeRevealer(extents1, 5d), handleStyle);
-
-            var points0 = Intersections.EllipseEllipseIntersection(e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle, e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle).Points;
-            var intersections0 = new Intersection(points0.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points0);
-            var intersectionNodeItem0 = new GraphicItem(new NodeRevealer(intersections0.Points, 5d), handleStyle)
-            {
-                Name = "Ellipse, Ellipse Intersection 0"
-            };
-
-            var e2 = new Ellipse(50, 250, 50, 50, 30d.DegreesToRadians());
-            var ellipse2Item = new GraphicItem(e2, intersectionRed)
-            {
-                Name = "Ellipse 2"
-            };
-            //var extents2 = e2.ExtremePoints;
-            //var extents2NodeItem = new GraphicItem(new NodeRevealer(extents2, 5d), handleStyle);
-
-            var e3 = new Ellipse(100, 270, 50, 50, -30d.DegreesToRadians());
-            var ellipse3Item = new GraphicItem(e3, intersectionBlue)
-            {
-                Name = "Ellipse 3"
-            };
-            //var extents3 = e3.ExtremePoints;
-            //var extents3NodeItem = new GraphicItem(new NodeRevealer(extents3, 5d), handleStyle);
-
-            var points1 = Intersections.EllipseEllipseIntersection(e2.Center.X, e2.Center.Y, e2.RX, e2.RY, e2.Angle, e3.Center.X, e3.Center.Y, e3.RX, e3.RY, e3.Angle).Points;
-            var intersections1 = new Intersection(points1.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points1);
-            var intersectionNodeItem1 = new GraphicItem(new NodeRevealer(intersections1.Points, 5d), handleStyle)
-            {
-                Name = "Ellipse, Ellipse Intersection 1"
-            };
-
-            var e4 = new Ellipse(300, 300, 50, 100, 0d.DegreesToRadians());
-            var ellipse4Item = new GraphicItem(e4, intersectionRed)
-            {
-                Name = "Ellipse 4"
-            };
-            //var extents4 = e4.ExtremePoints;
-            //var extents4NodeItem = new GraphicItem(new NodeRevealer(extents4, 5d), handleStyle);
-
-            var e5 = new Ellipse(350, 350, 100, 50, 90d.DegreesToRadians());
-            var ellipse5Item = new GraphicItem(e5, intersectionBlue)
-            {
-                Name = "Ellipse 5"
-            };
-            //var extents5 = e5.ExtremePoints;
-            //var extents5NodeItem = new GraphicItem(new NodeRevealer(extents5, 5d), handleStyle);
-
-            var points2 = Intersections.EllipseEllipseIntersection(e4.Center.X, e4.Center.Y, e4.RX, e4.RY, e4.Angle, e5.Center.X, e5.Center.Y, e5.RX, e5.RY, e5.Angle).Points;
-            var intersections2 = new Intersection(points2.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points2);
-            var intersectionNodeItem2 = new GraphicItem(new NodeRevealer(intersections2.Points, 5d), handleStyle)
-            {
-                Name = "Ellipse, Ellipse Intersection 2"
-            };
-
-            var e6 = new Ellipse(400, 100, 50, 100, 30d.DegreesToRadians());
-            var ellipse6Item = new GraphicItem(e6, intersectionRed)
-            {
-                Name = "Ellipse 6"
-            };
-            //var extents6 = e6.ExtremePoints;
-            //var extents6NodeItem = new GraphicItem(new NodeRevealer(extents6, 5d), handleStyle);
-
-            var e7 = new Ellipse(450, 150, 50, 100, 30d.DegreesToRadians());
-            var ellipse7Item = new GraphicItem(e7, intersectionBlue)
-            {
-                Name = "Ellipse 7"
-            };
-            //var extents7 = e7.ExtremePoints;
-            //var extents7NodeItem = new GraphicItem(new NodeRevealer(extents7, 5d), handleStyle);
-
-            var points3 = Intersections.EllipseEllipseIntersection(e6.Center.X, e6.Center.Y, e6.RX, e6.RY, e6.Angle, e7.Center.X, e7.Center.Y, e7.RX, e7.RY, e7.Angle).Points;
-            var intersections3 = new Intersection(points3.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points3);
-            var intersectionNodeItem3 = new GraphicItem(new NodeRevealer(intersections3.Points, 5d), handleStyle)
-            {
-                Name = "Ellipse, Ellipse Intersection 3"
-            };
-
-            var e8 = new Ellipse(100, 400, 50, 100, 45d.DegreesToRadians());
-            var ellipse8Item = new GraphicItem(e8, intersectionRed)
-            {
-                Name = "Ellipse 8"
-            };
-            //var extents8 = e8.ExtremePoints;
-            //var extents8NodeItem = new GraphicItem(new NodeRevealer(extents8, 5d), handleStyle);
-
-            var e9 = new Ellipse(125, 425, 50, 100, -45d.DegreesToRadians());
-            var ellipse9Item = new GraphicItem(e9, intersectionBlue)
-            {
-                Name = "Ellipse 9"
-            };
-            //var extents9 = e9.ExtremePoints;
-            //var extents9NodeItem = new GraphicItem(new NodeRevealer(extents9, 5d), handleStyle);
-
-            var points4 = Intersections.EllipseEllipseIntersection(e8.Center.X, e8.Center.Y, e8.RX, e8.RY, e8.Angle, e9.Center.X, e9.Center.Y, e9.RX, e9.RY, e9.Angle).Points;
-            var intersections4 = new Intersection(points4.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points4);
-            var intersectionNodeItem4 = new GraphicItem(new NodeRevealer(intersections4.Points, 5d), handleStyle)
-            {
-                Name = "Ellipse, Ellipse Intersection 4"
-            };
-
-            var e10 = new Ellipse(500, 450, 100, 50, 0d.DegreesToRadians());
-            var ellipse10Item = new GraphicItem(e10, intersectionRed)
-            {
-                Name = "Ellipse 10"
-            };
-            //var extents10 = e10.ExtremePoints;
-            //var extents10NodeItem = new GraphicItem(new NodeRevealer(extents10, 5d), handleStyle);
-
-            var e11 = new Ellipse(475, 475, 100, 50, 0d.DegreesToRadians());
-            var ellipse11Item = new GraphicItem(e11, intersectionBlue)
-            {
-                Name = "Ellipse 11"
-            };
-            //var extents11 = e11.ExtremePoints;
-            //var extents11NodeItem = new GraphicItem(new NodeRevealer(extents11, 5d), handleStyle);
-
-            var points5 = Intersections.EllipseEllipseIntersection(e10.Center.X, e10.Center.Y, e10.RX, e10.RY, e10.Angle, e11.Center.X, e11.Center.Y, e11.RX, e11.RY, e11.Angle);
-            var intersections5 = new Intersection(points5.Points.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points5.Points);
-            var intersectionNodeItem5 = new GraphicItem(new NodeRevealer(intersections5.Points, 5d), handleStyle)
-            {
-                Name = "Ellipse, Ellipse Intersection 5"
-            };
-
-            var e12 = new Ellipse(300, 550, 100, 50, 0d.DegreesToRadians());
-            var ellipse12Item = new GraphicItem(e12, intersectionRed)
-            {
-                Name = "Ellipse 12"
-            };
-            //var extents12 = e12.ExtremePoints;
-            //var extents12NodeItem = new GraphicItem(new NodeRevealer(extents12, 5d), handleStyle);
-
-            var e13 = new Ellipse(275, 575, 100, 50, 90d.DegreesToRadians());
-            var ellipse13Item = new GraphicItem(e13, intersectionBlue)
-            {
-                Name = "Ellipse 13"
-            };
-            //var extents13 = e13.ExtremePoints;
-            //var extents13NodeItem = new GraphicItem(new NodeRevealer(extents13, 5d), handleStyle);
-
-            var points6 = Intersections.EllipseEllipseIntersection(e12.Center.X, e12.Center.Y, e12.RX, e12.RY, e12.Angle, e13.Center.X, e13.Center.Y, e13.RX, e13.RY, e13.Angle);
-            var intersections6 = new Intersection(points6.Points.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points6.Points);
-            var intersectionNodeItem6 = new GraphicItem(new NodeRevealer(intersections6.Points, 5d), handleStyle)
-            {
-                Name = "Ellipse, Ellipse Intersection 6"
-            };
-
-            vectorMap?.Add(ellipse0Item);
-            //vectorMap?.Add(extents0NodeItem);
-            vectorMap?.Add(ellipse1Item);
-            //vectorMap?.Add(extents1NodeItem);
-            vectorMap?.Add(intersectionNodeItem0);
-            vectorMap?.Add(ellipse2Item);
-            //vectorMap?.Add(extents2NodeItem);
-            vectorMap?.Add(ellipse3Item);
-            //vectorMap?.Add(extents3NodeItem);
-            vectorMap?.Add(intersectionNodeItem1);
-            vectorMap?.Add(ellipse4Item);
-            //vectorMap?.Add(extents4NodeItem);
-            vectorMap?.Add(ellipse5Item);
-            //vectorMap?.Add(extents5NodeItem);
-            vectorMap?.Add(intersectionNodeItem2);
-            vectorMap?.Add(ellipse6Item);
-            //vectorMap?.Add(extents6NodeItem);
-            vectorMap?.Add(ellipse7Item);
-            //vectorMap?.Add(extents7NodeItem);
-            vectorMap?.Add(intersectionNodeItem3);
-            vectorMap?.Add(ellipse8Item);
-            //vectorMap?.Add(extents8NodeItem);
-            vectorMap?.Add(ellipse9Item);
-            //vectorMap?.Add(extents9NodeItem);
-            vectorMap?.Add(intersectionNodeItem4);
-            vectorMap?.Add(ellipse10Item);
-            //vectorMap?.Add(extents10NodeItem);
-            vectorMap?.Add(ellipse11Item);
-            //vectorMap?.Add(extents11NodeItem);
-            vectorMap?.Add(intersectionNodeItem5);
-            vectorMap?.Add(ellipse12Item);
-            //vectorMap?.Add(extents12NodeItem);
-            vectorMap?.Add(ellipse13Item);
-            //vectorMap?.Add(extents13NodeItem);
             vectorMap?.Add(intersectionNodeItem6);
         }
 
@@ -3851,6 +3648,414 @@ namespace Editor
         }
 
         /// <summary>
+        /// The ellipse, ellipse intersection testing.
+        /// </summary>
+        /// <param name="vectorMap">The vectorMap.</param>
+        public static void IntersectionsEllipseEllipseIntersection(VectorMap vectorMap)
+        {
+            var e0 = new Ellipse(150, 150, 100, 50, 30d.DegreesToRadians());
+            var ellipse0Item = new GraphicItem(e0, intersectionRed)
+            {
+                Name = "Ellipse 0"
+            };
+            //var extents0 = e0.ExtremePoints;
+            //var extents0NodeItem = new GraphicItem(new NodeRevealer(extents0, 5d), handleStyle);
+
+            var e1 = new Ellipse(200, 150, 100, 50, -30d.DegreesToRadians());
+            var ellipse1Item = new GraphicItem(e1, intersectionBlue)
+            {
+                Name = "Ellipse 1"
+            };
+            //var extents1 = e1.ExtremePoints;
+            //var extents1NodeItem = new GraphicItem(new NodeRevealer(extents1, 5d), handleStyle);
+
+            var points0 = Intersections.EllipseEllipseIntersection(e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle, e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle).Points;
+            var intersections0 = new Intersection(points0.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points0);
+            var intersectionNodeItem0 = new GraphicItem(new NodeRevealer(intersections0.Points, 5d), handleStyle)
+            {
+                Name = "Ellipse, Ellipse Intersection 0"
+            };
+
+            var e2 = new Ellipse(50, 250, 50, 50, 30d.DegreesToRadians());
+            var ellipse2Item = new GraphicItem(e2, intersectionRed)
+            {
+                Name = "Ellipse 2"
+            };
+            //var extents2 = e2.ExtremePoints;
+            //var extents2NodeItem = new GraphicItem(new NodeRevealer(extents2, 5d), handleStyle);
+
+            var e3 = new Ellipse(100, 270, 50, 50, -30d.DegreesToRadians());
+            var ellipse3Item = new GraphicItem(e3, intersectionBlue)
+            {
+                Name = "Ellipse 3"
+            };
+            //var extents3 = e3.ExtremePoints;
+            //var extents3NodeItem = new GraphicItem(new NodeRevealer(extents3, 5d), handleStyle);
+
+            var points1 = Intersections.EllipseEllipseIntersection(e2.Center.X, e2.Center.Y, e2.RX, e2.RY, e2.Angle, e3.Center.X, e3.Center.Y, e3.RX, e3.RY, e3.Angle).Points;
+            var intersections1 = new Intersection(points1.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points1);
+            var intersectionNodeItem1 = new GraphicItem(new NodeRevealer(intersections1.Points, 5d), handleStyle)
+            {
+                Name = "Ellipse, Ellipse Intersection 1"
+            };
+
+            var e4 = new Ellipse(300, 300, 50, 100, 0d.DegreesToRadians());
+            var ellipse4Item = new GraphicItem(e4, intersectionRed)
+            {
+                Name = "Ellipse 4"
+            };
+            //var extents4 = e4.ExtremePoints;
+            //var extents4NodeItem = new GraphicItem(new NodeRevealer(extents4, 5d), handleStyle);
+
+            var e5 = new Ellipse(350, 350, 100, 50, 90d.DegreesToRadians());
+            var ellipse5Item = new GraphicItem(e5, intersectionBlue)
+            {
+                Name = "Ellipse 5"
+            };
+            //var extents5 = e5.ExtremePoints;
+            //var extents5NodeItem = new GraphicItem(new NodeRevealer(extents5, 5d), handleStyle);
+
+            var points2 = Intersections.EllipseEllipseIntersection(e4.Center.X, e4.Center.Y, e4.RX, e4.RY, e4.Angle, e5.Center.X, e5.Center.Y, e5.RX, e5.RY, e5.Angle).Points;
+            var intersections2 = new Intersection(points2.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points2);
+            var intersectionNodeItem2 = new GraphicItem(new NodeRevealer(intersections2.Points, 5d), handleStyle)
+            {
+                Name = "Ellipse, Ellipse Intersection 2"
+            };
+
+            var e6 = new Ellipse(400, 100, 50, 100, 30d.DegreesToRadians());
+            var ellipse6Item = new GraphicItem(e6, intersectionRed)
+            {
+                Name = "Ellipse 6"
+            };
+            //var extents6 = e6.ExtremePoints;
+            //var extents6NodeItem = new GraphicItem(new NodeRevealer(extents6, 5d), handleStyle);
+
+            var e7 = new Ellipse(450, 150, 50, 100, 30d.DegreesToRadians());
+            var ellipse7Item = new GraphicItem(e7, intersectionBlue)
+            {
+                Name = "Ellipse 7"
+            };
+            //var extents7 = e7.ExtremePoints;
+            //var extents7NodeItem = new GraphicItem(new NodeRevealer(extents7, 5d), handleStyle);
+
+            var points3 = Intersections.EllipseEllipseIntersection(e6.Center.X, e6.Center.Y, e6.RX, e6.RY, e6.Angle, e7.Center.X, e7.Center.Y, e7.RX, e7.RY, e7.Angle).Points;
+            var intersections3 = new Intersection(points3.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points3);
+            var intersectionNodeItem3 = new GraphicItem(new NodeRevealer(intersections3.Points, 5d), handleStyle)
+            {
+                Name = "Ellipse, Ellipse Intersection 3"
+            };
+
+            var e8 = new Ellipse(100, 400, 50, 100, 45d.DegreesToRadians());
+            var ellipse8Item = new GraphicItem(e8, intersectionRed)
+            {
+                Name = "Ellipse 8"
+            };
+            //var extents8 = e8.ExtremePoints;
+            //var extents8NodeItem = new GraphicItem(new NodeRevealer(extents8, 5d), handleStyle);
+
+            var e9 = new Ellipse(125, 425, 50, 100, -45d.DegreesToRadians());
+            var ellipse9Item = new GraphicItem(e9, intersectionBlue)
+            {
+                Name = "Ellipse 9"
+            };
+            //var extents9 = e9.ExtremePoints;
+            //var extents9NodeItem = new GraphicItem(new NodeRevealer(extents9, 5d), handleStyle);
+
+            var points4 = Intersections.EllipseEllipseIntersection(e8.Center.X, e8.Center.Y, e8.RX, e8.RY, e8.Angle, e9.Center.X, e9.Center.Y, e9.RX, e9.RY, e9.Angle).Points;
+            var intersections4 = new Intersection(points4.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points4);
+            var intersectionNodeItem4 = new GraphicItem(new NodeRevealer(intersections4.Points, 5d), handleStyle)
+            {
+                Name = "Ellipse, Ellipse Intersection 4"
+            };
+
+            var e10 = new Ellipse(500, 450, 100, 50, 0d.DegreesToRadians());
+            var ellipse10Item = new GraphicItem(e10, intersectionRed)
+            {
+                Name = "Ellipse 10"
+            };
+            //var extents10 = e10.ExtremePoints;
+            //var extents10NodeItem = new GraphicItem(new NodeRevealer(extents10, 5d), handleStyle);
+
+            var e11 = new Ellipse(475, 475, 100, 50, 0d.DegreesToRadians());
+            var ellipse11Item = new GraphicItem(e11, intersectionBlue)
+            {
+                Name = "Ellipse 11"
+            };
+            //var extents11 = e11.ExtremePoints;
+            //var extents11NodeItem = new GraphicItem(new NodeRevealer(extents11, 5d), handleStyle);
+
+            var points5 = Intersections.EllipseEllipseIntersection(e10.Center.X, e10.Center.Y, e10.RX, e10.RY, e10.Angle, e11.Center.X, e11.Center.Y, e11.RX, e11.RY, e11.Angle);
+            var intersections5 = new Intersection(points5.Points.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points5.Points);
+            var intersectionNodeItem5 = new GraphicItem(new NodeRevealer(intersections5.Points, 5d), handleStyle)
+            {
+                Name = "Ellipse, Ellipse Intersection 5"
+            };
+
+            var e12 = new Ellipse(300, 550, 100, 50, 0d.DegreesToRadians());
+            var ellipse12Item = new GraphicItem(e12, intersectionRed)
+            {
+                Name = "Ellipse 12"
+            };
+            //var extents12 = e12.ExtremePoints;
+            //var extents12NodeItem = new GraphicItem(new NodeRevealer(extents12, 5d), handleStyle);
+
+            var e13 = new Ellipse(275, 575, 100, 50, 90d.DegreesToRadians());
+            var ellipse13Item = new GraphicItem(e13, intersectionBlue)
+            {
+                Name = "Ellipse 13"
+            };
+            //var extents13 = e13.ExtremePoints;
+            //var extents13NodeItem = new GraphicItem(new NodeRevealer(extents13, 5d), handleStyle);
+
+            var points6 = Intersections.EllipseEllipseIntersection(e12.Center.X, e12.Center.Y, e12.RX, e12.RY, e12.Angle, e13.Center.X, e13.Center.Y, e13.RX, e13.RY, e13.Angle);
+            var intersections6 = new Intersection(points6.Points.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points6.Points);
+            var intersectionNodeItem6 = new GraphicItem(new NodeRevealer(intersections6.Points, 5d), handleStyle)
+            {
+                Name = "Ellipse, Ellipse Intersection 6"
+            };
+
+            vectorMap?.Add(ellipse0Item);
+            //vectorMap?.Add(extents0NodeItem);
+            vectorMap?.Add(ellipse1Item);
+            //vectorMap?.Add(extents1NodeItem);
+            vectorMap?.Add(intersectionNodeItem0);
+            vectorMap?.Add(ellipse2Item);
+            //vectorMap?.Add(extents2NodeItem);
+            vectorMap?.Add(ellipse3Item);
+            //vectorMap?.Add(extents3NodeItem);
+            vectorMap?.Add(intersectionNodeItem1);
+            vectorMap?.Add(ellipse4Item);
+            //vectorMap?.Add(extents4NodeItem);
+            vectorMap?.Add(ellipse5Item);
+            //vectorMap?.Add(extents5NodeItem);
+            vectorMap?.Add(intersectionNodeItem2);
+            vectorMap?.Add(ellipse6Item);
+            //vectorMap?.Add(extents6NodeItem);
+            vectorMap?.Add(ellipse7Item);
+            //vectorMap?.Add(extents7NodeItem);
+            vectorMap?.Add(intersectionNodeItem3);
+            vectorMap?.Add(ellipse8Item);
+            //vectorMap?.Add(extents8NodeItem);
+            vectorMap?.Add(ellipse9Item);
+            //vectorMap?.Add(extents9NodeItem);
+            vectorMap?.Add(intersectionNodeItem4);
+            vectorMap?.Add(ellipse10Item);
+            //vectorMap?.Add(extents10NodeItem);
+            vectorMap?.Add(ellipse11Item);
+            //vectorMap?.Add(extents11NodeItem);
+            vectorMap?.Add(intersectionNodeItem5);
+            vectorMap?.Add(ellipse12Item);
+            //vectorMap?.Add(extents12NodeItem);
+            vectorMap?.Add(ellipse13Item);
+            //vectorMap?.Add(extents13NodeItem);
+            vectorMap?.Add(intersectionNodeItem6);
+        }
+
+        /// <summary>
+        /// The circle, circle intersection testing.
+        /// </summary>
+        /// <param name="vectorMap">The vectorMap.</param>
+        public static void IntersectionsCircleCircleIntersection(VectorMap vectorMap)
+        {
+            var e0 = new Circle(150, 150, 100);
+            var ellipse0Item = new GraphicItem(e0, intersectionRed)
+            {
+                Name = "Circle 0"
+            };
+            var extents0 = e0.ExtremePoints;
+            var extents0NodeItem = new GraphicItem(new NodeRevealer(extents0, 5d), handleStyle);
+
+            var e1 = new Circle(200, 150, 100);
+            var ellipse1Item = new GraphicItem(e1, intersectionBlue)
+            {
+                Name = "Circle 1"
+            };
+            var extents1 = e1.ExtremePoints;
+            var extents1NodeItem = new GraphicItem(new NodeRevealer(extents1, 5d), handleStyle);
+
+            var points0 = Intersections.CircleCircleIntersection(e0.Center.X, e0.Center.Y, e0.Radius, e1.Center.X, e1.Center.Y, e1.Radius).Points;
+            var intersections0 = new Intersection(points0.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points0);
+            var intersectionNodeItem0 = new GraphicItem(new NodeRevealer(intersections0.Points, 5d), handleStyle)
+            {
+                Name = "Circle, Circle Intersection 0"
+            };
+
+            var e2 = new Circle(50, 250, 50);
+            var ellipse2Item = new GraphicItem(e2, intersectionRed)
+            {
+                Name = "Circle 2"
+            };
+            var extents2 = e2.ExtremePoints;
+            var extents2NodeItem = new GraphicItem(new NodeRevealer(extents2, 5d), handleStyle);
+
+            var e3 = new Circle(100, 270, 50);
+            var ellipse3Item = new GraphicItem(e3, intersectionBlue)
+            {
+                Name = "Circle 3"
+            };
+            var extents3 = e3.ExtremePoints;
+            var extents3NodeItem = new GraphicItem(new NodeRevealer(extents3, 5d), handleStyle);
+
+            var points1 = Intersections.CircleCircleIntersection(e2.Center.X, e2.Center.Y, e2.Radius, e3.Center.X, e3.Center.Y, e3.Radius).Points;
+            var intersections1 = new Intersection(points1.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points1);
+            var intersectionNodeItem1 = new GraphicItem(new NodeRevealer(intersections1.Points, 5d), handleStyle)
+            {
+                Name = "Circle, Circle Intersection 1"
+            };
+
+            var e4 = new Circle(300, 300, 50);
+            var ellipse4Item = new GraphicItem(e4, intersectionRed)
+            {
+                Name = "Circle 4"
+            };
+            var extents4 = e4.ExtremePoints;
+            var extents4NodeItem = new GraphicItem(new NodeRevealer(extents4, 5d), handleStyle);
+
+            var e5 = new Circle(350, 350, 100);
+            var ellipse5Item = new GraphicItem(e5, intersectionBlue)
+            {
+                Name = "Circle 5"
+            };
+            var extents5 = e5.ExtremePoints;
+            var extents5NodeItem = new GraphicItem(new NodeRevealer(extents5, 5d), handleStyle);
+
+            var points2 = Intersections.CircleCircleIntersection(e4.Center.X, e4.Center.Y, e4.Radius, e5.Center.X, e5.Center.Y, e5.Radius).Points;
+            var intersections2 = new Intersection(points2.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points2);
+            var intersectionNodeItem2 = new GraphicItem(new NodeRevealer(intersections2.Points, 5d), handleStyle)
+            {
+                Name = "Circle, Circle Intersection 2"
+            };
+
+            var e6 = new Circle(400, 100, 50);
+            var ellipse6Item = new GraphicItem(e6, intersectionRed)
+            {
+                Name = "Circle 6"
+            };
+            var extents6 = e6.ExtremePoints;
+            var extents6NodeItem = new GraphicItem(new NodeRevealer(extents6, 5d), handleStyle);
+
+            var e7 = new Circle(450, 150, 50);
+            var ellipse7Item = new GraphicItem(e7, intersectionBlue)
+            {
+                Name = "Circle 7"
+            };
+            var extents7 = e7.ExtremePoints;
+            var extents7NodeItem = new GraphicItem(new NodeRevealer(extents7, 5d), handleStyle);
+
+            var points3 = Intersections.CircleCircleIntersection(e6.Center.X, e6.Center.Y, e6.Radius, e7.Center.X, e7.Center.Y, e7.Radius).Points;
+            var intersections3 = new Intersection(points3.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points3);
+            var intersectionNodeItem3 = new GraphicItem(new NodeRevealer(intersections3.Points, 5d), handleStyle)
+            {
+                Name = "Circle, Circle Intersection 3"
+            };
+
+            var e8 = new Circle(100, 400, 50);
+            var ellipse8Item = new GraphicItem(e8, intersectionRed)
+            {
+                Name = "Circle 8"
+            };
+            var extents8 = e8.ExtremePoints;
+            var extents8NodeItem = new GraphicItem(new NodeRevealer(extents8, 5d), handleStyle);
+
+            var e9 = new Circle(125, 425, 50);
+            var ellipse9Item = new GraphicItem(e9, intersectionBlue)
+            {
+                Name = "Circle 9"
+            };
+            var extents9 = e9.ExtremePoints;
+            var extents9NodeItem = new GraphicItem(new NodeRevealer(extents9, 5d), handleStyle);
+
+            var points4 = Intersections.CircleCircleIntersection(e8.Center.X, e8.Center.Y, e8.Radius, e9.Center.X, e9.Center.Y, e9.Radius).Points;
+            var intersections4 = new Intersection(points4.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points4);
+            var intersectionNodeItem4 = new GraphicItem(new NodeRevealer(intersections4.Points, 5d), handleStyle)
+            {
+                Name = "Circle, Circle Intersection 4"
+            };
+
+            var e10 = new Circle(500, 450, 100);
+            var ellipse10Item = new GraphicItem(e10, intersectionRed)
+            {
+                Name = "Circle 10"
+            };
+            var extents10 = e10.ExtremePoints;
+            var extents10NodeItem = new GraphicItem(new NodeRevealer(extents10, 5d), handleStyle);
+
+            var e11 = new Circle(475, 475, 100);
+            var ellipse11Item = new GraphicItem(e11, intersectionBlue)
+            {
+                Name = "Circle 11"
+            };
+            var extents11 = e11.ExtremePoints;
+            var extents11NodeItem = new GraphicItem(new NodeRevealer(extents11, 5d), handleStyle);
+
+            var points5 = Intersections.CircleCircleIntersection(e10.Center.X, e10.Center.Y, e10.Radius, e11.Center.X, e11.Center.Y, e11.Radius);
+            var intersections5 = new Intersection(points5.Points.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points5.Points);
+            var intersectionNodeItem5 = new GraphicItem(new NodeRevealer(intersections5.Points, 5d), handleStyle)
+            {
+                Name = "Circle, Circle Intersection 5"
+            };
+
+            var e12 = new Circle(300, 550, 100);
+            var ellipse12Item = new GraphicItem(e12, intersectionRed)
+            {
+                Name = "Circle 12"
+            };
+            var extents12 = e12.ExtremePoints;
+            var extents12NodeItem = new GraphicItem(new NodeRevealer(extents12, 5d), handleStyle);
+
+            var e13 = new Circle(275, 575, 100);
+            var ellipse13Item = new GraphicItem(e13, intersectionBlue)
+            {
+                Name = "Circle 13"
+            };
+            var extents13 = e13.ExtremePoints;
+            var extents13NodeItem = new GraphicItem(new NodeRevealer(extents13, 5d), handleStyle);
+
+            var points6 = Intersections.CircleCircleIntersection(e12.Center.X, e12.Center.Y, e12.Radius, e13.Center.X, e13.Center.Y, e13.Radius);
+            var intersections6 = new Intersection(points6.Points.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points6.Points);
+            var intersectionNodeItem6 = new GraphicItem(new NodeRevealer(intersections6.Points, 5d), handleStyle)
+            {
+                Name = "Circle, Circle Intersection 6"
+            };
+
+            vectorMap?.Add(ellipse0Item);
+            vectorMap?.Add(extents0NodeItem);
+            vectorMap?.Add(ellipse1Item);
+            vectorMap?.Add(extents1NodeItem);
+            vectorMap?.Add(intersectionNodeItem0);
+            vectorMap?.Add(ellipse2Item);
+            vectorMap?.Add(extents2NodeItem);
+            vectorMap?.Add(ellipse3Item);
+            vectorMap?.Add(extents3NodeItem);
+            vectorMap?.Add(intersectionNodeItem1);
+            vectorMap?.Add(ellipse4Item);
+            vectorMap?.Add(extents4NodeItem);
+            vectorMap?.Add(ellipse5Item);
+            vectorMap?.Add(extents5NodeItem);
+            vectorMap?.Add(intersectionNodeItem2);
+            vectorMap?.Add(ellipse6Item);
+            vectorMap?.Add(extents6NodeItem);
+            vectorMap?.Add(ellipse7Item);
+            vectorMap?.Add(extents7NodeItem);
+            vectorMap?.Add(intersectionNodeItem3);
+            vectorMap?.Add(ellipse8Item);
+            vectorMap?.Add(extents8NodeItem);
+            vectorMap?.Add(ellipse9Item);
+            vectorMap?.Add(extents9NodeItem);
+            vectorMap?.Add(intersectionNodeItem4);
+            vectorMap?.Add(ellipse10Item);
+            vectorMap?.Add(extents10NodeItem);
+            vectorMap?.Add(ellipse11Item);
+            vectorMap?.Add(extents11NodeItem);
+            vectorMap?.Add(intersectionNodeItem5);
+            vectorMap?.Add(ellipse12Item);
+            vectorMap?.Add(extents12NodeItem);
+            vectorMap?.Add(ellipse13Item);
+            vectorMap?.Add(extents13NodeItem);
+            vectorMap?.Add(intersectionNodeItem6);
+        }
+
+        /// <summary>
         /// Development test cases for testing intersection methods between ellipses.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
@@ -3944,12 +4149,12 @@ namespace Editor
         /// Development test cases for testing intersections between ellipses and cubic Bézier curve segments.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
-        public static void IntersectingsEllipseCubicSegment(VectorMap vectorMap)
+        public static void IntersectingsEllipseCubicSegment(VectorMap vectorMap, EditorForm form)
         {
-            var location = new Point2D(100, 100);
+            var location = new Point2D(100, 200);
             var scale = new Size2D(75, 50);
             var axis = new Point2D(200, 100);
-            const int angle = 0; //45d.ToRadians();
+            var angle = 0d.DegreesToRadians(); //45d.DegreesToRadians();
 
             var ellipse1 = new Ellipse(location.X, location.Y, scale.Width, scale.Height, angle).ScaleDistort(scale).RotateDistort(axis, angle);
             var ellipse1Item = new GraphicItem(ellipse1, intersectionBlue)
@@ -3973,16 +4178,74 @@ namespace Editor
                 Name = "Cubic Bézier 1 Bounds"
             };
 
-            var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipse1.Intersection(cubic1).Points, 5d), handleStyle)
+            var intersectionNodeItem1 = new GraphicItem(new NodeRevealer(ellipse1.Intersection(cubic1).Points, 5d), handleStyle)
             {
                 Name = "Intersection Points"
             };
+
+            location = new Point2D(300, 200);
+            scale = new Size2D(100, 50);
+            axis = location;
+
+            var ellipse2 = new Ellipse(location.X, location.Y, scale.Width, scale.Height, angle).ScaleDistort(scale).RotateDistort(axis, angle);
+            var ellipse2Item = new GraphicItem(ellipse2, intersectionBlue)
+            {
+                Name = "Ellipse 2"
+            };
+            var ellipse2BoundsItem = new GraphicItem(ellipse2.Bounds, selectionStyle)
+            {
+                Name = "Ellipse 2 Bounds"
+            };
+
+            //location = (Point2D)(location + new Point2D(50, 50));
+
+            var cubic2 = new CubicBezier(location.X - 60, location.Y + 80, location.X - 60, location.Y - 400, location.X + 60, location.Y + 400, location.X + 60, location.Y - 80);
+            var cubic2Item = new GraphicItem(cubic2, intersectionRed)
+            {
+                Name = "Cubic Bézier 2"
+            };
+            var cubic2BoundsItem = new GraphicItem(cubic2.Bounds, selectionStyle)
+            {
+                Name = "Cubic Bézier 2 Bounds"
+            };
+
+            var intersectionNodeItem2 = new GraphicItem(new NodeRevealer(ellipse2.Intersection(cubic2).Points, 5d), handleStyle)
+            {
+                Name = "Intersection Points 2"
+            };
+
+            (var duration, var delay) = (360d, 0d);
+            form.ResetAction = new Action(reset);
+            void reset()
+            {
+                ellipse1.Angle = 0d;
+                ellipse2.Angle = 0d;
+                vectorMap?.Tweener.Tween(ellipse1, new { Angle = 360d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(ellipse2, new { Angle = 360d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear)
+                    .OnUpdate(() => update());
+            }
+
+            void update()
+            {
+                intersectionNodeItem1.Shape.ClearCache();
+                intersectionNodeItem1.Shape = new NodeRevealer(ellipse1.Intersection(cubic1).Points, 5d);
+                ellipse1BoundsItem.Shape = ellipse1.Bounds;
+                intersectionNodeItem2.Shape.ClearCache();
+                intersectionNodeItem2.Shape = new NodeRevealer(ellipse2.Intersection(cubic2).Points, 5d);
+                ellipse2BoundsItem.Shape = ellipse2.Bounds;
+                form.UpdateCallback();
+            }
 
             vectorMap?.Add(ellipse1BoundsItem);
             vectorMap?.Add(cubic1BoundsItem);
             vectorMap?.Add(ellipse1Item);
             vectorMap?.Add(cubic1Item);
-            vectorMap?.Add(intersectionNodeItem);
+            vectorMap?.Add(intersectionNodeItem1);
+            vectorMap?.Add(ellipse2BoundsItem);
+            vectorMap?.Add(cubic2BoundsItem);
+            vectorMap?.Add(ellipse2Item);
+            vectorMap?.Add(cubic2Item);
+            vectorMap?.Add(intersectionNodeItem2);
         }
 
         /// <summary>

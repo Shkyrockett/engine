@@ -39,6 +39,11 @@ namespace Engine
         /// <param name="points">The points.</param>
         public CardinalSegment(CurveSegment previous, List<Point2D> points)
         {
+            if (previous is null)
+            {
+                throw new ArgumentNullException(nameof(previous));
+            }
+
             Previous = previous;
             previous.Next = this;
             CentralPoints = points;

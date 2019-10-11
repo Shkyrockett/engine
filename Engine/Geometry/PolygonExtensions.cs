@@ -43,6 +43,10 @@ namespace Engine
         /// </acknowledgment>
         public static Polyline ShortestPath(this Polygon polygons, Point2D start, Point2D end)
         {
+            if (polygons is null)
+            {
+                throw new ArgumentNullException(nameof(polygons));
+            }
             //  Fail if either the start point or endpoint is outside the polygon set.
             if (!polygons.Contains(start) || !polygons.Contains(end))
             {

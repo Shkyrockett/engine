@@ -2000,7 +2000,7 @@ namespace Engine
             double x1, double y1, double x2, double y2,
             double b0x, double b0y, double b1x, double b1y, double b2x, double b2y,
             double epsilon = Epsilon)
-            => LineQuadraticBezierIntersection(x1, y1, x2, y2, QuadraticBezierPolynomial(b0x, b1x, b2x), QuadraticBezierPolynomial(b0y, b1y, b2y), epsilon);
+            => LineQuadraticBezierIntersection(x1, y1, x2, y2, QuadraticBezierBernsteinPolynomial(b0x, b1x, b2x), QuadraticBezierBernsteinPolynomial(b0y, b1y, b2y), epsilon);
 
         /// <summary>
         /// Find the intersection between a line and a quadratic Bézier.
@@ -2079,8 +2079,8 @@ namespace Engine
             double epsilon = Epsilon)
             => LineCubicBezierIntersection(
                 x1, y1, x2, y2,
-                CubicBezierPolynomial(b0x, b1x, b2x, b3x),
-                CubicBezierPolynomial(b0y, b1y, b2y, b3y),
+                CubicBezierBernsteinPolynomial(b0x, b1x, b2x, b3x),
+                CubicBezierBernsteinPolynomial(b0y, b1y, b2y, b3y),
                 epsilon);
 
         /// <summary>
@@ -3743,8 +3743,8 @@ namespace Engine
             double epsilon = Epsilon)
             => LineSegmentQuadraticBezierSegmentIntersection(
                 x1, y1, x2, y2,
-                QuadraticBezierPolynomial(b0x, b1x, b2x),
-                QuadraticBezierPolynomial(b0y, b1y, b2y),
+                QuadraticBezierBernsteinPolynomial(b0x, b1x, b2x),
+                QuadraticBezierBernsteinPolynomial(b0y, b1y, b2y),
                 epsilon);
 
         /// <summary>
@@ -3836,8 +3836,8 @@ namespace Engine
             double epsilon = Epsilon)
             => LineSegmentCubicBezierSegmentIntersection(
                 x1, y1, x2, y2,
-                CubicBezierPolynomial(b0x, b1x, b2x, b3x),
-                CubicBezierPolynomial(b0y, b1y, b2y, b3y),
+                CubicBezierBernsteinPolynomial(b0x, b1x, b2x, b3x),
+                CubicBezierBernsteinPolynomial(b0y, b1y, b2y, b3y),
                 epsilon);
 
         /// <summary>
@@ -4609,10 +4609,10 @@ namespace Engine
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(
-                QuadraticBezierPolynomial(a1X, a2X, a3X),
-                QuadraticBezierPolynomial(a1Y, a2Y, a3Y),
-                QuadraticBezierPolynomial(b1X, b2X, b3X),
-                QuadraticBezierPolynomial(b1Y, b2Y, b3Y),
+                QuadraticBezierBernsteinPolynomial(a1X, a2X, a3X),
+                QuadraticBezierBernsteinPolynomial(a1Y, a2Y, a3Y),
+                QuadraticBezierBernsteinPolynomial(b1X, b2X, b3X),
+                QuadraticBezierBernsteinPolynomial(b1Y, b2Y, b3Y),
                 epsilon);
 
         /// <summary>
@@ -4741,10 +4741,10 @@ namespace Engine
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentCubicBezierSegmentIntersection(
-                QuadraticBezierPolynomial(a1X, a2X, a3X),
-                QuadraticBezierPolynomial(a1Y, a2Y, a3Y),
-                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
-                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
+                QuadraticBezierBernsteinPolynomial(a1X, a2X, a3X),
+                QuadraticBezierBernsteinPolynomial(a1Y, a2Y, a3Y),
+                CubicBezierBernsteinPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinPolynomial(b1Y, b2Y, b3Y, b4Y),
                 epsilon);
 
         /// <summary>
@@ -4864,8 +4864,8 @@ namespace Engine
             List<Point2D> points,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentPolylineIntersection(
-                QuadraticBezierPolynomial(b1X, b2X, b3X),
-                QuadraticBezierPolynomial(b1Y, b2Y, b3Y),
+                QuadraticBezierBernsteinPolynomial(b1X, b2X, b3X),
+                QuadraticBezierBernsteinPolynomial(b1Y, b2Y, b3Y),
                 points,
                 epsilon);
 
@@ -4933,8 +4933,8 @@ namespace Engine
             List<Point2D> points,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentPolygonContourIntersection(
-                QuadraticBezierPolynomial(b1X, b2X, b3X),
-                QuadraticBezierPolynomial(b1Y, b2Y, b3Y),
+                QuadraticBezierBernsteinPolynomial(b1X, b2X, b3X),
+                QuadraticBezierBernsteinPolynomial(b1Y, b2Y, b3Y),
                 points,
                 epsilon);
 
@@ -5007,8 +5007,8 @@ namespace Engine
             double t1X, double t1Y, double t2X, double t2Y, double t3X, double t3Y,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentTriangleIntersection(
-                QuadraticBezierPolynomial(p1X, p2X, p3X),
-                QuadraticBezierPolynomial(p1Y, p2Y, p3Y),
+                QuadraticBezierBernsteinPolynomial(p1X, p2X, p3X),
+                QuadraticBezierBernsteinPolynomial(p1Y, p2Y, p3Y),
                 t1X, t1Y, t2X, t2Y, t3X, t3Y,
                 epsilon);
 
@@ -5076,8 +5076,8 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentRectangleIntersection(
-                QuadraticBezierPolynomial(p1X, p2X, p3X),
-                QuadraticBezierPolynomial(p1Y, p2Y, p3Y),
+                QuadraticBezierBernsteinPolynomial(p1X, p2X, p3X),
+                QuadraticBezierBernsteinPolynomial(p1Y, p2Y, p3Y),
                 r1X, r1Y, r2X, r2Y,
                 epsilon);
 
@@ -5142,8 +5142,8 @@ namespace Engine
             double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3,
             double epsilon = Epsilon)
             => CubicBezierSegmentSelfIntersection(
-                CubicBezierPolynomial(x0, x1, x2, x3),
-                CubicBezierPolynomial(y0, y1, y2, y3),
+                CubicBezierBernsteinPolynomial(x0, x1, x2, x3),
+                CubicBezierBernsteinPolynomial(y0, y1, y2, y3),
                 epsilon);
 
         /// <summary>
@@ -5255,10 +5255,10 @@ namespace Engine
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = Epsilon)
             => CubicBezierSegmentCubicBezierSegmentIntersection(
-                CubicBezierPolynomial(a1X, a2X, a3X, a4X),
-                CubicBezierPolynomial(a1Y, a2Y, a3Y, a4Y),
-                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
-                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierBernsteinPolynomial(a1X, a2X, a3X, a4X),
+                CubicBezierBernsteinPolynomial(a1Y, a2Y, a3Y, a4Y),
+                CubicBezierBernsteinPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinPolynomial(b1Y, b2Y, b3Y, b4Y),
                 epsilon);
 
         /// <summary>
@@ -5403,8 +5403,8 @@ namespace Engine
             List<Point2D> points,
             double epsilon = Epsilon)
             => CubicBezierSegmentPolylineIntersection(
-                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
-                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierBernsteinPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinPolynomial(b1Y, b2Y, b3Y, b4Y),
                 points,
                 epsilon);
 
@@ -5476,8 +5476,8 @@ namespace Engine
             List<Point2D> points,
             double epsilon = Epsilon)
             => CubicBezierSegmentPolygonIntersection(
-                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
-                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierBernsteinPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinPolynomial(b1Y, b2Y, b3Y, b4Y),
                 points,
                 epsilon);
 
@@ -5554,8 +5554,8 @@ namespace Engine
             double t1X, double t1Y, double t2X, double t2Y, double t3X, double t3Y,
             double epsilon = Epsilon)
             => CubicBezierSegmentTriangleIntersection(
-                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
-                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierBernsteinPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinPolynomial(b1Y, b2Y, b3Y, b4Y),
                 t1X, t1Y, t2X, t2Y, t3X, t3Y,
                 epsilon);
 
@@ -5627,8 +5627,8 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
             => CubicBezierSegmentRectangleIntersection(
-                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
-                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierBernsteinPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinPolynomial(b1Y, b2Y, b3Y, b4Y),
                 r1X, r1Y, r2X, r2Y,
                 epsilon);
 
@@ -6518,11 +6518,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection EllipsePolylineIntersection(
-            double cx, double cy, double rx, double ry, double angle,
-            List<Point2D> points,
-            double epsilon = Epsilon)
-            => EllipsePolylineIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), points, epsilon);
+        public static Intersection EllipsePolylineIntersection(double cx, double cy, double rx, double ry, double angle, List<Point2D> points, double epsilon = Epsilon) => EllipsePolylineIntersection(cx, cy, rx, ry, Cos(angle), Sin(angle), points, epsilon);
 
         /// <summary>
         /// Find the intersection between an ellipse and a polyline.
@@ -6735,8 +6731,8 @@ namespace Engine
             double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
             => QuadraticBezierSegmentOrthogonalEllipseIntersection(
-                QuadraticBezierPolynomial(b1X, b2X, b3X),
-                QuadraticBezierPolynomial(b1Y, b2Y, b3Y),
+                QuadraticBezierBernsteinPolynomial(b1X, b2X, b3X),
+                QuadraticBezierBernsteinPolynomial(b1Y, b2Y, b3Y),
                 ecX, ecY, rx, ry,
                 epsilon);
 
@@ -6824,8 +6820,8 @@ namespace Engine
             double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
             => CubicBezierSegmentOrthogonalEllipseIntersection(
-                CubicBezierPolynomial(b1X, b2X, b3X, b4X),
-                CubicBezierPolynomial(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierBernsteinPolynomial(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinPolynomial(b1Y, b2Y, b3Y, b4Y),
                 ecX, ecY, rx, ry,
                 epsilon);
 
@@ -6967,11 +6963,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection EllipseEllipseIntersection(
-            double c1X, double c1Y, double rx1, double ry1, double angle1,
-            double c2X, double c2Y, double rx2, double ry2, double angle2,
-            double epsilon = Epsilon)
-            => EllipseEllipseIntersection(c1X, c1Y, rx1, ry1, Cos(angle1), Sin(angle1), c2X, c2Y, rx2, ry2, Cos(angle2), Sin(angle2), epsilon);
+        public static Intersection EllipseEllipseIntersection(double c1X, double c1Y, double rx1, double ry1, double angle1, double c2X, double c2Y, double rx2, double ry2, double angle2, double epsilon = Epsilon) => EllipseEllipseIntersection(c1X, c1Y, rx1, ry1, Cos(angle1), Sin(angle1), c2X, c2Y, rx2, ry2, Cos(angle2), Sin(angle2), epsilon);
 
         /// <summary>
         /// Find the intersection between two ellipses.

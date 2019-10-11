@@ -648,6 +648,25 @@ namespace Engine
         }
         #endregion Cubic Bézier Interpolation
 
+        /// <summary>
+        /// Quintics the bezier.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <param name="p0X">The p0 x.</param>
+        /// <param name="p0Y">The p0 y.</param>
+        /// <param name="p1X">The p1 x.</param>
+        /// <param name="p1Y">The p1 y.</param>
+        /// <param name="p2X">The p2 x.</param>
+        /// <param name="p2Y">The p2 y.</param>
+        /// <param name="p3X">The p3 x.</param>
+        /// <param name="p3Y">The p3 y.</param>
+        /// <param name="p4X">The p4 x.</param>
+        /// <param name="p4Y">The p4 y.</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) QuinticBezier(double t, double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y)
+            => CubicBezierSpline(t, new List<(double X, double Y)> { (p0X, p0Y), (p1X, p1Y), (p2X, p2Y), (p3X, p3Y), (p4X, p4Y) });
+
         #region N Bézier Interpolation
         /// <summary>
         /// General Bézier curve Number of control points is n+1 0 less than or equal to mu less than 1
@@ -672,7 +691,7 @@ namespace Engine
             var muk = 1d;
             var munk = Pow(1d - t, n);
 
-            var b = Point2D.Empty;
+            var b = (X: 0d, Y: 0d);
 
             for (var k = 0; k <= n; k++)
             {
@@ -698,7 +717,65 @@ namespace Engine
                     }
                 }
 
-                b = new Point2D(
+                b = (
+                    b.X + (points[k].X * blend),
+                    b.Y + (points[k].Y * blend)
+                );
+            }
+
+            return b;
+        }
+
+        /// <summary>
+        /// General Bézier curve Number of control points is n+1 0 less than or equal to mu less than 1
+        /// IMPORTANT, the last point is not computed.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://paulbourke.net/geometry/bezier/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) CubicBezierSpline(double t, List<(double X, double Y)> points)
+        {
+            var n = points.Count - 1;
+            int kn;
+            int nn;
+            int nkn;
+
+            double blend;
+            var muk = 1d;
+            var munk = Pow(1d - t, n);
+
+            var b = (X: 0d, Y: 0d);
+
+            for (var k = 0; k <= n; k++)
+            {
+                nn = n;
+                kn = k;
+                nkn = n - k;
+                blend = muk * munk;
+                muk *= t;
+                munk /= 1d - t;
+                while (nn >= 1)
+                {
+                    blend *= nn;
+                    nn--;
+                    if (kn > 1)
+                    {
+                        blend /= kn;
+                        kn--;
+                    }
+                    if (nkn > 1)
+                    {
+                        blend /= nkn;
+                        nkn--;
+                    }
+                }
+
+                b = (
                     b.X + (points[k].X * blend),
                     b.Y + (points[k].Y * blend)
                 );

@@ -519,7 +519,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierPolynomial(dx, cx, bx, ax));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierBernsteinPolynomial(dx, cx, bx, ax));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -533,7 +533,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierPolynomial(dy, cy, by, ay));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierBernsteinPolynomial(dy, cy, by, ay));
                 curveY.IsReadonly = true;
                 return curveY;
             }

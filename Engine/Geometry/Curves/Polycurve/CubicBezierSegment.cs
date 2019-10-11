@@ -172,7 +172,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierPolynomial(Head.Value.X, Handle1.X, Handle2.Value.X, Tail.Value.X));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierBernsteinPolynomial(Head.Value.X, Handle1.X, Handle2.Value.X, Tail.Value.X));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -186,7 +186,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierPolynomial(Head.Value.Y, Handle1.Y, Handle2.Value.X, Tail.Value.Y));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierBernsteinPolynomial(Head.Value.Y, Handle1.Y, Handle2.Value.X, Tail.Value.Y));
                 curveY.IsReadonly = true;
                 return curveY;
             }

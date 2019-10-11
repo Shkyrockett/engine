@@ -59,8 +59,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions Contains(this Point2D a, Point2D b)
-            => a == b ? Inclusions.Boundary : Inclusions.Outside;
+        public static Inclusions Contains(this Point2D a, Point2D b) => a == b ? Inclusions.Boundary : Inclusions.Outside;
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="LineSegment"/>.
@@ -70,8 +69,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions Contains(this LineSegment seg, Point2D point)
-            => PointLineSegmentIntersects(point.X, point.Y, seg.AX, seg.AY, seg.BX, seg.BY) ? Inclusions.Boundary : Inclusions.Outside;
+        public static Inclusions Contains(this LineSegment seg, Point2D point) => PointLineSegmentIntersects(point.X, point.Y, seg.AX, seg.AY, seg.BX, seg.BY) ? Inclusions.Boundary : Inclusions.Outside;
 
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
@@ -81,8 +79,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions Contains(this Rectangle2D rectangle, Point2D point)
-            => RectangleContainsPoint(rectangle.X, rectangle.Y, rectangle.Right, rectangle.Bottom, point.X, point.Y);
+        public static Inclusions Contains(this Rectangle2D rectangle, Point2D point) => RectangleContainsPoint(rectangle.X, rectangle.Y, rectangle.Right, rectangle.Bottom, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="PolygonContour"/>.
@@ -92,8 +89,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions Contains(this PolygonContour polygon, Point2D point)
-            => PolygonContourContainsPoint(polygon.Points, point.X, point.Y);
+        public static Inclusions Contains(this PolygonContour polygon, Point2D point) => PolygonContourContainsPoint(polygon.Points, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="PolyBezierContour"/>.
@@ -103,8 +99,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions Contains(this PolycurveContour figure, Point2D point)
-            => PolycurveContourContainsPoint(figure, point);
+        public static Inclusions Contains(this PolycurveContour figure, Point2D point) => PolycurveContourContainsPoint(figure, point);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="Polygon"/>.
@@ -115,8 +110,7 @@ namespace Engine
         /// <remarks><para>This function automatically knows that enclosed polygons are "no-go" areas.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions Contains(this Polygon polygons, Point2D point)
-            => PolygonContainsPoint(polygons.Contours, point.X, point.Y);
+        public static Inclusions Contains(this Polygon polygons, Point2D point) => PolygonContainsPoint(polygons.Contours, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
@@ -126,8 +120,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions Contains(this Circle circle, Point2D point)
-            => CircleContainsPoint(circle.X, circle.Y, circle.Radius, point.X, point.Y);
+        public static Inclusions Contains(this Circle circle, Point2D point) => CircleContainsPoint(circle.X, circle.Y, circle.Radius, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
@@ -137,8 +130,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions Contains(this Ellipse ellipse, Point2D point)
-            => EllipseContainsPoint(ellipse.Center.X, ellipse.Center.Y, ellipse.RX, ellipse.RY, ellipse.CosAngle, ellipse.SinAngle, point.X, point.Y);
+        public static Inclusions Contains(this Ellipse ellipse, Point2D point) => EllipseContainsPoint(ellipse.Center.X, ellipse.Center.Y, ellipse.RX, ellipse.RY, ellipse.CosAngle, ellipse.SinAngle, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
@@ -148,8 +140,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions Contains(this CircularArc arc, Point2D point)
-            => CircularArcSectorContainsPoint(arc.X, arc.Y, arc.Radius, arc.StartAngle, arc.SweepAngle, point.X, point.Y);
+        public static Inclusions Contains(this CircularArc arc, Point2D point) => CircularArcSectorContainsPoint(arc.X, arc.Y, arc.Radius, arc.StartAngle, arc.SweepAngle, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
@@ -159,8 +150,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions Contains(this EllipticalArc ellipseArc, Point2D point)
-            => EllipticalArcContainsPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.RX, ellipseArc.RY, ellipseArc.CosAngle, ellipseArc.SinAngle, ellipseArc.StartAngleCos, ellipseArc.StartAngleSin, ellipseArc.EndAngleCos, ellipseArc.EndAngleSin, ellipseArc.SweepAngle, point.X, point.Y, Epsilon);
+        public static Inclusions Contains(this EllipticalArc ellipseArc, Point2D point) => EllipticalArcContainsPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.RX, ellipseArc.RY, ellipseArc.CosAngle, ellipseArc.SinAngle, ellipseArc.StartAngleCos, ellipseArc.StartAngleSin, ellipseArc.EndAngleCos, ellipseArc.EndAngleSin, ellipseArc.SweepAngle, point.X, point.Y, Epsilon);
 
         /// <summary>
         /// Determines whether the specified <see cref="Rectangle2D"/> is contained withing the region defined by this <see cref="Rectangle2D"/>.
@@ -170,8 +160,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Contains(this Rectangle2D a, Rectangle2D b)
-            => RectangleContainsRectangle(a.X, a.Y, a.Width, a.Height, b.X, b.Y, b.Width, b.Height);
+        public static bool Contains(this Rectangle2D a, Rectangle2D b) => RectangleContainsRectangle(a.X, a.Y, a.Width, a.Height, b.X, b.Y, b.Width, b.Height);
         #endregion Contains Extension Method Overloads
 
         #region Contains Methods
@@ -185,9 +174,7 @@ namespace Engine
         /// <returns>Returns a Boolean value indicating whether the shape contains the point.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInTriangle(
-            LineSegment s, Point2D o, Point2D p,
-            double epsilon = Epsilon)
+        public static bool PointInTriangle(LineSegment s, Point2D o, Point2D p, double epsilon = Epsilon)
         {
             _ = epsilon;
             var x = Sign(s.A, s.B, p);
@@ -209,10 +196,7 @@ namespace Engine
         /// <returns>The <see cref="Inclusions"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions TriangleContainsPoint(
-            double aX, double aY, double bX, double bY, double cX, double cY,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions TriangleContainsPoint(double aX, double aY, double bX, double bY, double cX, double cY, double pX, double pY, double epsilon = Epsilon)
         {
             _ = epsilon;
             var a = new Point2D(aX, aY);
@@ -241,10 +225,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions RectangleContainsPoint(
-            double left, double top, double right, double bottom,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions RectangleContainsPoint(double left, double top, double right, double bottom, double pX, double pY, double epsilon = Epsilon)
         {
             _ = epsilon;
             return (((left == pX || right == pX) && ((top <= pY) == (bottom >= pY)))
@@ -269,10 +250,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions PolygonContourContainsPoint(
-            List<Point2D> points,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions PolygonContourContainsPoint(List<Point2D> points, double pX, double pY, double epsilon = Epsilon)
         {
             // Default value is no inclusion.
             var result = Inclusions.Outside;
@@ -381,11 +359,13 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="Inclusions"/>.</returns>
-        public static Inclusions PolycurveContourContainsPoint(
-            PolycurveContour path,
-            Point2D point,
-            double epsilon = Epsilon)
+        public static Inclusions PolycurveContourContainsPoint(PolycurveContour path, Point2D point, double epsilon = Epsilon)
         {
+            if (path is null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+
             var inside = 0;
 
             foreach (var item in path)
@@ -493,10 +473,7 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="Inclusions"/>.</returns>
-        public static Inclusions PolycurveContourContainsPoint2(
-            PolycurveContour path,
-            Point2D point,
-            double epsilon = Epsilon)
+        public static Inclusions PolycurveContourContainsPoint2(PolycurveContour path, Point2D point, double epsilon = Epsilon)
         {
             var result = Inclusions.Outside;
             //const Inclusion boundary = Inclusion.Outside;
@@ -681,11 +658,13 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions PolygonContainsPoint(
-            List<PolygonContour> polygons,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions PolygonContainsPoint(List<PolygonContour> polygons, double pX, double pY, double epsilon = Epsilon)
         {
+            if (polygons is null)
+            {
+                throw new ArgumentNullException(nameof(polygons));
+            }
+
             var returnValue = Inclusions.Outside;
 
             foreach (var poly in polygons)
@@ -719,10 +698,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions CircleContainsPoint(
-            double x, double y, double r,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions CircleContainsPoint(double x, double y, double r, double pX, double pY, double epsilon = Epsilon)
         {
             // Check if it is within the bounding rectangle.
             if (pX >= x - r && pX <= x + r
@@ -756,11 +732,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions EllipseContainsPoint(
-            double cX, double cY, double rx, double ry, double angle,
-            double pX, double pY,
-            double epsilon = Epsilon)
-            => EllipseContainsPoint(cX, cY, rx, ry, Cos(angle), Sin(angle), pX, pY, epsilon);
+        public static Inclusions EllipseContainsPoint(double cX, double cY, double rx, double ry, double angle, double pX, double pY, double epsilon = Epsilon) => EllipseContainsPoint(cX, cY, rx, ry, Cos(angle), Sin(angle), pX, pY, epsilon);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
@@ -780,10 +752,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions EllipseContainsPoint(
-            double cX, double cY, double rx, double ry, double cosT, double sinT,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions EllipseContainsPoint(double cX, double cY, double rx, double ry, double cosT, double sinT, double pX, double pY, double epsilon = Epsilon)
         {
             if (rx <= 0d || ry <= 0d)
             {
@@ -822,10 +791,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions CircularArcSectorContainsPoint(
-            double x, double y, double r, double startAngle, double sweepAngle,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions CircularArcSectorContainsPoint(double x, double y, double r, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
         {
             if (r <= 0d)
             {
@@ -885,15 +851,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions EllipticalArcContainsPoint(
-            double cX, double cY,
-            double r1, double r2,
-            double angle,
-            double startAngle,
-            double sweepAngle,
-            double pX, double pY,
-            double epsilon = Epsilon)
-            => EllipticalArcContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(startAngle + sweepAngle), Sin(startAngle + sweepAngle), sweepAngle, pX, pY, epsilon);
+        public static Inclusions EllipticalArcContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon) => EllipticalArcContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(startAngle + sweepAngle), Sin(startAngle + sweepAngle), sweepAngle, pX, pY, epsilon);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
@@ -919,15 +877,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions EllipticalArcContainsPoint(
-            double cX, double cY,
-            double r1, double r2,
-            double cosT, double sinT,
-            double startCosT, double startSinT,
-            double endCosT, double endSinT,
-            double sweepAngle,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions EllipticalArcContainsPoint(double cX, double cY, double r1, double r2, double cosT, double sinT, double startCosT, double startSinT, double endCosT, double endSinT, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
         {
             // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
@@ -1004,15 +954,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions EllipticalArcSectorContainsPoint(
-            double cX, double cY,
-            double r1, double r2,
-            double angle,
-            double startAngle,
-            double sweepAngle,
-            double pX, double pY,
-            double epsilon = Epsilon)
-            => EllipticalArcSectorContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(startAngle + sweepAngle), Sin(startAngle + sweepAngle), sweepAngle, pX, pY, epsilon);
+        public static Inclusions EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon) => EllipticalArcSectorContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(startAngle + sweepAngle), Sin(startAngle + sweepAngle), sweepAngle, pX, pY, epsilon);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
@@ -1037,15 +979,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions EllipticalArcSectorContainsPoint(
-            double cX, double cY,
-            double r1, double r2,
-            double cosT, double sinT,
-            double startCosT, double startSinT,
-            double endCosT, double endSinT,
-            double sweepAngle,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double cosT, double sinT, double startCosT, double startSinT, double endCosT, double endSinT, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
         {
             // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
@@ -1132,10 +1066,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions PolygonSetContainsPoints(
-            this Polygon polygons,
-            Point2D start, Point2D end,
-            double epsilon = Epsilon)
+        public static Inclusions PolygonSetContainsPoints(this Polygon polygons, Point2D start, Point2D end, double epsilon = Epsilon)
         {
             end.X -= start.X;
             end.Y -= start.Y;
@@ -1212,12 +1143,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool RectangleContainsRectangle(
-            double aX, double aY,
-            double aWidth, double aHeight,
-            double bX, double bY,
-            double bWidth, double bHeight,
-            double epsilon = Epsilon)
+        public static bool RectangleContainsRectangle(double aX, double aY, double aWidth, double aHeight, double bX, double bY, double bWidth, double bHeight, double epsilon = Epsilon)
         {
             _ = epsilon;
             return (aX <= bX)

@@ -30,8 +30,8 @@ namespace Engine
     /// <summary>
     /// The intersection struct.
     /// </summary>
-    /// <seealso cref="System.IFormattable" />
-    /// <seealso cref="System.IEquatable{T}" />
+    /// <seealso cref="IFormattable" />
+    /// <seealso cref="IEquatable{T}" />
     public struct Intersection
         : IFormattable, IEquatable<Intersection>
     {

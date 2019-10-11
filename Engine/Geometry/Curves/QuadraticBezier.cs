@@ -378,7 +378,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierPolynomial(cx, bx, ax));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierBernsteinPolynomial(cx, bx, ax));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -392,7 +392,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierPolynomial(cy, by, ay));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierBernsteinPolynomial(cy, by, ay));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -618,8 +618,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(QuadraticBezier left, QuadraticBezier right)
-            => left.Equals(right);
+        public static bool operator ==(QuadraticBezier left, QuadraticBezier right) => left.Equals(right);
 
         /// <summary>
         /// The operator !=.
@@ -629,8 +628,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(QuadraticBezier left, QuadraticBezier right)
-            => !left.Equals(right);
+        public static bool operator !=(QuadraticBezier left, QuadraticBezier right) => !left.Equals(right);
 
         /// <summary>
         /// Implicit conversion from tuple.
@@ -693,6 +691,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IList<Point2D> Interpolate(IList<double> ts)
         {
+            if (ts is null)
+            {
+                throw new ArgumentNullException(nameof(ts));
+            }
+
             var list = new List<Point2D>();
 
             foreach (var t in ts)

@@ -76,7 +76,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reports", "Reports", "{5438
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Experimental", "Engine.Experimental\Engine.Experimental.csproj", "{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Geometry", "Engine.Geometry\Engine.Geometry.csproj", "{CC0F6635-2A7B-4B43-B612-13AFCCDAECE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Geometry", "Engine.Geometry\Engine.Geometry.csproj", "{CC0F6635-2A7B-4B43-B612-13AFCCDAECE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

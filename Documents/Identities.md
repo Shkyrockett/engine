@@ -2,7 +2,7 @@
 
 ## Arithmetic Addition and Subtraction Identities
 
-|  |  |  |
+| Identity |  |  |
 |---|---|---|
 | $a-(b\color{red}-\color{black}c)=a-b\color{red}+\color{black}c$ |  |  |
 |  |  |  |
@@ -12,7 +12,7 @@
 A negative times a negative is always a positive. As in $\color{red}-\color{black}1\times\color{red}-\color{black}1=1$.  
 A positive times a negative is a negative. As in $\color{red}-\color{black}1\times1=\color{red}-\color{black}1$.  
 
-|  |  |  |
+| Identity |  |  |
 |---|---|---|
 | $0a=0$ |  |  |
 | $1a=a$ |  |  |
@@ -23,12 +23,17 @@ A positive times a negative is a negative. As in $\color{red}-\color{black}1\tim
 
 ## Expansion and Distribution Identities
 
-|  |  |  |
+| Identity |  |  |
 |---|---|---|
 | $c(a+b)=ca+cb$ |  |  |
 | $c(ac+bc)=ac^2+bc^2$ |  |  |
-| $(a+b)^2=a^2+2ab+b^2$ |  |  |
-| $(a-b)^2=a^2-2ab+b^2$ |  |  |
+| $(a+b)^2=a^2+2ab+b^2$ | Binomial Theorem |  |
+| $(a-b)^2=a^2-2ab+b^2$ | Binomial Theorem |  |
+| $(a+b)^3=x^3+3a^2b+3ab^2+y^3$ | Binomial Theorem |  |
+| $(a-b)^3=x^3-3a^2b+3ab^2-y^3$ | Binomial Theorem |  |
+| $(a-b)^2=(a+b)(a-b)$ | Special Factorization |  |
+| $a^3+b^3=(a+b)(a^2-ab+b^2)$ | Special Factorization |  |
+| $a^3-b^3=(a-b)(a^2+ab+b^2)$ | Special Factorization |  |
 | $(a+b)(c+d)=ac+ad+bc+bd$ |  |  |
 | $(a-b)(c-d)=ac-ad-bc+bd$ |  |  |
 | $(a+b)(c-d)=ac-ad+bc-bd$ |  |  |
@@ -38,7 +43,7 @@ A positive times a negative is a negative. As in $\color{red}-\color{black}1\tim
 
 ## Radical and Exponential Identities
 
-|  |  |  |
+| Identity |  |  |
 |---|---|---|
 | $1^n=1;$ |  | One times another one is always one. |
 | $a^0=1$ |  | When the exponent is 0 it equals 1. |
@@ -48,10 +53,13 @@ A positive times a negative is a negative. As in $\color{red}-\color{black}1\tim
 | $(ab)^n=a^nb^n;$ |  |  |
 | $a^{−1}=\frac{1}{a}$ |  |  |
 | $x^{-a}=\frac{1}{x^a}$ |  |  |
+| $x^{\frac{1}{n}}=\sqrt[n]{x}$ |  |  |
+| $x^{\frac{m}{n}}=\sqrt[n]{x^m}=(\sqrt[n]{x})^m$ |  |  |
 | $x^{(a/b)}=\sqrt[b]{x a} \sqrt[b]{x}^a$ |  |  |
 | $x^{a - b}=\frac{x^a}{x^b}$ |  |  |
 | $\sqrt{a^2}=\|a\|$ |  |  |
 | $\sqrt{a}\sqrt{a}=a$ |  |  |
+| $\sqrt[n]{ab}=\sqrt[n]{a}\sqrt[n]{b}$ |  |  |
 | $\sqrt{a}\sqrt{b}=\sqrt{ab}$ |  |  |
 | $\sqrt{\frac{a}{b}}=\frac{\sqrt{a}}{\sqrt{b}}$ |  |  |
 | $\sqrt{a^n}=(\sqrt{a})^n$ |  |  |
@@ -61,7 +69,7 @@ A positive times a negative is a negative. As in $\color{red}-\color{black}1\tim
 
 ## Logarithm Identities
 
-|  |  |  |
+| Identity |  |  |
 |---|---|---|
 | $y = \log_b(x)$ |  | If and only if $x=b^y$ |
 | $\log_b(1) = 0$ |  |  |
@@ -120,8 +128,8 @@ A positive times a negative is a negative. As in $\color{red}-\color{black}1\tim
 | $\sin{(\theta+\pi)}=-\sin{(\theta)}$ |  |  |
 | $\cos{(\theta+\pi)}=-\cos{(\theta)}$ |  |  |
 | $\tan(\theta_1\pm\theta_2)=\frac{\tan(\theta_1)\pm\tan(\theta_2)}{1\mp\tan(\theta_1)\tan(\theta_2)}$ <br /> $\tan(\theta_1+\theta_2)=\frac{\tan(\theta_1)+\tan(\theta_2)}{1-\tan(\theta_1)\tan(\theta_2)}$ <br /> $\tan(\theta_1-\theta_2)=\frac{\tan(\theta_1)-\tan(\theta_2)}{1+\tan(\theta_1)\tan(\theta_2)}$ | Tangent Sum Difference Identities. |  |
-| $\sin(2\theta)=2\sin(\theta )\cos(\theta )$ | Double Angle Sine Identity. |  |
-| $\cos(2\theta)=\cos^{2}(\theta)-\sin^{2}(\theta)=2\cos^{2}(\theta)-1=1-2\sin^{2}(\theta)$ | Cosine Double Angle Identity. |  |
+| $\sin{2\theta}=2\sin{\theta}\cos{\theta}$ | Double Angle Sine Identity. |  |
+| $\cos{2\theta}=\cos^{2}{\theta}-\sin^{2}{\theta}=2\cos^{2}{\theta}-1=1-2\sin^{2}{\theta}$ | Cosine Double Angle Identity. |  |
 | $\tan(2\theta)=\frac{2\tan(\theta)}{1-\tan^{2}(\theta)}$ | Tangent Double Angle Identity. |  |
 | $\sin{(\frac{\theta}{2})}=\pm\sqrt{\frac{1-\cos{(\theta)}}{2}}$ <br /> $\sin^2(\theta)=\frac{1}{2}-\frac{1}{2}\cos(2\theta)=\frac{1}{2}[1-\cos(2\theta)]$ | Sine Half angle Identities. |  |
 | $\cos{(\frac{\theta}{2})}=\pm\sqrt{\frac{1+\cos{(\theta)}}{2}}$ <br /> $\cos^2(\theta)=\frac{1}{2}+\frac{1}{2}\cos(2\theta)=\frac{1}{2}[1+\cos(2\theta)]$ | Cosine Half angle Identities. |  |

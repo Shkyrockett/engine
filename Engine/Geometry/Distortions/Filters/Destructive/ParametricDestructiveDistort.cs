@@ -56,6 +56,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Process(Point2D point, Func<Point2D, Point2D>[] functions)
         {
+            if (functions is null)
+            {
+                throw new ArgumentNullException(nameof(functions));
+            }
+
             var result = point;
             foreach (var function in functions)
             {

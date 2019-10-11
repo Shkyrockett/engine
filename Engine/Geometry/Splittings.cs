@@ -75,8 +75,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Ray[] Split(this Line line, double t)
-            => new Ray[] { new Ray(line.Interpolate(t), -line.Direction), new Ray(line.Interpolate(t), line.Direction) };
+        public static Ray[] Split(this Line line, double t) => new Ray[] { new Ray(line.Interpolate(t), -line.Direction), new Ray(line.Interpolate(t), line.Direction) };
 
         /// <summary>
         /// The split.
@@ -123,8 +122,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Shape[] Split(this Line line, IEnumerable<double> ts)
-            => Split(line, ts.ToArray());
+        public static Shape[] Split(this Line line, IEnumerable<double> ts) => Split(line, ts.ToArray());
         #endregion
 
         #region Split Rays
@@ -252,8 +250,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment[] Split(this LineSegment segment, IEnumerable<double> ts)
-            => Split(segment, ts.ToArray());
+        public static LineSegment[] Split(this LineSegment segment, IEnumerable<double> ts) => Split(segment, ts.ToArray());
         #endregion
 
         #region Split Circles
@@ -536,8 +533,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static EllipticalArc[] Split(this EllipticalArc arc, IEnumerable<double> ts)
-            => Split(arc, ts.ToArray());
+        public static EllipticalArc[] Split(this EllipticalArc arc, IEnumerable<double> ts) => Split(arc, ts.ToArray());
         #endregion
 
         #region Split Quadratic Bezier Curves
@@ -549,8 +545,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment[] Split(this QuadraticBezier bezier, double t)
-            => SplitBezier(bezier.Points, t);
+        public static BezierSegment[] Split(this QuadraticBezier bezier, double t) => SplitBezier(bezier.Points, t);
 
         /// <summary>
         /// The split.
@@ -610,8 +605,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment[] Split(this CubicBezier bezier, double t)
-            => SplitBezier(bezier.Points, t);
+        public static BezierSegment[] Split(this CubicBezier bezier, double t) => SplitBezier(bezier.Points, t);
 
         /// <summary>
         /// The split.
@@ -659,8 +653,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment[] Split(this CubicBezier bezier, IEnumerable<double> ts)
-            => Split(bezier, ts.ToArray());
+        public static BezierSegment[] Split(this CubicBezier bezier, IEnumerable<double> ts) => Split(bezier, ts.ToArray());
         #endregion
 
         #region Split General Bezier Curves
@@ -672,8 +665,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment[] Split(this BezierSegment bezier, double t)
-            => SplitBezier(bezier.Points, t);
+        public static BezierSegment[] Split(this BezierSegment bezier, double t) => SplitBezier(bezier.Points, t);
 
         /// <summary>
         /// The split.

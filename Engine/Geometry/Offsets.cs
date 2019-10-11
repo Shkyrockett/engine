@@ -41,8 +41,7 @@ namespace Engine
         /// <param name="distance">The distance.</param>
         /// <returns>The <see cref="LineSegment"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment OffsetSegment(Point2D point, Point2D value, double distance)
-            => new LineSegment(OffsetSegment(point.X, point.Y, value.X, value.Y, distance));
+        public static LineSegment OffsetSegment(Point2D point, Point2D value, double distance) => new LineSegment(OffsetSegment(point.X, point.Y, value.X, value.Y, distance));
 
         /// <summary>
         /// The offset.
@@ -51,8 +50,7 @@ namespace Engine
         /// <param name="distance">The distance.</param>
         /// <returns>The <see cref="LineSegment"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment Offset(this LineSegment segment, double distance)
-            => new LineSegment(OffsetSegment(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, distance));
+        public static LineSegment Offset(this LineSegment segment, double distance) => new LineSegment(OffsetSegment(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, distance));
 
         /// <summary>
         /// The offset segment.
@@ -118,8 +116,7 @@ namespace Engine
         /// <param name="offset">The offset.</param>
         /// <returns>The <see cref="Circle"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Circle Offset(this Circle circle, double offset)
-            => new Circle(circle.X, circle.Y, circle.Radius + offset);
+        public static Circle Offset(this Circle circle, double offset) => new Circle(circle.X, circle.Y, circle.Radius + offset);
 
         /// <summary>
         /// The offset.
@@ -128,8 +125,7 @@ namespace Engine
         /// <param name="offset">The offset.</param>
         /// <returns>The <see cref="Ellipse"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Ellipse Offset(this Ellipse ellipse, double offset)
-            => new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + offset, ellipse.RY + offset, ellipse.Angle);
+        public static Ellipse Offset(this Ellipse ellipse, double offset) => new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + offset, ellipse.RY + offset, ellipse.Angle);
 
         /// <summary>
         /// The offset.
@@ -139,8 +135,7 @@ namespace Engine
         /// <param name="r2">The r2.</param>
         /// <returns>The <see cref="Ellipse"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Ellipse Offset(this Ellipse ellipse, double r1, double r2)
-            => new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + r1, ellipse.RY + r2, ellipse.Angle);
+        public static Ellipse Offset(this Ellipse ellipse, double r1, double r2) => new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + r1, ellipse.RY + r2, ellipse.Angle);
 
         /// <summary>
         /// The offset.
@@ -149,8 +144,7 @@ namespace Engine
         /// <param name="offset">The offset.</param>
         /// <returns>The <see cref="Triangle"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Triangle Offset(this Triangle triangle, double offset)
-            => (Triangle)Offset((PolygonContour)triangle, offset);
+        public static Triangle Offset(this Triangle triangle, double offset) => (Triangle)Offset((PolygonContour)triangle, offset);
 
         /// <summary>
         /// The offset.
@@ -159,8 +153,7 @@ namespace Engine
         /// <param name="offset">The offset.</param>
         /// <returns>The <see cref="Rectangle2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Offset(this Rectangle2D rectangle, double offset)
-            => new Rectangle2D(rectangle.X - offset, rectangle.Y - offset, rectangle.Width + (2d * offset), rectangle.Height + (2d * offset));
+        public static Rectangle2D Offset(this Rectangle2D rectangle, double offset) => new Rectangle2D(rectangle.X - offset, rectangle.Y - offset, rectangle.Width + (2d * offset), rectangle.Height + (2d * offset));
 
         /// <summary>
         /// The offset.
@@ -170,8 +163,7 @@ namespace Engine
         /// <param name="y">The y.</param>
         /// <returns>The <see cref="Rectangle2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D Offset(this Rectangle2D rectangle, double x, double y)
-            => new Rectangle2D(rectangle.X - x, rectangle.Y - y, rectangle.Width + (2d * x), rectangle.Height + (2d * y));
+        public static Rectangle2D Offset(this Rectangle2D rectangle, double x, double y) => new Rectangle2D(rectangle.X - x, rectangle.Y - y, rectangle.Width + (2d * x), rectangle.Height + (2d * y));
 
         /// <summary>
         /// The offset.

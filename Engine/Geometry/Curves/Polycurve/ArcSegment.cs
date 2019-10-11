@@ -88,6 +88,11 @@ namespace Engine
         public ArcSegment(CurveSegment previous, bool relitive, double[] args)
             : this(previous, args[0], args[1], args[2], args[3] != 0, args[4] != 0, args.Length == 7 ? (Point2D?)new Point2D(args[5], args[6]) : null)
         {
+            if (args is null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
+
             if (relitive)
             {
                 Tail = (Point2D)(Tail + previous.Tail);
@@ -106,6 +111,10 @@ namespace Engine
         /// <param name="end">The end.</param>
         public ArcSegment(CurveSegment previous, double rx, double ry, double angle, bool largeArc, bool sweep, Point2D? end)
         {
+            if (previous is null)
+            {
+                throw new ArgumentNullException(nameof(previous));
+            }
             // SVG uses: rx, ry, x-axis-rotation, large-arc-flag, sweep-flag, xf, yf
             Previous = previous;
             previous.Next = this;

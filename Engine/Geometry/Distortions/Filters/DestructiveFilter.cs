@@ -36,8 +36,7 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public virtual Point2D Process(Point2D point)
-            => point;
+        public virtual Point2D Process(Point2D point) => point;
 
         /// <summary>
         /// Process.
@@ -124,6 +123,11 @@ namespace Engine
         /// <returns>The <see cref="PointSet"/>.</returns>
         public PointSet Process(PointSet points)
         {
+            if (points is null)
+            {
+                throw new ArgumentNullException(nameof(points));
+            }
+
             var results = new PointSet();
             foreach (var point in points)
             {
@@ -139,6 +143,11 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(Polygon polygon)
         {
+            if (polygon is null)
+            {
+                throw new ArgumentNullException(nameof(polygon));
+            }
+
             var result = new PolycurveContour();
             foreach (var contour in polygon)
             {
@@ -188,6 +197,11 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(PolylineSet polylines)
         {
+            if (polylines is null)
+            {
+                throw new ArgumentNullException(nameof(polylines));
+            }
+
             var result = new PolycurveContour();
             foreach (var contour in polylines)
             {

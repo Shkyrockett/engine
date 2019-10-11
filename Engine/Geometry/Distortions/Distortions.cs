@@ -104,6 +104,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RotateArrays(List<List<Point2D>> a, double cx, double cy, double theta)
         {
+            if (a is null)
+            {
+                throw new ArgumentNullException(nameof(a));
+            }
+
             var cosine = Cos(theta);
             var sine = Sin(theta);
             foreach (var p in a)
@@ -679,6 +684,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour AddPointsToSides(PolygonContour contour)
         {
+            if (contour is null)
+            {
+                throw new ArgumentNullException(nameof(contour));
+            }
+
             var result = new PolygonContour();
             for (var i = 1; i < contour.Count; i++)
             {

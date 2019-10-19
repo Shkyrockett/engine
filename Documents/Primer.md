@@ -731,8 +731,8 @@ $h=\frac{2x_2+2x_1\frac{y_2-k}{y_1-k}\pm\sqrt{\left(2x_2+2x_1\frac{y_2-k}{y_1-k}
 
 | Function | Name | Description |
 |:---:|---|---|
-| $\begin{matrix}x^2+y^2=r^2\end{matrix}$ | Simple equation of the Circle. | The simple form definition of a circle. |
-| $\begin{matrix}(x-a)^2+(y-b)^2=r^2\end{matrix}$ | Equation of the Circle. | The expanded equation of the Circle. |
+| $x^2+y^2=r^2$ | Simple equation of the Circle. | The simple form definition of a circle. |
+| $(x-a)^2+(y-b)^2=r^2$ | Equation of the Circle. | The expanded equation of the Circle. |
 | $\begin{matrix}r^2-2rr_0\cos{(\theta-\phi)}+r^2=a^2\end{matrix}$ | Equation of the Circle in polar form. | The equation of a Circle in Polar form. |
 | $x=a+r\cos{\theta}$ | Circle in parametric form for x. | The equation of a Circle in parametric form solving for x. |
 | $y=b+r\sin{\theta}$ | Circle in parametric form for y. | The equation of a Circle in parametric form solving for y. |

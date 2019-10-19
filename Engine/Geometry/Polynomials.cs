@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
 using static System.Math;
-using static Engine.Mathematics;
-using static Engine.Measurements;
-using static Engine.Operations;
 
 namespace Engine
 {
@@ -377,7 +372,7 @@ namespace Engine
                 a);
 
         /// <summary>
-        /// Coefficients for a Cubic Bézier curve.
+        /// Coefficients for a Cubic Bézier Bernstein curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -1015,22 +1010,23 @@ namespace Engine
         /// <param name="k">The center Y coordinate.</param>
         /// <param name="a">The width of the ellipse.</param>
         /// <param name="b">The height of the ellipse.</param>
-        /// <param name="cosA">The cosine of the angle of the ellipse.</param>
-        /// <param name="sinA">The sine of the angle of the ellipse.</param>
+        /// <param name="cos">The cosine of the angle of the ellipse.</param>
+        /// <param name="sin">The sine of the angle of the ellipse.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://en.wikipedia.org/wiki/Ellipse#General_ellipse
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e, double f) EllipseConicSectionPolynomial(double h, double k, double a, double b, double cosA, double sinA)
+        public static (double a, double b, double c, double d, double e, double f) EllipseConicSectionPolynomial(double h, double k, double a, double b, double cos, double sin)
         {
             // Fix imprecise handling of Cos(PI/2) which breaks ellipses at right angles to each other.
-            if (sinA == 1d || sinA == -1d) cosA = 0d;
+            // Partial Fix for Oblique Ellipse, Oblique Ellipse intersection Test Case 2.
+            if (sin == 1d || sin == -1d) cos = 0d;
 
-            var coefA = a * a * sinA * sinA + b * b * cosA * cosA;
-            var coefB = 2d * (b * b - a * a) * sinA * cosA;
-            var coefC = a * a * cosA * cosA + b * b * sinA * sinA;
+            var coefA = a * a * sin * sin + b * b * cos * cos;
+            var coefB = 2d * (b * b - a * a) * sin * cos;
+            var coefC = a * a * cos * cos + b * b * sin * sin;
             return (
                 a: coefA,
                 b: coefB,
@@ -1098,9 +1094,112 @@ namespace Engine
                 d: 2d * (((b * b) * bx * (cx - h)) + ((a * a) * by * (cy - k))),
                 e: ((b * b) * ((cx * cx) + (k * k))) + ((a * a) * ((cy * cy) + (k * k))) - (2d * (((b * b) * h * cx) + ((a * a) * k * cy))) - ((a * a) * (b * b))
                 );
+
+        internal static (double a, double b, double c, double d, double e, double f, double g) EllipseCubicPolynomial(
+            double ax, double bx, double cx, double dx,
+            double ay, double by, double cy, double dy,
+            double h, double k, double a, double b, double cosA, double sinA)
+        {
+            var oCoefA = (b * b) * (cosA * cosA) + (a * a) * (sinA * sinA);
+            var oCoefB = 2d * ((b * b) + (a * a)) * sinA * cosA;
+            return (
+                a: oCoefA,
+                b: oCoefB,
+                c: oCoefB + oCoefA,
+                d: 2d * oCoefA + 2d * ((b * b) * h) + 2d * ((a * a) * -k),
+                e: 2d * ((b * b) * -h) + 2d * ((a * a) * -k) + oCoefA,
+                f: 2d * ((b * b) * -h) + 2d * ((a * a) * -k),
+                g: (b * b) - 2d * ((b * b) * h) - 2d * ((a * a) * k) + (a * a) + ((h * h) * (b * b)) + ((k * k) * (a * a)) - ((a * a) * (b * b))
+                );
+
+            var roots = (
+                a: ((ax * ax) * (b * b)) + ((ay * ay) * (a * a)),
+                b: 2d * ((ax * bx * (b * b)) + (ay * by * (a * a))),
+                c: (2d * ((ax * cx * (b * b)) + (ay * cy * (a * a)))) + ((bx * bx) * (b * b)) + ((by * by) * (a * a)),
+                d: 2d * (ax * (b * b) * (dx - h)) + 2d * (ay * (a * a) * (dy - k)) + (2d * (((bx * cx) * (b * b)) + ((by * cy) * (a * a)))),
+                e: 2d * (bx * (b * b) * (dx - h)) + 2d * (by * (a * a) * (dy - k)) + ((cx * cx) * (b * b)) + ((cy * cy) * (a * a)),
+                f: 2d * (cx * (b * b) * (dx - h)) + 2d * (cy * (a * a) * (dy - k)),
+                g: (dx * dx * (b * b)) - 2d * (dy * k * (a * a)) - 2d * (dx * h * (b * b)) + ((dy * dy) * (a * a)) + ((h * h) * (b * b)) + ((k * k) * (a * a)) - ((a * a) * (b * b))
+                );
+
+            var line = (
+                a: (ax * ax) + (ay * ay),
+                b: 2d * ((ax * bx) + (ay * by)),
+                c: 2d * ((ax * cx) + (ay * cy)) + (bx * bx) + (by * by),
+                d: 2d * (ax * dx) + 2d * (ay * dy) + 2d * ((bx * cx) + (by * cy)),
+                e: 2d * (bx * dx) + 2d * (by * dy) + (cx * cx) + (cy * cy),
+                f: 2d * (cx * dx) + 2d * (cy * dy),
+                g: (dx * dx) - 2d * dy - 2d * dx + (dy * dy)
+                );
+
+            var coefA = (b * b) * (cosA * cosA) + (a * a) * (sinA * sinA);
+            var coefB = 2d * ((b * b) - (a * a)) * sinA * cosA;
+            var coefC = (b * b) * (sinA * sinA) + (a * a) * (cosA * cosA);
+            var curve = (
+                a: coefA,
+                b: coefB,
+                c: coefC,
+                d: -2d * coefA * h - coefB * k,
+                e: -2d * coefC * k - coefB * h,
+                f: coefA * (h * h) + coefB * h * k + coefC * (k * k) - (b * b) * (a * a));
+
+            var coefA1 = (b * b) + (a * a);
+            var coefB1 = 2d * ((b * b) - (a * a)) * 0d * 1d;
+            var coefC1 = (a * a) + (b * b);
+            var s = (
+                a: coefA1,
+                b: coefB1,
+                c: coefC1,
+                d: -2d * coefA1 * h - coefB1 * k,
+                e: -2d * coefC1 * k - coefB1 * h,
+                f: coefA1 * (h * h) + coefB1 * h * k + coefC1 * (k * k) - (a * a) * (b * b));
+        }
+
+        /// <summary>
+        /// Produces a matrix representation of a conic in the form of: $Q(x,y)=Ax^2+Bxy+Cy^2+Dx+Ey+F=0$.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://en.wikipedia.org/wiki/Matrix_representation_of_conic_sections
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double m11, double m12, double m13,
+            double m21, double m22, double m23,
+            double m31, double m32, double m33)
+            ConicToMatrix(double a, double b, double c, double d, double e, double f) => (
+                a, b * 0.5d, d * 0.5d,
+                b * 0.5d, c, e * 0.5d,
+                d * 0.5d, e * 0.5d, f);
         #endregion Conic Section Polynomials
 
         #region Helpers
+        /// <summary>
+        /// Calculate the intersection polynomial coefficients of two ellipses.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial BezoutPolynomial(Polynomial a, Polynomial b) => new Polynomial(ConicSectionBezout((a[0], a[1], a[2], a[3], a[4], a[5]), (b[0], b[1], b[2], b[3], b[4], b[5])));
+
+        /// <summary>
+        /// Calculate the intersection polynomial coefficients of two ellipses.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial BezoutPolynomial((double a, double b, double c, double d, double e, double f) a, (double a, double b, double c, double d, double e, double f) b) => new Polynomial(ConicSectionBezout(a, b));
+
         /// <summary>
         /// Calculate the intersection polynomial coefficients of two ellipses.
         /// </summary>
@@ -1117,12 +1216,12 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Bezout(
+        public static (double a, double b, double c, double d, double e) ConicSectionBezout(
             (double a, double b, double c, double d, double e, double f) a,
             (double a, double b, double c, double d, double e, double f) b)
         {
-            // 1 | a | b | c | d | e | f |
-            // 2 | a | b | c | d | e | f |
+            // 1: | a | b | c | d | e | f |
+            // 2: | a | b | c | d | e | f |
 
             var ab = (a.a * b.b) - (b.a * a.b);
             var ac = (a.a * b.c) - (b.a * a.c);
@@ -1142,13 +1241,12 @@ namespace Engine
             var bfPde = bf + de;
             var beMcd = be - cd;
 
-            return new Polynomial(
-                /* x⁴ */ (ab * bc) - (ac * ac),
-                /* x³ */ (ab * beMcd) + (ad * bc) - (2d * ac * ae),
-                /* x² */ (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
-                /* x¹ */ (ab * df) + (ad * bfPde) - (2d * ae * af),
-                /* c  */ (ad * df) - (af * af));
-            // (-a2 * d1 * d1 * f2) + (a1 * d2) + (a2 * f1) - (a1 * f2) + (a1 * a2 f1 * f2) - (d2 * f1)
+            return (
+                a: (ab * bc) - (ac * ac),
+                b: (ab * beMcd) + (ad * bc) - (2d * ac * ae),
+                c: (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
+                d: (ab * df) + (ad * bfPde) - (2d * ae * af),
+                e: (ad * df) - (af * af));
         }
 
         /// <summary>
@@ -1168,16 +1266,19 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e) GetEllipseQuartic(
+        public static (double a, double b, double c, double d, double e) GetConicSectionQuartic(
             (double a, double b, double c, double d, double e, double f) a,
             (double a, double b, double c, double d, double e, double f) b)
-            => (
-                /* x⁴ */ a: (a.f * a.a * b.d * b.d) + (a.a * a.a * b.f * b.f) - (a.d * a.a * b.d * b.f) + (b.a * b.a * a.f * a.f) - (2d * a.a * b.f * b.a * a.f) - (a.d * b.d * b.a * a.f) + (b.a * a.d * a.d * b.f),
-                /* x³ */ b: (b.e * a.d * a.d * b.a) - (b.f * b.d * a.a * a.b) - (2d * a.a * b.f * b.a * a.e) - (a.f * b.a * b.b * a.d) + (2d * b.d * b.b * a.a * a.f) + (2d * b.e * b.f * a.a * a.a) + (b.d * b.d * a.a * a.e) - (b.e * b.d * a.a * a.d) - (2d * a.a * b.e * b.a * a.f) - (a.f * b.a * b.d * a.b) + (2d * a.f * a.e * b.a * b.a) - (b.f * b.b * a.a * a.d) - (a.e * b.a * b.d * a.d) + (2d * b.f * a.b * b.a * a.d),
-                /* x² */ c: (b.e * b.e * a.a * a.a) + (2d * b.c * b.f * a.a * a.a) - (a.e * b.a * b.d * a.b) + (b.f * b.a * a.b * a.b) - (a.e * b.a * b.b * a.d) - (b.f * b.b * a.a * a.b) - (2d * a.a * b.e * b.a * a.e) + (2d * b.d * b.b * a.a * a.e) - (b.c * b.d * a.a * a.d) - (2d * a.a * b.c * b.a * a.f) + (b.b * b.b * a.a * a.f) + (2d * b.e * a.b * b.a * a.d) + (a.e * a.e * b.a * b.a) - (a.c * b.a * b.d * a.d) - (b.e * b.b * a.a * a.d) + (2d * a.f * a.c * b.a * b.a) - (a.f * b.a * b.b * a.b) + (b.c * a.d * a.d * b.a) + (b.d * b.d * a.a * a.c) - (b.e * b.d * a.a * a.b) - (2d * a.a * b.f * b.a * a.c),
-                /* x¹ */ d: (-2d * a.a * b.a * a.c * b.e) + (b.e * b.a * a.b * a.b) + (2d * b.c * a.b * b.a * a.d) - (a.c * b.a * b.b * a.d) + (b.b * b.b * a.a * a.e) - (b.e * b.b * a.a * a.b) - (2d * a.a * b.c * b.a * a.e) - (a.e * b.a * b.b * a.b) - (b.c * b.b * a.a * a.d) + (2d * b.e * b.c * a.a * a.a) + (2d * a.e * a.c * b.a * b.a) - (a.c * b.a * b.d * a.b) + (2d * b.d * b.b * a.a * a.c) - (b.c * b.d * a.a * a.b),
-                /* c  */ e: (a.a * a.a * b.c * b.c) - (2d * a.a * b.c * b.a * a.c) + (b.a * b.a * a.c * a.c) - (a.b * a.a * b.b * b.c) - (a.b * b.b * b.a * a.c) + (a.b * a.b * b.a * b.c) + (a.c * a.a * b.b * b.b)
-                );
+        {
+            // ToDo: This seems to be reversed from Bezout. IT seems like this might work with everything else if reversed. Needs testing.
+            return (
+                a: (a.f * a.a * b.d * b.d) + (a.a * a.a * b.f * b.f) - (a.d * a.a * b.d * b.f) + (b.a * b.a * a.f * a.f) - (2d * a.a * b.f * b.a * a.f) - (a.d * b.d * b.a * a.f) + (b.a * a.d * a.d * b.f),
+                b: (b.e * a.d * a.d * b.a) - (b.f * b.d * a.a * a.b) - (2d * a.a * b.f * b.a * a.e) - (a.f * b.a * b.b * a.d) + (2d * b.d * b.b * a.a * a.f) + (2d * b.e * b.f * a.a * a.a) + (b.d * b.d * a.a * a.e) - (b.e * b.d * a.a * a.d) - (2d * a.a * b.e * b.a * a.f) - (a.f * b.a * b.d * a.b) + (2d * a.f * a.e * b.a * b.a) - (b.f * b.b * a.a * a.d) - (a.e * b.a * b.d * a.d) + (2d * b.f * a.b * b.a * a.d),
+                c: (b.e * b.e * a.a * a.a) + (2d * b.c * b.f * a.a * a.a) - (a.e * b.a * b.d * a.b) + (b.f * b.a * a.b * a.b) - (a.e * b.a * b.b * a.d) - (b.f * b.b * a.a * a.b) - (2d * a.a * b.e * b.a * a.e) + (2d * b.d * b.b * a.a * a.e) - (b.c * b.d * a.a * a.d) - (2d * a.a * b.c * b.a * a.f) + (b.b * b.b * a.a * a.f) + (2d * b.e * a.b * b.a * a.d) + (a.e * a.e * b.a * b.a) - (a.c * b.a * b.d * a.d) - (b.e * b.b * a.a * a.d) + (2d * a.f * a.c * b.a * b.a) - (a.f * b.a * b.b * a.b) + (b.c * a.d * a.d * b.a) + (b.d * b.d * a.a * a.c) - (b.e * b.d * a.a * a.b) - (2d * a.a * b.f * b.a * a.c),
+                d: (-2d * a.a * b.a * a.c * b.e) + (b.e * b.a * a.b * a.b) + (2d * b.c * a.b * b.a * a.d) - (a.c * b.a * b.b * a.d) + (b.b * b.b * a.a * a.e) - (b.e * b.b * a.a * a.b) - (2d * a.a * b.c * b.a * a.e) - (a.e * b.a * b.b * a.b) - (b.c * b.b * a.a * a.d) + (2d * b.e * b.c * a.a * a.a) + (2d * a.e * a.c * b.a * b.a) - (a.c * b.a * b.d * a.b) + (2d * b.d * b.b * a.a * a.c) - (b.c * b.d * a.a * a.b),
+                e: (a.a * a.a * b.c * b.c) - (2d * a.a * b.c * b.a * a.c) + (b.a * b.a * a.c * a.c) - (a.b * a.a * b.b * b.c) - (a.b * b.b * b.a * a.c) + (a.b * a.b * b.a * b.c) + (a.c * a.a * b.b * b.b)
+            );
+        }
         #endregion Helpers
     }
 }

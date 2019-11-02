@@ -158,9 +158,10 @@ For example: $x=1-(3\color{red}-\color{black}4)$ becomes $x=1-3\color{red}+\colo
 
 | Name | Example | Definition |
 |---|---|---|
-| **Add** |  | To join two or more numbers together. |
-| **Addition** | $3\color{red}+\color{black}\color{red}2\color{black}=5$ | The plus sign $+$ indicates addition. |
-| **Addend** | $\color{red}3\color{black}+\color{red}2\color{black}=5$ | One number that is added to another. |
+| **Add** | $3+2=5$ | To join two or more numbers together. |
+| **Addition** | $3\color{red}+\color{black}2=5$ | The act of Adding. The plus sign $+$ indicates addition. |
+| **Augand** | $\color{red}3\color{black}+2=5$ | One number that is added to another. |
+| **Addend** | $3+\color{red}2\color{black}=5$ | One number that is added to another. |
 | **Sum** | $3+2=\color{red}5$ | The result when two or more numbers are added. |
 
 ##### Subtraction

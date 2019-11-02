@@ -3882,7 +3882,8 @@ namespace Editor
             //var extents1 = e1.ExtremePoints;
             //var extents1NodeItem = new GraphicItem(new NodeRevealer(extents1, 5d), handleStyle);
 
-            var points0 = Intersections.ObliqueEllipseObliqueEllipseIntersection(e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle, e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle).Points;
+            //var points0 = Intersections.ObliqueEllipseObliqueEllipseIntersection(e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle, e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle).Points;
+            var points0 = Intersections.ObliqueEllipseObliqueEllipseIntersection(e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle, e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle).Points;
             var intersections0 = new Intersection(points0.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points0);
             var intersectionNodeItem0 = new GraphicItem(new NodeRevealer(intersections0.Points, 5d), handleStyle)
             {
@@ -4075,6 +4076,37 @@ namespace Editor
                 Name = "Ellipse, Ellipse Intersection 6"
             };
 
+            var e14 = new Ellipse(600d, 300d, 50d, 100d, 0d.DegreesToRadians());
+            var ellipse14Item = new GraphicItem(e14, intersectionRed)
+            {
+                Name = "Ellipse 14"
+            };
+            //var ellipse14BoundsItem = new GraphicItem(e14.Bounds, selectionStyle)
+            //{
+            //    Name = "Ellipse 14 Bounds"
+            //};
+            //var extents14 = e14.ExtremePoints;
+            //var extents14NodeItem = new GraphicItem(new NodeRevealer(extents14, 5d), handleStyle);
+
+            var e15 = new Ellipse(600d, 229.28932188134524d, 50d, 100d, 0d.DegreesToRadians());
+            var ellipse15Item = new GraphicItem(e15, intersectionBlue)
+            {
+                Name = "Ellipse 15"
+            };
+            //var ellipse15BoundsItem = new GraphicItem(e15.Bounds, selectionStyle)
+            //{
+            //    Name = "Ellipse 15 Bounds"
+            //};
+            //var extents15 = e15.ExtremePoints;
+            //var extents15NodeItem = new GraphicItem(new NodeRevealer(extents15, 5d), handleStyle);
+
+            var points7 = Intersections.OrthogonalEllipseOrthogonalEllipseIntersection(e14.Center.X, e14.Center.Y, e14.RX, e14.RY, e15.Center.X, e15.Center.Y, e15.RX, e15.RY);
+            var intersections7 = new Intersection(points7.Points.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points7.Points);
+            var intersectionNodeItem7 = new GraphicItem(new NodeRevealer(intersections7.Points, 5d), handleStyle)
+            {
+                Name = "Ellipse, Ellipse Intersection 7"
+            };
+
             (var duration, var delay) = (360d, 0d);
             form.ResetAction = new Action(reset);
             void reset()
@@ -4219,6 +4251,13 @@ namespace Editor
             vectorMap?.Add(ellipse13Item);
             //vectorMap?.Add(extents13NodeItem);
             vectorMap?.Add(intersectionNodeItem6);
+            //vectorMap?.Add(ellipse14BoundsItem);
+            vectorMap?.Add(ellipse14Item);
+            //vectorMap?.Add(extents14NodeItem);
+            //vectorMap?.Add(ellipse15BoundsItem);
+            vectorMap?.Add(ellipse15Item);
+            //vectorMap?.Add(extents15NodeItem);
+            vectorMap?.Add(intersectionNodeItem7);
         }
 
         /// <summary>

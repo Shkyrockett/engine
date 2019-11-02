@@ -1226,6 +1226,201 @@ namespace Engine
 
         #region Multiply
         /// <summary>
+        /// Multiplies a vector2 and matrix2x2.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) MultiplyVector2DMatrix2x2(
+            double x, double y,
+            double m1x1, double m1x2,
+            double m2x1, double m2x2)
+            => (x * m1x1 + x * m1x2,
+                y * m2x1 + y * m2x2);
+
+        /// <summary>
+        /// Multiplies a vector3 and matrix3x3.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y, double Z) MultiplyVector3DMatrix3x3(
+            double x, double y, double z,
+            double m1x1, double m1x2, double m1x3,
+            double m2x1, double m2x2, double m2x3,
+            double m3x1, double m3x2, double m3x3)
+            => (x * m1x1 + x * m1x2 + x * m1x3,
+                y * m2x1 + y * m2x2 + y * m2x3,
+                z * m3x1 + z * m3x2 + z * m3x3);
+
+        /// <summary>
+        /// Multiplies a vector4 and matrix4x4.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y, double Z, double W) MultiplyVector4DMatrix4x4(
+            double x, double y, double z, double w,
+            double m1x1, double m1x2, double m1x3, double m1x4,
+            double m2x1, double m2x2, double m2x3, double m2x4,
+            double m3x1, double m3x2, double m3x3, double m3x4,
+            double m4x1, double m4x2, double m4x3, double m4x4)
+            => (x * m1x1 + x * m1x2 + x * m1x3 + x * m1x4,
+                y * m2x1 + y * m2x2 + y * m2x3 + y * m2x4,
+                z * m3x1 + z * m3x2 + z * m3x3 + z * m3x4,
+                w * m4x1 + w * m4x2 + w * m4x3 + w * m4x4);
+
+        /// <summary>
+        /// Multiplies a vector5 and matrix5x5.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m1x5">The M1X5.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m2x5">The M2X5.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m3x5">The M3X5.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <param name="m4x5">The M4X5.</param>
+        /// <param name="m5x1">The M5X1.</param>
+        /// <param name="m5x2">The M5X2.</param>
+        /// <param name="m5x3">The M5X3.</param>
+        /// <param name="m5x4">The M5X4.</param>
+        /// <param name="m5x5">The M5X5.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y, double Z, double W, double V) MultiplyVector5DMatrix5x5(
+            double x, double y, double z, double w, double v,
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5)
+            => (x * m1x1 + x * m1x2 + x * m1x3 + x * m1x4 + x * m1x5,
+                y * m2x1 + y * m2x2 + y * m2x3 + y * m2x4 + y * m2x5,
+                z * m3x1 + z * m3x2 + z * m3x3 + z * m3x4 + z * m3x5,
+                w * m4x1 + w * m4x2 + w * m4x3 + w * m4x4 + w * m4x5,
+                w * m5x1 + v * m5x2 + v * m5x3 + v * m5x4 + v * m5x5);
+
+        /// <summary>
+        /// Multiplies a vector6 and matrix6x6.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m1x5">The M1X5.</param>
+        /// <param name="m1x6">The M1X6.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m2x5">The M2X5.</param>
+        /// <param name="m2x6">The M2X6.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m3x5">The M3X5.</param>
+        /// <param name="m3x6">The M3X6.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <param name="m4x5">The M4X5.</param>
+        /// <param name="m4x6">The M4X6.</param>
+        /// <param name="m5x1">The M5X1.</param>
+        /// <param name="m5x2">The M5X2.</param>
+        /// <param name="m5x3">The M5X3.</param>
+        /// <param name="m5x4">The M5X4.</param>
+        /// <param name="m5x5">The M5X5.</param>
+        /// <param name="m5x6">The M5X6.</param>
+        /// <param name="m6x1">The M6X1.</param>
+        /// <param name="m6x2">The M6X2.</param>
+        /// <param name="m6x3">The M6X3.</param>
+        /// <param name="m6x4">The M6X4.</param>
+        /// <param name="m6x5">The M6X5.</param>
+        /// <param name="m6x6">The M6X6.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y, double Z, double W, double V, double U) MultiplyVector6DMatrix6x6(
+            double x, double y, double z, double w, double v, double u,
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5, double m1x6,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5, double m2x6,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5, double m3x6,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5, double m4x6,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5, double m5x6,
+            double m6x1, double m6x2, double m6x3, double m6x4, double m6x5, double m6x6)
+            => (x * m1x1 + x * m1x2 + x * m1x3 + x * m1x4 + x * m1x5 + x * m1x6,
+                y * m2x1 + y * m2x2 + y * m2x3 + y * m2x4 + y * m2x5 + y * m2x6,
+                z * m3x1 + z * m3x2 + z * m3x3 + z * m3x4 + z * m3x5 + z * m3x6,
+                w * m4x1 + w * m4x2 + w * m4x3 + w * m4x4 + w * m4x5 + w * m4x6,
+                w * m5x1 + v * m5x2 + v * m5x3 + v * m5x4 + v * m5x5 + v * m5x6,
+                w * m6x1 + u * m6x2 + u * m6x3 + u * m6x4 + u * m6x5 + u * m6x6);
+
+        /// <summary>
         /// Used to multiply (concatenate) two Matrix2x2s.
         /// </summary>
         /// <param name="leftM0x0"></param>

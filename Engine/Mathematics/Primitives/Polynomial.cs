@@ -1373,16 +1373,16 @@ namespace Engine
             return (values?.Length - 1 switch
             {
                 var n when n < 1 => throw new ArgumentNullException(nameof(values), "At least 2 different points must be given"),
-                1 => LinearBezierBernsteinPolynomial(values[0], values[1]),
-                2 => QuadraticBezierBernsteinPolynomial(values[0], values[1], values[2]),
-                3 => CubicBezierBernsteinPolynomial(values[0], values[1], values[2], values[3]),
-                4 => QuarticBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4]),
-                5 => QuinticBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4], values[5]),
-                6 => SexticBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6]),
-                7 => SepticBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]),
-                8 => OcticBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]),
-                9 => NonicBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]),
-                10 => DecicBezierBernsteinPolynomial(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]),
+                1 => LinearBezierBernsteinBasis(values[0], values[1]),
+                2 => QuadraticBezierBernsteinBasis(values[0], values[1], values[2]),
+                3 => CubicBezierBernsteinBasis(values[0], values[1], values[2], values[3]),
+                4 => QuarticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4]),
+                5 => QuinticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5]),
+                6 => SexticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6]),
+                7 => SepticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]),
+                8 => OcticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]),
+                9 => NonicBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]),
+                10 => DecicBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]),
                 // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
                 _ => Bezier(0, values.Length - 1, values),
             }).Value;

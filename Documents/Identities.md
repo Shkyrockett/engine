@@ -17,6 +17,7 @@ A positive times a negative is a negative. As in $\color{red}-\color{black}1\tim
 | $0a=0$ |  |  |
 | $1a=a$ |  |  |
 | $(−1)a=−a$ |  |  |
+| $a+^-b=a-b$ |  |  |
 | $(ab)c=a(bc)$ |  |  |
 | $ab + ac=a(b + c)$ <br /> $(a + b)c=ac + bc$ |  |  |
 |  |  |  |

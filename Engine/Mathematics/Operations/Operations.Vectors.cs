@@ -26,7 +26,9 @@ namespace Engine
         /// </summary>
         /// <param name="i1">The i1.</param>
         /// <param name="j1">The j1.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -41,7 +43,9 @@ namespace Engine
         /// <param name="i1">The i1.</param>
         /// <param name="j1">The j1.</param>
         /// <param name="k1">The k1.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -53,33 +57,33 @@ namespace Engine
 
         #region Unary Add
         /// <summary>
-        /// 
+        /// Unaries the add2 d.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) UnaryAdd2D(double a, double b) => (+a, +b);
 
         /// <summary>
-        /// 
+        /// Unaries the add3 d.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) UnaryAdd3D(double a, double b, double c) => (+a, +b, +c);
 
         /// <summary>
-        /// 
+        /// Unaries the add4 d.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -88,33 +92,33 @@ namespace Engine
 
         #region Unary Negate
         /// <summary>
-        /// 
+        /// Unaries the negate2 d.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) UnaryNegate2D(double a, double b) => (-a, -b);
 
         /// <summary>
-        /// 
+        /// Unaries the negate3 d.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) UnaryNegate3D(double a, double b, double c) => (-a, -b, -c);
 
         /// <summary>
-        /// 
+        /// Unaries the negate4 d.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -123,36 +127,36 @@ namespace Engine
 
         #region Add Value To Vector
         /// <summary>
-        /// 
+        /// Add2s the d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="addend"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="addend">The addend.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) Add2D(double a1, double b1, double addend) => (a1 + addend, b1 + addend);
 
         /// <summary>
-        /// 
+        /// Add3s the d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="addend"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="addend">The addend.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) Add3D(double a1, double b1, double c1, double addend) => (a1 + addend, b1 + addend, c1 + addend);
 
         /// <summary>
-        /// 
+        /// Add4s the d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="d1"></param>
-        /// <param name="addend"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="addend">The addend.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -161,42 +165,42 @@ namespace Engine
 
         #region Add Two Vectors
         /// <summary>
-        /// 
+        /// Add2s the d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) Add2D(double a1, double b1, double a2, double b2) => (a1 + a2, b1 + b2);
 
         /// <summary>
-        /// 
+        /// Add3s the d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
-        /// <param name="c2"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) Add3D(double a1, double b1, double c1, double a2, double b2, double c2) => (a1 + a2, b1 + b2, c1 + c2);
 
         /// <summary>
-        /// 
+        /// Add4s the d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="d1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
-        /// <param name="c2"></param>
-        /// <param name="d2"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
+        /// <param name="d2">The d2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -205,36 +209,36 @@ namespace Engine
 
         #region Subtract Value From Vector
         /// <summary>
-        /// 
+        /// Subtracts the subtrahend2 d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="subend"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="subend">The subend.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) SubtractSubtrahend2D(double a1, double b1, double subend) => (a1 - subend, b1 - subend);
 
         /// <summary>
-        /// 
+        /// Subtracts the subtrahend3 d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="subend"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="subend">The subend.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) SubtractSubtrahend3D(double a1, double b1, double c1, double subend) => (a1 - subend, b1 - subend, c1 - subend);
 
         /// <summary>
-        /// 
+        /// Subtracts the subtrahend4 d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="d1"></param>
-        /// <param name="subend"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="subend">The subend.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -243,36 +247,36 @@ namespace Engine
 
         #region Subtract Vector From Value
         /// <summary>
-        /// 
+        /// Subtracts from minuend2 d.
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) SubtractFromMinuend2D(double minuend, double a1, double b1) => (minuend - a1, minuend - b1);
 
         /// <summary>
-        /// 
+        /// Subtracts from minuend3 d.
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) SubtractFromMinuend3D(double minuend, double a1, double b1, double c1) => (minuend - a1, minuend - b1, minuend - c1);
 
         /// <summary>
-        /// 
+        /// Subtracts from minuend4 d.
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="d1"></param>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -281,42 +285,42 @@ namespace Engine
 
         #region Subtract Two Vectors
         /// <summary>
-        /// 
+        /// Subtract2s the d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) Subtract2D(double a1, double b1, double a2, double b2) => (a1 - a2, b1 - b2);
 
         /// <summary>
-        /// 
+        /// Subtract3s the d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
-        /// <param name="c2"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) Subtract3D(double a1, double b1, double c1, double a2, double b2, double c2) => (a1 - a2, b1 - b2, c1 - c2);
 
         /// <summary>
-        /// 
+        /// Subtract4s the d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="d1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
-        /// <param name="c2"></param>
-        /// <param name="d2"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
+        /// <param name="d2">The d2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -327,81 +331,84 @@ namespace Engine
         /// <summary>
         /// Finds the Delta of two 2D Vectors.
         /// </summary>
-        /// <param name="i1"></param>
-        /// <param name="j1"></param>
-        /// <param name="i2"></param>
-        /// <param name="j2"></param>
-        /// <returns>Returns the Difference Between PointA and PointB</returns>
+        /// <param name="i1">The i1.</param>
+        /// <param name="j1">The j1.</param>
+        /// <param name="i2">The i2.</param>
+        /// <param name="j2">The j2.</param>
+        /// <returns>
+        /// Returns the Difference Between PointA and PointB
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J) Delta(double i1, double j1, double i2, double j2)
-            => Subtract2D(i2, j2, i1, j1);
+        public static (double I, double J) Delta(double i1, double j1, double i2, double j2) => Subtract2D(i2, j2, i1, j1);
 
         /// <summary>
         /// Finds the Delta of two 3D Vectors.
         /// </summary>
-        /// <param name="i1"></param>
-        /// <param name="j1"></param>
-        /// <param name="k1"></param>
-        /// <param name="i2"></param>
-        /// <param name="j2"></param>
-        /// <param name="k2"></param>
-        /// <returns>Returns the Difference Between PointA and PointB</returns>
+        /// <param name="i1">The i1.</param>
+        /// <param name="j1">The j1.</param>
+        /// <param name="k1">The k1.</param>
+        /// <param name="i2">The i2.</param>
+        /// <param name="j2">The j2.</param>
+        /// <param name="k2">The k2.</param>
+        /// <returns>
+        /// Returns the Difference Between PointA and PointB
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J, double K) Delta(double i1, double j1, double k1, double i2, double j2, double k2)
-            => Subtract3D(i2, j2, k2, i1, j1, k1);
+        public static (double I, double J, double K) Delta(double i1, double j1, double k1, double i2, double j2, double k2) => Subtract3D(i2, j2, k2, i1, j1, k1);
 
         /// <summary>
         /// Finds the Delta of two 3D Vectors.
         /// </summary>
-        /// <param name="i1"></param>
-        /// <param name="j1"></param>
-        /// <param name="k1"></param>
-        /// <param name="l1"></param>
-        /// <param name="i2"></param>
-        /// <param name="j2"></param>
-        /// <param name="k2"></param>
-        /// <param name="l2"></param>
-        /// <returns>Returns the Difference Between PointA and PointB</returns>
+        /// <param name="i1">The i1.</param>
+        /// <param name="j1">The j1.</param>
+        /// <param name="k1">The k1.</param>
+        /// <param name="l1">The l1.</param>
+        /// <param name="i2">The i2.</param>
+        /// <param name="j2">The j2.</param>
+        /// <param name="k2">The k2.</param>
+        /// <param name="l2">The l2.</param>
+        /// <returns>
+        /// Returns the Difference Between PointA and PointB
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J, double K, double L) Delta(double i1, double j1, double k1, double l1, double i2, double j2, double k2, double l2)
-            => Subtract4D(i2, j2, k2, l2, i1, j1, k1, l1);
+        public static (double I, double J, double K, double L) Delta(double i1, double j1, double k1, double l1, double i2, double j2, double k2, double l2) => Subtract4D(i2, j2, k2, l2, i1, j1, k1, l1);
         #endregion Difference Between Two Vectors
 
         #region Multiply A Vector by a Value
         /// <summary>
-        /// 
+        /// Scale2s the d.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="scalar"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="scalar">The scalar.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) Scale2D(double a, double b, double scalar) => (a * scalar, b * scalar);
 
         /// <summary>
-        /// 
+        /// Scale3s the d.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="scalar"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="scalar">The scalar.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) Scale3D(double a, double b, double c, double scalar) => (a * scalar, b * scalar, c * scalar);
 
         /// <summary>
-        /// 
+        /// Scale4s the d.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="scalar"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="scalar">The scalar.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -410,42 +417,42 @@ namespace Engine
 
         #region Multiply Each Vector Component By The One in Another Vector
         /// <summary>
-        /// 
+        /// Parametrics the scale2 d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) ParametricScale2D(double a1, double b1, double a2, double b2) => (a1 * a2, b1 * b2);
 
         /// <summary>
-        /// 
+        /// Parametrics the scale3 d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
-        /// <param name="c2"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) ParametricScale3D(double a1, double b1, double c1, double a2, double b2, double c2) => (a1 * a2, b1 * b2, c1 * c2);
 
         /// <summary>
-        /// 
+        /// Parametrics the scale4 d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="d1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
-        /// <param name="c2"></param>
-        /// <param name="d2"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
+        /// <param name="d2">The d2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -454,36 +461,36 @@ namespace Engine
 
         #region Divide Vector By Value
         /// <summary>
-        /// 
+        /// Divides the by dividend2 d.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="dividend"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="dividend">The dividend.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) DivideByDividend2D(double a, double b, double dividend) => (a / dividend, b / dividend);
 
         /// <summary>
-        /// 
+        /// Divides the by dividend3 d.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="dividend"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="dividend">The dividend.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) DivideByDividend3D(double a, double b, double c, double dividend) => (a / dividend, b / dividend, c / dividend);
 
         /// <summary>
-        /// 
+        /// Divides the by dividend4 d.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="dividend"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="dividend">The dividend.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -492,36 +499,36 @@ namespace Engine
 
         #region Divide Value into Vector Components
         /// <summary>
-        /// 
+        /// Divides the divisor2 d.
         /// </summary>
-        /// <param name="divisor"></param>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="divisor">The divisor.</param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) DivideDivisor2D(double divisor, double a, double b) => (divisor / a, divisor / b);
 
         /// <summary>
-        /// 
+        /// Divides the divisor3 d.
         /// </summary>
-        /// <param name="divisor"></param>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
+        /// <param name="divisor">The divisor.</param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) DivideDivisor3D(double divisor, double a, double b, double c) => (divisor / a, divisor / b, divisor / c);
 
         /// <summary>
-        /// 
+        /// Divides the divisor4 d.
         /// </summary>
-        /// <param name="divisor"></param>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
+        /// <param name="divisor">The divisor.</param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -530,42 +537,42 @@ namespace Engine
 
         #region Divide Each Of The Components Of A Vector By The Same Components Of Another Vector
         /// <summary>
-        /// 
+        /// Parametrics the divide2 d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) ParametricDivide2D(double a1, double b1, double a2, double b2) => (a1 / a2, b1 / b2);
 
         /// <summary>
-        /// 
+        /// Parametrics the divide3 d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
-        /// <param name="c2"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) ParametricDivide3D(double a1, double b1, double c1, double a2, double b2, double c2) => (a1 / a2, b1 / b2, c1 / c2);
 
         /// <summary>
-        /// 
+        /// Parametrics the divide4 d.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="d1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
-        /// <param name="c2"></param>
-        /// <param name="d2"></param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
+        /// <param name="d2">The d2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -578,11 +585,12 @@ namespace Engine
         /// </summary>
         /// <param name="i">The i component of the vector.</param>
         /// <param name="j">The j component of the vector.</param>
-        /// <returns>The <see cref="double"/>.</returns>
+        /// <returns>
+        /// The <see cref="double" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Magnitude(double i, double j)
-            => Sqrt((i * i) + (j * j));
+        public static double Magnitude(double i, double j) => Sqrt((i * i) + (j * j));
 
         /// <summary>
         /// The Magnitude of a three dimensional Vector.
@@ -590,11 +598,12 @@ namespace Engine
         /// <param name="i">The i.</param>
         /// <param name="j">The j.</param>
         /// <param name="k">The k.</param>
-        /// <returns>The <see cref="double"/>.</returns>
+        /// <returns>
+        /// The <see cref="double" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Magnitude(double i, double j, double k)
-            => Sqrt((i * i) + (j * j) + (k * k));
+        public static double Magnitude(double i, double j, double k) => Sqrt((i * i) + (j * j) + (k * k));
         #endregion Modulus Magnitude
 
         #region Invert
@@ -604,8 +613,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) InvertVector(double x, double y)
-            => (1d / x, 1d / y);
+        public static (double X, double Y) InvertVector(double x, double y) => (1d / x, 1d / y);
 
         /// <summary>
         /// Inverts a Vector.
@@ -613,8 +621,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) InvertVector(double x, double y, double z)
-            => (1d / x, 1d / y, 1d / z);
+        public static (double X, double Y, double Z) InvertVector(double x, double y, double z) => (1d / x, 1d / y, 1d / z);
 
         /// <summary>
         /// Inverts a Vector.
@@ -622,8 +629,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z, double W) InvertVector(double x, double y, double z, double w)
-            => (1d / x, 1d / y, 1d / z, 1d / w);
+        public static (double X, double Y, double Z, double W) InvertVector(double x, double y, double z, double w) => (1d / x, 1d / y, 1d / z, 1d / w);
         #endregion Invert
 
         #region Linear Interpolate
@@ -636,8 +642,7 @@ namespace Engine
         /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Lerp(double u0, double u1, double t)
-            => u0 + ((u1 - u0) * t);
+        public static double Lerp(double u0, double u1, double t) => u0 + ((u1 - u0) * t);
 
         /// <summary>
         /// The linear interpolation method.
@@ -653,8 +658,7 @@ namespace Engine
         public static (double X, double Y) Lerp(
             double x0, double y0,
             double x1, double y1,
-            double t)
-            => (x0 + ((x1 - x0) * t), y0 + ((y1 - y0) * t));
+            double t) => (x0 + ((x1 - x0) * t), y0 + ((y1 - y0) * t));
 
         /// <summary>
         /// The linear interpolation method.
@@ -672,8 +676,7 @@ namespace Engine
         public static (double X, double Y, double Z) Lerp(
             double x0, double y0, double z0,
             double x1, double y1, double z1,
-            double t)
-            => (x0 + ((x1 - x0) * t), y0 + ((y1 - y0) * t), z0 + ((z1 - z0) * t));
+            double t) => (x0 + ((x1 - x0) * t), y0 + ((y1 - y0) * t), z0 + ((z1 - z0) * t));
 
         /// <summary>
         /// The linear interpolation method.
@@ -693,8 +696,7 @@ namespace Engine
         public static (double X, double Y, double Z, double W) Lerp(
             double x0, double y0, double z0, double w0,
             double x1, double y1, double z1, double w1,
-            double t)
-            => (x0 + ((x1 - x0) * t), y0 + ((y1 - y0) * t), z0 + ((z1 - z0) * t), w0 + ((w1 - w0) * t));
+            double t) => (x0 + ((x1 - x0) * t), y0 + ((y1 - y0) * t), z0 + ((z1 - z0) * t), w0 + ((w1 - w0) * t));
         #endregion Linear Interpolate
 
         #region Dot Product
@@ -711,8 +713,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
             double x1, double y1,
-            double x2, double y2)
-            => (x1 * x2) + (y1 * y2);
+            double x2, double y2) => (x1 * x2) + (y1 * y2);
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector.
@@ -728,8 +729,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
             double x1, double y1, double z1,
-            double x2, double y2, double z2)
-            => (x1 * x2) + (y1 * y2) + (z1 * z2);
+            double x2, double y2, double z2) => (x1 * x2) + (y1 * y2) + (z1 * z2);
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector.
@@ -743,8 +743,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
             (double X, double Y, double Z) tuple,
-            double x2, double y2, double z2)
-            => DotProduct(tuple.X, tuple.Y, tuple.Z, x2, y2, z2);
+            double x2, double y2, double z2) => DotProduct(tuple.X, tuple.Y, tuple.Z, x2, y2, z2);
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector.
@@ -778,8 +777,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
             double x1, double y1, double z1, double w1,
-            double x2, double y2, double z2, double w2)
-            => (x1 * x2) + (y1 * y2) + (z1 * z2) + (w1 * w2);
+            double x2, double y2, double z2, double w2) => (x1 * x2) + (y1 * y2) + (z1 * z2) + (w1 * w2);
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector.
@@ -799,8 +797,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
             double x1, double y1, double z1, double w1, double v1,
-            double x2, double y2, double z2, double w2, double v2)
-            => (x1 * x2) + (y1 * y2) + (z1 * z2) + (w1 * w2) + (v1 * v2);
+            double x2, double y2, double z2, double w2, double v2) => (x1 * x2) + (y1 * y2) + (z1 * z2) + (w1 * w2) + (v1 * v2);
         #endregion Dot Product
 
         #region Dot Product Vector
@@ -823,8 +820,7 @@ namespace Engine
         public static double DotProductVector(
             double x1, double y1,
             double x2, double y2,
-            double x3, double y3)
-            => ((x1 - x2) * (x3 - x2)) + ((y1 - y2) * (y3 - y2));
+            double x3, double y3) => ((x1 - x2) * (x3 - x2)) + ((y1 - y2) * (y3 - y2));
         #endregion Dot Product Vector
 
         #region Cross Product
@@ -841,8 +837,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(
             double x1, double y1,
-            double x2, double y2)
-            => (x1 * y2) - (y1 * x2);
+            double x2, double y2) => (x1 * y2) - (y1 * x2);
 
         /// <summary>
         /// Cross Product of two points.
@@ -855,8 +850,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(
             (double x, double y) t1,
-            (double x, double y) t2)
-            => (t1.x * t2.y) - (t1.y * t2.x);
+            (double x, double y) t2) => (t1.x * t2.y) - (t1.y * t2.x);
 
         /// <summary>
         /// The cross product.
@@ -981,8 +975,7 @@ namespace Engine
         public static double MixedProduct(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
-            double x3, double y3, double z3)
-            => DotProduct(CrossProduct(x1, y1, z1, x2, y2, z2), x3, y3, z3);
+            double x3, double y3, double z3) => DotProduct(CrossProduct(x1, y1, z1, x2, y2, z2), x3, y3, z3);
         #endregion Mixed Product
 
         #region Vector Cross Product
@@ -1010,8 +1003,7 @@ namespace Engine
         public static double CrossProductVector(
             double x1, double y1,
             double x2, double y2,
-            double x3, double y3)
-            => ((x1 - x2) * (y3 - y2)) - ((y1 - y2) * (x3 - x2));
+            double x3, double y3) => ((x1 - x2) * (y3 - y2)) - ((y1 - y2) * (x3 - x2));
         #endregion Vector Cross Product
 
         #region Unit Normalize
@@ -1022,8 +1014,7 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Normalize1D(double i)
-            => i / Sqrt(i * i);
+        public static double Normalize1D(double i) => i / Sqrt(i * i);
 
         /// <summary>
         /// Normalize a Vector.
@@ -1182,7 +1173,9 @@ namespace Engine
         /// <param name="pt1Y">The pt1Y.</param>
         /// <param name="pt2X">The pt2X.</param>
         /// <param name="pt2Y">The pt2Y.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.angusj.com
         /// </acknowledgment>
@@ -1207,28 +1200,30 @@ namespace Engine
         /// <summary>
         /// Find the Clockwise Perpendicular of a Vector.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
         /// <returns></returns>
-        /// <remarks><para>To get the perpendicular vector in two dimensions use I = -J, J = I</para></remarks>
+        /// <remarks>
+        /// To get the perpendicular vector in two dimensions use I = -J, J = I
+        /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) PerpendicularClockwise(double i, double j)
-            => (-j, i);
+        public static (double X, double Y) PerpendicularClockwise(double i, double j) => (-j, i);
         #endregion Perpendicular Clockwise
 
         #region Perpendicular Counter Clockwise
         /// <summary>
         /// Find the Counter Clockwise Perpendicular of a Vector.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
         /// <returns></returns>
-        /// <remarks><para>To get the perpendicular vector in two dimensions use I = -J, J = I</para></remarks>
+        /// <remarks>
+        /// To get the perpendicular vector in two dimensions use I = -J, J = I
+        /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) PerpendicularCounterClockwise(double i, double j)
-            => (j, -i);
+        public static (double X, double Y) PerpendicularCounterClockwise(double i, double j) => (j, -i);
         #endregion Perpendicular Counter Clockwise
 
         #region Pitch Rotate X
@@ -1241,11 +1236,12 @@ namespace Engine
         /// <param name="yOff">The yOff.</param>
         /// <param name="zOff">The zOff.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) RotateX(double x1, double y1, double z1, double yOff, double zOff, double rad)
-            => RotateX(x1, y1, z1, yOff, zOff, Sin(rad), Cos(rad));
+        public static (double X, double Y, double Z) RotateX(double x1, double y1, double z1, double yOff, double zOff, double rad) => RotateX(x1, y1, z1, yOff, zOff, Sin(rad), Cos(rad));
 
         /// <summary>
         /// The rotate x.
@@ -1257,7 +1253,9 @@ namespace Engine
         /// <param name="zOff">The zOff.</param>
         /// <param name="sin">The Sine of the angle.</param>
         /// <param name="cos">The Cosine of the angle.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -1277,11 +1275,12 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) RotateX(double x1, double y1, double z1, double rad)
-            => RotateX(x1, y1, z1, Sin(rad), Cos(rad));
+        public static (double X, double Y, double Z) RotateX(double x1, double y1, double z1, double rad) => RotateX(x1, y1, z1, Sin(rad), Cos(rad));
 
         /// <summary>
         /// The rotate x.
@@ -1289,9 +1288,11 @@ namespace Engine
         /// <param name="x1">The x1.</param>
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
-        /// <param name="sin"></param>
-        /// <param name="cos"></param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <param name="sin">The sin.</param>
+        /// <param name="cos">The cos.</param>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -1311,11 +1312,12 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Pitch(double x1, double y1, double z1, double rad)
-            => RotateX(x1, y1, z1, Sin(rad), Cos(rad));
+        public static (double X, double Y, double Z) Pitch(double x1, double y1, double z1, double rad) => RotateX(x1, y1, z1, Sin(rad), Cos(rad));
         #endregion Pitch Rotate X
 
         #region Yaw Rotate Y
@@ -1328,11 +1330,12 @@ namespace Engine
         /// <param name="xOff">The xOff.</param>
         /// <param name="zOff">The zOff.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) RotateY(double x1, double y1, double z1, double xOff, double zOff, double rad)
-            => RotateY(x1, y1, z1, xOff, zOff, Sin(rad), Cos(rad));
+        public static (double X, double Y, double Z) RotateY(double x1, double y1, double z1, double xOff, double zOff, double rad) => RotateY(x1, y1, z1, xOff, zOff, Sin(rad), Cos(rad));
 
         /// <summary>
         /// The rotate y.
@@ -1344,7 +1347,9 @@ namespace Engine
         /// <param name="zOff">The zOff.</param>
         /// <param name="sin">The Sine of the angle.</param>
         /// <param name="cos">The Cosine of the angle.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -1364,11 +1369,12 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) RotateY(double x1, double y1, double z1, double rad)
-            => RotateY(x1, y1, z1, Sin(rad), Cos(rad));
+        public static (double X, double Y, double Z) RotateY(double x1, double y1, double z1, double rad) => RotateY(x1, y1, z1, Sin(rad), Cos(rad));
 
         /// <summary>
         /// The rotate y.
@@ -1378,7 +1384,9 @@ namespace Engine
         /// <param name="z1">The z1.</param>
         /// <param name="sin">The Sine of the angle.</param>
         /// <param name="cos">The Cosine of the angle.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -1398,11 +1406,12 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Yaw(double x1, double y1, double z1, double rad)
-            => RotateY(x1, y1, z1, Sin(rad), Cos(rad));
+        public static (double X, double Y, double Z) Yaw(double x1, double y1, double z1, double rad) => RotateY(x1, y1, z1, Sin(rad), Cos(rad));
         #endregion Yaw Rotate Y
 
         #region Roll Rotate Z
@@ -1415,11 +1424,12 @@ namespace Engine
         /// <param name="xOff">The xOff.</param>
         /// <param name="yOff">The yOff.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double xOff, double yOff, double rad)
-            => RotateZ(x1, y1, z1, xOff, yOff, Sin(rad), Cos(rad));
+        public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double xOff, double yOff, double rad) => RotateZ(x1, y1, z1, xOff, yOff, Sin(rad), Cos(rad));
 
         /// <summary>
         /// The rotate z.
@@ -1431,7 +1441,9 @@ namespace Engine
         /// <param name="yOff">The yOff.</param>
         /// <param name="sin">The Sine of the angle.</param>
         /// <param name="cos">The Cosine of the angle.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -1451,11 +1463,12 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double rad)
-            => RotateZ(x1, y1, z1, Sin(rad), Cos(rad));
+        public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double rad) => RotateZ(x1, y1, z1, Sin(rad), Cos(rad));
 
         /// <summary>
         /// The rotate z.
@@ -1463,9 +1476,11 @@ namespace Engine
         /// <param name="x1">The x1.</param>
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
-        /// <param name="sin"></param>
-        /// <param name="cos"></param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <param name="sin">The sin.</param>
+        /// <param name="cos">The cos.</param>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -1485,11 +1500,12 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Roll(double x1, double y1, double z1, double rad)
-            => RotateZ(x1, y1, z1, Sin(rad), Cos(rad));
+        public static (double X, double Y, double Z) Roll(double x1, double y1, double z1, double rad) => RotateZ(x1, y1, z1, Sin(rad), Cos(rad));
         #endregion Roll Rotate Z
 
         #region Projection
@@ -1502,7 +1518,9 @@ namespace Engine
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
         /// <param name="z2">The z2.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -1528,7 +1546,9 @@ namespace Engine
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
         /// <param name="z2">The z2.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -1554,7 +1574,9 @@ namespace Engine
         /// <param name="i2">The i2.</param>
         /// <param name="j2">The j2.</param>
         /// <param name="k2">The k2.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -1587,14 +1609,15 @@ namespace Engine
         /// <param name="point1Y">The point1Y.</param>
         /// <param name="point2X">The point2X.</param>
         /// <param name="point2Y">The point2Y.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) MinPoint(double point1X, double point1Y, double point2X, double point2Y)
-            => (Math.Min(point1X, point2X), Math.Min(point1Y, point2Y));
+        public static (double X, double Y) MinPoint(double point1X, double point1Y, double point2X, double point2Y) => (Math.Min(point1X, point2X), Math.Min(point1Y, point2Y));
         #endregion Min Point
 
         #region Max Point
@@ -1605,24 +1628,25 @@ namespace Engine
         /// <param name="point1Y">The point1Y.</param>
         /// <param name="point2X">The point2X.</param>
         /// <param name="point2Y">The point2Y.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) MaxPoint(double point1X, double point1Y, double point2X, double point2Y)
-            => (Math.Max(point1X, point2X), Math.Max(point1Y, point2Y));
+        public static (double X, double Y) MaxPoint(double point1X, double point1Y, double point2X, double point2Y) => (Math.Max(point1X, point2X), Math.Max(point1Y, point2Y));
         #endregion Max Point
 
         ///// <summary>
-        /////
+        ///// Ares the close.
         ///// </summary>
-        ///// <param name="aX"></param>
-        ///// <param name="aY"></param>
-        ///// <param name="bX"></param>
-        ///// <param name="bY"></param>
-        ///// <param name="epsilonSqrd"></param>
+        ///// <param name="aX">a x.</param>
+        ///// <param name="aY">a y.</param>
+        ///// <param name="bX">The b x.</param>
+        ///// <param name="bY">The b y.</param>
+        ///// <param name="epsilonSqrd">The epsilon SQRD.</param>
         ///// <returns></returns>
         ////[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]

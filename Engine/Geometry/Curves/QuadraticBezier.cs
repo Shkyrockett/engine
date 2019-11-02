@@ -378,7 +378,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierBernsteinPolynomial(cx, bx, ax));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierBernsteinBasis(cx, bx, ax));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -392,7 +392,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierBernsteinPolynomial(cy, by, ay));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierBernsteinBasis(cy, by, ay));
                 curveY.IsReadonly = true;
                 return curveY;
             }

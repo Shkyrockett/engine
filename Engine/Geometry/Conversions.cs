@@ -15,6 +15,7 @@ using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Operations;
+using static Engine.Polynomials;
 
 namespace Engine
 {
@@ -324,6 +325,47 @@ namespace Engine
                 aX + (TwoThirds * (bX - aX)), aY + (TwoThirds * (bY - aY)),
                 cX + (TwoThirds * (bX - cX)), cY + (TwoThirds * (bY - cY)),
                 cX, cY);
+
+        /// <summary>
+        /// Cubic Hermite curve to Cubic Bezier.
+        /// </summary>
+        /// <param name="p0">The p0.</param>
+        /// <param name="t0">The t0.</param>
+        /// <param name="p1">The p1.</param>
+        /// <param name="t1">The t1.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double a, double b, double c, double d) CubicHermiteToCubicBezier(double p0, double t0, double p1, double t1)
+        {
+            var (a, b, c, d) = CubicHermiteBernsteinBasis(p0, t0, p1, t1);
+            var (m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4) = InverseCubicBezierBernsteinBasisMatrix;
+            return MultiplyVector4DMatrix4x4(d, c, b, a, m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4);
+        }
+
+        /// <summary>
+        /// Cubic Hermite curve to Cubic Bezier.
+        /// </summary>
+        /// <param name="px0">The PX0.</param>
+        /// <param name="py0">The py0.</param>
+        /// <param name="tx0">The TX0.</param>
+        /// <param name="ty0">The ty0.</param>
+        /// <param name="px1">The PX1.</param>
+        /// <param name="py1">The py1.</param>
+        /// <param name="tx1">The TX1.</param>
+        /// <param name="ty1">The ty1.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double ax, double ay, double bx, double by, double cx, double cy, double dx, double dy) CubicHermiteToCubicBezier(double px0, double py0, double tx0, double ty0, double px1, double py1, double tx1, double ty1)
+        {
+            var (ax, bx, cx, dx) = CubicHermiteBernsteinBasis(px0, tx0, px1, tx1);
+            var (ay, by, cy, dy) = CubicHermiteBernsteinBasis(py0, ty0, py1, ty1);
+            var (m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4) = InverseCubicBezierBernsteinBasisMatrix;
+            var (rax, rbx, rcx, rdx) = MultiplyVector4DMatrix4x4(dx, cx, bx, ax, m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4);
+            var (ray, rby, rcy, rdy) = MultiplyVector4DMatrix4x4(dy, cy, by, ay, m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4);
+            return (rax, ray, rbx, rby, rcx, rcy, rdx, rdy);
+        }
         #endregion Conversion Implementations
 
         #region Parabola Conversion

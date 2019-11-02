@@ -193,8 +193,8 @@ namespace Engine
             => ScanbeamQuadraticBezierSegment(
                 ref scanlist,
                 x, y,
-                QuadraticBezierBernsteinPolynomial(b0x, b1x, b2x),
-                QuadraticBezierBernsteinPolynomial(b0y, b1y, b2y),
+                QuadraticBezierBernsteinBasis(b0x, b1x, b2x),
+                QuadraticBezierBernsteinBasis(b0y, b1y, b2y),
                 epsilon);
 
         /// <summary>
@@ -252,8 +252,8 @@ namespace Engine
             => ScanbeamCubicBezierSegment(
                 ref scanlist,
                 x, y,
-                CubicBezierBernsteinPolynomial(b0x, b1x, b2x, b3x),
-                CubicBezierBernsteinPolynomial(b0y, b1y, b2y, b3y),
+                CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x),
+                CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y),
                 epsilon);
 
         /// <summary>
@@ -863,8 +863,8 @@ namespace Engine
             double epsilon = Epsilon)
             => ScanbeamPointsToLeftQuadraticBezierSegment(
                 x, y,
-                QuadraticBezierBernsteinPolynomial(p0x, p1x, p2x),
-                QuadraticBezierBernsteinPolynomial(p0y, p1y, p2y),
+                QuadraticBezierBernsteinBasis(p0x, p1x, p2x),
+                QuadraticBezierBernsteinBasis(p0y, p1y, p2y),
                 epsilon);
 
         /// <summary>
@@ -922,8 +922,8 @@ namespace Engine
             double epsilon = Epsilon)
             => ScanbeamPointsToLeftCubicBezierSegment(
                 x, y,
-                CubicBezierBernsteinPolynomial(b0x, b1x, b2x, b3x),
-                CubicBezierBernsteinPolynomial(b0y, b1y, b2y, b3y),
+                CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x),
+                CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y),
                 epsilon);
 
         /// <summary>
@@ -1583,8 +1583,8 @@ namespace Engine
             double epsilon = Epsilon)
             => ScanbeamPointsToRightQuadraticBezierSegment(
                 x, y,
-                QuadraticBezierBernsteinPolynomial(b0x, b1x, b2x),
-                QuadraticBezierBernsteinPolynomial(b0y, b1y, b2y),
+                QuadraticBezierBernsteinBasis(b0x, b1x, b2x),
+                QuadraticBezierBernsteinBasis(b0y, b1y, b2y),
                 epsilon);
 
         /// <summary>
@@ -1642,8 +1642,8 @@ namespace Engine
             double epsilon = Epsilon)
             => ScanbeamPointsToRightCubicBezierSegment(
                 x, y,
-                CubicBezierBernsteinPolynomial(b0x, b1x, b2x, b3x),
-                CubicBezierBernsteinPolynomial(b0y, b1y, b2y, b3y),
+                CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x),
+                CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y),
                 epsilon);
 
         /// <summary>

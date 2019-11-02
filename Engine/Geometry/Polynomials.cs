@@ -10,7 +10,7 @@ namespace Engine
     /// </summary>
     public static class Polynomials
     {
-        #region Bézier Bernstein Polynomial Overloads
+        #region Bézier Bernstein Basis Overloads
         /// <summary>
         /// Coefficients for a Linear Bézier curve.
         /// </summary>
@@ -19,7 +19,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B) BezierBernsteinPolynomial(double a, double b) => LinearBezierBernsteinPolynomial(a, b);
+        public static (double A, double B) BezierBernsteinBasis(double a, double b) => LinearBezierBernsteinBasis(a, b);
 
         /// <summary>
         /// Coefficients for a Quadratic Bézier curve.
@@ -32,7 +32,7 @@ namespace Engine
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C) BezierBernsteinPolynomial(double a, double b, double c) => QuadraticBezierBernsteinPolynomial(a, b, c);
+        public static (double A, double B, double C) BezierBernsteinBasis(double a, double b, double c) => QuadraticBezierBernsteinBasis(a, b, c);
 
         /// <summary>
         /// Coefficients for a Cubic Bézier curve.
@@ -44,7 +44,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D) BezierBernsteinPolynomial(double a, double b, double c, double d) => CubicBezierBernsteinPolynomial(a, b, c, d);
+        public static (double A, double B, double C, double D) BezierBernsteinBasis(double a, double b, double c, double d) => CubicBezierBernsteinBasis(a, b, c, d);
 
         /// <summary>
         /// Coefficients for a Quartic Bézier curve.
@@ -57,7 +57,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E) BezierBernsteinPolynomial(double a, double b, double c, double d, double e) => QuarticBezierBernsteinPolynomial(a, b, c, d, e);
+        public static (double A, double B, double C, double D, double E) BezierBernsteinBasis(double a, double b, double c, double d, double e) => QuarticBezierBernsteinBasis(a, b, c, d, e);
 
         /// <summary>
         /// Coefficients for a Quintic Bézier curve.
@@ -71,7 +71,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F) BezierBernsteinPolynomial(double a, double b, double c, double d, double e, double f) => QuinticBezierBernsteinPolynomial(a, b, c, d, e, f);
+        public static (double A, double B, double C, double D, double E, double F) BezierBernsteinBasis(double a, double b, double c, double d, double e, double f) => QuinticBezierBernsteinBasis(a, b, c, d, e, f);
 
         /// <summary>
         /// Coefficients for a Sextic Bézier curve.
@@ -86,7 +86,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F, double G) BezierBernsteinPolynomial(double a, double b, double c, double d, double e, double f, double g) => SexticBezierBernsteinPolynomial(a, b, c, d, e, f, g);
+        public static (double A, double B, double C, double D, double E, double F, double G) BezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g) => SexticBezierBernsteinBasis(a, b, c, d, e, f, g);
 
         /// <summary>
         /// Coefficients for a Sextic Bézier curve.
@@ -102,7 +102,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F, double G, double H) BezierBernsteinPolynomial(double a, double b, double c, double d, double e, double f, double g, double h) => SepticBezierBernsteinPolynomial(a, b, c, d, e, f, g, h);
+        public static (double A, double B, double C, double D, double E, double F, double G, double H) BezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g, double h) => SepticBezierBernsteinBasis(a, b, c, d, e, f, g, h);
 
         /// <summary>
         /// Coefficients for a Octic Bézier curve.
@@ -119,7 +119,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I) BezierBernsteinPolynomial(double a, double b, double c, double d, double e, double f, double g, double h, double i) => OcticBezierBernsteinPolynomial(a, b, c, d, e, f, g, h, i);
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I) BezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g, double h, double i) => OcticBezierBernsteinBasis(a, b, c, d, e, f, g, h, i);
 
         /// <summary>
         /// Coefficients for a Nonic Bézier curve.
@@ -137,7 +137,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) BezierBernsteinPolynomial(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j) => NonicBezierBernsteinPolynomial(a, b, c, d, e, f, g, h, i, j);
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) BezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j) => NonicBezierBernsteinBasis(a, b, c, d, e, f, g, h, i, j);
 
         /// <summary>
         /// Coefficients for a Decic Bézier curve.
@@ -156,10 +156,10 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) BezierBernsteinPolynomial(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k) => DecicBezierBernsteinPolynomial(a, b, c, d, e, f, g, h, i, j, k);
-        #endregion Bézier Bernstein Polynomial Overloads
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) BezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k) => DecicBezierBernsteinBasis(a, b, c, d, e, f, g, h, i, j, k);
+        #endregion Bézier Bernstein Basis Overloads
 
-        #region Bézier Bernstein Polynomial Recursive
+        #region Bézier Bernstein Basis Recursive
         /// <summary>
         /// Coefficients for a Linear Bézier curve.
         /// </summary>
@@ -171,7 +171,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial LinearBezierBernsteinPolynomialRecursive(double a, double b) => (Polynomial.OneMinusT * a) + (Polynomial.T * b);
+        public static Polynomial LinearBezierBernsteinBasisRecursive(double a, double b) => (Polynomial.OneMinusT * a) + (Polynomial.T * b);
 
         /// <summary>
         /// Coefficients for a Quadratic Bézier curve.
@@ -185,7 +185,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial QuadraticBezierBernsteinPolynomialRecursive(double a, double b, double c) => (Polynomial.OneMinusT * LinearBezierBernsteinPolynomialRecursive(a, b)) + (Polynomial.T * LinearBezierBernsteinPolynomialRecursive(b, c));
+        public static Polynomial QuadraticBezierBernsteinBasisRecursive(double a, double b, double c) => (Polynomial.OneMinusT * LinearBezierBernsteinBasisRecursive(a, b)) + (Polynomial.T * LinearBezierBernsteinBasisRecursive(b, c));
 
         /// <summary>
         /// Coefficients for a Cubic Bézier curve.
@@ -200,7 +200,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial CubicBezierBernsteinPolynomialRecursive(double a, double b, double c, double d) => (Polynomial.OneMinusT * QuadraticBezierBernsteinPolynomialRecursive(a, b, c)) + (Polynomial.T * QuadraticBezierBernsteinPolynomialRecursive(b, c, d));
+        public static Polynomial CubicBezierBernsteinBasisRecursive(double a, double b, double c, double d) => (Polynomial.OneMinusT * QuadraticBezierBernsteinBasisRecursive(a, b, c)) + (Polynomial.T * QuadraticBezierBernsteinBasisRecursive(b, c, d));
 
         /// <summary>
         /// Coefficients for a Quartic Bézier curve.
@@ -216,7 +216,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial QuarticBezierBernsteinPolynomialRecursive(double a, double b, double c, double d, double e) => (Polynomial.OneMinusT * CubicBezierBernsteinPolynomialRecursive(a, b, c, d)) + (Polynomial.T * CubicBezierBernsteinPolynomialRecursive(b, c, d, e));
+        public static Polynomial QuarticBezierBernsteinBasisRecursive(double a, double b, double c, double d, double e) => (Polynomial.OneMinusT * CubicBezierBernsteinBasisRecursive(a, b, c, d)) + (Polynomial.T * CubicBezierBernsteinBasisRecursive(b, c, d, e));
 
         /// <summary>
         /// Coefficients for a Quintic Bézier curve.
@@ -233,7 +233,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial QuinticBezierBernsteinPolynomialRecursive(double a, double b, double c, double d, double e, double f) => (Polynomial.OneMinusT * QuarticBezierBernsteinPolynomialRecursive(a, b, c, d, e)) + (Polynomial.T * QuarticBezierBernsteinPolynomialRecursive(b, c, d, e, f));
+        public static Polynomial QuinticBezierBernsteinBasisRecursive(double a, double b, double c, double d, double e, double f) => (Polynomial.OneMinusT * QuarticBezierBernsteinBasisRecursive(a, b, c, d, e)) + (Polynomial.T * QuarticBezierBernsteinBasisRecursive(b, c, d, e, f));
 
         /// <summary>
         /// Coefficients for a Sextic Bézier curve.
@@ -251,7 +251,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial SexticBezierBernsteinPolynomialRecursive(double a, double b, double c, double d, double e, double f, double g) => (Polynomial.OneMinusT * QuinticBezierBernsteinPolynomialRecursive(a, b, c, d, e, f)) + (Polynomial.T * QuinticBezierBernsteinPolynomialRecursive(b, c, d, e, f, g));
+        public static Polynomial SexticBezierBernsteinBasisRecursive(double a, double b, double c, double d, double e, double f, double g) => (Polynomial.OneMinusT * QuinticBezierBernsteinBasisRecursive(a, b, c, d, e, f)) + (Polynomial.T * QuinticBezierBernsteinBasisRecursive(b, c, d, e, f, g));
 
         /// <summary>
         /// Coefficients for a Septic Bézier curve.
@@ -270,7 +270,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial SepticBezierBernsteinPolynomialRecursive(double a, double b, double c, double d, double e, double f, double g, double h) => (Polynomial.OneMinusT * SexticBezierBernsteinPolynomialRecursive(a, b, c, d, e, f, g)) + (Polynomial.T * SexticBezierBernsteinPolynomialRecursive(b, c, d, e, f, g, h));
+        public static Polynomial SepticBezierBernsteinBasisRecursive(double a, double b, double c, double d, double e, double f, double g, double h) => (Polynomial.OneMinusT * SexticBezierBernsteinBasisRecursive(a, b, c, d, e, f, g)) + (Polynomial.T * SexticBezierBernsteinBasisRecursive(b, c, d, e, f, g, h));
 
         /// <summary>
         /// Coefficients for a Octic Bézier curve.
@@ -290,7 +290,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial OcticBezierBernsteinPolynomialRecursive(double a, double b, double c, double d, double e, double f, double g, double h, double i) => (Polynomial.OneMinusT * SepticBezierBernsteinPolynomialRecursive(a, b, c, d, e, f, g, h)) + (Polynomial.T * SepticBezierBernsteinPolynomialRecursive(b, c, d, e, f, g, h, i));
+        public static Polynomial OcticBezierBernsteinBasisRecursive(double a, double b, double c, double d, double e, double f, double g, double h, double i) => (Polynomial.OneMinusT * SepticBezierBernsteinBasisRecursive(a, b, c, d, e, f, g, h)) + (Polynomial.T * SepticBezierBernsteinBasisRecursive(b, c, d, e, f, g, h, i));
 
         /// <summary>
         /// Coefficients for a Nonic Bézier curve.
@@ -311,7 +311,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial NonicBezierBernsteinPolynomialRecursive(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j) => (Polynomial.OneMinusT * OcticBezierBernsteinPolynomialRecursive(a, b, c, d, e, f, g, h, i)) + (Polynomial.T * OcticBezierBernsteinPolynomialRecursive(b, c, d, e, f, g, h, i, j));
+        public static Polynomial NonicBezierBernsteinBasisRecursive(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j) => (Polynomial.OneMinusT * OcticBezierBernsteinBasisRecursive(a, b, c, d, e, f, g, h, i)) + (Polynomial.T * OcticBezierBernsteinBasisRecursive(b, c, d, e, f, g, h, i, j));
 
         /// <summary>
         /// Coefficients for a Decic Bézier curve.
@@ -333,12 +333,56 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial DecicBezierBernsteinPolynomialRecursive(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k) => (Polynomial.OneMinusT * NonicBezierBernsteinPolynomialRecursive(a, b, c, d, e, f, g, h, i, j)) + (Polynomial.T * NonicBezierBernsteinPolynomialRecursive(b, c, d, e, f, g, h, i, j, k));
+        public static Polynomial DecicBezierBernsteinBasisRecursive(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k) => (Polynomial.OneMinusT * NonicBezierBernsteinBasisRecursive(a, b, c, d, e, f, g, h, i, j)) + (Polynomial.T * NonicBezierBernsteinBasisRecursive(b, c, d, e, f, g, h, i, j, k));
         #endregion Bézier Bernstein Polynomial Recursive
 
-        #region Bézier Bernstein Polynomial
         /// <summary>
-        /// Coefficients for a Linear Bézier curve.
+        /// Coefficients for a Cubic B-Spline curve Bernstein basis.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D) CubicBSplineBernsteinBasis(double a, double b, double c, double d)
+            => (A: a + 4d * b + c,
+                B: -3d * a + 3d * c,
+                C: 3d * a - 6d * b + 3d * c,
+                D: a + 3d * b - 3d * c + d);
+
+        /// <summary>
+        /// Coefficients for a Quadratic Hermite curve Bernstein basis.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C) QuadraticHermiteBernsteinBasis(double a, double b, double c)
+            => (A: c - a - (b - a),
+                B: b - a,
+                C: a);
+
+        /// <summary>
+        /// Coefficients for a Cubic Hermite curve Bernstein basis.
+        /// </summary>
+        /// <param name="p0">a.</param>
+        /// <param name="t0">The b.</param>
+        /// <param name="p1">The c.</param>
+        /// <param name="t1">The d.</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D) CubicHermiteBernsteinBasis(double p0, double t0, double p1, double t1)
+            => (A: 2d * p0 + t0 - 2d * p1 + t1,
+                B: -3d * p0 - 2d * t0 + 3d * p1 - t1,
+                C: t0,
+                D: p0);
+
+        #region Bézier Bernstein Basis
+        /// <summary>
+        /// Coefficients for a Linear Bézier curve Bernstein basis.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -348,9 +392,9 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B) LinearBezierBernsteinPolynomial(double a, double b)
-            => (b - a,
-                a);
+        public static (double A, double B) LinearBezierBernsteinBasis(double a, double b)
+            => (A: b - a,
+                B: a);
 
         /// <summary>
         /// Coefficients for a Quadratic Bézier curve.
@@ -366,10 +410,10 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C) QuadraticBezierBernsteinPolynomial(double a, double b, double c)
-            => (c - (2d * b) + a,
-                2d * (b - a),
-                a);
+        public static (double A, double B, double C) QuadraticBezierBernsteinBasis(double a, double b, double c)
+            => (A: c - (2d * b) + a,
+                B: 2d * (b - a),
+                C: a);
 
         /// <summary>
         /// Coefficients for a Cubic Bézier Bernstein curve.
@@ -386,11 +430,11 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D) CubicBezierBernsteinPolynomial(double a, double b, double c, double d)
-            => (d - (3d * c) + (3d * b) - a,
-                (3d * c) - (6d * b) + (3d * a),
-                3d * (b - a),
-                a);
+        public static (double A, double B, double C, double D) CubicBezierBernsteinBasis(double a, double b, double c, double d)
+            => (A: d - (3d * c) + (3d * b) - a,
+                B: (3d * c) - (6d * b) + (3d * a),
+                C: 3d * (b - a),
+                D: a);
 
         /// <summary>
         /// Coefficients for a Quartic Bézier curve.
@@ -407,12 +451,12 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E) QuarticBezierBernsteinPolynomial(double a, double b, double c, double d, double e)
-            => (e - (4d * d) + (6d * c) - (4d * b) + a,
-                (4d * d) - (12d * c) + (12d * b) - (4d * a),
-                (6d * c) - (12d * b) + (6d * a),
-                4d * (b - a),
-                a);
+        public static (double A, double B, double C, double D, double E) QuarticBezierBernsteinBasis(double a, double b, double c, double d, double e)
+            => (A: e - (4d * d) + (6d * c) - (4d * b) + a,
+                B: (4d * d) - (12d * c) + (12d * b) - (4d * a),
+                C: (6d * c) - (12d * b) + (6d * a),
+                D: 4d * (b - a),
+                E: a);
 
         /// <summary>
         /// Coefficients for a Quintic Bézier curve.
@@ -430,13 +474,13 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F) QuinticBezierBernsteinPolynomial(double a, double b, double c, double d, double e, double f)
-            => (f - (5d * e) + (10d * d) - (10d * c) + (5d * b) - a,
-                (5d * e) - (20d * d) + (30d * c) - (20d * b) + (5d * a),
-                (10d * d) - (30d * c) + (30d * b) - (10d * a),
-                (10d * c) - (20d * b) + (10d * a),
-                5d * (b - a),
-                a);
+        public static (double A, double B, double C, double D, double E, double F) QuinticBezierBernsteinBasis(double a, double b, double c, double d, double e, double f)
+            => (A: f - (5d * e) + (10d * d) - (10d * c) + (5d * b) - a,
+                B: (5d * e) - (20d * d) + (30d * c) - (20d * b) + (5d * a),
+                C: (10d * d) - (30d * c) + (30d * b) - (10d * a),
+                D: (10d * c) - (20d * b) + (10d * a),
+                E: 5d * (b - a),
+                F: a);
 
         /// <summary>
         /// Coefficients for a Sextic Bézier curve.
@@ -454,14 +498,14 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F, double G) SexticBezierBernsteinPolynomial(double a, double b, double c, double d, double e, double f, double g)
-            => (g - (6d * f) + (15d * e) - (20d * d) + (15d * c) - (6d * b) + a,
-                    (6d * f) - (30d * e) + (60d * d) - (60d * c) + (30d * b) - (6d * a),
-                    (15d * e) - (60d * d) + (90d * c) - (60d * b) + (15d * a),
-                    (20d * d) - (60d * c) + (60d * b) - (20d * a),
-                    (15d * c) - (30d * b) + (15d * a),
-                    (6d * b) - (6d * a),
-                    a);
+        public static (double A, double B, double C, double D, double E, double F, double G) SexticBezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g)
+            => (A: g - (6d * f) + (15d * e) - (20d * d) + (15d * c) - (6d * b) + a,
+                B: (6d * f) - (30d * e) + (60d * d) - (60d * c) + (30d * b) - (6d * a),
+                C: (15d * e) - (60d * d) + (90d * c) - (60d * b) + (15d * a),
+                D: (20d * d) - (60d * c) + (60d * b) - (20d * a),
+                E: (15d * c) - (30d * b) + (15d * a),
+                F: (6d * b) - (6d * a),
+                G: a);
 
         /// <summary>
         /// Coefficients for a Septic Bézier curve.
@@ -480,15 +524,15 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F, double G, double H) SepticBezierBernsteinPolynomial(double a, double b, double c, double d, double e, double f, double g, double h)
-            => (h - (7d * g) + (21d * f) - (35d * e) + (35d * d) - (21d * c) + (7d * b) - a,
-                (7d * g) - (42d * f) + (105d * e) - (140d * d) + (105d * c) - (42d * b) + (7d * a),
-                (21d * f) - (105d * e) + (210d * d) - (210d * c) + (105d * b) - (21d * a),
-                (35d * e) - (140d * d) + (210d * c) - (140d * b) + (35d * a),
-                (35d * d) - (105d * c) + (105d * b) - (35d * a),
-                (21d * c) - (42d * b) + (21d * a),
-                (7d * b) - (7d * a),
-                a);
+        public static (double A, double B, double C, double D, double E, double F, double G, double H) SepticBezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g, double h)
+            => (A: h - (7d * g) + (21d * f) - (35d * e) + (35d * d) - (21d * c) + (7d * b) - a,
+                B: (7d * g) - (42d * f) + (105d * e) - (140d * d) + (105d * c) - (42d * b) + (7d * a),
+                C: (21d * f) - (105d * e) + (210d * d) - (210d * c) + (105d * b) - (21d * a),
+                D: (35d * e) - (140d * d) + (210d * c) - (140d * b) + (35d * a),
+                E: (35d * d) - (105d * c) + (105d * b) - (35d * a),
+                F: (21d * c) - (42d * b) + (21d * a),
+                G: (7d * b) - (7d * a),
+                H: a);
 
         /// <summary>
         /// Coefficients for a Octic Bézier curve.
@@ -508,16 +552,16 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I) OcticBezierBernsteinPolynomial(double a, double b, double c, double d, double e, double f, double g, double h, double i)
-            => (i - (8d * h) + (28d * g) - (56d * f) + (70d * e) - (56d * d) + (28d * c) - (8d * b) + a,
-                (8d * h) - (56d * g) + (168d * f) - (280d * e) + (280d * d) - (168d * c) + (56d * b) - (8d * a),
-                (28d * g) - (168d * f) + (420d * e) - (560d * d) + (420d * c) - (168d * b) + (28d * a),
-                (56d * f) - (280d * e) + (560d * d) - (560d * c) + (280d * b) - (56d * a),
-                (70d * e) - (280d * d) + (420d * c) - (280d * b) + (70d * a),
-                (56d * d) - (168d * c) + (168d * b) - (56d * a),
-                (28d * c) - (56d * b) + (28d * a),
-                (8d * b) - (8d * a),
-                a);
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I) OcticBezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g, double h, double i)
+            => (A: i - (8d * h) + (28d * g) - (56d * f) + (70d * e) - (56d * d) + (28d * c) - (8d * b) + a,
+                B: (8d * h) - (56d * g) + (168d * f) - (280d * e) + (280d * d) - (168d * c) + (56d * b) - (8d * a),
+                C: (28d * g) - (168d * f) + (420d * e) - (560d * d) + (420d * c) - (168d * b) + (28d * a),
+                D: (56d * f) - (280d * e) + (560d * d) - (560d * c) + (280d * b) - (56d * a),
+                E: (70d * e) - (280d * d) + (420d * c) - (280d * b) + (70d * a),
+                F: (56d * d) - (168d * c) + (168d * b) - (56d * a),
+                G: (28d * c) - (56d * b) + (28d * a),
+                H: (8d * b) - (8d * a),
+                I: a);
 
         /// <summary>
         /// Coefficients for a Nonic Bézier curve.
@@ -538,17 +582,17 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) NonicBezierBernsteinPolynomial(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
-            => (j - (9d * i) + (36d * h) - (84d * g) + (126d * f) - (126d * e) + (84d * d) - (36d * c) + (9d * b) - a,
-                (9d * i) - (72d * h) + (252d * g) - (504d * f) + (630d * e) - (504d * d) + (252d * c) - (72d * b) + (9d * a),
-                (36d * h) - (252d * g) + (756d * f) - (1260d * e) + (1260d * d) - (756d * c) + (252 * b) - (36 * a),
-                (84d * g) - (504 * f) + (1260d * e) - (1680d * d) + (1260d * c) - (504d * b) + (84d * a),
-                (126d * f) - (630d * e) + (1260d * d) - (1260d * c) + (630d * b) - (126d * a),
-                (126d * e) - (504d * d) + (756d * c) - (504d * b) + (126d * a),
-                (84d * d) - (252d * c) + (252d * b) - (84d * a),
-                (36d * c) - (72d * b) + (36d * a),
-                (9d * b) - (9d * a),
-                a);
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) NonicBezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
+            => (A: j - (9d * i) + (36d * h) - (84d * g) + (126d * f) - (126d * e) + (84d * d) - (36d * c) + (9d * b) - a,
+                B: (9d * i) - (72d * h) + (252d * g) - (504d * f) + (630d * e) - (504d * d) + (252d * c) - (72d * b) + (9d * a),
+                C: (36d * h) - (252d * g) + (756d * f) - (1260d * e) + (1260d * d) - (756d * c) + (252d * b) - (36d * a),
+                D: (84d * g) - (504d * f) + (1260d * e) - (1680d * d) + (1260d * c) - (504d * b) + (84d * a),
+                E: (126d * f) - (630d * e) + (1260d * d) - (1260d * c) + (630d * b) - (126d * a),
+                F: (126d * e) - (504d * d) + (756d * c) - (504d * b) + (126d * a),
+                G: (84d * d) - (252d * c) + (252d * b) - (84d * a),
+                H: (36d * c) - (72d * b) + (36d * a),
+                I: (9d * b) - (9d * a),
+                J: a);
 
         /// <summary>
         /// Coefficients for a Decic Bézier curve.
@@ -570,19 +614,19 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) DecicBezierBernsteinPolynomial(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
-            => (k - (10 * j) + (45 * i) - (120 * h) + (210 * g) - (252 * f) + (210 * e) - (120 * d) + (45 * c) - (10 * b) + a,
-                (10 * j) - (90d * i) + (360d * h) - (840d * g) + (1260d * f) - (1260d * e) + (840d * d) - (360d * c) + (90d * b) - (10 * a),
-                (45d * i) - (360d * h) + (1260d * g) - (2520d * f) + (3150d * e) - (2520d * d) + (1260d * c) - (360d * b) + (45d * a),
-                (120d * h) - (840d * g) + (2520d * f) - (4200d * e) + (4200d * d) - (2520d * c) + (840d * b) - (120d * a),
-                (210d * g) - (1260d * f) + (3150d * e) - (4200d * d) + (3150d * c) - (1260d * b) + (210d * a),
-                (252d * f) - (1260d * e) + (2520d * d) - (2520d * c) + (1260d * b) - (252d * a),
-                (210d * e) - (840d * d) + (1260d * c) - (840d * b) + (210d * a),
-                (120d * d) - (360d * c) + (360d * b) - (120d * a),
-                (45d * c) - (90d * b) + (45d * a),
-                (10d * b) - (10d * a),
-                a);
-        #endregion Bézier Bernstein Polynomial
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) DecicBezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
+            => (A: k - (10d * j) + (45d * i) - (120d * h) + (210d * g) - (252d * f) + (210d * e) - (120d * d) + (45d * c) - (10d * b) + a,
+                B: (10d * j) - (90d * i) + (360d * h) - (840d * g) + (1260d * f) - (1260d * e) + (840d * d) - (360d * c) + (90d * b) - (10d * a),
+                C: (45d * i) - (360d * h) + (1260d * g) - (2520d * f) + (3150d * e) - (2520d * d) + (1260d * c) - (360d * b) + (45d * a),
+                D: (120d * h) - (840d * g) + (2520d * f) - (4200d * e) + (4200d * d) - (2520d * c) + (840d * b) - (120d * a),
+                E: (210d * g) - (1260d * f) + (3150d * e) - (4200d * d) + (3150d * c) - (1260d * b) + (210d * a),
+                F: (252d * f) - (1260d * e) + (2520d * d) - (2520d * c) + (1260d * b) - (252d * a),
+                G: (210d * e) - (840d * d) + (1260d * c) - (840d * b) + (210d * a),
+                H: (120d * d) - (360d * c) + (360d * b) - (120d * a),
+                I: (45d * c) - (90d * b) + (45d * a),
+                J: (10d * b) - (10d * a),
+                K: a);
+        #endregion Bézier Bernstein Basis
 
         #region Bezier Polynomial From Parametric
         /// <summary>
@@ -1000,8 +1044,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e, double f) EllipseConicSectionPolynomial(double h, double k, double a, double b, double angle)
-            => EllipseConicSectionPolynomial(h, k, a, b, Cos(angle), Sin(angle));
+        public static (double a, double b, double c, double d, double e, double f) EllipseConicSectionPolynomial(double h, double k, double a, double b, double angle) => EllipseConicSectionPolynomial(h, k, a, b, Cos(angle), Sin(angle));
 
         /// <summary>
         /// Calculates a conic section polynomial that represents the provided rotated ellipse.

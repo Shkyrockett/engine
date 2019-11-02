@@ -314,11 +314,11 @@ namespace Engine
                 return LinearRoots(b, c, epsilon);
             }
 
-            var b_ = b / a;
-            var c_ = c / a;
+            var ba = b / a;
+            var ca = c / a;
 
             // Polynomial discriminant
-            var discriminant = (b_ * b_) - (4d * c_);
+            var discriminant = (ba * ba) - (4d * ca);
 
             // ToDo: May need to switch from a hash set to a list for scan-beams.
             var results = new HashSet<double>();
@@ -330,15 +330,22 @@ namespace Engine
 
             if (discriminant > 0)
             {
-                // Complex or duplicate roots
+                // Real Roots.
                 var e = Sqrt(discriminant);
-                results.Add(OneHalf * (-b_ + e));
-                results.Add(OneHalf * (-b_ - e));
+                results.Add(OneHalf * (-ba + e));
+                results.Add(OneHalf * (-ba - e));
             }
             else if (discriminant == 0)
             {
-                // really two roots with same value, but we only return one
-                results.Add(OneHalf * -b_);
+                // Technically two roots with same value, but we only need the one.
+                results.Add(OneHalf * -ba);
+            }
+            else
+            {
+                // Imaginary roots? Technically incorrect, but it seems to fix the problem where ellipses intersections were broken... 
+                var e = -Sqrt(-discriminant);
+                results.Add(OneHalf * (-ba + e));
+                results.Add(OneHalf * (-ba - e));
             }
 
             return results.ToList();
@@ -367,17 +374,17 @@ namespace Engine
                 return QuadraticRoots(b, c, d, epsilon);
             }
 
-            var A = b / a;
-            var B = c / a;
-            var C = d / a;
+            var ba = b / a;
+            var ca = c / a;
+            var da = d / a;
 
-            var Q = ((3d * B) - (A * A)) / 9d;
-            var R = (-(2d * A * A * A) + (9d * A * B) - (27d * C)) / 54d;
+            var q = ((3d * ca) - (ba * ba)) / 9d;
+            var r = (-(2d * ba * ba * ba) + (9d * ba * ca) - (27d * da)) / 54d;
 
-            var offset = A * OneThird;
+            var offset = ba * OneThird;
 
             // Polynomial discriminant
-            var discriminant = (R * R) + (Q * Q * Q);
+            var discriminant = (r * r) + (q * q * q);
 
             // ToDo: May need to switch from a hash set to a list for scan-beams.
             var results = new HashSet<double>();
@@ -389,7 +396,7 @@ namespace Engine
 
             if (discriminant == 0d)
             {
-                var t = Sign(R) * Pow(Math.Abs(R), OneThird);
+                var t = Sign(r) * Pow(Math.Abs(r), OneThird);
 
                 // Real root.
                 results.Add(-offset + (t + t));
@@ -399,8 +406,8 @@ namespace Engine
             }
             if (discriminant > 0)
             {
-                var s = Sign(R + Sqrt(discriminant)) * Pow(Math.Abs(R + Sqrt(discriminant)), OneThird);
-                var t = Sign(R - Sqrt(discriminant)) * Pow(Math.Abs(R - Sqrt(discriminant)), OneThird);
+                var s = Sign(r + Sqrt(discriminant)) * Pow(Math.Abs(r + Sqrt(discriminant)), OneThird);
+                var t = Sign(r - Sqrt(discriminant)) * Pow(Math.Abs(r - Sqrt(discriminant)), OneThird);
 
                 // Real root.
                 results.Add(-offset + (s + t));
@@ -416,11 +423,11 @@ namespace Engine
             else if (discriminant < 0)
             {
                 // Distinct real roots.
-                var th = Acos(R / Sqrt(-Q * Q * Q));
+                var th = Acos(r / Sqrt(-q * q * q));
 
-                results.Add((2d * Sqrt(-Q) * Cos(th * OneThird)) - offset);
-                results.Add((2d * Sqrt(-Q) * Cos((th + Tau) * OneThird)) - offset);
-                results.Add((2d * Sqrt(-Q) * Cos((th + (4d * PI)) * OneThird)) - offset);
+                results.Add((2d * Sqrt(-q) * Cos(th * OneThird)) - offset);
+                results.Add((2d * Sqrt(-q) * Cos((th + Tau) * OneThird)) - offset);
+                results.Add((2d * Sqrt(-q) * Cos((th + (4d * PI)) * OneThird)) - offset);
             }
 
             return results.ToList();
@@ -464,19 +471,19 @@ namespace Engine
             // ToDo: Translate code found at: https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html
             // and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
 
-            var A = b / a;
-            var B = c / a;
-            var C = d / a;
-            var D = e / a;
+            var ba = b / a;
+            var ca = c / a;
+            var da = d / a;
+            var ea = e / a;
 
             var resolveRoots = CubicRoots(
                 1d,
-                -B,
-                (A * C) - (4d * D),
-                (-A * A * D) + (4d * B * D) - (C * C),
+                -ca,
+                (ba * da) - (4d * ea),
+                (-ba * ba * ea) + (4d * ca * ea) - (da * da),
                 epsilon);
             var y = resolveRoots[0];
-            var discriminant = (A * A * OneQuarter) - B + y;
+            var discriminant = (ba * ba * OneQuarter) - ca + y;
 
             // ToDo: May need to switch from a hash set to a list for scan-beams.
             var results = new HashSet<double>();
@@ -488,9 +495,10 @@ namespace Engine
 
             if (discriminant > 0d)
             {
+                // Real Roots.
                 var ee = Sqrt(discriminant);
-                var t1 = (3d * A * A * OneQuarter) - (ee * ee) - (2d * B);
-                var t2 = ((4d * A * B) - (8d * C) - (A * A * A)) / (4d * ee);
+                var t1 = (3d * ba * ba * OneQuarter) - (ee * ee) - (2d * ca);
+                var t2 = ((4d * ba * ca) - (8d * da) - (ba * ba * ba)) / (4d * ee);
                 var plus = t1 + t2;
                 var minus = t1 - t2;
                 if (Math.Abs(plus) <= epsilon)
@@ -506,22 +514,20 @@ namespace Engine
                 if (plus >= 0d)
                 {
                     var f = Sqrt(plus);
-                    results.Add((-A * OneQuarter) + ((ee + f) * OneHalf));
-                    results.Add((-A * OneQuarter) + ((ee - f) * OneHalf));
+                    results.Add((-ba * OneQuarter) + ((ee + f) * OneHalf));
+                    results.Add((-ba * OneQuarter) + ((ee - f) * OneHalf));
                 }
                 if (minus >= 0d)
                 {
                     var f = Sqrt(minus);
-                    results.Add((-A * OneQuarter) + ((f - ee) * OneHalf));
-                    results.Add((-A * OneQuarter) - ((f + ee) * OneHalf));
+                    results.Add((-ba * OneQuarter) + ((f - ee) * OneHalf));
+                    results.Add((-ba * OneQuarter) - ((f + ee) * OneHalf));
                 }
             }
-            else if (discriminant < 0d)
+            else if (discriminant == 0d)
             {
-            }
-            else
-            {
-                var t2 = (y * y) - (4d * D);
+                // Origin Roots.
+                var t2 = (y * y) - (4d * ea);
                 if (t2 >= -epsilon)
                 {
                     if (t2 < 0)
@@ -530,20 +536,24 @@ namespace Engine
                     }
 
                     t2 = 2d * Sqrt(t2);
-                    var t1 = (3d * A * A * OneQuarter) - (2d * B);
+                    var t1 = (3d * ba * ba * OneQuarter) - (2d * ca);
                     if (t1 + t2 >= epsilon)
                     {
                         var d0 = Sqrt(t1 + t2);
-                        results.Add((-A * OneQuarter) + (d0 * OneHalf));
-                        results.Add((-A * OneQuarter) - (d0 * OneHalf));
+                        results.Add((-ba * OneQuarter) + (d0 * OneHalf));
+                        results.Add((-ba * OneQuarter) - (d0 * OneHalf));
                     }
                     if (t1 - t2 >= epsilon)
                     {
                         var d1 = Sqrt(t1 - t2);
-                        results.Add((-A * OneQuarter) + (d1 * OneHalf));
-                        results.Add((-A * OneQuarter) - (d1 * OneHalf));
+                        results.Add((-ba * OneQuarter) + (d1 * OneHalf));
+                        results.Add((-ba * OneQuarter) - (d1 * OneHalf));
                     }
                 }
+            }
+            else if (discriminant < 0d)
+            {
+                // Imaginary roots?
             }
 
             return results.ToList();
@@ -737,6 +747,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double NewtonSecantBisection(double x0, Func<double, double> f, Func<double, double> df, int maxIterations, double? min = null, double? max = null)
         {
+            if (f is null)
+            {
+                throw new ArgumentNullException(nameof(f));
+            }
+
             var prev_dfx = 0d;
             var prev_x_ef_correction = 0d;
             var y_atmin = 0d;

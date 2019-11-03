@@ -4100,7 +4100,7 @@ namespace Editor
             //var extents15 = e15.ExtremePoints;
             //var extents15NodeItem = new GraphicItem(new NodeRevealer(extents15, 5d), handleStyle);
 
-            var points7 = Intersections.OrthogonalEllipseOrthogonalEllipseIntersection(e14.Center.X, e14.Center.Y, e14.RX, e14.RY, e15.Center.X, e15.Center.Y, e15.RX, e15.RY);
+            var points7 = Intersections.ObliqueEllipseObliqueEllipseIntersection(e14.Center.X, e14.Center.Y, e14.RX, e14.RY, e14.Angle, e15.Center.X, e15.Center.Y, e15.RX, e15.RY, e15.Angle);
             var intersections7 = new Intersection(points7.Points.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points7.Points);
             var intersectionNodeItem7 = new GraphicItem(new NodeRevealer(intersections7.Points, 5d), handleStyle)
             {
@@ -4144,7 +4144,12 @@ namespace Editor
                 e12.Angle = 45d.DegreesToRadians();
                 e13.Angle = -45d.DegreesToRadians();
                 vectorMap?.Tweener.Tween(e12, new { Angle = 360d.DegreesToRadians() + 0d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
-                vectorMap?.Tweener.Tween(e13, new { Angle = 360d.DegreesToRadians() + 90d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear)
+                vectorMap?.Tweener.Tween(e13, new { Angle = 360d.DegreesToRadians() + 90d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
+
+                e14.Angle = 0d.DegreesToRadians();
+                e15.Angle = 0d.DegreesToRadians();
+                vectorMap?.Tweener.Tween(e14, new { Angle = 360d.DegreesToRadians() + 0d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e15, new { Angle = 360d.DegreesToRadians() + 0d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear)
                     .OnUpdate(() => update());
             }
 
@@ -4198,6 +4203,13 @@ namespace Editor
                 //extents13NodeItem.Shape = new NodeRevealer(e13.ExtremePoints, 5d);
                 //ellipse12BoundsItem.Shape = e12.Bounds;
                 //ellipse13BoundsItem.Shape = e13.Bounds;
+
+                intersectionNodeItem7.Shape.ClearCache();
+                intersectionNodeItem7.Shape = new NodeRevealer(Intersections.ObliqueEllipseObliqueEllipseIntersection(e14.Center.X, e14.Center.Y, e14.RX, e14.RY, e14.Angle, e15.Center.X, e15.Center.Y, e15.RX, e15.RY, e15.Angle).Points, 5d);
+                //extents14NodeItem.Shape = new NodeRevealer(e14.ExtremePoints, 5d);
+                //extents15NodeItem.Shape = new NodeRevealer(e15.ExtremePoints, 5d);
+                //ellipse14BoundsItem.Shape = e14.Bounds;
+                //ellipse15BoundsItem.Shape = e15.Bounds;
 
                 form.UpdateCallback();
             }
@@ -4264,7 +4276,7 @@ namespace Editor
         /// Development test cases for testing intersection methods between ellipses.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
-        public static void IntersectingsEllipseEllipse(VectorMap vectorMap)
+        public static void IntersectingsEllipseEllipse(VectorMap vectorMap, EditorForm form)
         {
             var location = new Point2D(100, 100);
             var scale = new Size2D(75, 50);
@@ -4297,6 +4309,26 @@ namespace Editor
             {
                 Name = "Intersection Points"
             };
+
+            (var duration, var delay) = (360d, 0d);
+            form.ResetAction = new Action(reset);
+            void reset()
+            {
+                ellipse1.Angle = 0d;
+                ellipse2.Angle = 0d;
+                vectorMap?.Tweener.Tween(ellipse1, new { Angle = 360d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(ellipse2, new { Angle = 360d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear)
+                    .OnUpdate(() => update());
+            }
+
+            void update()
+            {
+                intersectionNodeItem.Shape.ClearCache();
+                intersectionNodeItem.Shape = new NodeRevealer(ellipse1.Intersection(ellipse2).Points, 5d);
+                ellipse1BoundsItem.Shape = ellipse1.Bounds;
+                ellipse2BoundsItem.Shape = ellipse2.Bounds;
+                form.UpdateCallback();
+            }
 
             vectorMap?.Add(ellipse1BoundsItem);
             vectorMap?.Add(ellipse2BoundsItem);

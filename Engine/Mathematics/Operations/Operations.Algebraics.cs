@@ -139,7 +139,7 @@ namespace Engine
             var dy = y2 - y1;
             var det = (dx * dx) + (dy * dy);
 
-            // I believe det should only be 0 if the line is a point. Not sure what the correct value shoud be for overlapping points.
+            // I believe det should only be 0 if the line is a point. Not sure what the correct value should be for overlapping points.
             var sinA = det == 0 ? 0 : -dy / det;
             var cosA = det == 0 ? 1 : -dx / det;
 
@@ -280,13 +280,16 @@ namespace Engine
             {
                 if (!(Math.Abs(b) < epsilon))
                 {
+                    // Monomial. 
                     result.Add(b);
                 }
                 else
                 {
+                    // Zero Monomial. No results.
                     return result.ToList();
                 }
             }
+
             result.Add(-b / a);
 
             return result.ToList();

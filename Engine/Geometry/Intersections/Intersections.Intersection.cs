@@ -6680,7 +6680,7 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentOrthogonalEllipseIntersection(Polynomial xCurve, Polynomial yCurve, double h, double k, double a, double b, double angle, double epsilon = Epsilon) => QuadraticBezierSegmentOrthogonalEllipseIntersection(xCurve, yCurve, h, k, a, b, Cos(angle), Sin(angle), epsilon = Epsilon);
+        internal static Intersection QuadraticBezierSegmentObliqueEllipseIntersection(Polynomial xCurve, Polynomial yCurve, double h, double k, double a, double b, double angle, double epsilon = Epsilon) => QuadraticBezierSegmentObliqueEllipseIntersection(xCurve, yCurve, h, k, a, b, Cos(angle), Sin(angle), epsilon = Epsilon);
 
         /// <summary>
         /// Find the intersection between a quadratic Bézier and an orthogonal ellipse.
@@ -6702,11 +6702,12 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentOrthogonalEllipseIntersection(
+        internal static Intersection QuadraticBezierSegmentObliqueEllipseIntersection(
             Polynomial xCurve, Polynomial yCurve,
             double h, double k, double a, double b, double cos, double sin,
             double epsilon = Epsilon)
         {
+            // This is broken.
             _ = epsilon;
 
             (var ax, var bx, var cx) = (xCurve[0], xCurve[1], xCurve[2]);
@@ -6942,6 +6943,7 @@ namespace Engine
             double h, double k, double a, double b, double cos, double sin,
             double epsilon = Epsilon)
         {
+            // This is broken.
             if (sin == 1d || sin == -1d) cos = 0d;
 
             _ = epsilon;
@@ -7145,7 +7147,10 @@ namespace Engine
             }
 
             // If the ellipses are rotated at 90 degrees to each other, and their sizes are opposites, everything gets messed up. So, let's use Orthogonal intersection code.
-            if (CrossProduct(cos1, sin1, cos2, sin2) == 1d && a1 == b2 && a2 == b1)
+            var incidenceEpsilon = 5e-16d;
+            //var crossProduct = CrossProduct(cos1, sin1, cos2, sin2);
+            var incidence = AngleVectorIncidence(cos1, sin1, cos2, sin2, incidenceEpsilon);
+            if (incidence == Incidence.Perpendicular && a1 == b2 && a2 == b1)
             {
                 // Rotate the center point of the second ellipse in the reverse angle about the center of the first ellipse to align with it.
                 (h2, k2) = RotatePoint2D(h2, k2, cos1, -sin1, h1, k1);
@@ -7166,22 +7171,43 @@ namespace Engine
                 // Return result.
                 return intersection;
             }
+            // If the ellipses are parallel and have the same a and b. Rotate and use orthogonal intersection code.
+            else if (incidence == Incidence.Parallel && a1 == a2 && b1 == b2)
+            {
+                // Rotate the center point of the second ellipse in the reverse angle about the center of the first ellipse to align with it.
+                (h2, k2) = RotatePoint2D(h2, k2, cos1, -sin1, h1, k1);
+
+                // Find the points of intersection.
+                var intersection = OrthogonalEllipseOrthogonalEllipseIntersection(h1, k1, a1, b1, h2, k2, a2, b2, epsilon);
+
+                // Rotate the points back forwards to the locations of the intersection.
+                for (var i = 0; i < intersection.Points.Count; i++)
+                {
+                    // Rotate point.
+                    intersection.Points[i] = RotatePoint2D(intersection.Points[i].X, intersection.Points[i].Y, cos1, sin1, h1, k1);
+                }
+
+                // Return result.
+                return intersection;
+            }
 
             // Polynomials representing the Ellipses.
             var e1 = EllipseConicSectionPolynomial(h1, k1, a1, b1, cos1, sin1);
             var e2 = EllipseConicSectionPolynomial(h2, k2, a2, b2, cos2, sin2);
 
-            var yRoots = new Polynomial(ConicSectionBezout(e1, e2)).Trim().Roots();
+            var v = new Polynomial(ConicSectionBezout(e1, e2)).Trim();
+            var yRoots = v.Roots();
+            var xRoots = new double[0];
 
             // Double epsilon is too small for here.
-            epsilon = 1e-6; //1e-3;
-            var norm0 = ((e1.a * e1.a) + (2d * e1.b * e1.b) + (e1.c * e1.c)) * epsilon;
-            var norm1 = ((e2.a * e2.a) + (2d * e2.b * e2.b) + (e2.c * e2.c)) * epsilon;
+            var normEpsilon = 1e-6; //1e-3;
+            var norm0 = ((e1.a * e1.a) + (2d * e1.b * e1.b) + (e1.c * e1.c)) * normEpsilon;
+            var norm1 = ((e2.a * e2.a) + (2d * e2.b * e2.b) + (e2.c * e2.c)) * normEpsilon;
 
             var result = new Intersection(IntersectionStates.NoIntersection);
             foreach (var s in yRoots)
             {
-                var xRoots = new Polynomial((
+                xRoots = new Polynomial((
                     a: e1.a,
                     b: e1.d + s * e1.b,
                     c: e1.f + s * (e1.e + s * e1.c)
@@ -7199,6 +7225,15 @@ namespace Engine
                     }
                 }
             }
+
+            //if (result.Points.Count < 1)
+            //{
+            //    // The Quadratic and Linear roots are not always finding correct intersection points.
+            //    // What if everything was rotated around the first ellipse, then try to find the intersection?
+            //    // But what determines that the resulting roots won't be close? 
+            //    // Is the Linear roots method broken?
+            //    Debugger.Break();
+            //}
 
             if (result.Points.Count > 0)
             {

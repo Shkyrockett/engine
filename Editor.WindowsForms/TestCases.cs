@@ -4107,49 +4107,82 @@ namespace Editor
                 Name = "Ellipse, Ellipse Intersection 7"
             };
 
+            var e16 = new Ellipse(100d, 600d, 50d, 100d, Atan2(0.052335956242943828, 0.99862953475457383));
+            var ellipse16Item = new GraphicItem(e16, intersectionRed)
+            {
+                Name = "Ellipse 16"
+            };
+            //var ellipse16BoundsItem = new GraphicItem(e16.Bounds, selectionStyle)
+            //{
+            //    Name = "Ellipse 16 Bounds"
+            //};
+            //var extents16 = e16.ExtremePoints;
+            //var extents16NodeItem = new GraphicItem(new NodeRevealer(extents16, 5d), handleStyle);
+
+            var e17 = new Ellipse(150d, 650d, 100d, 50d, Atan2(0.99862953475457383, -0.052335956242943842));
+            var ellipse17Item = new GraphicItem(e17, intersectionBlue)
+            {
+                Name = "Ellipse 17"
+            };
+            //var ellipse17BoundsItem = new GraphicItem(e17.Bounds, selectionStyle)
+            //{
+            //    Name = "Ellipse 17 Bounds"
+            //};
+            //var extents17 = e17.ExtremePoints;
+            //var extents17NodeItem = new GraphicItem(new NodeRevealer(extents17, 5d), handleStyle);
+
+            var points8 = Intersections.ObliqueEllipseObliqueEllipseIntersection(e16.Center.X, e16.Center.Y, e16.RX, e16.RY, e16.Angle, e17.Center.X, e17.Center.Y, e17.RX, e17.RY, e17.Angle);
+            var intersections8 = new Intersection(points8.Points.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points8.Points);
+            var intersectionNodeItem8 = new GraphicItem(new NodeRevealer(intersections8.Points, 5d), handleStyle)
+            {
+                Name = "Ellipse, Ellipse Intersection 8"
+            };
+
             (var duration, var delay) = (360d, 0d);
             form.ResetAction = new Action(reset);
             void reset()
             {
+                var revolution = 360d.DegreesToRadians();
+
                 e0.Angle = 30d.DegreesToRadians();
                 e1.Angle = -30d.DegreesToRadians();
-                vectorMap?.Tweener.Tween(e0, new { Angle = 360d.DegreesToRadians() + 30d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
-                vectorMap?.Tweener.Tween(e1, new { Angle = 360d.DegreesToRadians() - 30d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e0, new { Angle = revolution + e0.Angle }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e1, new { Angle = revolution + e1.Angle }, duration, delay).Ease(Ease.Linear);
 
                 e2.Angle = 30d.DegreesToRadians();
                 e3.Angle = -30d.DegreesToRadians();
-                vectorMap?.Tweener.Tween(e2, new { Angle = 360d.DegreesToRadians() + 30d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
-                vectorMap?.Tweener.Tween(e3, new { Angle = 360d.DegreesToRadians() - 30d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e2, new { Angle = revolution + e2.Angle }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e3, new { Angle = revolution + e3.Angle }, duration, delay).Ease(Ease.Linear);
 
                 e4.Angle = 0d.DegreesToRadians();
                 e5.Angle = 90d.DegreesToRadians();
-                vectorMap?.Tweener.Tween(e4, new { Angle = 360d.DegreesToRadians() + 0d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
-                vectorMap?.Tweener.Tween(e5, new { Angle = 360d.DegreesToRadians() + 90d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e4, new { Angle = revolution + e4.Angle }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e5, new { Angle = revolution + e5.Angle }, duration, delay).Ease(Ease.Linear);
 
                 e6.Angle = 30d.DegreesToRadians();
                 e7.Angle = 30d.DegreesToRadians();
-                vectorMap?.Tweener.Tween(e6, new { Angle = 360d.DegreesToRadians() + 30d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
-                vectorMap?.Tweener.Tween(e7, new { Angle = 360d.DegreesToRadians() + 30d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e6, new { Angle = revolution + e6.Angle }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e7, new { Angle = revolution + e7.Angle }, duration, delay).Ease(Ease.Linear);
 
                 e8.Angle = 45d.DegreesToRadians();
                 e9.Angle = -45d.DegreesToRadians();
-                vectorMap?.Tweener.Tween(e8, new { Angle = 360d.DegreesToRadians() + 45d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
-                vectorMap?.Tweener.Tween(e9, new { Angle = 360d.DegreesToRadians() - 45d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e8, new { Angle = revolution + e8.Angle }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e9, new { Angle = revolution + e9.Angle }, duration, delay).Ease(Ease.Linear);
 
-                e10.Angle = 45d.DegreesToRadians();
-                e11.Angle = -45d.DegreesToRadians();
-                vectorMap?.Tweener.Tween(e10, new { Angle = 360d.DegreesToRadians() + 0d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
-                vectorMap?.Tweener.Tween(e11, new { Angle = 360d.DegreesToRadians() + 0d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
+                e10.Angle = 0d.DegreesToRadians();
+                e11.Angle = 0d.DegreesToRadians();
+                vectorMap?.Tweener.Tween(e10, new { Angle = revolution + e10.Angle }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e11, new { Angle = revolution + e11.Angle }, duration, delay).Ease(Ease.Linear);
 
-                e12.Angle = 45d.DegreesToRadians();
-                e13.Angle = -45d.DegreesToRadians();
-                vectorMap?.Tweener.Tween(e12, new { Angle = 360d.DegreesToRadians() + 0d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
-                vectorMap?.Tweener.Tween(e13, new { Angle = 360d.DegreesToRadians() + 90d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
+                e12.Angle = 0d.DegreesToRadians();
+                e13.Angle = 90d.DegreesToRadians();
+                vectorMap?.Tweener.Tween(e12, new { Angle = revolution + e12.Angle }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e13, new { Angle = revolution + e13.Angle }, duration, delay).Ease(Ease.Linear);
 
                 e14.Angle = 0d.DegreesToRadians();
                 e15.Angle = 0d.DegreesToRadians();
-                vectorMap?.Tweener.Tween(e14, new { Angle = 360d.DegreesToRadians() + 0d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear);
-                vectorMap?.Tweener.Tween(e15, new { Angle = 360d.DegreesToRadians() + 0d.DegreesToRadians() }, duration, delay).Ease(Ease.Linear)
+                vectorMap?.Tweener.Tween(e14, new { Angle = revolution + e14.Angle }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e15, new { Angle = revolution + e15.Angle }, duration, delay).Ease(Ease.Linear)
                     .OnUpdate(() => update());
             }
 
@@ -4270,6 +4303,13 @@ namespace Editor
             vectorMap?.Add(ellipse15Item);
             //vectorMap?.Add(extents15NodeItem);
             vectorMap?.Add(intersectionNodeItem7);
+            //vectorMap?.Add(ellipse16BoundsItem);
+            vectorMap?.Add(ellipse16Item);
+            //vectorMap?.Add(extents16NodeItem);
+            //vectorMap?.Add(ellipse17BoundsItem);
+            vectorMap?.Add(ellipse17Item);
+            //vectorMap?.Add(extents17NodeItem);
+            vectorMap?.Add(intersectionNodeItem8);
         }
 
         /// <summary>

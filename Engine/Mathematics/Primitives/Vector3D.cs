@@ -25,7 +25,7 @@ namespace Engine
     /// <summary>
     /// The vector3d struct. Represents a vector in 3D coordinate space (double precision floating-point coordinates).
     /// </summary>
-    /// <seealso cref="Engine.IVector{T}" />
+    /// <seealso cref="IVector{T}" />
     [ComVisible(true)]
     [DataContract, Serializable]
     //[TypeConverter(typeof(Vector3DConverter))]
@@ -141,11 +141,16 @@ namespace Engine
         public Vector3D(double aI, double aJ, double aK, double bI, double bJ, double bK)
             : this()
         {
+            // This creates a normalized vector. It is debatable that it is what we actually want. We may only want the first line.
+
+            // Find the new vector.
             (var i, var j, var k) = (bI - aI, bJ - aJ, bK - aK);
+
+            // Get the length of the vector.
             var d = Sqrt((i * i) + (j * j) + (k * k));
-            I = i * 1d / d;
-            J = j * 1d / d;
-            K = k * 1d / d;
+
+            // Calculate the normalized vector.
+            (I, J, K) = d == 0 ? (i, j, k) : (i * 1d / d, j * 1d / d, k * 1d / d);
         }
         #endregion Constructors
 

@@ -208,7 +208,7 @@ namespace Engine
         /// Enumerate all values at the <see cref="Step" /> interval between the <see cref="Max" /> and <see cref="Min" /> values.
         /// </summary>
         /// <returns>
-        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// An <see cref="IEnumerator" /> object that can be used to iterate through the collection.
         /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {

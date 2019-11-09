@@ -28,7 +28,7 @@ namespace Engine
     /// <summary>
     /// The matrix4x4d struct.
     /// </summary>
-    /// <seealso cref="Engine.IMatrix{T}" />
+    /// <seealso cref="IMatrix{M, V}" />
     [ComVisible(true)]
     [DataContract, Serializable]
     //[TypeConverter(typeof(Matrix4x4DConverter))]
@@ -871,7 +871,7 @@ namespace Engine
         /// Get the enumerator.
         /// </summary>
         /// <returns>
-        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// An <see cref="IEnumerator" /> object that can be used to iterate through the collection.
         /// </returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

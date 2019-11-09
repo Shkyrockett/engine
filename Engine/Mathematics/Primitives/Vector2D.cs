@@ -25,7 +25,7 @@ namespace Engine
     /// <summary>
     /// The vector2d struct. Represents a vector in 2D coordinate space (double precision floating-point coordinates).
     /// </summary>
-    /// <seealso cref="Engine.IVector{T}" />
+    /// <seealso cref="IVector{T}" />
     [ComVisible(true)]
     [DataContract, Serializable]
     [TypeConverter(typeof(StructConverter<Vector2D>))]
@@ -140,10 +140,7 @@ namespace Engine
             var d = Sqrt((i * i) + (j * j));
 
             // Calculate the normalized vector.
-            I = i * 1d / d;
-            J = j * 1d / d;
-
-            // ToDo: What should happen when d is zero? What is the normalized size of a length 0 vector?
+            (I, J) = d == 0 ? (i, j) : (i * 1d / d, j * 1d / d);
         }
         #endregion Constructors
 

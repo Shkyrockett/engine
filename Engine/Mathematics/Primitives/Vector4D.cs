@@ -150,12 +150,16 @@ namespace Engine
         public Vector4D(double aI, double aJ, double aK, double aL, double bI, double bJ, double bK, double bL)
             : this()
         {
+            // This creates a normalized vector. It is debatable that it is what we actually want. We may only want the first line.
+
+            // Find the new vector.
             (var i, var j, var k, var l) = (bI - aI, bJ - aJ, bK - aK, bL - aL);
+
+            // Get the length of the vector.
             var d = Sqrt((i * i) + (j * j) + (k * k) + (l * l));
-            I = i * 1d / d;
-            J = j * 1d / d;
-            K = k * 1d / d;
-            L = l * 1d / d;
+
+            // Calculate the normalized vector.
+            (I, J, K, L) = d == 0 ? (i, j, k, l) : (i * 1d / d, j * 1d / d, k * 1d / d, l * 1d / d);
         }
         #endregion Constructors
 

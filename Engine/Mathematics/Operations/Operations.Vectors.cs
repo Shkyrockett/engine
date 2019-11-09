@@ -1204,7 +1204,7 @@ namespace Engine
         /// <param name="j">The j.</param>
         /// <returns></returns>
         /// <remarks>
-        /// To get the perpendicular vector in two dimensions use I = -J, J = I
+        /// <para>To get the perpendicular vector in two dimensions use I = -J, J = I</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1219,7 +1219,7 @@ namespace Engine
         /// <param name="j">The j.</param>
         /// <returns></returns>
         /// <remarks>
-        /// To get the perpendicular vector in two dimensions use I = -J, J = I
+        /// <para>To get the perpendicular vector in two dimensions use I = -J, J = I</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

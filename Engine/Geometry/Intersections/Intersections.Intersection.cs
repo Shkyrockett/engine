@@ -38,11 +38,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Measurements;
 using static Engine.Operations;
 using static Engine.Polynomials;
+using static System.Math;
 
 namespace Engine
 {
@@ -107,47 +107,31 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX a, BezierSegmentX b, double epsilon = Epsilon)
         {
-            switch (a.Degree)
+            return a.Degree switch
             {
-                case PolynomialDegree.Linear:
-                    switch (b.Degree)
-                    {
-                        case PolynomialDegree.Linear:
-                            return LineSegmentLineSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, a[0].X, a[0].Y, a[1].X, a[1].Y, epsilon);
-                        case PolynomialDegree.Quadratic:
-                            return LineSegmentQuadraticBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, a.CurveX, a.CurveY, epsilon);
-                        case PolynomialDegree.Cubic:
-                            return LineSegmentCubicBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, a.CurveX, a.CurveY, epsilon);
-                        default:
-                            return new Intersection(IntersectionStates.NoIntersection);
-                    }
-                case PolynomialDegree.Quadratic:
-                    switch (b.Degree)
-                    {
-                        case PolynomialDegree.Linear:
-                            return LineSegmentQuadraticBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, a.CurveX, a.CurveY, epsilon);
-                        case PolynomialDegree.Quadratic:
-                            return QuadraticBezierSegmentQuadraticBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
-                        case PolynomialDegree.Cubic:
-                            return QuadraticBezierSegmentCubicBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
-                        default:
-                            return new Intersection(IntersectionStates.NoIntersection);
-                    }
-                case PolynomialDegree.Cubic:
-                    switch (b.Degree)
-                    {
-                        case PolynomialDegree.Linear:
-                            return LineSegmentCubicBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, a.CurveX, a.CurveY, epsilon);
-                        case PolynomialDegree.Quadratic:
-                            return QuadraticBezierSegmentCubicBezierSegmentIntersection(b.CurveX, b.CurveY, a.CurveX, a.CurveY, epsilon);
-                        case PolynomialDegree.Cubic:
-                            return CubicBezierSegmentCubicBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
-                        default:
-                            return new Intersection(IntersectionStates.NoIntersection);
-                    }
-                default:
-                    return new Intersection(IntersectionStates.NoIntersection);
-            }
+                PolynomialDegree.Linear => b.Degree switch
+                {
+                    PolynomialDegree.Linear => LineSegmentLineSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, a[0].X, a[0].Y, a[1].X, a[1].Y, epsilon),
+                    PolynomialDegree.Quadratic => LineSegmentQuadraticBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, a.CurveX, a.CurveY, epsilon),
+                    PolynomialDegree.Cubic => LineSegmentCubicBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, a.CurveX, a.CurveY, epsilon),
+                    _ => new Intersection(IntersectionStates.NoIntersection),
+                },
+                PolynomialDegree.Quadratic => b.Degree switch
+                {
+                    PolynomialDegree.Linear => LineSegmentQuadraticBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, a.CurveX, a.CurveY, epsilon),
+                    PolynomialDegree.Quadratic => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon),
+                    PolynomialDegree.Cubic => QuadraticBezierSegmentCubicBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon),
+                    _ => new Intersection(IntersectionStates.NoIntersection),
+                },
+                PolynomialDegree.Cubic => b.Degree switch
+                {
+                    PolynomialDegree.Linear => LineSegmentCubicBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, a.CurveX, a.CurveY, epsilon),
+                    PolynomialDegree.Quadratic => QuadraticBezierSegmentCubicBezierSegmentIntersection(b.CurveX, b.CurveY, a.CurveX, a.CurveY, epsilon),
+                    PolynomialDegree.Cubic => CubicBezierSegmentCubicBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon),
+                    _ => new Intersection(IntersectionStates.NoIntersection),
+                },
+                _ => new Intersection(IntersectionStates.NoIntersection),
+            };
         }
 
         /// <summary>
@@ -161,17 +145,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX b, LineSegment s, double epsilon = Epsilon)
         {
-            switch (b.Degree)
+            return b.Degree switch
             {
-                case PolynomialDegree.Linear:
-                    return LineSegmentLineSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b[0].X, b[0].Y, b[1].X, b[1].Y, epsilon);
-                case PolynomialDegree.Quadratic:
-                    return LineSegmentQuadraticBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.CurveX, b.CurveY, epsilon);
-                case PolynomialDegree.Cubic:
-                    return LineSegmentCubicBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.CurveX, b.CurveY, epsilon);
-                default:
-                    return new Intersection(IntersectionStates.NoIntersection);
-            }
+                PolynomialDegree.Linear => LineSegmentLineSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b[0].X, b[0].Y, b[1].X, b[1].Y, epsilon),
+                PolynomialDegree.Quadratic => LineSegmentQuadraticBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.CurveX, b.CurveY, epsilon),
+                PolynomialDegree.Cubic => LineSegmentCubicBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.CurveX, b.CurveY, epsilon),
+                _ => new Intersection(IntersectionStates.NoIntersection),
+            };
         }
 
         /// <summary>
@@ -187,17 +167,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX b, QuadraticBezier q, double epsilon = Epsilon)
         {
-            switch (b.Degree)
+            return b.Degree switch
             {
-                case PolynomialDegree.Linear:
-                    return LineSegmentQuadraticBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, q.CurveX, q.CurveY, epsilon);
-                case PolynomialDegree.Quadratic:
-                    return QuadraticBezierSegmentQuadraticBezierSegmentIntersection(q.CurveX, q.CurveY, b.CurveX, b.CurveY, epsilon);
-                case PolynomialDegree.Cubic:
-                    return QuadraticBezierSegmentCubicBezierSegmentIntersection(q.CurveX, q.CurveY, b.CurveX, b.CurveY, epsilon);
-                default:
-                    return new Intersection(IntersectionStates.NoIntersection);
-            }
+                PolynomialDegree.Linear => LineSegmentQuadraticBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, q.CurveX, q.CurveY, epsilon),
+                PolynomialDegree.Quadratic => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(q.CurveX, q.CurveY, b.CurveX, b.CurveY, epsilon),
+                PolynomialDegree.Cubic => QuadraticBezierSegmentCubicBezierSegmentIntersection(q.CurveX, q.CurveY, b.CurveX, b.CurveY, epsilon),
+                _ => new Intersection(IntersectionStates.NoIntersection),
+            };
         }
 
         /// <summary>
@@ -211,17 +187,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX b, CubicBezier c, double epsilon = Epsilon)
         {
-            switch (b.Degree)
+            return b.Degree switch
             {
-                case PolynomialDegree.Linear:
-                    return LineSegmentCubicBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, c.CurveX, c.CurveY, epsilon);
-                case PolynomialDegree.Quadratic:
-                    return QuadraticBezierSegmentCubicBezierSegmentIntersection(b.CurveX, b.CurveY, c.CurveX, c.CurveY, epsilon);
-                case PolynomialDegree.Cubic:
-                    return CubicBezierSegmentCubicBezierSegmentIntersection(c.CurveX, c.CurveY, b.CurveX, b.CurveY, epsilon);
-                default:
-                    return new Intersection(IntersectionStates.NoIntersection);
-            }
+                PolynomialDegree.Linear => LineSegmentCubicBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, c.CurveX, c.CurveY, epsilon),
+                PolynomialDegree.Quadratic => QuadraticBezierSegmentCubicBezierSegmentIntersection(b.CurveX, b.CurveY, c.CurveX, c.CurveY, epsilon),
+                PolynomialDegree.Cubic => CubicBezierSegmentCubicBezierSegmentIntersection(c.CurveX, c.CurveY, b.CurveX, b.CurveY, epsilon),
+                _ => new Intersection(IntersectionStates.NoIntersection),
+            };
         }
 
         /// <summary>
@@ -2034,6 +2006,8 @@ namespace Engine
             // Find the polynomial that represents the intersections.
             var roots = ((lj * xCurve) - (li * yCurve) + c).Trim().Roots();
 
+            Array.Sort(roots);
+
             foreach (var s in roots)
             {
                 // Add intersection point.
@@ -2114,6 +2088,8 @@ namespace Engine
 
             // Find the polynomial that represents the intersections.
             var roots = ((lj * xCurve) - (li * yCurve) + c).Trim().Roots();
+
+            Array.Sort(roots);
 
             foreach (var s in roots)
             {
@@ -2935,6 +2911,8 @@ namespace Engine
             // Find the polynomial that represents the intersections.
             var roots = ((j1 * xCurve) - (i1 * yCurve) + c).Trim().Roots();
 
+            Array.Sort(roots);
+
             foreach (var s in roots)
             {
                 // Intersection point assuming it was an infinitely long line.
@@ -2993,6 +2971,8 @@ namespace Engine
 
             // Find the polynomial that represents the intersections.
             var roots = ((j1 * xCurve) + (-i1 * yCurve) + c).Trim().Roots();
+
+            Array.Sort(roots);
 
             foreach (var s in roots)
             {
@@ -3775,6 +3755,8 @@ namespace Engine
             // Find the roots of the polynomial that represents the intersections.
             var roots = ((a * xCurve) + (b * yCurve) + c).Trim().Roots();
 
+            Array.Sort(roots);
+
             foreach (var s in roots)
             {
                 // Intersection point assuming it was an infinitely long line.
@@ -3867,6 +3849,8 @@ namespace Engine
 
             // Find the roots of the polynomial that represents the intersections.
             var roots = ((a * xCurve) + (b * yCurve) + c).Trim().Roots();
+
+            Array.Sort(roots);
 
             foreach (var s in roots)
             {
@@ -4659,6 +4643,8 @@ namespace Engine
                 /* c  */ ((v3 * v6) + (v4 * v5)) / yCurveA[0]
             ).Trim().Roots();
 
+            Array.Sort(roots);
+
             foreach (var s in roots)
             {
                 // Interpolate the point at t of the root s on curve b.
@@ -4670,7 +4656,9 @@ namespace Engine
                 {
                     // Look for intersections on curve a at the same location.
                     var xRoots = (xCurveA - point.X).Trim().Roots();
+                    Array.Sort(xRoots);
                     var yRoots = (yCurveA - point.Y).Trim().Roots();
+                    Array.Sort(yRoots);
 
                     if (xRoots.Length > 0 && yRoots.Length > 0)
                     {
@@ -4793,6 +4781,8 @@ namespace Engine
                 /* c  */ (-2d * xCurveA[2] * yCurveA[2] * xCurveA[0] * yCurveA[0]) - (xCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0]) - (yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0]) + (2d * xCurveA[2] * xCurveA[0] * yCurveB[3] * yCurveA[0]) + (2d * yCurveA[2] * xCurveB[3] * xCurveA[0] * yCurveA[0]) + (xCurveA[1] * xCurveB[3] * yCurveA[1] * yCurveA[0]) + (xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[3]) - (2d * xCurveB[3] * xCurveA[0] * yCurveB[3] * yCurveA[0]) - (2d * xCurveA[2] * xCurveB[3] * cAAy2) + (xCurveA[2] * cABy2 * xCurveA[0]) + (yCurveA[2] * cABx2 * yCurveA[0]) - (2d * yCurveA[2] * cAAx2 * yCurveB[3]) - (xCurveB[3] * cABy2 * xCurveA[0]) - (cABx2 * yCurveB[3] * yCurveA[0]) + (cACx2 * cAAy2) + (cACy2 * cAAx2) + (cBDx2 * cAAy2) + (cAAx2 * cBDy2)
             ).Trim().RootsInInterval();
 
+            Array.Sort(roots);
+
             foreach (var s in roots)
             {
                 var point = new Point2D(
@@ -4800,7 +4790,9 @@ namespace Engine
                    (yCurveB[0] * s * s * s) + (yCurveB[1] * s * s) + (yCurveB[2] * s) + yCurveB[3]);
 
                 var xRoots = (xCurveA - point.X).Trim().Roots(epsilon);
+                Array.Sort(xRoots);
                 var yRoots = (yCurveA - point.Y).Trim().Roots();
+                Array.Sort(yRoots);
 
                 if (xRoots.Length > 0 && yRoots.Length > 0)
                 {
@@ -4850,12 +4842,7 @@ namespace Engine
         public static Intersection QuadraticBezierSegmentPolylineIntersection(
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
             List<Point2D> points,
-            double epsilon = Epsilon)
-            => QuadraticBezierSegmentPolylineIntersection(
-                QuadraticBezierBernsteinBasis(b1X, b2X, b3X),
-                QuadraticBezierBernsteinBasis(b1Y, b2Y, b3Y),
-                points,
-                epsilon);
+            double epsilon = Epsilon) => QuadraticBezierSegmentPolylineIntersection(QuadraticBezierBernsteinBasis(b1X, b2X, b3X), QuadraticBezierBernsteinBasis(b1Y, b2Y, b3Y), points, epsilon);
 
         /// <summary>
         /// Find the intersection between a quadratic Bézier and a polyline.
@@ -5174,6 +5161,8 @@ namespace Engine
                 (-k * k * k) - (a * k * k) - (b * k)
                 ).Trim().Roots();
 
+            Array.Sort(roots);
+
             // ToDo: Figure out edge case. When all nodes are linear, even if there should be a flat loop, there is only one root. The locus of points overlap three times for a little ways, and possibly twice past an edge.
             if (roots.Length != 3)
             {
@@ -5334,7 +5323,9 @@ namespace Engine
                     (yCurveB[0] * s * s * s) + (yCurveB[1] * s * s) + (yCurveB[2] * s) + yCurveB[3]);
 
                 var xRoots = (xCurveA - point.X).Trim().Roots();
+                Array.Sort(xRoots);
                 var yRoots = (yCurveA - point.Y).Trim().Roots();
+                Array.Sort(yRoots);
 
                 // ToDo: Figure out why the xRoots can be larger than 1 or smaller than 0 and still work...
                 if (xRoots.Length > 0 && yRoots.Length > 0)
@@ -5997,8 +5988,10 @@ namespace Engine
         /// </summary>
         /// <param name="points1">The points1.</param>
         /// <param name="points2">The points2.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns an <see cref="Engine.Intersection" /> struct with a <see cref="Intersection.State" />, and an array of <see cref="Point2D" /> structs containing any points of intersection found.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -6330,7 +6323,7 @@ namespace Engine
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
             var b1 = points[length - 1];
-            for (var i = 0; i < points.Count; ++i)
+            for (var i = 0; i < length; ++i)
             {
                 var b2 = points[i];
 
@@ -6502,7 +6495,7 @@ namespace Engine
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
             var b1 = points[length - 1];
-            for (var i = 0; i < points.Count; ++i)
+            for (var i = 0; i < length; ++i)
             {
                 var b2 = points[i];
 
@@ -6645,6 +6638,8 @@ namespace Engine
                 e: (bb * ((cx * cx) + (h * h))) + (aa * ((cy * cy) + (k * k))) - (2d * ((bb * h * cx) + (aa * k * cy))) - (aa * bb)
             )).Trim().RootsInInterval();
 
+            Array.Sort(roots);
+
             // Initialize intersection.
             var result = new Intersection(IntersectionStates.NoIntersection);
             foreach (var s in roots)
@@ -6680,7 +6675,7 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static Intersection QuadraticBezierSegmentObliqueEllipseIntersection(Polynomial xCurve, Polynomial yCurve, double h, double k, double a, double b, double angle, double epsilon = Epsilon) => QuadraticBezierSegmentObliqueEllipseIntersection(xCurve, yCurve, h, k, a, b, Cos(angle), Sin(angle), epsilon = Epsilon);
+        internal static Intersection QuadraticBezierSegmentObliqueEllipseIntersection(Polynomial xCurve, Polynomial yCurve, double h, double k, double a, double b, double angle, double epsilon = Epsilon) => QuadraticBezierSegmentObliqueEllipseIntersection(xCurve, yCurve, h, k, a, b, Cos(angle), Sin(angle), epsilon);
 
         /// <summary>
         /// Find the intersection between a quadratic Bézier and an orthogonal ellipse.
@@ -6726,6 +6721,8 @@ namespace Engine
                 d: 2d * ((bb * bx * cxh) + (aa * by * cyk)),
                 e: (bb * ((cx * cx) + (k * k))) - (2d * ((bb * h * cx) + (aa * k * cy))) + (aa * ((cy * cy) + (k * k))) - (aa * bb)
                 )).Trim().Roots();
+
+            Array.Sort(roots);
 
             // Initialize intersection.
             var result = new Intersection(IntersectionStates.NoIntersection);
@@ -6848,14 +6845,16 @@ namespace Engine
 
             // Find the polynomial that represents the intersections.
             var roots = new Polynomial((
-                a: ((ax * ax) * (b * b)) + ((ay * ay) * (a * a)),
+                a: (ax * ax * (b * b)) + (ay * ay * (a * a)),
                 b: 2d * ((ax * bx * (b * b)) + (ay * by * (a * a))),
-                c: (2d * ((ax * cx * (b * b)) + (ay * cy * (a * a)))) + ((bx * bx) * (b * b)) + ((by * by) * (a * a)),
+                c: (2d * ((ax * cx * (b * b)) + (ay * cy * (a * a)))) + (bx * bx * (b * b)) + (by * by * (a * a)),
                 d: (2d * ax * (b * b) * (dx - h)) + (2d * ay * (a * a) * (dy - k)) + (2d * ((bx * cx * (b * b)) + (by * cy * (a * a)))),
-                e: (2d * bx * (b * b) * (dx - h)) + (2d * by * (a * a) * (dy - k)) + ((cx * cx) * (b * b)) + ((cy * cy) * (a * a)),
+                e: (2d * bx * (b * b) * (dx - h)) + (2d * by * (a * a) * (dy - k)) + (cx * cx * (b * b)) + (cy * cy * (a * a)),
                 f: (2d * cx * (b * b) * (dx - h)) + (2d * cy * (a * a) * (dy - k)),
-                g: (dx * dx * (b * b)) - (2d * dy * k * (a * a)) - (2d * dx * h * (b * b)) + ((dy * dy) * (a * a)) + ((h * h) * (b * b)) + ((k * k) * (a * a)) - ((a * a) * (b * b))
+                g: (dx * dx * (b * b)) - (2d * dy * k * (a * a)) - (2d * dx * h * (b * b)) + (dy * dy * (a * a)) + (h * h * (b * b)) + (k * k * (a * a)) - (a * a * (b * b))
                 )).Trim().RootsInInterval();
+
+            Array.Sort(roots);
 
             foreach (var s in roots)
             {
@@ -6875,23 +6874,23 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection between a Cubic bezier segment and an oblique ellipse.
         /// </summary>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
-        /// <param name="b3X"></param>
-        /// <param name="b3Y"></param>
-        /// <param name="b4X"></param>
-        /// <param name="b4Y"></param>
-        /// <param name="h"></param>
-        /// <param name="k"></param>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="cos"></param>
-        /// <param name="sin"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="b1X">The b1 x.</param>
+        /// <param name="b1Y">The b1 y.</param>
+        /// <param name="b2X">The b2 x.</param>
+        /// <param name="b2Y">The b2 y.</param>
+        /// <param name="b3X">The b3 x.</param>
+        /// <param name="b3Y">The b3 y.</param>
+        /// <param name="b4X">The b4 x.</param>
+        /// <param name="b4Y">The b4 y.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="cos">The cos.</param>
+        /// <param name="sin">The sin.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection CubicBezierSegmentObliqueEllipseIntersection(
@@ -6947,6 +6946,7 @@ namespace Engine
             if (sin == 1d || sin == -1d) cos = 0d;
 
             _ = epsilon;
+            _ = cos;
 
             // The Cubic Bezier 
             (var ax, var bx, var cx, var dx) = (xCurve[0], xCurve[1], xCurve[2], xCurve[3]);
@@ -6967,7 +6967,7 @@ namespace Engine
 
             // Find the polynomial that represents the intersections.
             var roots = new Polynomial((
-                a: ((ax * ax) * bb) + ((ay * ay) * aa),
+                a: (ax * ax * bb) + (ay * ay * aa),
                 b: (2d * (ax * bx * bb)) + (2d * (ay * by * aa)),
                 c: (((2d * (ax * cx)) + (bx * bx)) * bb) + (((2d * (ay * cy)) + (by * by)) * aa),
                 d: (2d * ((ax * dxh) + (bx * cx)) * bb) + (2d * ((ay * dyk) + (by * cy)) * aa),
@@ -6975,6 +6975,8 @@ namespace Engine
                 f: (2d * cx * bb * dxh) + (2d * cy * aa * dyk),
                 g: (bb * (dxh * dxh)) + (aa * (dyk * dyk)) - (aa * bb)
                 )).Trim().RootsInInterval();
+
+            Array.Sort(roots);
 
             //var roots = new Polynomial((
             //    a: 2 * (ax - 3 * bx + 3 * cx - dx) * b * b * cos * cos * h + 2 * a * a * (ay - 3 * by + 3 * cy - dy) * cos * cos * k - 2 * a * a * (ax - 3 * bx + 3 * cx - dx) * (ay - 3 * by + 3 * cy - dy) * cos * sin + 2 * (ax - 3 * bx + 3 * cx - dx) * (ay - 3 * by + 3 * cy - dy) * b * b * cos * sin - 2 * a * a * (ay - 3 * by + 3 * cy - dy) * cos * h * sin + 2 * (ay - 3 * by + 3 * cy - dy) * b * b * cos * h * sin - 2 * a * a * (ax - 3 * bx + 3 * cx - dx) * cos * k * sin + 2 * (ax - 3 * bx + 3 * cx - dx) * b * b * cos * k * sin + 2 * a * a * (ax - 3 * bx + 3 * cx - dx) * h * sin * sin + 2 * (ay - 3 * by + 3 * cy - dy) * b * b * k * sin * sin,
@@ -7042,6 +7044,7 @@ namespace Engine
             var b = OrthogonalEllipseConicSectionPolynomial(h2, k2, a2, b2);
 
             var yRoots = new Polynomial(ConicSectionBezout(a, b)).Trim().Roots();
+            Array.Sort(yRoots);
 
             // Double epsilon is too small for here.
             epsilon = 1e-6; //1e-3;
@@ -7056,6 +7059,7 @@ namespace Engine
                      a.d + (yRoots[y] * a.b),
                      a.f + (yRoots[y] * (a.e + (yRoots[y] * a.c))),
                      epsilon).Trim().Roots();
+                Array.Sort(xRoots);
                 for (var x = 0; x < xRoots.Length; x++)
                 {
                     var test = (((a.a * xRoots[x]) + (a.b * yRoots[y]) + a.d) * xRoots[x]) + (((a.c * yRoots[y]) + a.e) * yRoots[y]) + a.f;
@@ -7195,9 +7199,8 @@ namespace Engine
             var e1 = EllipseConicSectionPolynomial(h1, k1, a1, b1, cos1, sin1);
             var e2 = EllipseConicSectionPolynomial(h2, k2, a2, b2, cos2, sin2);
 
-            var v = new Polynomial(ConicSectionBezout(e1, e2)).Trim();
-            var yRoots = v.Roots();
-            var xRoots = new double[0];
+            var yRoots = new Polynomial(ConicSectionBezout(e1, e2)).Trim().Roots();
+            Array.Sort(yRoots);
 
             // Double epsilon is too small for here.
             var normEpsilon = 1e-6; //1e-3;
@@ -7207,11 +7210,11 @@ namespace Engine
             var result = new Intersection(IntersectionStates.NoIntersection);
             foreach (var s in yRoots)
             {
-                xRoots = new Polynomial((
-                    a: e1.a,
+                var xRoots = new Polynomial((e1.a,
                     b: e1.d + s * e1.b,
                     c: e1.f + s * (e1.e + s * e1.c)
                 )).Trim().Roots();
+                Array.Sort(xRoots);
                 foreach (var t in xRoots)
                 {
                     var test = (((e1.a * t) + (e1.b * s) + e1.d) * t) + (((e1.c * s) + e1.e) * s) + e1.f;
@@ -7228,10 +7231,6 @@ namespace Engine
 
             //if (result.Points.Count < 1)
             //{
-            //    // The Quadratic and Linear roots are not always finding correct intersection points.
-            //    // What if everything was rotated around the first ellipse, then try to find the intersection?
-            //    // But what determines that the resulting roots won't be close? 
-            //    // Is the Linear roots method broken?
             //    Debugger.Break();
             //}
 

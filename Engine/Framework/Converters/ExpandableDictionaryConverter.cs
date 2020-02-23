@@ -48,8 +48,7 @@ namespace Engine
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool GetPropertiesSupported(ITypeDescriptorContext context)
-            => true;
+        public override bool GetPropertiesSupported(ITypeDescriptorContext context) => true;
 
         /// <summary>
         /// Get the properties.
@@ -60,8 +59,7 @@ namespace Engine
         /// <returns>The <see cref="PropertyDescriptorCollection"/>.</returns>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
-            var dictionary = value as IDictionary;
-            if (dictionary is null || dictionary.Count == 0)
+            if (!(value is IDictionary dictionary) || dictionary.Count == 0)
             {
                 return base.GetProperties(context, value, attributes);
             }

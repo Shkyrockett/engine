@@ -153,15 +153,12 @@ namespace Engine
         public bool VisibleTest(Rectangle2D bounds)
         {
             // Unbounded shapes have to be cropped to the visible bounds.
-            switch (Shape)
+            return Shape switch
             {
-                case Ray r:
-                    return Intersections.RayRectangleIntersects(r.Location.X, r.Location.Y, r.Location.X + r.Direction.I, r.Location.Y + r.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom);
-                case Line l:
-                    return Intersections.LineRectangleIntersects(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom);
-                default:
-                    return Shape.Bounds.IntersectsWith(bounds) || Shape.Bounds.Contains(bounds);
-            }
+                Ray r => Intersections.RayRectangleIntersects(r.Location.X, r.Location.Y, r.Location.X + r.Direction.I, r.Location.Y + r.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom),
+                Line l => Intersections.LineRectangleIntersects(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom),
+                _ => Shape.Bounds.IntersectsWith(bounds) || Shape.Bounds.Contains(bounds),
+            };
         }
 
         /// <summary>

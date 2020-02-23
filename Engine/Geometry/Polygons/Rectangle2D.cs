@@ -785,6 +785,11 @@ namespace Engine
         /// <param name="matrix"> The Matrix by which to transform. </param>
         public static Rectangle2D Transform(Rectangle2D rect, Matrix3x2D matrix)
         {
+            if (rect is null)
+            {
+                throw new ArgumentNullException(nameof(rect));
+            }
+
             Matrix3x2D.TransformRect(ref rect, ref matrix);
             return rect;
         }

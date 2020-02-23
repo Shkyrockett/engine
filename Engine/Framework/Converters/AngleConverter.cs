@@ -59,8 +59,7 @@ namespace Engine
         /// <exception cref="ArgumentException">Parse failed.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            var str = value as string;
-            if (str is null)
+            if (!(value is string str))
             {
                 return base.ConvertFrom(context, culture, value);
             }

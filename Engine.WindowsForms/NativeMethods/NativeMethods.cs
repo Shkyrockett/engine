@@ -1171,7 +1171,7 @@ namespace Engine.WindowsForms
             WM_PENWINLAST = 0x038F,
             WM_APP = unchecked(0x8000),
             WM_USER = 0x0400,
-            WM_REFLECT = NativeMethods.WM_USER + 0x1C00,
+            WM_REFLECT = WM_USER + 0x1C00,
             WS_OVERLAPPED = 0x00000000,
             WS_POPUP = unchecked((int)0x80000000),
             WS_CHILD = 0x40000000,

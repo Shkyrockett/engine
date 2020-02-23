@@ -85,7 +85,7 @@ namespace Engine
                 var c = new PolygonContour();
                 foreach (var p in cont.Points)
                 {
-                    c.Add( new Point2D(p));
+                    c.Add(new Point2D(p));
                 }
 
                 poly.Add(c);

@@ -11,8 +11,10 @@
 namespace Engine
 {
     /// <summary>
-    /// Base <see cref="Shape"/> class for using as a template for various shapes.
+    /// Base <see cref="Shape" /> class for using as a template for various shapes.
     /// </summary>
+    /// <seealso cref="Engine.GraphicsObject" />
+    /// <seealso cref="Engine.IShape" />
     public abstract class Shape
         : GraphicsObject, IShape
     { }

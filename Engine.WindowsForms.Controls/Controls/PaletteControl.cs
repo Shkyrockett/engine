@@ -8,11 +8,11 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using Engine.File.Palettes;
 using System;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
-using Engine.File.Palettes;
 
 namespace Engine.WindowsForms
 {

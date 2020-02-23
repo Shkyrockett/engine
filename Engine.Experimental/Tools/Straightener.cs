@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using static System.Math;
 
@@ -74,6 +75,7 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public override void MouseDownUpdate(ToolStack tools)
         {
+            if (tools is null) return;
             mouseDown = true;
             InUse = true;
             if (InUse)
@@ -95,6 +97,7 @@ namespace Engine.Tools
         /// <param name="tools">The Mouse Move event arguments.</param>
         public override void MouseMoveUpdate(ToolStack tools)
         {
+            if (tools is null) return;
             if (InUse)
             {
                 if (Started)
@@ -124,6 +127,7 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public override void MouseUpUpdate(ToolStack tools)
         {
+            if (tools is null) return;
             mouseDown = false;
             if (InUse)
             {
@@ -173,11 +177,11 @@ namespace Engine.Tools
         {
             var output = new StringBuilder();
             output.Append("Angle: ");
-            output.Append(Round(Angle.RadiansToDegrees(), 3).ToString("N3").PadLeft(8));
+            output.Append(Round(Angle.RadiansToDegrees(), 3).ToString("N3", CultureInfo.InvariantCulture).PadLeft(8));
             output.Append(", Snap to: ");
-            output.Append(Round(Theta.RadiansToDegrees(), 3).ToString("N0").PadLeft(3));
+            output.Append(Round(Theta.RadiansToDegrees(), 3).ToString("N0", CultureInfo.InvariantCulture).PadLeft(3));
             output.Append(", Difference: ");
-            output.Append(Round(Delta.RadiansToDegrees(), 3).ToString("N3").PadLeft(8));
+            output.Append(Round(Delta.RadiansToDegrees(), 3).ToString("N3", CultureInfo.InvariantCulture).PadLeft(8));
             output.Append(".");
             return output.ToString();
         }

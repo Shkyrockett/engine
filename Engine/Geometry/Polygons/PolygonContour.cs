@@ -88,6 +88,11 @@ namespace Engine
         /// <param name="polylines">The polylines.</param>
         public PolygonContour(IEnumerable<Polyline> polylines)
         {
+            if (polylines is null)
+            {
+                throw new ArgumentNullException(nameof(polylines));
+            }
+
             points = new List<Point2D>();
             foreach (var polyline in polylines)
             {

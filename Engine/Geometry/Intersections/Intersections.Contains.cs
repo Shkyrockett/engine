@@ -38,10 +38,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Measurements;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -167,9 +167,9 @@ namespace Engine
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by a triangle.
         /// </summary>
+        /// <param name="p"></param>
         /// <param name="s"></param>
         /// <param name="o"></param>
-        /// <param name="p"></param>
         /// <param name="epsilon"></param>
         /// <returns>Returns a Boolean value indicating whether the shape contains the point.</returns>
         //[DebuggerStepThrough]
@@ -184,14 +184,14 @@ namespace Engine
         /// <summary>
         /// The triangle contains point.
         /// </summary>
+        /// <param name="pX">The pX.</param>
+        /// <param name="pY">The pY.</param>
         /// <param name="aX">The aX.</param>
         /// <param name="aY">The aY.</param>
         /// <param name="bX">The bX.</param>
         /// <param name="bY">The bY.</param>
         /// <param name="cX">The cX.</param>
         /// <param name="cY">The cY.</param>
-        /// <param name="pX">The pX.</param>
-        /// <param name="pY">The pY.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="Inclusions"/>.</returns>
         [DebuggerStepThrough]
@@ -215,12 +215,12 @@ namespace Engine
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
         /// </summary>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="left">The left location of the <see cref="Rectangle2D"/>.</param>
         /// <param name="top">The top location of the <see cref="Rectangle2D"/>.</param>
         /// <param name="right">The right location of the <see cref="Rectangle2D"/>.</param>
         /// <param name="bottom">The bottom location of the <see cref="Rectangle2D"/>.</param>
-        /// <param name="pX">The x-coordinate of the test point.</param>
-        /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
         [DebuggerStepThrough]

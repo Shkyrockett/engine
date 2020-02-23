@@ -8,9 +8,9 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using MethodSpeedTester;
 using System;
 using System.Windows.Forms;
-using MethodSpeedTester;
 
 namespace MethodTester
 {

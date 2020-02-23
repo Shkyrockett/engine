@@ -13,7 +13,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -100,6 +99,11 @@ namespace Engine
         /// <param name="polylines">The polylines.</param>
         public PointSet(IEnumerable<Polyline> polylines)
         {
+            if (polylines is null)
+            {
+                throw new ArgumentNullException(nameof(polylines));
+            }
+
             points = new List<Point2D>();
             foreach (var polyline in polylines)
             {
@@ -113,6 +117,11 @@ namespace Engine
         /// <param name="polygons">The polygons.</param>
         public PointSet(IEnumerable<PolygonContour> polygons)
         {
+            if (polygons is null)
+            {
+                throw new ArgumentNullException(nameof(polygons));
+            }
+
             points = new List<Point2D>();
             foreach (var polygon in polygons)
             {
@@ -183,7 +192,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => (Rectangle2D) CachingProperty(() => Measurements.PolygonBounds(points));
+            => (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(points));
 
         /// <summary>
         /// Gets the area.

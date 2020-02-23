@@ -39,7 +39,7 @@ namespace Engine
         /// <summary>
         /// An array of Polygon Contours.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember, XmlArray, SoapElement]
         private List<PolyBezierContour> contours;
         #endregion Fields
 
@@ -133,7 +133,7 @@ namespace Engine
             }
         }
         #endregion Indexers
-        
+
         #region Properties
         /// <summary>
         /// Gets or sets the contours.

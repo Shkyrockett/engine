@@ -14,8 +14,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using static System.Math;
 using static Engine.Polynomials;
+using static System.Math;
 
 namespace Engine
 {

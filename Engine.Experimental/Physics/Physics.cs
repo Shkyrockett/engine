@@ -22,7 +22,6 @@ namespace Engine
         /// <param name="v2">The v2.</param>
         /// <param name="c">The c.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        public static double AddVelocities(double v1, double v2, double c = 299790000d)
-            => v1 + (v2 / (1d + (v1 * v2 / c * c)));
+        public static double AddVelocities(double v1, double v2, double c = 299790000d) => v1 + (v2 / (1d + (v1 * v2 / c * c)));
     }
 }

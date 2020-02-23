@@ -47,7 +47,7 @@ namespace Engine
         private Rectangle2D bounds = Rectangle2D.Empty;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BezierFragment"/> class.
+        /// Initializes a new instance of the <see cref="BezierFragment" /> class.
         /// </summary>
         /// <param name="points">The points.</param>
         public BezierFragment(IEnumerable<Point2D> points)
@@ -55,7 +55,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BezierFragment"/> class.
+        /// Initializes a new instance of the <see cref="BezierFragment" /> class.
         /// </summary>
         /// <param name="points">The points.</param>
         /// <exception cref="ArgumentNullException"></exception>
@@ -144,8 +144,10 @@ namespace Engine
         /// The bezier.
         /// </summary>
         /// <param name="values">The values.</param>
-        /// <returns>The <see cref="Polynomialx"/>.</returns>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns>
+        /// The <see cref="Polynomialx" />.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">values</exception>
         public static Polynomialx Bezier(params double[] values)
         {
             if (values is null || values.Length < 1)
@@ -162,7 +164,9 @@ namespace Engine
         /// <param name="from">The from.</param>
         /// <param name="to">The to.</param>
         /// <param name="values">The values.</param>
-        /// <returns>The <see cref="Polynomialx"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomialx" />.
+        /// </returns>
         private static Polynomialx Bezier(int from, int to, double[] values)
         {
             if (from == to)
@@ -188,7 +192,9 @@ namespace Engine
         /// </summary>
         /// <param name="p0">The p0.</param>
         /// <param name="p1">The p1.</param>
-        /// <returns>The <see cref="Polynomialx"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomialx" />.
+        /// </returns>
         public static Polynomialx Line(double p0, double p1)
         {
             var T = new Polynomialx(0, 1);
@@ -201,7 +207,9 @@ namespace Engine
         /// <param name="p0">The p0.</param>
         /// <param name="p1">The p1.</param>
         /// <param name="p2">The p2.</param>
-        /// <returns>The <see cref="Polynomialx"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomialx" />.
+        /// </returns>
         public static Polynomialx Quadratic(double p0, double p1, double p2)
         {
             var T = new Polynomialx(0, 1);
@@ -215,7 +223,9 @@ namespace Engine
         /// <param name="p1">The p1.</param>
         /// <param name="p2">The p2.</param>
         /// <param name="p3">The p3.</param>
-        /// <returns>The <see cref="Polynomialx"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomialx" />.
+        /// </returns>
         public static Polynomialx Cubic(double p0, double p1, double p2, double p3)
         {
             var T = new Polynomialx(0, 1);
@@ -227,7 +237,9 @@ namespace Engine
         /// <summary>
         /// The bounding box.
         /// </summary>
-        /// <returns>The <see cref="Rectangle2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Rectangle2D" />.
+        /// </returns>
         public Rectangle2D BoundingBox()
         {
             if (bounds.IsEmpty)
@@ -242,9 +254,11 @@ namespace Engine
 
         #region Split()
         /// <summary>
-        /// Cut a <see cref="BezierFragment"/> in multiple fragment at the given t indices, using "De Casteljau" algorithm.
-        /// <param name="t">The value at which to split the curve. Should be strictly inside ]0,1[ interval.</param>
+        /// Cut a <see cref="BezierFragment" /> in multiple fragment at the given t indices, using "De Casteljau" algorithm.
         /// </summary>
+        /// <param name="t">The value at which to split the curve. Should be strictly inside ]0,1[ interval.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">t</exception>
         public BezierFragment[] Split(double t)
         {
             if (t < 0 || t > 1)
@@ -277,15 +291,18 @@ namespace Engine
         /// The split.
         /// </summary>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
-        public BezierFragment[] Split(params double[] ts)
-            => Split((IEnumerable<double>)ts);
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
+        public BezierFragment[] Split(params double[] ts) => Split((IEnumerable<double>)ts);
 
         /// <summary>
         /// The split.
         /// </summary>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         public BezierFragment[] Split(IEnumerable<double> ts)
         {
             if (ts is null)
@@ -320,7 +337,9 @@ namespace Engine
         /// The parameterized square distance.
         /// </summary>
         /// <param name="p">The p.</param>
-        /// <returns>The <see cref="Polynomialx"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomialx" />.
+        /// </returns>
         public Polynomialx ParameterizedSquareDistance(Point2D p)
         {
             var vx = CurveX - p.X;
@@ -332,7 +351,9 @@ namespace Engine
         /// The closest parameter.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <returns>The <see cref="double"/>.</returns>
+        /// <returns>
+        /// The <see cref="double" />.
+        /// </returns>
         public double ClosestParameter(Point2D point)
         {
             var dsquare = ParameterizedSquareDistance(point);
@@ -349,7 +370,9 @@ namespace Engine
         /// The distance to.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <returns>The <see cref="double"/>.</returns>
+        /// <returns>
+        /// The <see cref="double" />.
+        /// </returns>
         public double DistanceTo(Point2D point)
         {
             var dsquare = ParameterizedSquareDistance(point);
@@ -368,6 +391,7 @@ namespace Engine
     /// <summary>
     /// The readonly points class.
     /// </summary>
+    /// <seealso cref="System.Collections.Generic.IReadOnlyList{T}" />
     public class ReadonlyPoints
         : IReadOnlyList<Point2D>
     {
@@ -377,7 +401,7 @@ namespace Engine
         private readonly Point2D[] values;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReadonlyPoints"/> class.
+        /// Initializes a new instance of the <see cref="ReadonlyPoints" /> class.
         /// </summary>
         /// <param name="values">The values.</param>
         internal ReadonlyPoints(Point2D[] values)
@@ -388,8 +412,13 @@ namespace Engine
         /// <summary>
         /// The Indexer.
         /// </summary>
+        /// <value>
+        /// The <see cref="Point2D"/>.
+        /// </value>
         /// <param name="index">The index index.</param>
-        /// <returns>One element of type Point2D.</returns>
+        /// <returns>
+        /// One element of type Point2D.
+        /// </returns>
         public Point2D this[int index] => values[index];
 
         /// <summary>
@@ -400,13 +429,17 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
+        /// <returns>
+        /// The <see cref="IEnumerator{T}" />.
+        /// </returns>
         public IEnumerator<Point2D> GetEnumerator() => values.Cast<Point2D>().GetEnumerator();
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="IEnumerator"/>.</returns>
+        /// <returns>
+        /// The <see cref="IEnumerator" />.
+        /// </returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

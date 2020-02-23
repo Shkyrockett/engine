@@ -32,8 +32,7 @@ namespace Engine
         /// <param name="p1">Second vector to compare.</param>
         /// <returns>True if the vectors are almost equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool EqualsOrClose(Point2D p0, Point2D p1)
-            => p0.SquareDistance(p1) < Epsilon;
+        public static bool EqualsOrClose(Point2D p0, Point2D p1) => p0.SquareDistance(p1) < Epsilon;
 
         /// <summary>
         /// Checks if two vectors are equal within a small bounded error.
@@ -42,8 +41,7 @@ namespace Engine
         /// <param name="v1">Second vector to compare.</param>
         /// <returns>True if the vectors are almost equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool EqualsOrClose(Vector2D v0, Vector2D v1)
-            => v0.SquareDistance(v1) < Epsilon;
+        public static bool EqualsOrClose(Vector2D v0, Vector2D v1) => v0.SquareDistance(v1) < Epsilon;
 
         #region Absolute Angle
         /// <summary>

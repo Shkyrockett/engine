@@ -17,8 +17,8 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static Engine.Operations;
-using static System.Math;
 using static Engine.Polynomials;
+using static System.Math;
 
 namespace Engine
 {
@@ -209,10 +209,13 @@ namespace Engine
             get { return new List<Point2D> { A, B, C, D }; }
             set
             {
-                A = value[0];
-                B = value[1];
-                C = value[2];
-                D = value[3];
+                if (!(value is null))
+                {
+                    A = value[0];
+                    B = value[1];
+                    C = value[2];
+                    D = value[3];
+                }
             }
         }
 
@@ -903,6 +906,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IList<Point2D> Interpolate(IList<double> ts)
         {
+            if (ts is null)
+            {
+                throw new ArgumentNullException(nameof(ts));
+            }
+
             var list = new List<Point2D>();
 
             foreach (var t in ts)

@@ -357,7 +357,6 @@ namespace Engine
         /// <param name="a">a.</param>
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
-        /// <param name="d">The d.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) QuadraticHermiteBernsteinBasis(double a, double b, double c)
@@ -658,8 +657,6 @@ namespace Engine
         /// <param name="bY">The b y.</param>
         /// <param name="cX">The c x.</param>
         /// <param name="cY">The c y.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
@@ -690,8 +687,6 @@ namespace Engine
         /// <param name="cY">The c y.</param>
         /// <param name="dX">The d x.</param>
         /// <param name="dY">The d y.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
@@ -727,8 +722,6 @@ namespace Engine
         /// <param name="dY">The d y.</param>
         /// <param name="eX">The e x.</param>
         /// <param name="eY">The e y.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
@@ -769,8 +762,6 @@ namespace Engine
         /// <param name="fX">The f x.</param>
         /// <param name="fY">The f y.</param>
         /// <param name="eY">The e y.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
@@ -1131,38 +1122,65 @@ namespace Engine
         public static (double a, double b, double c, double d, double e) QuadraticBernsteinBezierOrthogonalEllipsePolynomial(
             double ax, double ay, double bx, double by, double cx, double cy,
             double h, double k, double a, double b)
-            => (a: ((b * b) * (ax * ax)) + ((a * a) * (ay * ay)),
-                b: 2d * (((b * b) * (ax * bx)) + ((a * a) * (ay * by))),
-                c: (b * b * ((2d * ax * cx) + (bx * bx))) + ((a * a) * ((2d * ay * cy) + (by * by))) - (2d * (((b * b) * h * ax) + ((a * a) * k * ay))),
-                d: 2d * (((b * b) * bx * (cx - h)) + ((a * a) * by * (cy - k))),
-                e: ((b * b) * ((cx * cx) + (k * k))) + ((a * a) * ((cy * cy) + (k * k))) - (2d * (((b * b) * h * cx) + ((a * a) * k * cy))) - ((a * a) * (b * b))
+            => (a: (b * b * (ax * ax)) + (a * a * (ay * ay)),
+                b: 2d * ((b * b * (ax * bx)) + (a * a * (ay * by))),
+                c: (b * b * ((2d * ax * cx) + (bx * bx))) + (a * a * ((2d * ay * cy) + (by * by))) - (2d * ((b * b * h * ax) + (a * a * k * ay))),
+                d: 2d * ((b * b * bx * (cx - h)) + (a * a * by * (cy - k))),
+                e: (b * b * ((cx * cx) + (k * k))) + (a * a * ((cy * cy) + (k * k))) - (2d * ((b * b * h * cx) + (a * a * k * cy))) - (a * a * (b * b))
                 );
 
+        /// <summary>
+        /// Ellipses the cubic polynomial.
+        /// </summary>
+        /// <param name="ax">The ax.</param>
+        /// <param name="bx">The bx.</param>
+        /// <param name="cx">The cx.</param>
+        /// <param name="dx">The dx.</param>
+        /// <param name="ay">The ay.</param>
+        /// <param name="by">The by.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="dy">The dy.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="cosA">The cos a.</param>
+        /// <param name="sinA">The sin a.</param>
+        /// <returns></returns>
         internal static (double a, double b, double c, double d, double e, double f, double g) EllipseCubicPolynomial(
             double ax, double bx, double cx, double dx,
             double ay, double by, double cy, double dy,
             double h, double k, double a, double b, double cosA, double sinA)
         {
-            var oCoefA = (b * b) * (cosA * cosA) + (a * a) * (sinA * sinA);
+            _ = ax;
+            _ = bx;
+            _ = cx;
+            _ = dx;
+            _ = ay;
+            _ = by;
+            _ = cy;
+            _ = dy;
+
+            var oCoefA = b * b * (cosA * cosA) + a * a * (sinA * sinA);
             var oCoefB = 2d * ((b * b) + (a * a)) * sinA * cosA;
             return (
                 a: oCoefA,
                 b: oCoefB,
                 c: oCoefB + oCoefA,
-                d: 2d * oCoefA + 2d * ((b * b) * h) + 2d * ((a * a) * -k),
-                e: 2d * ((b * b) * -h) + 2d * ((a * a) * -k) + oCoefA,
-                f: 2d * ((b * b) * -h) + 2d * ((a * a) * -k),
-                g: (b * b) - 2d * ((b * b) * h) - 2d * ((a * a) * k) + (a * a) + ((h * h) * (b * b)) + ((k * k) * (a * a)) - ((a * a) * (b * b))
+                d: 2d * oCoefA + 2d * (b * b * h) + 2d * (a * a * -k),
+                e: 2d * (b * b * -h) + 2d * (a * a * -k) + oCoefA,
+                f: 2d * (b * b * -h) + 2d * (a * a * -k),
+                g: (b * b) - 2d * (b * b * h) - 2d * (a * a * k) + (a * a) + (h * h * (b * b)) + (k * k * (a * a)) - (a * a * (b * b))
                 );
 
             var roots = (
-                a: ((ax * ax) * (b * b)) + ((ay * ay) * (a * a)),
+                a: (ax * ax * (b * b)) + (ay * ay * (a * a)),
                 b: 2d * ((ax * bx * (b * b)) + (ay * by * (a * a))),
-                c: (2d * ((ax * cx * (b * b)) + (ay * cy * (a * a)))) + ((bx * bx) * (b * b)) + ((by * by) * (a * a)),
-                d: 2d * (ax * (b * b) * (dx - h)) + 2d * (ay * (a * a) * (dy - k)) + (2d * (((bx * cx) * (b * b)) + ((by * cy) * (a * a)))),
-                e: 2d * (bx * (b * b) * (dx - h)) + 2d * (by * (a * a) * (dy - k)) + ((cx * cx) * (b * b)) + ((cy * cy) * (a * a)),
+                c: (2d * ((ax * cx * (b * b)) + (ay * cy * (a * a)))) + (bx * bx * (b * b)) + (by * by * (a * a)),
+                d: 2d * (ax * (b * b) * (dx - h)) + 2d * (ay * (a * a) * (dy - k)) + (2d * ((bx * cx * (b * b)) + (by * cy * (a * a)))),
+                e: 2d * (bx * (b * b) * (dx - h)) + 2d * (by * (a * a) * (dy - k)) + (cx * cx * (b * b)) + (cy * cy * (a * a)),
                 f: 2d * (cx * (b * b) * (dx - h)) + 2d * (cy * (a * a) * (dy - k)),
-                g: (dx * dx * (b * b)) - 2d * (dy * k * (a * a)) - 2d * (dx * h * (b * b)) + ((dy * dy) * (a * a)) + ((h * h) * (b * b)) + ((k * k) * (a * a)) - ((a * a) * (b * b))
+                g: (dx * dx * (b * b)) - 2d * (dy * k * (a * a)) - 2d * (dx * h * (b * b)) + (dy * dy * (a * a)) + (h * h * (b * b)) + (k * k * (a * a)) - (a * a * (b * b))
                 );
 
             var line = (
@@ -1175,16 +1193,16 @@ namespace Engine
                 g: (dx * dx) - 2d * dy - 2d * dx + (dy * dy)
                 );
 
-            var coefA = (b * b) * (cosA * cosA) + (a * a) * (sinA * sinA);
+            var coefA = b * b * (cosA * cosA) + a * a * (sinA * sinA);
             var coefB = 2d * ((b * b) - (a * a)) * sinA * cosA;
-            var coefC = (b * b) * (sinA * sinA) + (a * a) * (cosA * cosA);
+            var coefC = b * b * (sinA * sinA) + a * a * (cosA * cosA);
             var curve = (
                 a: coefA,
                 b: coefB,
                 c: coefC,
                 d: -2d * coefA * h - coefB * k,
                 e: -2d * coefC * k - coefB * h,
-                f: coefA * (h * h) + coefB * h * k + coefC * (k * k) - (b * b) * (a * a));
+                f: coefA * (h * h) + coefB * h * k + coefC * (k * k) - b * b * (a * a));
 
             var coefA1 = (b * b) + (a * a);
             var coefB1 = 2d * ((b * b) - (a * a)) * 0d * 1d;
@@ -1195,7 +1213,7 @@ namespace Engine
                 c: coefC1,
                 d: -2d * coefA1 * h - coefB1 * k,
                 e: -2d * coefC1 * k - coefB1 * h,
-                f: coefA1 * (h * h) + coefB1 * h * k + coefC1 * (k * k) - (a * a) * (b * b));
+                f: coefA1 * (h * h) + coefB1 * h * k + coefC1 * (k * k) - a * a * (b * b));
         }
 
         /// <summary>

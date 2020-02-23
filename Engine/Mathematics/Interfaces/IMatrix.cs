@@ -22,7 +22,7 @@ namespace Engine
     /// <typeparam name="V">The V.</typeparam>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public interface IMatrix<M, V>
-        : IPrimitive, 
+        : IPrimitive,
         IEnumerable<IEnumerable<double>>,
         IEquatable<M> where M : struct, IMatrix<M, V> where V : struct, IVector<V>
     { }

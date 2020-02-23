@@ -8,7 +8,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -40,8 +39,8 @@ namespace Engine
         public Line2D(double x0, double y0, double x1, double y1)
             : this()
         {
-            P1 = new Point2D(x0,y0);
-            P2 = new Point2D(x1,y1);
+            P1 = new Point2D(x0, y0);
+            P2 = new Point2D(x1, y1);
         }
 
         /// <summary>

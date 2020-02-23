@@ -10,7 +10,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using static Engine.Measurements;
 using static Engine.SegmentComparators;
 
@@ -350,8 +349,8 @@ namespace Engine
             oss += $" ({leftRight})";
             var s = new LineSegment(Point, OtherEvent.Point);
             oss += $" S:[({s.Min.X},{s.Min.Y}) - ({s.Max.X},{s.Max.Y})]";
-            oss += $" ({BelongsTo.ToString()})";
-            oss += $" ({Contribution.ToString()})";
+            oss += $" ({BelongsTo})";
+            oss += $" ({Contribution})";
             var inOutOutIn = InOut ? nameof(inOut) : "outIn";
             oss += $" ({inOutOutIn})";
             var otherInOutOutIn = OtherInOut ? nameof(inOut) : "outIn";

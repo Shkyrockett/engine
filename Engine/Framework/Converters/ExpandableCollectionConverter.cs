@@ -59,8 +59,7 @@ namespace Engine
         /// <returns>The <see cref="PropertyDescriptorCollection"/>.</returns>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
-            var list = value as IList;
-            if (list is null || list.Count == 0)
+            if (!(value is IList list) || list.Count == 0)
             {
                 return base.GetProperties(context, value, attributes);
             }

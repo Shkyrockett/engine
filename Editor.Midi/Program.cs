@@ -8,10 +8,10 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using Engine;
+using EventEditorMidi;
 using System;
 using System.Windows.Forms;
-using EventEditorMidi;
-using Engine;
 
 namespace Editor.Midi
 {
@@ -31,10 +31,8 @@ namespace Editor.Midi
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            using (var formMidiEventEditor = new FormMidiEventEditor())
-            {
-                Application.Run(formMidiEventEditor);
-            }
+            using var formMidiEventEditor = new FormMidiEventEditor();
+            Application.Run(formMidiEventEditor);
         }
     }
 }

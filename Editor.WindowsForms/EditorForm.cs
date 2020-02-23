@@ -9,9 +9,9 @@
 // <remarks></remarks>
 
 using Engine;
+using Engine.Colorspace;
 using Engine.File.Palettes;
 using Engine.Imaging;
-using Engine.Colorspace;
 using Engine.Tools;
 using Engine.Tweening;
 using Engine.WindowsForms;
@@ -19,8 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace Editor
@@ -547,10 +547,8 @@ namespace Editor
         /// <returns>The <see cref="object"/>.</returns>
         private object LoadFile(string filename)
         {
-            using (TextReader reader = new StreamReader(filename))
-            {
-                return vectorMapSerializer.Deserialize(reader);
-            }
+            using TextReader reader = new StreamReader(filename);
+            return vectorMapSerializer.Deserialize(reader);
         }
 
         /// <summary>
@@ -560,10 +558,8 @@ namespace Editor
         /// <param name="item">The item.</param>
         private void Serialize(string filename, VectorMap item)
         {
-            using (TextWriter tw = new StreamWriter(filename))
-            {
-                Serialize(tw, item);
-            }
+            using TextWriter tw = new StreamWriter(filename);
+            Serialize(tw, item);
         }
 
         /// <summary>

@@ -9,12 +9,12 @@
 // <remarks></remarks>
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using static Engine.Mathematics;
 using System.Runtime.Serialization;
+using static Engine.Mathematics;
 
 namespace Engine
 {

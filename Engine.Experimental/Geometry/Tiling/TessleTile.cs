@@ -125,7 +125,7 @@ namespace Engine.Experimental
         /// <param name="direction">The direction.</param>
         /// <param name="alterations">The alterations.</param>
         /// <returns>The <see cref="Polyline"/>.</returns>
-        private static Point2D[]BuildPolyline(Point2D start, double length, Vector2D direction, (double t, double offset)[] alterations)
+        private static Point2D[] BuildPolyline(Point2D start, double length, Vector2D direction, (double t, double offset)[] alterations)
         {
             // ToDo: This is a rough guess of what needs to happen. This needs to be tested and corrected.
             var points = new Point2D[alterations.Length + 1];
@@ -159,7 +159,7 @@ namespace Engine.Experimental
 
                 var polyline = new Span<Point2D>(BuildPolyline(start, len, dir, set));
                 polygon.AddRange(polyline.Slice(1).ToArray());
-                start = polyline[polyline.Length-1];
+                start = polyline[polyline.Length - 1];
             }
             return new PolygonContour(polygon);
         }

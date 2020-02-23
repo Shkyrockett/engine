@@ -13,9 +13,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -32,10 +32,7 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<Point2D> Interpolate0to1(int count, Func<double, Point2D> func)
-            => new List<Point2D>(
-            from i in Enumerable.Range(0, count)
-            select func(1d / count * i));
+        public static List<Point2D> Interpolate0to1(int count, Func<double, Point2D> func) => new List<Point2D>(from i in Enumerable.Range(0, count) select func(1d / count * i));
 
         #region Linear Interpolation
         /// <summary>
@@ -664,8 +661,7 @@ namespace Engine
         /// <param name="p4Y">The p4 y.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) QuinticBezier(double t, double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y)
-            => CubicBezierSpline(t, new List<(double X, double Y)> { (p0X, p0Y), (p1X, p1Y), (p2X, p2Y), (p3X, p3Y), (p4X, p4Y) });
+        public static (double X, double Y) QuinticBezier(double t, double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y) => CubicBezierSpline(t, new List<Point2D> { (p0X, p0Y), (p1X, p1Y), (p2X, p2Y), (p3X, p3Y), (p4X, p4Y) });
 
         #region N Bézier Interpolation
         /// <summary>
@@ -681,64 +677,6 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D CubicBezierSpline(double t, List<Point2D> points)
-        {
-            var n = points.Count - 1;
-            int kn;
-            int nn;
-            int nkn;
-
-            double blend;
-            var muk = 1d;
-            var munk = Pow(1d - t, n);
-
-            var b = (X: 0d, Y: 0d);
-
-            for (var k = 0; k <= n; k++)
-            {
-                nn = n;
-                kn = k;
-                nkn = n - k;
-                blend = muk * munk;
-                muk *= t;
-                munk /= 1d - t;
-                while (nn >= 1)
-                {
-                    blend *= nn;
-                    nn--;
-                    if (kn > 1)
-                    {
-                        blend /= kn;
-                        kn--;
-                    }
-                    if (nkn > 1)
-                    {
-                        blend /= nkn;
-                        nkn--;
-                    }
-                }
-
-                b = (
-                    b.X + (points[k].X * blend),
-                    b.Y + (points[k].Y * blend)
-                );
-            }
-
-            return b;
-        }
-
-        /// <summary>
-        /// General Bézier curve Number of control points is n+1 0 less than or equal to mu less than 1
-        /// IMPORTANT, the last point is not computed.
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="points"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// http://paulbourke.net/geometry/bezier/
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezierSpline(double t, List<(double X, double Y)> points)
         {
             var n = points.Count - 1;
             int kn;
@@ -1553,7 +1491,7 @@ namespace Engine
         /// </returns>
         public static CubicBezier TweenCubic(double t, CubicBezier key1, CubicBezier key2)
             => new CubicBezier(
-                 key1.A + (t * (key2.A - key1.A)),
+                 a: key1.A + (t * (key2.A - key1.A)),
                  key1.B + (t * (key2.B - key1.B)),
                  key1.C + (t * (key2.C - key1.C)),
                  key1.D + (t * (key2.D - key1.D))

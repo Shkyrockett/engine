@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using static Engine.Operations;
 using static Engine.Polynomials;
 
 namespace Engine
@@ -36,10 +35,10 @@ namespace Engine
         /// Initializes a new instance of the <see cref="CubicBezierSegment"/> class.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <param name="relitive">The relitive.</param>
+        /// <param name="relative">The relative.</param>
         /// <param name="args">The args.</param>
-        public CubicBezierSegment(CurveSegment item, bool relitive, double[] args)
-            : this(item, relitive, args.Length == 6 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]), new Point2D(args[4], args[5]) }
+        public CubicBezierSegment(CurveSegment item, bool relative, double[] args)
+            : this(item, relative, args.Length == 6 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]), new Point2D(args[4], args[5]) }
                 : args.Length == 4 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]) } : null)
         { }
 
@@ -47,12 +46,12 @@ namespace Engine
         /// Initializes a new instance of the <see cref="CubicBezierSegment"/> class.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <param name="relitive">The relitive.</param>
+        /// <param name="relative">The relative.</param>
         /// <param name="args">The args.</param>
-        public CubicBezierSegment(CurveSegment item, bool relitive, Point2D[] args)
+        public CubicBezierSegment(CurveSegment item, bool relative, Point2D[] args)
             : this(item, args.Length == 3 ? (Point2D?)args[0] : null, args.Length == 3 ? args[1] : args[0], args.Length == 3 ? args[1] : args[2])
         {
-            if (relitive)
+            if (relative)
             {
                 Handle1 = (Point2D)(Handle1 + item.Tail);
                 Handle2 = (Point2D)(Handle2 + item.Tail);
@@ -69,6 +68,11 @@ namespace Engine
         /// <param name="end">The end.</param>
         public CubicBezierSegment(CurveSegment previous, Point2D? handle1, Point2D handle2, Point2D end)
         {
+            if (previous is null)
+            {
+                throw new ArgumentNullException(nameof(previous));
+            }
+
             Previous = previous;
             previous.Next = this;
             Handle1 = handle1 ?? (Point2D)((2d * previous.Tail) - previous.NextToEnd);

@@ -11,7 +11,6 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using static Engine.LengthUnits;
@@ -296,7 +295,7 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static explicit operator Yards (Feet value)
+        public static explicit operator Yards(Feet value)
             => value.Yards;
 
         /// <summary>

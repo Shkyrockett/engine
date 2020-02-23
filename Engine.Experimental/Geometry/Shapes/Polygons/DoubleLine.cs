@@ -32,7 +32,7 @@ namespace Engine
         /// Initializes a new instance of the <see cref="DoubleLine"/> class.
         /// </summary>
         public DoubleLine()
-            :this(new List<Point2D>(),new List<Point2D>())
+            : this(new List<Point2D>(), new List<Point2D>())
         { }
 
         /// <summary>

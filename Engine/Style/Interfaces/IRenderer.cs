@@ -331,7 +331,7 @@ namespace Engine
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="stringFormat">The stringFormat.</param>
-        void DrawString(string text, RenderFont font, IFill brush, double x, double y,TextFormat stringFormat);
+        void DrawString(string text, RenderFont font, IFill brush, double x, double y, TextFormat stringFormat);
 
         /// <summary>
         /// The draw string.

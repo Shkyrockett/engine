@@ -84,8 +84,7 @@ namespace Engine
             try
             {
                 // Should be cleared after each run.
-                Debug.Assert(instance.points.Count == 0 && instance.result.Count == 0 &&
-                    instance.u.Count == 0 && instance.arclen.Count == 0);
+                Debug.Assert(instance.points.Count == 0 && instance.result.Count == 0 && instance.u.Count == 0 && instance.arclen.Count == 0);
 
                 // Initialize arrays.
                 instance.points.AddRange(points);
@@ -148,7 +147,6 @@ namespace Engine
         /// Get the instance.
         /// </summary>
         /// <returns>The <see cref="CurveFit"/>.</returns>
-        private static CurveFit GetInstance()
-            => instance ?? (instance = new CurveFit());
+        private static CurveFit GetInstance() => instance ?? (instance = new CurveFit());
     }
 }

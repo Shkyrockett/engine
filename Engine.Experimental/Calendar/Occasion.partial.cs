@@ -371,50 +371,44 @@ namespace Engine.Chrono
         /// </remarks>
         public static Occasion ThanksgivingDay(int year, Culture culture)
         {
-            switch (culture.Country)
+            return culture.Country switch
             {
-                case Country.AU:
-                    return new Occasion(
-                        "Thanksgiving Day (Norfolk Island Australia)",
-                        culture,
-                        OccasionDateType.DynamicAnnualDate,
-                        EventType.Holiday,
-                        new DateTime(year, (int)Month.November, 1).LastInstanceWeekdayOfMonth(1, DayOfWeek.Wednesday),
-                        "The Last Wednesday in November.");
-                case Country.CA:
-                    return new Occasion(
-                        "Thanksgiving Day (Canada)",
-                        culture,
-                        OccasionDateType.DynamicAnnualDate,
-                        EventType.Holiday,
-                        new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Thursday),
-                        "The Second Monday in October.");
-                case Country.GD:
-                    return new Occasion(
-                        "Thanksgiving Day (Grenada)",
-                        culture,
-                        OccasionDateType.AnnualDate,
-                        EventType.Holiday,
-                        new DateTime(year, (int)Month.October, 25),
-                        "October Twenty Fifth.");
-                case Country.LR:
-                    return new Occasion(
-                        "Thanksgiving Day (Liberia)",
-                        culture,
-                        OccasionDateType.DynamicAnnualDate,
-                        EventType.Holiday,
-                        new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Thursday),
-                        "The First Thursday in November.");
-                case Country.US:
-                default:
-                    return new Occasion(
-                       "Thanksgiving Day (USA)",
-                       culture,
-                       OccasionDateType.DynamicAnnualDate,
-                       EventType.Holiday,
-                       new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfWeek.Thursday),
-                       "The Fourth Thursday in November.");
-            }
+                Country.AU => new Occasion(
+                                       "Thanksgiving Day (Norfolk Island Australia)",
+                                       culture,
+                                       OccasionDateType.DynamicAnnualDate,
+                                       EventType.Holiday,
+                                       new DateTime(year, (int)Month.November, 1).LastInstanceWeekdayOfMonth(1, DayOfWeek.Wednesday),
+                                       "The Last Wednesday in November."),
+                Country.CA => new Occasion(
+"Thanksgiving Day (Canada)",
+culture,
+OccasionDateType.DynamicAnnualDate,
+EventType.Holiday,
+new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Thursday),
+"The Second Monday in October."),
+                Country.GD => new Occasion(
+"Thanksgiving Day (Grenada)",
+culture,
+OccasionDateType.AnnualDate,
+EventType.Holiday,
+new DateTime(year, (int)Month.October, 25),
+"October Twenty Fifth."),
+                Country.LR => new Occasion(
+"Thanksgiving Day (Liberia)",
+culture,
+OccasionDateType.DynamicAnnualDate,
+EventType.Holiday,
+new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Thursday),
+"The First Thursday in November."),
+                _ => new Occasion(
+"Thanksgiving Day (USA)",
+culture,
+OccasionDateType.DynamicAnnualDate,
+EventType.Holiday,
+new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfWeek.Thursday),
+"The Fourth Thursday in November."),
+            };
         }
 
         // - Christian Floating holidays -
@@ -1199,22 +1193,13 @@ namespace Engine.Chrono
         /// <remarks><para>http://stackoverflow.com/questions/1579587/how-can-i-get-the-current-season-using-net-summer-winter-etc</para></remarks>
         internal static Season GetSeason(DateTime date, bool ofSouthernHemisphere)
         {
-            switch (date.Month + (date.Day / 100f) /* <month>.<day(2 digit)> */)
+            return (date.Month + (date.Day / 100f)) /* <month>.<day(2 digit)> */switch
             {
-                case var v when v < 3.21 || v >= 12.22:
-                    // 3: Winter
-                    return getSeasonOffset(Season.Winter);
-                case var v when v < 6.21:
-                    // 0: Spring
-                    return getSeasonOffset(Season.Spring);
-                case var v when v < 9.23:
-                    // 1: Summer
-                    return getSeasonOffset(Season.Summer);
-                default:
-                    // 2: Autumn
-                    return getSeasonOffset(Season.Autumn);
-            }
-
+                var v when v < 3.21 || v >= 12.22 => getSeasonOffset(Season.Winter),// 3: Winter
+                var v when v < 6.21 => getSeasonOffset(Season.Spring),// 0: Spring
+                var v when v < 9.23 => getSeasonOffset(Season.Summer),// 1: Summer
+                _ => getSeasonOffset(Season.Autumn),// 2: Autumn
+            };
             Season getSeasonOffset(Season northern)
                 => (Season)(((int)northern + (ofSouthernHemisphere ? 2 : 0)) % 4);
         }

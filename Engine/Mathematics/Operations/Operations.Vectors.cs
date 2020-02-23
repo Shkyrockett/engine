@@ -34,8 +34,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsUnitVector(double i1, double j1)
-            => Math.Abs(Magnitude(i1, j1) - 1) < double.Epsilon;
+        public static bool IsUnitVector(double i1, double j1) => Math.Abs(Magnitude(i1, j1) - 1) < double.Epsilon;
 
         /// <summary>
         /// The is unit vector.
@@ -51,8 +50,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsUnitVector(double i1, double j1, double k1)
-            => Math.Abs(Magnitude(i1, j1, k1) - 1) < double.Epsilon;
+        public static bool IsUnitVector(double i1, double j1, double k1) => Math.Abs(Magnitude(i1, j1, k1) - 1) < double.Epsilon;
         #endregion
 
         #region Unary Add

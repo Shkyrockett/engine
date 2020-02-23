@@ -229,9 +229,12 @@ namespace Engine
             set
             {
                 var angles = new List<double>();
-                foreach (var point in value)
+                if (!(value is null))
                 {
-                    angles.Add(Angle(X, Y, point.X, point.Y));
+                    foreach (var point in value)
+                    {
+                        angles.Add(Angle(X, Y, point.X, point.Y));
+                    }
                 }
 
                 TestAngles = angles;

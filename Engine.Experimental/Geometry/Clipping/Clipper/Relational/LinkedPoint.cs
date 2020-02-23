@@ -34,8 +34,8 @@ namespace Engine.Experimental
             Next = next;
             Prev = prev;
         }
- 
-       #region Properties
+
+        #region Properties
         /// <summary>
         /// The pt.
         /// </summary>

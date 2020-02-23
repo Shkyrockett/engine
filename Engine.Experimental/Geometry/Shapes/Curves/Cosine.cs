@@ -26,7 +26,7 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Cosine"/> class.
         /// </summary>
         public Cosine()
-            :this(Point2D.Empty,Point2D.Empty)
+            : this(Point2D.Empty, Point2D.Empty)
         { }
 
         /// <summary>

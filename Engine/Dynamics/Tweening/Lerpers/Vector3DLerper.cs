@@ -8,8 +8,8 @@
 // <summary></summary>
 // <remarks> Based on: https://bitbucket.org/jacobalbano/glide </remarks>
 
-using static System.Math;
 using static Engine.Mathematics;
+using static System.Math;
 
 namespace Engine.Tweening
 {

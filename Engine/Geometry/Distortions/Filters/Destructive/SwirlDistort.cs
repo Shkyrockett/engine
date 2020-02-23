@@ -15,12 +15,13 @@ namespace Engine
     /// <summary>
     /// The swirl distort class.
     /// </summary>
+    /// <seealso cref="Engine.DestructiveFilter" />
     public class SwirlDistort
         : DestructiveFilter
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="SwirlDistort"/> class.
+        /// Initializes a new instance of the <see cref="SwirlDistort" /> class.
         /// </summary>
         /// <param name="center">The center.</param>
         /// <param name="strength">The strength.</param>
@@ -35,11 +36,17 @@ namespace Engine
         /// <summary>
         /// Gets or sets the center.
         /// </summary>
+        /// <value>
+        /// The center.
+        /// </value>
         public Point2D Center { get; set; }
 
         /// <summary>
         /// Gets or sets the strength.
         /// </summary>
+        /// <value>
+        /// The strength.
+        /// </value>
         public double Strength { get; set; }
         #endregion Properties
 
@@ -48,21 +55,23 @@ namespace Engine
         /// Process.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Point2D Process(Point2D point)
-            => Process(point, Center, -Strength);
+        public override Point2D Process(Point2D point) => Process(point, Center, -Strength);
 
         /// <summary>
         /// Process.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <param name="center"></param>
-        /// <param name="strength"></param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <param name="center">The center.</param>
+        /// <param name="strength">The strength.</param>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Process(Point2D point, Point2D center, double strength)
-            => Distortions.Swirl(point, center, strength);
+        public static Point2D Process(Point2D point, Point2D center, double strength) => Distortions.Swirl(point, center, strength);
         #endregion Methods
     }
 }

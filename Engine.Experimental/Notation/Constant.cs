@@ -16,7 +16,7 @@ namespace Engine.MathNotation
     /// The constant class.
     /// </summary>
     public class Constant
-        :Term
+        : Term
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Constant"/> class.

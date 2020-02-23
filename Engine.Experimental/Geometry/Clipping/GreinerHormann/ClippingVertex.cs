@@ -123,13 +123,13 @@ namespace Engine
         public bool Equals(ClippingVertex v)
             => X == v.X && Y == v.Y;
 
-         /// <summary>
-         /// Check if vertex is inside a polygon by odd-even rule:
-         /// If the number of intersections of a ray out of the point and polygon
-         /// segments is odd - the point is inside.
-         /// </summary>
-         /// <param name="poly"></param>
-         /// <returns></returns>
+        /// <summary>
+        /// Check if vertex is inside a polygon by odd-even rule:
+        /// If the number of intersections of a ray out of the point and polygon
+        /// segments is odd - the point is inside.
+        /// </summary>
+        /// <param name="poly"></param>
+        /// <returns></returns>
         public bool IsInside(ClippingPolygon poly)
         {
             var oddNodes = false;

@@ -8,9 +8,9 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System.Drawing;
 using Engine.File.Palettes;
 using Engine.Imaging;
+using System.Drawing;
 
 namespace Engine.WindowsForms
 {

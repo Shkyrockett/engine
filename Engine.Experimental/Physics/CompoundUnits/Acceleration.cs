@@ -115,7 +115,7 @@ namespace Engine
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(Acceleration other) => EqualityComparer<IVelocity>.Default.Equals(VelocityChange, other.VelocityChange) && EqualityComparer<ITime>.Default.Equals(TimeInterval, other.TimeInterval);
-        
+
         /// <summary>
         /// Returns a hash code for this instance.
         /// </summary>

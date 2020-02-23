@@ -191,7 +191,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator == (RGBA left, RGBA right)
+        public static bool operator ==(RGBA left, RGBA right)
             => Equals(left, right);
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator != (RGBA left, RGBA right)
+        public static bool operator !=(RGBA left, RGBA right)
             => !Equals(left, right);
         #endregion Operators
 

@@ -15,7 +15,7 @@ namespace Engine
     /// </summary>
     /// <seealso cref="Locus" />
     /// <remarks>
-    /// This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178
+    /// <para>This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178</para>
     /// </remarks>
     public class PointLocus
         : Locus

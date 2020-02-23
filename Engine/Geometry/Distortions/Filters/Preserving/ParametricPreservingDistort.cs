@@ -21,7 +21,7 @@ namespace Engine
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="ParametricPreservingDistort"/> class.
+        /// Initializes a new instance of the <see cref="ParametricPreservingDistort" /> class.
         /// </summary>
         /// <param name="functions">The functions.</param>
         public ParametricPreservingDistort(params Func<Point2D, Point2D>[] functions)
@@ -34,6 +34,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the functions.
         /// </summary>
+        /// <value>
+        /// The functions.
+        /// </value>
         public Func<Point2D, Point2D>[] Functions { get; set; }
         #endregion Properties
 
@@ -42,17 +45,21 @@ namespace Engine
         /// Process.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Point2D Process(Point2D point)
-            => Process(point, Functions);
+        public override Point2D Process(Point2D point) => Process(point, Functions);
 
         /// <summary>
         /// Process.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <param name="functions"></param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <param name="functions">The functions.</param>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">functions</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Process(Point2D point, Func<Point2D, Point2D>[] functions)
         {

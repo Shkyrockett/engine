@@ -134,10 +134,12 @@ namespace Engine.Experimental
         /// <returns></returns>
         public List<T> Query(Rectangle2D queryArea)
         {
-            // create a list of the items that are found
+            if (queryArea is null) return null;
+
+            // Create a list of the items that are found
             var results = new List<T>();
 
-            // this quad contains items that are not entirely contained by
+            // This quad contains items that are not entirely contained by
             // it's four sub-quads. Iterate through the items in this quad 
             // to see if they intersect.
             foreach (var item in Contents)
@@ -232,6 +234,7 @@ namespace Engine.Experimental
         /// <param name="action">The action.</param>
         public void ForEach(PointQuadTree<T>.QTAction action)
         {
+            if (action is null) return;
             action(this);
 
             // draw the child quads

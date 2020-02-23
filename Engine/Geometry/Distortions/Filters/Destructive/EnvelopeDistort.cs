@@ -15,12 +15,13 @@ namespace Engine
     /// <summary>
     /// The Envelope distort class.
     /// </summary>
+    /// <seealso cref="Engine.DestructiveFilter" />
     public class EnvelopeDistort
         : DestructiveFilter
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnvelopeDistort"/> class.
+        /// Initializes a new instance of the <see cref="EnvelopeDistort" /> class.
         /// </summary>
         /// <param name="envelope">The envelope.</param>
         /// <param name="boundingBox">The bounding box.</param>
@@ -35,11 +36,17 @@ namespace Engine
         /// <summary>
         /// Gets or sets the envelope to use for warping.
         /// </summary>
+        /// <value>
+        /// The envelope.
+        /// </value>
         public Envelope Envelope { get; set; }
 
         /// <summary>
         /// Gets or sets the bounding box of the shape.
         /// </summary>
+        /// <value>
+        /// The bounding box.
+        /// </value>
         public Rectangle2D BoundingBox { get; set; }
         #endregion Properties
 
@@ -48,18 +55,21 @@ namespace Engine
         /// Process.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Point2D Process(Point2D point)
-            => Process(point, Envelope, BoundingBox);
+        public override Point2D Process(Point2D point) => Process(point, Envelope, BoundingBox);
 
         /// <summary>
         /// Get the point.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="envelope">The envelope.</param>
-        /// <param name="boundingBox"></param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <param name="boundingBox">The bounding box.</param>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Process(Point2D point, Envelope envelope, Rectangle2D boundingBox)
             => Distortions.CubicBezierEnvelope(

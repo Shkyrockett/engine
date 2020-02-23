@@ -18,10 +18,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using static System.Math;
-using static Engine.Mathematics;
 using System.Globalization;
+using static Engine.Mathematics;
+using static System.Math;
 
 namespace Editor
 {
@@ -4171,7 +4170,7 @@ namespace Editor
 
                 e10.Angle = 0d.DegreesToRadians();
                 e11.Angle = 0d.DegreesToRadians();
-                vectorMap?.Tweener.Tween(e10, new { Angle = revolution + e10.Angle }, duration, delay).Ease(Ease.Linear);
+                vectorMap?.Tweener.Tween(e10, new { Angle = -(revolution + e10.Angle) }, duration, delay).Ease(Ease.Linear);
                 vectorMap?.Tweener.Tween(e11, new { Angle = revolution + e11.Angle }, duration, delay).Ease(Ease.Linear);
 
                 e12.Angle = 0d.DegreesToRadians();

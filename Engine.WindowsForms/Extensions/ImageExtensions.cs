@@ -11,7 +11,6 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Globalization;
 using System.Windows.Forms;
 
 namespace Engine.Imaging
@@ -57,11 +56,9 @@ namespace Engine.Imaging
         /// <remarks><para>http://tech.pro/tutorial/620/csharp-tutorial-image-editing-saving-cropping-and-resizing</para></remarks>
         public static Image CropImage(this Image canvas, Rectangle cropArea)
         {
-            using (var bmpImage = new Bitmap(canvas))
-			{
-            	var bmpCrop = bmpImage.Clone(cropArea, bmpImage.PixelFormat);
-            	return bmpCrop;
-			}
+            using var bmpImage = new Bitmap(canvas);
+            var bmpCrop = bmpImage.Clone(cropArea, bmpImage.PixelFormat);
+            return bmpCrop;
         }
 
         /// <summary>

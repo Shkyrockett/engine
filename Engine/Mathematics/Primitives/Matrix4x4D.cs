@@ -846,11 +846,25 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => new {
-            M0x0, M0x1, M0x2, M0x3,
-            M1x0, M1x1, M1x2, M1x3,
-            M2x0, M2x1, M2x2, M2x3,
-            M3x0, M3x1, M3x2, M3x3 }.GetHashCode();
+        public override int GetHashCode() => new
+        {
+            M0x0,
+            M0x1,
+            M0x2,
+            M0x3,
+            M1x0,
+            M1x1,
+            M1x2,
+            M1x3,
+            M2x0,
+            M2x1,
+            M2x2,
+            M2x3,
+            M3x0,
+            M3x1,
+            M3x2,
+            M3x3
+        }.GetHashCode();
 
         /// <summary>
         /// Get the enumerator.

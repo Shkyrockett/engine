@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -36,8 +35,7 @@ namespace Engine
         /// <param name="Upper">The Upper.</param>
         /// <returns>The <see cref="double"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Random(this double Lower, double Upper)
-            => (RandomNumberGenerator.Next() * (Upper - Lower + 1)) + Lower;
+        public static double Random(this double Lower, double Upper) => (RandomNumberGenerator.Next() * (Upper - Lower + 1)) + Lower;
         #endregion Random
 
         #region Array Math

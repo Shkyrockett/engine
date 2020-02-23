@@ -46,15 +46,12 @@ namespace Engine.Chrono
         /// <returns></returns>
         public static DateTime EnsureWeekday(this DateTime date)
         {
-            switch (date.DayOfWeek)
+            return date.DayOfWeek switch
             {
-                case DayOfWeek.Saturday:
-                    return date.AddDays(-1);
-                case DayOfWeek.Sunday:
-                    return date.AddDays(1);
-                default:
-                    return date;
-            }
+                DayOfWeek.Saturday => date.AddDays(-1),
+                DayOfWeek.Sunday => date.AddDays(1),
+                _ => date,
+            };
         }
 
         /// <summary>
@@ -64,13 +61,11 @@ namespace Engine.Chrono
         /// <returns></returns>
         public static DateTime BeforeSunday(this DateTime date)
         {
-            switch (date.DayOfWeek)
+            return date.DayOfWeek switch
             {
-                case DayOfWeek.Sunday:
-                    return date.AddDays(-1);
-                default:
-                    return date;
-            }
+                DayOfWeek.Sunday => date.AddDays(-1),
+                _ => date,
+            };
         }
 
         /// <summary>

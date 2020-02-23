@@ -59,6 +59,7 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public override void MouseDownUpdate(ToolStack tools)
         {
+            if (tools is null) return;
             mouseDown = true;
             InUse = true;
             if (InUse)
@@ -85,6 +86,7 @@ namespace Engine.Tools
         /// <param name="tools">The Mouse Move event arguments.</param>
         public override void MouseMoveUpdate(ToolStack tools)
         {
+            if (tools is null) return;
             if (InUse)
             {
                 if (Started)
@@ -105,6 +107,7 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public override void MouseUpUpdate(ToolStack tools)
         {
+            if (tools is null) return;
             mouseDown = false;
             if (InUse)
             {

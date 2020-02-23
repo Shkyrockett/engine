@@ -9,10 +9,10 @@
 // <remarks> Based on: https://bitbucket.org/jacobalbano/glide </remarks>
 
 using System;
-using System.Runtime.CompilerServices;
-using static System.Math;
-using static Engine.Mathematics;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using static Engine.Mathematics;
+using static System.Math;
 
 namespace Engine.Tweening
 {

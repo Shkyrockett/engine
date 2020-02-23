@@ -159,10 +159,13 @@ namespace Engine
             get { return new List<Point2D> { A, B }; }
             set
             {
-                A = value[0];
-                B = value[1];
-                ClearCache();
-                OnPropertyChanged(nameof(Points));
+                if (!(value is null))
+                {
+                    A = value[0];
+                    B = value[1];
+                    ClearCache();
+                    OnPropertyChanged(nameof(Points));
+                }
             }
         }
 
@@ -305,43 +308,37 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(A.X, A.Y, B.X, B.Y));
+        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Length
-            => (double)CachingProperty(() => Measurements.Distance(A.X, A.Y, B.X, B.Y));
+        public double Length => (double)CachingProperty(() => Measurements.Distance(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// Gets the length squared.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double LengthSquared
-            => (double)CachingProperty(() => Measurements.SquareDistance(A.X, A.Y, B.X, B.Y));
+        public double LengthSquared => (double)CachingProperty(() => Measurements.SquareDistance(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// Gets the dot product.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double DotProduct
-            => (double)CachingProperty(() => DotProduct(aX, aY, bX, bY));
+        public double DotProduct => (double)CachingProperty(() => DotProduct(aX, aY, bX, bY));
 
         /// <summary>
         /// "a.X * b.Y - b.X * a.Y" This would be the Z-component of (⟪a.X, a.Y, 0⟫ ⨯ ⟪b.X, b.Y, 0⟫) in 3-space.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double CrossProduct
-            => (double)CachingProperty(() => CrossProduct(aX, aY, bX, bY));
+        public double CrossProduct => (double)CachingProperty(() => CrossProduct(aX, aY, bX, bY));
 
         /// <summary>
         /// Gets the complex product.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public (double x, double y) ComplexProduct
-            => ((double x, double y))CachingProperty(() => ComplexProduct(aX, aY, bX, bY));
+        public (double x, double y) ComplexProduct => ((double x, double y))CachingProperty(() => ComplexProduct(aX, aY, bX, bY));
 
         /// <summary>
         /// Gets the curve x.
@@ -375,43 +372,37 @@ namespace Engine
         /// Return the point of the segment with lexicographically smallest coordinate.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Point2D Min
-            => (aX < bX) || (aX == bX && aY < bY) ? new Point2D(aX, aY) : new Point2D(bX, bY);
+        public Point2D Min => (aX < bX) || (aX == bX && aY < bY) ? new Point2D(aX, aY) : new Point2D(bX, bY);
 
         /// <summary>
         /// Return the point of the segment with lexicographically largest coordinate.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Point2D Max
-            => (aX > bX) || (aX == bX && aY > bY) ? new Point2D(aX, aY) : new Point2D(bX, bY);
+        public Point2D Max => (aX > bX) || (aX == bX && aY > bY) ? new Point2D(aX, aY) : new Point2D(bX, bY);
 
         /// <summary>
         /// Gets the degree.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public PolynomialDegree Degree
-            => PolynomialDegree.Linear;
+        public PolynomialDegree Degree => PolynomialDegree.Linear;
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public bool Degenerate
-            => aX == bX && aY == bY;
+        public bool Degenerate => aX == bX && aY == bY;
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public bool IsHorizontal
-            => aY == bY;
+        public bool IsHorizontal => aY == bY;
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public bool IsVertical
-            => aX == bX;
+        public bool IsVertical => aX == bX;
         #endregion Properties
 
         #region Operators

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Engine.File;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Engine.File;
 
 namespace EventEditorMidi
 {
@@ -132,9 +132,9 @@ namespace EventEditorMidi
 
             foreach (var prop in item?.GetType().GetProperties()
                 .Where(p =>
-                        
+
                            p.ReflectedType.GetInterfaces().Contains(typeof(IMidiElement))
-                        
+
                         ||
                         (
                                p.PropertyType.IsGenericType

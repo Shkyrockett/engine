@@ -67,6 +67,11 @@ namespace Engine
         /// <param name="polylines"></param>
         public PolylineSet(IEnumerable<List<Point2D>> polylines)
         {
+            if (polylines is null)
+            {
+                throw new ArgumentNullException(nameof(polylines));
+            }
+
             this.polylines = new List<Polyline>();
 
             foreach (var list in polylines)

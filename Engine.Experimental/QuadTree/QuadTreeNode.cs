@@ -144,6 +144,7 @@ namespace Engine.Experimental
         /// <param name="item">The item to insert</param>
         public void Insert(QuadTreePositionItem<T> item)
         {
+            if (item is null) return;
             // If partitioned, try to find child node to add to
             if (!InsertInChild(item))
             {
@@ -257,30 +258,31 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets a list of items containing a specified point
         /// </summary>
-        /// <param name="Point">The point</param>
-        /// <param name="ItemsFound">The list to add found items to (list will not be cleared first)</param>
+        /// <param name="point">The point</param>
+        /// <param name="itemsFound">The list to add found items to (list will not be cleared first)</param>
         /// <remarks><para>ItemsFound is assumed to be initialized, and will not be cleared</para></remarks>
-        public void GetItems(Point2D Point, ref List<QuadTreePositionItem<T>> ItemsFound)
+        public void GetItems(Point2D point, ref List<QuadTreePositionItem<T>> itemsFound)
         {
+            if (itemsFound is null) return;
             // test the point against this node
-            if (Rect.Contains(Point))
+            if (Rect.Contains(point))
             {
                 // test the point in each item
                 foreach (var Item in Items)
                 {
-                    if (Item.Bounds.Contains(Point))
+                    if (Item.Bounds.Contains(point))
                     {
-                        ItemsFound.Add(Item);
+                        itemsFound.Add(Item);
                     }
                 }
 
                 // query all subtrees
                 if (IsPartitioned)
                 {
-                    TopLeftNode.GetItems(Point, ref ItemsFound);
-                    TopRightNode.GetItems(Point, ref ItemsFound);
-                    BottomLeftNode.GetItems(Point, ref ItemsFound);
-                    BottomRightNode.GetItems(Point, ref ItemsFound);
+                    TopLeftNode.GetItems(point, ref itemsFound);
+                    TopRightNode.GetItems(point, ref itemsFound);
+                    BottomLeftNode.GetItems(point, ref itemsFound);
+                    BottomRightNode.GetItems(point, ref itemsFound);
                 }
             }
         }
@@ -288,30 +290,31 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets a list of items intersecting a specified rectangle
         /// </summary>
-        /// <param name="Rect">The rectangle</param>
-        /// <param name="ItemsFound">The list to add found items to (list will not be cleared first)</param>
+        /// <param name="rect">The rectangle</param>
+        /// <param name="itemsFound">The list to add found items to (list will not be cleared first)</param>
         /// <remarks><para>ItemsFound is assumed to be initialized, and will not be cleared</para></remarks>
-        public void GetItems(Rectangle2D Rect, ref List<QuadTreePositionItem<T>> ItemsFound)
+        public void GetItems(Rectangle2D rect, ref List<QuadTreePositionItem<T>> itemsFound)
         {
+            if (rect is null || itemsFound is null) return;
             // test the point against this node
-            if (Rect.Intersects(Rect))
+            if (rect.Intersects(rect))
             {
                 // test the point in each item
                 foreach (var Item in Items)
                 {
-                    if (Item.Bounds.Intersects(Rect))
+                    if (Item.Bounds.Intersects(rect))
                     {
-                        ItemsFound.Add(Item);
+                        itemsFound.Add(Item);
                     }
                 }
 
                 // query all subtrees
                 if (IsPartitioned)
                 {
-                    TopLeftNode.GetItems(Rect, ref ItemsFound);
-                    TopRightNode.GetItems(Rect, ref ItemsFound);
-                    BottomLeftNode.GetItems(Rect, ref ItemsFound);
-                    BottomRightNode.GetItems(Rect, ref ItemsFound);
+                    TopLeftNode.GetItems(rect, ref itemsFound);
+                    TopRightNode.GetItems(rect, ref itemsFound);
+                    BottomLeftNode.GetItems(rect, ref itemsFound);
+                    BottomRightNode.GetItems(rect, ref itemsFound);
                 }
             }
         }
@@ -319,30 +322,31 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets a list of all items within this node
         /// </summary>
-        /// <param name="ItemsFound">The list to add found items to (list will not be cleared first)</param>
+        /// <param name="itemsFound">The list to add found items to (list will not be cleared first)</param>
         /// <remarks><para>ItemsFound is assumed to be initialized, and will not be cleared</para></remarks>
-        public void GetAllItems(ref List<QuadTreePositionItem<T>> ItemsFound)
+        public void GetAllItems(ref List<QuadTreePositionItem<T>> itemsFound)
         {
-            ItemsFound.AddRange(Items);
+            itemsFound?.AddRange(Items);
 
             // query all subtrees
             if (IsPartitioned)
             {
-                TopLeftNode.GetAllItems(ref ItemsFound);
-                TopRightNode.GetAllItems(ref ItemsFound);
-                BottomLeftNode.GetAllItems(ref ItemsFound);
-                BottomRightNode.GetAllItems(ref ItemsFound);
+                TopLeftNode.GetAllItems(ref itemsFound);
+                TopRightNode.GetAllItems(ref itemsFound);
+                BottomLeftNode.GetAllItems(ref itemsFound);
+                BottomRightNode.GetAllItems(ref itemsFound);
             }
         }
 
         /// <summary>
         /// Finds the node containing a specified item
         /// </summary>
-        /// <param name="Item">The item to find</param>
+        /// <param name="item">The item to find</param>
         /// <returns>The node containing the item</returns>
-        public QuadTreeNode<T> FindItemNode(QuadTreePositionItem<T> Item)
+        public QuadTreeNode<T> FindItemNode(QuadTreePositionItem<T> item)
         {
-            if (Items.Contains(Item))
+            if (item is null) return null;
+            if (Items.Contains(item))
             {
                 return this;
             }
@@ -351,24 +355,24 @@ namespace Engine.Experimental
                 QuadTreeNode<T> n = null;
 
                 // Check the nodes that could contain the item
-                if (TopLeftNode.ContainsRect(Item.Bounds))
+                if (TopLeftNode.ContainsRect(item.Bounds))
                 {
-                    n = TopLeftNode.FindItemNode(Item);
+                    n = TopLeftNode.FindItemNode(item);
                 }
                 if (n is null &&
-                    TopRightNode.ContainsRect(Item.Bounds))
+                    TopRightNode.ContainsRect(item.Bounds))
                 {
-                    n = TopRightNode.FindItemNode(Item);
+                    n = TopRightNode.FindItemNode(item);
                 }
                 if (n is null &&
-                    BottomLeftNode.ContainsRect(Item.Bounds))
+                    BottomLeftNode.ContainsRect(item.Bounds))
                 {
-                    n = BottomLeftNode.FindItemNode(Item);
+                    n = BottomLeftNode.FindItemNode(item);
                 }
                 if (n is null &&
-                    BottomRightNode.ContainsRect(Item.Bounds))
+                    BottomRightNode.ContainsRect(item.Bounds))
                 {
-                    n = BottomRightNode.FindItemNode(Item);
+                    n = BottomRightNode.FindItemNode(item);
                 }
 
                 return n;
@@ -414,6 +418,7 @@ namespace Engine.Experimental
         /// <param name="item">The item to remove</param>
         public void RemoveItem(QuadTreePositionItem<T> item)
         {
+            if (item is null) return;
             // Find and remove the item
             if (Items.Contains(item))
             {
@@ -445,6 +450,7 @@ namespace Engine.Experimental
         /// <param name="item">The item that moved</param>
         public void ItemMove(QuadTreePositionItem<T> item)
         {
+            if (item is null) return;
             // Find the item
             if (Items.Contains(item))
             {
@@ -488,10 +494,14 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="rect">The rectangle to test</param>
         /// <returns>Whether or not this node contains the specified rectangle</returns>
-        public bool ContainsRect(Rectangle2D rect) => rect.TopLeft.X >= Rect.TopLeft.X &&
-                    rect.TopLeft.Y >= Rect.TopLeft.Y &&
-                    rect.BottomRight.X <= Rect.BottomRight.X &&
-                    rect.BottomRight.Y <= Rect.BottomRight.Y;
+        public bool ContainsRect(Rectangle2D rect)
+        {
+            if (rect is null) return false;
+            return rect.TopLeft.X >= Rect.TopLeft.X &&
+                rect.TopLeft.Y >= Rect.TopLeft.Y &&
+                rect.BottomRight.X <= Rect.BottomRight.X &&
+                rect.BottomRight.Y <= Rect.BottomRight.Y;
+        }
         #endregion Helper Methods
     }
 }

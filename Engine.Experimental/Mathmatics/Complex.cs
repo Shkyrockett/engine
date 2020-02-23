@@ -8,9 +8,7 @@
 // <summary></summary>
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Security;
 
 namespace Engine.Geometry
 {

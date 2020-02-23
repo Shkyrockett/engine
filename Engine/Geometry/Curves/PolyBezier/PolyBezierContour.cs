@@ -204,7 +204,7 @@ namespace Engine
                 return Items[Items.Count - 1].End.Value;
             }
 
-            var weights = new(double length, double accumulated)[Items.Count];
+            var weights = new (double length, double accumulated)[Items.Count];
             var cursor = Items[0].End.Value;
             double accumulatedLength = 0;
 

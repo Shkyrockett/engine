@@ -16,12 +16,13 @@ namespace Engine
     /// <summary>
     /// The parametric destructive distort class.
     /// </summary>
+    /// <seealso cref="Engine.DestructiveFilter" />
     public class ParametricDestructiveDistort
         : DestructiveFilter
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="ParametricDestructiveDistort"/> class.
+        /// Initializes a new instance of the <see cref="ParametricDestructiveDistort" /> class.
         /// </summary>
         /// <param name="functions">The functions.</param>
         public ParametricDestructiveDistort(params Func<Point2D, Point2D>[] functions)
@@ -34,6 +35,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the functions.
         /// </summary>
+        /// <value>
+        /// The functions.
+        /// </value>
         public Func<Point2D, Point2D>[] Functions { get; private set; }
         #endregion Properties
 
@@ -44,15 +48,17 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Point2D Process(Point2D point)
-            => Process(point, Functions);
+        public override Point2D Process(Point2D point) => Process(point, Functions);
 
         /// <summary>
         /// Process.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <param name="functions"></param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <param name="functions">The functions.</param>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">functions</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Process(Point2D point, Func<Point2D, Point2D>[] functions)
         {

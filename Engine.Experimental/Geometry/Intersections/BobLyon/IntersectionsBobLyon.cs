@@ -13,10 +13,10 @@
 
 using System.Linq;
 using System.Runtime.CompilerServices;
-using static System.Math;
+using static Engine.BobLyonCommon;
 using static Engine.Mathematics;
 using static Engine.Operations;
-using static Engine.BobLyonCommon;
+using static System.Math;
 
 namespace Engine
 {

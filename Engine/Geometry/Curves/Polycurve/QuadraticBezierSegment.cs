@@ -14,7 +14,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using static Engine.Operations;
 using static Engine.Polynomials;
 
 namespace Engine
@@ -38,10 +37,10 @@ namespace Engine
         /// Initializes a new instance of the <see cref="QuadraticBezierSegment"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
-        /// <param name="relitive">The relitive.</param>
+        /// <param name="relative">The relative.</param>
         /// <param name="args">The args.</param>
-        public QuadraticBezierSegment(CurveSegment previous, bool relitive, double[] args)
-            : this(previous, relitive, args.Length == 4 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]) }
+        public QuadraticBezierSegment(CurveSegment previous, bool relative, double[] args)
+            : this(previous, relative, args.Length == 4 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]) }
                 : args.Length == 2 ? new Point2D[] { new Point2D(args[0], args[1]) } : null)
         { }
 
@@ -49,12 +48,12 @@ namespace Engine
         /// Initializes a new instance of the <see cref="QuadraticBezierSegment"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
-        /// <param name="relitive">The relitive.</param>
+        /// <param name="relative">The relative.</param>
         /// <param name="args">The args.</param>
-        public QuadraticBezierSegment(CurveSegment previous, bool relitive, Point2D[] args)
+        public QuadraticBezierSegment(CurveSegment previous, bool relative, Point2D[] args)
             : this(previous, args.Length == 2 ? (Point2D?)args[0] : null, args.Length == 2 ? args[0] : args[1])
         {
-            if (relitive)
+            if (relative)
             {
                 Handle = (Point2D)(Handle + previous.Tail);
                 Tail = (Point2D)(Tail + previous.Tail);
@@ -69,6 +68,11 @@ namespace Engine
         /// <param name="end">The end.</param>
         public QuadraticBezierSegment(CurveSegment previous, Point2D? handle, Point2D end)
         {
+            if (previous is null)
+            {
+                throw new ArgumentNullException(nameof(previous));
+            }
+
             Previous = previous;
             previous.Next = this;
             Handle = handle ?? (Point2D)((2 * previous.Tail) - previous.NextToEnd);

@@ -10,7 +10,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
@@ -200,8 +199,8 @@ namespace Engine.Colorspace
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(HSLA other) => hue == other.hue && saturation == other.saturation && luminance == other.luminance && alpha == other.alpha;
- 
-       /// <summary>
+
+        /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>

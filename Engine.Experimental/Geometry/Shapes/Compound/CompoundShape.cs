@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Experimental
 {
@@ -10,7 +9,7 @@ namespace Engine.Experimental
     /// <typeparam name="T"></typeparam>
     /// <seealso cref="IEquatable{T}" />
     public struct CompoundShape<T>
-        : IEquatable<CompoundShape<T>> where T: IPrimitive
+        : IEquatable<CompoundShape<T>> where T : IPrimitive
     {
         /// <summary>
         /// Gets or sets the primitives.

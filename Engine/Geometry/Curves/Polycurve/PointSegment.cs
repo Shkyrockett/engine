@@ -36,13 +36,13 @@ namespace Engine
         /// Initializes a new instance of the <see cref="PointSegment"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
-        /// <param name="relitive">The relitive.</param>
+        /// <param name="relative">The relative.</param>
         /// <param name="args">The args.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PointSegment(CurveSegment previous, bool relitive, double[] args)
+        public PointSegment(CurveSegment previous, bool relative, double[] args)
             : this(args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
         {
-            if (relitive)
+            if (relative)
             {
                 Head = (Point2D)(Head + previous.Tail);
             }
@@ -52,13 +52,13 @@ namespace Engine
         /// Initializes a new instance of the <see cref="PointSegment"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
-        /// <param name="relitive">The relitive.</param>
+        /// <param name="relative">The relative.</param>
         /// <param name="startPoint">The startPoint.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PointSegment(CurveSegment previous, bool relitive, Point2D startPoint)
+        public PointSegment(CurveSegment previous, bool relative, Point2D startPoint)
             : this(startPoint)
         {
-            if (relitive)
+            if (relative)
             {
                 Head = (Point2D)(Head + previous.Tail);
             }

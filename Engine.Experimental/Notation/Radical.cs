@@ -14,7 +14,7 @@ namespace Engine.MathNotation
     /// The radical class.
     /// </summary>
     public class Radical
-        :Variable
+        : Variable
     {
         /// <summary>
         /// The index of the Root.

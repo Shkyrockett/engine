@@ -83,8 +83,8 @@ namespace Engine
         /// Initializes a new instance of the <see cref="ArcSegment"/> class.
         /// </summary>
         /// <param name="previous">The item.</param>
-        /// <param name="relitive">The relitive.</param>
-        /// <param name="args">The args.</param>
+        /// <param name="relitive">The relative.</param>
+        /// <param name="args">The arguments.</param>
         public ArcSegment(CurveSegment previous, bool relitive, double[] args)
             : this(previous, args[0], args[1], args[2], args[3] != 0, args[4] != 0, args.Length == 7 ? (Point2D?)new Point2D(args[5], args[6]) : null)
         {

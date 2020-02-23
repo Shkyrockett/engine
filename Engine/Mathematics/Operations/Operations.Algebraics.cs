@@ -22,8 +22,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
+using static System.Math;
 
 namespace Engine
 {
@@ -144,16 +144,16 @@ namespace Engine
             var cosA = det == 0 ? 1 : -dx / det;
 
             var results = new List<Point2D>();
-            if (!(points is null))
+            //if (!(points is null))
+            //{
+            foreach (var point in points)
             {
-                foreach (var point in points)
-                {
-                    results.Add(new Point2D(
-                        ((point.X - x1) * cosA) - ((point.Y - y1) * sinA),
-                        ((point.X - x1) * sinA) + ((point.Y - y1) * cosA))
-                        );
-                }
+                results.Add(new Point2D(
+                    ((point.X - x1) * cosA) - ((point.Y - y1) * sinA),
+                    ((point.X - x1) * sinA) + ((point.Y - y1) * cosA))
+                    );
             }
+            //}
 
             return results;
         }
@@ -255,9 +255,9 @@ namespace Engine
                 PolynomialDegree.Cubic => CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon),
                 PolynomialDegree.Quartic => QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon),
                 PolynomialDegree.Quintic => QuinticRoots(coefficients[5], coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon),
-                PolynomialDegree.Sextic => Array.Empty<double>(), //SexticRoots(epsilon),
-                PolynomialDegree.Septic => Array.Empty<double>(), //SepticRoots(epsilon),
-                PolynomialDegree.Octic => Array.Empty<double>(), //OcticRoots(epsilon),
+                //PolynomialDegree.Sextic => Array.Empty<double>(), //SexticRoots(epsilon),
+                //PolynomialDegree.Septic => Array.Empty<double>(), //SepticRoots(epsilon),
+                //PolynomialDegree.Octic => Array.Empty<double>(), //OcticRoots(epsilon),
                 _ => Array.Empty<double>(), // Should try Newton's method and/or bisection
             };
 
@@ -590,25 +590,25 @@ namespace Engine
                 return QuarticRoots(b, c, d, e, f, epsilon);
             }
 
-            var coeff = new List<double> { a, b, c, d, e, f };
+            //var coeff = new List<double> { a, b, c, d, e, f };
 
             // Order
             var n = 4; // 5;
             var n1 = 5; // 6;
             var n2 = 6; // 7;
 
-            var a_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
+            var a_ = new List<double> { f, e, d, c, b, a };
             var b_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
             //var c_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
             var d_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
             var real = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
             var imag = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
 
-            //  Copy into working array
-            for (var i = 0; i <= n; i++)
-            {
-                a_[a_.Count - 1 - i] = coeff[i];
-            }
+            ////  Copy into working array
+            //for (var i = 0; i <= n; i++)
+            //{
+            //    a_[a_.Count - 1 - i] = coeff[i];
+            //}
 
             // Initialize root counter
             var count = 0;

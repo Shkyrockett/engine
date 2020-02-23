@@ -8,8 +8,8 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using static System.Math;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -766,7 +766,7 @@ namespace Engine
         public static readonly (
             double m1x1, double m1x2,
             double m2x1, double m2x2
-            ) IdentityMatrix2x2 = 
+            ) IdentityMatrix2x2 =
             (1d, 0d,
             0d, 1d);
 
@@ -777,7 +777,7 @@ namespace Engine
             double m1x1, double m1x2, double m1x3,
             double m2x1, double m2x2, double m2x3,
             double m3x1, double m3x2, double m3x3
-            ) IdentityMatrix3x3 = 
+            ) IdentityMatrix3x3 =
             (1d, 0d, 0d,
             0d, 1d, 0d,
             0d, 0d, 1d);
@@ -790,7 +790,7 @@ namespace Engine
             double m2x1, double m2x2, double m2x3, double m2x4,
             double m3x1, double m3x2, double m3x3, double m3x4,
             double m4x1, double m4x2, double m4x3, double m4x4
-            ) IdentityMatrix4x4 = 
+            ) IdentityMatrix4x4 =
             (1d, 0d, 0d, 0d,
             0d, 1d, 0d, 0d,
             0d, 0d, 1d, 0d,
@@ -805,7 +805,7 @@ namespace Engine
             double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
             double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
             double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
-            ) IdentityMatrix5x5 = 
+            ) IdentityMatrix5x5 =
             (1d, 0d, 0d, 0d, 0d,
             0d, 1d, 0d, 0d, 0d,
             0d, 0d, 1d, 0d, 0d,
@@ -822,7 +822,7 @@ namespace Engine
             double m4x1, double m4x2, double m4x3, double m4x4, double m4x5, double m4x6,
             double m5x1, double m5x2, double m5x3, double m5x4, double m5x5, double m5x6,
             double m6x1, double m6x2, double m6x3, double m6x4, double m6x5, double m6x6
-            ) IdentityMatrix6x6 = 
+            ) IdentityMatrix6x6 =
             (1d, 0d, 0d, 0d, 0d, 0d,
             0d, 1d, 0d, 0d, 0d, 0d,
             0d, 0d, 1d, 0d, 0d, 0d,
@@ -841,7 +841,7 @@ namespace Engine
             double m5x1, double m5x2, double m5x3, double m5x4, double m5x5, double m5x6, double m5x7,
             double m6x1, double m6x2, double m6x3, double m6x4, double m6x5, double m6x6, double m6x7,
             double m7x1, double m7x2, double m7x3, double m7x4, double m7x5, double m7x6, double m7x7
-            ) IdentityMatrix7x7 = 
+            ) IdentityMatrix7x7 =
             (1d, 0d, 0d, 0d, 0d, 0d, 0d,
              0d, 1d, 0d, 0d, 0d, 0d, 0d,
              0d, 0d, 1d, 0d, 0d, 0d, 0d,
@@ -862,7 +862,7 @@ namespace Engine
             double m6x1, double m6x2, double m6x3, double m6x4, double m6x5, double m6x6, double m6x7, double m6x8,
             double m7x1, double m7x2, double m7x3, double m7x4, double m7x5, double m7x6, double m7x7, double m7x8,
             double m8x1, double m8x2, double m8x3, double m8x4, double m8x5, double m8x6, double m8x7, double m8x8
-            ) IdentityMatrix8x8 = 
+            ) IdentityMatrix8x8 =
             (1d, 0d, 0d, 0d, 0d, 0d, 0d, 0d,
              0d, 1d, 0d, 0d, 0d, 0d, 0d, 0d,
              0d, 0d, 1d, 0d, 0d, 0d, 0d, 0d,
@@ -885,7 +885,7 @@ namespace Engine
             double m7x1, double m7x2, double m7x3, double m7x4, double m7x5, double m7x6, double m7x7, double m7x8, double m7x9,
             double m8x1, double m8x2, double m8x3, double m8x4, double m8x5, double m8x6, double m8x7, double m8x8, double m8x9,
             double m9x1, double m9x2, double m9x3, double m9x4, double m9x5, double m9x6, double m9x7, double m9x8, double m9x9
-            ) IdentityMatrix9x9 = 
+            ) IdentityMatrix9x9 =
             (1d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d,
              0d, 1d, 0d, 0d, 0d, 0d, 0d, 0d, 0d,
              0d, 0d, 1d, 0d, 0d, 0d, 0d, 0d, 0d,
@@ -910,7 +910,7 @@ namespace Engine
             double m8x1, double m8x2, double m8x3, double m8x4, double m8x5, double m8x6, double m8x7, double m8x8, double m8x9, double m8x10,
             double m9x1, double m9x2, double m9x3, double m9x4, double m9x5, double m9x6, double m9x7, double m9x8, double m9x9, double m9x10,
             double m10x1, double m10x2, double m10x3, double m10x4, double m10x5, double m10x6, double m10x7, double m10x8, double m10x9, double m10x10
-            ) IdentityMatrix10x10 = 
+            ) IdentityMatrix10x10 =
             (1d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d,
              0d, 1d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d,
              0d, 0d, 1d, 0d, 0d, 0d, 0d, 0d, 0d, 0d,
@@ -937,7 +937,7 @@ namespace Engine
             double m9x1, double m9x2, double m9x3, double m9x4, double m9x5, double m9x6, double m9x7, double m9x8, double m9x9, double m9x10, double m9x11,
             double m10x1, double m10x2, double m10x3, double m10x4, double m10x5, double m10x6, double m10x7, double m10x8, double m10x9, double m10x10, double m10x11,
             double m11x1, double m11x2, double m11x3, double m11x4, double m11x5, double m11x6, double m11x7, double m11x8, double m11x9, double m11x10, double m11x11
-            ) IdentityMatrix11x11 = 
+            ) IdentityMatrix11x11 =
             (1d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d,
              0d, 1d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d,
              0d, 0d, 1d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d,
@@ -958,7 +958,7 @@ namespace Engine
             double m2x1, double m2x2, double m2x3, double m2x4,
             double m3x1, double m3x2, double m3x3, double m3x4,
             double m4x1, double m4x2, double m4x3, double m4x4
-            ) CubicHermiteBernsteinBasisMatrix = 
+            ) CubicHermiteBernsteinBasisMatrix =
             (1, 0, 0, 0,
             0, 1, 0, 0,
             -3, -2, 3, -1,

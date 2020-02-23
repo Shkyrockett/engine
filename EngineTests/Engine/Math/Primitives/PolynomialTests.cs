@@ -8,11 +8,11 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Engine;
-using System.Numerics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace EngineTests
 {

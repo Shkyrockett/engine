@@ -8,14 +8,12 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using Engine.Colorspace;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Engine.Colorspace;
-using static System.Math;
-using static Engine.Mathematics;
 using static Engine.Operations;
 
 namespace Engine.File.Palettes

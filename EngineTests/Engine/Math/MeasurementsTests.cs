@@ -8,9 +8,9 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using Engine;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using Engine;
 using System.Globalization;
 
 namespace EngineTests
@@ -309,7 +309,7 @@ namespace EngineTests
             foreach (var test in cases)
             {
                 var distance = Measurements.ArcLength(test.Key.r, test.Key.sweepAngle);
-                Assert.AreEqual(test.Value, distance, testEpsilon, $"Value: {test.Key.ToString()}, Expected: {test.Value}, Actual: {distance}");
+                Assert.AreEqual(test.Value, distance, testEpsilon, $"Value: {test.Key}, Expected: {test.Value}, Actual: {distance}");
             }
         }
 
@@ -355,7 +355,7 @@ namespace EngineTests
             foreach (var test in cases)
             {
                 var distance = Measurements.EllipsePerimeter(test.Key.a, test.Key.b);
-                Assert.AreEqual(test.Value, distance, testEpsilon, $"Value: {test.Key.ToString()}, Expected: {test.Value}, Actual: {distance}");
+                Assert.AreEqual(test.Value, distance, testEpsilon, $"Value: {test.Key}, Expected: {test.Value}, Actual: {distance}");
             }
         }
 
@@ -380,7 +380,7 @@ namespace EngineTests
             foreach (var test in cases)
             {
                 var distance = Measurements.QuadraticBezierArcLengthByIntegral(test.Key.ax, test.Key.ay, test.Key.bx, test.Key.by, test.Key.cx, test.Key.cy);
-                Assert.AreEqual(test.Value, distance, testEpsilon, $"Value: {test.Key.ToString()}, Expected: {test.Value}, Actual: {distance}");
+                Assert.AreEqual(test.Value, distance, testEpsilon, $"Value: {test.Key}, Expected: {test.Value}, Actual: {distance}");
             }
         }
 
@@ -408,7 +408,7 @@ namespace EngineTests
             foreach (var test in cases)
             {
                 var distance = Measurements.CubicBezierArcLength(test.Key.ax, test.Key.ay, test.Key.bx, test.Key.by, test.Key.cx, test.Key.cy, test.Key.dx, test.Key.dy);
-                Assert.AreEqual(test.Value, distance, testEpsilon, $"Value: {test.Key.ToString()}, Expected: {test.Value}, Actual: {distance}");
+                Assert.AreEqual(test.Value, distance, testEpsilon, $"Value: {test.Key}, Expected: {test.Value}, Actual: {distance}");
             }
         }
 
@@ -438,7 +438,7 @@ namespace EngineTests
             foreach (var test in cases)
             {
                 var distance = Measurements.PolygonContourPerimeter(test.Key);
-                Assert.AreEqual(test.Value, distance, testEpsilon, $"Value: {test.Key.ToString()}, Expected: {test.Value}, Actual: {distance}");
+                Assert.AreEqual(test.Value, distance, testEpsilon, $"Value: {test.Key}, Expected: {test.Value}, Actual: {distance}");
             }
         }
         #endregion Length
@@ -851,10 +851,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.RotatedRectangleBounds(k.Width, k.Height, k.X, k.Y, k.Angle);
-                Assert.AreEqual(cases[k].Left, bounds.Left, testEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
-                Assert.AreEqual(cases[k].Top, bounds.Top, testEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
-                Assert.AreEqual(cases[k].Width, bounds.Width, testEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
-                Assert.AreEqual(cases[k].Height, bounds.Height, testEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, testEpsilon, $"Rectangle: {k}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, testEpsilon, $"Rectangle: {k}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, testEpsilon, $"Rectangle: {k}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, testEpsilon, $"Rectangle: {k}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
             }
         }
 
@@ -879,10 +879,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.PolygonBounds(k);
-                Assert.AreEqual(cases[k].Left, bounds.Left, testEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
-                Assert.AreEqual(cases[k].Top, bounds.Top, testEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
-                Assert.AreEqual(cases[k].Width, bounds.Width, testEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
-                Assert.AreEqual(cases[k].Height, bounds.Height, testEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, testEpsilon, $"Polygon: {k}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, testEpsilon, $"Polygon: {k}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, testEpsilon, $"Polygon: {k}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, testEpsilon, $"Polygon: {k}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
             }
         }
 
@@ -907,10 +907,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.PolylineBounds(k);
-                Assert.AreEqual(cases[k].Left, bounds.Left, testEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
-                Assert.AreEqual(cases[k].Top, bounds.Top, testEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
-                Assert.AreEqual(cases[k].Width, bounds.Width, testEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
-                Assert.AreEqual(cases[k].Height, bounds.Height, testEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, testEpsilon, $"Polyline: {k}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, testEpsilon, $"Polyline: {k}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, testEpsilon, $"Polyline: {k}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, testEpsilon, $"Polyline: {k}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
             }
         }
 

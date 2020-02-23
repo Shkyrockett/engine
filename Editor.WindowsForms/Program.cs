@@ -29,10 +29,8 @@ namespace Editor
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            using (var editorForm = new EditorForm())
-            {
-                Application.Run(editorForm);
-            }
+            using var editorForm = new EditorForm();
+            Application.Run(editorForm);
             //Application.Run(new Direct2DForm());
         }
     }

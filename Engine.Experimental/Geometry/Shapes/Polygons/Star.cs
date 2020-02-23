@@ -166,7 +166,7 @@ namespace Engine
             {
                 t1 = (((p1.X - p3.X) * dy34) + ((p3.Y - p1.Y) * dx34)) / denominator;
             }
-            catch(DivideByZeroException)
+            catch (DivideByZeroException)
             {
                 // The lines are parallel (or close enough to it).
                 lines_intersect = false;

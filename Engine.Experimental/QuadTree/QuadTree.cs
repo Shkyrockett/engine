@@ -82,7 +82,8 @@ namespace Engine.Experimental
         /// <remarks><para>Checks to see if the world needs resizing and does so if needed</para></remarks>
         public void Insert(QuadTreePositionItem<T> item)
         {
-            // check if the world needs resizing
+            if (item is null) return;
+            // Check if the world needs resizing
             if (!root.ContainsRect(item.Bounds))
             {
                 Resize(new Rectangle2D(

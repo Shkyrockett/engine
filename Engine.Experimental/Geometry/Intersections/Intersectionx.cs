@@ -26,7 +26,7 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Intersectionx"/> class.
         /// </summary>
         public Intersectionx()
-            :this(false,new Point2D[] { Point2D.Empty })
+            : this(false, new Point2D[] { Point2D.Empty })
         { }
 
         /// <summary>

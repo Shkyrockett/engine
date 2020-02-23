@@ -11,8 +11,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using static System.Math;
 using static Engine.Mathematics;
+using static System.Math;
 
 namespace Engine
 {
@@ -75,6 +75,7 @@ namespace Engine
             var total = tanL;
             var weightTotal = 1d;
             last = Min(EndTangentNPoints, last - 1);
+
             for (var i = 2; i <= last; i++)
             {
                 var ti = 1d - (arclen[i] / totalLen);
@@ -83,6 +84,7 @@ namespace Engine
                 total += v * weight;
                 weightTotal += weight;
             }
+
             // if the vectors add up to zero (IE going opposite directions), there's no way to normalize them
             if (total.Length > epsilon)
             {
@@ -107,6 +109,7 @@ namespace Engine
             var partLen = splitLen - firstLen;
             var total = default(Vector2D);
             var weightTotal = 0d;
+
             for (var i = Max(first, split - MidTangentNPoints); i < split; i++)
             {
                 var t = (arclen[i] - firstLen) / partLen;
@@ -115,6 +118,7 @@ namespace Engine
                 total += v * weight;
                 weightTotal += weight;
             }
+
             var tanL = total.Length > epsilon && weightTotal > epsilon ?
                 (total / weightTotal).Normalize() :
                 (points[split - 1] - pSplit).Normalize();
@@ -124,6 +128,7 @@ namespace Engine
             var rMax = Min(last, split + MidTangentNPoints);
             total = default;
             weightTotal = 0;
+
             for (var i = split + 1; i <= rMax; i++)
             {
                 var ti = 1d - ((arclen[i] - splitLen) / partLen);
@@ -132,6 +137,7 @@ namespace Engine
                 total += v * weight;
                 weightTotal += weight;
             }
+
             var tanR = total.Length > epsilon && weightTotal > epsilon ?
                 (total / weightTotal).Normalize() :
                 (pSplit - points[split + 1]).Normalize();
@@ -168,6 +174,7 @@ namespace Engine
             var total = tanR;
             var weightTotal = 1d;
             first = Max(points.Count - (EndTangentNPoints + 1), first + 1);
+
             for (var i = points.Count - 3; i >= first; i--)
             {
                 var t = arclen[i] / totalLen;
@@ -176,6 +183,7 @@ namespace Engine
                 total += v * weight;
                 weightTotal += weight;
             }
+
             if (total.Length > epsilon)
             {
                 tanR = (total / weightTotal).Normalize();
@@ -240,6 +248,7 @@ namespace Engine
                         return true;
                     }
                 }
+
                 return false;
             }
         }
@@ -349,6 +358,7 @@ namespace Engine
         {
             if (curve is null) return;
             var nPts = last - first;
+
             for (var i = 1; i < nPts; i++)
             {
                 var p = points[first + i];
@@ -373,6 +383,7 @@ namespace Engine
                 var num = ((p0.X - p.X) * p1.I) + ((p0.Y - p.Y) * p1.J);
                 var den = (p1.I * p1.I) + (p1.J * p1.J) + ((p0.X - p.X) * p2.I) + ((p0.Y - p.Y) * p2.J);
                 var newU = t - (num / den);
+
                 if (Abs(den) > epsilon && newU >= 0 && newU <= 1d)
                 {
                     u[i] = newU;

@@ -33,7 +33,10 @@ namespace EngineTests
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
-        ///</summary>
+        /// </summary>
+        /// <value>
+        /// The test context.
+        /// </value>
         public TestContext TestContext { get; set; }
         #endregion Properties
 
@@ -1671,7 +1674,7 @@ namespace EngineTests
 
         #region Bézier Polynomial Coefficients Tests
         /// <summary>
-        /// Test the <see cref="LinearBezierBernsteinBasisRecursive(double, double)"/> method.
+        /// Test the <see cref="LinearBezierBernsteinBasisRecursive(double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1686,7 +1689,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="LinearBezierBernsteinBasis(double, double)"/> method.
+        /// Test the <see cref="LinearBezierBernsteinBasis(double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1701,7 +1704,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="QuadraticBezierBernsteinBasisRecursive(double, double, double)"/> method.
+        /// Test the <see cref="QuadraticBezierBernsteinBasisRecursive(double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1716,7 +1719,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="QuadraticBezierBernsteinBasis(double, double, double)"/> method.
+        /// Test the <see cref="QuadraticBezierBernsteinBasis(double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1731,7 +1734,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="CubicBezierBernsteinBasisRecursive(double, double, double, double)"/> method.
+        /// Test the <see cref="CubicBezierBernsteinBasisRecursive(double, double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1746,7 +1749,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref=".CubicBezierCoefficients(double, double, double, double)"/> method.
+        /// Test the <see cref="CubicBezierBernsteinBasis(double, double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1761,7 +1764,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="QuarticBezierBernsteinBasisRecursive(double, double, double, double, double)"/> method.
+        /// Test the <see cref="QuarticBezierBernsteinBasisRecursive(double, double, double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1776,7 +1779,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="QuarticBezierBernsteinBasis(double, double, double, double, double)"/> method.
+        /// Test the <see cref="QuarticBezierBernsteinBasis(double, double, double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1791,7 +1794,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="QuinticBezierBernsteinBasisRecursive(double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="QuinticBezierBernsteinBasisRecursive(double, double, double, double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1806,7 +1809,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="QuinticBezierBernsteinBasis(double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="QuinticBezierBernsteinBasis(double, double, double, double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1821,7 +1824,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="SexticBezierBernsteinBasisRecursive(double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="SexticBezierBernsteinBasisRecursive(double, double, double, double, double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1836,7 +1839,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="SepticBezierBernsteinBasisRecursive(double, double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="SepticBezierBernsteinBasisRecursive(double, double, double, double, double, double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1851,7 +1854,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="OcticBezierBernsteinBasisRecursive(double, double, double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="OcticBezierBernsteinBasisRecursive(double, double, double, double, double, double, double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1866,7 +1869,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="NonicBezierBernsteinBasisRecursive(double, double, double, double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="NonicBezierBernsteinBasisRecursive(double, double, double, double, double, double, double, double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1881,7 +1884,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="DecicBezierBernsteinBasisRecursive(double, double, double, double, double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="DecicBezierBernsteinBasisRecursive(double, double, double, double, double, double, double, double, double, double, double)" /> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]

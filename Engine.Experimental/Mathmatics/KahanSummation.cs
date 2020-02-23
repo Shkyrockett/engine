@@ -25,6 +25,10 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double KahanSum(IEnumerable<double> values)
         {
+            if (values is null)
+            {
+                throw new System.ArgumentNullException(nameof(values));
+            }
             // A running compensation for lost low-order bits.
             var c = 0d;
 

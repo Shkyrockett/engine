@@ -1416,32 +1416,14 @@ namespace Engine.Geometry
         /// <returns>The <see cref="Array"/>.</returns>
         public Complex[] GetRoots()
         {
-            Complex[] result;
-
             Simplify();
-            switch (GetDegree())
+            Complex[] result = (GetDegree()) switch
             {
-                case 0:
-                    result = Array.Empty<Complex>();
-                    break;
-                case 1:
-                    result = GetLinearRoot();
-                    break;
-                case 2:
-                    result = GetQuadraticRoots();
-                    break;
-                case 3:
-                //    result = GetCubicRoots();
-                //    break;
-                //case 4:
-                //    result = GetQuarticRoots();
-                //    break;
-                default:
-                    result = Array.Empty<Complex>();
-                    break;
-                    // should try Newton's method and/or bisection
-            }
-
+                0 => Array.Empty<Complex>(),
+                1 => GetLinearRoot(),
+                2 => GetQuadraticRoots(),
+                _ => Array.Empty<Complex>(),
+            };
             return result;
         }
 

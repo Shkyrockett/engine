@@ -26,7 +26,8 @@ namespace Engine
     /// <summary>
     /// A closed Polygon made up of sets of Contours.
     /// </summary>
-    /// <structure>Engine.Geometry.PolyGon2D</structure>
+    /// <structure>Engine.Geometry.PolyGon2D</structure>
+
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Polycurve))]
@@ -38,7 +39,8 @@ namespace Engine
         #region Private Fields
         /// <summary>
         /// An array of Polygon Contours.
-        /// </summary>
+        /// </summary>
+
         [DataMember, XmlAttribute, SoapAttribute]
         private List<PolycurveContour> contours;
         #endregion Private Fields
@@ -217,7 +219,7 @@ namespace Engine
                 {
                     case 'M':
                         // M is Move to.
-                        contours.Add(new PolycurveContour(PolycurveContour.ParsePathDefString(token.Substring(1),provider).Item1));
+                        contours.Add(new PolycurveContour(PolycurveContour.ParsePathDefString(token.Substring(1), provider).Item1));
                         break;
                     case 'Z':
                         // Z is End of Path.

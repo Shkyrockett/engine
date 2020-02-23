@@ -32,7 +32,7 @@ namespace Engine.Tools
         public MouseMoveUpdateTool(Action<Point2D> action)
         {
             this.action = action;
-            Point =  Point2D.Empty ;
+            Point = Point2D.Empty;
         }
 
         /// <summary>
@@ -55,7 +55,11 @@ namespace Engine.Tools
         /// Update Tool on Mouse Move.
         /// </summary>
         /// <param name="tools">The Mouse Move event arguments.</param>
-        public override void MouseMoveUpdate(ToolStack tools) => Point = tools.MouseLocation;
+        public override void MouseMoveUpdate(ToolStack tools)
+        {
+            if (tools is null) return;
+            Point = tools.MouseLocation;
+        }
 
         /// <summary>
         /// Update Tool on Mouse UP.

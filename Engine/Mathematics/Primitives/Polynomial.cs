@@ -18,13 +18,12 @@ using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
-using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using static Engine.Mathematics;
 using static Engine.Operations;
-using static System.Math;
 using static Engine.Polynomials;
+using static System.Math;
 
 namespace Engine
 {

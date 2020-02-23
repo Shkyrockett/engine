@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -37,7 +38,7 @@ namespace Engine
         /// </summary>
         /// <param name="previous">The previous.</param>
         /// <param name="points">The points.</param>
-        public CardinalSegment(CurveSegment previous, List<Point2D> points)
+        public CardinalSegment(CurveSegment previous, IList<Point2D> points)
         {
             if (previous is null)
             {
@@ -46,7 +47,7 @@ namespace Engine
 
             Previous = previous;
             previous.Next = this;
-            CentralPoints = points;
+            CentralPoints = points.ToList();
         }
         #endregion Constructors
 

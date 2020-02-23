@@ -26,7 +26,9 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="value">The value.</param>
         /// <param name="distance">The distance.</param>
-        /// <returns>The <see cref="List{T}"/>.</returns>
+        /// <returns>
+        /// The <see cref="List{T}" />.
+        /// </returns>
         public static List<Point2D> Offset(this Point2D point, Point2D value, double distance)
         {
             var (x1, y1, x2, y2) = OffsetSegment(point.X, point.Y, value.X, value.Y, distance);
@@ -39,7 +41,9 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="value">The value.</param>
         /// <param name="distance">The distance.</param>
-        /// <returns>The <see cref="LineSegment"/>.</returns>
+        /// <returns>
+        /// The <see cref="LineSegment" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment OffsetSegment(Point2D point, Point2D value, double distance) => new LineSegment(OffsetSegment(point.X, point.Y, value.X, value.Y, distance));
 
@@ -48,7 +52,9 @@ namespace Engine
         /// </summary>
         /// <param name="segment">The segment.</param>
         /// <param name="distance">The distance.</param>
-        /// <returns>The <see cref="LineSegment"/>.</returns>
+        /// <returns>
+        /// The <see cref="LineSegment" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment Offset(this LineSegment segment, double distance) => new LineSegment(OffsetSegment(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, distance));
 
@@ -60,7 +66,9 @@ namespace Engine
         /// <param name="bX">The bX.</param>
         /// <param name="bY">The bY.</param>
         /// <param name="distance">The distance.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4}" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x1, double y1, double x2, double y2)
             OffsetSegment(
@@ -89,7 +97,9 @@ namespace Engine
         /// <param name="distanceX">The distanceX.</param>
         /// <param name="distanceY">The distanceY.</param>
         /// <param name="distanceZ">The distanceZ.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x1, double y1, double z1, double x2, double y2, double z2)
             OffsetSegment(
@@ -114,7 +124,9 @@ namespace Engine
         /// </summary>
         /// <param name="circle">The circle.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>The <see cref="Circle"/>.</returns>
+        /// <returns>
+        /// The <see cref="Circle" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Circle Offset(this Circle circle, double offset) => new Circle(circle.X, circle.Y, circle.Radius + offset);
 
@@ -123,7 +135,9 @@ namespace Engine
         /// </summary>
         /// <param name="ellipse">The ellipse.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>The <see cref="Ellipse"/>.</returns>
+        /// <returns>
+        /// The <see cref="Ellipse" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Ellipse Offset(this Ellipse ellipse, double offset) => new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + offset, ellipse.RY + offset, ellipse.Angle);
 
@@ -133,7 +147,9 @@ namespace Engine
         /// <param name="ellipse">The ellipse.</param>
         /// <param name="r1">The r1.</param>
         /// <param name="r2">The r2.</param>
-        /// <returns>The <see cref="Ellipse"/>.</returns>
+        /// <returns>
+        /// The <see cref="Ellipse" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Ellipse Offset(this Ellipse ellipse, double r1, double r2) => new Ellipse(ellipse.X, ellipse.Y, ellipse.RX + r1, ellipse.RY + r2, ellipse.Angle);
 
@@ -142,7 +158,9 @@ namespace Engine
         /// </summary>
         /// <param name="triangle">The triangle.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>The <see cref="Triangle"/>.</returns>
+        /// <returns>
+        /// The <see cref="Triangle" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Triangle Offset(this Triangle triangle, double offset) => (Triangle)Offset((PolygonContour)triangle, offset);
 
@@ -151,7 +169,9 @@ namespace Engine
         /// </summary>
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>The <see cref="Rectangle2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Rectangle2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Offset(this Rectangle2D rectangle, double offset) => new Rectangle2D(rectangle.X - offset, rectangle.Y - offset, rectangle.Width + (2d * offset), rectangle.Height + (2d * offset));
 
@@ -161,7 +181,9 @@ namespace Engine
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <returns>The <see cref="Rectangle2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Rectangle2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Offset(this Rectangle2D rectangle, double x, double y) => new Rectangle2D(rectangle.X - x, rectangle.Y - y, rectangle.Width + (2d * x), rectangle.Height + (2d * y));
 
@@ -170,7 +192,9 @@ namespace Engine
         /// </summary>
         /// <param name="polyline">The polyline.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>The <see cref="Polyline"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polyline" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polyline Offset(this Polyline polyline, double offset)
         {
@@ -196,7 +220,9 @@ namespace Engine
         /// </summary>
         /// <param name="polygon">The polygon.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>The <see cref="PolygonContour"/>.</returns>
+        /// <returns>
+        /// The <see cref="PolygonContour" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour Offset(this PolygonContour polygon, double offset)
         {

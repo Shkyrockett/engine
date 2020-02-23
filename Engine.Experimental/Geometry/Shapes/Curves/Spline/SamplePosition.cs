@@ -9,7 +9,6 @@
 // <remarks>https://github.com/burningmime/curves</remarks>
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {

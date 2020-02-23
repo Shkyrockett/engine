@@ -26,7 +26,7 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Sine"/> class.
         /// </summary>
         public Sine()
-            :this(Point2D.Empty,Point2D.Empty)
+            : this(Point2D.Empty, Point2D.Empty)
         { }
 
         /// <summary>

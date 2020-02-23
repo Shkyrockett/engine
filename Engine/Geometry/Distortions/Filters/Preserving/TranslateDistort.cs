@@ -20,7 +20,7 @@ namespace Engine
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="TranslateDistort"/> class.
+        /// Initializes a new instance of the <see cref="TranslateDistort" /> class.
         /// </summary>
         /// <param name="offset">The offset.</param>
         public TranslateDistort(Vector2D offset)
@@ -33,6 +33,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the offset.
         /// </summary>
+        /// <value>
+        /// The offset.
+        /// </value>
         public Vector2D Offset { get; set; }
         #endregion Properties
 
@@ -41,20 +44,22 @@ namespace Engine
         /// Process.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Point2D Process(Point2D point)
-            => Process(point, Offset);
+        public override Point2D Process(Point2D point) => Process(point, Offset);
 
         /// <summary>
         /// Process.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <param name="offset"></param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <param name="offset">The offset.</param>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Process(Point2D point, Vector2D offset)
-            => Distortions.Translate(point, offset);
+        public static Point2D Process(Point2D point, Vector2D offset) => Distortions.Translate(point, offset);
         #endregion Methods
     }
 }

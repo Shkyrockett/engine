@@ -19,9 +19,9 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using static System.Math;
-using static Engine.Mathematics;
 using static Engine.Intersections;
+using static Engine.Mathematics;
+using static System.Math;
 
 namespace Engine.Colorspace
 {
@@ -1051,7 +1051,6 @@ namespace Engine.Colorspace
         /// <param name="intensity"></param>
         /// <param name="alpha"></param>
         /// <returns>RGB color-space converted vector.</returns>
-
         /// <acknowledgment>
         /// http://blog.saikoled.com/post/44677718712/how-to-convert-from-hsi-to-rgb-white
         /// </acknowledgment>

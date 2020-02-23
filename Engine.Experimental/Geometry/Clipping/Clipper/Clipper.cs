@@ -10,9 +10,8 @@
 
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using static System.Math;
-using static Engine.Mathematics;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine.Experimental
 {
@@ -786,20 +785,14 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsContributingOpen(ClippingOperation clipType, Edge e)
         {
-            switch (clipType)
+            return clipType switch
             {
-                case ClippingOperation.Intersection:
-                    return e.windCnt2 != 0;
-                case ClippingOperation.Union:
-                    return e.windCnt == 0 && e.windCnt2 == 0;
-                case ClippingOperation.Difference:
-                    return e.windCnt2 == 0;
-                case ClippingOperation.Xor:
-                    return e.windCnt != 0 != (e.windCnt2 != 0);
-                case ClippingOperation.None:
-                default:
-                    return false;
-            }
+                ClippingOperation.Intersection => e.windCnt2 != 0,
+                ClippingOperation.Union => e.windCnt == 0 && e.windCnt2 == 0,
+                ClippingOperation.Difference => e.windCnt2 == 0,
+                ClippingOperation.Xor => e.windCnt != 0 != (e.windCnt2 != 0),
+                _ => false,
+            };
         }
 
         /// <summary>

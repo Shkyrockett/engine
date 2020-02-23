@@ -15,8 +15,8 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using static System.Math;
 using static Engine.Polynomials;
+using static System.Math;
 
 namespace Engine
 {
@@ -56,8 +56,7 @@ namespace Engine
         /// </summary>
         /// <param name="triangle">The triangle.</param>
         /// <returns>The <see cref="Circle"/>.</returns>
-        public static Circle FromTriangle(Triangle triangle)
-            => new Circle(triangle.A, triangle.B, triangle.C);
+        public static Circle FromTriangle(Triangle triangle) => new Circle(triangle.A, triangle.B, triangle.C);
 
         /// <summary>
         /// The from rectangle.

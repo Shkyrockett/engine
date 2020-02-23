@@ -40,7 +40,7 @@ namespace Engine.File
         /// <returns>The <see cref="Continue"/>.</returns>
         internal static Continue Read(BinaryReaderExtended reader, EventStatus status)
         {
-            _=reader;
+            _ = reader;
             return new Continue(status);
         }
     }

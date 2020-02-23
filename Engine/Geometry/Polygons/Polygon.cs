@@ -97,6 +97,11 @@ namespace Engine
         {
             this.contours = new List<PolygonContour>() ?? throw new ArgumentNullException(nameof(contours), "Argument must not be null.");
 
+            if (contours is null)
+            {
+                throw new ArgumentNullException(nameof(contours));
+            }
+
             foreach (var list in contours)
             {
                 this.contours.Add(new PolygonContour(list));

@@ -66,7 +66,7 @@ namespace Engine
                 return nameof(CubicBSpline);
             }
 
-            return $"{nameof(CubicBSpline)}{{{NodePoints.ToString()}}}";
+            return $"{nameof(CubicBSpline)}{{{NodePoints}}}";
         }
     }
 }

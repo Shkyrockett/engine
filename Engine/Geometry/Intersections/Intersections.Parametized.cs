@@ -38,12 +38,12 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.Mathematics;
 using static System.Math;
-using System;
-using System.Linq;
 
 namespace Engine
 {

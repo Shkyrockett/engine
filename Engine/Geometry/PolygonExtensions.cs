@@ -12,9 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -26,17 +26,18 @@ namespace Engine
         /// <summary>
         /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
         /// Note:  To be safe, the solutionX and solutionY arrays should be large enough
-        ///  to accommodate all the corners of your polygon set (although it is
+        /// to accommodate all the corners of your polygon set (although it is
         /// unlikely that anywhere near that many elements will ever be needed).
         /// Returns YES if the optimal solution was found, or NO if there is no solution.
         /// If a solution was found, solutionX and solutionY will contain the coordinates
         /// of the intermediate nodes of the path, in order.  (The start point and endpoint
         /// are assumed, and will not be included in the solution.)
         /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="polygons"></param>
+        /// <param name="polygons">The polygons.</param>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">polygons</exception>
         /// <acknowledgment>
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
@@ -147,7 +148,7 @@ namespace Engine
         /// <summary>
         /// Find the polygon's centroid.
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="polygon">The polygon.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
@@ -191,7 +192,7 @@ namespace Engine
         /// <summary>
         /// If the polygon is oriented counterclockwise, reverse the order of its points.
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="polygon">The polygon.</param>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
@@ -254,7 +255,8 @@ namespace Engine
         /// <summary>
         /// Find the indexes of three points that form an "ear."
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
@@ -285,10 +287,10 @@ namespace Engine
         /// <summary>
         /// Return true if the three points form an ear.
         /// </summary>
-        /// <param name="points"></param>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <param name="C"></param>
+        /// <param name="points">The points.</param>
+        /// <param name="A">a.</param>
+        /// <param name="B">The b.</param>
+        /// <param name="C">The c.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
@@ -330,8 +332,8 @@ namespace Engine
         /// Remove an ear from the polygon and
         /// add it to the triangles array.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="triangles"></param>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="triangles">The triangles.</param>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
@@ -350,13 +352,12 @@ namespace Engine
         /// <summary>
         /// Remove point target from the array.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="target"></param>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="target">The target.</param>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
-        private static void RemovePoint2DFromArray(this PolygonContour polygon, int target)
-            => polygon.Points.RemoveAt(target);
+        private static void RemovePoint2DFromArray(this PolygonContour polygon, int target) => polygon.Points.RemoveAt(target);
 
         /// <summary>
         /// Triangulate the polygon.
@@ -742,6 +743,8 @@ namespace Engine
         /// <summary>
         /// This iterates through the edges of the polygon, always clockwise
         /// </summary>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns></returns>
         public static IEnumerable<LineSegment> IterateEdgesClockwise(List<Point2D> polygon)
         {
             if (IsClockwise(polygon))
@@ -771,7 +774,9 @@ namespace Engine
         /// </summary>
         /// <param name="edge">The edge.</param>
         /// <param name="test">The test.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsInside(LineSegment edge, Point2D test)
         {
@@ -789,7 +794,9 @@ namespace Engine
         /// The is clockwise.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         /// <exception cref="ArgumentException">All the points in the polygon are collinear</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsClockwise(List<Point2D> polygon)
@@ -812,7 +819,9 @@ namespace Engine
         /// </summary>
         /// <param name="edge">The edge.</param>
         /// <param name="test">The test.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool? IsLeftOf(LineSegment edge, Point2D test)
         {

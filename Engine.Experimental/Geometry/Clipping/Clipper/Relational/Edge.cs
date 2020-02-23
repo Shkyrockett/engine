@@ -9,8 +9,8 @@
 *******************************************************************************/
 
 using System;
-using static System.Math;
 using static Engine.Mathematics;
+using static System.Math;
 
 namespace Engine.Experimental
 {

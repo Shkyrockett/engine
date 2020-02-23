@@ -13,7 +13,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
@@ -115,15 +114,12 @@ namespace Engine
         {
             get
             {
-                switch (Overflow)
+                return Overflow switch
                 {
-                    case Overflow.Clamp:
-                        return Interpolators.Linear(Operations.Clamp(index, UnitMin, UnitMax), Min, Max);
-                    case Overflow.Wrap:
-                        return Interpolators.Linear(Operations.Wrap(index, UnitMin, UnitMax), Min, Max);
-                    default:
-                        return Interpolators.Linear(index, Min, Max);
-                }
+                    Overflow.Clamp => Interpolators.Linear(Operations.Clamp(index, UnitMin, UnitMax), Min, Max),
+                    Overflow.Wrap => Interpolators.Linear(Operations.Wrap(index, UnitMin, UnitMax), Min, Max),
+                    _ => Interpolators.Linear(index, Min, Max),
+                };
             }
         }
 

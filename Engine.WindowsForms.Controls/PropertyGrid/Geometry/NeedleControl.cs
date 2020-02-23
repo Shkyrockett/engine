@@ -16,8 +16,6 @@ using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using static System.Math;
-using static Engine.Mathematics;
-using static Engine.Operations;
 
 namespace Engine
 {
@@ -177,11 +175,9 @@ namespace Engine
         private void NeedleControl_Resize(object sender, EventArgs e)
         {
             var sqr = ToSquare(new Rectangle(Point.Empty, Bounds.Size));
-            using (var g = new GraphicsPath())
-			{
-	            g.AddEllipse(sqr);
-	            Region = new Region(g);
-			}
+            using var g = new GraphicsPath();
+            g.AddEllipse(sqr);
+            Region = new Region(g);
         }
 
         /// <summary>

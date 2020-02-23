@@ -18,7 +18,7 @@ namespace Engine
     /// <summary>
     /// VectorConverter - Converter class for converting instances of other types to and from Vector instances
     /// </summary>
-    public sealed class Vector2DConverter 
+    public sealed class Vector2DConverter
         : TypeConverter
     {
         /// <summary>

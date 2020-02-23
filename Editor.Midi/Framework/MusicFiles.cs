@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Engine;
+using Engine.File;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Engine;
-using Engine.File;
 
 namespace EventEditorMidi
 {

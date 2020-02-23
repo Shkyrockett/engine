@@ -40,11 +40,11 @@
 
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Measurements;
 using static Engine.Operations;
 using static Engine.Polynomials;
+using static System.Math;
 
 namespace Engine
 {

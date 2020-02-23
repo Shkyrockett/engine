@@ -23,6 +23,7 @@ namespace Engine.Experimental
     /// <summary>
     /// The Codecs struct.
     /// </summary>
+    /// <seealso cref="System.IEquatable{T}" />
     [StructLayout(LayoutKind.Sequential)]
     public struct Codecs
         : IEquatable<Codecs>
@@ -30,37 +31,57 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets a <see cref="Codecs" /> representing "Midi"
         /// </summary>
+        /// <value>
+        /// The mi di.
+        /// </value>
         public static Codecs MiDi => new Codecs("Midi");
 
         /// <summary>
         /// Gets a <see cref="Codecs" /> representing "Wav"
         /// </summary>
+        /// <value>
+        /// The wav.
+        /// </value>
         public static Codecs Wav => new Codecs("Wav");
 
         /// <summary>
         /// Gets a <see cref="Codecs" /> representing "MP3"
         /// </summary>
+        /// <value>
+        /// The m p3.
+        /// </value>
         public static Codecs MP3 => new Codecs("MP3");
 
         /// <summary>
         /// Gets a <see cref="Codecs" /> representing "Jpeg"
         /// </summary>
+        /// <value>
+        /// The JPEG.
+        /// </value>
         public static Codecs Jpeg => new Codecs("Jpeg");
 
         /// <summary>
         /// Gets a <see cref="Codecs" /> representing "Gif"
         /// </summary>
+        /// <value>
+        /// The GIF.
+        /// </value>
         public static Codecs Gif => new Codecs("Gif");
 
         /// <summary>
         /// Gets a <see cref="Codecs" /> representing "Png"
         /// </summary>
+        /// <value>
+        /// The PNG.
+        /// </value>
         public static Codecs Png => new Codecs("Png");
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Codecs"/> class.
+        /// Initializes a new instance of the <see cref="Codecs" /> class.
         /// </summary>
         /// <param name="name">The name.</param>
+        /// <exception cref="ArgumentNullException">name</exception>
+        /// <exception cref="ArgumentException">Empty String is not an acceptable codec name. - name</exception>
         private Codecs(string name)
         {
             if (name == null)
@@ -79,6 +100,9 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name { get; }
 
         /// <summary>
@@ -86,7 +110,9 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator ==(Codecs left, Codecs right) => left.Equals(right);
 
         /// <summary>
@@ -94,20 +120,26 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator !=(Codecs left, Codecs right) => !(left == right);
 
         /// <summary>
         /// The to string.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         public override string ToString() => Name ?? string.Empty;
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public override bool Equals(object obj) => obj is Codecs && Equals((Codecs)obj);
 
         /// <summary>
@@ -122,7 +154,9 @@ namespace Engine.Experimental
         /// <summary>
         /// Get the hash code.
         /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
-        public override int GetHashCode() => Name == null ? 0 : Name.GetHashCode();
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
+        public override int GetHashCode() => Name is null ? 0 : Name.GetHashCode();
     }
 }

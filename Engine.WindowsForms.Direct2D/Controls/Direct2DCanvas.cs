@@ -12,7 +12,6 @@ using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.DXGI;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using static System.Math;
 
@@ -30,14 +29,23 @@ namespace Engine.Winforms.Direct2D
         private WindowRenderTarget target;
 
         /// <summary>
-        /// 
+        /// The color
         /// </summary>
         Color color = Color.CornflowerBlue;
 
+        /// <summary>
+        /// The bands
+        /// </summary>
         private float[] bands;
 
+        /// <summary>
+        /// The gap
+        /// </summary>
         private float gap;
 
+        /// <summary>
+        /// The frequency
+        /// </summary>
         private static int frequency;
 
         /// <summary>
@@ -55,6 +63,9 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         private int cycleCount = 0;
 
+        /// <summary>
+        /// The band count
+        /// </summary>
         private int bandCount;
 
         /// <summary>
@@ -243,10 +254,8 @@ namespace Engine.Winforms.Direct2D
                 PresentOptions = PresentOptions.None
             };
 
-            using (var factory = new SharpDX.Direct2D1.Factory())
-            {
-                target = new WindowRenderTarget(factory, targetProperties, windowProperties);
-            }
+            using var factory = new SharpDX.Direct2D1.Factory();
+            target = new WindowRenderTarget(factory, targetProperties, windowProperties);
         }
 
         /// <summary>
@@ -260,14 +269,12 @@ namespace Engine.Winforms.Direct2D
                 EndPoint = new Vector2(0, 0)
             };
 
-            using (var points = new GradientStopCollection(target, new GradientStop[] {
+            using var points = new GradientStopCollection(target, new GradientStop[] {
                 new GradientStop() {Color=Color.Green, Position=0F},
                 new GradientStop() {Color=Color.Yellow, Position=0.8F},
                 new GradientStop() {Color=Color.Red, Position=1F}
-            }, ExtendMode.Clamp))
-            {
-                bandBrush = new LinearGradientBrush(target, properties, points);
-            }
+            }, ExtendMode.Clamp);
+            bandBrush = new LinearGradientBrush(target, properties, points);
         }
     }
 }

@@ -10,8 +10,8 @@
 
 using System;
 using System.Globalization;
-using static System.Math;
 using static Engine.Mathematics;
+using static System.Math;
 
 namespace Engine.Tweening
 {

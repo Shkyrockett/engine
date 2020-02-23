@@ -357,7 +357,7 @@ Intersects methods in the Intersections class should be marked as public static 
 
 Intersection methods in the Intersections class should be marked as public static with the first parameter marked with this to make it an extension method.
 
-| **Intersects** | **Point** | **Line** | **Ray** | **Line Segment** | **Quadratic Bezier** | **Cubic Bezier** | **Triangle** | **Rectangle** | **Polyline** | **Polygon Contour** | **Circle** | **Circular Arc** | **Orthogonal Ellipse** | **Rotated Ellipse** | **Orthogonal Elliptical Arc** | **Rotated Elliptical Arc** | **Polycurve Contour** |
+| **Intersections** | **Point** | **Line** | **Ray** | **Line Segment** | **Quadratic Bezier** | **Cubic Bezier** | **Triangle** | **Rectangle** | **Polyline** | **Polygon Contour** | **Circle** | **Circular Arc** | **Orthogonal Ellipse** | **Rotated Ellipse** | **Orthogonal Elliptical Arc** | **Rotated Elliptical Arc** | **Polycurve Contour** |
 |:-----------------------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | **Point**                    | ✔  | ✔  | ✔  | ✔  | ❌ | ❌ | ✔  | ✔  | ✔  | ✔  | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | **Line**                     | ✔  | ✔  | ✔  | ✔  | ✔  | ✔  | ✔  | ✔  | ✔  | ✔  | ✔  | ✔  | ✔  | ✔  | ✔  | ❌ | ❌ |
@@ -376,6 +376,57 @@ Intersection methods in the Intersections class should be marked as public stati
 | **Orthogonal Elliptical Arc**| ❌ | ✔  | ✔  | ✔  | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | **Rotated Elliptical Arc**   | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | **Polycurve Contour**        | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+
+#### Intersections Signatures
+
+```c#
+public static (double x, double y)[] PointPointIntersections(
+  (double x, double y) point1, /* Point */
+  (double x, double y) point2, /* Point */
+  double epsilon = Double.Epsilon);
+```
+
+```c#
+public static (double x, double y)[] PointLineIntersections(
+  (double x, double y) point, /* Point */
+  (double x, double y, double i, double j) line, /* Line */
+  double epsilon = Double.Epsilon);
+```
+
+```c#
+public static (double x, double y)[] PointRayIntersections(
+  (double x, double y) point, /* Point */
+  (double x, double y, double i, double j) ray, /* Ray */
+  double epsilon = Double.Epsilon);
+```
+
+```c#
+public static (double x, double y)[] PointLineSegmentIntersections(
+  (double x, double y) point, /* Point */
+  (double x1, double y1, double x2, double y2) segment, /* Line Segment */
+  double epsilon = Double.Epsilon);
+```
+
+```c#
+public static (double x, double y)[] PointQuadraticBezierSegmentIntersections(
+  (double x, double y) point, /* Point */
+  (double ax, double ay, double bx, double by, double cx, double cy) segment, /* Quadratic Bezier Segment */
+  double epsilon = Double.Epsilon);
+```
+
+```c#
+public static (double x, double y)[] PointCubicBezierSegmentIntersections(
+  (double x, double y) point, /* Point */
+  (double ax, double ay, double bx, double by, double cx, double cy, double dx, double dy) segment, /* Cubic Bezier Segment */
+  double epsilon = Double.Epsilon);
+```
+
+```c#
+public static (double x, double y)[] PointTriangleIntersections(
+  (double x, double y) point, /* Point */
+  (double ax, double ay, double bx, double by, double cx, double cy) polygon, /* Triangle */
+  double epsilon = Double.Epsilon);
+```
 
 ## Split(t)
 

@@ -64,39 +64,39 @@ This is a list of interesting subjects to study and possibly implement in the en
 
 - Nurbs Distort <https://web.archive.org/web/20160517104054/http://www.neuroproductions.be:80/experiments/nurbs/>
 
-- A geometric path constructed from straight lines, quadratic and cubic (Bezier) curves and elliptical arc. : Path « 2D Graphics GUI « Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/AgeometricpathconstructedfromstraightlinesquadraticandcubicBeziercurvesandellipticalarc.htm>
+- A geometric path constructed from straight lines, quadratic and cubic (Bezier) curves and elliptical arc. : Path Â« 2D Graphics GUI Â« Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/AgeometricpathconstructedfromstraightlinesquadraticandcubicBeziercurvesandellipticalarc.htm>
 
-- A class representing a linear path segment. : Path « 2D Graphics GUI « Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/Aclassrepresentingalinearpathsegment.htm>
+- A class representing a linear path segment. : Path Â« 2D Graphics GUI Â« Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/Aclassrepresentingalinearpathsegment.htm>
 
-- A class representing a quadratic path segment : Path « 2D Graphics GUI « Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/Aclassrepresentingaquadraticpathsegment.htm>
+- A class representing a quadratic path segment : Path Â« 2D Graphics GUI Â« Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/Aclassrepresentingaquadraticpathsegment.htm>
 
-- A class representing a cubic path segment : Path « 2D Graphics GUI « Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/Aclassrepresentingacubicpathsegment.htm>
+- A class representing a cubic path segment : Path Â« 2D Graphics GUI Â« Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/Aclassrepresentingacubicpathsegment.htm>
 
-- Utilitiy class for length calculations of paths. : Path « 2D Graphics GUI « Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/Utilitiyclassforlengthcalculationsofpaths.htm>
+- Utilitiy class for length calculations of paths. : Path Â« 2D Graphics GUI Â« Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/Utilitiyclassforlengthcalculationsofpaths.htm>
 
-- A Primer on Bézier Curves <https://pomax.github.io/bezierinfo/> <https://pomax.github.io/bezierjs/>
+- A Primer on BÃ©zier Curves <https://pomax.github.io/bezierinfo/> <https://pomax.github.io/bezierjs/>
 
 - Bezier Curve of N order <https://stackoverflow.com/questions/41663348/bezier-curve-of-n-order>
 
-- Bézier Curves and Type Design: A Tutorial <http://learn.scannerlicker.net/2014/04/16/bezier-curves-and-type-design-a-tutorial/>
+- BÃ©zier Curves and Type Design: A Tutorial <http://learn.scannerlicker.net/2014/04/16/bezier-curves-and-type-design-a-tutorial/>
 
-- Bézier curvature extrema <https://math.stackexchange.com/questions/1954845/bezier-curvature-extrema>
+- BÃ©zier curvature extrema <https://math.stackexchange.com/questions/1954845/bezier-curvature-extrema>
 
 - Getting consistent normals from a 3D cubic bezier path <https://stackoverflow.com/questions/25453159/getting-consistent-normals-from-a-3d-cubic-bezier-path>
 
 - Calculating the bounding box of cubic bezier curve <https://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve?noredirect=1&lq=1>
 
-- Nearest Point on Bézier Curve <https://stackoverflow.com/a/44993719> <http://phrogz.net/svg/closest-point-on-bezier.html> Depends on <https://github.com/gamedev-js/vmath/tree/master/lib>
+- Nearest Point on BÃ©zier Curve <https://stackoverflow.com/a/44993719> <http://phrogz.net/svg/closest-point-on-bezier.html> Depends on <https://github.com/gamedev-js/vmath/tree/master/lib>
 
-- Specifying the Tension in a Cubic Bézier Curve <https://stackoverflow.com/questions/3347894/specifying-the-tension-in-a-cubic-bezier-curve>
+- Specifying the Tension in a Cubic BÃ©zier Curve <https://stackoverflow.com/questions/3347894/specifying-the-tension-in-a-cubic-bezier-curve>
 
-- Calculate middle point of Bézier Curve <https://stackoverflow.com/questions/23596802/calculate-middle-point-of-bezier-curve>
+- Calculate middle point of BÃ©zier Curve <https://stackoverflow.com/questions/23596802/calculate-middle-point-of-bezier-curve>
 
-- Converting between Bézier Curves of different degree(order) <https://stackoverflow.com/questions/44084802/converting-between-bezier-curves-of-different-degreeorder>
+- Converting between BÃ©zier Curves of different degree(order) <https://stackoverflow.com/questions/44084802/converting-between-bezier-curves-of-different-degreeorder>
 
 - CATMULL-ROMSPLINES <http://graphics.cs.ucdavis.edu/~joy/ecs278/notes/Catmull-Rom-Spline.pdf>
 
-- Catmull-Rom to cubic Bézier spline <https://gist.github.com/njvack/6925609>
+- Catmull-Rom to cubic BÃ©zier spline <https://gist.github.com/njvack/6925609>
 
 - Catmull-Rom-to-Bezier snippet <http://processingjs.nihongoresources.com/code%20repository/?get=Catmull-Rom-to-Bezier>
 
@@ -106,9 +106,9 @@ This is a list of interesting subjects to study and possibly implement in the en
 
 - Spiro2SVG: Convert Spirographs to SVG Using Bezier Curves <https://www.codeproject.com/Articles/1160697/Spiro-SVG-Convert-Spirographs-to-SVG-Using-Bezier> <https://github.com/alvinpenner/Spiro2SVG>
 
-- Smooth Bézier Spline Through Prescribed Points <https://www.particleincell.com/2012/bezier-splines/>
+- Smooth BÃ©zier Spline Through Prescribed Points <https://www.particleincell.com/2012/bezier-splines/>
 
-- Draw a Smooth Curve through a Set of 2D Points with Bézier Primitives <https://www.codeproject.com/Articles/31859/Draw-a-Smooth-Curve-through-a-Set-of-2D-Points-wit>
+- Draw a Smooth Curve through a Set of 2D Points with BÃ©zier Primitives <https://www.codeproject.com/Articles/31859/Draw-a-Smooth-Curve-through-a-Set-of-2D-Points-wit>
 
 ### Files
 

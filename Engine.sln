@@ -55,23 +55,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", 
 		Documents\Geometry.xlsx = Documents\Geometry.xlsx
 		Documents\InteractionMethods.md = Documents\InteractionMethods.md
 		Documents\Interactivity.svg = Documents\Interactivity.svg
-		Documents\OrderOfExpense.md = Documents\OrderOfExpense.md
-		Documents\Primer.md = Documents\Primer.md
-		Documents\Shapes.md = Documents\Shapes.md
 		Documents\Skeletal Particle.svg = Documents\Skeletal Particle.svg
 		Documents\test.svg = Documents\test.svg
 		Documents\test1.svg = Documents\test1.svg
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reports", "Reports", "{5438FC85-B9D6-43E8-991C-5769A7218730}"
-	ProjectSection(SolutionItems) = preProject
-		Documents\Reports\Distance2D.md = Documents\Reports\Distance2D.md
-		Documents\Reports\Interesting.md = Documents\Reports\Interesting.md
-		Documents\Reports\LineIntersectionBool.md = Documents\Reports\LineIntersectionBool.md
-		Documents\Reports\LineIntersectionPoint.md = Documents\Reports\LineIntersectionPoint.md
-		Documents\Reports\Modulus.md = Documents\Reports\Modulus.md
-		Documents\Reports\Template.md = Documents\Reports\Template.md
-		Documents\Reports\WrapAngle.md = Documents\Reports\WrapAngle.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Experimental", "Engine.Experimental\Engine.Experimental.csproj", "{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}"
@@ -248,7 +234,6 @@ Global
 		{79DE1E55-937E-40DB-9EE3-EA3D5CC2A4E8} = {56F8CF9F-E0B7-428F-BCE3-2D747C5BA920}
 		{41EDC6F4-1DBD-4890-8389-7C51FFF887EF} = {D49C6D22-94F7-4BDB-BE81-6E40CA01FBEE}
 		{B8050EC6-6A4A-491D-BFB6-DBD152D993F9} = {D6E00A6B-7C10-44A7-8A1C-C23D8CEE0916}
-		{5438FC85-B9D6-43E8-991C-5769A7218730} = {B8050EC6-6A4A-491D-BFB6-DBD152D993F9}
 		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936} = {56F8CF9F-E0B7-428F-BCE3-2D747C5BA920}
 		{CC0F6635-2A7B-4B43-B612-13AFCCDAECE3} = {56F8CF9F-E0B7-428F-BCE3-2D747C5BA920}
 	EndGlobalSection

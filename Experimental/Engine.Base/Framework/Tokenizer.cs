@@ -1,5 +1,5 @@
 ﻿// <copyright file="Tokenizer.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -68,8 +68,8 @@ namespace Engine
         /// decimal separator.  If it *is*, then we can't determine if, say, "23,5" is one
         /// number or two.  In this case, we will use ";" as the separator.
         /// </summary>
-        /// <param name="str"> The string which will be tokenized. </param>
-        /// <param name="formatProvider"> The IFormatProvider which controls this tokenization. </param>
+        /// <param name="str">The string which will be tokenized.</param>
+        /// <param name="formatProvider">The IFormatProvider which controls this tokenization.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Tokenizer(string str, IFormatProvider formatProvider)
@@ -80,15 +80,15 @@ namespace Engine
         /// Initialize the TokenizerHelper with the string to tokenize,
         /// the char which represents quotes and the list separator.
         /// </summary>
-        /// <param name="str"> The string to tokenize. </param>
-        /// <param name="quoteChar"> The quote char. </param>
-        /// <param name="separator"> The list separator. </param>
+        /// <param name="str">The string to tokenize.</param>
+        /// <param name="quoteChar">The quote char.</param>
+        /// <param name="separator">The list separator.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Tokenizer(string str, char quoteChar, char separator)
         {
-            this.str = str.ToCharArray();
-            strLen = this.str!!.Length;
+            this.str = str?.ToCharArray();
+            strLen = this.str!.Length;
             currentTokenIndex = -1;
             this.quoteChar = quoteChar;
             argSeparator = separator;
@@ -117,7 +117,9 @@ namespace Engine
         /// <summary>
         /// Get the current token.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string GetCurrentToken() => currentTokenIndex < 0 ? string.Empty : new Span<char>(str).Slice(currentTokenIndex, currentTokenLength).ToString();
@@ -138,7 +140,9 @@ namespace Engine
         /// <summary>
         /// Advances to the NextToken
         /// </summary>
-        /// <returns>true if next token was found, false if at end of string</returns>
+        /// <returns>
+        /// true if next token was found, false if at end of string
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool NextToken() => NextToken(false);
@@ -146,18 +150,23 @@ namespace Engine
         /// <summary>
         /// Advances to the NextToken
         /// </summary>
-        /// <returns>true if next token was found, false if at end of string</returns>
+        /// <param name="allowQuotedToken">if set to <see langword="true" /> [allow quoted token].</param>
+        /// <returns>
+        /// true if next token was found, false if at end of string
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool NextToken(bool allowQuotedToken)
-            // Use the currently-set separator character.
-            => NextToken(allowQuotedToken, argSeparator);
+        public bool NextToken(bool allowQuotedToken) => NextToken(allowQuotedToken, argSeparator);
 
         /// <summary>
         /// Advances to the NextToken.  A separator character can be specified
         /// which overrides the one previously set.
         /// </summary>
-        /// <returns>true if next token was found, false if at end of string</returns>
+        /// <param name="allowQuotedToken">if set to <see langword="true" /> [allow quoted token].</param>
+        /// <param name="separator">The separator.</param>
+        /// <returns>
+        /// true if next token was found, false if at end of string
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool NextToken(bool allowQuotedToken, char separator)
@@ -242,16 +251,18 @@ namespace Engine
         /// <summary>
         /// Advances to the NextToken, throwing an exception if not present
         /// </summary>
-        /// <returns>The next token found</returns>
+        /// <param name="allowQuotedToken">if set to <see langword="true" /> [allow quoted token].</param>
+        /// <returns>
+        /// The next token found
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string NextTokenRequired(bool allowQuotedToken = false)
-            => NextToken(allowQuotedToken) ? GetCurrentToken() : throw new InvalidOperationException("Premature string termination encountered while advancing to next token.");
+        public string NextTokenRequired(bool allowQuotedToken = false) => NextToken(allowQuotedToken) ? GetCurrentToken() : throw new InvalidOperationException("Premature string termination encountered while advancing to next token.");
 
         /// <summary>
         /// helper to move the _charIndex to the next token or to the end of the string
         /// </summary>
-        /// <param name="separator"></param>
+        /// <param name="separator">The separator.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ScanToNextToken(char separator)
@@ -271,7 +282,7 @@ namespace Engine
             }
 
             // Loop until hit a character that isn't an argument separator or whitespace.
-            // !!!ToDo: if more than one argSet; throw an exception
+            // !!ToDo: if more than one argSet; throw an exception
             var argSepCount = 0;
             while (charIndex < strLen)
             {
@@ -309,7 +320,7 @@ namespace Engine
         /// Helper to get the numeric list separator for a given IFormatProvider.
         /// Separator is a comma [,] if the decimal separator is not a comma, or a semicolon [;] otherwise.
         /// </summary>
-        /// <param name="provider"></param>
+        /// <param name="provider">The provider.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

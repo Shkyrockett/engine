@@ -146,7 +146,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator +(Point2D value) => Operations.UnaryAdd2D(value.X, value.Y);
+        public static Point2D operator +(Point2D value) => Operations.UnaryAdd(value.X, value.Y);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point2D" /> classes.

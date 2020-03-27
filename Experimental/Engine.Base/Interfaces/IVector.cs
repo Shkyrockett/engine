@@ -1,5 +1,5 @@
 ﻿// <copyright file="IVector.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -12,6 +12,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace Engine
@@ -28,10 +29,10 @@ namespace Engine
         /// <summary>
         /// The equals.
         /// </summary>
-        /// <param name="obj">The obj.</param>
+        /// <param name="item">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(object obj) => obj is V && Equals(this, (V)obj);
+        public bool Equals([AllowNull] object item) => item is V && Equals(this, (V)item);
     }
 }

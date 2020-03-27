@@ -1,5 +1,5 @@
 ﻿// <copyright file="Measurements.cs" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -15,10 +15,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -840,370 +839,334 @@ namespace Engine
             => points.Count > 0d ? points.Zip(points.Skip(1), Distance).Sum() + points[0].Distance(points[^1]) : 0d;
         #endregion Length Methods
 
-        //#region BoundsMethods
-        ///// <summary>
-        ///// Finds the Axis Aligned Bounding Box (AABB) Rectangle of a line segment.
-        ///// </summary>
-        ///// <param name="a">The first point of the line segment.</param>
-        ///// <param name="b">The second point of the line segment.</param>
-        ///// <returns>Returns the Axis Aligned Bounding Box (AABB) Rectangle that fully encompasses the line segment.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D LineSegmentBounds((double X, double Y) a, (double X, double Y) b)
-        //    => new Rectangle2D(a, b);
+        #region BoundsMethods
+        /// <summary>
+        /// Finds the Axis Aligned Bounding Box (AABB) Rectangle of a line segment.
+        /// </summary>
+        /// <param name="a">The first point of the line segment.</param>
+        /// <param name="b">The second point of the line segment.</param>
+        /// <returns>Returns the Axis Aligned Bounding Box (AABB) Rectangle that fully encompasses the line segment.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D LineSegmentBounds((double X, double Y) a, (double X, double Y) b) => new Rectangle2D(a, b);
 
-        ///// <summary>
-        ///// Finds the Axis Aligned Bounding Box (AABB) Rectangle of a line segment.
-        ///// </summary>
-        ///// <param name="x0">The x-component of the first point of the line segment.</param>
-        ///// <param name="y0">The y-component of the first point of the line segment.</param>
-        ///// <param name="x1">The x-component of the second point of the line segment.</param>
-        ///// <param name="y1">The y-component of the second point of the line segment.</param>
-        ///// <returns>Returns the Axis Aligned Bounding Box (AABB) Rectangle that fully encompasses the line segment.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D LineSegmentBounds2(
-        //    double x0, double y0,
-        //    double x1, double y1)
-        //    => new Rectangle2D((x0, y0), (x1, y1));
+        /// <summary>
+        /// Finds the Axis Aligned Bounding Box (AABB) Rectangle of a line segment.
+        /// </summary>
+        /// <param name="x0">The x-component of the first point of the line segment.</param>
+        /// <param name="y0">The y-component of the first point of the line segment.</param>
+        /// <param name="x1">The x-component of the second point of the line segment.</param>
+        /// <param name="y1">The y-component of the second point of the line segment.</param>
+        /// <returns>Returns the Axis Aligned Bounding Box (AABB) Rectangle that fully encompasses the line segment.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D LineSegmentBounds2(double x0, double y0, double x1, double y1) => new Rectangle2D((x0, y0), (x1, y1));
 
-        ///// <summary>
-        ///// Finds the Axis Aligned Bounding Box (AABB) Rectangle of a line segment.
-        ///// </summary>
-        ///// <param name="aX">The x-component of the first point of the line segment.</param>
-        ///// <param name="aY">The y-component of the first point of the line segment.</param>
-        ///// <param name="bX">The x-component of the second point of the line segment.</param>
-        ///// <param name="bY">The y-component of the second point of the line segment.</param>
-        ///// <returns>Returns the Axis Aligned Bounding Box (AABB) Rectangle that fully encompasses the line segment.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D LineSegmentBounds(
-        //    double aX, double aY,
-        //    double bX, double bY)
-        //    => Rectangle2D.FromLTRB
-        //    (
-        //        aX <= bX ? aX : bX,
-        //        aY <= bY ? aY : bY,
-        //        aX >= bX ? aX : bX,
-        //        aY >= bY ? aY : bY
-        //    );
+        /// <summary>
+        /// Finds the Axis Aligned Bounding Box (AABB) Rectangle of a line segment.
+        /// </summary>
+        /// <param name="aX">The x-component of the first point of the line segment.</param>
+        /// <param name="aY">The y-component of the first point of the line segment.</param>
+        /// <param name="bX">The x-component of the second point of the line segment.</param>
+        /// <param name="bY">The y-component of the second point of the line segment.</param>
+        /// <returns>Returns the Axis Aligned Bounding Box (AABB) Rectangle that fully encompasses the line segment.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D LineSegmentBounds(double aX, double aY, double bX, double bY)
+            => Rectangle2D.FromLTRB
+            (
+                aX <= bX ? aX : bX,
+                aY <= bY ? aY : bY,
+                aX >= bX ? aX : bX,
+                aY >= bY ? aY : bY
+            );
 
-        ///// <summary>
-        ///// Calculate the Axis Aligned Bounding Box (AABB) square boundaries of a circle.
-        ///// </summary>
-        ///// <param name="cX">Center x-coordinate.</param>
-        ///// <param name="cY">Center y-coordinate.</param>
-        ///// <param name="r">Radius of the Circle.</param>
-        ///// <returns>Returns A Rectangle that is the Axis Aligned Bounding Box (AABB) of the size and location to envelop the circle.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D CircleBounds(
-        //    double cX, double cY,
-        //    double r)
-        //    => Rectangle2D.FromLTRB(cX - r, cY - r, cX + r, cY + r);
+        /// <summary>
+        /// Calculate the Axis Aligned Bounding Box (AABB) square boundaries of a circle.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r">Radius of the Circle.</param>
+        /// <returns>Returns A Rectangle that is the Axis Aligned Bounding Box (AABB) of the size and location to envelop the circle.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D CircleBounds(double cX, double cY, double r) => Rectangle2D.FromLTRB(cX - r, cY - r, cX + r, cY + r);
 
-        ///// <summary>
-        ///// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a circular arc.
-        ///// </summary>
-        ///// <param name="cX">Center x-coordinate.</param>
-        ///// <param name="cY">Center y-coordinate.</param>
-        ///// <param name="r">Radius of the Circle.</param>
-        ///// <param name="angle">The angle of orientation of the ellipse.</param>
-        ///// <param name="startAngle">The angle to start the arc.</param>
-        ///// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        ///// <returns>Returns an Axis Aligned Bounding Box (AABB) Rectangle large enough to closely fit the circular arc inside. The close bounding box of a circular arc.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D CircularArcBounds(
-        //    double cX, double cY,
-        //    double r,
-        //    double angle,
-        //    double startAngle, double sweepAngle)
-        //{
-        //    var start = (angle + startAngle).WrapAngle();
-        //    var end = (start + sweepAngle).WrapAngle();
+        /// <summary>
+        /// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a circular arc.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r">Radius of the Circle.</param>
+        /// <param name="angle">The angle of orientation of the ellipse.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <returns>Returns an Axis Aligned Bounding Box (AABB) Rectangle large enough to closely fit the circular arc inside. The close bounding box of a circular arc.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D CircularArcBounds(double cX, double cY, double r, double angle, double startAngle, double sweepAngle)
+        {
+            var start = (angle + startAngle).WrapAngle();
+            var end = (start + sweepAngle).WrapAngle();
 
-        //    var bounds = new Rectangle2D(
-        //        new Point2D(cX + (r * Cos(startAngle)), cY + (r * Sin(startAngle))),
-        //        new Point2D(cX + (r * Cos(end)), cY + (r * Sin(end))));
+            var bounds = new Rectangle2D(
+                new Point2D(cX + (r * Cos(startAngle)), cY + (r * Sin(startAngle))),
+                new Point2D(cX + (r * Cos(end)), cY + (r * Sin(end))));
 
-        //    // Expand the boundaries if any of the extreme angles fall within the sweep angle.
-        //    if (Intersections.AngleWithin(0, start, sweepAngle))
-        //    {
-        //        bounds.Right = cX + r;
-        //    }
+            // Expand the boundaries if any of the extreme angles fall within the sweep angle.
+            if (Intersections.AngleWithin(0, start, sweepAngle))
+            {
+                bounds.Right = cX + r;
+            }
 
-        //    if (Intersections.AngleWithin(HalfPi, start, sweepAngle))
-        //    {
-        //        bounds.Bottom = cY + r;
-        //    }
+            if (Intersections.AngleWithin(HalfPi, start, sweepAngle))
+            {
+                bounds.Bottom = cY + r;
+            }
 
-        //    if (Intersections.AngleWithin(PI, start, sweepAngle))
-        //    {
-        //        bounds.Left = cX - r;
-        //    }
+            if (Intersections.AngleWithin(PI, start, sweepAngle))
+            {
+                bounds.Left = cX - r;
+            }
 
-        //    if (Intersections.AngleWithin(Pau, start, sweepAngle))
-        //    {
-        //        bounds.Top = cY - r;
-        //    }
+            if (Intersections.AngleWithin(Pau, start, sweepAngle))
+            {
+                bounds.Top = cY - r;
+            }
 
-        //    return bounds;
-        //}
+            return bounds;
+        }
 
-        ///// <summary>
-        ///// Calculates the Axis Aligned Bounding Box (AABB) rectangular external boundaries of a non-rotated ellipse.
-        ///// </summary>
-        ///// <param name="cX">Center x-coordinate.</param>
-        ///// <param name="cY">Center y-coordinate.</param>
-        ///// <param name="r1">The first radius of the Ellipse.</param>
-        ///// <param name="r2">The second radius of the Ellipse.</param>
-        ///// <returns>Calculates an Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop an ellipse.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D EllipseBounds(
-        //    double cX, double cY,
-        //    double r1, double r2)
-        //    => new Rectangle2D(cX - r1, cY - r2, r1 * 2, r2 * 2);
+        /// <summary>
+        /// Calculates the Axis Aligned Bounding Box (AABB) rectangular external boundaries of a non-rotated ellipse.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <returns>Calculates an Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop an ellipse.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D EllipseBounds(double cX, double cY, double r1, double r2) => new Rectangle2D(cX - r1, cY - r2, r1 * 2, r2 * 2);
 
-        ///// <summary>
-        ///// Calculates the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated ellipse.
-        ///// </summary>
-        ///// <param name="cX">Center x-coordinate.</param>
-        ///// <param name="cY">Center y-coordinate.</param>
-        ///// <param name="r1">The first radius of the Ellipse.</param>
-        ///// <param name="r2">The second radius of the Ellipse.</param>
-        ///// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        ///// <returns>Returns a Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop a rotated ellipse.</returns>
+        /// <summary>
+        /// Calculates the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated ellipse.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <returns>Returns a Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop a rotated ellipse.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D EllipseBounds(double cX, double cY, double r1, double r2, double angle) => EllipseBounds(cX, cY, r1, r2, Cos(angle), Sin(angle));
 
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D EllipseBounds(
-        //    double cX, double cY,
-        //    double r1, double r2,
-        //    double angle)
-        //    => EllipseBounds(cX, cY, r1, r2, Cos(angle), Sin(angle));
+        /// <summary>
+        /// Calculates the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated ellipse.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="cosAngle">The Cosine component of the Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="sinAngle">The Sine component of the Angle of rotation of Ellipse about it's center.</param>
+        /// <returns>Returns a Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop a rotated ellipse.</returns>
+        /// <acknowledgment>
+        /// Based roughly on the principles found at:
+        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D EllipseBounds(double cX, double cY, double r1, double r2, double cosAngle, double sinAngle)
+        {
+            var a = r1 * cosAngle;
+            var b = r2 * sinAngle;
+            var c = r1 * sinAngle;
+            var d = r2 * cosAngle;
 
-        ///// <summary>
-        ///// Calculates the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated ellipse.
-        ///// </summary>
-        ///// <param name="cX">Center x-coordinate.</param>
-        ///// <param name="cY">Center y-coordinate.</param>
-        ///// <param name="r1">The first radius of the Ellipse.</param>
-        ///// <param name="r2">The second radius of the Ellipse.</param>
-        ///// <param name="cosAngle">The Cosine component of the Angle of rotation of Ellipse about it's center.</param>
-        ///// <param name="sinAngle">The Sine component of the Angle of rotation of Ellipse about it's center.</param>
-        ///// <returns>Returns a Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop a rotated ellipse.</returns>
+            // Get the height and width.
+            var width = Sqrt((a * a) + (b * b)) * 2;
+            var height = Sqrt((c * c) + (d * d)) * 2;
 
-        ///// <acknowledgment>
-        ///// Based roughly on the principles found at:
-        ///// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        ///// </acknowledgment>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D EllipseBounds(
-        //    double cX, double cY,
-        //    double r1, double r2,
-        //    double cosAngle, double sinAngle)
-        //{
-        //    var a = r1 * cosAngle;
-        //    var b = r2 * sinAngle;
-        //    var c = r1 * sinAngle;
-        //    var d = r2 * cosAngle;
+            // Get the location point.
+            var x2 = cX - (width * 0.5d);
+            var y2 = cY - (height * 0.5d);
 
-        //    // Get the height and width.
-        //    var width = Sqrt((a * a) + (b * b)) * 2;
-        //    var height = Sqrt((c * c) + (d * d)) * 2;
+            // Return the bounding rectangle.
+            return new Rectangle2D(x2, y2, width, height);
+        }
 
-        //    // Get the location point.
-        //    var x2 = cX - (width * 0.5d);
-        //    var y2 = cY - (height * 0.5d);
+        /// <summary>
+        /// Calculates the Axis Aligned Bounding Box (AABB) close fitting rectangular bounding box of a rotated ellipse elliptical arc.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle">The angle to start the arc.</param>
+        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
+        /// <returns>The close bounding box of a rotated elliptical arc.</returns>
+        /// <acknowledgment>
+        /// Helpful hints on how this might be implemented came from:
+        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
+        /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
+        /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D EllipticalArcBounds(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle)
+        {
+            if (r1 == 0 && r2 == 0)
+            {
+                return new Rectangle2D(cX, cX, 0, 0);
+            }
 
-        //    // Return the bounding rectangle.
-        //    return new Rectangle2D(x2, y2, width, height);
-        //}
+            // Get the ellipse rotation transform.
+            var cosT = Cos(angle);
+            var sinT = Sin(angle);
 
-        ///// <summary>
-        ///// Calculates the Axis Aligned Bounding Box (AABB) close fitting rectangular bounding box of a rotated ellipse elliptical arc.
-        ///// </summary>
-        ///// <param name="cX">Center x-coordinate.</param>
-        ///// <param name="cY">Center y-coordinate.</param>
-        ///// <param name="r1">The first radius of the Ellipse.</param>
-        ///// <param name="r2">The second radius of the Ellipse.</param>
-        ///// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        ///// <param name="startAngle">The angle to start the arc.</param>
-        ///// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        ///// <returns>The close bounding box of a rotated elliptical arc.</returns>
+            // Find the angles of the Cartesian extremes.
+            var angles = new double[4] {
+                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, (r2 * r2 * sinT * sinT) + (r1 * r1 * cosT * cosT)),
+                Atan2((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT), (r1 - r2) * (r1 + r2) * sinT * cosT),
+                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, (r2 * r2 * sinT * sinT) + (r1 * r1 * cosT * cosT)) + PI,
+                Atan2((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT), (r1 - r2) * (r1 + r2) * sinT * cosT) + PI };
+            //var vectors = new (double X, double Y)[4] {
+            //    ((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
+            //    (r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT),
+            //    (-(r1 - r2) * (r1 + r2) * sinT * cosT, -r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
+            //    (-r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, -(r1 - r2) * (r1 + r2) * sinT * cosT) };
 
-        ///// <acknowledgment>
-        ///// Helpful hints on how this might be implemented came from:
-        ///// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
-        ///// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
-        ///// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        ///// </acknowledgment>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D EllipticalArcBounds(
-        //    double cX, double cY,
-        //    double r1, double r2,
-        //    double angle,
-        //    double startAngle, double sweepAngle)
-        //{
-        //    if (r1 == 0 && r2 == 0)
-        //    {
-        //        return new Rectangle2D(cX, cX, 0, 0);
-        //    }
+            // Sort the angles so that like sides are consistently at the same index.
+            Array.Sort(angles);
 
-        //    // Get the ellipse rotation transform.
-        //    var cosT = Cos(angle);
-        //    var sinT = Sin(angle);
+            // Get the start and end angles adjusted to polar coordinates.
+            var t0 = EllipticalPolarAngle(startAngle, r1, r2);
+            var t1 = EllipticalPolarAngle(startAngle + sweepAngle, r1, r2);
 
-        //    // Find the angles of the Cartesian extremes.
-        //    var angles = new double[4] {
-        //        Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, (r2 * r2 * sinT * sinT) + (r1 * r1 * cosT * cosT)),
-        //        Atan2((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT), (r1 - r2) * (r1 + r2) * sinT * cosT),
-        //        Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, (r2 * r2 * sinT * sinT) + (r1 * r1 * cosT * cosT)) + PI,
-        //        Atan2((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT), (r1 - r2) * (r1 + r2) * sinT * cosT) + PI };
-        //    //var vectors = new (double X, double Y)[4] {
-        //    //    ((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
-        //    //    (r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT),
-        //    //    (-(r1 - r2) * (r1 + r2) * sinT * cosT, -r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
-        //    //    (-r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, -(r1 - r2) * (r1 + r2) * sinT * cosT) };
+            // Interpolate the ratios of height and width of the chord.
+            var sinT0 = Sin(t0);
+            var cosT0 = Cos(t0);
+            var sinT1 = Sin(t1);
+            var cosT1 = Cos(t1);
 
-        //    // Sort the angles so that like sides are consistently at the same index.
-        //    Array.Sort(angles);
+            // Get the end points of the chord.
+            var bounds = new Rectangle2D(
+                // Apply the rotation transformation and translate to new center.
+                new Point2D(
+                    cX + ((r1 * cosT0 * cosT) - (r2 * sinT0 * sinT)),
+                    cY + ((r1 * cosT0 * sinT) + (r2 * sinT0 * cosT))),
+                // Apply the rotation transformation and translate to new center.
+                new Point2D(
+                    cX + ((r1 * cosT1 * cosT) - (r2 * sinT1 * sinT)),
+                    cY + ((r1 * cosT1 * sinT) + (r2 * sinT1 * cosT))));
 
-        //    // Get the start and end angles adjusted to polar coordinates.
-        //    var t0 = EllipticalPolarAngle(startAngle, r1, r2);
-        //    var t1 = EllipticalPolarAngle(startAngle + sweepAngle, r1, r2);
+            // Find the parent ellipse's horizontal and vertical radii extremes.
+            var halfWidth = Sqrt((r1 * r1 * cosT * cosT) + (r2 * r2 * sinT * sinT));
+            var halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
 
-        //    // Interpolate the ratios of height and width of the chord.
-        //    var sinT0 = Sin(t0);
-        //    var cosT0 = Cos(t0);
-        //    var sinT1 = Sin(t1);
-        //    var cosT1 = Cos(t1);
+            // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
+            if (Intersections.AngleWithin(angles[0], angle + startAngle, sweepAngle))
+            {
+                bounds.Right = cX + halfWidth;
+            }
 
-        //    // Get the end points of the chord.
-        //    var bounds = new Rectangle2D(
-        //        // Apply the rotation transformation and translate to new center.
-        //        new Point2D(
-        //            cX + ((r1 * cosT0 * cosT) - (r2 * sinT0 * sinT)),
-        //            cY + ((r1 * cosT0 * sinT) + (r2 * sinT0 * cosT))),
-        //        // Apply the rotation transformation and translate to new center.
-        //        new Point2D(
-        //            cX + ((r1 * cosT1 * cosT) - (r2 * sinT1 * sinT)),
-        //            cY + ((r1 * cosT1 * sinT) + (r2 * sinT1 * cosT))));
+            if (Intersections.AngleWithin(angles[1], angle + startAngle, sweepAngle))
+            {
+                bounds.Bottom = cY + halfHeight;
+            }
 
-        //    // Find the parent ellipse's horizontal and vertical radii extremes.
-        //    var halfWidth = Sqrt((r1 * r1 * cosT * cosT) + (r2 * r2 * sinT * sinT));
-        //    var halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
+            if (Intersections.AngleWithin(angles[2], angle + startAngle, sweepAngle))
+            {
+                bounds.Left = cX - halfWidth;
+            }
 
-        //    // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-        //    if (Intersections.AngleWithin(angles[0], angle + startAngle, sweepAngle))
-        //    {
-        //        bounds.Right = cX + halfWidth;
-        //    }
+            if (Intersections.AngleWithin(angles[3], angle + startAngle, sweepAngle))
+            {
+                bounds.Top = cY - halfHeight;
+            }
 
-        //    if (Intersections.AngleWithin(angles[1], angle + startAngle, sweepAngle))
-        //    {
-        //        bounds.Bottom = cY + halfHeight;
-        //    }
+            // Return the points of the Cartesian extremes of the rotated elliptical arc.
+            return bounds;
+        }
 
-        //    if (Intersections.AngleWithin(angles[2], angle + startAngle, sweepAngle))
-        //    {
-        //        bounds.Left = cX - halfWidth;
-        //    }
+        /// <summary>
+        /// Calculate the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated rectangle.
+        /// </summary>
+        /// <param name="height">The height of the rectangle to rotate.</param>
+        /// <param name="width">The width of the rectangle to rotate.</param>
+        /// <param name="fulcrum">The point at which to rotate the rectangle.</param>
+        /// <param name="angle">The angle in radians to rotate the rectangle/</param>
+        /// <returns>Returns an Axis Aligned Bounding Box (AABB) Rectangle with the location and height, width bounding the rotated rectangle.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D RotatedRectangleBounds(double width, double height, Point2D fulcrum, double angle) => RotatedRectangleBounds(width, height, fulcrum.X, fulcrum.Y, angle);
 
-        //    if (Intersections.AngleWithin(angles[3], angle + startAngle, sweepAngle))
-        //    {
-        //        bounds.Top = cY - halfHeight;
-        //    }
+        /// <summary>
+        /// Calculate the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated rectangle.
+        /// </summary>
+        /// <param name="height">The height of the rectangle to rotate.</param>
+        /// <param name="fulcrumX"></param>
+        /// <param name="fulcrumY"></param>
+        /// <param name="width">The width of the rectangle to rotate.</param>
+        /// <param name="angle">The angle in radians to rotate the rectangle/</param>
+        /// <returns>Returns an Axis Aligned Bounding Box (AABB) Rectangle with the location and height, width bounding the rotated rectangle.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D RotatedRectangleBounds(double width, double height, double fulcrumX, double fulcrumY, double angle)
+        {
+            var cosAngle = Abs(Cos(angle));
+            var sinAngle = Abs(Sin(angle));
 
-        //    // Return the points of the Cartesian extremes of the rotated elliptical arc.
-        //    return bounds;
-        //}
+            var size = new Size2D(
+                (cosAngle * width) + (sinAngle * height),
+                (cosAngle * height) + (sinAngle * width)
+                );
 
-        ///// <summary>
-        ///// Calculate the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated rectangle.
-        ///// </summary>
-        ///// <param name="height">The height of the rectangle to rotate.</param>
-        ///// <param name="width">The width of the rectangle to rotate.</param>
-        ///// <param name="fulcrum">The point at which to rotate the rectangle.</param>
-        ///// <param name="angle">The angle in radians to rotate the rectangle/</param>
-        ///// <returns>Returns an Axis Aligned Bounding Box (AABB) Rectangle with the location and height, width bounding the rotated rectangle.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D RotatedRectangleBounds(
-        //    double width, double height,
-        //    Point2D fulcrum, double angle)
-        //    => RotatedRectangleBounds(width, height, fulcrum.X, fulcrum.Y, angle);
+            var loc = new Point2D(
+                fulcrumX + ((-width * 0.5d * cosAngle) + (-height * 0.5d * sinAngle)),
+                fulcrumY + ((-width * 0.5d * sinAngle) + (-height * 0.5d * cosAngle))
+                );
 
-        ///// <summary>
-        ///// Calculate the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated rectangle.
-        ///// </summary>
-        ///// <param name="height">The height of the rectangle to rotate.</param>
-        ///// <param name="fulcrumX"></param>
-        ///// <param name="fulcrumY"></param>
-        ///// <param name="width">The width of the rectangle to rotate.</param>
-        ///// <param name="angle">The angle in radians to rotate the rectangle/</param>
-        ///// <returns>Returns an Axis Aligned Bounding Box (AABB) Rectangle with the location and height, width bounding the rotated rectangle.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D RotatedRectangleBounds(
-        //    double width, double height,
-        //    double fulcrumX, double fulcrumY, double angle)
-        //{
-        //    var cosAngle = Abs(Cos(angle));
-        //    var sinAngle = Abs(Sin(angle));
+            return new Rectangle2D(loc, size);
+        }
 
-        //    var size = new Size2D(
-        //        (cosAngle * width) + (sinAngle * height),
-        //        (cosAngle * height) + (sinAngle * width)
-        //        );
+        /// <summary>
+        /// Calculates the external Axis Aligned Bounding Box (AABB) rectangle of a Polygon.
+        /// </summary>
+        /// <param name="polygonPoints"></param>
+        /// <returns>Returns anAxis Aligned Bounding Box (AABB) containing the polygon.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D? PolygonBounds(IList<Point2D> polygonPoints) => PolylineBounds(polygonPoints);
 
-        //    var loc = new Point2D(
-        //        fulcrumX + ((-width * 0.5d * cosAngle) + (-height * 0.5d * sinAngle)),
-        //        fulcrumY + ((-width * 0.5d * sinAngle) + (-height * 0.5d * cosAngle))
-        //        );
+        /// <summary>
+        /// Calculates the external Axis Aligned Bounding Box (AABB) rectangle of a <see cref="Polyline"/>.
+        /// </summary>
+        /// <param name="points">The points of the polygon.</param>
+        /// <returns>Returns anAxis Aligned Bounding Box (AABB) containing the polyline.</returns>
+        public static Rectangle2D? PolylineBounds(IList<Point2D> points)
+        {
+            if (points is null || points?.Count < 1) { return null; }
 
-        //    return new Rectangle2D(loc, size);
-        //}
+            var left = points[0].X;
+            var top = points[0].Y;
+            var right = points[0].X;
+            var bottom = points[0].Y;
 
-        ///// <summary>
-        ///// Calculates the external Axis Aligned Bounding Box (AABB) rectangle of a Polygon.
-        ///// </summary>
-        ///// <param name="polygonPoints"></param>
-        ///// <returns>Returns anAxis Aligned Bounding Box (AABB) containing the polygon.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D? PolygonBounds(IList<Point2D> polygonPoints)
-        //    => PolylineBounds(polygonPoints);
+            foreach (var point in points)
+            {
+                // ToDo: Measure performance impact of overwriting each time.
+                left = point.X <= left ? point.X : left;
+                top = point.Y <= top ? point.Y : top;
+                right = point.X >= right ? point.X : right;
+                bottom = point.Y >= bottom ? point.Y : bottom;
+            }
 
-        ///// <summary>
-        ///// Calculates the external Axis Aligned Bounding Box (AABB) rectangle of a <see cref="Polyline"/>.
-        ///// </summary>
-        ///// <param name="points">The points of the polygon.</param>
-        ///// <returns>Returns anAxis Aligned Bounding Box (AABB) containing the polyline.</returns>
-        //public static Rectangle2D? PolylineBounds(IList<Point2D> points)
-        //{
-        //    if (points is null || points?.Count < 1) { return null; }
-
-        //    var left = points[0].X;
-        //    var top = points[0].Y;
-        //    var right = points[0].X;
-        //    var bottom = points[0].Y;
-
-        //    foreach (var point in points)
-        //    {
-        //        // ToDo: Measure performance impact of overwriting each time.
-        //        left = point.X <= left ? point.X : left;
-        //        top = point.Y <= top ? point.Y : top;
-        //        right = point.X >= right ? point.X : right;
-        //        bottom = point.Y >= bottom ? point.Y : bottom;
-        //    }
-
-        //    return Rectangle2D.FromLTRB(left, top, right, bottom);
-        //}
+            return Rectangle2D.FromLTRB(left, top, right, bottom);
+        }
 
         ///// <summary>
         ///// Calculates the Axis Aligned Bounding Box (AABB) rectangle that contains a Polynomial curve.
@@ -1240,29 +1203,27 @@ namespace Engine
         //    return result;
         //}
 
-        ///// <summary>
-        ///// Calculates the Axis Aligned Bounding Box (AABB) Rectangular boundaries of the Cartesian extremes of the chain of points generated by a parametric method.
-        ///// This loops through every point on every call, so it should be cached when possible.
-        ///// </summary>
-        ///// <param name="func">The list iterator method.</param>
-        ///// <param name="count">The number of points to use.</param>
-        ///// <returns>The Axis Aligned Bounding Box (AABB) rectangle of the chain of points generated by a parametric method.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D? ParametricBounds(
-        //    Func<double, List<Point2D>> func,
-        //    double count = 100d)
-        //{
-        //    // Get the list of points from the parametric method.
-        //    var points = func(count);
-        //    if (points?.Count < 1)
-        //    {
-        //        return null;
-        //    }
+        /// <summary>
+        /// Calculates the Axis Aligned Bounding Box (AABB) Rectangular boundaries of the Cartesian extremes of the chain of points generated by a parametric method.
+        /// This loops through every point on every call, so it should be cached when possible.
+        /// </summary>
+        /// <param name="func">The list iterator method.</param>
+        /// <param name="count">The number of points to use.</param>
+        /// <returns>The Axis Aligned Bounding Box (AABB) rectangle of the chain of points generated by a parametric method.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D? ParametricBounds(Func<double, List<Point2D>> func, double count = 100d)
+        {
+            // Get the list of points from the parametric method.
+            var points = func(count);
+            if (points?.Count < 1)
+            {
+                return null;
+            }
 
-        //    return PolylineBounds(points);
-        //}
-        //#endregion BoundsMethods
+            return PolylineBounds(points);
+        }
+        #endregion BoundsMethods
 
         #region Area Methods
         /// <summary>
@@ -1443,6 +1404,38 @@ namespace Engine
         }
         #endregion Area Methods
 
+        #region Slope
+        /// <summary>
+        /// Calculates the Slope of two points.
+        /// </summary>
+        /// <param name="PointA">Starting Point</param>
+        /// <param name="PointB">Ending Point</param>
+        /// <returns>Returns the slope angle of a line.</returns>
+        /// <remarks><para>The slope is calculated with Slope = (YB - YA) / (XB - XA) or rise over run</para></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Slope(this Point2D PointA, Point2D PointB) => Operations.Slope(PointA.X, PointA.Y, PointB.X, PointB.Y);
+
+        /// <summary>
+        /// Calculates the Slope of a vector.
+        /// </summary>
+        /// <param name="Point">Starting Point</param>
+        /// <returns>Returns the slope angle of a line.</returns>
+        /// <remarks><para>The slope is calculated with Slope = Y / X or rise over run</para></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Slope(this Vector2D Point) => Operations.Slope(Point.I, Point.J);
+
+        /// <summary>
+        /// Returns the slope angle of a line.
+        /// </summary>
+        /// <param name="Line">Line to get length of</param>
+        /// <returns>Returns the slope angle of a line.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Slope(this LineSegment2D Line) => Operations.Slope((Line?.A).Value.X, Line.A.Y, Line.B.X, Line.B.Y);
+        #endregion Slope
+
         #region Other
         /// <summary>
         /// Finds the Aspect ratio of the elliptical arc or rectangle.
@@ -1451,8 +1444,7 @@ namespace Engine
         /// <param name="y">The Vertical value.</param>
         /// <returns>Returns the aspect ratio of the horizontal an vertical components.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Aspect(double x, double y)
-            => x == 0 ? double.PositiveInfinity : y / x;
+        public static double Aspect(double x, double y) => x == 0 ? double.PositiveInfinity : y / x;
 
         /// <summary>
         /// Finds the <see cref="Eccentricity"/> of the elliptical arc or rectangle.
@@ -1464,8 +1456,7 @@ namespace Engine
         /// https://en.wikipedia.org/wiki/Ellipse
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Eccentricity(double rX, double rY)
-            => Sqrt(1 - (rX / rY * (rX / rY)));
+        public static double Eccentricity(double rX, double rY) => Sqrt(1 - (rX / rY * (rX / rY)));
 
         /// <summary>
         /// Finds the Focus Radius of an <see cref="Ellipse2D"/>.
@@ -1477,8 +1468,7 @@ namespace Engine
         /// https://en.wikipedia.org/wiki/Ellipse
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipseFocusRadius(double rX, double rY)
-            => Sqrt((rX * rX) - (rY * rY));
+        public static double EllipseFocusRadius(double rX, double rY) => Sqrt((rX * rX) - (rY * rY));
 
         ///// <summary>
         ///// Finds the closest parameter of two polynomials.
@@ -1500,23 +1490,23 @@ namespace Engine
         //        .First();
         //}
 
-        ///// <summary>
-        ///// Finds the shortest distance between a point and a line.
-        ///// </summary>
-        ///// <param name="segment">The line segment.</param>
-        ///// <param name="point">The point to test.</param>
-        ///// <returns>The perpendicular distance to the line.</returns>
-        ///// <acknowledgment>
-        ///// Based on: https://github.com/burningmime/curves
-        ///// See: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
-        ///// </acknowledgment>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static double PerpendicularDistance(LineSegment segment, Point2D point)
-        //{
-        //    var area = Abs(segment.CrossProduct + (segment.BX * point.Y) + (point.X * segment.A.Y) - (point.X * segment.B.Y) - (segment.A.X * point.Y));
-        //    var height = area / segment.Length;
-        //    return height;
-        //}
+        /// <summary>
+        /// Finds the shortest distance between a point and a line.
+        /// </summary>
+        /// <param name="segment">The line segment.</param>
+        /// <param name="point">The point to test.</param>
+        /// <returns>The perpendicular distance to the line.</returns>
+        /// <acknowledgment>
+        /// Based on: https://github.com/burningmime/curves
+        /// See: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double PerpendicularDistance(LineSegment2D segment, Point2D point)
+        {
+            var area = Abs(segment.CrossProduct + (segment.BX * point.Y) + (point.X * segment.A.Y) - (point.X * segment.B.Y) - (segment.A.X * point.Y));
+            var height = area / segment.Length;
+            return height;
+        }
 
         ///// <summary>
         ///// Finds the distance between a point and a polynomial curve.
@@ -1539,66 +1529,63 @@ namespace Engine
         //        .First();
         //}
 
-        ///// <summary>
-        ///// Finds the parametrized square distance of a polynomial curve to a point.
-        ///// </summary>
-        ///// <param name="curveX">The horizontal polynomial of the curve.</param>
-        ///// <param name="curveY">The vertical polynomial of the curve.</param>
-        ///// <param name="point">The point.</param>
-        ///// <returns>Returns the square distance between a curve and a point.</returns>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Polynomial ParameterizedSquareDistance(Polynomial curveX, Polynomial curveY, Point2D point)
-        //{
-        //    var vx = curveX - point.X;
-        //    var vy = curveY - point.Y;
-        //    return (vx * vx) + (vy * vy);
-        //}
+        /// <summary>
+        /// Finds the parametrized square distance of a polynomial curve to a point.
+        /// </summary>
+        /// <param name="curveX">The horizontal polynomial of the curve.</param>
+        /// <param name="curveY">The vertical polynomial of the curve.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>Returns the square distance between a curve and a point.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial ParameterizedSquareDistance(Polynomial curveX, Polynomial curveY, Point2D point)
+        {
+            var vx = curveX - point.X;
+            var vy = curveY - point.Y;
+            return (vx * vx) + (vy * vy);
+        }
 
-        ///// <summary>
-        ///// Computes the point at the t of a polynomial curve.
-        ///// </summary>
-        ///// <param name="curveX">The horizontal polynomial of the curve.</param>
-        ///// <param name="curveY">The vertical polynomial of the curve.</param>
-        ///// <param name="t">The t index.</param>
-        ///// <returns>Returns a point at t for the curve.</returns>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static (double X, double Y) Evaluate(Polynomial curveX, Polynomial curveY, double t)
-        //{
-        //    var x = curveX.Evaluate(t);
-        //    var y = curveY.Evaluate(t);
-        //    return (x, y);
-        //}
+        /// <summary>
+        /// Computes the point at the t of a polynomial curve.
+        /// </summary>
+        /// <param name="curveX">The horizontal polynomial of the curve.</param>
+        /// <param name="curveY">The vertical polynomial of the curve.</param>
+        /// <param name="t">The t index.</param>
+        /// <returns>Returns a point at t for the curve.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) Evaluate(Polynomial curveX, Polynomial curveY, double t)
+        {
+            var x = curveX.Evaluate(t);
+            var y = curveY.Evaluate(t);
+            return (x, y);
+        }
 
-        ///// <summary>
-        ///// Finds the extreme angles of a circle, that fall within the sweep angle of a circular arc.
-        ///// </summary>
-        ///// <param name="startAngle">The start angle.</param>
-        ///// <param name="sweepAngle">The sweep angle.</param>
-        ///// <returns>Returns a list of the angles of the extremes of a circular arc.</returns>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static List<double> CirclularArcExtremeAngles(double startAngle, double sweepAngle)
-        //    => CircleExtremeAngles().Where((a) => Intersections.AngleWithin(a, startAngle, sweepAngle)).ToList();
+        /// <summary>
+        /// Finds the extreme angles of a circle, that fall within the sweep angle of a circular arc.
+        /// </summary>
+        /// <param name="startAngle">The start angle.</param>
+        /// <param name="sweepAngle">The sweep angle.</param>
+        /// <returns>Returns a list of the angles of the extremes of a circular arc.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> CirclularArcExtremeAngles(double startAngle, double sweepAngle) => CircleExtremeAngles().Where((a) => Intersections.AngleWithin(a, startAngle, sweepAngle)).ToList();
 
         /// <summary>
         /// Find the extreme angles of a circle.
         /// </summary>
         /// <returns>Returns the angles of the extremes of a circle.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> CircleExtremeAngles()
-            => new List<double> { 0, HalfPi, PI, Pau };
+        public static List<double> CircleExtremeAngles() => new List<double> { 0, HalfPi, PI, Pau };
 
-        ///// <summary>
-        ///// Finds the angles of the extreme points of a rotated ellipse, that fall within the sweep angle of the arc.
-        ///// </summary>
-        ///// <param name="rX">The horizontal radius of the ellipse.</param>
-        ///// <param name="rY">The vertical radius of the ellipse.</param>
-        ///// <param name="angle">The angle of orientation of the ellipse.</param>
-        ///// <param name="startAngle">The start angle of the arc.</param>
-        ///// <param name="sweepAngle">The sweep angle of the arc.</param>
-        ///// <returns>Returns the angles of the extreme points of an elliptical arc.</returns>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static List<double> EllipticalArcExtremeAngles(double rX, double rY, double angle, double startAngle, double sweepAngle)
-        //    => EllipseExtremeAngles(rX, rY, angle).Where((a) => Intersections.AngleWithin(a, angle + startAngle, sweepAngle)).ToList();
+        /// <summary>
+        /// Finds the angles of the extreme points of a rotated ellipse, that fall within the sweep angle of the arc.
+        /// </summary>
+        /// <param name="rX">The horizontal radius of the ellipse.</param>
+        /// <param name="rY">The vertical radius of the ellipse.</param>
+        /// <param name="angle">The angle of orientation of the ellipse.</param>
+        /// <param name="startAngle">The start angle of the arc.</param>
+        /// <param name="sweepAngle">The sweep angle of the arc.</param>
+        /// <returns>Returns the angles of the extreme points of an elliptical arc.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> EllipticalArcExtremeAngles(double rX, double rY, double angle, double startAngle, double sweepAngle) => EllipseExtremeAngles(rX, rY, angle).Where((a) => Intersections.AngleWithin(a, angle + startAngle, sweepAngle)).ToList();
 
         /// <summary>
         /// Finds the angles of the extreme points of the rotated ellipse.
@@ -1640,18 +1627,17 @@ namespace Engine
             };
         }
 
-        ///// <summary>
-        ///// Finds the angles of the extreme points of a rotated ellipse, that fall within the sweep angle of the arc.
-        ///// </summary>
-        ///// <param name="rX">The horizontal radius of the ellipse.</param>
-        ///// <param name="rY">The vertical radius of the ellipse.</param>
-        ///// <param name="angle">The angle of orientation of the ellipse.</param>
-        ///// <param name="startAngle">The start angle of the arc.</param>
-        ///// <param name="sweepAngle">The sweep angle of the arc.</param>
-        ///// <returns>Returns the angles of the extreme points of an elliptical arc.</returns>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static List<double> EllipticalArcVerticalExtremeAngles(double rX, double rY, double angle, double startAngle, double sweepAngle)
-        //    => EllipseVerticalExtremeAngles(rX, rY, angle).Where((a) => Intersections.AngleWithin(a, angle + startAngle, sweepAngle)).ToList();
+        /// <summary>
+        /// Finds the angles of the extreme points of a rotated ellipse, that fall within the sweep angle of the arc.
+        /// </summary>
+        /// <param name="rX">The horizontal radius of the ellipse.</param>
+        /// <param name="rY">The vertical radius of the ellipse.</param>
+        /// <param name="angle">The angle of orientation of the ellipse.</param>
+        /// <param name="startAngle">The start angle of the arc.</param>
+        /// <param name="sweepAngle">The sweep angle of the arc.</param>
+        /// <returns>Returns the angles of the extreme points of an elliptical arc.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> EllipticalArcVerticalExtremeAngles(double rX, double rY, double angle, double startAngle, double sweepAngle) => EllipseVerticalExtremeAngles(rX, rY, angle).Where((a) => Intersections.AngleWithin(a, angle + startAngle, sweepAngle)).ToList();
 
         /// <summary>
         /// Finds the angles of the extreme points of the rotated ellipse.
@@ -1693,26 +1679,26 @@ namespace Engine
             };
         }
 
-        ///// <summary>
-        ///// Calculates the points of the Cartesian extremes of a circle.
-        ///// </summary>
-        ///// <param name="x">The x-coordinate of the center of the circle.</param>
-        ///// <param name="y">The y-coordinate of the center of the circle.</param>
-        ///// <param name="radius">The radius of the circle.</param>
-        ///// <returns>Returns a list of the points representing the extremes of a circle.</returns>
-        ///// <acknowledgment>
-        ///// Based roughly on the principles found at:
-        ///// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        ///// </acknowledgment>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static List<(double X, double Y)> CircleExtremePoints(double x, double y, double radius)
-        //    => new List<(double X, double Y)>
-        //    {
-        //        Interpolators.Circle(x, y, radius, 0),
-        //        Interpolators.Circle(x, y, radius, HalfPi),
-        //        Interpolators.Circle(x, y, radius, PI),
-        //        Interpolators.Circle(x, y, radius, Pau)
-        //    };
+        /// <summary>
+        /// Calculates the points of the Cartesian extremes of a circle.
+        /// </summary>
+        /// <param name="x">The x-coordinate of the center of the circle.</param>
+        /// <param name="y">The y-coordinate of the center of the circle.</param>
+        /// <param name="radius">The radius of the circle.</param>
+        /// <returns>Returns a list of the points representing the extremes of a circle.</returns>
+        /// <acknowledgment>
+        /// Based roughly on the principles found at:
+        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<(double X, double Y)> CircleExtremePoints(double x, double y, double radius)
+            => new List<(double X, double Y)>
+            {
+                Interpolators.Circle(x, y, radius, 0),
+                Interpolators.Circle(x, y, radius, HalfPi),
+                Interpolators.Circle(x, y, radius, PI),
+                Interpolators.Circle(x, y, radius, Pau)
+            };
 
         /// <summary>
         /// Get the points of the Cartesian extremes of a rotated ellipse.
@@ -1728,8 +1714,7 @@ namespace Engine
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<(double X, double Y)> EllipseExtremePoints(double x, double y, double rX, double rY, double angle)
-            => EllipseExtremePoints(x, y, rX, rY, Cos(angle), Sin(angle));
+        public static List<(double X, double Y)> EllipseExtremePoints(double x, double y, double rX, double rY, double angle) => EllipseExtremePoints(x, y, rX, rY, Cos(angle), Sin(angle));
 
         /// <summary>
         /// Get the points of the Cartesian extremes of a rotated ellipse.

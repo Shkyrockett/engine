@@ -235,7 +235,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value) => UnaryAdd2D(value.I, value.J);
+        public static Vector2D operator +(Vector2D value) => UnaryAdd(value.I, value.J);
 
         /// <summary>
         /// Add Points

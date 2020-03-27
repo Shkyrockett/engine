@@ -159,7 +159,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator +(Point4D value) => UnaryAdd4D(value.X, value.Y, value.Z, value.W);
+        public static Point4D operator +(Point4D value) => UnaryAdd(value.X, value.Y, value.Z, value.W);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point4D" /> classes.

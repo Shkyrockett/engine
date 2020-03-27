@@ -1,5 +1,5 @@
 ﻿// <copyright file="IMatrix.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace Engine
@@ -29,12 +30,14 @@ namespace Engine
         IEquatable<M> where M : struct, IMatrix<M, V> where V : struct, IVector<V>
     {
         /// <summary>
-        /// The equals.
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <param name="item">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(object obj) => obj is M && Equals(this, (M)obj);
+        public bool Equals([AllowNull] object item) => item is M o && Equals(this, o);
     }
 }

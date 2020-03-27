@@ -1,5 +1,5 @@
 ﻿// <copyright file="IShape.cs" company="Shkyrockett" >
-//     Copyright © 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2020 Shkyrockett. All rights reserved.
 // </copyright> 
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -9,13 +9,9 @@
 // <remarks></remarks>
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Xml.Serialization;
 
 namespace Engine
 {
@@ -25,14 +21,6 @@ namespace Engine
     public interface IShape
         : IFormattable
     {
-        /// <summary>
-        /// Property cache for commonly used properties that may take time to calculate.
-        /// </summary>
-        [Browsable(false)]
-        [field: NonSerialized]
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        Dictionary<object, object> PropertyCache { get; set; }
-
         /// <summary>
         /// Creates a <see cref="string"/> representation of this <see cref="IPrimitive"/> interface based on the current culture.
         /// </summary>

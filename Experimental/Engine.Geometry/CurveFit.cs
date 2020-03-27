@@ -1,5 +1,5 @@
-﻿// <copyright file="PolygonContour2D.cs" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+﻿// <copyright file="Generators.cs" company="Shkyrockett" >
+//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -8,12 +8,13 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Collections.Generic;
 
 namespace Engine
 {
-    public class PolygonContour2D
+    public class CurveFit
     {
-        public List<Point2D> Points { get; internal set; }
+        internal static object Fit(List<Point2D> list, double oneHalf) => throw new NotImplementedException();
     }
 }

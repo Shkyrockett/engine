@@ -1,5 +1,5 @@
 ﻿// <copyright file="Intersections.ScanBeam.cs" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -40,10 +40,10 @@
 
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Measurements;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -56,13 +56,12 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a point.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="px"></param>
-        /// <param name="py"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns></returns>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="px">The px.</param>
+        /// <param name="py">The py.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamPoint(ref List<double> scanlist, double x, double y, double px, double py, double epsilon = double.Epsilon)
@@ -77,15 +76,14 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a line.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns></returns>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamLine(ref List<double> scanlist, double x, double y, double x0, double y0, double i, double j, double epsilon = double.Epsilon)
@@ -123,14 +121,14 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a line segment.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamLineSegment(ref List<double> scanlist, double x, double y, double x0, double y0, double x1, double y1, double epsilon = double.Epsilon)
@@ -172,29 +170,19 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a quadratic Bézier curve segment.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="b0x"></param>
-        /// <param name="b0y"></param>
-        /// <param name="b1x"></param>
-        /// <param name="b1y"></param>
-        /// <param name="b2x"></param>
-        /// <param name="b2y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="b0x">The B0X.</param>
+        /// <param name="b0y">The b0y.</param>
+        /// <param name="b1x">The B1X.</param>
+        /// <param name="b1y">The b1y.</param>
+        /// <param name="b2x">The B2X.</param>
+        /// <param name="b2y">The b2y.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamQuadraticBezierSegment(
-            ref List<double> scanlist,
-            double x, double y,
-            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y,
-            double epsilon = double.Epsilon)
-            => ScanbeamQuadraticBezierSegment(
-                ref scanlist,
-                x, y,
-                QuadraticBezierCoefficients(b0x, b1x, b2x),
-                QuadraticBezierCoefficients(b0y, b1y, b2y),
-                epsilon);
+        public static void ScanbeamQuadraticBezierSegment(ref List<double> scanlist, double x, double y, double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double epsilon = double.Epsilon) => ScanbeamQuadraticBezierSegment(ref scanlist, x, y, Polynomials.QuadraticBezierBernsteinBasis(b0x, b1x, b2x), Polynomials.QuadraticBezierBernsteinBasis(b0y, b1y, b2y), epsilon);
 
         /// <summary>
         /// Find the scan-beam intersections of a quadratic Bézier curve segment.
@@ -243,17 +231,7 @@ namespace Engine
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamCubicBezierSegment(
-            ref List<double> scanlist,
-            double x, double y,
-            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y,
-            double epsilon = double.Epsilon)
-            => ScanbeamCubicBezierSegment(
-                ref scanlist,
-                x, y,
-                CubicBezierCoefficients(b0x, b1x, b2x, b3x),
-                CubicBezierCoefficients(b0y, b1y, b2y, b3y),
-                epsilon);
+        public static void ScanbeamCubicBezierSegment(ref List<double> scanlist, double x, double y, double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y, double epsilon = double.Epsilon) => ScanbeamCubicBezierSegment(ref scanlist, x, y, Polynomials.CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x), Polynomials.CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y), epsilon);
 
         /// <summary>
         /// Find the scan-beam intersections of a cubic Bézier curve segment.
@@ -662,7 +640,7 @@ namespace Engine
         public static void ScanbeamPolygonContour(ref List<double> scanlist, double x, double y, List<Point2D> points, double epsilon = double.Epsilon)
         {
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            var b1 = points[points.Count - 1];
+            var b1 = points[^1];
             for (var i = 0; i < points.Count; ++i)
             {
                 var b2 = points[i];
@@ -673,42 +651,42 @@ namespace Engine
             }
         }
 
-        /// <summary>
-        /// Find the scan-beam intersections of a polycurve contour.
-        /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="curve"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamPolycurveContour(ref List<double> scanlist, double x, double y, PolycurveContour curve, double epsilon = double.Epsilon)
-        {
-            foreach (var segment in curve.Items)
-            {
-                switch (segment)
-                {
-                    case PointSegment t:
-                        ScanbeamPoint(ref scanlist, x, y, t.Start.Value.X, t.Start.Value.Y, epsilon);
-                        break;
-                    case LineCurveSegment t:
-                        ScanbeamLineSegment(ref scanlist, x, y, t.Start.Value.X, t.Start.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
-                        break;
-                    case QuadraticBezierSegment t:
-                        ScanbeamQuadraticBezierSegment(ref scanlist, x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
-                        break;
-                    case CubicBezierSegment t:
-                        ScanbeamCubicBezierSegment(ref scanlist, x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
-                        break;
-                    case ArcSegment t:
-                        ScanbeamEllipticalArc(ref scanlist, x, y, t.Center.X, t.Center.Y, t.RX, t.RY, t.CosAngle, t.SinAngle, t.StartAngle, t.SweepAngle, epsilon);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        ///// <summary>
+        ///// Find the scan-beam intersections of a polycurve contour.
+        ///// </summary>
+        ///// <param name="scanlist"></param>
+        ///// <param name="x"></param>
+        ///// <param name="y"></param>
+        ///// <param name="curve"></param>
+        ///// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        ////[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static void ScanbeamPolycurveContour(ref List<double> scanlist, double x, double y, PolycurveContour curve, double epsilon = double.Epsilon)
+        //{
+        //    foreach (var segment in curve.Items)
+        //    {
+        //        switch (segment)
+        //        {
+        //            case PointSegment t:
+        //                ScanbeamPoint(ref scanlist, x, y, t.Start.Value.X, t.Start.Value.Y, epsilon);
+        //                break;
+        //            case LineCurveSegment t:
+        //                ScanbeamLineSegment(ref scanlist, x, y, t.Start.Value.X, t.Start.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+        //                break;
+        //            case QuadraticBezierSegment t:
+        //                ScanbeamQuadraticBezierSegment(ref scanlist, x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+        //                break;
+        //            case CubicBezierSegment t:
+        //                ScanbeamCubicBezierSegment(ref scanlist, x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+        //                break;
+        //            case ArcSegment t:
+        //                ScanbeamEllipticalArc(ref scanlist, x, y, t.Center.X, t.Center.Y, t.RX, t.RY, t.CosAngle, t.SinAngle, t.StartAngle, t.SweepAngle, epsilon);
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //}
         #endregion Scan-beam Intersection Methods
 
         #region Scan-beam To Left Increment Methods
@@ -856,15 +834,7 @@ namespace Engine
         /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftQuadraticBezierSegment(
-            double x, double y,
-            double p0x, double p0y, double p1x, double p1y, double p2x, double p2y,
-            double epsilon = double.Epsilon)
-            => ScanbeamPointsToLeftQuadraticBezierSegment(
-                x, y,
-                QuadraticBezierCoefficients(p0x, p1x, p2x),
-                QuadraticBezierCoefficients(p0y, p1y, p2y),
-                epsilon);
+        public static int ScanbeamPointsToLeftQuadraticBezierSegment(double x, double y, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double epsilon = double.Epsilon) => ScanbeamPointsToLeftQuadraticBezierSegment(x, y, Polynomials.QuadraticBezierBernsteinBasis(p0x, p1x, p2x), Polynomials.QuadraticBezierBernsteinBasis(p0y, p1y, p2y), epsilon);
 
         /// <summary>
         /// Find the scan-beam points to the left of a quadratic Bézier segment.
@@ -915,15 +885,7 @@ namespace Engine
         /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftCubicBezierSegment(
-            double x, double y,
-            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y,
-            double epsilon = double.Epsilon)
-            => ScanbeamPointsToLeftCubicBezierSegment(
-                x, y,
-                CubicBezierCoefficients(b0x, b1x, b2x, b3x),
-                CubicBezierCoefficients(b0y, b1y, b2y, b3y),
-                epsilon);
+        public static int ScanbeamPointsToLeftCubicBezierSegment(double x, double y, double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y, double epsilon = double.Epsilon) => ScanbeamPointsToLeftCubicBezierSegment(x, y, Polynomials.CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x), Polynomials.CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y), epsilon);
 
         /// <summary>
         /// Find the scan-beam points to the left of a cubic Bézier segment.
@@ -1382,7 +1344,7 @@ namespace Engine
             var result = 0;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            var b1 = points[points.Count - 1];
+            var b1 = points[^1];
             for (var i = 0; i < points.Count; ++i)
             {
                 var b2 = points[i];
@@ -1395,45 +1357,45 @@ namespace Engine
             return result;
         }
 
-        /// <summary>
-        /// Find the scan-beam points to the left of a polycurve contour.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="curve"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftPolycurveContour(double x, double y, PolycurveContour curve, double epsilon = double.Epsilon)
-        {
-            var results = 0;
-            foreach (var segment in curve.Items)
-            {
-                switch (segment)
-                {
-                    case PointSegment t:
-                        results += ScanbeamPointsToLeftPoint(x, y, t.Start.Value.X, t.Start.Value.Y, epsilon);
-                        break;
-                    case LineCurveSegment t:
-                        results += ScanbeamPointsToLeftLineSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
-                        break;
-                    case QuadraticBezierSegment t:
-                        results += ScanbeamPointsToLeftQuadraticBezierSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
-                        break;
-                    case CubicBezierSegment t:
-                        results += ScanbeamPointsToLeftCubicBezierSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
-                        break;
-                    case ArcSegment t:
-                        results += ScanbeamPointsToLeftEllipticalArc(x, y, t.Center.X, t.Center.Y, t.RX, t.RY, t.CosAngle, t.SinAngle, t.StartAngle, t.SweepAngle, epsilon);
-                        break;
-                    default:
-                        break;
-                }
-            }
+        ///// <summary>
+        ///// Find the scan-beam points to the left of a polycurve contour.
+        ///// </summary>
+        ///// <param name="x"></param>
+        ///// <param name="y"></param>
+        ///// <param name="curve"></param>
+        ///// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        ///// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        ////[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static int ScanbeamPointsToLeftPolycurveContour(double x, double y, PolycurveContour curve, double epsilon = double.Epsilon)
+        //{
+        //    var results = 0;
+        //    foreach (var segment in curve.Items)
+        //    {
+        //        switch (segment)
+        //        {
+        //            case PointSegment t:
+        //                results += ScanbeamPointsToLeftPoint(x, y, t.Start.Value.X, t.Start.Value.Y, epsilon);
+        //                break;
+        //            case LineCurveSegment t:
+        //                results += ScanbeamPointsToLeftLineSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+        //                break;
+        //            case QuadraticBezierSegment t:
+        //                results += ScanbeamPointsToLeftQuadraticBezierSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+        //                break;
+        //            case CubicBezierSegment t:
+        //                results += ScanbeamPointsToLeftCubicBezierSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+        //                break;
+        //            case ArcSegment t:
+        //                results += ScanbeamPointsToLeftEllipticalArc(x, y, t.Center.X, t.Center.Y, t.RX, t.RY, t.CosAngle, t.SinAngle, t.StartAngle, t.SweepAngle, epsilon);
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
 
-            return results;
-        }
+        //    return results;
+        //}
         #endregion Scan-beam To Left Increment Methods
 
         #region Scan-beam To Right Increment Methods
@@ -1576,15 +1538,7 @@ namespace Engine
         /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightQuadraticBezierSegment(
-            double x, double y,
-            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y,
-            double epsilon = double.Epsilon)
-            => ScanbeamPointsToRightQuadraticBezierSegment(
-                x, y,
-                QuadraticBezierCoefficients(b0x, b1x, b2x),
-                QuadraticBezierCoefficients(b0y, b1y, b2y),
-                epsilon);
+        public static int ScanbeamPointsToRightQuadraticBezierSegment(double x, double y, double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double epsilon = double.Epsilon) => ScanbeamPointsToRightQuadraticBezierSegment(x, y, Polynomials.QuadraticBezierBernsteinBasis(b0x, b1x, b2x), Polynomials.QuadraticBezierBernsteinBasis(b0y, b1y, b2y), epsilon);
 
         /// <summary>
         /// Find the scan-beam points to the right of a quadratic Bézier curve segment.
@@ -1635,15 +1589,7 @@ namespace Engine
         /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightCubicBezierSegment(
-            double x, double y,
-            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y,
-            double epsilon = double.Epsilon)
-            => ScanbeamPointsToRightCubicBezierSegment(
-                x, y,
-                CubicBezierCoefficients(b0x, b1x, b2x, b3x),
-                CubicBezierCoefficients(b0y, b1y, b2y, b3y),
-                epsilon);
+        public static int ScanbeamPointsToRightCubicBezierSegment(double x, double y, double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y, double epsilon = double.Epsilon) => ScanbeamPointsToRightCubicBezierSegment(x, y, Polynomials.CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x), Polynomials.CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y), epsilon);
 
         /// <summary>
         /// Find the scan-beam points to the right of a cubic Bézier curve segment.
@@ -2101,7 +2047,7 @@ namespace Engine
             var result = 0;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            var b1 = points[points.Count - 1];
+            var b1 = points[^1];
             for (var i = 0; i < points.Count; ++i)
             {
                 var b2 = points[i];
@@ -2114,45 +2060,45 @@ namespace Engine
             return result;
         }
 
-        /// <summary>
-        /// Find the scan-beam points to the right of a polycurve contour.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="curve"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightPolycurveContour(double x, double y, PolycurveContour curve, double epsilon = double.Epsilon)
-        {
-            var results = 0;
-            foreach (var segment in curve.Items)
-            {
-                switch (segment)
-                {
-                    case PointSegment t:
-                        results += ScanbeamPointsToRightPoint(x, y, t.Start.Value.X, t.Start.Value.Y, epsilon);
-                        break;
-                    case LineCurveSegment t:
-                        results += ScanbeamPointsToRightLineSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
-                        break;
-                    case QuadraticBezierSegment t:
-                        results += ScanbeamPointsToRightQuadraticBezierSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
-                        break;
-                    case CubicBezierSegment t:
-                        results += ScanbeamPointsToRightCubicBezierSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
-                        break;
-                    case ArcSegment t:
-                        results += ScanbeamPointsToRightEllipticalArc(x, y, t.Center.X, t.Center.Y, t.RX, t.RY, t.CosAngle, t.SinAngle, t.StartAngle, t.SweepAngle, epsilon);
-                        break;
-                    default:
-                        break;
-                }
-            }
+        ///// <summary>
+        ///// Find the scan-beam points to the right of a polycurve contour.
+        ///// </summary>
+        ///// <param name="x"></param>
+        ///// <param name="y"></param>
+        ///// <param name="curve"></param>
+        ///// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        ///// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        ////[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static int ScanbeamPointsToRightPolycurveContour(double x, double y, PolycurveContour curve, double epsilon = double.Epsilon)
+        //{
+        //    var results = 0;
+        //    foreach (var segment in curve.Items)
+        //    {
+        //        switch (segment)
+        //        {
+        //            case PointSegment t:
+        //                results += ScanbeamPointsToRightPoint(x, y, t.Start.Value.X, t.Start.Value.Y, epsilon);
+        //                break;
+        //            case LineCurveSegment t:
+        //                results += ScanbeamPointsToRightLineSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+        //                break;
+        //            case QuadraticBezierSegment t:
+        //                results += ScanbeamPointsToRightQuadraticBezierSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+        //                break;
+        //            case CubicBezierSegment t:
+        //                results += ScanbeamPointsToRightCubicBezierSegment(x, y, t.Start.Value.X, t.Start.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.End.Value.X, t.End.Value.Y, epsilon);
+        //                break;
+        //            case ArcSegment t:
+        //                results += ScanbeamPointsToRightEllipticalArc(x, y, t.Center.X, t.Center.Y, t.RX, t.RY, t.CosAngle, t.SinAngle, t.StartAngle, t.SweepAngle, epsilon);
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
 
-            return results;
-        }
+        //    return results;
+        //}
         #endregion Scan-beam To Right Increment Methods
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Size4DConverter.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2013 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -43,8 +43,7 @@ namespace Engine
         /// <exception cref="ArgumentException">Parse failed.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            var str = value as string;
-            if (str is null)
+            if (!(value is string str))
             {
                 return base.ConvertFrom(context, culture, value);
             }

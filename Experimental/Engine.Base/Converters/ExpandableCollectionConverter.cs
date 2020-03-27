@@ -1,5 +1,5 @@
 ﻿// <copyright file="ExpandableCollectionConverter.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -59,8 +59,7 @@ namespace Engine
         /// <returns>The <see cref="PropertyDescriptorCollection"/>.</returns>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
-            var list = value as IList;
-            if (list is null || list.Count == 0)
+            if (!(value is IList list) || list.Count == 0)
             {
                 return base.GetProperties(context, value, attributes);
             }
@@ -87,8 +86,7 @@ namespace Engine
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool GetPropertiesSupported(ITypeDescriptorContext context)
-            => true;
+        public override bool GetPropertiesSupported(ITypeDescriptorContext context) => true;
         #endregion Methods
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Intersections.Intersects.cs" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -40,9 +40,9 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -59,43 +59,43 @@ namespace Engine
         /// <param name="shape"></param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
-        public static bool Intersects(Rectangle2D rect, Shape2D shape, double epsilon = Epsilon)
+        public static bool Intersects(Rectangle2D rect, IShape shape, double epsilon = Epsilon)
         {
             // Shapes arranged by degree and complexity.
             switch (shape)
             {
-                case ScreenPoint p:
-                    //return RectangleContainsPoint(rect.X, rect.Y, rect.Right, rect.Bottom, p.X, p.Y, epsilon)!= Inclusion.Outside ;
-                    return PointRectangleIntersects(p.X, p.Y, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
-                case BezierSegmentX _:
-                    throw new NotImplementedException();
+                //case ScreenPoint p:
+                //    //return RectangleContainsPoint(rect.X, rect.Y, rect.Right, rect.Bottom, p.X, p.Y, epsilon)!= Inclusion.Outside ;
+                //    return PointRectangleIntersects(p.X, p.Y, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
+                //case BezierSegmentX _:
+                //    throw new NotImplementedException();
                 case LineSegment2D l:
-                    return LineSegmentRectangleIntersects(l.AX, l.AY, l.BX, l.BY, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
+                    return LineSegmentRectangleIntersects(l.A.X, l.A.Y, l.B.X, l.B.Y, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
                 case Ray2D r:
                     return RayRectangleIntersects(r.Location.X, r.Location.Y, r.Location.X + r.Direction.I, r.Location.Y + r.Direction.J, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
                 case Line2D l:
                     return LineRectangleIntersects(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
                 case QuadraticBezier2D b:
-                    return QuadraticBezierSegmentRectangleIntersects(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
+                    return QuadraticBezierSegmentRectangleIntersects(b.A.X, b.A.Y, b.B.X, b.B.Y, b.C.X, b.C.Y, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
                 case CubicBezier2D b:
-                    return CubicBezierSegmentRectangleIntersects(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
+                    return CubicBezierSegmentRectangleIntersects(b.A.X, b.A.Y, b.B.X, b.B.Y, b.C.X, b.C.Y, b.D.X, b.D.Y, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
                 case Rectangle2D r:
                     return RectangleRectangleIntersects(r.X, r.Y, r.Right, r.Bottom, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
-                case Polyline _:
+                case Polyline2D _:
                     //return RectanglePolylineIntersects();
                     throw new NotImplementedException();
                 case PolygonContour2D _:
                     throw new NotImplementedException();
-                case Polygon _:
+                case Polygon2D _:
                     throw new NotImplementedException();
-                case PolyBezierContour _:
-                    throw new NotImplementedException();
-                case PolyBezier _:
-                    throw new NotImplementedException();
-                case PolycurveContour _:
-                    throw new NotImplementedException();
-                case Polycurve _:
-                    throw new NotImplementedException();
+                //case PolyBezierContour _:
+                //    throw new NotImplementedException();
+                //case PolyBezier _:
+                //    throw new NotImplementedException();
+                //case PolycurveContour _:
+                //    throw new NotImplementedException();
+                //case Polycurve _:
+                //    throw new NotImplementedException();
                 default:
                     return false;
             }
@@ -126,8 +126,7 @@ namespace Engine
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Intersects(this Point2D p, Point2D a, Point2D b, double epsilon = Epsilon)
-            => PointLineSegmentIntersects(p.X, p.Y, a.X, a.Y, b.X, b.Y, epsilon);
+        public static bool Intersects(this Point2D p, Point2D a, Point2D b, double epsilon = Epsilon) => PointLineSegmentIntersects(p.X, p.Y, a.X, a.Y, b.X, b.Y, epsilon);
 
         /// <summary>
         /// Check whether a point is coincident to a line segment.
@@ -138,8 +137,7 @@ namespace Engine
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Intersects(this Point2D p, LineSegment2D s, double epsilon = Epsilon)
-            => PointLineSegmentIntersects(p.X, p.Y, s.A.X, s.A.Y, s.B.X, s.B.Y, epsilon);
+        public static bool Intersects(this Point2D p, LineSegment2D s, double epsilon = Epsilon) => PointLineSegmentIntersects(p.X, p.Y, s.A.X, s.A.Y, s.B.X, s.B.Y, epsilon);
 
         /// <summary>
         /// Check whether a point is coincident to a line segment.
@@ -150,8 +148,7 @@ namespace Engine
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Intersects(this LineSegment2D s, Point2D p, double epsilon = Epsilon)
-            => PointLineSegmentIntersects(p.X, p.Y, s.A.X, s.A.Y, s.B.X, s.B.Y, epsilon);
+        public static bool Intersects(this LineSegment2D s, Point2D p, double epsilon = Epsilon) => PointLineSegmentIntersects(p.X, p.Y, s.A.X, s.A.Y, s.B.X, s.B.Y, epsilon);
 
         /// <summary>
         /// Check whether two line segments intersect.
@@ -162,8 +159,7 @@ namespace Engine
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Intersects(this LineSegment2D s0, LineSegment2D s1, double epsilon = Epsilon)
-            => LineSegmentLineSegmentIntersects(s0.A.X, s0.A.Y, s0.B.X, s0.B.Y, s1.A.X, s1.A.Y, s1.B.X, s1.B.Y, epsilon);
+        public static bool Intersects(this LineSegment2D s0, LineSegment2D s1, double epsilon = Epsilon) => LineSegmentLineSegmentIntersects(s0.A.X, s0.A.Y, s0.B.X, s0.B.Y, s1.A.X, s1.A.Y, s1.B.X, s1.B.Y, epsilon);
 
         /// <summary>
         /// Determines if this rectangle interests with another rectangle.
@@ -174,8 +170,7 @@ namespace Engine
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Intersects(this Rectangle2D rect1, Rectangle2D rect2, double epsilon = Epsilon)
-            => RectangleRectangleIntersects(rect1.X, rect1.Y, rect1.Width, rect1.Height, rect2.X, rect2.Y, rect2.Width, rect2.Height, epsilon);
+        public static bool Intersects(this Rectangle2D rect1, Rectangle2D rect2, double epsilon = Epsilon) => RectangleRectangleIntersects(rect1.X, rect1.Y, rect1.Width, rect1.Height, rect2.X, rect2.Y, rect2.Width, rect2.Height, epsilon);
 
         /// <summary>
         /// Determines if this Circle interests with another Circle.
@@ -186,8 +181,7 @@ namespace Engine
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Intersects(this Circle2D c0, Circle2D c1, double epsilon = Epsilon)
-            => CircleCircleIntersects(c0.X, c0.Y, c0.Radius, c1.X, c1.Y, c1.Radius, epsilon);
+        public static bool Intersects(this Circle2D c0, Circle2D c1, double epsilon = Epsilon) => CircleCircleIntersects(c0.X, c0.Y, c0.Radius, c1.X, c1.Y, c1.Radius, epsilon);
         #endregion Intersects Extension Method Overloads
 
         #region Intersects Methods
@@ -201,10 +195,7 @@ namespace Engine
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointPointIntersects(
-            double point0X, double point0Y,
-            double point1X, double point1Y)
-            => point0X == point1X && point0Y == point1Y;
+        public static bool PointPointIntersects(double point0X, double point0Y, double point1X, double point1Y) => point0X == point1X && point0Y == point1Y;
 
         /// <summary>
         /// Check whether a point is coincident to a line segment.
@@ -222,11 +213,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointLineSegmentIntersects(
-            double pointX, double pointY,
-            double segmentAX, double segmentAY,
-            double segmentBX, double segmentBY,
-            double epsilon = Epsilon)
+        public static bool PointLineSegmentIntersects(double pointX, double pointY, double segmentAX, double segmentAY, double segmentBX, double segmentBY, double epsilon = Epsilon)
         {
             _ = epsilon;
             return ((pointX == segmentAX) && (pointY == segmentAY))
@@ -353,7 +340,8 @@ namespace Engine
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>        /// <acknowledgment>
+        /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
+        /// <acknowledgment>
         /// http://www.vb-helper.com/howto_segments_intersect.html
         /// </acknowledgment>
         //[DebuggerStepThrough]
@@ -450,7 +438,8 @@ namespace Engine
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>        /// <acknowledgment>
+        /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
+        /// <acknowledgment>
         /// http://www.vb-helper.com/howto_segments_intersect.html
         /// </acknowledgment>
         //[DebuggerStepThrough]
@@ -750,7 +739,6 @@ namespace Engine
             throw new NotImplementedException();
         }
 
-
         /// <summary>
         /// Find out whether a quadratic Bézier segment and a rectangle intersects.
         /// </summary>
@@ -768,7 +756,7 @@ namespace Engine
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool QuadraticBezierSegmentRectangleIntersects(
+        public static bool QuadraticBezierSegmentRectangleIntersects(
             double aX, double aY,
             double bX, double bY,
             double cX, double cY,
@@ -868,7 +856,7 @@ namespace Engine
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool CubicBezierSegmentRectangleIntersects(
+        public static bool CubicBezierSegmentRectangleIntersects(
             double aX, double aY,
             double bX, double bY,
             double cX, double cY,

@@ -26,7 +26,7 @@ namespace Engine
         /// <param name="order">The order.</param>
         public AdvBrowsableOrderAttribute(string order)
         {
-            Order = order.Split(',');
+            Order = order?.Split(',');
         }
 
         ///// <summary>
@@ -47,10 +47,10 @@ namespace Engine
         /// Get the order.
         /// </summary>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:string[]"/>.</returns>
+        /// <returns>The <see cref="string[]"/>.</returns>
         public static string[] GetOrder(Type t)
         {
-            var arr = t.GetCustomAttributes(typeof(AdvBrowsableOrderAttribute), false);
+            var arr = t?.GetCustomAttributes(typeof(AdvBrowsableOrderAttribute), false);
             if (arr.Length > 0)
             {
                 return ((AdvBrowsableOrderAttribute)arr[0]).Order;

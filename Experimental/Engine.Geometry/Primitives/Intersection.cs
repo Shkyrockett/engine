@@ -1,5 +1,5 @@
 ﻿// <copyright file="Intersections.cs" >
-//     Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -15,24 +15,33 @@
 //     Licensed under the BSD-3-Clause https://github.com/thelonious/kld-intersections/blob/development/LICENSE
 // </license>
 
-// <summary></summary>
-// <remarks></remarks>
-
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace Engine
 {
     /// <summary>
     /// The intersection struct.
     /// </summary>
+    /// <seealso cref="System.IEquatable{Engine.Intersection}" />
+    /// <seealso cref="System.IFormattable" />
+    [DataContract, Serializable]
+    [TypeConverter(typeof(StructConverter<Intersection>))]
+    [DebuggerDisplay("{ToString()}")]
     public struct Intersection
-        : IFormattable
+        : IFormattable, IEquatable<Intersection>
     {
+        #region Implementations
+        public static readonly Intersection Empty = new Intersection(IntersectionState.NoIntersection);
+        #endregion
+
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Intersection"/> class.
@@ -229,63 +238,68 @@ namespace Engine
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => State.GetHashCode()
-            ^ Points.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(State, Points);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Intersection a, Intersection b)
-            => (a.State == b.State) & (a.Points == b.Points);
+        public static bool Equals(Intersection a, Intersection b) => (a.State == b.State) && (a.Points == b.Points);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Intersection && Equals(this, (Intersection)obj);
+        public override bool Equals([AllowNull] object obj) => obj is Intersection && Equals(this, (Intersection)obj);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Intersection value)
-            => Equals(this, value);
+        public bool Equals(Intersection value) => Equals(this, value);
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Intersection"/>.
+        /// Creates a human-readable string that represents this <see cref="Intersection" />.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Intersection"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Intersection" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
         /// <param name="provider">The provider.</param>
-        /// <returns>A <see cref="string"/> representation of this object.</returns>
+        /// <returns>
+        /// A <see cref="string" /> representation of this object.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// The to string.
@@ -300,25 +314,26 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Intersection"/> class based on the format string
+        /// Creates a string representation of this <see cref="Intersection" /> class based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="provider">The provider.</param>
-        /// <returns>A <see cref="string"/> representation of this object.</returns>
+        /// <returns>
+        /// A <see cref="string" /> representation of this object.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
         {
-            //if (this is null) return nameof(Intersection);
+            if (this == null) return nameof(Intersection);
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Intersection)}{{{nameof(State)}: {State.ToString()}, {string.Join(sep.ToString(), Points)}}}";
+            IFormattable formatable = $"{nameof(Intersection)}{{{nameof(State)}: {State}, {string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Standard Class Methods

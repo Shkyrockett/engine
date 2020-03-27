@@ -1,5 +1,5 @@
 ﻿// <copyright file="Operations.Computational.cs" company="Shkyrockett" >
-//    Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//    Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -22,6 +22,7 @@ namespace Engine
         /// <summary>
         /// Swap left and right values so the left object has the value of the right object and visa-versa.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="a">The left value.</param>
         /// <param name="b">The right value.</param>
         [DebuggerStepThrough]
@@ -37,30 +38,30 @@ namespace Engine
         /// https://blogs.msdn.microsoft.com/mazhou/2017/12/12/c-7-series-part-7-ref-returns/
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array"></param>
-        /// <param name="position"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="position">The position.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ref T ElementAt<T>(ref T[] array, int position) => ref array[position];
 
         /// <summary>
-        /// 
+        /// Selects the heigher.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ref T SelectHeigher<T>(ref T a, ref T b) where T : IComparable => ref a.CompareTo(b) >= 0 ? ref a : ref b;
 
         /// <summary>
-        /// 
+        /// Selects the lower.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -70,7 +71,9 @@ namespace Engine
         /// The high nibble.
         /// </summary>
         /// <param name="n">The n.</param>
-        /// <returns>The <see cref="byte"/>.</returns>
+        /// <returns>
+        /// The <see cref="byte" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte HighNibble(this byte n) => (byte)(n >> 0x4);
@@ -79,15 +82,17 @@ namespace Engine
         /// The low nibble.
         /// </summary>
         /// <param name="n">The n.</param>
-        /// <returns>The <see cref="byte"/>.</returns>
+        /// <returns>
+        /// The <see cref="byte" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte LowNibble(this byte n) => (byte)(n & 0x0F);
 
         /// <summary>
-        /// Get the Hight and Low nibbles as a <see cref="ValueTuple{T1, T2}"/>.
+        /// Get the Hight and Low nibbles as a <see cref="ValueTuple{T1, T2}" />.
         /// </summary>
-        /// <param name="n"></param>
+        /// <param name="n">The n.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -97,7 +102,9 @@ namespace Engine
         /// The join nibbles.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
-        /// <returns>The <see cref="byte"/>.</returns>
+        /// <returns>
+        /// The <see cref="byte" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte JoinNibbles((byte High, byte Low) tuple)
@@ -113,7 +120,9 @@ namespace Engine
         /// </summary>
         /// <param name="high">The h.</param>
         /// <param name="low">The l.</param>
-        /// <returns>The <see cref="byte"/>.</returns>
+        /// <returns>
+        /// The <see cref="byte" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte JoinNibbles(byte high, byte low)
@@ -128,7 +137,9 @@ namespace Engine
         /// The high word.
         /// </summary>
         /// <param name="n">The n.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int HighWord(this int n) => (n >> 0x10) & 0xffff;
@@ -137,7 +148,9 @@ namespace Engine
         /// The high word.
         /// </summary>
         /// <param name="n">The n.</param>
-        /// <returns>The <see cref="uint"/>.</returns>
+        /// <returns>
+        /// The <see cref="uint" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static uint HighWord(this uint n) => (n >> 0x10) & 0xffff;
@@ -146,7 +159,9 @@ namespace Engine
         /// The signed high word.
         /// </summary>
         /// <param name="n">The n.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int SignedHighWord(this int n) => (short)((n >> 0x10) & 0xffff);
@@ -155,7 +170,9 @@ namespace Engine
         /// The signed high word.
         /// </summary>
         /// <param name="n">The n.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int SignedHighWord(this IntPtr n) => SignedHighWord((int)(long)n);
@@ -164,7 +181,9 @@ namespace Engine
         /// The low word.
         /// </summary>
         /// <param name="n">The n.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int LowWord(this int n) => n & 0xffff;
@@ -173,7 +192,9 @@ namespace Engine
         /// The low word.
         /// </summary>
         /// <param name="n">The n.</param>
-        /// <returns>The <see cref="uint"/>.</returns>
+        /// <returns>
+        /// The <see cref="uint" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static uint LowWord(this uint n) => n & 0xffff;
@@ -182,7 +203,9 @@ namespace Engine
         /// The signed low word.
         /// </summary>
         /// <param name="n">The n.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int SignedLowWord(this int n) => (short)(n & 0xffff);
@@ -191,7 +214,9 @@ namespace Engine
         /// The signed low word.
         /// </summary>
         /// <param name="n">The n.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int SignedLowWord(this IntPtr n) => SignedLowWord((int)(long)n);

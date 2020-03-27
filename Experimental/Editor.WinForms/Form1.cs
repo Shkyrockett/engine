@@ -4,8 +4,16 @@ using System.Windows.Forms;
 
 namespace Editor
 {
-    public partial class Form1 : Form
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.Windows.Forms.Form" />
+    public partial class Form1
+        : Form
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Form1"/> class.
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -15,9 +23,11 @@ namespace Editor
             label1.Text += $"\n\r{point1} {(point1 == point2 ? "==" : "!=")} {point2}";
         }
 
-        private void ButtonExit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+        /// <summary>
+        /// Handles the Click event of the ButtonExit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void ButtonExit_Click(object sender, EventArgs e) => Application.Exit();
     }
 }

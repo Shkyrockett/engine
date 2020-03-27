@@ -1,5 +1,5 @@
 ﻿// <copyright file="Operations.Arithmatics.cs" company="Shkyrockett" >
-//    Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//    Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,9 +11,6 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static System.Math;
-using static Engine.Mathematics;
-using static Engine.Operations;
 
 namespace Engine
 {
@@ -30,7 +27,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Min(double x, double y, double z)
@@ -43,7 +40,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Min(int x, int y, int z)
@@ -56,7 +53,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte Min(byte x, byte y, byte z)
@@ -85,7 +82,7 @@ namespace Engine
         /// <param name="y">The third variable.</param>
         /// <param name="z">The fourth variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Min(double w, double x, double y, double z)
@@ -134,7 +131,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(double x, double y, double z)
@@ -147,7 +144,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Max(int x, int y, int z)
@@ -160,7 +157,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte Max(byte x, byte y, byte z)
@@ -189,7 +186,7 @@ namespace Engine
         /// <param name="y">The third variable.</param>
         /// <param name="z">The fourth variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(double w, double x, double y, double z)
@@ -221,7 +218,7 @@ namespace Engine
         /// <param name="y">The third variable.</param>
         /// <param name="z">The fourth variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Max(int w, int x, int y, int z)
@@ -253,7 +250,7 @@ namespace Engine
         /// <param name="y">The third variable.</param>
         /// <param name="z">The fourth variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte Max(byte w, byte x, byte y, byte z)
@@ -385,7 +382,7 @@ namespace Engine
         }
         #endregion Greatest Common Denominator
 
-        #region Wrapping
+        #region Round
         /// <summary>
         /// The round.
         /// </summary>
@@ -411,6 +408,20 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Round(this double val)
             => (0d < val) ? (int)(val + 0.5d) : (int)(val - 0.5d);
+        #endregion
+
+        #region Round to Multiple
+        /// <summary>
+        /// Round a value to the nearest multiple of a number.
+        /// </summary>
+        /// <param name="value">The value to round.</param>
+        /// <param name="multiple">The multiple to round to.</param>
+        /// <returns>Returns a value rounded to an interval of the multiple.</returns>
+        /// <remarks><para>Using Convert.ToInt32 because it is faster and guarantees bankers rounding.</para></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float RoundToMultiple(this float value, float multiple)
+            => Convert.ToInt32(value / multiple) * multiple;
 
         /// <summary>
         /// Round a value to the nearest multiple of a number.
@@ -418,11 +429,25 @@ namespace Engine
         /// <param name="value">The value to round.</param>
         /// <param name="multiple">The multiple to round to.</param>
         /// <returns>Returns a value rounded to an interval of the multiple.</returns>
-        /// <remarks>Using Convert.ToInt32 because it is faster and guarantees bankers rounding.</remarks>
+        /// <remarks><para>Using Convert.ToInt32 because it is faster and guarantees bankers rounding.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double RoundToMultiple(this double value, double multiple)
             => Convert.ToInt32(value / multiple) * multiple;
+        #endregion
+
+        #region Clamp
+        /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static sbyte Clamp(this sbyte value, sbyte min, sbyte max)
+            => value > max ? max : value < min ? min : value;
 
         /// <summary>
         /// Keep the value between the maximum and minimum.
@@ -431,7 +456,103 @@ namespace Engine
         /// <param name="min">The lower limit the value should be above.</param>
         /// <param name="max">The upper limit the value should be under.</param>
         /// <returns>A value clamped between the maximum and minimum values.</returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Clamp(this byte value, byte min, byte max)
+            => value > max ? max : value < min ? min : value;
+
+        /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Clamp(this short value, short min, short max)
+            => value > max ? max : value < min ? min : value;
+
+        /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ushort Clamp(this ushort value, ushort min, ushort max)
+            => value > max ? max : value < min ? min : value;
+
+        /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Clamp(this int value, int min, int max)
+            => value > max ? max : value < min ? min : value;
+
+        /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static uint Clamp(this uint value, uint min, uint max)
+            => value > max ? max : value < min ? min : value;
+
+        /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static long Clamp(this long value, long min, long max)
+            => value > max ? max : value < min ? min : value;
+
+        /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ulong Clamp(this ulong value, ulong min, ulong max)
+            => value > max ? max : value < min ? min : value;
+
+        /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Clamp(this float value, float min, float max)
+            => value > max ? max : value < min ? min : value;
+
+        /// <summary>
+        /// Keep the value between the maximum and minimum.
+        /// </summary>
+        /// <param name="value">The value to clamp.</param>
+        /// <param name="min">The lower limit the value should be above.</param>
+        /// <param name="max">The upper limit the value should be under.</param>
+        /// <returns>A value clamped between the maximum and minimum values.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Clamp(this double value, double min, double max)
             => value > max ? max : value < min ? min : value;
@@ -443,11 +564,121 @@ namespace Engine
         /// <param name="min">The lower limit the value should be above.</param>
         /// <param name="max">The upper limit the value should be under.</param>
         /// <returns>A value clamped between the maximum and minimum values.</returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Clamp<T>(this T value, T min, T max)
             where T : IComparable
             => (value?.CompareTo(min) < 0) ? min : (value?.CompareTo(max) > 0) ? max : value;
+        #endregion
+
+        #region Wrapping
+        /// <summary>
+        /// The wrap.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="sbyte"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static sbyte Wrap(this sbyte value, sbyte min, sbyte max)
+            => (value < min) ? (sbyte)(max - ((min - value) % (max - min))) : (sbyte)(min + ((value - min) % (max - min)));
+
+        /// <summary>
+        /// The wrap.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="byte"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Wrap(this byte value, byte min, byte max)
+            => (value < min) ? (byte)(max - ((min - value) % (max - min))) : (byte)(min + ((value - min) % (max - min)));
+
+        /// <summary>
+        /// The wrap.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="short"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short Wrap(this short value, short min, short max)
+            => (value < min) ? (short)(max - ((min - value) % (max - min))) : (short)(min + ((value - min) % (max - min)));
+
+        /// <summary>
+        /// The wrap.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="ushort"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ushort Wrap(this ushort value, ushort min, ushort max)
+            => (value < min) ? (ushort)(max - ((min - value) % (max - min))) : (ushort)(min + ((value - min) % (max - min)));
+
+        /// <summary>
+        /// The wrap.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Wrap(this int value, int min, int max)
+            => (value < min) ? max - ((min - value) % (max - min)) : min + ((value - min) % (max - min));
+
+        /// <summary>
+        /// The wrap.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="uint"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static uint Wrap(this uint value, uint min, uint max)
+            => (value < min) ? max - ((min - value) % (max - min)) : min + ((value - min) % (max - min));
+
+        /// <summary>
+        /// The wrap.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="long"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static long Wrap(this long value, long min, long max)
+            => (value < min) ? max - ((min - value) % (max - min)) : min + ((value - min) % (max - min));
+
+        /// <summary>
+        /// The wrap.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="ulong"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ulong Wrap(this ulong value, ulong min, ulong max)
+            => (value < min) ? max - ((min - value) % (max - min)) : min + ((value - min) % (max - min));
+
+        /// <summary>
+        /// The wrap.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="float"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float Wrap(this float value, float min, float max)
+            => (value < min) ? max - ((min - value) % (max - min)) : min + ((value - min) % (max - min));
 
         /// <summary>
         /// The wrap.
@@ -456,10 +687,9 @@ namespace Engine
         /// <param name="min">The min.</param>
         /// <param name="max">The max.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Wrap(this double value, double min, double max)
-            => (value < min) ? max - ((min - value) % (max - min)) : min + ((value - min) % (max - min));
+        public static double Wrap(this double value, double min, double max) => (value < min) ? max - ((min - value) % (max - min)) : min + ((value - min) % (max - min));
         #endregion Wrapping
     }
 }

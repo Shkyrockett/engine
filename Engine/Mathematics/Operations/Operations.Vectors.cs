@@ -62,7 +62,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B) UnaryAdd2D(double a, double b) => (+a, +b);
+        public static (double A, double B) UnaryAdd(double a, double b) => (+a, +b);
 
         /// <summary>
         /// Unaries the add3 d.
@@ -73,7 +73,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C) UnaryAdd3D(double a, double b, double c) => (+a, +b, +c);
+        public static (double A, double B, double C) UnaryAdd(double a, double b, double c) => (+a, +b, +c);
 
         /// <summary>
         /// Unaries the add4 d.
@@ -85,7 +85,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D) UnaryAdd4D(double a, double b, double c, double d) => (+a, +b, +c, +d);
+        public static (double A, double B, double C, double D) UnaryAdd(double a, double b, double c, double d) => (+a, +b, +c, +d);
         #endregion Unary Add
 
         #region Unary Negate

@@ -157,7 +157,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value) => UnaryAdd2D(value.Width, value.Height);
+        public static Size2D operator +(Size2D value) => UnaryAdd(value.Width, value.Height);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point2D" /> classes.

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Vector3D.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,25 +11,21 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
-using static Engine.Mathematics;
-using static Engine.Operations;
 
 namespace Engine
 {
     /// <summary>
     /// The vector3d struct. Represents a vector in 3D coordinate space (double precision floating-point coordinates).
     /// </summary>
-    [ComVisible(true)]
     [DataContract, Serializable]
     [TypeConverter(typeof(Vector3DConverter))]
-    //[TypeConverter(typeof(StructConverter<Vector3D>))]
-    [DebuggerDisplay("{nameof(Vector3D)}({nameof(I)}: {I ?? double.NaN}, {nameof(J)}: {J ?? double.NaN}, {nameof(K)}: {K ?? double.NaN})")]
+    [DebuggerDisplay("{ToString()}")]
     public struct Vector3D
         : IVector<Vector3D>
     {
@@ -194,116 +190,118 @@ namespace Engine
         /// <returns>The <see cref="Vector3D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator +(Vector3D value) => Operations.UnaryAdd3D(value.I, value.J, value.K);
+        public static Vector3D operator +(Vector3D value) => Plus(value);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator +(Vector3D value, double addend) => Operations.Add3D(value.I, value.J, value.K, addend);
+        public static Vector3D operator +(Vector3D augend, double addend) => Add(augend, addend);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator +(double value, Vector3D addend) => Operations.Add3D(addend.I, addend.J, addend.K, value);
+        public static Vector3D operator +(double augend, Vector3D addend) => Add(augend, addend);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator +(Vector3D value, Vector3D addend) => Operations.Add3D(value.I, value.J, value.K, addend.I, addend.J, addend.K);
+        public static Vector3D operator +(Vector3D augend, Vector3D addend) => Add(augend, addend);
 
         /// <summary>
         /// The operator -.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="Vector3D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Vector3D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator -(Vector3D value) => Operations.UnaryNegate3D(value.I, value.J, value.K);
+        public static Vector3D operator -(Vector3D value) => Negate(value);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator -(Vector3D value, double subend) => Operations.SubtractSubtrahend3D(value.I, value.J, value.K, subend);
+        public static Vector3D operator -(Vector3D minuend, double subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator -(double value, Vector3D subend) => Operations.SubtractFromMinuend3D(value, subend.I, subend.J, subend.K);
+        public static Vector3D operator -(double minuend, Vector3D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract Vectors
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator -(Vector3D value, Vector3D subend) => Operations.Subtract3D(value.I, value.J, value.K, subend.I, subend.J, subend.K);
+        public static Vector3D operator -(Vector3D minuend, Vector3D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Scale a Vector
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="multiplicand">The Point</param>
+        /// <param name="multiplier">The Multiplier</param>
         /// <returns>A Vector Multiplied by the Multiplier</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator *(Vector3D value, double factor) => Operations.Scale3D(value.I, value.J, value.K, factor);
+        public static Vector3D operator *(Vector3D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a Vector
         /// </summary>
-        /// <param name="factor">The Multiplier</param>
-        /// <param name="value">The Point</param>
+        /// <param name="multiplicand">The Multiplier</param>
+        /// <param name="multiplier">The Point</param>
         /// <returns>A Vector Multiplied by the Multiplier</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator *(double factor, Vector3D value) => Operations.Scale3D(value.I, value.J, value.K, factor);
+        public static Vector3D operator *(double multiplicand, Vector3D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Divide a <see cref="Vector3D"/>
         /// </summary>
-        /// <param name="divisor">The <see cref="Vector3D"/></param>
+        /// <param name="dividend">The <see cref="Vector3D"/></param>
         /// <param name="divedend">The divisor</param>
         /// <returns>A <see cref="Vector3D"/> divided by the divisor</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator /(Vector3D divisor, double dividend) => Operations.DivideByDividend3D(divisor.I, divisor.J, divisor.K, dividend);
+        public static Vector3D operator /(Vector3D dividend, double divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a <see cref="Vector3D"/>
         /// </summary>
-        /// <param name="divisor">The <see cref="Vector3D"/></param>
-        /// <param name="dividend">The divisor</param>
+        /// <param name="dividend">The <see cref="Vector3D"/></param>
+        /// <param name="divisor">The divisor</param>
         /// <returns>A <see cref="Vector3D"/> divided by the divisor</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator /(double divisor, Vector3D dividend) => Operations.DivideDivisor3D(divisor, dividend.I, dividend.I, dividend.K);
+        public static Vector3D operator /(double dividend, Vector3D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// The operator ==.
@@ -331,7 +329,7 @@ namespace Engine
         /// <param name="vector">The <see cref="Vector3D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double I, double J, double K) (Vector3D vector) => (vector.I, vector.J, vector.K);
+        public static implicit operator (double I, double J, double K)(Vector3D vector) => (vector.I, vector.J, vector.K);
 
         /// <summary>
         /// Point to Vector3D
@@ -342,6 +340,173 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Vector3D((double X, double Y, double Z) tuple) => new Vector3D(tuple);
         #endregion Operators
+
+        #region Operator Backing Methods
+        /// <summary>
+        /// Pluses the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Plus(Vector3D value) => Operations.UnaryAdd(value.I, value.J, value.K);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Add(Vector3D augend, double addend) => Operations.AddVectorUniform(augend.I, augend.J, augend.K, addend);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Add(double augend, Vector3D addend) => Operations.AddVectorUniform(addend.I, addend.J, addend.K, augend);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Add(Vector3D augend, Vector3D addend) => Operations.AddVectors(augend.I, augend.J, augend.K, addend.I, addend.J, addend.K);
+
+        /// <summary>
+        /// Negates the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Negate(Vector3D value) => Operations.NegateVector(value.I, value.J, value.K);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Subtract(Vector3D minuend, double subend) => Operations.SubtractVectorUniform(minuend.I, minuend.J, minuend.K, subend);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Subtract(double minuend, Vector3D subend) => Operations.SubtractFromMinuend(minuend, subend.I, subend.J, subend.K);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Subtract(Vector3D minuend, Vector3D subend) => Operations.SubtractVector(minuend.I, minuend.J, minuend.K, subend.I, subend.J, subend.K);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Multiply(Vector3D multiplicand, double multiplier) => Operations.ScaleVector(multiplicand.I, multiplicand.J, multiplicand.K, multiplier);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Multiply(double multiplicand, Vector3D multiplier) => Operations.ScaleVector(multiplier.I, multiplier.J, multiplier.K, multiplicand);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Divide(Vector3D dividend, double divisor) => Operations.DivideVectorUniform(dividend.I, dividend.J, dividend.K, divisor);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Divide(double dividend, Vector3D divisor) => Operations.DivideByVectorUniform(dividend, divisor.I, divisor.I, divisor.K);
+
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals([AllowNull] object obj) => obj is Vector3D d && Equals(d);
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Vector3D other) => I == other.I && J == other.J && K == other.K;
+
+        /// <summary>
+        /// Converts to valuetuple.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double I, double J, double K) ToValueTuple() => (I, J, K);
+
+        /// <summary>
+        /// Froms the value tuple.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D FromValueTuple((double X, double Y, double Z) tuple) => new Vector3D(tuple);
+
+        /// <summary>
+        /// Converts to vector3d.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector3D ToVector3D() => new Vector3D(I, J, K);
+        #endregion
 
         #region Factories
         /// <summary>
@@ -382,37 +547,38 @@ namespace Engine
         }
         #endregion Factories
 
-        #region Public Methods
+        #region Standard Methods
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
-        /// <returns>A 32-bit signed <see cref="int"/> hash code.</returns>
+        /// <returns>
+        /// A 32-bit signed <see cref="int" /> hash code.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => HashCode.Combine(I, J, K);
 
         /// <summary>
-        /// The equals.
+        /// Converts to string.
         /// </summary>
-        /// <param name="other">The other.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Vector3D other) => I == other.I && J == other.J && K == other.K;
-
-        public override bool Equals(object obj) => base.Equals(obj);
-
-        public override string ToString() => base.ToString();
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Vector3D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Vector3D" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="formatProvider">The <see cref="CultureInfo"/> provider.</param>
-        /// <returns>A string representation of this <see cref="Vector3D"/>.</returns>
+        /// <param name="formatProvider">The <see cref="CultureInfo" /> provider.</param>
+        /// <returns>
+        /// A string representation of this <see cref="Vector3D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)

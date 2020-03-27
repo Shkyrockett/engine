@@ -1,5 +1,5 @@
 ﻿// <copyright file="Quaternion4DConverter.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
@@ -108,7 +108,7 @@ namespace Engine
                 if (destinationType == typeof(string))
                 {
                     // Delegate to the formatting/culture-aware ConvertToString method.
-                    return instance.ConvertToString(string.Empty, culture);
+                    return instance.ToString(string.Empty, culture);
                 }
             }
 

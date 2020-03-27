@@ -1,5 +1,5 @@
 ﻿// <copyright file="Vector2D.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,27 +11,26 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
-using static Engine.Mathematics;
-using static Engine.Operations;
 
 namespace Engine
 {
     /// <summary>
     /// The vector2d struct. Represents a vector in 2D coordinate space (double precision floating-point coordinates).
     /// </summary>
-    [ComVisible(true)]
+    /// <seealso cref="Engine.IShape" />
+    /// <seealso cref="Engine.IVector{Engine.Vector2D}" />
+    [GraphicsObject]
     [DataContract, Serializable]
     [TypeConverter(typeof(Vector2DConverter))]
-    //[TypeConverter(typeof(StructConverter<Vector2D>))]
-    [DebuggerDisplay("{nameof(Vector2D)}({nameof(I)}: {I ?? double.NaN}, {nameof(J)}: {J ?? double.NaN})")]
+    [DebuggerDisplay("{ToString()}")]
     public struct Vector2D
-        : IVector<Vector2D>
+        : IShape, IVector<Vector2D>
     {
         #region Static Fields
         /// <summary>
@@ -181,116 +180,118 @@ namespace Engine
         /// <returns>The <see cref="Vector2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value) => Operations.UnaryAdd2D(value.I, value.J);
+        public static Vector2D operator +(Vector2D value) => Plus(value);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value, double addend) => Operations.Add2D(value.I, value.J, addend);
+        public static Vector2D operator +(Vector2D augend, double addend) => Add(augend, addend);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(double value, Vector2D addend) => Operations.Add2D(addend.I, addend.J, value);
+        public static Vector2D operator +(double augend, Vector2D addend) => Add(augend, addend);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value, Vector2D addend) => Operations.Add2D(value.I, value.J, addend.I, addend.J);
+        public static Vector2D operator +(Vector2D augend, Vector2D addend) => Add(augend, addend);
 
         /// <summary>
         /// The operator -.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="Vector2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Vector2D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value) => Operations.UnaryNegate2D(value.I, value.J);
+        public static Vector2D operator -(Vector2D value) => Negate(value);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value, double subend) => Operations.SubtractSubtrahend2D(value.I, value.J, subend);
+        public static Vector2D operator -(Vector2D minuend, double subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(double value, Vector2D subend) => Operations.SubtractFromMinuend2D(value, subend.I, subend.J);
+        public static Vector2D operator -(double minuend, Vector2D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="minuend"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value, Vector2D subend) => Operations.Subtract2D(value.I, value.J, subend.I, subend.J);
+        public static Vector2D operator -(Vector2D minuend, Vector2D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Scale a Vector
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="multiplicand">The Point</param>
+        /// <param name="multiplier">The Multiplier</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(Vector2D value, double factor) => Operations.Scale2D(value.I, value.J, factor);
+        public static Vector2D operator *(Vector2D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a Vector
         /// </summary>
-        /// <param name="factor">The Multiplier</param>
-        /// <param name="value">The Point</param>
+        /// <param name="multiplicand">The Multiplier</param>
+        /// <param name="multiplier">The Point</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(double factor, Vector2D value) => Operations.Scale2D(value.I, value.J, factor);
+        public static Vector2D operator *(double multiplicand, Vector2D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Divide a Vector2D
         /// </summary>
-        /// <param name="divisor">The Vector2D</param>
-        /// <param name="dividend">The dividend</param>
+        /// <param name="dividend">The Vector2D</param>
+        /// <param name="divisor">The dividend</param>
         /// <returns>A Vector2D divided by the divisor</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(Vector2D divisor, double dividend) => Operations.DivideByDividend2D(divisor.I, divisor.J, dividend);
+        public static Vector2D operator /(Vector2D dividend, double divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a Vector2D
         /// </summary>
-        /// <param name="divisor">The Vector2D</param>
-        /// <param name="dividend">The divisor</param>
+        /// <param name="dividend">The Vector2D</param>
+        /// <param name="divisor">The divisor</param>
         /// <returns>A Vector2D divided by the divisor</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(double divisor, Vector2D dividend) => Operations.DivideDivisor2D(divisor, dividend.I, dividend.I);
+        public static Vector2D operator /(double dividend, Vector2D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// The operator ==.
@@ -330,6 +331,173 @@ namespace Engine
         public static implicit operator Vector2D((double X, double Y) tuple) => new Vector2D(tuple);
         #endregion Operators
 
+        #region Operator Backing Methods
+        /// <summary>
+        /// Pluses the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Plus(Vector2D value) => Operations.UnaryAdd(value.I, value.J);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Add(Vector2D augend, double addend) => Operations.AddVectorUniform(augend.I, augend.J, addend);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Add(double augend, Vector2D addend) => Operations.AddVectorUniform(addend.I, addend.J, augend);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Add(Vector2D augend, Vector2D addend) => Operations.AddVectors(augend.I, augend.J, addend.I, addend.J);
+
+        /// <summary>
+        /// Negates the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Negate(Vector2D value) => Operations.NegateVector(value.I, value.J);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Subtract(Vector2D minuend, double subend) => Operations.SubtractVectorUniform(minuend.I, minuend.J, subend);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Subtract(double minuend, Vector2D subend) => Operations.SubtractFromMinuend(minuend, subend.I, subend.J);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Subtract(Vector2D minuend, Vector2D subend) => Operations.SubtractVector(minuend.I, minuend.J, subend.I, subend.J);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Multiply(Vector2D multiplicand, double multiplier) => Operations.ScaleVector(multiplicand.I, multiplicand.J, multiplier);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Multiply(double multiplicand, Vector2D multiplier) => Operations.ScaleVector(multiplier.I, multiplier.J, multiplicand);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Divide(Vector2D dividend, double divisor) => Operations.DivideVectorUniform(dividend.I, dividend.J, divisor);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Divide(double dividend, Vector2D divisor) => Operations.DivideByVectorUniform(dividend, divisor.I, divisor.I);
+
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals([AllowNull] object obj) => obj is Vector2D d && Equals(d);
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Vector2D other) => I == other.I && J == other.J;
+
+        /// <summary>
+        /// Converts to valuetuple.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double I, double J) ToValueTuple() => (I, J);
+
+        /// <summary>
+        /// Froms the value tuple.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D FromValueTuple((double X, double Y) tuple) => new Vector2D(tuple);
+
+        /// <summary>
+        /// Converts to vector2d.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector2D ToVector2D() => new Vector2D(I, J);
+        #endregion
+
         #region Factories
         /// <summary>
         /// Parse a string for a <see cref="Vector2D"/> value.
@@ -368,7 +536,7 @@ namespace Engine
         }
         #endregion Factories
 
-        #region Public Methods
+        #region Standard Methods
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
@@ -376,25 +544,6 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => HashCode.Combine(I, J);
-		
-        /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => base.Equals(obj);
-
-        /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="other">The other.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Vector2D other) => I == other.I && J == other.J;
-
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Vector2D"/>.
@@ -402,7 +551,7 @@ namespace Engine
         /// <returns>A string representation of this <see cref="Vector2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => base.ToString();
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector2D"/> struct based on the format string
@@ -421,6 +570,6 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Vector2D)}({nameof(I)}: {I.ToString(format, formatProvider)}{s} {nameof(J)}: {J.ToString(format, formatProvider)})";
         }
-        #endregion Public Methods
+        #endregion
     }
 }

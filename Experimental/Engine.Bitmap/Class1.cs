@@ -1,6 +1,6 @@
 ﻿namespace Engine
 {
-    public struct Square2D
+    internal class Class1
     {
     }
 }

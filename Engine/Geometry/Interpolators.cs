@@ -49,8 +49,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Linear(double t, double aV, double bV)
-            => ((1d - t) * aV) + (t * bV);
+        public static double Linear(double t, double aV, double bV) => ((1d - t) * aV) + (t * bV);
 
         /// <summary>
         /// Two control point 2D Linear interpolation for ranges from 0 to 1, start to end of curve.
@@ -66,9 +65,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Linear(double t, double aX, double aY, double bX, double bY)
-            => (((1d - t) * aX) + (t * bX),
-                ((1d - t) * aY) + (t * bY));
+        public static (double X, double Y) Linear(double t, double aX, double aY, double bX, double bY) => (((1d - t) * aX) + (t * bX), ((1d - t) * aY) + (t * bY));
 
         /// <summary>
         /// Two control point 3D Linear interpolation for ranges from 0 to 1, start to end of curve.

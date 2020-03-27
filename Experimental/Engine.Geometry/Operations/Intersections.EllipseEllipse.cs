@@ -1,5 +1,5 @@
 ﻿// <copyright file="Intersections.EllipseEllipse.cs" company="Shkyrockett" >
-//     Copyright © 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -9,9 +9,9 @@
 // <remarks></remarks>
 
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {

@@ -156,7 +156,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator +(Size3D value) => Operations.UnaryAdd3D(value.Width, value.Height, value.Depth);
+        public static Size3D operator +(Size3D value) => Operations.UnaryAdd(value.Width, value.Height, value.Depth);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point3D" /> classes.

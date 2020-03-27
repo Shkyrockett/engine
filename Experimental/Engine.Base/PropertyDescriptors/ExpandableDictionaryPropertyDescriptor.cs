@@ -1,5 +1,5 @@
 ﻿// <copyright file="ExpandableDictionaryPropertyDescriptor.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -100,8 +100,7 @@ namespace Engine
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool CanResetValue(object component)
-            => false;
+        public override bool CanResetValue(object component) => false;
 
         /// <summary>
         /// Reset the value.
@@ -115,24 +114,21 @@ namespace Engine
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object GetValue(object component)
-            => dictionary[key];
+        public override object GetValue(object component) => dictionary[key];
 
         /// <summary>
         /// Set the value.
         /// </summary>
         /// <param name="component">The component.</param>
         /// <param name="value">The value.</param>
-        public override void SetValue(object component, object value)
-            => dictionary[key] = value;
+        public override void SetValue(object component, object value) => dictionary[key] = value;
 
         /// <summary>
         /// The should serialize value.
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool ShouldSerializeValue(object component)
-            => false;
+        public override bool ShouldSerializeValue(object component) => false;
 
         /// <summary>
         /// Get the display name.
@@ -163,8 +159,7 @@ namespace Engine
         /// <summary>
         /// Raises the refresh required event.
         /// </summary>
-        protected virtual void OnRefreshRequired()
-            => RefreshRequired?.Invoke(this, EventArgs.Empty);
+        protected virtual void OnRefreshRequired() => RefreshRequired?.Invoke(this, EventArgs.Empty);
         #endregion Methods
     }
 }

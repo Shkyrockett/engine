@@ -257,7 +257,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator +(Vector3D value) => UnaryAdd3D(value.I, value.J, value.K);
+        public static Vector3D operator +(Vector3D value) => UnaryAdd(value.I, value.J, value.K);
 
         /// <summary>
         /// Add Points

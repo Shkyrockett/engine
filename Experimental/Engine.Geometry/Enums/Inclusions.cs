@@ -1,5 +1,5 @@
-﻿// <copyright file="Experiments.cs" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+﻿// <copyright file="Inclusions.cs" >
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -16,7 +16,7 @@ namespace Engine
     /// Enumeration of the inclusion of a point within a shape.
     /// </summary>
     [Flags]
-    public enum Inclusion
+    public enum Inclusions
         : sbyte
     {
         /// <summary>

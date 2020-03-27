@@ -1,5 +1,5 @@
-﻿// <copyright file="Splittings.cs" >
-//    Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
+﻿// <copyright file="Shape2D.cs" >
+//    Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -8,9 +8,18 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.Serialization;
+
 namespace Engine
 {
-    public class Shape2D
+    [GraphicsObject]
+    [DataContract, Serializable]
+    [TypeConverter(typeof(StructConverter<Shape2D>))]
+    [DebuggerDisplay("{ToString()}")]
+    public struct Shape2D
     {
     }
 }

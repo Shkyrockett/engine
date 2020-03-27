@@ -1,5 +1,5 @@
 ﻿// <copyright file="Interpolators.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -13,10 +13,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -28,103 +27,83 @@ namespace Engine
         /// <summary>
         /// Retrieves a list of points interpolated from a function.
         /// </summary>
-        /// <param name="func"></param>
         /// <param name="count">The number of points desired.</param>
+        /// <param name="func"></param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<Point2D> Interpolate0to1(Func<double, Point2D> func, int count)
-            => new List<Point2D>(
-            from i in Enumerable.Range(0, count)
-            select func(1d / count * i));
+        public static List<Point2D> Interpolate0to1(int count, Func<double, Point2D> func) => new List<Point2D>(from i in Enumerable.Range(0, count) select func(1d / count * i));
 
         #region Linear Interpolation
         /// <summary>
         /// Two control point 1D Linear interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
+        /// <param name="t">The t index of the linear curve.</param>
         /// <param name="aV">The first anchor value.</param>
         /// <param name="bV">The second anchor value.</param>
-        /// <param name="t">The t index of the linear curve.</param>
         /// <returns>Returns a <see cref="double"/> representing a point on the linear curve at the t index.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Linear(
-            double aV,
-            double bV,
-            double t)
-            => ((1d - t) * aV) + (t * bV);
+        public static double Linear(double t, double aV, double bV) => ((1d - t) * aV) + (t * bV);
 
         /// <summary>
         /// Two control point 2D Linear interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
+        /// <param name="t">The t index of the linear curve.</param>
         /// <param name="aX">The first anchor point x value.</param>
         /// <param name="aY">The first anchor point y value.</param>
         /// <param name="bX">The second anchor point x value.</param>
         /// <param name="bY">The second anchor point y value.</param>
-        /// <param name="t">The t index of the linear curve.</param>
         /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing a point on the linear curve at the t index.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Linear(
-            double aX, double aY,
-            double bX, double bY,
-            double t)
-            => (((1d - t) * aX) + (t * bX),
-                ((1d - t) * aY) + (t * bY));
+        public static (double X, double Y) Linear(double t, double aX, double aY, double bX, double bY) => (((1d - t) * aX) + (t * bX), ((1d - t) * aY) + (t * bY));
 
         /// <summary>
         /// Two control point 3D Linear interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
+        /// <param name="t">The t index of the linear curve.</param>
         /// <param name="aX">The first anchor point x value.</param>
         /// <param name="aY">The first anchor point y value.</param>
         /// <param name="aZ">The first anchor point z value.</param>
         /// <param name="bX">The second anchor point x value.</param>
         /// <param name="bY">The second anchor point y value.</param>
         /// <param name="bZ">The second anchor point z value.</param>
-        /// <param name="t">The t index of the linear curve.</param>
         /// <returns>Returns a <see cref="ValueTuple{T1, T2, T3}"/> representing a point on the linear curve at the t index.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Linear(
-            double aX, double aY, double aZ,
-            double bX, double bY, double bZ,
-            double t)
-            => (((1d - t) * aX) + (t * bX),
-                ((1d - t) * aY) + (t * bY),
-                ((1d - t) * aZ) + (t * bZ));
+        public static (double X, double Y, double Z) Linear(double t, double aX, double aY, double aZ, double bX, double bY, double bZ) => (((1d - t) * aX) + (t * bX), ((1d - t) * aY) + (t * bY), ((1d - t) * aZ) + (t * bZ));
 
         /// <summary>
         /// Two control point 2D Linear interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
+        /// <param name="t">The t index of the linear curve.</param>
         /// <param name="a">The first anchor point.</param>
         /// <param name="b">The second anchor point value.</param>
-        /// <param name="t">The t index of the linear curve.</param>
         /// <returns>Returns a <see cref="Point2D"/> representing a point on the linear curve at the t index.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Linear(Point2D a, Point2D b, double t)
-            => new Point2D(Linear(a.X, a.Y, b.X, b.Y, t));
+        public static Point2D Linear(double t, Point2D a, Point2D b) => new Point2D(Linear(t, a.X, a.Y, b.X, b.Y));
 
         /// <summary>
         /// Two control point 3D Linear interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
+        /// <param name="t">The t index of the linear curve.</param>
         /// <param name="a">The first anchor point.</param>
         /// <param name="b">The second anchor point value.</param>
-        /// <param name="t">The t index of the linear curve.</param>
         /// <returns>Returns a <see cref="Point3D"/> representing a point on the linear curve at the t index.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D Linear(Point3D a, Point3D b, double t)
-            => new Point3D(Linear(a.X, a.Y, a.Z, b.X, b.Y, b.Z, t));
+        public static Point3D Linear(double t, Point3D a, Point3D b) => new Point3D(Linear(t, a.X, a.Y, a.Z, b.X, b.Y, b.Z));
         #endregion Linear Interpolation
 
         #region Normalized Linear Interpolation
@@ -140,94 +119,93 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Nlerp(double aV, double bV, double t)
-            => Normalize1D(Linear(aV, bV, t));
+        public static double Nlerp(double aV, double bV, double t) => Normalize(Linear(t, aV, bV));
 
         /// <summary>
         /// The nlerp.
         /// </summary>
+        /// <param name="t">The percent.</param>
         /// <param name="aX">The startX.</param>
         /// <param name="aY">The startY.</param>
         /// <param name="bX">The endX.</param>
         /// <param name="bY">The endY.</param>
-        /// <param name="t">The percent.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Nlerp(double aX, double aY, double bX, double bY, double t)
+        public static (double X, double Y) Nlerp(double t, double aX, double aY, double bX, double bY)
         {
-            var (X, Y) = Linear(aX, aY, bX, bY, t);
-            return Normalize2D(X, Y);
+            var (X, Y) = Linear(t, aX, aY, bX, bY);
+            return Normalize(X, Y);
         }
 
         /// <summary>
         /// The nlerp.
         /// </summary>
+        /// <param name="t">The percent.</param>
         /// <param name="aX">The startX.</param>
         /// <param name="aY">The startY.</param>
         /// <param name="aZ">The startZ.</param>
         /// <param name="bX">The endX.</param>
         /// <param name="bY">The endY.</param>
         /// <param name="bZ">The endZ.</param>
-        /// <param name="t">The percent.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Nlerp(double aX, double aY, double aZ, double bX, double bY, double bZ, double t)
+        public static (double X, double Y, double Z) Nlerp(double t, double aX, double aY, double aZ, double bX, double bY, double bZ)
         {
-            var (X, Y, Z) = Linear(aX, aY, aZ, bX, bY, bZ, t);
-            return Normalize3D(X, Y, Z);
+            var (X, Y, Z) = Linear(t, aX, aY, aZ, bX, bY, bZ);
+            return Normalize(X, Y, Z);
         }
 
         /// <summary>
         /// The nlerp.
         /// </summary>
+        /// <param name="t">The percent.</param>
         /// <param name="a">The start.</param>
         /// <param name="b">The end.</param>
-        /// <param name="t">The percent.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
         /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Nlerp(Point2D a, Point2D b, double t) => Normalize2D(Linear(a, b, t));
+        public static Point2D Nlerp(double t, Point2D a, Point2D b) => Normalize(Linear(t, a, b));
 
         /// <summary>
         /// The nlerp.
         /// </summary>
+        /// <param name="t">The percent.</param>
         /// <param name="a">The start.</param>
         /// <param name="b">The end.</param>
-        /// <param name="t">The percent.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
         /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D Nlerp(Point3D a, Point3D b, double t) => Normalize3D(Linear(a, b, t));
+        public static Point3D Nlerp(double t, Point3D a, Point3D b) => Normalize(Linear(t, a, b));
         #endregion Normalized Linear Interpolation
 
         #region Quaternion S Linear Interpolation
         /// <summary>
         /// The slerp.
         /// </summary>
+        /// <param name="percent">The percent.</param>
         /// <param name="a">The start.</param>
         /// <param name="b">The end.</param>
-        /// <param name="percent">The percent.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
         /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Slerp(Point2D a, Point2D b, double percent)
+        public static Point2D Slerp(double percent, Point2D a, Point2D b)
         {
             // Dot product - the cosine of the angle between 2 vectors.
             // Clamp it to be in the range of Acos()
@@ -242,7 +220,7 @@ namespace Engine
             var RelativeVec = b - (a * dot);
 
             // Orthonormal basis
-            Normalize2D(RelativeVec);
+            Normalize(RelativeVec);
 
             // The final result.
             return (a * Cos(theta)) + (RelativeVec * Sin(theta));
@@ -251,16 +229,16 @@ namespace Engine
         /// <summary>
         /// The slerp.
         /// </summary>
+        /// <param name="percent">The percent.</param>
         /// <param name="a">The start.</param>
         /// <param name="b">The end.</param>
-        /// <param name="percent">The percent.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
         /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D Slerp(Point3D a, Point3D b, double percent)
+        public static Point3D Slerp(double percent, Point3D a, Point3D b)
         {
             // Dot product - the cosine of the angle between 2 vectors.
             // Clamp it to be in the range of Acos()
@@ -275,7 +253,7 @@ namespace Engine
             var RelativeVec = b - (a * dot);
 
             // Orthonormal basis
-            Normalize3D(RelativeVec.I, RelativeVec.J, RelativeVec.K);
+            Normalize(RelativeVec.I, RelativeVec.J, RelativeVec.K);
 
             // The final result.
             return (a * Cos(theta)) + (RelativeVec * Sin(theta));
@@ -283,107 +261,103 @@ namespace Engine
         #endregion Quaternion S Linear Interpolation
 
         #region Curve Interpolation
-        ///// <summary>
-        ///// The curve.
-        ///// </summary>
-        ///// <param name="vCurve">The vCurve.</param>
-        ///// <param name="t">The t.</param>
-        ///// <returns>The <see cref="double"/>.</returns>
-        ////[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static double Curve(Polynomial vCurve, double t)
-        //{
-        //    var v = 0d;
-        //    for (int s = vCurve.Count - 1, d = 0; s >= 0; s--, d++)
-        //    {
-        //        var r = 0d;
-        //        for (var i = 0; i < d; i++)
-        //        {
-        //            r *= t;
-        //        }
+        /// <summary>
+        /// The curve.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <param name="vCurve">The vCurve.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Curve(double t, Polynomial vCurve)
+        {
+            var v = 0d;
+            for (int s = vCurve.Count - 1, d = 0; s >= 0; s--, d++)
+            {
+                var r = 0d;
+                for (var i = 0; i < d; i++)
+                {
+                    r *= t;
+                }
 
-        //        v += vCurve[s] * r;
-        //    }
+                v += vCurve[s] * r;
+            }
 
-        //    return v;
-        //}
+            return v;
+        }
 
-        ///// <summary>
-        ///// The curve.
-        ///// </summary>
-        ///// <param name="xCurve">The xCurve.</param>
-        ///// <param name="yCurve">The yCurve.</param>
-        ///// <param name="t">The t.</param>
-        ///// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        ////[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static (double x, double y) Curve(Polynomial xCurve, Polynomial yCurve, double t)
-        //{
-        //    var (x, y) = (0d, 0d);
-        //    for (int s = xCurve.Count - 1, d = 0; s >= 0; s--, d++)
-        //    {
-        //        var r = 0d;
-        //        for (var i = 0; i < d; i++)
-        //        {
-        //            r *= t;
-        //        }
+        /// <summary>
+        /// The curve.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <param name="xCurve">The xCurve.</param>
+        /// <param name="yCurve">The yCurve.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x, double y) Curve(double t, Polynomial xCurve, Polynomial yCurve)
+        {
+            var (x, y) = (0d, 0d);
+            for (int s = xCurve.Count - 1, d = 0; s >= 0; s--, d++)
+            {
+                var r = 0d;
+                for (var i = 0; i < d; i++)
+                {
+                    r *= t;
+                }
 
-        //        x += xCurve[s] * r;
-        //        y += yCurve[s] * r;
-        //    }
+                x += xCurve[s] * r;
+                y += yCurve[s] * r;
+            }
 
-        //    return (x, y);
-        //}
+            return (x, y);
+        }
 
-        ///// <summary>
-        ///// The curve.
-        ///// </summary>
-        ///// <param name="xCurve">The xCurve.</param>
-        ///// <param name="yCurve">The yCurve.</param>
-        ///// <param name="zCurve">The zCurve.</param>
-        ///// <param name="t">The t.</param>
-        ///// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        ////[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static (double x, double y, double z) Curve(Polynomial xCurve, Polynomial yCurve, Polynomial zCurve, double t)
-        //{
-        //    var (x, y, z) = (0d, 0d, 0d);
-        //    for (int s = xCurve.Count - 1, d = 0; s >= 0; s--, d++)
-        //    {
-        //        var r = 0d;
-        //        for (var i = 0; i < d; i++)
-        //        {
-        //            r *= t;
-        //        }
+        /// <summary>
+        /// The curve.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <param name="xCurve">The xCurve.</param>
+        /// <param name="yCurve">The yCurve.</param>
+        /// <param name="zCurve">The zCurve.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x, double y, double z) Curve(double t, Polynomial xCurve, Polynomial yCurve, Polynomial zCurve)
+        {
+            var (x, y, z) = (0d, 0d, 0d);
+            for (int s = xCurve.Count - 1, d = 0; s >= 0; s--, d++)
+            {
+                var r = 0d;
+                for (var i = 0; i < d; i++)
+                {
+                    r *= t;
+                }
 
-        //        x += xCurve[s] * r;
-        //        y += yCurve[s] * r;
-        //        z += zCurve[s] * r;
-        //    }
+                x += xCurve[s] * r;
+                y += yCurve[s] * r;
+                z += zCurve[s] * r;
+            }
 
-        //    return (x, y, z);
-        //}
+            return (x, y, z);
+        }
         #endregion Curve Interpolation
 
         #region Quadratic Bézier Interpolation
         /// <summary>
         /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
+        /// <param name="t">The time parameter.</param>
         /// <param name="aV">The first parameter.</param>
         /// <param name="bV">The second parameter.</param>
         /// <param name="cV">The third parameter.</param>
-        /// <param name="t">The time parameter.</param>
         /// <returns>Returns a value interpolated from a Quadratic Bézier.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuadraticBezier(
-            double aV,
-            double bV,
-            double cV,
-            double t)
+        public static double QuadraticBezier(double t, double aV, double bV, double cV)
         {
             // The inverse of t.
             var ti = 1d - t;
@@ -394,24 +368,20 @@ namespace Engine
         /// <summary>
         /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
+        /// <param name="t">The time parameter.</param>
         /// <param name="aX">The x-component of the first parameter.</param>
         /// <param name="aY">The y-component of the first parameter.</param>
         /// <param name="bX">The x-component of the second parameter.</param>
         /// <param name="bY">The y-component of the second parameter.</param>
         /// <param name="cX">The x-component of the third parameter.</param>
         /// <param name="cY">The y component of the third parameter.</param>
-        /// <param name="t">The time parameter.</param>
         /// <returns>Returns a point at t position of a Quadratic Bézier curve.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) QuadraticBezier(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY,
-            double t)
+        public static (double X, double Y) QuadraticBezier(double t, double aX, double aY, double bX, double bY, double cX, double cY)
         {
             // The inverse of t.
             var ti = 1d - t;
@@ -431,6 +401,7 @@ namespace Engine
         /// <summary>
         /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
+        /// <param name="t">The time parameter of the Bézier curve.</param>
         /// <param name="x0">The x-component of the first point on a Bézier curve.</param>
         /// <param name="y0">The y-component of the first point on a Bézier curve.</param>
         /// <param name="z0">The z-component of the first point on a Bézier curve.</param>
@@ -440,18 +411,13 @@ namespace Engine
         /// <param name="x2">The x-component of the last point on the Bézier curve.</param>
         /// <param name="y2">The y-component of the last point on the Bézier curve.</param>
         /// <param name="z2">The z-component of the last point on the Bézier curve.</param>
-        /// <param name="t">The time parameter of the Bézier curve.</param>
         /// <returns>Returns a point on the Bézier curve.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) QuadraticBezier(
-            double x0, double y0, double z0,
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double t)
+        public static (double X, double Y, double Z) QuadraticBezier(double t, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2)
         {
             // The inverse of t.
             var ti = 1d - t;
@@ -473,23 +439,18 @@ namespace Engine
         /// <summary>
         /// The cubic.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="aV">The aV.</param>
         /// <param name="bV">The bV.</param>
         /// <param name="cV">The cV.</param>
         /// <param name="dV">The dV.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Cubic(
-            double aV,
-            double bV,
-            double cV,
-            double dV,
-            double t)
+        public static double Cubic(double t, double aV, double bV, double cV, double dV)
         {
             var t2 = t * t;
             var a0 = dV - cV - aV + bV;
@@ -499,6 +460,7 @@ namespace Engine
         /// <summary>
         /// The cubic.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="aX">The aX.</param>
         /// <param name="aY">The aY.</param>
         /// <param name="bX">The bX.</param>
@@ -507,19 +469,13 @@ namespace Engine
         /// <param name="cY">The cY.</param>
         /// <param name="dX">The dX.</param>
         /// <param name="dY">The dY.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Cubic(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY,
-            double dX, double dY,
-            double t)
+        public static (double X, double Y) Cubic(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
         {
             var t2 = t * t;
             var aX0 = dX - cX - aX + bX;
@@ -532,6 +488,7 @@ namespace Engine
         /// <summary>
         /// The cubic.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="aX">The aX.</param>
         /// <param name="aY">The aY.</param>
         /// <param name="aZ">The aZ.</param>
@@ -544,19 +501,13 @@ namespace Engine
         /// <param name="dX">The dX.</param>
         /// <param name="dY">The dY.</param>
         /// <param name="dZ">The dZ.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Cubic(
-            double aX, double aY, double aZ,
-            double bX, double bY, double bZ,
-            double cX, double cY, double cZ,
-            double dX, double dY, double dZ,
-            double t)
+        public static (double X, double Y, double Z) Cubic(double t, double aX, double aY, double aZ, double bX, double bY, double bZ, double cX, double cY, double cZ, double dX, double dY, double dZ)
         {
             var t2 = t * t;
             var aX0 = dX - cX - aX + bX;
@@ -573,23 +524,18 @@ namespace Engine
         /// <summary>
         /// Four control point 1D Quadratic Bézier interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
+        /// <param name="t">The t index of the curve.</param>
         /// <param name="v0">The first anchor value.</param>
         /// <param name="v1">The first handle value.</param>
         /// <param name="v2">The second handle value.</param>
         /// <param name="v3">The second anchor value.</param>
-        /// <param name="t">The t index of the curve.</param>
         /// <returns>Returns a <see cref="double"/> representing a value on the Bézier curve at the t index.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CubicBezier(
-            double v0,
-            double v1,
-            double v2,
-            double v3,
-            double t)
+        public static double CubicBezier(double t, double v0, double v1, double v2, double v3)
         {
             // The inverse of t.
             var ti = 1d - t;
@@ -606,6 +552,7 @@ namespace Engine
         /// <summary>
         /// Four control point 2D Quadratic Bézier interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
+        /// <param name="t">The t index of the curve.</param>
         /// <param name="x0">The first anchor point x value.</param>
         /// <param name="y0">The first anchor point y value.</param>
         /// <param name="x1">The first handle point x value.</param>
@@ -614,7 +561,6 @@ namespace Engine
         /// <param name="y2">The second handle point y value.</param>
         /// <param name="x3">The second anchor point x value.</param>
         /// <param name="y3">The second anchor point y value.</param>
-        /// <param name="t">The t index of the curve.</param>
         /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing a point on the Bézier curve at the t index.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
@@ -622,12 +568,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezier(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3,
-            double t)
+        public static (double X, double Y) CubicBezier(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             // The inverse of t.
             var ti = 1d - t;
@@ -649,6 +590,7 @@ namespace Engine
         /// <summary>
         /// Four control point 2D Quadratic Bézier interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
+        /// <param name="t">The t index of the curve.</param>
         /// <param name="x0">The first anchor point x value.</param>
         /// <param name="y0">The first anchor point y value.</param>
         /// <param name="z0">The first anchor point z value..</param>
@@ -661,19 +603,13 @@ namespace Engine
         /// <param name="x3">The second anchor point x value.</param>
         /// <param name="y3">The second anchor point y value.</param>
         /// <param name="z3">The second anchor point z value.</param>
-        /// <param name="t">The t index of the curve.</param>
         /// <returns>Returns a <see cref="ValueTuple{T1, T2, T3}"/> representing a point on the Bézier curve at the t index.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) CubicBezier(
-            double x0, double y0, double z0,
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double x3, double y3, double z3,
-            double t)
+        public static (double X, double Y, double Z) CubicBezier(double t, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3)
         {
             // The inverse of t.
             var ti = 1d - t;
@@ -697,15 +633,15 @@ namespace Engine
         /// General Bézier curve Number of control points is n+1 0 less than or equal to mu less than 1
         /// IMPORTANT, the last point is not computed.
         /// </summary>
-        /// <param name="points"></param>
         /// <param name="t"></param>
+        /// <param name="points"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D CubicBezierSpline(List<Point2D> points, double t)
+        public static Point2D CubicBezierSpline(double t, List<Point2D> points)
         {
             var n = points.Count - 1;
             int kn;
@@ -756,23 +692,18 @@ namespace Engine
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
+        /// <param name="t">Weighting factor.</param>
         /// <param name="aV">The first position in the interpolation.</param>
         /// <param name="bV">The second position in the interpolation.</param>
         /// <param name="cV">The third position in the interpolation.</param>
         /// <param name="dV">The fourth position in the interpolation.</param>
-        /// <param name="t">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
         /// <acknowledgment>
         /// http://www.mvps.org/directx/articles/catmull/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CatmullRom(
-            double aV,
-            double bV,
-            double cV,
-            double dV,
-            double t)
+        public static double CatmullRom(double t, double aV, double bV, double cV, double dV)
         {
             var t2 = t * t;
             var t3 = t2 * t;
@@ -786,6 +717,10 @@ namespace Engine
         /// <summary>
         /// Calculates interpolated point between two points using Catmull-Rom Spline
         /// </summary>
+        /// <param name="t">
+        /// Normalized distance between second and third point
+        /// where the spline point will be calculated
+        /// </param>
         /// <param name="aX">First Point</param>
         /// <param name="aY">First Point</param>
         /// <param name="bX">Second Point</param>
@@ -794,10 +729,6 @@ namespace Engine
         /// <param name="cY">Third Point</param>
         /// <param name="dX">Fourth Point</param>
         /// <param name="dY">Fourth Point</param>
-        /// <param name="t">
-        /// Normalized distance between second and third point
-        /// where the spline point will be calculated
-        /// </param>
         /// <returns>
         /// Calculated Spline Point
         /// </returns>
@@ -809,12 +740,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CatmullRom(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY,
-            double dX, double dY,
-            double t)
+        public static (double X, double Y) CatmullRom(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
         {
             var t2 = t * t;
             var t3 = t2 * t;
@@ -832,6 +758,7 @@ namespace Engine
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
+        /// <param name="t">Weighting factor.</param>
         /// <param name="aX">The first position in the interpolation.</param>
         /// <param name="aY">The first position in the interpolation.</param>
         /// <param name="aZ">The first position in the interpolation.</param>
@@ -844,19 +771,13 @@ namespace Engine
         /// <param name="dX">The fourth position in the interpolation.</param>
         /// <param name="dY">The fourth position in the interpolation.</param>
         /// <param name="dZ">The fourth position in the interpolation.</param>
-        /// <param name="t">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
         /// <acknowledgment>
         /// http://www.mvps.org/directx/articles/catmull/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) CatmullRom(
-            double aX, double aY, double aZ,
-            double bX, double bY, double bZ,
-            double cX, double cY, double cZ,
-            double dX, double dY, double dZ,
-            double t)
+        public static (double X, double Y, double Z) CatmullRom(double t, double aX, double aY, double aZ, double bX, double bY, double bZ, double cX, double cY, double cZ, double dX, double dY, double dZ)
         {
             var t2 = t * t;
             var t3 = t2 * t;
@@ -878,23 +799,18 @@ namespace Engine
         /// <summary>
         /// The catmull rom.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="tangentA">The tangentA.</param>
         /// <param name="positionA">The positionA.</param>
         /// <param name="positionB">The positionB.</param>
         /// <param name="tangentB">The tangentB.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
         /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D CatmullRom(
-            Point2D tangentA,
-            Point2D positionA,
-            Point2D positionB,
-            Point2D tangentB,
-            double t)
+        public static Point2D CatmullRom(double t, Point2D tangentA, Point2D positionA, Point2D positionB, Point2D tangentB)
         {
             var t2 = t * t;
             var t3 = t2 * t;
@@ -915,11 +831,11 @@ namespace Engine
         /// <summary>
         /// The hermite.
         /// </summary>
+        /// <param name="t">The t time index parameter.</param>
         /// <param name="aV">The aV.</param>
         /// <param name="bV">The bV.</param>
         /// <param name="cV">The cV.</param>
         /// <param name="dV">The dV.</param>
-        /// <param name="t">The t time index parameter.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns>The <see cref="double"/>.</returns>
@@ -928,12 +844,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Hermite(
-            double aV,
-            double bV,
-            double cV,
-            double dV,
-            double t, double tension = 0d, double bias = 0d)
+        public static double Hermite(double t, double aV, double bV, double cV, double dV, double tension = 0d, double bias = 0d)
         {
             var t2 = t * t;
             var t3 = t2 * t;
@@ -950,6 +861,7 @@ namespace Engine
         /// <summary>
         /// The hermite.
         /// </summary>
+        /// <param name="t">The t time index parameter.</param>
         /// <param name="aX">The aX.</param>
         /// <param name="aY">The aY.</param>
         /// <param name="bX">The bX.</param>
@@ -958,7 +870,6 @@ namespace Engine
         /// <param name="cY">The cY.</param>
         /// <param name="dX">The dX.</param>
         /// <param name="dY">The dY.</param>
-        /// <param name="t">The t time index parameter.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
@@ -967,12 +878,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Hermite(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY,
-            double dX, double dY,
-            double t, double tension = 0d, double bias = 0d)
+        public static (double X, double Y) Hermite(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double tension = 0d, double bias = 0d)
         {
             var t2 = t * t;
             var t3 = t2 * t;
@@ -1002,6 +908,7 @@ namespace Engine
         /// <summary>
         /// The hermite.
         /// </summary>
+        /// <param name="t">The t time index parameter.</param>
         /// <param name="aX">The aX.</param>
         /// <param name="aY">The aY.</param>
         /// <param name="aZ">The aZ.</param>
@@ -1014,7 +921,6 @@ namespace Engine
         /// <param name="dX">The dX.</param>
         /// <param name="dY">The dY.</param>
         /// <param name="dZ">The dZ.</param>
-        /// <param name="t">The t time index parameter.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even, positive is towards first segment, negative towards the other</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
@@ -1023,12 +929,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Hermite(
-            double aX, double aY, double aZ,
-            double bX, double bY, double bZ,
-            double cX, double cY, double cZ,
-            double dX, double dY, double dZ,
-            double t, double tension = 0d, double bias = 0d)
+        public static (double X, double Y, double Z) Hermite(double t, double aX, double aY, double aZ, double bX, double bY, double bZ, double cX, double cY, double cZ, double dX, double dY, double dZ, double tension = 0d, double bias = 0d)
         {
             var t2 = t * t;
             var t3 = t2 * t;
@@ -1067,75 +968,57 @@ namespace Engine
         /// <summary>
         /// Interpolates the Arc.
         /// </summary>
+        /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r">Radius of circle.</param>
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CircularArc(
-            double cX, double cY,
-            double r,
-            double startAngle, double sweepAngle,
-            double t)
-            => Circle(cX, cY, r, startAngle + (sweepAngle * t));
+        public static (double X, double Y) CircularArc(double t, double cX, double cY, double r, double startAngle, double sweepAngle) => Circle(startAngle + (sweepAngle * t), cX, cY, r);
 
         /// <summary>
         /// Interpolate a point on a circle, converting from unit iteration, to Pi radians.
         /// </summary>
+        /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r">Radius of circle.</param>
-        /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) UnitCircle(
-        double cX, double cY,
-        double r,
-        double t)
-            => Circle(cX, cY, r, Tau * t);
+        public static (double X, double Y) UnitCircle(double t, double cX, double cY, double r) => Circle(Tau * t, cX, cY, r);
 
         /// <summary>
         /// Interpolate a point on a circle, applying translation to equation of circle at origin.
         /// </summary>
+        /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r">Radius of circle.</param>
-        /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Circle(
-            double cX, double cY,
-            double r,
-            double t) => (
-                cX + (Cos(t) * r),
-                cY + (Sin(t) * r));
+        public static (double X, double Y) Circle(double t, double cX, double cY, double r) => (cX + (Cos(t) * r), cY + (Sin(t) * r));
         #endregion Circle Interpolation
 
         #region Ellipse Interpolation
         /// <summary>
         /// Interpolates the unrotated elliptical Arc.
         /// </summary>
+        /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) EllipticalArc(
-            double cX, double cY,
-            double r1, double r2,
-            double startAngle, double sweepAngle,
-            double t)
+        public static (double X, double Y) EllipticalArc(double t, double cX, double cY, double r1, double r2, double startAngle, double sweepAngle)
         {
             var phi = startAngle + (sweepAngle * t);
             var theta = phi % PI;
@@ -1144,16 +1027,17 @@ namespace Engine
             var x = Sqrt(r1 * r1 * (r2 * r2) / ((r2 * r2) + (r1 * r1 * (tanAngle * tanAngle))));
             var y = x * tanAngle;
 
-            return (theta >= 0d) && (theta < 90d.ToRadians())
+            return (theta >= 0d) && (theta < 90d.DegreesToRadians())
                 ? (cX + x, cY + y)
-                : (theta >= 90d.ToRadians()) && (theta < 180d.ToRadians())
+                : (theta >= 90d.DegreesToRadians()) && (theta < 180d.DegreesToRadians())
                 ? (cX - x, cY + y)
-                : (theta >= 180d.ToRadians()) && (theta < 270d.ToRadians()) ? (cX - x, cY - y) : (cX + x, cY - y);
+                : (theta >= 180d.DegreesToRadians()) && (theta < 270d.DegreesToRadians()) ? (cX - x, cY - y) : (cX + x, cY - y);
         }
 
         /// <summary>
         /// Interpolates the Elliptical Arc, corrected for Polar coordinates.
         /// </summary>
+        /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r1">The first radius of the Ellipse.</param>
@@ -1161,21 +1045,15 @@ namespace Engine
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) EllipticalArc(
-            double cX, double cY,
-            double r1, double r2,
-            double angle,
-            double startAngle, double sweepAngle,
-            double t)
-            => PolarEllipse(cX, cY, r1, r2, angle, startAngle + (sweepAngle * t));
+        public static (double X, double Y) EllipticalArc(double t, double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle) => PolarEllipse(startAngle + (sweepAngle * t), cX, cY, r1, r2, angle);
 
         /// <summary>
         /// Interpolates the Elliptical Arc, corrected for Polar coordinates.
         /// </summary>
+        /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r1">The first radius of the Ellipse.</param>
@@ -1184,157 +1062,116 @@ namespace Engine
         /// <param name="sinAngle">Vertical rotation transform of the Ellipse.</param>
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) EllipticalArc(
-            double cX, double cY,
-            double r1, double r2,
-            double cosAngle, double sinAngle,
-            double startAngle, double sweepAngle,
-            double t)
-            => PolarEllipse(cX, cY, r1, r2, cosAngle, sinAngle, startAngle + (sweepAngle * t));
+        public static (double X, double Y) EllipticalArc(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle, double startAngle, double sweepAngle) => PolarEllipse(startAngle + (sweepAngle * t), cX, cY, r1, r2, cosAngle, sinAngle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse with Polar correction using a range from 0 to 1 for unit interpolation.
         /// </summary>
+        /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) UnitPolarEllipse(
-            double cX, double cY,
-            double r1, double r2,
-            double angle,
-            double t)
-           => PolarEllipse(cX, cY, r1, r2, angle, Tau * t);
+        public static (double X, double Y) UnitPolarEllipse(double t, double cX, double cY, double r1, double r2, double angle) => PolarEllipse(Tau * t, cX, cY, r1, r2, angle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse with Polar correction using a range from 0 to 1 for unit interpolation.
         /// </summary>
+        /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="cosAngle">Horizontal rotation transform of the Ellipse.</param>
         /// <param name="sinAngle">Vertical rotation transform of the Ellipse.</param>
-        /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) UnitPolarEllipse(
-            double cX, double cY,
-            double r1, double r2,
-            double cosAngle, double sinAngle,
-            double t)
-           => PolarEllipse(cX, cY, r1, r2, cosAngle, sinAngle, Tau * t);
+        public static (double X, double Y) UnitPolarEllipse(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle) => PolarEllipse(Tau * t, cX, cY, r1, r2, cosAngle, sinAngle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse with Polar correction.
         /// </summary>
+        /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) PolarEllipse(
-            double cX, double cY,
-            double r1, double r2,
-            double angle,
-            double t)
-           => Ellipse(cX, cY, r1, r2, angle, EllipticalPolarAngle(t, r1, r2));
+        public static (double X, double Y) PolarEllipse(double t, double cX, double cY, double r1, double r2, double angle) => Ellipse(EllipticalPolarAngle(t, r1, r2), cX, cY, r1, r2, angle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse with Polar correction.
         /// </summary>
+        /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="cosAngle">Horizontal rotation transform of the Ellipse.</param>
         /// <param name="sinAngle">Vertical rotation transform of the Ellipse.</param>
-        /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) PolarEllipse(
-            double cX, double cY,
-            double r1, double r2,
-            double cosAngle, double sinAngle,
-            double t)
-            => Ellipse(cX, cY, r1, r2, cosAngle, sinAngle, EllipticalPolarAngle(t, r1, r2));
+        public static (double X, double Y) PolarEllipse(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle) => Ellipse(EllipticalPolarAngle(t, r1, r2), cX, cY, r1, r2, cosAngle, sinAngle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse.
         /// </summary>
+        /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Ellipse(
-            double cX, double cY,
-            double r1, double r2,
-            double angle,
-            double t)
-            => Ellipse(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(t), Sin(t));
+        public static (double X, double Y) Ellipse(double t, double cX, double cY, double r1, double r2, double angle) => Ellipse(Cos(t), Sin(t), cX, cY, r1, r2, Cos(angle), Sin(angle));
 
         /// <summary>
         /// Interpolate a point on an Ellipse.
         /// </summary>
+        /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="cosAngle">Horizontal rotation transform of the Ellipse.</param>
         /// <param name="sinAngle">Vertical rotation transform of the Ellipse.</param>
-        /// <param name="t">Theta of interpolation.</param>
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Ellipse(
-            double cX, double cY,
-            double r1, double r2,
-            double cosAngle, double sinAngle,
-            double t)
-            => Ellipse(cX, cY, r1, r2, cosAngle, sinAngle, Cos(t), Sin(t));
+        public static (double X, double Y) Ellipse(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle) => Ellipse(Cos(t), Sin(t), cX, cY, r1, r2, cosAngle, sinAngle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse.
         /// </summary>
-        /// <param name="cX">Center x-coordinate.</param>
-        /// <param name="cY">Center y-coordinate.</param>
-        /// <param name="r1">The first radius of the Ellipse.</param>
-        /// <param name="r2">The second radius of the Ellipse.</param>
-        /// <param name="cosAngle">Horizontal rotation transform of the Ellipse.</param>
-        /// <param name="sinAngle">Vertical rotation transform of the Ellipse.</param>
         /// <param name="cosTheta">Theta cosine of interpolation.</param>
         /// <param name="sinTheta">Theta sine of interpolation.</param>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="cosAngle">Horizontal rotation transform of the Ellipse.</param>
+        /// <param name="sinAngle">Vertical rotation transform of the Ellipse.</param>
         /// <returns>Interpolated point at theta.</returns>
         /// <acknowledgment>
         /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Ellipse(
-            double cX, double cY,
-            double r1, double r2,
-            double cosAngle, double sinAngle,
-            double cosTheta, double sinTheta)
+        public static (double X, double Y) Ellipse(double cosTheta, double sinTheta, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle)
         {
             // Ellipse equation for an ellipse at origin.
             var u = r1 * cosTheta;
@@ -1351,19 +1188,16 @@ namespace Engine
         /// <summary>
         /// The cosine.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="aV">The aV.</param>
         /// <param name="bV">The bV.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Cosine(
-            double aV,
-            double bV,
-            double t)
+        public static double Cosine(double t, double aV, double bV)
         {
             var mu2 = 0.5d * (1d - Cos(t * PI));
             return (aV * (1d - mu2)) + (bV * mu2);
@@ -1372,21 +1206,18 @@ namespace Engine
         /// <summary>
         /// The cosine.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="aX">The aX.</param>
         /// <param name="aY">The aY.</param>
         /// <param name="bX">The bX.</param>
         /// <param name="bY">The bY.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Cosine(
-            double aX, double aY,
-            double bX, double bY,
-            double t)
+        public static (double X, double Y) Cosine(double t, double aX, double aY, double bX, double bY)
         {
             var mu2 = 0.5d * (1d - Cos(t * PI));
             return ((aX * (1d - mu2)) + (bX * mu2),
@@ -1396,23 +1227,20 @@ namespace Engine
         /// <summary>
         /// The cosine.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="aX">The aX.</param>
         /// <param name="aY">The aY.</param>
         /// <param name="aZ">The aZ.</param>
         /// <param name="bX">The bX.</param>
         /// <param name="bY">The bY.</param>
         /// <param name="bZ">The bZ.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Cosine(
-            double aX, double aY, double aZ,
-            double bX, double bY, double bZ,
-            double t)
+        public static (double X, double Y, double Z) Cosine(double t, double aX, double aY, double aZ, double bX, double bY, double bZ)
         {
             var mu2 = 0.5d * (1d - Cos(t * PI));
             return (
@@ -1426,19 +1254,16 @@ namespace Engine
         /// <summary>
         /// Interpolate a sine wave.
         /// </summary>
+        /// <param name="t">The time parameter.</param>
         /// <param name="v1">The first parameter.</param>
         /// <param name="v2">The second Parameter.</param>
-        /// <param name="t">The time parameter.</param>
         /// <returns>Returns a value of a Sine wave at t.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Sine(
-            double v1,
-            double v2,
-            double t)
+        public static double Sine(double t, double v1, double v2)
         {
             var mu2 = (1d - Sin(t * PI)) * 0.5d;
             return (v1 * (1d - mu2)) + (v2 * mu2);
@@ -1447,21 +1272,18 @@ namespace Engine
         /// <summary>
         /// Interpolates a sine wave in 2 dimensions.
         /// </summary>
+        /// <param name="t">The t parameter.</param>
         /// <param name="x1">The first x component.</param>
         /// <param name="y1">The first y-component.</param>
         /// <param name="x2">The second x-component.</param>
         /// <param name="y2">The second y-component.</param>
-        /// <param name="t">The t parameter.</param>
         /// <returns>Returns a point interpolated of a Sine wave.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Sine(
-            double x1, double y1,
-            double x2, double y2,
-            double t)
+        public static (double X, double Y) Sine(double t, double x1, double y1, double x2, double y2)
         {
             var mu2 = (1d - Sin(t * PI)) * 0.5d;
             return (
@@ -1472,23 +1294,20 @@ namespace Engine
         /// <summary>
         /// Interpolates a Sine wave at t parameter.
         /// </summary>
+        /// <param name="t">The time parameter.</param>
         /// <param name="x1">The x-component of the first parameter.</param>
         /// <param name="y1">The y-component of the first parameter.</param>
         /// <param name="z1">The z-component of the first parameter.</param>
         /// <param name="x2">The x-component of the second parameter.</param>
         /// <param name="y2">The y-component of the second parameter.</param>
         /// <param name="z2">The z-component of the second parameter.</param>
-        /// <param name="t">The time parameter.</param>
         /// <returns>Returns a point in 2 dimensional space interpolated from a sine wave.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Sine(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double t)
+        public static (double X, double Y, double Z) Sine(double t, double x1, double y1, double z1, double x2, double y2, double z2)
         {
             var mu2 = (1d - Sin(t * PI)) * 0.5d;
             return (
@@ -1498,86 +1317,15 @@ namespace Engine
         }
         #endregion Sine Interpolation
 
-        #region Rectangle
-        /// <summary>
-        /// Rotates the points of the corners of a rectangle about the fulcrum point.
-        /// </summary>
-        /// <param name="x">The x-component of the top left corner of the rectangle.</param>
-        /// <param name="y">The y-component of the top left corner of the rectangle.</param>
-        /// <param name="height">The height of the rectangle.</param>
-        /// <param name="width">The width of the rectangle.</param>
-        /// <param name="fulcrumX">The x-component of the rotation fulcrum point.</param>
-        /// <param name="fulcrumY">The x-component of the rotation fulcrum point.</param>
-        /// <param name="angle">The angle to rotate the points.</param>
-        /// <returns>Returns a list of points from the rectangle, rotated about the fulcrum.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<Point2D> RotatedRectangle(
-            double x, double y,
-            double width, double height,
-            double fulcrumX, double fulcrumY,
-            double angle)
-            => RotatedRectangle(x, y, width, height, fulcrumX, fulcrumY, Cos(angle), Sin(angle));
-
-        /// <summary>
-        /// Rotates the points of the corners of a rectangle about the fulcrum point.
-        /// </summary>
-        /// <param name="x">The x-component of the top left corner of the rectangle.</param>
-        /// <param name="y">The y-component of the top left corner of the rectangle.</param>
-        /// <param name="height">The height of the rectangle.</param>
-        /// <param name="width">The width of the rectangle.</param>
-        /// <param name="fulcrumX">The x-component of the rotation fulcrum point.</param>
-        /// <param name="fulcrumY">The x-component of the rotation fulcrum point.</param>
-        /// <param name="cosAngle"></param>
-        /// <param name="sinAngle"></param>
-        /// <returns>Returns a list of points from the rectangle, rotated about the fulcrum.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<Point2D> RotatedRectangle(
-            double x, double y,
-            double width, double height,
-            double fulcrumX, double fulcrumY,
-            double cosAngle, double sinAngle)
-        {
-            _ = x;
-            _ = y;
-            // ToDo: Figure out how to properly include the location point.
-            var points = new List<Point2D>();
-
-            var xaxis = new Point2D(cosAngle, sinAngle);
-            var yaxis = new Point2D(-sinAngle, cosAngle);
-
-            // Apply the rotation transformation and translate to new center.
-            points.Add(new Point2D(
-                fulcrumX + ((-width * 0.5d * xaxis.X) + (-height * 0.5d * xaxis.Y)),
-                fulcrumY + ((-width * 0.5d * yaxis.X) + (-height * 0.5d * yaxis.Y))
-                ));
-            points.Add(new Point2D(
-                fulcrumX + ((width * 0.5d * xaxis.X) + (-height * 0.5d * xaxis.Y)),
-                fulcrumY + ((width * 0.5d * yaxis.X) + (-height * 0.5d * yaxis.Y))
-                ));
-            points.Add(new Point2D(
-                fulcrumX + ((width * 0.5d * xaxis.X) + (height * 0.5d * xaxis.Y)),
-                fulcrumY + ((width * 0.5d * yaxis.X) + (height * 0.5d * yaxis.Y))
-                ));
-            points.Add(new Point2D(
-                fulcrumX + ((-width * 0.5d * xaxis.X) + (height * 0.5d * xaxis.Y)),
-                fulcrumY + ((-width * 0.5d * yaxis.X) + (height * 0.5d * yaxis.Y))
-                ));
-
-            return points;
-        }
-        #endregion Rectangle
-
         ///// <summary>
         ///// Linearly tweens between two cubic Bézier curves, from key1 to key2.
         ///// </summary>
+        ///// <param name="t">The t index.</param>
         ///// <param name="key1">The first cubic Bézier key.</param>
         ///// <param name="key2">The second cubic Bézier key.</param>
-        ///// <param name="t">The t index.</param>
-        ///// <returns>The <see cref="T:Point2D[]"/>.</returns>
-        //public static CubicBezier TweenCubic(CubicBezier key1, CubicBezier key2, double t)
-        //    => new CubicBezier(
+        ///// <returns>The <see cref="Point2D[]"/>.</returns>
+        //public static CubicBezier2D TweenCubic(double t, CubicBezier2D key1, CubicBezier2D key2)
+        //    => new CubicBezier2D(
         //         key1.A + (t * (key2.A - key1.A)),
         //         key1.B + (t * (key2.B - key1.B)),
         //         key1.C + (t * (key2.C - key1.C)),

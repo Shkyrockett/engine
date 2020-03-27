@@ -1,5 +1,5 @@
 ﻿// <copyright file="Operations.Quaternion.cs" company="Shkyrockett" >
-//    Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//    Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,8 +11,8 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
+using static System.Math;
 
 namespace Engine
 {
@@ -91,7 +91,6 @@ namespace Engine
         /// <param name="m2x0"></param>
         /// <param name="m2x1"></param>
         /// <param name="m2x2"></param>
-        /// <param name="matrix">The matrix.</param>
         /// <returns>The <see cref="Quaternion4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -195,7 +194,6 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <param name="w"></param>
-        /// <param name="value">The value.</param>
         /// <returns>The <see cref="Quaternion4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -293,7 +291,7 @@ namespace Engine
         /// <param name="w"></param>
         /// <returns></returns>
         /// <remarks>
-        /// source -> http://content.gpwiki.org/index.php/OpenGL:Tutorials:Using_Quaternions_to_represent_rotation#Quaternion_to_Matrix
+        /// <para>source -&gt; http://content.gpwiki.org/index.php/OpenGL:Tutorials:Using_Quaternions_to_represent_rotation#Quaternion_to_Matrix</para>
         /// </remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -302,23 +300,24 @@ namespace Engine
             double m1x0, double m1x1, double m1x2, double m1x3,
             double m2x0, double m2x1, double m2x2, double m2x3,
             double m3x0, double m3x1, double m3x2, double m3x3
-            ) QuaternionToMatrix(double x, double y, double z, double w) => (
-                           1d - (2d * ((y * y) + (z * z))),
-                           2d * ((x * y) - (w * z)),
-                           2d * ((x * z) + (w * y)),
-                           0d,
-                           2d * ((x * y) + (w * z)),
-                           1d - (2d * ((x * x) + (z * z))),
-                           2d * ((y * z) - (w * x)),
-                           0d,
-                           2d * ((x * z) - (w * y)),
-                           2d * ((y * z) + (w * x)),
-                           1d - (2d * ((x * x) + (y * y))),
-                           0d,
-                           2d * ((x * z) - (w * y)),
-                           2d * ((y * z) + (w * x)),
-                           1d - (2d * ((x * x) + (y * y))),
-                           0d);
+            ) QuaternionToMatrix(double x, double y, double z, double w)
+            => (
+                1d - (2d * ((y * y) + (z * z))),
+                2d * ((x * y) - (w * z)),
+                2d * ((x * z) + (w * y)),
+                0d,
+                2d * ((x * y) + (w * z)),
+                1d - (2d * ((x * x) + (z * z))),
+                2d * ((y * z) - (w * x)),
+                0d,
+                2d * ((x * z) - (w * y)),
+                2d * ((y * z) + (w * x)),
+                1d - (2d * ((x * x) + (y * y))),
+                0d,
+                2d * ((x * z) - (w * y)),
+                2d * ((y * z) + (w * x)),
+                1d - (2d * ((x * x) + (y * y))),
+                0d);
 
         /// <summary>
         /// The to axis.
@@ -327,7 +326,6 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <param name="w"></param>
-        /// <param name="quaternion">The quaternion.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

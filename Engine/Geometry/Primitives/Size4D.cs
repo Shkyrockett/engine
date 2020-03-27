@@ -169,7 +169,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size4D operator +(Size4D value) => Operations.UnaryAdd4D(value.Width, value.Height, value.Depth, value.Breadth);
+        public static Size4D operator +(Size4D value) => Operations.UnaryAdd(value.Width, value.Height, value.Depth, value.Breadth);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point4D" /> classes.

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Intersections.Parametized.cs" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -43,7 +43,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static System.Math;
-using static Engine.Mathematics;
 
 namespace Engine
 {
@@ -69,6 +68,7 @@ namespace Engine
             double p1x, double p1y,
             double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             if (p0x == p1x && p0y == p1y)
             {
                 return (new double[] { 1d }, new double[] { 1d });

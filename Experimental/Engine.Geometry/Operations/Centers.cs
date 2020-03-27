@@ -1,5 +1,5 @@
 ﻿// <copyright file="Centers.cs" company="Shkyrockett" >
-//     Copyright © 2018 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2018 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -9,19 +9,17 @@
 // <remarks></remarks>
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using static System.Math;
 using static Engine.Mathematics;
+using static System.Math;
 
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    public static partial class Centers
+    public static class Centers
     {
         /// <summary>
         /// Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.
@@ -116,7 +114,7 @@ namespace Engine
         /// <param name="p2Y">The p2Y.</param>
         /// <param name="p3X">The p3X.</param>
         /// <param name="p3Y">The p3Y.</param>
-        /// <returns>The <see cref="T:ValueTuple{T1, T2}"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
         /// </acknowledgment>
@@ -142,19 +140,19 @@ namespace Engine
                 ((cd * (p1X - p2X)) - (bc * (p2X - p3X))) / determinant);
         }
 
-        ///// <summary>
-        ///// Extension method to find the center point of a rectangle.
-        ///// </summary>
-        ///// <param name="rectangle">The <see cref="Rectangle2D"/> of which you want the center.</param>
-        ///// <returns>A <see cref="Point2D"/> representing the center point of the <see cref="Rectangle2D"/>.</returns>
-        ///// <acknowledgment>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.
-        ///// </acknowledgment>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static (double X, double Y) RectangleCenter(Rectangle2D rectangle)
-        //    => (
-        //        rectangle.Left + ((rectangle.Right - rectangle.Left) * 0.5d),
-        //        rectangle.Top + ((rectangle.Bottom - rectangle.Top) * 0.5d)
-        //        );
+        /// <summary>
+        /// Extension method to find the center point of a rectangle.
+        /// </summary>
+        /// <param name="rectangle">The <see cref="Rectangle2D"/> of which you want the center.</param>
+        /// <returns>A <see cref="Point2D"/> representing the center point of the <see cref="Rectangle2D"/>.</returns>
+        /// <acknowledgment>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) RectangleCenter(Rectangle2D rectangle)
+            => (
+                rectangle.Left + ((rectangle.Right - rectangle.Left) * 0.5d),
+                rectangle.Top + ((rectangle.Bottom - rectangle.Top) * 0.5d)
+                );
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="ExpandableCollectionPropertyDescriptor.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -101,8 +101,7 @@ namespace Engine
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool CanResetValue(object component)
-            => true;
+        public override bool CanResetValue(object component) => true;
 
         /// <summary>
         /// Reset the value.
@@ -127,16 +126,14 @@ namespace Engine
         /// </summary>
         /// <param name="component">The component.</param>
         /// <param name="value">The value.</param>
-        public override void SetValue(object component, object value)
-            => collection[index] = value;
+        public override void SetValue(object component, object value) => collection[index] = value;
 
         /// <summary>
         /// The should serialize value.
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool ShouldSerializeValue(object component)
-            => true;
+        public override bool ShouldSerializeValue(object component) => true;
 
         /// <summary>
         /// Get the display name.
@@ -167,8 +164,7 @@ namespace Engine
         /// <summary>
         /// Raises the refresh required event.
         /// </summary>
-        protected virtual void OnRefreshRequired()
-            => RefreshRequired?.Invoke(this, EventArgs.Empty);
+        protected virtual void OnRefreshRequired() => RefreshRequired?.Invoke(this, EventArgs.Empty);
         #endregion Methods
     }
 }

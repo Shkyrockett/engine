@@ -1,5 +1,5 @@
 ﻿// <copyright file="Intersections.Between.cs" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -63,8 +63,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool BetweenLowerUpper(double value, double lowerLimit, double upperLimit)
-            => value >= lowerLimit && value <= upperLimit;
+        public static bool BetweenLowerUpper(double value, double lowerLimit, double upperLimit) => value >= lowerLimit && value <= upperLimit;
 
         /// <summary>
         /// Check whether the integer value is between lower and upper bounds.
@@ -108,8 +107,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Between(double c, double a, double b)
-            => (a - c) * (b - c) <= 0;
+        public static bool Between(double c, double a, double b) => (a - c) * (b - c) <= 0;
 
         /// <summary>
         /// Return true iff c is between a and b.  Normalize all parameters wrt c, then ask if a and b are on opposite sides of zero.
@@ -123,8 +121,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Between(int c, int a, int b)
-            => (a - c) * (b - c) <= 0;
+        public static bool Between(int c, int a, int b) => (a - c) * (b - c) <= 0;
 
         /// <summary>
         /// Return true iff c is between a and b.  Normalize all parameters wrt c, then ask if a and b are on opposite sides of zero.
@@ -138,8 +135,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Between(byte c, byte a, byte b)
-            => (a - c) * (b - c) <= 0;
+        public static bool Between(byte c, byte a, byte b) => (a - c) * (b - c) <= 0;
 
         /// <summary>
         /// Check whether a vector lies between two other vectors.
@@ -150,8 +146,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Between(Vector2D a, Vector2D b, Vector2D c)
-            => VectorBetweenVectorVector(a.I, a.J, b.I, b.J, c.I, c.J);
+        public static bool Between(Vector2D a, Vector2D b, Vector2D c) => VectorBetweenVectorVector(a.I, a.J, b.I, b.J, c.I, c.J);
 
         /// <summary>
         /// Check whether a value lies between two other values.

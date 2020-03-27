@@ -278,7 +278,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator +(Vector4D value) => UnaryAdd4D(value.I, value.J, value.K, value.L);
+        public static Vector4D operator +(Vector4D value) => UnaryAdd(value.I, value.J, value.K, value.L);
 
         /// <summary>
         /// Add Points

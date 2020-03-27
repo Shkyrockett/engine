@@ -11,6 +11,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace Engine
@@ -129,15 +130,13 @@ namespace Engine
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool CanResetValue(object component)
-            => false;
+        public override bool CanResetValue(object component) => false;
 
         /// <summary>
         /// Reset the value.
         /// </summary>
         /// <param name="component">The component.</param>
-        public override void ResetValue(object component)
-            => throw new NotSupportedException();
+        public override void ResetValue(object component) => throw new NotSupportedException();
 
         /// <summary>
         /// Get the value.
@@ -150,6 +149,7 @@ namespace Engine
             {
                 return property.GetValue(component, null);
             }
+
             return field.GetValue(component);
         }
 
@@ -176,38 +176,33 @@ namespace Engine
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool ShouldSerializeValue(object component)
-            => true;
+        public override bool ShouldSerializeValue(object component) => true;
 
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
-        public override int GetHashCode()
-            => info.GetHashCode();
+        public override int GetHashCode() => info.GetHashCode();
 
         /// <summary>
         /// Set the description.
         /// </summary>
         /// <param name="value">The value.</param>
-        public void SetDescription(string value)
-            => description = value;
+        public void SetDescription(string value) => description = value;
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Equals(object obj)
-            => obj is AdvPropertyDescriptor && Equals((AdvPropertyDescriptor)obj);
+        public override bool Equals([AllowNull] object obj) => obj is AdvPropertyDescriptor && Equals((AdvPropertyDescriptor)obj);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public bool Equals(AdvPropertyDescriptor other)
-            => info.Equals(other.info);
+        public bool Equals(AdvPropertyDescriptor other) => info.Equals(other.info);
         #endregion Methods
     }
 }

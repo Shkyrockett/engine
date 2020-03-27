@@ -1,5 +1,5 @@
 ﻿// <copyright file="Matrix2x3D.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -12,9 +12,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using static Engine.Mathematics;
+using static Engine.Operations;
 using static System.Math;
 
 namespace Engine
@@ -22,6 +27,10 @@ namespace Engine
     /// <summary>
     /// The matrix3x2d struct.
     /// </summary>
+    /// <remarks><para>http://referencesource.microsoft.com</para></remarks>
+    [DataContract, Serializable]
+    [TypeConverter(typeof(StructConverter<Matrix3x2D>))]
+    [DebuggerDisplay("{ToString()}")]
     public struct Matrix3x2D
         : IMatrix<Matrix3x2D, Vector2D>
     {
@@ -29,15 +38,17 @@ namespace Engine
         /// <summary>
         /// An Empty <see cref="Matrix3x2D"/>.
         /// </summary>
-        public static Matrix3x2D Empty = new Matrix3x2D();
+        public static readonly Matrix3x2D Empty = new Matrix3x2D(0d, 0d, 0d, 0d, 0d, 0d);
+
+        /// <summary>
+        /// The na n
+        /// </summary>
+        public static readonly Matrix3x2D NaN = new Matrix3x2D(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
 
         /// <summary>
         /// An Identity <see cref="Matrix3x2D"/>.
         /// </summary>
-        public static Matrix3x2D Identity = new Matrix3x2D(1, 0,
-                                             0, 1,
-                                             0, 0)
-        { type = MatrixTypes.Identity };
+        public static readonly Matrix3x2D Identity = new Matrix3x2D(1d, 0d, 0d, 1d, 0d, 0d) { type = MatrixTypes.Identity };
         #endregion Static Fields
 
         #region Constants
@@ -83,6 +94,17 @@ namespace Engine
         /// The offset y.
         /// </summary>
         private double offsetY;
+
+#pragma warning disable CS0414
+#pragma warning disable IDE0052
+        /// <summary>
+        /// This field is only used by unmanaged code which isn't detected by the compiler.
+        /// Matrix in blt'd to unmanaged code, so this is padding
+        /// to align structure.
+        /// </summary>
+        private readonly int padding;
+#pragma warning restore IDE0052
+#pragma warning restore CS0414
         #endregion Private Fields
 
         #region Constructors
@@ -101,6 +123,7 @@ namespace Engine
             this.offsetX = offsetX;
             this.offsetY = offsetY;
             type = MatrixTypes.Unknown;
+            padding = 0;
 
             // We will detect EXACT identity, scale, translation or
             // scale+translation and use special case algorithms.
@@ -318,17 +341,24 @@ namespace Engine
         }
 
         /// <summary>
+        /// Efficient but conservative test for identity.  Returns
+        /// true if the matrix is identity.  If it returns false
+        /// the matrix may still be identity.
+        /// </summary>
+        private bool IsDistinguishedIdentity => type == MatrixTypes.Identity;
+
+        /// <summary>
         /// Tests whether or not a given transform is an identity transform
         /// </summary>
         public bool IsIdentity
-            => /*type == MatrixTypes.Identity
-            ||*/ (
-                Abs(m0x0 - 1d) < double.Epsilon
-                && Abs(m0x1) < double.Epsilon
-                && Abs(m1x0) < double.Epsilon
-                && Abs(m1x1 - 1d) < double.Epsilon
-                && Abs(offsetX) < double.Epsilon
-                && Abs(offsetY) < double.Epsilon);
+            => type == MatrixTypes.Identity
+            || (
+                Abs(m0x0 - 1) < Epsilon
+                && Abs(m0x1) < Epsilon
+                && Abs(m1x0) < Epsilon
+                && Abs(m1x1 - 1) < Epsilon
+                && Abs(offsetX) < Epsilon
+                && Abs(offsetY) < Epsilon);
 
         /// <summary>
         /// HasInverse Property - returns true if this matrix is invert-able, false otherwise.
@@ -368,8 +398,7 @@ namespace Engine
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
-        public static bool operator ==(Matrix3x2D matrix1, Matrix3x2D matrix2)
-            => Equals(matrix1, matrix2);
+        public static bool operator ==(Matrix3x2D matrix1, Matrix3x2D matrix2) => Equals(matrix1, matrix2);
 
         /// <summary>
         /// Compares two Matrix instances for exact inequality.
@@ -382,9 +411,80 @@ namespace Engine
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
-        public static bool operator !=(Matrix3x2D matrix1, Matrix3x2D matrix2)
-            => !Equals(matrix1, matrix2);
+        public static bool operator !=(Matrix3x2D matrix1, Matrix3x2D matrix2) => !Equals(matrix1, matrix2);
         #endregion Operators
+
+        #region Operation Backing Methods
+        /// <summary>
+        /// Multiply
+        /// </summary>
+        /// <param name="trans1">The trans1.</param>
+        /// <param name="trans2">The trans2.</param>
+        /// <returns></returns>
+        public static Matrix3x2D Multiply(Matrix3x2D trans1, Matrix3x2D trans2)
+        {
+            MultiplyMatrix(ref trans1, ref trans2);
+            return trans1;
+        }
+
+        /// <summary>
+        /// Compares two Matrix instances for object equality.  In this equality
+        /// Double.NaN is equal to itself, unlike in numeric equality.
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which
+        /// are logically equal may fail.
+        /// </summary>
+        /// <returns>
+        /// bool - true if the two Matrix instances are exactly equal, false otherwise
+        /// </returns>
+        /// <param name='matrix1'>The first Matrix to compare</param>
+        /// <param name='matrix2'>The second Matrix to compare</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Matrix3x2D matrix1, Matrix3x2D matrix2)
+        {
+            if (matrix1.IsDistinguishedIdentity || matrix2.IsDistinguishedIdentity)
+            {
+                return matrix1.IsIdentity == matrix2.IsIdentity;
+            }
+            else
+            {
+                return matrix1.M11.Equals(matrix2.M11)
+                       && matrix1.M12.Equals(matrix2.M12)
+                       && matrix1.M21.Equals(matrix2.M21)
+                       && matrix1.M22.Equals(matrix2.M22)
+                       && matrix1.OffsetX.Equals(matrix2.OffsetX)
+                       && matrix1.OffsetY.Equals(matrix2.OffsetY);
+            }
+        }
+
+        /// <summary>
+        /// Equals - compares this Matrix with the passed in object.  In this equality
+        /// Double.NaN is equal to itself, unlike in numeric equality.
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which
+        /// are logically equal may fail.
+        /// </summary>
+        /// <param name="obj">The object to compare to "this"</param>
+        /// <returns>
+        /// bool - true if the object is an instance of Matrix and if it's equal to "this".
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals([AllowNull] object obj) => obj is Matrix3x2D && Equals(this, (Matrix3x2D)obj);
+
+        /// <summary>
+        /// Equals - compares this Matrix with the passed in object.  In this equality
+        /// Double.NaN is equal to itself, unlike in numeric equality.
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which
+        /// are logically equal may fail.
+        /// </summary>
+        /// <param name="value">The Matrix to compare to "this"</param>
+        /// <returns>
+        /// bool - true if "value" is equal to "this".
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Matrix3x2D value) => Equals(this, value);
+        #endregion
 
         #region Factories
         /// <summary>
@@ -1350,6 +1450,26 @@ namespace Engine
                 }
             }
         }
+        #endregion
+
+        #region Standard Methods
+        /// <returns></returns>
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
+        public IEnumerator<IEnumerable<double>> GetEnumerator() => new List<List<double>>
+            {
+                new List<double> { m0x0, m0x1, offsetX },
+                new List<double> { m1x0, m1x1, offsetY },
+            }.GetEnumerator();
+
+        /// <returns></returns>
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Returns the HashCode for this Matrix
@@ -1357,6 +1477,8 @@ namespace Engine
         /// <returns>
         /// int - the HashCode for this Matrix
         /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
         {
             if (IsDistinguishedIdentity)
@@ -1376,102 +1498,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// Compares two Matrix2x3D
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Matrix3x2D a, Matrix3x2D b)
-            => Equals(a, b);
-
-        /// <summary>
-        /// Compares two Matrix instances for object equality.  In this equality
-        /// Double.NaN is equal to itself, unlike in numeric equality.
-        /// Note that double values can acquire error when operated upon, such that
-        /// an exact comparison between two values which
-        /// are logically equal may fail.
-        /// </summary>
-        /// <returns>
-        /// bool - true if the two Matrix instances are exactly equal, false otherwise
-        /// </returns>
-        /// <param name='matrix1'>The first Matrix to compare</param>
-        /// <param name='matrix2'>The second Matrix to compare</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Matrix3x2D matrix1, Matrix3x2D matrix2)
-        {
-            if (matrix1.IsDistinguishedIdentity || matrix2.IsDistinguishedIdentity)
-            {
-                return matrix1.IsIdentity == matrix2.IsIdentity;
-            }
-            else
-            {
-                return matrix1.M11.Equals(matrix2.M11)
-                       && matrix1.M12.Equals(matrix2.M12)
-                       && matrix1.M21.Equals(matrix2.M21)
-                       && matrix1.M22.Equals(matrix2.M22)
-                       && matrix1.OffsetX.Equals(matrix2.OffsetX)
-                       && matrix1.OffsetY.Equals(matrix2.OffsetY);
-            }
-        }
-
-        /// <summary>
-        /// Equals - compares this Matrix with the passed in object.  In this equality
-        /// Double.NaN is equal to itself, unlike in numeric equality.
-        /// Note that double values can acquire error when operated upon, such that
-        /// an exact comparison between two values which
-        /// are logically equal may fail.
-        /// </summary>
-        /// <returns>
-        /// bool - true if the object is an instance of Matrix and if it's equal to "this".
-        /// </returns>
-        /// <param name='obj'>The object to compare to "this"</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Matrix3x2D && Equals(this, (Matrix3x2D)obj);
-
-        /// <summary>
-        /// Equals - compares this Matrix with the passed in object.  In this equality
-        /// Double.NaN is equal to itself, unlike in numeric equality.
-        /// Note that double values can acquire error when operated upon, such that
-        /// an exact comparison between two values which
-        /// are logically equal may fail.
-        /// </summary>
-        /// <returns>
-        /// bool - true if "value" is equal to "this".
-        /// </returns>
-        /// <param name='value'>The Matrix to compare to "this"</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Matrix3x2D value)
-            => Equals(this, value);
-
-        /// <summary>
-        /// Multiply
-        /// </summary>
-        public static Matrix3x2D Multiply(Matrix3x2D trans1, Matrix3x2D trans2)
-        {
-            MultiplyMatrix(ref trans1, ref trans2);
-            return trans1;
-        }
-
-        /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the current culture.
         /// </summary>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public override string ToString()
-            => ToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the IFormatProvider
-        /// passed in.  If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        public string ToString(IFormatProvider provider)
-            => ToString(string.Empty /* format string */, provider);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString() => ToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the format string
@@ -1482,38 +1516,17 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Matrix3x2D);
-            if (IsIdentity)
-            {
-                return nameof(Identity);
-            }
+            if (IsIdentity) return nameof(Identity);
             // Helper to get the numeric list separator for a given culture.
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Matrix3x2D)}{{{nameof(M11)}={m0x0}{sep}{nameof(M12)}={m0x1}{sep}{nameof(M21)}={m1x0}{sep}{nameof(M22)}={m1x1}{sep}{nameof(OffsetX)}={offsetX}{sep}{nameof(OffsetY)}={offsetY}}}";
             return formatable.ToString(format, provider);
         }
-
-        /// <returns></returns>
-        /// <summary>
-        /// Get the enumerator.
-        /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
-        public IEnumerator<IEnumerable<double>> GetEnumerator()
-            => new List<List<double>>
-            {
-                new List<double> { m0x0, m0x1, offsetX },
-                new List<double> { m1x0, m1x1, offsetY },
-            }.GetEnumerator();
-
-        /// <returns></returns>
-        /// <summary>
-        /// Get the enumerator.
-        /// </summary>
-        /// <returns>The <see cref="IEnumerator"/>.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-            => GetEnumerator();
         #endregion Methods
     }
 }

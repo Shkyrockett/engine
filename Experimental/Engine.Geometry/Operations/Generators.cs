@@ -1,5 +1,5 @@
 ﻿// <copyright file="Generators.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,37 +11,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
+using static System.Math;
 
 namespace Engine
 {
-    public static partial class Generators
+    /// <summary>
+    /// The generators class.
+    /// </summary>
+    public static class Generators
     {
         #region Regular Polygons
-        ///// <summary>
-        ///// The regular convex polygon.
-        ///// </summary>
-        ///// <param name="x">The x.</param>
-        ///// <param name="y">The y.</param>
-        ///// <param name="radius">The radius.</param>
-        ///// <param name="count">The count.</param>
-        ///// <param name="angle">The angle.</param>
-        ///// <returns>The <see cref="PolygonContour"/>.</returns>
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static PolygonContour RegularConvexPolygon(double x, double y, double radius, int count, double angle = -HalfPi)
-        //{
-        //    var points = new Point2D[count];
-        //    var theta = angle;
-        //    var difference = Tau / count;
-        //    for (var i = 0; i < count; i++)
-        //    {
-        //        points[i] = new Point2D(x + (radius * Cos(theta)), y + (radius * Sin(theta)));
-        //        theta += difference;
-        //    }
+        /// <summary>
+        /// The regular convex polygon.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="count">The count.</param>
+        /// <param name="angle">The angle.</param>
+        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PolygonContour2D RegularConvexPolygon(double x, double y, double radius, int count, double angle = -HalfPi)
+        {
+            var points = new Point2D[count];
+            var theta = angle;
+            var difference = Tau / count;
+            for (var i = 0; i < count; i++)
+            {
+                points[i] = new Point2D(x + (radius * Cos(theta)), y + (radius * Sin(theta)));
+                theta += difference;
+            }
 
-        //    return new PolygonContour(points);
-        //}
+            return new PolygonContour2D(points);
+        }
         #endregion Regular Polygons
 
         #region Heart Curves
@@ -68,7 +71,7 @@ namespace Engine
         /// <param name="radius">The radius.</param>
         /// <param name="alpha">The alpha.</param>
         /// <param name="beta">The beta.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Point2D> HeartCurve(double x, double y, double radius, double alpha, double beta)
         {
             // its increment [radian] of a Cardioid before the conversion plotting interval of the phase angle "t" before conversion
@@ -112,23 +115,23 @@ namespace Engine
             return points;
         }
 
-        ///// <summary>
-        ///// The heart curve.
-        ///// </summary>
-        ///// <param name="x">The x.</param>
-        ///// <param name="y">The y.</param>
-        ///// <param name="radius">The radius.</param>
-        ///// <returns>The <see cref="PolycurveContour"/>.</returns>
-        //public static PolycurveContour HeartCurve(double x, double y, double radius)
-        //{
-        //    // ToDo: Optimize algorithm to calculate minimum points for minimum curves.
-        //    var heart = HeartCurve(x, y, radius, 0.9d, OneThird);
-        //    var first = CurveFit.Fit(heart.Take(heart.Count / 2).ToList(), OneHalf);
-        //    var last = CurveFit.Fit(heart.Skip(heart.Count / 2).ToList(), OneHalf);
-        //    var heartCurve = new PolycurveContour(first);
-        //    heartCurve.AddCubicBeziers(last);
-        //    return heartCurve;
-        //}
+        /// <summary>
+        /// The heart curve.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius">The radius.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        public static PolycurveContour HeartCurve(double x, double y, double radius)
+        {
+            // ToDo: Optimize algorithm to calculate minimum points for minimum curves.
+            var heart = HeartCurve(x, y, radius, 0.9d, OneThird);
+            var first = CurveFit.Fit(heart.Take(heart.Count / 2).ToList(), OneHalf);
+            var last = CurveFit.Fit(heart.Skip(heart.Count / 2).ToList(), OneHalf);
+            var heartCurve = new PolycurveContour(first);
+            heartCurve.AddCubicBeziers(last);
+            return heartCurve;
+        }
         #endregion Heart Curves
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Rectangle2D.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -12,9 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
@@ -24,11 +24,15 @@ namespace Engine
     /// <summary>
     /// The rectangle2d struct.
     /// </summary>
-    [ComVisible(true)]
+    /// <seealso cref="Engine.IClosedShape" />
+    /// <seealso cref="Engine.IPropertyCaching" />
+    /// <seealso cref="System.IEquatable{Engine.Rectangle2D}" />
+    [GraphicsObject]
     [DataContract, Serializable]
+    [TypeConverter(typeof(StructConverter<Rectangle2D>))]
     [DebuggerDisplay("{ToString()}")]
     public struct Rectangle2D
-        : IClosedShape
+        : IClosedShape, IPropertyCaching, IEquatable<Rectangle2D>
     {
         #region Implementations
         /// <summary>
@@ -42,6 +46,18 @@ namespace Engine
         public static readonly Rectangle2D Unit = new Rectangle2D(0, 0, 1, 1);
         #endregion Implementations
 
+        #region Event Delegates
+        /// <summary>
+        /// The property changed event of the <see cref="PropertyChangedEventHandler"/>.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// The property changing event of the <see cref="PropertyChangingEventHandler"/>.
+        /// </summary>
+        public event PropertyChangingEventHandler PropertyChanging;
+        #endregion
+
         #region Constructors
         ///// <summary>
         ///// Initializes a new default instance of the <see cref="Rectangle2D"/> class.
@@ -51,7 +67,7 @@ namespace Engine
         //{ }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with an initial location and size.
+        /// Initializes a new instance of the <see cref="Rectangle2D" /> class with an initial location and size.
         /// </summary>
         /// <param name="rectangle">The rectangle to clone.</param>
         public Rectangle2D(Rectangle2D rectangle)
@@ -59,33 +75,35 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with an empty location, with the provided size.
+        /// Initializes a new instance of the <see cref="Rectangle2D" /> class with an empty location, with the provided size.
         /// </summary>
-        /// <param name="size">The height and width of the <see cref="Rectangle2D"/>.</param>
+        /// <param name="size">The height and width of the <see cref="Rectangle2D" />.</param>
         public Rectangle2D(Size2D size)
             : this(0, 0, size.Width, size.Height)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with an initial location and size.
+        /// Initializes a new instance of the <see cref="Rectangle2D" /> class with an initial location and size.
         /// </summary>
-        /// <param name="location"></param>
-        /// <param name="size"></param>
+        /// <param name="location">The location.</param>
+        /// <param name="size">The size.</param>
         public Rectangle2D(Point2D location, Size2D size)
             : this(location.X, location.Y, size.Width, size.Height)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle2D"/> class  with a location and a vector size.
+        /// Initializes a new instance of the <see cref="Rectangle2D" /> class  with a location and a vector size.
         /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="vector">The vector.</param>
         public Rectangle2D(Point2D point, Vector2D vector)
             : this(point, point + vector)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with the location and size from a tuple.
+        /// Initializes a new instance of the <see cref="Rectangle2D" /> class with the location and size from a tuple.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">The tuple.</param>
         public Rectangle2D((double, double, double, double) tuple)
             : this()
         {
@@ -93,7 +111,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with a location and size.
+        /// Initializes a new instance of the <see cref="Rectangle2D" /> class with a location and size.
         /// </summary>
         /// <param name="x">The x coordinate of the upper left corner of the rectangle.</param>
         /// <param name="y">The y coordinate of the upper left corner of the rectangle.</param>
@@ -111,7 +129,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with the upper left and lower right corners.
+        /// Initializes a new instance of the <see cref="Rectangle2D" /> class with the upper left and lower right corners.
         /// </summary>
         /// <param name="point1">The point1.</param>
         /// <param name="point2">The point2.</param>
@@ -129,10 +147,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with the location and size from a tuple.
+        /// Initializes a new instance of the <see cref="Rectangle2D" /> class with the location and size from a tuple.
         /// </summary>
-        /// <param name="tuple1"></param>
-        /// <param name="tuple2"></param>
+        /// <param name="tuple1">The tuple1.</param>
+        /// <param name="tuple2">The tuple2.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Rectangle2D((double, double) tuple1, (double, double) tuple2)
@@ -361,48 +379,48 @@ namespace Engine
         /// Gets the bounding box of the rectangle.
         /// </summary>
         [Browsable(false)]
-        //[ReadOnly(true)]
+        [ReadOnly(true)]
         [DisplayName(nameof(Bounds))]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        //[TypeConverter(typeof(Rectangle2DConverter))]
+        [TypeConverter(typeof(Rectangle2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         [Category("Elements")]
         [Description("bounding box of the " + nameof(Rectangle2D) + ".")]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public /*override*/ Rectangle2D Bounds => this;
+        public Rectangle2D Bounds => this;
 
         /// <summary>
         /// Gets the length of the perimeter of the rectangle.
         /// </summary>
         [Browsable(true)]
-        //[ReadOnly(true)]
+        [ReadOnly(true)]
         [DisplayName(nameof(Perimeter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [Category("Elements")]
         [Description("The distance around the " + nameof(Rectangle2D) + ".")]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public /*override*/ double Perimeter => (Measurements.Distance(TopLeft, TopRight) * 2) + (Measurements.Distance(TopLeft, BottomLeft) * 2);
+        public double Perimeter => (Measurements.Distance(TopLeft, TopRight) * 2) + (Measurements.Distance(TopLeft, BottomLeft) * 2);
 
         /// <summary>
         /// Gets the area.
         /// </summary>
         [Browsable(true)]
-        //[ReadOnly(true)]
+        [ReadOnly(true)]
         [DisplayName(nameof(Area))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [Category("Elements")]
         [Description("The " + nameof(Area) + " of the " + nameof(Rectangle2D) + ".")]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public /*override*/ double Area => Height * Width;
+        public double Area => Height * Width;
 
         /// <summary>
         /// Gets a value indicating whether the Rectangle2D has area.
         /// </summary>
         [Browsable(false)]
-        //[ReadOnly(true)]
+        [ReadOnly(true)]
         [DisplayName(nameof(HasArea))]
         [Category("Elements")]
         [Description("A value indicating whether or not the " + nameof(Rectangle2D) + " has " + nameof(Height) + " or " + nameof(Width) + ".")]
@@ -413,7 +431,7 @@ namespace Engine
         /// Gets a value indicating whether the Rectangle2D is empty.
         /// </summary>
         [Browsable(false)]
-        //[ReadOnly(true)]
+        [ReadOnly(true)]
         [DisplayName(nameof(IsEmpty))]
         [Category("Elements")]
         [Description("A value indicating whether or not the " + nameof(Rectangle2D) + " has height or width.")]
@@ -426,7 +444,7 @@ namespace Engine
         [Browsable(false)]
         [field: NonSerialized]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        Dictionary<object, object> IShape.PropertyCache { get; set; }
+        Dictionary<object, object> IPropertyCaching.PropertyCache { get; set; }
         #endregion Properties
 
         #region Operators
@@ -436,6 +454,7 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Rectangle2D left, Rectangle2D right) => Equals(left, right);
 
@@ -445,6 +464,7 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Rectangle2D left, Rectangle2D right) => !Equals(left, right);
 
@@ -453,17 +473,65 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <param name="tuple"></param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Rectangle2D((double Left, double Top, double Width, double Height) tuple) => new Rectangle2D(tuple);
+        public static implicit operator Rectangle2D((double Left, double Top, double Width, double Height) tuple) => FromValueTuple(tuple);
 
         /// <summary>
         /// Implicit conversion from <see cref="Rectangle2D"/> to <see cref="ValueTuple{T1, T2, T3, T4}"/>.
         /// </summary>
         /// <returns></returns>
         /// <param name="rectangle"></param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator (double Left, double Top, double Width, double Height)(Rectangle2D rectangle) => (rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
         #endregion Operators
+
+        #region Operator Backing Methods
+        /// <summary>
+        /// Tests whether <paramref name="obj" /> is a <see cref="Rectangle2D" /> with the same location and size of this <see cref="Rectangle2D" />.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals([AllowNull] object obj) => obj is Rectangle2D d && Equals(d);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals([AllowNull] Rectangle2D other) => X == other.X && Y == other.Y && Width == other.Width && Height == other.Height;
+
+        /// <summary>
+        /// Creates a new <see cref="Rectangle2D" /> from a <see cref="ValueTuple{T1, T2, T3, T4}" />.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D FromValueTuple((double X, double Y, double Width, double Height) tuple) => new Rectangle2D(tuple);
+
+        /// <summary>
+        /// Convert a rectangle to an array of it's corner points.
+        /// </summary>
+        /// <returns>An array of points representing the corners of a rectangle.</returns>
+        public List<Point2D> ToPoints()
+            => new List<Point2D>
+            {
+                Location,
+                new Point2D(Right, Top),
+                new Point2D(Right, Bottom),
+                new Point2D(Left, Bottom)
+            };
+        #endregion
 
         #region Factories
         /// <summary>
@@ -641,7 +709,7 @@ namespace Engine
 
             X = left;
             Y = top;
-            //OnPropertyChanged(nameof(Union));
+            OnPropertyChanged(nameof(Union));
         }
 
         /// <summary>
@@ -651,15 +719,13 @@ namespace Engine
         /// <returns></returns>
         public Rectangle2D Union(Rectangle2D rect)
         {
-            var left = /*rect is null ? Left :*/ Min(Left, rect!!.Left);
-            var top = /*rect is null ? Top :*/ Min(Top, rect!!.Top);
-            var width = this.Width;
-            var height = this.Width;
+            var left = Min(Left, rect!.Left);
+            var top = Min(Top, rect!.Top);
+            double width;
+            double height;
 
-            //if (!(rect is null))
-            //{
             // We need this check so that the math does not result in NaN
-            if (double.IsPositiveInfinity(rect!!.Width) || double.IsPositiveInfinity(Width))
+            if (double.IsPositiveInfinity(rect!.Width) || double.IsPositiveInfinity(Width))
             {
                 width = double.PositiveInfinity;
             }
@@ -671,7 +737,7 @@ namespace Engine
             }
 
             // We need this check so that the math does not result in NaN
-            if (/*rect is null ||*/ double.IsPositiveInfinity(rect!!.Height) || double.IsPositiveInfinity(Height))
+            if (/*rect is null ||*/ double.IsPositiveInfinity(rect!.Height) || double.IsPositiveInfinity(Height))
             {
                 height = double.PositiveInfinity;
             }
@@ -681,7 +747,6 @@ namespace Engine
                 var maxBottom = Max(Bottom, rect.Bottom);
                 height = Max(maxBottom - top, 0);
             }
-            //}
 
             return new Rectangle2D(left, top, width, height);
         }
@@ -689,14 +754,12 @@ namespace Engine
         /// <summary>
         /// Union - Update this rectangle to be the union of this and point.
         /// </summary>
-        public void UnionMutate(Point2D point)
-            => UnionMutate(new Rectangle2D(point, point));
+        public void UnionMutate(Point2D point) => UnionMutate(new Rectangle2D(point, point));
 
         /// <summary>
         /// Return a rectangle that is a union of this and a supplied Point2D.
         /// </summary>
-        public Rectangle2D Union(Point2D point)
-            => Union(new Rectangle2D(point, point));
+        public Rectangle2D Union(Point2D point) => Union(new Rectangle2D(point, point));
 
         /// <summary>
         /// Creates a Rectangle that represents the intersection between this Rectangle and rectangle.
@@ -710,23 +773,21 @@ namespace Engine
             Y = result.Y;
             Width = result.Width;
             Height = result.Height;
-            //OnPropertyChanged(nameof(Intersect));
+            OnPropertyChanged(nameof(Intersect));
         }
 
         /// <summary>
         /// Adjusts the location of this rectangle by the specified amount.
         /// </summary>
         /// <param name="pos"></param>
-        public void Offset(Point2D pos)
-            => Offset(pos.X, pos.Y);
+        public void Offset(Point2D pos) => Offset(pos.X, pos.Y);
 
         /// <summary>
         /// Offset - translate the Location by the offset provided.
         /// If this is Empty, this method is illegal.
         /// </summary>
         /// <param name="offsetVector"></param>
-        public void Offset(Vector2D offsetVector)
-            => Offset(offsetVector.I, offsetVector.J);
+        public void Offset(Vector2D offsetVector) => Offset(offsetVector.I, offsetVector.J);
 
         /// <summary>
         /// Adjusts the location of this rectangle by the specified amount.
@@ -740,9 +801,9 @@ namespace Engine
                 throw new InvalidOperationException("Cannot call method.");
             }
 
-            this.X += x;
-            this.Y += y;
-            //OnPropertyChanged(nameof(Offset));
+            X += x;
+            Y += y;
+            OnPropertyChanged(nameof(Offset));
         }
 
         /// <summary>
@@ -752,19 +813,18 @@ namespace Engine
         /// <param name="y"></param>
         public void Inflate(double x, double y)
         {
-            this.X -= x;
-            this.Y -= y;
+            X -= x;
+            Y -= y;
             Width += 2 * x;
             Height += 2 * y;
-            //OnPropertyChanged(nameof(Inflate));
+            OnPropertyChanged(nameof(Inflate));
         }
 
         /// <summary>
         /// Inflates this <see cref="Rectangle2D"/> by the specified amount.
         /// </summary>
         /// <param name="size"></param>
-        public void Inflate(Size2D size)
-            => Inflate(size.Width, size.Height);
+        public void Inflate(Size2D size) => Inflate(size.Width, size.Height);
 
         ///// <summary>
         ///// Updates rectangle to be the bounds of the original value transformed
@@ -778,30 +838,11 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// Tests whether <paramref name="left"/> is a <see cref="RotatedRectangle2D"/> with the same location and size of <paramref name="right"/>.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Rectangle2D left, Rectangle2D right) => left.X == right.X && left.Y == right.Y && left.Width == right.Width && left.Height == right.Height;
-
-        /// <summary>
-        /// Tests whether <paramref name="obj"/> is a <see cref="Rectangle2D"/> with the same location and size of this <see cref="Rectangle2D"/>.
-        /// </summary>
-        /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj != null && obj is Rectangle2D && Equals(this, (Rectangle2D)obj);
-
-        /// <summary>
         /// The contains.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public bool Contains(Point2D point) => Intersections.Contains(this, point) != Inclusion.Outside;
+        public bool Contains(Point2D point) => Intersections.Contains(this, point) != Inclusions.Outside;
 
         /// <summary>
         /// Determines if the rectangular region represented by <paramref name="rect"/> is entirely contained within the rectangular region represented by  this <see cref="Rectangle2D"/> .
@@ -817,26 +858,32 @@ namespace Engine
         /// <returns></returns>
         public bool IntersectsWith(Rectangle2D rect) => Intersections.Intersects(this, rect);
 
-        ///// <summary>
-        ///// The intersects.
-        ///// </summary>
-        ///// <param name="shape">The shape.</param>
-        ///// <returns>The <see cref="bool"/>.</returns>
-        //public bool Intersects(Shape shape)
-        //    => Intersections.Intersects(this, shape);
+        /// <summary>
+        /// The intersects.
+        /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        public bool Intersects(IShape shape) => Intersections.Intersects(this, shape);
+        #endregion
+
+        #region Standard Methods
+        /// <summary>
+        /// Raises the property changing event.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void OnPropertyChanging([CallerMemberName] string name = "") => PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
 
         /// <summary>
-        /// Convert a rectangle to an array of it's corner points.
+        /// Raises the property changed event.
         /// </summary>
-        /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public List<Point2D> ToPoints()
-            => new List<Point2D>
-            {
-                Location,
-                new Point2D(Right, Top),
-                new Point2D(Right, Bottom),
-                new Point2D(Left, Bottom)
-            };
+        /// <param name="name">The name.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void OnPropertyChanged([CallerMemberName] string name = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
         /// <summary>
         /// Gets the hash code for this <see cref="Rectangle2D"/>.
@@ -855,13 +902,13 @@ namespace Engine
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Rectangle2D" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The format provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -869,14 +916,16 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            //if (this is null)
-            //{
-            //    return nameof(Rectangle2D);
-            //}
+            if (this == null)
+            {
+                return nameof(Rectangle2D);
+            }
 
             var sep = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Rectangle2D)}({nameof(X)}: {X.ToString(format, formatProvider)}{sep} {nameof(Y)}: {Y.ToString(format, formatProvider)}{sep} {nameof(Width)}: {Width.ToString(format, formatProvider)}{sep} {nameof(Height)}: {Height.ToString(format, formatProvider)})";
         }
+
+        public (double Left, double Top, double Width, double Height) ToValueTuple() => throw new NotImplementedException();
         #endregion Methods
     }
 }

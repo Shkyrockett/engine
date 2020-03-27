@@ -1,5 +1,5 @@
 ﻿// <copyright file="Operations.Queries.cs" company="Shkyrockett" >
-//    Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//    Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -887,8 +887,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Approximately(double a, double b, double precision = double.Epsilon)
-            => Math.Abs(a - b) <= precision;
+        public static bool Approximately(double a, double b, double precision = double.Epsilon) => Math.Abs(a - b) <= precision;
 
         /// <summary>
         /// AreClose - Returns whether or not two doubles are "close".  That is, whether or
@@ -955,6 +954,19 @@ namespace Engine
             var delta = value1 - value2;
             return (-eps < delta) && (eps > delta);
         }
+
+        ///// <summary>
+        /////
+        ///// </summary>
+        ///// <param name="aX"></param>
+        ///// <param name="aY"></param>
+        ///// <param name="bX"></param>
+        ///// <param name="bY"></param>
+        ///// <param name="epsilonSqrd"></param>
+        ///// <returns></returns>
+        ////[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static bool AreClose(double aX, double aY, double bX, double bY, double epsilonSqrd = double.Epsilon * double.Epsilon) => (Distances.SquareDistance(aX, aY, bX, bY) <= epsilonSqrd);
         #endregion Are Close
 
         #region Less Than

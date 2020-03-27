@@ -160,7 +160,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator +(Point3D value) => UnaryAdd3D(value.X, value.Y, value.Z);
+        public static Point3D operator +(Point3D value) => UnaryAdd(value.X, value.Y, value.Z);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point3D" /> classes.

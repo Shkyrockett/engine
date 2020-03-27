@@ -124,7 +124,7 @@ namespace Engine
         /// <returns>
         /// The <see cref="Orientation3D" />.
         /// </returns>
-        public static Orientation3D operator +(Orientation3D value) => UnaryAdd3D(value.Roll, value.Pitch, value.Yaw);
+        public static Orientation3D operator +(Orientation3D value) => UnaryAdd(value.Roll, value.Pitch, value.Yaw);
 
         /// <summary>
         /// The operator +.

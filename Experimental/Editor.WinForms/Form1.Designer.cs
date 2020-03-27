@@ -8,6 +8,16 @@
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
+        /// The label1
+        /// </summary>
+        private System.Windows.Forms.Label label1;
+
+        /// <summary>
+        /// The button exit
+        /// </summary>
+        private System.Windows.Forms.Button buttonExit;
+
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -17,6 +27,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -68,9 +79,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonExit;
     }
 }
 

@@ -79,9 +79,7 @@ namespace Engine
         public Size3D(double width, double height, double depth)
             : this()
         {
-            Width = width;
-            Height = height;
-            Depth = depth;
+            (Width, Height, Depth) = (width, height, depth);
         }
 
         /// <summary>
@@ -107,12 +105,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out double width, out double height, out double depth)
-        {
-            width = Width;
-            height = Height;
-            depth = Depth;
-        }
+        public void Deconstruct(out double width, out double height, out double depth) => (width, height, depth) = (Width, Height, Depth);
         #endregion Deconstructors
 
         #region Properties
@@ -898,11 +891,11 @@ namespace Engine
         public static Vector3D Divide(Vector3D dividend, Size3D divisor) => Operations.DivideVectorParametric(dividend.I, dividend.J, dividend.K, divisor.Width, divisor.Height, divisor.Depth);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1043,7 +1036,7 @@ namespace Engine
         /// Converts to string.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

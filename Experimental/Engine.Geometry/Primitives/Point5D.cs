@@ -1,4 +1,4 @@
-﻿// <copyright file="Point4D.cs" company="Shkyrockett" >
+﻿// <copyright file="Point5D.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -21,98 +21,91 @@ using static Engine.Operations;
 namespace Engine
 {
     /// <summary>
-    /// The <see cref="Point4D" /> struct.
+    /// The <see cref="Point5D" /> struct.
     /// </summary>
-    /// <seealso cref="Engine.IVector{Engine.Point4D}" />
-    /// <seealso cref="IVector{Point4D}" />
+    /// <seealso cref="Engine.IVector{Engine.Point5D}" />
+    /// <seealso cref="IVector{Point5D}" />
     [DataContract, Serializable]
-    [TypeConverter(typeof(Point4DConverter))]
+    [TypeConverter(typeof(Point5DConverter))]
     [DebuggerDisplay("{ToString()}")]
-    public struct Point4D
-        : IVector<Point4D>
+    public struct Point5D
+        : IVector<Point5D>
     {
         #region Implementations
         /// <summary>
-        /// Represents a <see cref="Point4D" /> that has <see cref="X" />, <see cref="Y" />, <see cref="Z" />, and <see cref="W" /> values set to zero.
+        /// Represents a <see cref="Point5D" /> that has <see cref="X" />, <see cref="Y" />, <see cref="Z" />, <see cref="W" />, and <see cref="V" /> values set to zero.
         /// </summary>
-        public static readonly Point4D Empty = new Point4D(0d, 0d, 0d, 0d);
+        public static readonly Point5D Empty = new Point5D(0d, 0d, 0d, 0d, 0d);
 
         /// <summary>
-        /// Represents a <see cref="Point4D" /> that has <see cref="X" />, <see cref="Y" />, <see cref="Z" />, and <see cref="W" /> values set to 1.
+        /// Represents a <see cref="Point5D" /> that has <see cref="X" />, <see cref="Y" />, <see cref="Z" />, <see cref="W" />, and <see cref="V" /> values set to 1.
         /// </summary>
-        public static readonly Point4D Unit = new Point4D(1d, 1d, 1d, 1d);
+        public static readonly Point5D Unit = new Point5D(1d, 1d, 1d, 1d, 1d);
 
         /// <summary>
-        /// Represents a <see cref="Point4D" /> that has <see cref="X" />, <see cref="Y" />, <see cref="Z" />, and <see cref="W" /> values set to NaN.
+        /// Represents a <see cref="Point5D" /> that has <see cref="X" />, <see cref="Y" />, <see cref="Z" />, <see cref="W" />, and <see cref="V" /> values set to NaN.
         /// </summary>
-        public static readonly Point4D NaN = new Point4D(double.NaN, double.NaN, double.NaN, double.NaN);
+        public static readonly Point5D NaN = new Point5D(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
         #endregion Implementations
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Point4D" /> class.
+        /// Initializes a new instance of the <see cref="Point5D" /> class.
         /// </summary>
         /// <param name="point">The point.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point4D(Point4D point)
-            : this(point.X, point.Y, point.Z, point.W)
+        public Point5D(Point5D point)
+            : this(point.X, point.Y, point.Z, point.W, point.V)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Point4D" /> class.
+        /// Initializes a new instance of the <see cref="Point5D" /> class.
         /// </summary>
-        /// <param name="x">The <paramref name="x" /> component of the <see cref="Point4D" />.</param>
-        /// <param name="y">The <paramref name="y" /> component of the <see cref="Point4D" />.</param>
-        /// <param name="z">The <paramref name="z" /> component of the <see cref="Point4D" />.</param>
-        /// <param name="w">The <paramref name="w" /> component of the <see cref="Point4D" />.</param>
+        /// <param name="x">The <paramref name="x" /> component of the <see cref="Point5D" />.</param>
+        /// <param name="y">The <paramref name="y" /> component of the <see cref="Point5D" />.</param>
+        /// <param name="z">The <paramref name="z" /> component of the <see cref="Point5D" />.</param>
+        /// <param name="w">The <paramref name="w" /> component of the <see cref="Point5D" />.</param>
+        /// <param name="v">The v.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point4D(double x, double y, double z, double w)
+        public Point5D(double x, double y, double z, double w, double v)
             : this()
         {
-            X = x;
-            Y = y;
-            Z = z;
-            W = w;
+            (X, Y, Z, W, V) = (x, y, z, w, v);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Point4D" /> class.
+        /// Initializes a new instance of the <see cref="Point5D" /> class.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point4D((double X, double Y, double Z, double W) tuple)
+        public Point5D((double X, double Y, double Z, double W, double V) tuple)
             : this()
         {
-            (X, Y, Z, W) = tuple;
+            (X, Y, Z, W, V) = tuple;
         }
         #endregion Constructors
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="Point4D" /> to a <see cref="ValueTuple{T1, T2, T3, T4}" />.
+        /// Deconstruct this <see cref="Point5D" /> to a <see cref="ValueTuple{T1, T2, T3, T4}" />.
         /// </summary>
         /// <param name="x">The <paramref name="x" />.</param>
         /// <param name="y">The <paramref name="y" />.</param>
         /// <param name="z">The <paramref name="z" />.</param>
         /// <param name="w">The <paramref name="w" />.</param>
+        /// <param name="v">The v.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out double x, out double y, out double z, out double w)
-        {
-            x = X;
-            y = Y;
-            z = Z;
-            w = W;
-        }
+        public void Deconstruct(out double x, out double y, out double z, out double w, out double v) => (x, y, z, w, v) = (X, Y, Z, W, V);
         #endregion Deconstructors
 
         #region Properties
         /// <summary>
-        /// Gets or sets the <see cref="X" /> component of a <see cref="Point4D" /> coordinate.
+        /// Gets or sets the <see cref="X" /> component of a <see cref="Point5D" /> coordinate.
         /// </summary>
         /// <value>
         /// The x.
@@ -121,7 +114,7 @@ namespace Engine
         public double X { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Y" /> component of a <see cref="Point4D" /> coordinate.
+        /// Gets or sets the <see cref="Y" /> component of a <see cref="Point5D" /> coordinate.
         /// </summary>
         /// <value>
         /// The y.
@@ -130,7 +123,7 @@ namespace Engine
         public double Y { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Z" /> component of a <see cref="Point4D" /> coordinate.
+        /// Gets or sets the <see cref="Z" /> component of a <see cref="Point5D" /> coordinate.
         /// </summary>
         /// <value>
         /// The z.
@@ -139,13 +132,22 @@ namespace Engine
         public double Z { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="W" /> component of a <see cref="Point4D" /> coordinate.
+        /// Gets or sets the <see cref="W" /> component of a <see cref="Point5D" /> coordinate.
         /// </summary>
         /// <value>
         /// The w.
         /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double W { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="V" /> component of a <see cref="Point5D" /> coordinate.
+        /// </summary>
+        /// <value>
+        /// The v.
+        /// </value>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double V { get; set; }
         #endregion Properties
 
         #region Operators
@@ -158,10 +160,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator +(Point4D value) => Plus(value);
+        public static Point5D operator +(Point5D value) => Plus(value);
 
         /// <summary>
-        /// Add an amount to both values in the <see cref="Point4D" /> classes.
+        /// Add an amount to both values in the <see cref="Point5D" /> classes.
         /// </summary>
         /// <param name="augend">The original value</param>
         /// <param name="addend">The amount to add.</param>
@@ -170,10 +172,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator +(Point4D augend, double addend) => Add(augend, addend);
+        public static Point5D operator +(Point5D augend, double addend) => Add(augend, addend);
 
         /// <summary>
-        /// Add an amount to both values in the <see cref="Point4D" /> classes.
+        /// Add an amount to both values in the <see cref="Point5D" /> classes.
         /// </summary>
         /// <param name="augend">The original value</param>
         /// <param name="addend">The amount to add.</param>
@@ -182,10 +184,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator +(double augend, Point4D addend) => Add(addend, augend);
+        public static Point5D operator +(double augend, Point5D addend) => Add(addend, augend);
 
         /// <summary>
-        /// Add two <see cref="Point4D" /> classes together.
+        /// Add two <see cref="Point5D" /> classes together.
         /// </summary>
         /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
@@ -194,10 +196,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator +(Point4D augend, Point4D addend) => Add(augend, addend);
+        public static Vector5D operator +(Point5D augend, Point5D addend) => Add(augend, addend);
 
         /// <summary>
-        /// Add two <see cref="Point4D" /> classes together.
+        /// Add two <see cref="Point5D" /> classes together.
         /// </summary>
         /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
@@ -206,7 +208,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator +(Point4D augend, Vector4D addend) => Add(augend, addend);
+        public static Point5D operator +(Point5D augend, Vector5D addend) => Add(augend, addend);
 
         /// <summary>
         /// Add Points
@@ -218,7 +220,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator +(Vector4D augend, Point4D addend) => Add(augend, addend);
+        public static Point5D operator +(Vector5D augend, Point5D addend) => Add(augend, addend);
 
         /// <summary>
         /// Unary subtraction operator.
@@ -229,10 +231,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator -(Point4D value) => Negate(value);
+        public static Vector5D operator -(Point5D value) => Negate(value);
 
         /// <summary>
-        /// Subtract a <see cref="Point4D" /> from a <see cref="double" /> value.
+        /// Subtract a <see cref="Point5D" /> from a <see cref="double" /> value.
         /// </summary>
         /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
@@ -241,7 +243,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator -(Point4D minuend, double subend) => Subtract(minuend, subend);
+        public static Point5D operator -(Point5D minuend, double subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract a <see cref="Point3D" /> from a <see cref="double" /> value.
@@ -253,10 +255,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator -(double minuend, Point4D subend) => Subtract(minuend, subend);
+        public static Point5D operator -(double minuend, Point5D subend) => Subtract(minuend, subend);
 
         /// <summary>
-        /// Subtract a <see cref="Point4D" /> from another <see cref="Point4D" /> class.
+        /// Subtract a <see cref="Point5D" /> from another <see cref="Point5D" /> class.
         /// </summary>
         /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
@@ -265,10 +267,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator -(Point4D minuend, Point4D subend) => Subtract(minuend, subend);
+        public static Vector5D operator -(Point5D minuend, Point5D subend) => Subtract(minuend, subend);
 
         /// <summary>
-        /// Subtract a <see cref="Point4D" /> from another <see cref="Point4D" /> class.
+        /// Subtract a <see cref="Point5D" /> from another <see cref="Point5D" /> class.
         /// </summary>
         /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
@@ -277,7 +279,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator -(Point4D minuend, Vector4D subend) => Subtract(minuend, subend);
+        public static Point5D operator -(Point5D minuend, Vector5D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract Points
@@ -289,7 +291,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator -(Vector4D minuend, Point4D subend) => Vector4D(minuend, subend);
+        public static Point5D operator -(Vector5D minuend, Point5D subend) => Vector5D(minuend, subend);
 
         /// <summary>
         /// Scale a point
@@ -301,7 +303,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator *(double multiplicand, Point4D multiplier) => Multiply(multiplicand, multiplier);
+        public static Point5D operator *(double multiplicand, Point5D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a point.
@@ -313,10 +315,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator *(Point4D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
+        public static Point5D operator *(Point5D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
-        /// Divide a <see cref="Point4D" /> by a value.
+        /// Divide a <see cref="Point5D" /> by a value.
         /// </summary>
         /// <param name="dividend">The divisor value</param>
         /// <param name="divisor">The dividend value.</param>
@@ -325,24 +327,24 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator /(Point4D dividend, double divisor) => Divide(dividend, divisor);
+        public static Point5D operator /(Point5D dividend, double divisor) => Divide(dividend, divisor);
 
         /// <summary>
-        /// Divide a <see cref="Point4D" />
+        /// Divide a <see cref="Point5D" />
         /// </summary>
-        /// <param name="dividend">The <see cref="Point4D" /></param>
+        /// <param name="dividend">The <see cref="Point5D" /></param>
         /// <param name="divisor">The divisor</param>
         /// <returns>
-        /// A <see cref="Point4D" /> divided by the divisor
+        /// A <see cref="Point5D" /> divided by the divisor
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator /(double dividend, Point4D divisor) => Divide(dividend, divisor);
+        public static Point5D operator /(double dividend, Point5D divisor) => Divide(dividend, divisor);
 
         /// <summary>
-        /// Compares two <see cref="Point4D" /> objects.
+        /// Compares two <see cref="Point5D" /> objects.
         /// The result specifies whether the values of the <see cref="X" /> and <see cref="Y" />
-        /// values of the two <see cref="Point4D" /> objects are equal.
+        /// values of the two <see cref="Point5D" /> objects are equal.
         /// </summary>
         /// <param name="comparand">The comparand.</param>
         /// <param name="comparanda">The comparanda.</param>
@@ -351,12 +353,12 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Point4D comparand, Point4D comparanda) => Equals(comparand, comparanda);
+        public static bool operator ==(Point5D comparand, Point5D comparanda) => Equals(comparand, comparanda);
 
         /// <summary>
-        /// Compares two <see cref="Point4D" /> objects.
+        /// Compares two <see cref="Point5D" /> objects.
         /// The result specifies whether the values of the <see cref="X" />, <see cref="Y" />, <see cref="Z" />, or <see cref="W" />
-        /// values of the two <see cref="Point4D" /> objects are unequal.
+        /// values of the two <see cref="Point5D" /> objects are unequal.
         /// </summary>
         /// <param name="comparand">The comparand.</param>
         /// <param name="comparanda">The comparanda.</param>
@@ -365,18 +367,18 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Point4D comparand, Point4D comparanda) => !Equals(comparand, comparanda);
+        public static bool operator !=(Point5D comparand, Point5D comparanda) => !Equals(comparand, comparanda);
 
         /// <summary>
-        /// Explicit conversion from the specified <see cref="Vector4D" /> structure to a <see cref="Point4D" /> structure.
+        /// Explicit conversion from the specified <see cref="Vector5D" /> structure to a <see cref="Point5D" /> structure.
         /// </summary>
-        /// <param name="vector">The <see cref="Vector4D" /> to be converted.</param>
+        /// <param name="vector">The <see cref="Vector5D" /> to be converted.</param>
         /// <returns>
         /// The result of the conversion.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Point4D(Vector4D vector) => new Point4D(vector.I, vector.J, vector.K, vector.L);
+        public static explicit operator Point5D(Vector5D vector) => new Point5D(vector.I, vector.J, vector.K, vector.L, vector.M);
 
         /// <summary>
         /// Explicit conversion to Vector
@@ -387,7 +389,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Vector4D(Point4D point) => new Vector4D(point.X, point.Y, point.Z, point.W);
+        public static explicit operator Vector5D(Point5D point) => new Vector5D(point.X, point.Y, point.Z, point.W, point.V);
 
         /// <summary>
         /// Implicit conversion from tuple.
@@ -398,18 +400,18 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Point4D((double X, double Y, double Z, double W) tuple) => new Point4D(tuple);
+        public static implicit operator Point5D((double X, double Y, double Z, double W, double V) tuple) => new Point5D(tuple);
 
         /// <summary>
-        /// Converts the specified <see cref="Point4D" /> structure to a <see cref="ValueTuple{T1, T2, T3, T4}" /> structure.
+        /// Converts the specified <see cref="Point5D" /> structure to a <see cref="ValueTuple{T1, T2, T3, T4, T5}" /> structure.
         /// </summary>
-        /// <param name="point">The <see cref="Point4D" /> to be converted.</param>
+        /// <param name="point">The <see cref="Point5D" /> to be converted.</param>
         /// <returns>
         /// The result of the conversion.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double X, double Y, double Z, double W)(Point4D point) => (point.X, point.Y, point.Z, point.W);
+        public static implicit operator (double X, double Y, double Z, double W, double V)(Point5D point) => (point.X, point.Y, point.Z, point.W, point.V);
         #endregion Operators
 
         #region Operator Backing Methods
@@ -420,7 +422,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Plus(Point4D value) => UnaryAdd(value.X, value.Y, value.Z, value.W);
+        public static Point5D Plus(Point5D value) => UnaryAdd(value.X, value.Y, value.Z, value.W, value.V);
 
         /// <summary>
         /// Adds the specified augend.
@@ -430,7 +432,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Add(Point4D augend, double addend) => AddVectorUniform(augend.X, augend.Y, augend.Z, augend.W, addend);
+        public static Point5D Add(Point5D augend, double addend) => AddVectorUniform(augend.X, augend.Y, augend.Z, augend.W, augend.V, addend);
 
         /// <summary>
         /// Adds the specified augend.
@@ -440,7 +442,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Add(double augend, Point4D addend) => AddVectorUniform(addend.X, addend.Y, addend.Z, addend.W, augend);
+        public static Point5D Add(double augend, Point5D addend) => AddVectorUniform(addend.X, addend.Y, addend.Z, addend.W, addend.V, augend);
 
         /// <summary>
         /// Adds the specified augend.
@@ -450,7 +452,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Add(Point4D augend, Point4D addend) => AddVectors(augend.X, augend.Y, augend.Z, augend.W, addend.X, addend.Y, addend.Z, addend.W);
+        public static Vector5D Add(Point5D augend, Point5D addend) => AddVectors(augend.X, augend.Y, augend.Z, augend.W, augend.V, addend.X, addend.Y, addend.Z, addend.W, addend.V);
 
         /// <summary>
         /// Adds the specified augend.
@@ -460,7 +462,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Add(Point4D augend, Vector4D addend) => AddVectors(augend.X, augend.Y, augend.Z, augend.W, addend.I, addend.J, addend.K, addend.L);
+        public static Point5D Add(Point5D augend, Vector5D addend) => AddVectors(augend.X, augend.Y, augend.Z, augend.W, augend.V, addend.I, addend.J, addend.K, addend.L, addend.M);
 
         /// <summary>
         /// Adds the specified augend.
@@ -470,7 +472,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Add(Vector4D augend, Point4D addend) => AddVectors(augend.I, augend.J, augend.K, augend.L, addend.X, addend.Y, addend.Z, addend.W);
+        public static Point5D Add(Vector5D augend, Point5D addend) => AddVectors(augend.I, augend.J, augend.K, augend.L, augend.M, addend.X, addend.Y, addend.Z, addend.W, addend.V);
 
         /// <summary>
         /// Negates the specified value.
@@ -479,7 +481,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Negate(Point4D value) => NegateVector(value.X, value.Y, value.Z, value.W);
+        public static Vector5D Negate(Point5D value) => NegateVector(value.X, value.Y, value.Z, value.W, value.V);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -489,7 +491,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Subtract(Point4D minuend, double subend) => SubtractVectorUniform(minuend.X, minuend.Y, minuend.Z, minuend.W, subend);
+        public static Point5D Subtract(Point5D minuend, double subend) => SubtractVectorUniform(minuend.X, minuend.Y, minuend.Z, minuend.W, minuend.V, subend);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -499,7 +501,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Subtract(double minuend, Point4D subend) => SubtractFromMinuend(minuend, subend.X, subend.Y, subend.Z, subend.W);
+        public static Point5D Subtract(double minuend, Point5D subend) => SubtractFromMinuend(minuend, subend.X, subend.Y, subend.Z, subend.W, subend.V);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -509,7 +511,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Subtract(Point4D minuend, Point4D subend) => SubtractVector(minuend.X, minuend.Y, minuend.Z, minuend.W, subend.X, subend.Y, subend.Z, subend.W);
+        public static Vector5D Subtract(Point5D minuend, Point5D subend) => SubtractVector(minuend.X, minuend.Y, minuend.Z, minuend.W, minuend.V, subend.X, subend.Y, subend.Z, subend.W, subend.V);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -519,7 +521,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Subtract(Point4D minuend, Vector4D subend) => SubtractVector(minuend.X, minuend.Y, minuend.Z, minuend.W, subend.I, subend.J, subend.K, subend.L);
+        public static Point5D Subtract(Point5D minuend, Vector5D subend) => SubtractVector(minuend.X, minuend.Y, minuend.Z, minuend.W, minuend.V, subend.I, subend.J, subend.K, subend.L, subend.M);
 
         /// <summary>
         /// Vector4s the d.
@@ -529,7 +531,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Vector4D(Vector4D minuend, Point4D subend) => SubtractVector(minuend.I, minuend.J, minuend.K, minuend.L, subend.X, subend.Y, subend.Z, subend.W);
+        public static Point5D Vector5D(Vector5D minuend, Point5D subend) => SubtractVector(minuend.I, minuend.J, minuend.K, minuend.L, minuend.M, subend.X, subend.Y, subend.Z, subend.W, subend.V);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -539,7 +541,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Multiply(double multiplicand, Point4D multiplier) => ScaleVector(multiplier.X, multiplier.Y, multiplier.Z, multiplier.W, multiplicand);
+        public static Point5D Multiply(double multiplicand, Point5D multiplier) => ScaleVector(multiplier.X, multiplier.Y, multiplier.Z, multiplier.W, multiplier.V, multiplicand);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -549,7 +551,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Multiply(Point4D multiplicand, double multiplier) => ScaleVector(multiplicand.X, multiplicand.Y, multiplicand.Z, multiplicand.W, multiplier);
+        public static Point5D Multiply(Point5D multiplicand, double multiplier) => ScaleVector(multiplicand.X, multiplicand.Y, multiplicand.Z, multiplicand.W, multiplicand.V, multiplier);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -559,7 +561,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Divide(Point4D dividend, double divisor) => DivideVectorUniform(dividend.X, dividend.Y, dividend.Z, dividend.W, divisor);
+        public static Point5D Divide(Point5D dividend, double divisor) => DivideVectorUniform(dividend.X, dividend.Y, dividend.Z, dividend.W, dividend.V, divisor);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -569,7 +571,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Divide(double dividend, Point4D divisor) => DivideByVectorUniform(dividend, divisor.X, divisor.Y, divisor.Z, divisor.W);
+        public static Point5D Divide(double dividend, Point5D divisor) => DivideByVectorUniform(dividend, divisor.X, divisor.Y, divisor.Z, divisor.W, divisor.V);
 
         /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.
@@ -580,7 +582,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals([AllowNull] object obj) => obj is Point4D d && Equals(d);
+        public override bool Equals([AllowNull] object obj) => obj is Point5D d && Equals(d);
 
         /// <summary>
         /// The equals.
@@ -591,7 +593,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals([AllowNull] Point4D other) => X == other.X && Y == other.Y && Z == other.Z && W == other.W;
+        public bool Equals([AllowNull] Point5D other) => X == other.X && Y == other.Y && Z == other.Z && W == other.W && W == other.V;
 
         /// <summary>
         /// Froms the vector4 d.
@@ -600,16 +602,16 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D FromVector4D(Vector4D vector) => new Point4D(vector.I, vector.J, vector.K, vector.L);
+        public static Point5D FromVector5D(Vector5D vector) => new Point5D(vector.I, vector.J, vector.K, vector.L, vector.M);
 
         /// <summary>
-        /// Converts to vector4d.
+        /// Converts to vector5D.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector4D ToVector4D() => new Vector4D(X, Y, Z, W);
+        public Vector5D ToVector5D() => new Vector5D(X, Y, Z, W, V);
 
         /// <summary>
         /// Froms the value tuple.
@@ -618,7 +620,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D FromValueTuple((double X, double Y, double Z, double W) tuple) => new Point4D(tuple);
+        public static Point5D FromValueTuple((double X, double Y, double Z, double W, double V) tuple) => new Point5D(tuple);
 
         /// <summary>
         /// Converts to valuetuple.
@@ -626,34 +628,35 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public (double X, double Y, double Z, double W) ToValueTuple() => (X, Y, Z, W);
+        public (double X, double Y, double Z, double W, double V) ToValueTuple() => (X, Y, Z, W, V);
         #endregion
 
         #region Factories
         /// <summary>
-        /// Parse a string for a <see cref="Point4D" /> value.
+        /// Parse a string for a <see cref="Point5D" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string" /> with <see cref="Point4D" /> data</param>
+        /// <param name="source"><see cref="string" /> with <see cref="Point5D" /> data</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Point4D" /> struct converted
+        /// Returns an instance of the <see cref="Point5D" /> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         [ParseMethod]
-        public static Point4D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
+        public static Point5D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// Parse a string for a <see cref="Point4D" /> value.
+        /// Parse a string for a <see cref="Point5D" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string" /> with <see cref="Point4D" /> data</param>
+        /// <param name="source"><see cref="string" /> with <see cref="Point5D" /> data</param>
         /// <param name="provider">The provider.</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Point4D" /> struct converted
+        /// Returns an instance of the <see cref="Point5D" /> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
-        public static Point4D Parse(string source, IFormatProvider provider)
+        public static Point5D Parse(string source, IFormatProvider provider)
         {
             var tokenizer = new Tokenizer(source, provider);
-            var value = new Point4D(
+            var value = new Point5D(
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
                 Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
                 Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
                 Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
@@ -674,20 +677,20 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => HashCode.Combine(X, Y, Z, W);
+        public override int GetHashCode() => HashCode.Combine(X, Y, Z, W, V);
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Point4D" /> struct.
+        /// Creates a human-readable string that represents this <see cref="Point5D" /> struct.
         /// </summary>
         /// <returns>
-        /// A <see cref="string" /> representation of this <see cref="Point4D" /> instance.
+        /// A <see cref="string" /> representation of this <see cref="Point5D" /> instance.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Point4D" /> struct based on the format string
+        /// Creates a string representation of this <see cref="Point5D" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -695,15 +698,15 @@ namespace Engine
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The format provider.</param>
         /// <returns>
-        /// A string representation of this <see cref="Point4D" />.
+        /// A string representation of this <see cref="Point5D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            if (this == null) return nameof(Point4D);
+            if (this == null) return nameof(Point5D);
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
-            return $"{nameof(Point4D)}({nameof(X)}: {X.ToString(format, formatProvider)}{s} {nameof(Y)}: {Y.ToString(format, formatProvider)}{s} {nameof(Z)}: {Z.ToString(format, formatProvider)}{s} {nameof(W)}: {W.ToString(format, formatProvider)})";
+            return $"{nameof(Point5D)}({nameof(X)}: {X.ToString(format, formatProvider)}{s} {nameof(Y)}: {Y.ToString(format, formatProvider)}{s} {nameof(Z)}: {Z.ToString(format, formatProvider)}{s} {nameof(W)}: {W.ToString(format, formatProvider)}{s} {nameof(V)}: {V.ToString(format, formatProvider)})";
         }
         #endregion
     }

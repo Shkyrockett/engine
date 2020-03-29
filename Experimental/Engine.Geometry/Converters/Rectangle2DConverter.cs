@@ -102,11 +102,11 @@ namespace Engine
                 throw new ArgumentNullException(nameof(destinationType));
             }
 
-            if (value is Rectangle2D)
+            if (value is Rectangle2D d)
             {
                 if (destinationType == typeof(string))
                 {
-                    var rectangle2D = (Rectangle2D)value;
+                    var rectangle2D = d;
                     if (culture is null)
                     {
                         culture = CultureInfo.CurrentCulture;
@@ -124,7 +124,7 @@ namespace Engine
                 }
                 if (destinationType == typeof(InstanceDescriptor))
                 {
-                    var rectangle2 = (Rectangle2D)value;
+                    var rectangle2 = d;
                     var constructor = typeof(Rectangle2D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double), typeof(double) });
                     if (constructor != null)
                     {

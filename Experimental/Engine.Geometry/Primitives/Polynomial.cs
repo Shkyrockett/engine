@@ -184,10 +184,10 @@ namespace Engine
 
         #region Indexers
         /// <summary>
-        /// Gets or sets the <see cref="System.Double"/> at the specified index.
+        /// Gets or sets the <see cref="double"/> at the specified index.
         /// </summary>
         /// <value>
-        /// The <see cref="System.Double"/>.
+        /// The <see cref="double"/>.
         /// </value>
         /// <param name="index">The index.</param>
         /// <returns></returns>
@@ -591,11 +591,11 @@ namespace Engine
 
         #region Operator Backing Methods
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true" /> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false" />.
+        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

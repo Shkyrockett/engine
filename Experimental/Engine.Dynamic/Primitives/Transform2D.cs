@@ -382,11 +382,11 @@ namespace Engine
         public static Transform2D Subtract(Transform2D minuend, Transform2D subend) => Operations.SubtractTransformMatrix(minuend.X, minuend.Y, minuend.SkewX, minuend.SkewY, minuend.ScaleX, minuend.ScaleY, subend.X, subend.Y, subend.SkewX, subend.SkewY, subend.ScaleX, subend.ScaleY);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true" /> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false" />.
+        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -530,7 +530,7 @@ namespace Engine
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The format provider.</param>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

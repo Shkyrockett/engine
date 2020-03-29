@@ -23,7 +23,7 @@ namespace Engine
         /// <summary>
         /// Boolean, true if the source type is a string
         /// </summary>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string) ? true : base.CanConvertFrom(context, sourceType);
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
 
         /// <summary>
         /// The can convert to.
@@ -31,7 +31,7 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="destinationType">The destinationType.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) ? true : base.CanConvertTo(context, destinationType);
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
 
         /// <summary>
         /// Converts the specified string into a Size3D.
@@ -92,32 +92,30 @@ namespace Engine
                 throw new ArgumentNullException(nameof(destinationType));
             }
 
-            if (value is Size3D)
+            if (value is Size3D size3D)
             {
                 if (destinationType == typeof(string))
                 {
-                    var Size3D = (Size3D)value;
                     if (culture is null)
                     {
                         culture = CultureInfo.CurrentCulture;
                     }
 
-                    var separator = culture.TextInfo.ListSeparator + " ";
+                    var separator = $"{culture.TextInfo.ListSeparator} ";
                     var converter = TypeDescriptor.GetConverter(typeof(double));
                     var strArray = new string[2];
                     var num = 0;
-                    strArray[num++] = converter.ConvertToString(context, culture, Size3D.Width);
-                    strArray[num++] = converter.ConvertToString(context, culture, Size3D.Height);
-                    strArray[num++] = converter.ConvertToString(context, culture, Size3D.Depth);
+                    strArray[num++] = converter.ConvertToString(context, culture, size3D.Width);
+                    strArray[num++] = converter.ConvertToString(context, culture, size3D.Height);
+                    strArray[num++] = converter.ConvertToString(context, culture, size3D.Depth);
                     return string.Join(separator, strArray);
                 }
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
-                    var size22D = (Size3D)value;
-                    var constructor = typeof(Size3D).GetConstructor(new Type[] { typeof(double), typeof(double) });
+                    var constructor = typeof(Size3D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double) });
                     if (constructor != null)
                     {
-                        return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { size22D.Width, size22D.Height, size22D.Depth });
+                        return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { size3D.Width, size3D.Height, size3D.Depth });
                     }
                 }
             }
@@ -139,7 +137,7 @@ namespace Engine
         /// <param name="propertyValues">The propertyValues.</param>
         /// <returns>The <see cref="object"/>.</returns>
         public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues != null
-                ? new Size3D((double)propertyValues["Width"], (double)propertyValues["Height"], (double)propertyValues["Depth"])
+                ? new Size3D((double)propertyValues[$"{nameof(Size3D.Width)}"], (double)propertyValues[$"{nameof(Size3D.Height)}"], (double)propertyValues[$"{nameof(Size3D.Depth)}"])
                 : (object)null;
     }
 }

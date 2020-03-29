@@ -418,7 +418,7 @@ namespace Engine
         /// The determinant.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Determinant => Determinant(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+        public double Determinant => MatrixDeterminant(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
 
         /// <summary>
         /// Gets the transposed matrix where the rows of the matrix are swapped with the columns.
@@ -427,7 +427,7 @@ namespace Engine
         /// The transposed.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix4x4D Transposed => Transpose(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+        public Matrix4x4D Transposed => TransposeMatrix(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
 
         /// <summary>
         /// Gets the adjoint.
@@ -436,7 +436,7 @@ namespace Engine
         /// The adjoint.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix4x4D Adjoint => Adjoint(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+        public Matrix4x4D Adjoint => AdjointMatrix(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
 
         /// <summary>
         /// Gets the cofactor.
@@ -445,7 +445,7 @@ namespace Engine
         /// The cofactor.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix4x4D Cofactor => Cofactor(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+        public Matrix4x4D Cofactor => CofactorMatrix(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
 
         /// <summary>
         /// Gets the inverted.
@@ -454,7 +454,7 @@ namespace Engine
         /// The inverted.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix4x4D Inverted => Invert(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+        public Matrix4x4D Inverted => InvertMatrix(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
 
         /// <summary>
         /// Gets a value indicating whether or not a given transform is an identity transform matrix.
@@ -654,10 +654,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Matrix4x4D(Matrix3x3D source)
             => new Matrix4x4D(
-                source.M0x0, source.M0x1, source.M0x2, 0,
-                source.M1x0, source.M1x1, source.M1x2, 0,
-                source.M2x0, source.M2x1, source.M2x2, 0,
-                0, 0, 0, 1);
+                source.M0x0, source.M0x1, source.M0x2, 0d,
+                source.M1x0, source.M1x1, source.M1x2, 0d,
+                source.M2x0, source.M2x1, source.M2x2, 0d,
+                0d, 0d, 0d, 1);
 
         /// <summary>
         /// Performs an explicit conversion from <see cref="Matrix2x2D" /> to <see cref="Matrix4x4D" />.
@@ -670,10 +670,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Matrix4x4D(Matrix2x2D source)
             => new Matrix4x4D(
-                source.M0x0, source.M0x1, 0, 0,
-                source.M1x0, source.M1x1, 0, 0,
-                0, 0, 1, 0,
-                0, 0, 0, 1);
+                source.M0x0, source.M0x1, 0d, 0d,
+                source.M1x0, source.M1x1, 0d, 0d,
+                0d, 0d, 1, 0d,
+                0d, 0d, 0d, 1);
 
         /// <summary>
         /// Tuple to <see cref="Matrix4x4D" />.
@@ -808,11 +808,11 @@ namespace Engine
         public static Matrix4x4D Multiply(Matrix2x2D multiplicand, Matrix4x4D multiplier) => Multiply2x2x4x4(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M1x0, multiplicand.M1x1, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -870,10 +870,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D FromScale(Vector2D scale)
             => new Matrix4x4D(
-                scale.I, 0, 0, 0,
-                0, scale.J, 0, 0,
-                0, 0, 1, 0,
-                0, 0, 0, 1);
+                scale.I, 0d, 0d, 0d,
+                0d, scale.J, 0d, 0d,
+                0d, 0d, 1d, 0d,
+                0d, 0d, 0d, 1d);
 
         /// <summary>
         /// Creates a scaling transform around the origin
@@ -884,10 +884,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D FromScale(Vector3D scale)
             => new Matrix4x4D(
-                scale.I, 0, 0, 0,
-                0, scale.J, 0, 0,
-                0, 0, scale.K, 0,
-                0, 0, 0, 0);
+                scale.I, 0d, 0d, 0d,
+                0d, scale.J, 0d, 0d,
+                0d, 0d, scale.K, 0d,
+                0d, 0d, 0d, 1d);
 
         /// <summary>
         /// Creates a scaling transform around the origin
@@ -898,10 +898,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D FromScale(Vector4D scale)
             => new Matrix4x4D(
-                scale.I, 0, 0, 0,
-                0, scale.J, 0, 0,
-                0, 0, scale.K, 0,
-                0, 0, 0, scale.L);
+                scale.I, 0d, 0d, 0d,
+                0d, scale.J, 0d, 0d,
+                0d, 0d, scale.K, 0d,
+                0d, 0d, 0d, scale.L);
 
         /// <summary>
         /// Creates a scaling transform around the origin
@@ -913,10 +913,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D FromScale(double scaleX, double scaleY)
             => new Matrix4x4D(
-                scaleX, 0, 0, 0,
-                0, scaleY, 0, 0,
-                0, 0, 1, 0,
-                0, 0, 0, 1);
+                scaleX, 0d, 0d, 0d,
+                0d, scaleY, 0d, 0d,
+                0d, 0d, 1d, 0d,
+                0d, 0d, 0d, 1d);
 
         /// <summary>
         /// Creates a scaling transform around the origin
@@ -929,10 +929,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D FromScale(double scaleX, double scaleY, double scaleZ)
             => new Matrix4x4D(
-                scaleX, 0, 0, 0,
-                0, scaleY, 0, 0,
-                0, 0, scaleZ, 0,
-                0, 0, 0, 0);
+                scaleX, 0d, 0d, 0d,
+                0d, scaleY, 0d, 0d,
+                0d, 0d, scaleZ, 0d,
+                0d, 0d, 0d, 1d);
 
         /// <summary>
         /// Creates a scaling transform around the origin
@@ -946,10 +946,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D FromScale(double scaleX, double scaleY, double scaleZ, double scaleW)
             => new Matrix4x4D(
-                scaleX, 0, 0, 0,
-                0, scaleY, 0, 0,
-                0, 0, scaleZ, 0,
-                0, 0, 0, scaleW);
+                scaleX, 0d, 0d, 0d,
+                0d, scaleY, 0d, 0d,
+                0d, 0d, scaleZ, 0d,
+                0d, 0d, 0d, scaleW);
 
         /// <summary>
         /// Parse a string for a <see cref="Matrix4x4D" /> value.
@@ -1037,11 +1037,26 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
-            => HashCode.Combine(
-                HashCode.Combine(M0x0, M0x1, M0x2, M0x3),
-                HashCode.Combine(M1x0, M1x1, M1x2, M1x3),
-                HashCode.Combine(M2x0, M2x1, M2x2, M2x3),
-                HashCode.Combine(M3x0, M3x1, M3x2, M3x3));
+        {
+            var hash = new HashCode();
+            hash.Add(M0x0);
+            hash.Add(M0x1);
+            hash.Add(M0x2);
+            hash.Add(M0x3);
+            hash.Add(M1x0);
+            hash.Add(M1x1);
+            hash.Add(M1x2);
+            hash.Add(M1x3);
+            hash.Add(M2x0);
+            hash.Add(M2x1);
+            hash.Add(M2x2);
+            hash.Add(M2x3);
+            hash.Add(M3x0);
+            hash.Add(M3x1);
+            hash.Add(M3x2);
+            hash.Add(M3x3);
+            return hash.ToHashCode();
+        }
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D" /> struct based on the current culture.

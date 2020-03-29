@@ -208,7 +208,7 @@ namespace Engine
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The format provider.</param>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
         [DebuggerStepThrough]

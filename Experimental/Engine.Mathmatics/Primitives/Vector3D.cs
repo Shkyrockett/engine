@@ -83,9 +83,7 @@ namespace Engine
         public Vector3D(double i, double j, double k)
             : this()
         {
-            I = i;
-            J = j;
-            K = k;
+            (I, J, K) = (i, j, k);
         }
 
         /// <summary>
@@ -138,9 +136,15 @@ namespace Engine
         {
             (var i, var j, var k) = (bI - aI, bJ - aJ, bK - aK);
             var d = Sqrt((i * i) + (j * j) + (k * k));
-            I = i * 1d / d;
-            J = j * 1d / d;
-            K = k * 1d / d;
+            if (d is 0d)
+            {
+                // ToDo: Figure out what to do when d is 0;
+                (I, J, K) = (i * 1d / d, j * 1d / d, k * 1d / d);
+            }
+            else
+            {
+                (I, J, K) = (i * 1d / d, j * 1d / d, k * 1d / d);
+            }
         }
         #endregion Constructors
 
@@ -461,11 +465,11 @@ namespace Engine
         public static Vector3D Divide(double dividend, Vector3D divisor) => Operations.DivideByVectorUniform(dividend, divisor.I, divisor.I, divisor.K);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -562,7 +566,7 @@ namespace Engine
         /// Converts to string.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

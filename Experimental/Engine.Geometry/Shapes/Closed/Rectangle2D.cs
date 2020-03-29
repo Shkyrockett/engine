@@ -553,7 +553,7 @@ namespace Engine
         /// <param name="size">The height and width of the new <see cref="Rectangle2D"/> as a <see cref="Size"/>.</param>
         /// <returns>Returns a <see cref="Rectangle2D"/> based around a center point and it's size.</returns>
         public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size)
-            => new Rectangle2D(center - size * 0.5d, size);
+            => new Rectangle2D(center - (size * 0.5d), size);
 
         /// <summary>
         /// Creates a rectangle that represents the union between a and b.

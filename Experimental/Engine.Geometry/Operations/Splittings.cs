@@ -540,7 +540,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment2D[] Split(this QuadraticBezier2D bezier, double t) => SplitBezier(bezier?.Points, t);
+        public static BezierSegment2D[] Split(this QuadraticBezier2D bezier, double t) => SplitBezier(bezier.Points, t);
 
         /// <summary>
         /// The split.
@@ -554,17 +554,17 @@ namespace Engine
         {
             if (ts is null)
             {
-                return new[] { new BezierSegment2D(bezier?.Points) };
+                return new[] { new BezierSegment2D(bezier.Points) };
             }
 
             var filtered = ts.Where(t => t >= 0d && t <= 1d).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
             {
-                return new[] { new BezierSegment2D(bezier?.Points) };
+                return new[] { new BezierSegment2D(bezier.Points) };
             }
 
             var tLast = 0d;
-            var start = new BezierSegment2D(bezier?.Points);
+            var start = new BezierSegment2D(bezier.Points);
             var list = new List<BezierSegment2D>(filtered.Count + 1);
             foreach (var t in filtered)
             {
@@ -599,7 +599,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment2D[] Split(this CubicBezier2D bezier, double t) => SplitBezier(bezier?.Points, t);
+        public static BezierSegment2D[] Split(this CubicBezier2D bezier, double t) => SplitBezier(bezier.Points, t);
 
         /// <summary>
         /// The split.
@@ -613,18 +613,18 @@ namespace Engine
         {
             if (ts is null)
             {
-                return new[] { new BezierSegment2D(bezier?.Points) };
+                return new[] { new BezierSegment2D(bezier.Points) };
             }
 
             var filtered = ts.Where(t => t >= 0d && t <= 1d).Distinct().OrderBy(t => t).ToList();
 
             if (filtered.Count == 0)
             {
-                return new[] { new BezierSegment2D(bezier?.Points) };
+                return new[] { new BezierSegment2D(bezier.Points) };
             }
 
             var tLast = 0d;
-            var prev = new BezierSegment2D(bezier?.Points);
+            var prev = new BezierSegment2D(bezier.Points);
             var list = new List<BezierSegment2D>(filtered.Count + 1);
             foreach (var t in filtered)
             {
@@ -659,7 +659,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment2D[] Split(this BezierSegment2D bezier, double t) => SplitBezier(bezier?.Points, t);
+        public static BezierSegment2D[] Split(this BezierSegment2D bezier, double t) => SplitBezier(bezier.Points, t);
 
         /// <summary>
         /// The split.
@@ -689,7 +689,7 @@ namespace Engine
             {
                 var relT = 1d - ((1d - t) / (1d - tLast));
                 tLast = t;
-                var cut = SplitBezier(bezier?.Points, relT);
+                var cut = SplitBezier(bezier.Points, relT);
                 list.Add(cut[0]);
                 start = cut[1];
             }

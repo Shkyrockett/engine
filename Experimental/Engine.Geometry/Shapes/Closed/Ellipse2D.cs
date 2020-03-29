@@ -304,7 +304,7 @@ namespace Engine
         public static Ellipse2D FromValueTuple((double X, double Y, double RX, double RY, double Angle) tuple) => new Ellipse2D(tuple);
         #endregion
 
-        #region Methods
+        #region Standard Methods
         /// <summary>
         /// Raises the property changing event.
         /// </summary>

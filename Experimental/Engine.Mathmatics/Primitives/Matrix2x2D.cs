@@ -202,7 +202,7 @@ namespace Engine
         /// The determinant.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Determinant => Determinant(M0x0, M0x1, M1x0, M1x1);
+        public double Determinant => MatrixDeterminant(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
         /// Swap the rows of the matrix with the columns.
@@ -211,7 +211,7 @@ namespace Engine
         /// The transposed.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix2x2D Transposed => Transpose(M0x0, M0x1, M1x0, M1x1);
+        public Matrix2x2D Transposed => TransposeMatrix(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
         /// Gets the adjoint.
@@ -220,7 +220,7 @@ namespace Engine
         /// The adjoint.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix2x2D Adjoint => Adjoint(M0x0, M0x1, M1x0, M1x1);
+        public Matrix2x2D Adjoint => AdjointMatrix(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
         /// Gets the cofactor.
@@ -229,7 +229,7 @@ namespace Engine
         /// The cofactor.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix2x2D Cofactor => Cofactor(M0x0, M0x1, M1x0, M1x1);
+        public Matrix2x2D Cofactor => CofactorMatrix(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
         /// Gets the inverted.
@@ -238,7 +238,7 @@ namespace Engine
         /// The inverted.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix2x2D Inverted => Invert(M0x0, M0x1, M1x0, M1x1);
+        public Matrix2x2D Inverted => InvertMatrix(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
@@ -247,7 +247,7 @@ namespace Engine
         ///   <see langword="true"/> if this instance is identity; otherwise, <see langword="false"/>.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public bool IsIdentity => IsIdentity(M0x0, M0x1, M1x0, M1x1);
+        public bool IsIdentity => IsMatrixIdentity(M0x0, M0x1, M1x0, M1x1);
         #endregion Properties
 
         #region Operators
@@ -456,11 +456,11 @@ namespace Engine
         public static Matrix2x2D Multiply(Matrix2x2D multiplicand, Matrix2x2D multiplier) => Multiply2x2x2x2(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M1x0, multiplicand.M1x1, multiplier.M0x0, multiplier.M0x1, multiplier.M1x0, multiplier.M1x1);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -520,7 +520,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix2x2D FromScale(Vector2D scale) => new Matrix2x2D(scale.I, 0, 0, scale.J);
+        public static Matrix2x2D FromScale(Vector2D scale) => new Matrix2x2D(scale.I, 0d, 0d, scale.J);
 
         /// <summary>
         /// Creates a scaling transform around the origin
@@ -530,7 +530,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix2x2D FromScale(double scaleX, double scaleY) => new Matrix2x2D(scaleX, 0, 0, scaleY);
+        public static Matrix2x2D FromScale(double scaleX, double scaleY) => new Matrix2x2D(scaleX, 0d, 0d, scaleY);
 
         /// <summary>
         /// Creates a skew transform

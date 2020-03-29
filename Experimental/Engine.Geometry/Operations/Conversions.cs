@@ -463,11 +463,11 @@ namespace Engine
         public static (double ax, double ay, double bx, double by, double cx, double cy) VertexParabolaToQuadraticBezier(double a, double h, double k, double x1, double x2)
         {
             // Get the vertical components of the end points.
-            var y1 = a * ((h * h) + (-2d * h * x1) + (x1 * x1)) + k;
-            var y2 = a * ((h * h) + (-2d * h * x2) + (x2 * x2)) + k;
+            var y1 = (a * ((h * h) + (-2d * h * x1) + (x1 * x1))) + k;
+            var y2 = (a * ((h * h) + (-2d * h * x2) + (x2 * x2))) + k;
             // Find the intersection of the tangents at the end nodes to find the center node.
             var cx = (x2 + x1) * 0.5;
-            var cy = a * ((h * x1) + (x1 * x2) - (h * x2) - (x1 * x1)) + y1;
+            var cy = (a * ((h * x1) + (x1 * x2) - (h * x2) - (x1 * x1))) + y1;
             return (x1, y1, cx, cy, x2, y2);
         }
 
@@ -566,7 +566,7 @@ namespace Engine
             if (u == 0d && v == 0d)
             {
                 // If y1, y2 and k are all the same, the parabola myst be a straight line.
-                return (x2 + (x2 - x1) * OneHalf, double.NaN);
+                return (x2 + ((x2 - x1) * OneHalf), double.NaN);
             }
             else if (u == 0d)
             {
@@ -579,7 +579,7 @@ namespace Engine
                 return (x2, x2);
             }
 
-            var a = 1d - v / u;
+            var a = 1d - (v / u);
             var b = (-2d * x2) + (2d * x1 * (v / u));
             var c = (x2 * x2​) - (x1 * x1 * (v / u));
 
@@ -723,7 +723,7 @@ namespace Engine
         [DebuggerStepThrough]
         public static double ChangeUnitFromBase(double value, double multiplier, double @base = 1, double addend = 0)
         {
-            value = Pow(value, @base) * multiplier + addend;
+            value = (Pow(value, @base) * multiplier) + addend;
             return value;
         }
     }

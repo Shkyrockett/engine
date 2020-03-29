@@ -1,11 +1,10 @@
-﻿// <copyright file="Vector2DConverter.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+﻿// <copyright file="Matrix5x5DConverter.cs" company="Shkyrockett" >
+//     Copyright © 2013 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <author id="shkyrockett">Shkyrockett</author>
-// <date></date>
 // <summary></summary>
 // <remarks></remarks>
 
@@ -16,9 +15,12 @@ using System.Globalization;
 namespace Engine
 {
     /// <summary>
-    /// VectorConverter - Converter class for converting instances of other types to and from Vector instances
+    /// The Matrix5x5D converter class.
     /// </summary>
-    public sealed class Vector2DConverter
+    /// <remarks>
+    /// http://referencesource.microsoft.com
+    /// </remarks>
+    public sealed class Matrix5x5DConverter
         : TypeConverter
     {
         /// <summary>
@@ -42,18 +44,18 @@ namespace Engine
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
 
         /// <summary>
-        /// Attempts to convert to a Vector from the given object.
+        /// Attempts to convert to a Matrix from the given object.
         /// </summary>
         /// <returns>
-        /// The Vector which was constructed.
+        /// The Matrix which was constructed.
         /// </returns>
         /// <exception cref="NotSupportedException">
         /// A NotSupportedException is thrown if the example object is null or is not a valid type
-        /// which can be converted to a Vector.
+        /// which can be converted to a Matrix.
         /// </exception>
         /// <param name="context"> The ITypeDescriptorContext for this call. </param>
         /// <param name="culture"> The requested CultureInfo.  Note that conversion uses "en-US" rather than this parameter. </param>
-        /// <param name="value"> The object to convert to an instance of Vector. </param>
+        /// <param name="value"> The object to convert to an instance of Matrix. </param>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is null)
@@ -63,29 +65,29 @@ namespace Engine
 
             if (value is string source)
             {
-                return Vector2D.Parse(source);
+                return Matrix5x5D.Parse(source);
             }
 
             return base.ConvertFrom(context, culture, value);
         }
 
         /// <summary>
-        /// ConvertTo - Attempt to convert an instance of Vector to the given type
+        /// ConvertTo - Attempt to convert an instance of Matrix to the given type
         /// </summary>
         /// <returns>
         /// The object which was constructed.
         /// </returns>
         /// <exception cref="NotSupportedException">
-        /// A NotSupportedException is thrown if "value" is null or not an instance of Vector,
+        /// A NotSupportedException is thrown if "value" is null or not an instance of Matrix,
         /// or if the destinationType isn't one of the valid destination types.
         /// </exception>
         /// <param name="context"> The ITypeDescriptorContext for this call. </param>
         /// <param name="culture"> The CultureInfo which is respected when converting. </param>
         /// <param name="value"> The object to convert to an instance of "destinationType". </param>
-        /// <param name="destinationType"> The type to which this will convert the Vector instance. </param>
+        /// <param name="destinationType"> The type to which this will convert the Matrix instance. </param>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (!(destinationType is null) && value is Vector2D instance)
+            if (!(destinationType is null) && value is Matrix5x5D instance)
             {
                 if (destinationType == typeof(string))
                 {

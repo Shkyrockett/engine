@@ -1,4 +1,4 @@
-﻿// <copyright file="Vector2DConverter.cs" company="Shkyrockett" >
+﻿// <copyright file="Vector5DConverter.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
@@ -18,7 +18,7 @@ namespace Engine
     /// <summary>
     /// VectorConverter - Converter class for converting instances of other types to and from Vector instances
     /// </summary>
-    public sealed class Vector2DConverter
+    public sealed class Vector5DConverter
         : TypeConverter
     {
         /// <summary>
@@ -63,7 +63,7 @@ namespace Engine
 
             if (value is string source)
             {
-                return Vector2D.Parse(source);
+                return Vector5D.Parse(source);
             }
 
             return base.ConvertFrom(context, culture, value);
@@ -85,7 +85,7 @@ namespace Engine
         /// <param name="destinationType"> The type to which this will convert the Vector instance. </param>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (!(destinationType is null) && value is Vector2D instance)
+            if (!(destinationType is null) && value is Vector5D instance)
             {
                 if (destinationType == typeof(string))
                 {

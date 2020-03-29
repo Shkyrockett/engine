@@ -89,10 +89,7 @@ namespace Engine
         public Vector4D(double i, double j, double k, double l)
             : this()
         {
-            I = i;
-            J = j;
-            K = k;
-            L = l;
+            (I, J, K, L) = (i, j, k, l);
         }
 
         /// <summary>
@@ -147,10 +144,15 @@ namespace Engine
         {
             (var i, var j, var k, var l) = (bI - aI, bJ - aJ, bK - aK, bL - aL);
             var d = Sqrt((i * i) + (j * j) + (k * k) + (l * l));
-            I = i * 1d / d;
-            J = j * 1d / d;
-            K = k * 1d / d;
-            L = l * 1d / d;
+            if (d is 0d)
+            {
+                // ToDo: Figure out what to do when d is 0;
+                (I, J, K, L) = (i * 1d / d, j * 1d / d, k * 1d / d, l * 1d / d);
+            }
+            else
+            {
+                (I, J, K, L) = (i * 1d / d, j * 1d / d, k * 1d / d, l * 1d / d);
+            }
         }
         #endregion Constructors
 
@@ -165,13 +167,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out double i, out double j, out double k, out double l)
-        {
-            i = I;
-            j = J;
-            k = K;
-            l = L;
-        }
+        public void Deconstruct(out double i, out double j, out double k, out double l) => (i, j, k, l) = (I, J, K, L);
         #endregion Deconstructors
 
         #region Properties

@@ -176,10 +176,10 @@ namespace Engine
         {
             var polygon = new Polyline2D();
 
-            var offsetLine = OffsetSegment((polyline?.Points[0]).Value, polyline.Points[1], offset).ToLine();
+            var offsetLine = OffsetSegment((polyline.Points[0]), polyline.Points[1], offset).ToLine();
             polygon.Add(offsetLine.Location);
 
-            for (var i = 2; i < polyline?.Points.Count; i++)
+            for (var i = 2; i < polyline.Points.Count; i++)
             {
                 var newOffsetLine = OffsetSegment(polyline.Points[i - 1], polyline.Points[i], offset).ToLine();
                 polygon.Add(offsetLine.Intersection(newOffsetLine)[0]);
@@ -200,14 +200,14 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour2D Offset(this PolygonContour2D polygon, double offset)
         {
-            var points = polygon?.Points as List<Point2D>;
+            var points = polygon.Points as List<Point2D>;
 
             var polyline = new PolygonContour2D();
 
             var offsetLine = OffsetSegment(points[polygon.Points.Count - 1], points[0], offset).ToLine();
             var startLine = offsetLine;
 
-            for (var i = 1; i < polygon?.Points.Count; i++)
+            for (var i = 1; i < polygon.Points.Count; i++)
             {
                 var newOffsetLine = OffsetSegment(points[i - 1], points[i], offset).ToLine();
                 polyline.Add(offsetLine.Intersection(newOffsetLine)[0]);

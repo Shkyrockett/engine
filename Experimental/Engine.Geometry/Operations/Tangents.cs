@@ -24,8 +24,8 @@ namespace Engine
             var By = by - ay;
             var Ax = ax - (bx * 2d) + cx;
             var Ay = ay - (by * 2d) + cy;
-            var tanx = Ax * t + Bx;
-            var tany = Ay * t + By;
+            var tanx = (Ax * t) + Bx;
+            var tany = (Ay * t) + By;
             return (tanx, tany);
         }
 
@@ -49,15 +49,15 @@ namespace Engine
             var t2 = t * t;
 
             var tangent = (X:
-                (-u2) * ax +
-                u * (u - 2d * t) * bx -
-                t * (t - 2d * u) * cx +
-                t2 * dx, Y:
-                (-u2) * ay +
-                u * (u - 2d * t) * by -
-                t * (t - 2d * u) * cy +
-                t2 * dy);
-            var distance = Math.Sqrt(tangent.X * tangent.X + tangent.Y * tangent.Y);
+                ((-u2) * ax) +
+                (u * (u - (2d * t)) * bx) -
+                (t * (t - (2d * u)) * cx) +
+                (t2 * dx), Y:
+                ((-u2) * ay) +
+                (u * (u - (2d * t)) * by) -
+                (t * (t - (2d * u)) * cy) +
+                (t2 * dy));
+            var distance = Math.Sqrt((tangent.X * tangent.X) + (tangent.Y * tangent.Y));
             return (tangent.X / distance, tangent.Y / distance);
         }
     }

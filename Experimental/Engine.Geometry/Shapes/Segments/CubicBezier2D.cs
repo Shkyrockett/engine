@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
@@ -46,6 +47,15 @@ namespace Engine
             : this(new Point2D(aX, aY), new Point2D(bX, bY), new Point2D(cX, cY), new Point2D(dX, dY))
         { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CubicBezier2D"/> struct.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier2D(Point2D a, Point2D b, Point2D c, Point2D d)
             : this()
         {
@@ -55,20 +65,123 @@ namespace Engine
             D = d;
         }
 
+        /// <summary>
+        /// Gets the points.
+        /// </summary>
+        /// <value>
+        /// The points.
+        /// </value>
         public IEnumerable<Point2D> Points { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets a.
+        /// </summary>
+        /// <value>
+        /// a.
+        /// </value>
         public Point2D A { get; set; }
+
+        /// <summary>
+        /// Gets or sets the b.
+        /// </summary>
+        /// <value>
+        /// The b.
+        /// </value>
         public Point2D B { get; set; }
+
+        /// <summary>
+        /// Gets or sets the c.
+        /// </summary>
+        /// <value>
+        /// The c.
+        /// </value>
         public Point2D C { get; set; }
+
         public Point2D D { get; set; }
+
+        /// <summary>
+        /// Gets the curve x.
+        /// </summary>
+        /// <value>
+        /// The curve x.
+        /// </value>
         public Polynomial CurveX { get; internal set; }
+
+        /// <summary>
+        /// Gets the curve y.
+        /// </summary>
+        /// <value>
+        /// The curve y.
+        /// </value>
         public Polynomial CurveY { get; internal set; }
 
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(CubicBezier2D left, CubicBezier2D right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(CubicBezier2D left, CubicBezier2D right) => !(left == right);
 
-        public override bool Equals(object obj) => obj is CubicBezier2D d && Equals(d);
-        public bool Equals(CubicBezier2D other) => A.Equals(other.A) && B.Equals(other.B) && C.Equals(other.C) && D.Equals(other.D);
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals([AllowNull] object obj) => obj is CubicBezier2D d && Equals(d);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals([AllowNull] CubicBezier2D other) => A.Equals(other.A) && B.Equals(other.B) && C.Equals(other.C) && D.Equals(other.D);
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => HashCode.Combine(A, B, C, D);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The format provider.</param>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

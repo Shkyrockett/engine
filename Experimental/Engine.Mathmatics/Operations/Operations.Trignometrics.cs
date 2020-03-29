@@ -31,7 +31,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double cos, double sin) RotateAngleVector(double x, double y, double cos, double sin) => (x * cos - y * sin, x * sin + y * cos);
+        public static (double cos, double sin) RotateAngleVector(double x, double y, double cos, double sin) => ((x * cos) - (y * sin), (x * sin) + (y * cos));
 
         /// <summary>
         /// Find the incidence category of vector Angles.

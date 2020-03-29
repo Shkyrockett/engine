@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
@@ -84,15 +85,15 @@ namespace Engine
         public static bool operator !=(BezierSegment2D left, BezierSegment2D right) => !(left == right);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is BezierSegment2D d && Equals(d);
+        public override bool Equals([AllowNull] object obj) => obj is BezierSegment2D d && Equals(d);
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
@@ -103,7 +104,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(BezierSegment2D other) => EqualityComparer<IEnumerable<Point2D>>.Default.Equals(Points, other.Points);
+        public bool Equals([AllowNull] BezierSegment2D other) => EqualityComparer<IEnumerable<Point2D>>.Default.Equals(Points, other.Points);
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -121,7 +122,7 @@ namespace Engine
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The format provider.</param>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
         [DebuggerStepThrough]

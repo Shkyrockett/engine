@@ -54,10 +54,10 @@ namespace Engine
             var t = typeof(TType);
             parse = ParseMethodAttribute.GetParseMethod(t);
             descriptions = AdvBrowsableAttribute.GetDispMembers(t);
-            if (descriptions != null)
+            if (descriptions is null)
             {
                 instanceCtor = InstanceConstructorAttribute.GetConstructor(t, out instanceCtorParamNames);
-                if (instanceCtor != null)
+                if (instanceCtor is null)
                 {
                     var paraminfos = instanceCtor.GetParameters();
                     if (paraminfos.Length == instanceCtorParamNames.Length)
@@ -89,7 +89,7 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="sourceType">The sourceType.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => (parse != null && sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => (!(parse is null) && sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
 
         /// <summary>
         /// The can convert to.
@@ -99,7 +99,7 @@ namespace Engine
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => (instanceCtor != null && destinationType == typeof(InstanceDescriptor)) || base.CanConvertTo(context, destinationType);
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => (!(instanceCtor is null) && destinationType == typeof(InstanceDescriptor)) || base.CanConvertTo(context, destinationType);
 
         /// <summary>
         /// Get the create instance supported.
@@ -108,14 +108,14 @@ namespace Engine
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
-        public override bool GetCreateInstanceSupported(ITypeDescriptorContext context) => instanceCtor != null || base.GetCreateInstanceSupported(context);
+        public override bool GetCreateInstanceSupported(ITypeDescriptorContext context) => !(instanceCtor is null) || base.GetCreateInstanceSupported(context);
 
         /// <summary>
         /// Get the properties supported.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool GetPropertiesSupported(ITypeDescriptorContext context) => descriptions != null || base.GetPropertiesSupported(context);
+        public override bool GetPropertiesSupported(ITypeDescriptorContext context) => !(descriptions is null) || base.GetPropertiesSupported(context);
 
         /// <summary>
         /// Convert the from.
@@ -128,11 +128,11 @@ namespace Engine
         /// </returns>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (parse != null && value is string)
+            if (!(parse is null) && value is string s)
             {
                 try
                 {
-                    return parse.Invoke(null, new object[] { value });
+                    return parse.Invoke(null, new object[] { s });
                 }
                 catch (TargetInvocationException)
                 {
@@ -155,11 +155,9 @@ namespace Engine
         /// </returns>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (instanceCtor != null &&
-                value is TType &&
-                destinationType == typeof(InstanceDescriptor))
+            if (!(instanceCtor is null) && value is TType v && destinationType == typeof(InstanceDescriptor))
             {
-                return new InstanceDescriptor(instanceCtor, GetInstanceDescriptorObjects(value));
+                return new InstanceDescriptor(instanceCtor, GetInstanceDescriptorObjects(v));
             }
 
             return base.ConvertTo(context, culture, value, destinationType);
@@ -175,7 +173,7 @@ namespace Engine
         /// </returns>
         public override object CreateInstance(ITypeDescriptorContext context, IDictionary propertyValues)
         {
-            if (instanceCtor != null && propertyValues != null)
+            if (!(instanceCtor is null) && !(propertyValues is null))
             {
                 try
                 {
@@ -186,6 +184,7 @@ namespace Engine
                     throw;// ex.InnerException;
                 }
             }
+
             return base.CreateInstance(context, propertyValues);
         }
 
@@ -200,7 +199,7 @@ namespace Engine
         /// </returns>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
-            if (descriptions != null)
+            if (!(descriptions is null))
             {
                 return descriptions;
             }

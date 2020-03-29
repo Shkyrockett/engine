@@ -153,12 +153,12 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D this[int index]
         {
-            get { return (Points as List<Point2D>)[index]; }
+            get { return Points[index]; }
             set
             {
                 OnPropertyChanging();
                 (this as IPropertyCaching).ClearCache();
-                (Points as List<Point2D>)[index] = value;
+                Points[index] = value;
                 OnPropertyChanged();
             }
         }
@@ -473,11 +473,11 @@ namespace Engine
 
         #region Operator Baking Methods
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

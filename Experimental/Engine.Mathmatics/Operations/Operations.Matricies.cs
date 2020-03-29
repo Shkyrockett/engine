@@ -21,12 +21,12 @@ namespace Engine
     {
         #region Unary Add
         /// <summary>
-        ///	Posates a <see cref="Matrix2x2D"/>.
+        /// Posates a <see cref="Matrix2x2D" />.
         /// </summary>
-        /// <param name="sourceM0x0"></param>
-        /// <param name="sourceM0x1"></param>
-        /// <param name="sourceM1x0"></param>
-        /// <param name="sourceM1x1"></param>
+        /// <param name="sourceM0x0">The source M0X0.</param>
+        /// <param name="sourceM0x1">The source M0X1.</param>
+        /// <param name="sourceM1x0">The source M1X0.</param>
+        /// <param name="sourceM1x1">The source M1X1.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -39,17 +39,17 @@ namespace Engine
                 +sourceM1x0, +sourceM1x1);
 
         /// <summary>
-        ///	Posates a <see cref="Matrix3x3D"/>.
+        /// Posates a <see cref="Matrix3x3D" />.
         /// </summary>
-        /// <param name="sourceM0x0"></param>
-        /// <param name="sourceM0x1"></param>
-        /// <param name="sourceM0x2"></param>
-        /// <param name="sourceM1x0"></param>
-        /// <param name="sourceM1x1"></param>
-        /// <param name="sourceM1x2"></param>
-        /// <param name="sourceM2x0"></param>
-        /// <param name="sourceM2x1"></param>
-        /// <param name="sourceM2x2"></param>
+        /// <param name="sourceM0x0">The source M0X0.</param>
+        /// <param name="sourceM0x1">The source M0X1.</param>
+        /// <param name="sourceM0x2">The source M0X2.</param>
+        /// <param name="sourceM1x0">The source M1X0.</param>
+        /// <param name="sourceM1x1">The source M1X1.</param>
+        /// <param name="sourceM1x2">The source M1X2.</param>
+        /// <param name="sourceM2x0">The source M2X0.</param>
+        /// <param name="sourceM2x1">The source M2X1.</param>
+        /// <param name="sourceM2x2">The source M2X2.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -65,24 +65,24 @@ namespace Engine
                 +sourceM2x0, +sourceM2x1, +sourceM2x2);
 
         /// <summary>
-        ///	Posates a <see cref="Matrix4x4D"/>.
+        /// Posates a <see cref="Matrix4x4D" />.
         /// </summary>
-        /// <param name="sourceM0x0"></param>
-        /// <param name="sourceM0x1"></param>
-        /// <param name="sourceM0x2"></param>
-        /// <param name="sourceM0x3"></param>
-        /// <param name="sourceM1x0"></param>
-        /// <param name="sourceM1x1"></param>
-        /// <param name="sourceM1x2"></param>
-        /// <param name="sourceM1x3"></param>
-        /// <param name="sourceM2x0"></param>
-        /// <param name="sourceM2x1"></param>
-        /// <param name="sourceM2x2"></param>
-        /// <param name="sourceM2x3"></param>
-        /// <param name="sourceM3x0"></param>
-        /// <param name="sourceM3x1"></param>
-        /// <param name="sourceM3x2"></param>
-        /// <param name="sourceM3x3"></param>
+        /// <param name="sourceM0x0">The source M0X0.</param>
+        /// <param name="sourceM0x1">The source M0X1.</param>
+        /// <param name="sourceM0x2">The source M0X2.</param>
+        /// <param name="sourceM0x3">The source M0X3.</param>
+        /// <param name="sourceM1x0">The source M1X0.</param>
+        /// <param name="sourceM1x1">The source M1X1.</param>
+        /// <param name="sourceM1x2">The source M1X2.</param>
+        /// <param name="sourceM1x3">The source M1X3.</param>
+        /// <param name="sourceM2x0">The source M2X0.</param>
+        /// <param name="sourceM2x1">The source M2X1.</param>
+        /// <param name="sourceM2x2">The source M2X2.</param>
+        /// <param name="sourceM2x3">The source M2X3.</param>
+        /// <param name="sourceM3x0">The source M3X0.</param>
+        /// <param name="sourceM3x1">The source M3X1.</param>
+        /// <param name="sourceM3x2">The source M3X2.</param>
+        /// <param name="sourceM3x3">The source M3X3.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -101,33 +101,33 @@ namespace Engine
                 +sourceM3x0, +sourceM3x1, +sourceM3x2, +sourceM3x3);
 
         /// <summary>
-        ///	Posates a Matrix5x5D.
+        /// Posates a Matrix5x5D.
         /// </summary>
-        /// <param name="sourceM0x0"></param>
-        /// <param name="sourceM0x1"></param>
-        /// <param name="sourceM0x2"></param>
-        /// <param name="sourceM0x3"></param>
-        /// <param name="sourceM0x4"></param>
-        /// <param name="sourceM1x0"></param>
-        /// <param name="sourceM1x1"></param>
-        /// <param name="sourceM1x2"></param>
-        /// <param name="sourceM1x3"></param>
-        /// <param name="sourceM1x4"></param>
-        /// <param name="sourceM2x0"></param>
-        /// <param name="sourceM2x1"></param>
-        /// <param name="sourceM2x2"></param>
-        /// <param name="sourceM2x3"></param>
-        /// <param name="sourceM2x4"></param>
-        /// <param name="sourceM3x0"></param>
-        /// <param name="sourceM3x1"></param>
-        /// <param name="sourceM3x2"></param>
-        /// <param name="sourceM3x3"></param>
-        /// <param name="sourceM3x4"></param>
-        /// <param name="sourceM4x0"></param>
-        /// <param name="sourceM4x1"></param>
-        /// <param name="sourceM4x2"></param>
-        /// <param name="sourceM4x3"></param>
-        /// <param name="sourceM4x4"></param>
+        /// <param name="sourceM0x0">The source M0X0.</param>
+        /// <param name="sourceM0x1">The source M0X1.</param>
+        /// <param name="sourceM0x2">The source M0X2.</param>
+        /// <param name="sourceM0x3">The source M0X3.</param>
+        /// <param name="sourceM0x4">The source M0X4.</param>
+        /// <param name="sourceM1x0">The source M1X0.</param>
+        /// <param name="sourceM1x1">The source M1X1.</param>
+        /// <param name="sourceM1x2">The source M1X2.</param>
+        /// <param name="sourceM1x3">The source M1X3.</param>
+        /// <param name="sourceM1x4">The source M1X4.</param>
+        /// <param name="sourceM2x0">The source M2X0.</param>
+        /// <param name="sourceM2x1">The source M2X1.</param>
+        /// <param name="sourceM2x2">The source M2X2.</param>
+        /// <param name="sourceM2x3">The source M2X3.</param>
+        /// <param name="sourceM2x4">The source M2X4.</param>
+        /// <param name="sourceM3x0">The source M3X0.</param>
+        /// <param name="sourceM3x1">The source M3X1.</param>
+        /// <param name="sourceM3x2">The source M3X2.</param>
+        /// <param name="sourceM3x3">The source M3X3.</param>
+        /// <param name="sourceM3x4">The source M3X4.</param>
+        /// <param name="sourceM4x0">The source M4X0.</param>
+        /// <param name="sourceM4x1">The source M4X1.</param>
+        /// <param name="sourceM4x2">The source M4X2.</param>
+        /// <param name="sourceM4x3">The source M4X3.</param>
+        /// <param name="sourceM4x4">The source M4X4.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -149,44 +149,44 @@ namespace Engine
                 +sourceM4x0, +sourceM4x1, +sourceM4x2, +sourceM4x3, +sourceM4x4);
 
         /// <summary>
-        ///	Posates a Matrix6x6D.
+        /// Posates a Matrix6x6D.
         /// </summary>
-        /// <param name="sourceM0x0"></param>
-        /// <param name="sourceM0x1"></param>
-        /// <param name="sourceM0x2"></param>
-        /// <param name="sourceM0x3"></param>
-        /// <param name="sourceM0x4"></param>
-        /// <param name="sourceM0x5"></param>
-        /// <param name="sourceM1x0"></param>
-        /// <param name="sourceM1x1"></param>
-        /// <param name="sourceM1x2"></param>
-        /// <param name="sourceM1x3"></param>
-        /// <param name="sourceM1x4"></param>
-        /// <param name="sourceM1x5"></param>
-        /// <param name="sourceM2x0"></param>
-        /// <param name="sourceM2x1"></param>
-        /// <param name="sourceM2x2"></param>
-        /// <param name="sourceM2x3"></param>
-        /// <param name="sourceM2x4"></param>
-        /// <param name="sourceM2x5"></param>
-        /// <param name="sourceM3x0"></param>
-        /// <param name="sourceM3x1"></param>
-        /// <param name="sourceM3x2"></param>
-        /// <param name="sourceM3x3"></param>
-        /// <param name="sourceM3x4"></param>
-        /// <param name="sourceM3x5"></param>
-        /// <param name="sourceM4x0"></param>
-        /// <param name="sourceM4x1"></param>
-        /// <param name="sourceM4x2"></param>
-        /// <param name="sourceM4x3"></param>
-        /// <param name="sourceM4x4"></param>
-        /// <param name="sourceM4x5"></param>
-        /// <param name="sourceM5x0"></param>
-        /// <param name="sourceM5x1"></param>
-        /// <param name="sourceM5x2"></param>
-        /// <param name="sourceM5x3"></param>
-        /// <param name="sourceM5x4"></param>
-        /// <param name="sourceM5x5"></param>
+        /// <param name="sourceM0x0">The source M0X0.</param>
+        /// <param name="sourceM0x1">The source M0X1.</param>
+        /// <param name="sourceM0x2">The source M0X2.</param>
+        /// <param name="sourceM0x3">The source M0X3.</param>
+        /// <param name="sourceM0x4">The source M0X4.</param>
+        /// <param name="sourceM0x5">The source M0X5.</param>
+        /// <param name="sourceM1x0">The source M1X0.</param>
+        /// <param name="sourceM1x1">The source M1X1.</param>
+        /// <param name="sourceM1x2">The source M1X2.</param>
+        /// <param name="sourceM1x3">The source M1X3.</param>
+        /// <param name="sourceM1x4">The source M1X4.</param>
+        /// <param name="sourceM1x5">The source M1X5.</param>
+        /// <param name="sourceM2x0">The source M2X0.</param>
+        /// <param name="sourceM2x1">The source M2X1.</param>
+        /// <param name="sourceM2x2">The source M2X2.</param>
+        /// <param name="sourceM2x3">The source M2X3.</param>
+        /// <param name="sourceM2x4">The source M2X4.</param>
+        /// <param name="sourceM2x5">The source M2X5.</param>
+        /// <param name="sourceM3x0">The source M3X0.</param>
+        /// <param name="sourceM3x1">The source M3X1.</param>
+        /// <param name="sourceM3x2">The source M3X2.</param>
+        /// <param name="sourceM3x3">The source M3X3.</param>
+        /// <param name="sourceM3x4">The source M3X4.</param>
+        /// <param name="sourceM3x5">The source M3X5.</param>
+        /// <param name="sourceM4x0">The source M4X0.</param>
+        /// <param name="sourceM4x1">The source M4X1.</param>
+        /// <param name="sourceM4x2">The source M4X2.</param>
+        /// <param name="sourceM4x3">The source M4X3.</param>
+        /// <param name="sourceM4x4">The source M4X4.</param>
+        /// <param name="sourceM4x5">The source M4X5.</param>
+        /// <param name="sourceM5x0">The source M5X0.</param>
+        /// <param name="sourceM5x1">The source M5X1.</param>
+        /// <param name="sourceM5x2">The source M5X2.</param>
+        /// <param name="sourceM5x3">The source M5X3.</param>
+        /// <param name="sourceM5x4">The source M5X4.</param>
+        /// <param name="sourceM5x5">The source M5X5.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -247,14 +247,14 @@ namespace Engine
         /// <summary>
         /// Used to add two matrices together.
         /// </summary>
-        /// <param name="augendM0x0"></param>
-        /// <param name="augendM0x1"></param>
-        /// <param name="augendM1x0"></param>
-        /// <param name="augendM1x1"></param>
-        /// <param name="addendM0x0"></param>
-        /// <param name="addendM0x1"></param>
-        /// <param name="addendM1x0"></param>
-        /// <param name="addendM1x1"></param>
+        /// <param name="augendM0x0">The augend M0X0.</param>
+        /// <param name="augendM0x1">The augend M0X1.</param>
+        /// <param name="augendM1x0">The augend M1X0.</param>
+        /// <param name="augendM1x1">The augend M1X1.</param>
+        /// <param name="addendM0x0">The addend M0X0.</param>
+        /// <param name="addendM0x1">The addend M0X1.</param>
+        /// <param name="addendM1x0">The addend M1X0.</param>
+        /// <param name="addendM1x1">The addend M1X1.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -272,24 +272,24 @@ namespace Engine
         /// <summary>
         /// Used to add two matrices together.
         /// </summary>
-        /// <param name="augendM0x0"></param>
-        /// <param name="augendM0x1"></param>
-        /// <param name="augendM0x2"></param>
-        /// <param name="augendM1x0"></param>
-        /// <param name="augendM1x1"></param>
-        /// <param name="augendM1x2"></param>
-        /// <param name="augendM2x0"></param>
-        /// <param name="augendM2x1"></param>
-        /// <param name="augendM2x2"></param>
-        /// <param name="addendM0x0"></param>
-        /// <param name="addendM0x1"></param>
-        /// <param name="addendM0x2"></param>
-        /// <param name="addendM1x0"></param>
-        /// <param name="addendM1x1"></param>
-        /// <param name="addendM1x2"></param>
-        /// <param name="addendM2x0"></param>
-        /// <param name="addendM2x1"></param>
-        /// <param name="addendM2x2"></param>
+        /// <param name="augendM0x0">The augend M0X0.</param>
+        /// <param name="augendM0x1">The augend M0X1.</param>
+        /// <param name="augendM0x2">The augend M0X2.</param>
+        /// <param name="augendM1x0">The augend M1X0.</param>
+        /// <param name="augendM1x1">The augend M1X1.</param>
+        /// <param name="augendM1x2">The augend M1X2.</param>
+        /// <param name="augendM2x0">The augend M2X0.</param>
+        /// <param name="augendM2x1">The augend M2X1.</param>
+        /// <param name="augendM2x2">The augend M2X2.</param>
+        /// <param name="addendM0x0">The addend M0X0.</param>
+        /// <param name="addendM0x1">The addend M0X1.</param>
+        /// <param name="addendM0x2">The addend M0X2.</param>
+        /// <param name="addendM1x0">The addend M1X0.</param>
+        /// <param name="addendM1x1">The addend M1X1.</param>
+        /// <param name="addendM1x2">The addend M1X2.</param>
+        /// <param name="addendM2x0">The addend M2X0.</param>
+        /// <param name="addendM2x1">The addend M2X1.</param>
+        /// <param name="addendM2x2">The addend M2X2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -311,38 +311,38 @@ namespace Engine
         /// <summary>
         /// Used to add two matrices together.
         /// </summary>
-        /// <param name="augendM0x0"></param>
-        /// <param name="augendM0x1"></param>
-        /// <param name="augendM0x2"></param>
-        /// <param name="augendM0x3"></param>
-        /// <param name="augendM1x0"></param>
-        /// <param name="augendM1x1"></param>
-        /// <param name="augendM1x2"></param>
-        /// <param name="augendM1x3"></param>
-        /// <param name="augendM2x0"></param>
-        /// <param name="augendM2x1"></param>
-        /// <param name="augendM2x2"></param>
-        /// <param name="augendM2x3"></param>
-        /// <param name="augendM3x0"></param>
-        /// <param name="augendM3x1"></param>
-        /// <param name="augendM3x2"></param>
-        /// <param name="augendM3x3"></param>
-        /// <param name="addendM0x0"></param>
-        /// <param name="addendM0x1"></param>
-        /// <param name="addendM0x2"></param>
-        /// <param name="addendM0x3"></param>
-        /// <param name="addendM1x0"></param>
-        /// <param name="addendM1x1"></param>
-        /// <param name="addendM1x2"></param>
-        /// <param name="addendM1x3"></param>
-        /// <param name="addendM2x0"></param>
-        /// <param name="addendM2x1"></param>
-        /// <param name="addendM2x2"></param>
-        /// <param name="addendM2x3"></param>
-        /// <param name="addendM3x0"></param>
-        /// <param name="addendM3x1"></param>
-        /// <param name="addendM3x2"></param>
-        /// <param name="addendM3x3"></param>
+        /// <param name="augendM0x0">The augend M0X0.</param>
+        /// <param name="augendM0x1">The augend M0X1.</param>
+        /// <param name="augendM0x2">The augend M0X2.</param>
+        /// <param name="augendM0x3">The augend M0X3.</param>
+        /// <param name="augendM1x0">The augend M1X0.</param>
+        /// <param name="augendM1x1">The augend M1X1.</param>
+        /// <param name="augendM1x2">The augend M1X2.</param>
+        /// <param name="augendM1x3">The augend M1X3.</param>
+        /// <param name="augendM2x0">The augend M2X0.</param>
+        /// <param name="augendM2x1">The augend M2X1.</param>
+        /// <param name="augendM2x2">The augend M2X2.</param>
+        /// <param name="augendM2x3">The augend M2X3.</param>
+        /// <param name="augendM3x0">The augend M3X0.</param>
+        /// <param name="augendM3x1">The augend M3X1.</param>
+        /// <param name="augendM3x2">The augend M3X2.</param>
+        /// <param name="augendM3x3">The augend M3X3.</param>
+        /// <param name="addendM0x0">The addend M0X0.</param>
+        /// <param name="addendM0x1">The addend M0X1.</param>
+        /// <param name="addendM0x2">The addend M0X2.</param>
+        /// <param name="addendM0x3">The addend M0X3.</param>
+        /// <param name="addendM1x0">The addend M1X0.</param>
+        /// <param name="addendM1x1">The addend M1X1.</param>
+        /// <param name="addendM1x2">The addend M1X2.</param>
+        /// <param name="addendM1x3">The addend M1X3.</param>
+        /// <param name="addendM2x0">The addend M2X0.</param>
+        /// <param name="addendM2x1">The addend M2X1.</param>
+        /// <param name="addendM2x2">The addend M2X2.</param>
+        /// <param name="addendM2x3">The addend M2X3.</param>
+        /// <param name="addendM3x0">The addend M3X0.</param>
+        /// <param name="addendM3x1">The addend M3X1.</param>
+        /// <param name="addendM3x2">The addend M3X2.</param>
+        /// <param name="addendM3x3">The addend M3X3.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -368,56 +368,56 @@ namespace Engine
         /// <summary>
         /// Used to add two matrices together.
         /// </summary>
-        /// <param name="augendM0x0"></param>
-        /// <param name="augendM0x1"></param>
-        /// <param name="augendM0x2"></param>
-        /// <param name="augendM0x3"></param>
-        /// <param name="augendM0x4"></param>
-        /// <param name="augendM1x0"></param>
-        /// <param name="augendM1x1"></param>
-        /// <param name="augendM1x2"></param>
-        /// <param name="augendM1x3"></param>
-        /// <param name="augendM1x4"></param>
-        /// <param name="augendM2x0"></param>
-        /// <param name="augendM2x1"></param>
-        /// <param name="augendM2x2"></param>
-        /// <param name="augendM2x3"></param>
-        /// <param name="augendM2x4"></param>
-        /// <param name="augendM3x0"></param>
-        /// <param name="augendM3x1"></param>
-        /// <param name="augendM3x2"></param>
-        /// <param name="augendM3x3"></param>
-        /// <param name="augendM3x4"></param>
-        /// <param name="augendM4x0"></param>
-        /// <param name="augendM4x1"></param>
-        /// <param name="augendM4x2"></param>
-        /// <param name="augendM4x3"></param>
-        /// <param name="augendM4x4"></param>
-        /// <param name="addendM0x0"></param>
-        /// <param name="addendM0x1"></param>
-        /// <param name="addendM0x2"></param>
-        /// <param name="addendM0x3"></param>
-        /// <param name="addendM0x4"></param>
-        /// <param name="addendM1x0"></param>
-        /// <param name="addendM1x1"></param>
-        /// <param name="addendM1x2"></param>
-        /// <param name="addendM1x3"></param>
-        /// <param name="addendM1x4"></param>
-        /// <param name="addendM2x0"></param>
-        /// <param name="addendM2x1"></param>
-        /// <param name="addendM2x2"></param>
-        /// <param name="addendM2x3"></param>
-        /// <param name="addendM2x4"></param>
-        /// <param name="addendM3x0"></param>
-        /// <param name="addendM3x1"></param>
-        /// <param name="addendM3x2"></param>
-        /// <param name="addendM3x3"></param>
-        /// <param name="addendM3x4"></param>
-        /// <param name="addendM4x0"></param>
-        /// <param name="addendM4x1"></param>
-        /// <param name="addendM4x2"></param>
-        /// <param name="addendM4x3"></param>
-        /// <param name="addendM4x4"></param>
+        /// <param name="augendM0x0">The augend M0X0.</param>
+        /// <param name="augendM0x1">The augend M0X1.</param>
+        /// <param name="augendM0x2">The augend M0X2.</param>
+        /// <param name="augendM0x3">The augend M0X3.</param>
+        /// <param name="augendM0x4">The augend M0X4.</param>
+        /// <param name="augendM1x0">The augend M1X0.</param>
+        /// <param name="augendM1x1">The augend M1X1.</param>
+        /// <param name="augendM1x2">The augend M1X2.</param>
+        /// <param name="augendM1x3">The augend M1X3.</param>
+        /// <param name="augendM1x4">The augend M1X4.</param>
+        /// <param name="augendM2x0">The augend M2X0.</param>
+        /// <param name="augendM2x1">The augend M2X1.</param>
+        /// <param name="augendM2x2">The augend M2X2.</param>
+        /// <param name="augendM2x3">The augend M2X3.</param>
+        /// <param name="augendM2x4">The augend M2X4.</param>
+        /// <param name="augendM3x0">The augend M3X0.</param>
+        /// <param name="augendM3x1">The augend M3X1.</param>
+        /// <param name="augendM3x2">The augend M3X2.</param>
+        /// <param name="augendM3x3">The augend M3X3.</param>
+        /// <param name="augendM3x4">The augend M3X4.</param>
+        /// <param name="augendM4x0">The augend M4X0.</param>
+        /// <param name="augendM4x1">The augend M4X1.</param>
+        /// <param name="augendM4x2">The augend M4X2.</param>
+        /// <param name="augendM4x3">The augend M4X3.</param>
+        /// <param name="augendM4x4">The augend M4X4.</param>
+        /// <param name="addendM0x0">The addend M0X0.</param>
+        /// <param name="addendM0x1">The addend M0X1.</param>
+        /// <param name="addendM0x2">The addend M0X2.</param>
+        /// <param name="addendM0x3">The addend M0X3.</param>
+        /// <param name="addendM0x4">The addend M0X4.</param>
+        /// <param name="addendM1x0">The addend M1X0.</param>
+        /// <param name="addendM1x1">The addend M1X1.</param>
+        /// <param name="addendM1x2">The addend M1X2.</param>
+        /// <param name="addendM1x3">The addend M1X3.</param>
+        /// <param name="addendM1x4">The addend M1X4.</param>
+        /// <param name="addendM2x0">The addend M2X0.</param>
+        /// <param name="addendM2x1">The addend M2X1.</param>
+        /// <param name="addendM2x2">The addend M2X2.</param>
+        /// <param name="addendM2x3">The addend M2X3.</param>
+        /// <param name="addendM2x4">The addend M2X4.</param>
+        /// <param name="addendM3x0">The addend M3X0.</param>
+        /// <param name="addendM3x1">The addend M3X1.</param>
+        /// <param name="addendM3x2">The addend M3X2.</param>
+        /// <param name="addendM3x3">The addend M3X3.</param>
+        /// <param name="addendM3x4">The addend M3X4.</param>
+        /// <param name="addendM4x0">The addend M4X0.</param>
+        /// <param name="addendM4x1">The addend M4X1.</param>
+        /// <param name="addendM4x2">The addend M4X2.</param>
+        /// <param name="addendM4x3">The addend M4X3.</param>
+        /// <param name="addendM4x4">The addend M4X4.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -447,78 +447,78 @@ namespace Engine
         /// <summary>
         /// Used to add two matrices together.
         /// </summary>
-        /// <param name="augendM0x0"></param>
-        /// <param name="augendM0x1"></param>
-        /// <param name="augendM0x2"></param>
-        /// <param name="augendM0x3"></param>
-        /// <param name="augendM0x4"></param>
-        /// <param name="augendM0x5"></param>
-        /// <param name="augendM1x0"></param>
-        /// <param name="augendM1x1"></param>
-        /// <param name="augendM1x2"></param>
-        /// <param name="augendM1x3"></param>
-        /// <param name="augendM1x4"></param>
-        /// <param name="augendM1x5"></param>
-        /// <param name="augendM2x0"></param>
-        /// <param name="augendM2x1"></param>
-        /// <param name="augendM2x2"></param>
-        /// <param name="augendM2x3"></param>
-        /// <param name="augendM2x4"></param>
-        /// <param name="augendM2x5"></param>
-        /// <param name="augendM3x0"></param>
-        /// <param name="augendM3x1"></param>
-        /// <param name="augendM3x2"></param>
-        /// <param name="augendM3x3"></param>
-        /// <param name="augendM3x4"></param>
-        /// <param name="augendM3x5"></param>
-        /// <param name="augendM4x0"></param>
-        /// <param name="augendM4x1"></param>
-        /// <param name="augendM4x2"></param>
-        /// <param name="augendM4x3"></param>
-        /// <param name="augendM4x4"></param>
-        /// <param name="augendM4x5"></param>
-        /// <param name="augendM5x0"></param>
-        /// <param name="augendM5x1"></param>
-        /// <param name="augendM5x2"></param>
-        /// <param name="augendM5x3"></param>
-        /// <param name="augendM5x4"></param>
-        /// <param name="augendM5x5"></param>
-        /// <param name="addendM0x0"></param>
-        /// <param name="addendM0x1"></param>
-        /// <param name="addendM0x2"></param>
-        /// <param name="addendM0x3"></param>
-        /// <param name="addendM0x4"></param>
-        /// <param name="addendM0x5"></param>
-        /// <param name="addendM1x0"></param>
-        /// <param name="addendM1x1"></param>
-        /// <param name="addendM1x2"></param>
-        /// <param name="addendM1x3"></param>
-        /// <param name="addendM1x4"></param>
-        /// <param name="addendM1x5"></param>
-        /// <param name="addendM2x0"></param>
-        /// <param name="addendM2x1"></param>
-        /// <param name="addendM2x2"></param>
-        /// <param name="addendM2x3"></param>
-        /// <param name="addendM2x4"></param>
-        /// <param name="addendM2x5"></param>
-        /// <param name="addendM3x0"></param>
-        /// <param name="addendM3x1"></param>
-        /// <param name="addendM3x2"></param>
-        /// <param name="addendM3x3"></param>
-        /// <param name="addendM3x4"></param>
-        /// <param name="addendM3x5"></param>
-        /// <param name="addendM4x0"></param>
-        /// <param name="addendM4x1"></param>
-        /// <param name="addendM4x2"></param>
-        /// <param name="addendM4x3"></param>
-        /// <param name="addendM4x4"></param>
-        /// <param name="addendM4x5"></param>
-        /// <param name="addendM5x0"></param>
-        /// <param name="addendM5x1"></param>
-        /// <param name="addendM5x2"></param>
-        /// <param name="addendM5x3"></param>
-        /// <param name="addendM5x4"></param>
-        /// <param name="addendM5x5"></param>
+        /// <param name="augendM0x0">The augend M0X0.</param>
+        /// <param name="augendM0x1">The augend M0X1.</param>
+        /// <param name="augendM0x2">The augend M0X2.</param>
+        /// <param name="augendM0x3">The augend M0X3.</param>
+        /// <param name="augendM0x4">The augend M0X4.</param>
+        /// <param name="augendM0x5">The augend M0X5.</param>
+        /// <param name="augendM1x0">The augend M1X0.</param>
+        /// <param name="augendM1x1">The augend M1X1.</param>
+        /// <param name="augendM1x2">The augend M1X2.</param>
+        /// <param name="augendM1x3">The augend M1X3.</param>
+        /// <param name="augendM1x4">The augend M1X4.</param>
+        /// <param name="augendM1x5">The augend M1X5.</param>
+        /// <param name="augendM2x0">The augend M2X0.</param>
+        /// <param name="augendM2x1">The augend M2X1.</param>
+        /// <param name="augendM2x2">The augend M2X2.</param>
+        /// <param name="augendM2x3">The augend M2X3.</param>
+        /// <param name="augendM2x4">The augend M2X4.</param>
+        /// <param name="augendM2x5">The augend M2X5.</param>
+        /// <param name="augendM3x0">The augend M3X0.</param>
+        /// <param name="augendM3x1">The augend M3X1.</param>
+        /// <param name="augendM3x2">The augend M3X2.</param>
+        /// <param name="augendM3x3">The augend M3X3.</param>
+        /// <param name="augendM3x4">The augend M3X4.</param>
+        /// <param name="augendM3x5">The augend M3X5.</param>
+        /// <param name="augendM4x0">The augend M4X0.</param>
+        /// <param name="augendM4x1">The augend M4X1.</param>
+        /// <param name="augendM4x2">The augend M4X2.</param>
+        /// <param name="augendM4x3">The augend M4X3.</param>
+        /// <param name="augendM4x4">The augend M4X4.</param>
+        /// <param name="augendM4x5">The augend M4X5.</param>
+        /// <param name="augendM5x0">The augend M5X0.</param>
+        /// <param name="augendM5x1">The augend M5X1.</param>
+        /// <param name="augendM5x2">The augend M5X2.</param>
+        /// <param name="augendM5x3">The augend M5X3.</param>
+        /// <param name="augendM5x4">The augend M5X4.</param>
+        /// <param name="augendM5x5">The augend M5X5.</param>
+        /// <param name="addendM0x0">The addend M0X0.</param>
+        /// <param name="addendM0x1">The addend M0X1.</param>
+        /// <param name="addendM0x2">The addend M0X2.</param>
+        /// <param name="addendM0x3">The addend M0X3.</param>
+        /// <param name="addendM0x4">The addend M0X4.</param>
+        /// <param name="addendM0x5">The addend M0X5.</param>
+        /// <param name="addendM1x0">The addend M1X0.</param>
+        /// <param name="addendM1x1">The addend M1X1.</param>
+        /// <param name="addendM1x2">The addend M1X2.</param>
+        /// <param name="addendM1x3">The addend M1X3.</param>
+        /// <param name="addendM1x4">The addend M1X4.</param>
+        /// <param name="addendM1x5">The addend M1X5.</param>
+        /// <param name="addendM2x0">The addend M2X0.</param>
+        /// <param name="addendM2x1">The addend M2X1.</param>
+        /// <param name="addendM2x2">The addend M2X2.</param>
+        /// <param name="addendM2x3">The addend M2X3.</param>
+        /// <param name="addendM2x4">The addend M2X4.</param>
+        /// <param name="addendM2x5">The addend M2X5.</param>
+        /// <param name="addendM3x0">The addend M3X0.</param>
+        /// <param name="addendM3x1">The addend M3X1.</param>
+        /// <param name="addendM3x2">The addend M3X2.</param>
+        /// <param name="addendM3x3">The addend M3X3.</param>
+        /// <param name="addendM3x4">The addend M3X4.</param>
+        /// <param name="addendM3x5">The addend M3X5.</param>
+        /// <param name="addendM4x0">The addend M4X0.</param>
+        /// <param name="addendM4x1">The addend M4X1.</param>
+        /// <param name="addendM4x2">The addend M4X2.</param>
+        /// <param name="addendM4x3">The addend M4X3.</param>
+        /// <param name="addendM4x4">The addend M4X4.</param>
+        /// <param name="addendM4x5">The addend M4X5.</param>
+        /// <param name="addendM5x0">The addend M5X0.</param>
+        /// <param name="addendM5x1">The addend M5X1.</param>
+        /// <param name="addendM5x2">The addend M5X2.</param>
+        /// <param name="addendM5x3">The addend M5X3.</param>
+        /// <param name="addendM5x4">The addend M5X4.</param>
+        /// <param name="addendM5x5">The addend M5X5.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -552,12 +552,12 @@ namespace Engine
 
         #region Unary Negate
         /// <summary>
-        ///	Negates a <see cref="Matrix2x2D"/>.
+        /// Negates a <see cref="Matrix2x2D" />.
         /// </summary>
-        /// <param name="sourceM0x0"></param>
-        /// <param name="sourceM0x1"></param>
-        /// <param name="sourceM1x0"></param>
-        /// <param name="sourceM1x1"></param>
+        /// <param name="sourceM0x0">The source M0X0.</param>
+        /// <param name="sourceM0x1">The source M0X1.</param>
+        /// <param name="sourceM1x0">The source M1X0.</param>
+        /// <param name="sourceM1x1">The source M1X1.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -570,17 +570,17 @@ namespace Engine
                 -sourceM1x0, -sourceM1x1);
 
         /// <summary>
-        ///	Negates a <see cref="Matrix3x3D"/>.
+        /// Negates a <see cref="Matrix3x3D" />.
         /// </summary>
-        /// <param name="sourceM0x0"></param>
-        /// <param name="sourceM0x1"></param>
-        /// <param name="sourceM0x2"></param>
-        /// <param name="sourceM1x0"></param>
-        /// <param name="sourceM1x1"></param>
-        /// <param name="sourceM1x2"></param>
-        /// <param name="sourceM2x0"></param>
-        /// <param name="sourceM2x1"></param>
-        /// <param name="sourceM2x2"></param>
+        /// <param name="sourceM0x0">The source M0X0.</param>
+        /// <param name="sourceM0x1">The source M0X1.</param>
+        /// <param name="sourceM0x2">The source M0X2.</param>
+        /// <param name="sourceM1x0">The source M1X0.</param>
+        /// <param name="sourceM1x1">The source M1X1.</param>
+        /// <param name="sourceM1x2">The source M1X2.</param>
+        /// <param name="sourceM2x0">The source M2X0.</param>
+        /// <param name="sourceM2x1">The source M2X1.</param>
+        /// <param name="sourceM2x2">The source M2X2.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -596,24 +596,24 @@ namespace Engine
                 -sourceM2x0, -sourceM2x1, -sourceM2x2);
 
         /// <summary>
-        ///	Negates a <see cref="Matrix4x4D"/>.
+        /// Negates a <see cref="Matrix4x4D" />.
         /// </summary>
-        /// <param name="sourceM0x0"></param>
-        /// <param name="sourceM0x1"></param>
-        /// <param name="sourceM0x2"></param>
-        /// <param name="sourceM0x3"></param>
-        /// <param name="sourceM1x0"></param>
-        /// <param name="sourceM1x1"></param>
-        /// <param name="sourceM1x2"></param>
-        /// <param name="sourceM1x3"></param>
-        /// <param name="sourceM2x0"></param>
-        /// <param name="sourceM2x1"></param>
-        /// <param name="sourceM2x2"></param>
-        /// <param name="sourceM2x3"></param>
-        /// <param name="sourceM3x0"></param>
-        /// <param name="sourceM3x1"></param>
-        /// <param name="sourceM3x2"></param>
-        /// <param name="sourceM3x3"></param>
+        /// <param name="sourceM0x0">The source M0X0.</param>
+        /// <param name="sourceM0x1">The source M0X1.</param>
+        /// <param name="sourceM0x2">The source M0X2.</param>
+        /// <param name="sourceM0x3">The source M0X3.</param>
+        /// <param name="sourceM1x0">The source M1X0.</param>
+        /// <param name="sourceM1x1">The source M1X1.</param>
+        /// <param name="sourceM1x2">The source M1X2.</param>
+        /// <param name="sourceM1x3">The source M1X3.</param>
+        /// <param name="sourceM2x0">The source M2X0.</param>
+        /// <param name="sourceM2x1">The source M2X1.</param>
+        /// <param name="sourceM2x2">The source M2X2.</param>
+        /// <param name="sourceM2x3">The source M2X3.</param>
+        /// <param name="sourceM3x0">The source M3X0.</param>
+        /// <param name="sourceM3x1">The source M3X1.</param>
+        /// <param name="sourceM3x2">The source M3X2.</param>
+        /// <param name="sourceM3x3">The source M3X3.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -632,33 +632,33 @@ namespace Engine
                 -sourceM3x0, -sourceM3x1, -sourceM3x2, -sourceM3x3);
 
         /// <summary>
-        ///	Negates a Matrix5x5D.
+        /// Negates a Matrix5x5D.
         /// </summary>
-        /// <param name="sourceM0x0"></param>
-        /// <param name="sourceM0x1"></param>
-        /// <param name="sourceM0x2"></param>
-        /// <param name="sourceM0x3"></param>
-        /// <param name="sourceM0x4"></param>
-        /// <param name="sourceM1x0"></param>
-        /// <param name="sourceM1x1"></param>
-        /// <param name="sourceM1x2"></param>
-        /// <param name="sourceM1x3"></param>
-        /// <param name="sourceM1x4"></param>
-        /// <param name="sourceM2x0"></param>
-        /// <param name="sourceM2x1"></param>
-        /// <param name="sourceM2x2"></param>
-        /// <param name="sourceM2x3"></param>
-        /// <param name="sourceM2x4"></param>
-        /// <param name="sourceM3x0"></param>
-        /// <param name="sourceM3x1"></param>
-        /// <param name="sourceM3x2"></param>
-        /// <param name="sourceM3x3"></param>
-        /// <param name="sourceM3x4"></param>
-        /// <param name="sourceM4x0"></param>
-        /// <param name="sourceM4x1"></param>
-        /// <param name="sourceM4x2"></param>
-        /// <param name="sourceM4x3"></param>
-        /// <param name="sourceM4x4"></param>
+        /// <param name="sourceM0x0">The source M0X0.</param>
+        /// <param name="sourceM0x1">The source M0X1.</param>
+        /// <param name="sourceM0x2">The source M0X2.</param>
+        /// <param name="sourceM0x3">The source M0X3.</param>
+        /// <param name="sourceM0x4">The source M0X4.</param>
+        /// <param name="sourceM1x0">The source M1X0.</param>
+        /// <param name="sourceM1x1">The source M1X1.</param>
+        /// <param name="sourceM1x2">The source M1X2.</param>
+        /// <param name="sourceM1x3">The source M1X3.</param>
+        /// <param name="sourceM1x4">The source M1X4.</param>
+        /// <param name="sourceM2x0">The source M2X0.</param>
+        /// <param name="sourceM2x1">The source M2X1.</param>
+        /// <param name="sourceM2x2">The source M2X2.</param>
+        /// <param name="sourceM2x3">The source M2X3.</param>
+        /// <param name="sourceM2x4">The source M2X4.</param>
+        /// <param name="sourceM3x0">The source M3X0.</param>
+        /// <param name="sourceM3x1">The source M3X1.</param>
+        /// <param name="sourceM3x2">The source M3X2.</param>
+        /// <param name="sourceM3x3">The source M3X3.</param>
+        /// <param name="sourceM3x4">The source M3X4.</param>
+        /// <param name="sourceM4x0">The source M4X0.</param>
+        /// <param name="sourceM4x1">The source M4X1.</param>
+        /// <param name="sourceM4x2">The source M4X2.</param>
+        /// <param name="sourceM4x3">The source M4X3.</param>
+        /// <param name="sourceM4x4">The source M4X4.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -680,44 +680,44 @@ namespace Engine
                 -sourceM4x0, -sourceM4x1, -sourceM4x2, -sourceM4x3, -sourceM4x4);
 
         /// <summary>
-        ///	Negates a Matrix6x6D.
+        /// Negates a Matrix6x6D.
         /// </summary>
-        /// <param name="sourceM0x0"></param>
-        /// <param name="sourceM0x1"></param>
-        /// <param name="sourceM0x2"></param>
-        /// <param name="sourceM0x3"></param>
-        /// <param name="sourceM0x4"></param>
-        /// <param name="sourceM0x5"></param>
-        /// <param name="sourceM1x0"></param>
-        /// <param name="sourceM1x1"></param>
-        /// <param name="sourceM1x2"></param>
-        /// <param name="sourceM1x3"></param>
-        /// <param name="sourceM1x4"></param>
-        /// <param name="sourceM1x5"></param>
-        /// <param name="sourceM2x0"></param>
-        /// <param name="sourceM2x1"></param>
-        /// <param name="sourceM2x2"></param>
-        /// <param name="sourceM2x3"></param>
-        /// <param name="sourceM2x4"></param>
-        /// <param name="sourceM2x5"></param>
-        /// <param name="sourceM3x0"></param>
-        /// <param name="sourceM3x1"></param>
-        /// <param name="sourceM3x2"></param>
-        /// <param name="sourceM3x3"></param>
-        /// <param name="sourceM3x4"></param>
-        /// <param name="sourceM3x5"></param>
-        /// <param name="sourceM4x0"></param>
-        /// <param name="sourceM4x1"></param>
-        /// <param name="sourceM4x2"></param>
-        /// <param name="sourceM4x3"></param>
-        /// <param name="sourceM4x4"></param>
-        /// <param name="sourceM4x5"></param>
-        /// <param name="sourceM5x0"></param>
-        /// <param name="sourceM5x1"></param>
-        /// <param name="sourceM5x2"></param>
-        /// <param name="sourceM5x3"></param>
-        /// <param name="sourceM5x4"></param>
-        /// <param name="sourceM5x5"></param>
+        /// <param name="sourceM0x0">The source M0X0.</param>
+        /// <param name="sourceM0x1">The source M0X1.</param>
+        /// <param name="sourceM0x2">The source M0X2.</param>
+        /// <param name="sourceM0x3">The source M0X3.</param>
+        /// <param name="sourceM0x4">The source M0X4.</param>
+        /// <param name="sourceM0x5">The source M0X5.</param>
+        /// <param name="sourceM1x0">The source M1X0.</param>
+        /// <param name="sourceM1x1">The source M1X1.</param>
+        /// <param name="sourceM1x2">The source M1X2.</param>
+        /// <param name="sourceM1x3">The source M1X3.</param>
+        /// <param name="sourceM1x4">The source M1X4.</param>
+        /// <param name="sourceM1x5">The source M1X5.</param>
+        /// <param name="sourceM2x0">The source M2X0.</param>
+        /// <param name="sourceM2x1">The source M2X1.</param>
+        /// <param name="sourceM2x2">The source M2X2.</param>
+        /// <param name="sourceM2x3">The source M2X3.</param>
+        /// <param name="sourceM2x4">The source M2X4.</param>
+        /// <param name="sourceM2x5">The source M2X5.</param>
+        /// <param name="sourceM3x0">The source M3X0.</param>
+        /// <param name="sourceM3x1">The source M3X1.</param>
+        /// <param name="sourceM3x2">The source M3X2.</param>
+        /// <param name="sourceM3x3">The source M3X3.</param>
+        /// <param name="sourceM3x4">The source M3X4.</param>
+        /// <param name="sourceM3x5">The source M3X5.</param>
+        /// <param name="sourceM4x0">The source M4X0.</param>
+        /// <param name="sourceM4x1">The source M4X1.</param>
+        /// <param name="sourceM4x2">The source M4X2.</param>
+        /// <param name="sourceM4x3">The source M4X3.</param>
+        /// <param name="sourceM4x4">The source M4X4.</param>
+        /// <param name="sourceM4x5">The source M4X5.</param>
+        /// <param name="sourceM5x0">The source M5X0.</param>
+        /// <param name="sourceM5x1">The source M5X1.</param>
+        /// <param name="sourceM5x2">The source M5X2.</param>
+        /// <param name="sourceM5x3">The source M5X3.</param>
+        /// <param name="sourceM5x4">The source M5X4.</param>
+        /// <param name="sourceM5x5">The source M5X5.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -743,6 +743,22 @@ namespace Engine
         #endregion Unary Negate
 
         #region Subtract
+        /// <summary>
+        /// Subtracts the transform matrix.
+        /// </summary>
+        /// <param name="minuendX">The minuend x.</param>
+        /// <param name="minuendY">The minuend y.</param>
+        /// <param name="minuendSkewX">The minuend skew x.</param>
+        /// <param name="minuendSkewY">The minuend skew y.</param>
+        /// <param name="minuendScaleX">The minuend scale x.</param>
+        /// <param name="minuendScaleY">The minuend scale y.</param>
+        /// <param name="subtrahendX">The subtrahend x.</param>
+        /// <param name="subtrahendY">The subtrahend y.</param>
+        /// <param name="subtrahendSkewX">The subtrahend skew x.</param>
+        /// <param name="subtrahendSkewY">The subtrahend skew y.</param>
+        /// <param name="subtrahendScaleX">The subtrahend scale x.</param>
+        /// <param name="subtrahendScaleY">The subtrahend scale y.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -755,19 +771,23 @@ namespace Engine
             double minuendScaleX, double minuendScaleY,
             double subtrahendX, double subtrahendY,
             double subtrahendSkewX, double subtrahendSkewY,
-            double subtrahendScaleX, double subtrahendScaleY) => (minuendX - subtrahendX, minuendY - subtrahendY, NormalizeRadian(minuendSkewX - subtrahendSkewX), NormalizeRadian(minuendSkewY - subtrahendSkewY), minuendScaleX / subtrahendScaleX, minuendScaleY / subtrahendScaleY);
+            double subtrahendScaleX, double subtrahendScaleY)
+            => (
+            minuendX - subtrahendX, minuendY - subtrahendY,
+            NormalizeRadian(minuendSkewX - subtrahendSkewX), NormalizeRadian(minuendSkewY - subtrahendSkewY),
+            minuendScaleX / subtrahendScaleX, minuendScaleY / subtrahendScaleY);
 
         /// <summary>
         /// Used to subtract two matrices.
         /// </summary>
-        /// <param name="minuendM0x0"></param>
-        /// <param name="minuendM0x1"></param>
-        /// <param name="minuendM1x0"></param>
-        /// <param name="minuendM1x1"></param>
-        /// <param name="subtrahendM0x0"></param>
-        /// <param name="subtrahendM0x1"></param>
-        /// <param name="subtrahendM1x0"></param>
-        /// <param name="subtrahendM1x1"></param>
+        /// <param name="minuendM0x0">The minuend M0X0.</param>
+        /// <param name="minuendM0x1">The minuend M0X1.</param>
+        /// <param name="minuendM1x0">The minuend M1X0.</param>
+        /// <param name="minuendM1x1">The minuend M1X1.</param>
+        /// <param name="subtrahendM0x0">The subtrahend M0X0.</param>
+        /// <param name="subtrahendM0x1">The subtrahend M0X1.</param>
+        /// <param name="subtrahendM1x0">The subtrahend M1X0.</param>
+        /// <param name="subtrahendM1x1">The subtrahend M1X1.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -785,24 +805,24 @@ namespace Engine
         /// <summary>
         /// Used to subtract two matrices.
         /// </summary>
-        /// <param name="minuendM0x0"></param>
-        /// <param name="minuendM0x1"></param>
-        /// <param name="minuendM0x2"></param>
-        /// <param name="minuendM1x0"></param>
-        /// <param name="minuendM1x1"></param>
-        /// <param name="minuendM1x2"></param>
-        /// <param name="minuendM2x0"></param>
-        /// <param name="minuendM2x1"></param>
-        /// <param name="minuendM2x2"></param>
-        /// <param name="subtrahendM0x0"></param>
-        /// <param name="subtrahendM0x1"></param>
-        /// <param name="subtrahendM0x2"></param>
-        /// <param name="subtrahendM1x0"></param>
-        /// <param name="subtrahendM1x1"></param>
-        /// <param name="subtrahendM1x2"></param>
-        /// <param name="subtrahendM2x0"></param>
-        /// <param name="subtrahendM2x1"></param>
-        /// <param name="subtrahendM2x2"></param>
+        /// <param name="minuendM0x0">The minuend M0X0.</param>
+        /// <param name="minuendM0x1">The minuend M0X1.</param>
+        /// <param name="minuendM0x2">The minuend M0X2.</param>
+        /// <param name="minuendM1x0">The minuend M1X0.</param>
+        /// <param name="minuendM1x1">The minuend M1X1.</param>
+        /// <param name="minuendM1x2">The minuend M1X2.</param>
+        /// <param name="minuendM2x0">The minuend M2X0.</param>
+        /// <param name="minuendM2x1">The minuend M2X1.</param>
+        /// <param name="minuendM2x2">The minuend M2X2.</param>
+        /// <param name="subtrahendM0x0">The subtrahend M0X0.</param>
+        /// <param name="subtrahendM0x1">The subtrahend M0X1.</param>
+        /// <param name="subtrahendM0x2">The subtrahend M0X2.</param>
+        /// <param name="subtrahendM1x0">The subtrahend M1X0.</param>
+        /// <param name="subtrahendM1x1">The subtrahend M1X1.</param>
+        /// <param name="subtrahendM1x2">The subtrahend M1X2.</param>
+        /// <param name="subtrahendM2x0">The subtrahend M2X0.</param>
+        /// <param name="subtrahendM2x1">The subtrahend M2X1.</param>
+        /// <param name="subtrahendM2x2">The subtrahend M2X2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -824,38 +844,38 @@ namespace Engine
         /// <summary>
         /// Used to subtract two matrices.
         /// </summary>
-        /// <param name="minuendM0x0"></param>
-        /// <param name="minuendM0x1"></param>
-        /// <param name="minuendM0x2"></param>
-        /// <param name="minuendM0x3"></param>
-        /// <param name="minuendM1x0"></param>
-        /// <param name="minuendM1x1"></param>
-        /// <param name="minuendM1x2"></param>
-        /// <param name="minuendM1x3"></param>
-        /// <param name="minuendM2x0"></param>
-        /// <param name="minuendM2x1"></param>
-        /// <param name="minuendM2x2"></param>
-        /// <param name="minuendM2x3"></param>
-        /// <param name="minuendM3x0"></param>
-        /// <param name="minuendM3x1"></param>
-        /// <param name="minuendM3x2"></param>
-        /// <param name="minuendM3x3"></param>
-        /// <param name="subtrahendM0x0"></param>
-        /// <param name="subtrahendM0x1"></param>
-        /// <param name="subtrahendM0x2"></param>
-        /// <param name="subtrahendM0x3"></param>
-        /// <param name="subtrahendM1x0"></param>
-        /// <param name="subtrahendM1x1"></param>
-        /// <param name="subtrahendM1x2"></param>
-        /// <param name="subtrahendM1x3"></param>
-        /// <param name="subtrahendM2x0"></param>
-        /// <param name="subtrahendM2x1"></param>
-        /// <param name="subtrahendM2x2"></param>
-        /// <param name="subtrahendM2x3"></param>
-        /// <param name="subtrahendM3x0"></param>
-        /// <param name="subtrahendM3x1"></param>
-        /// <param name="subtrahendM3x2"></param>
-        /// <param name="subtrahendM3x3"></param>
+        /// <param name="minuendM0x0">The minuend M0X0.</param>
+        /// <param name="minuendM0x1">The minuend M0X1.</param>
+        /// <param name="minuendM0x2">The minuend M0X2.</param>
+        /// <param name="minuendM0x3">The minuend M0X3.</param>
+        /// <param name="minuendM1x0">The minuend M1X0.</param>
+        /// <param name="minuendM1x1">The minuend M1X1.</param>
+        /// <param name="minuendM1x2">The minuend M1X2.</param>
+        /// <param name="minuendM1x3">The minuend M1X3.</param>
+        /// <param name="minuendM2x0">The minuend M2X0.</param>
+        /// <param name="minuendM2x1">The minuend M2X1.</param>
+        /// <param name="minuendM2x2">The minuend M2X2.</param>
+        /// <param name="minuendM2x3">The minuend M2X3.</param>
+        /// <param name="minuendM3x0">The minuend M3X0.</param>
+        /// <param name="minuendM3x1">The minuend M3X1.</param>
+        /// <param name="minuendM3x2">The minuend M3X2.</param>
+        /// <param name="minuendM3x3">The minuend M3X3.</param>
+        /// <param name="subtrahendM0x0">The subtrahend M0X0.</param>
+        /// <param name="subtrahendM0x1">The subtrahend M0X1.</param>
+        /// <param name="subtrahendM0x2">The subtrahend M0X2.</param>
+        /// <param name="subtrahendM0x3">The subtrahend M0X3.</param>
+        /// <param name="subtrahendM1x0">The subtrahend M1X0.</param>
+        /// <param name="subtrahendM1x1">The subtrahend M1X1.</param>
+        /// <param name="subtrahendM1x2">The subtrahend M1X2.</param>
+        /// <param name="subtrahendM1x3">The subtrahend M1X3.</param>
+        /// <param name="subtrahendM2x0">The subtrahend M2X0.</param>
+        /// <param name="subtrahendM2x1">The subtrahend M2X1.</param>
+        /// <param name="subtrahendM2x2">The subtrahend M2X2.</param>
+        /// <param name="subtrahendM2x3">The subtrahend M2X3.</param>
+        /// <param name="subtrahendM3x0">The subtrahend M3X0.</param>
+        /// <param name="subtrahendM3x1">The subtrahend M3X1.</param>
+        /// <param name="subtrahendM3x2">The subtrahend M3X2.</param>
+        /// <param name="subtrahendM3x3">The subtrahend M3X3.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -881,56 +901,56 @@ namespace Engine
         /// <summary>
         /// Used to subtract two matrices.
         /// </summary>
-        /// <param name="minuendM0x0"></param>
-        /// <param name="minuendM0x1"></param>
-        /// <param name="minuendM0x2"></param>
-        /// <param name="minuendM0x3"></param>
-        /// <param name="minuendM0x4"></param>
-        /// <param name="minuendM1x0"></param>
-        /// <param name="minuendM1x1"></param>
-        /// <param name="minuendM1x2"></param>
-        /// <param name="minuendM1x3"></param>
-        /// <param name="minuendM1x4"></param>
-        /// <param name="minuendM2x0"></param>
-        /// <param name="minuendM2x1"></param>
-        /// <param name="minuendM2x2"></param>
-        /// <param name="minuendM2x3"></param>
-        /// <param name="minuendM2x4"></param>
-        /// <param name="minuendM3x0"></param>
-        /// <param name="minuendM3x1"></param>
-        /// <param name="minuendM3x2"></param>
-        /// <param name="minuendM3x3"></param>
-        /// <param name="minuendM3x4"></param>
-        /// <param name="minuendM4x0"></param>
-        /// <param name="minuendM4x1"></param>
-        /// <param name="minuendM4x2"></param>
-        /// <param name="minuendM4x3"></param>
-        /// <param name="minuendM4x4"></param>
-        /// <param name="subtrahendM0x0"></param>
-        /// <param name="subtrahendM0x1"></param>
-        /// <param name="subtrahendM0x2"></param>
-        /// <param name="subtrahendM0x3"></param>
-        /// <param name="subtrahendM0x4"></param>
-        /// <param name="subtrahendM1x0"></param>
-        /// <param name="subtrahendM1x1"></param>
-        /// <param name="subtrahendM1x2"></param>
-        /// <param name="subtrahendM1x3"></param>
-        /// <param name="subtrahendM1x4"></param>
-        /// <param name="subtrahendM2x0"></param>
-        /// <param name="subtrahendM2x1"></param>
-        /// <param name="subtrahendM2x2"></param>
-        /// <param name="subtrahendM2x3"></param>
-        /// <param name="subtrahendM2x4"></param>
-        /// <param name="subtrahendM3x0"></param>
-        /// <param name="subtrahendM3x1"></param>
-        /// <param name="subtrahendM3x2"></param>
-        /// <param name="subtrahendM3x3"></param>
-        /// <param name="subtrahendM3x4"></param>
-        /// <param name="subtrahendM4x0"></param>
-        /// <param name="subtrahendM4x1"></param>
-        /// <param name="subtrahendM4x2"></param>
-        /// <param name="subtrahendM4x3"></param>
-        /// <param name="subtrahendM4x4"></param>
+        /// <param name="minuendM0x0">The minuend M0X0.</param>
+        /// <param name="minuendM0x1">The minuend M0X1.</param>
+        /// <param name="minuendM0x2">The minuend M0X2.</param>
+        /// <param name="minuendM0x3">The minuend M0X3.</param>
+        /// <param name="minuendM0x4">The minuend M0X4.</param>
+        /// <param name="minuendM1x0">The minuend M1X0.</param>
+        /// <param name="minuendM1x1">The minuend M1X1.</param>
+        /// <param name="minuendM1x2">The minuend M1X2.</param>
+        /// <param name="minuendM1x3">The minuend M1X3.</param>
+        /// <param name="minuendM1x4">The minuend M1X4.</param>
+        /// <param name="minuendM2x0">The minuend M2X0.</param>
+        /// <param name="minuendM2x1">The minuend M2X1.</param>
+        /// <param name="minuendM2x2">The minuend M2X2.</param>
+        /// <param name="minuendM2x3">The minuend M2X3.</param>
+        /// <param name="minuendM2x4">The minuend M2X4.</param>
+        /// <param name="minuendM3x0">The minuend M3X0.</param>
+        /// <param name="minuendM3x1">The minuend M3X1.</param>
+        /// <param name="minuendM3x2">The minuend M3X2.</param>
+        /// <param name="minuendM3x3">The minuend M3X3.</param>
+        /// <param name="minuendM3x4">The minuend M3X4.</param>
+        /// <param name="minuendM4x0">The minuend M4X0.</param>
+        /// <param name="minuendM4x1">The minuend M4X1.</param>
+        /// <param name="minuendM4x2">The minuend M4X2.</param>
+        /// <param name="minuendM4x3">The minuend M4X3.</param>
+        /// <param name="minuendM4x4">The minuend M4X4.</param>
+        /// <param name="subtrahendM0x0">The subtrahend M0X0.</param>
+        /// <param name="subtrahendM0x1">The subtrahend M0X1.</param>
+        /// <param name="subtrahendM0x2">The subtrahend M0X2.</param>
+        /// <param name="subtrahendM0x3">The subtrahend M0X3.</param>
+        /// <param name="subtrahendM0x4">The subtrahend M0X4.</param>
+        /// <param name="subtrahendM1x0">The subtrahend M1X0.</param>
+        /// <param name="subtrahendM1x1">The subtrahend M1X1.</param>
+        /// <param name="subtrahendM1x2">The subtrahend M1X2.</param>
+        /// <param name="subtrahendM1x3">The subtrahend M1X3.</param>
+        /// <param name="subtrahendM1x4">The subtrahend M1X4.</param>
+        /// <param name="subtrahendM2x0">The subtrahend M2X0.</param>
+        /// <param name="subtrahendM2x1">The subtrahend M2X1.</param>
+        /// <param name="subtrahendM2x2">The subtrahend M2X2.</param>
+        /// <param name="subtrahendM2x3">The subtrahend M2X3.</param>
+        /// <param name="subtrahendM2x4">The subtrahend M2X4.</param>
+        /// <param name="subtrahendM3x0">The subtrahend M3X0.</param>
+        /// <param name="subtrahendM3x1">The subtrahend M3X1.</param>
+        /// <param name="subtrahendM3x2">The subtrahend M3X2.</param>
+        /// <param name="subtrahendM3x3">The subtrahend M3X3.</param>
+        /// <param name="subtrahendM3x4">The subtrahend M3X4.</param>
+        /// <param name="subtrahendM4x0">The subtrahend M4X0.</param>
+        /// <param name="subtrahendM4x1">The subtrahend M4X1.</param>
+        /// <param name="subtrahendM4x2">The subtrahend M4X2.</param>
+        /// <param name="subtrahendM4x3">The subtrahend M4X3.</param>
+        /// <param name="subtrahendM4x4">The subtrahend M4X4.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1065,36 +1085,38 @@ namespace Engine
 
         #region Scale
         /// <summary>
-        /// Used to multiply a Matrix2x2 object by a scalar value.
+        /// Used to multiply a Matrix2x2 object by a multiplier value.
         /// </summary>
-        /// <param name="m0x0"></param>
-        /// <param name="m0x1"></param>
-        /// <param name="m1x0"></param>
-        /// <param name="m1x1"></param>
-        /// <param name="scalar"></param>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double m0x0, double m0x1, double m1x0, double m1x1) Scale2x2(
             double m0x0, double m0x1,
             double m1x0, double m1x1,
-            double scalar)
-            => (m0x0 * scalar, m0x1 * scalar,
-                m1x0 * scalar, m1x1 * scalar);
+            double multiplier)
+            => (
+                m0x0 * multiplier, m0x1 * multiplier,
+                m1x0 * multiplier, m1x1 * multiplier
+            );
 
         /// <summary>
-        /// Used to multiply a Matrix3x3 object by a scalar value.
+        /// Used to multiply a Matrix3x3 object by a multiplier value.
         /// </summary>
-        /// <param name="m0x0"></param>
-        /// <param name="m0x1"></param>
-        /// <param name="m0x2"></param>
-        /// <param name="m1x0"></param>
-        /// <param name="m1x1"></param>
-        /// <param name="m1x2"></param>
-        /// <param name="m2x0"></param>
-        /// <param name="m2x1"></param>
-        /// <param name="m2x2"></param>
-        /// <param name="scalar"></param>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1102,31 +1124,33 @@ namespace Engine
             double m0x0, double m0x1, double m0x2,
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2,
-            double scalar)
-            => (m0x0 * scalar, m0x1 * scalar, m0x2 * scalar,
-                m1x0 * scalar, m1x1 * scalar, m1x2 * scalar,
-                m2x0 * scalar, m2x1 * scalar, m2x2 * scalar);
+            double multiplier)
+            => (
+                m0x0 * multiplier, m0x1 * multiplier, m0x2 * multiplier,
+                m1x0 * multiplier, m1x1 * multiplier, m1x2 * multiplier,
+                m2x0 * multiplier, m2x1 * multiplier, m2x2 * multiplier
+            );
 
         /// <summary>
-        /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
+        /// Used to multiply (concatenate) two <see cref="Matrix4x4D" />s.
         /// </summary>
-        /// <param name="leftM0x0"></param>
-        /// <param name="leftM0x1"></param>
-        /// <param name="leftM0x2"></param>
-        /// <param name="leftM0x3"></param>
-        /// <param name="leftM1x0"></param>
-        /// <param name="leftM1x1"></param>
-        /// <param name="leftM1x2"></param>
-        /// <param name="leftM1x3"></param>
-        /// <param name="leftM2x0"></param>
-        /// <param name="leftM2x1"></param>
-        /// <param name="leftM2x2"></param>
-        /// <param name="leftM2x3"></param>
-        /// <param name="leftM3x0"></param>
-        /// <param name="leftM3x1"></param>
-        /// <param name="leftM3x2"></param>
-        /// <param name="leftM3x3"></param>
-        /// <param name="scalar"></param>
+        /// <param name="multiplicandM0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicandM0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicandM0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicandM0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicandM1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicandM1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicandM1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicandM1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicandM2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicandM2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicandM2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicandM2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicandM3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicandM3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicandM3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicandM3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1136,45 +1160,47 @@ namespace Engine
             double m2x0, double m2x1, double m2x2, double m2x3,
             double m3x0, double m3x1, double m3x2, double m3x3
             ) Scale4x4(
-            double leftM0x0, double leftM0x1, double leftM0x2, double leftM0x3,
-            double leftM1x0, double leftM1x1, double leftM1x2, double leftM1x3,
-            double leftM2x0, double leftM2x1, double leftM2x2, double leftM2x3,
-            double leftM3x0, double leftM3x1, double leftM3x2, double leftM3x3,
-            double scalar)
-            => (leftM0x0 * scalar, leftM0x1 * scalar, leftM0x2 * scalar, leftM0x3 * scalar,
-                leftM1x0 * scalar, leftM1x1 * scalar, leftM1x2 * scalar, leftM1x3 * scalar,
-                leftM2x0 * scalar, leftM2x1 * scalar, leftM2x2 * scalar, leftM2x3 * scalar,
-                leftM3x0 * scalar, leftM3x1 * scalar, leftM3x2 * scalar, leftM3x3 * scalar);
+            double multiplicandM0x0, double multiplicandM0x1, double multiplicandM0x2, double multiplicandM0x3,
+            double multiplicandM1x0, double multiplicandM1x1, double multiplicandM1x2, double multiplicandM1x3,
+            double multiplicandM2x0, double multiplicandM2x1, double multiplicandM2x2, double multiplicandM2x3,
+            double multiplicandM3x0, double multiplicandM3x1, double multiplicandM3x2, double multiplicandM3x3,
+            double multiplier)
+            => (
+                multiplicandM0x0 * multiplier, multiplicandM0x1 * multiplier, multiplicandM0x2 * multiplier, multiplicandM0x3 * multiplier,
+                multiplicandM1x0 * multiplier, multiplicandM1x1 * multiplier, multiplicandM1x2 * multiplier, multiplicandM1x3 * multiplier,
+                multiplicandM2x0 * multiplier, multiplicandM2x1 * multiplier, multiplicandM2x2 * multiplier, multiplicandM2x3 * multiplier,
+                multiplicandM3x0 * multiplier, multiplicandM3x1 * multiplier, multiplicandM3x2 * multiplier, multiplicandM3x3 * multiplier
+            );
 
         /// <summary>
         /// Used to multiply (concatenate) two Matrix5x5Ds.
         /// </summary>
-        /// <param name="leftM0x0"></param>
-        /// <param name="leftM0x1"></param>
-        /// <param name="leftM0x2"></param>
-        /// <param name="leftM0x3"></param>
-        /// <param name="leftM0x4"></param>
-        /// <param name="leftM1x0"></param>
-        /// <param name="leftM1x1"></param>
-        /// <param name="leftM1x2"></param>
-        /// <param name="leftM1x3"></param>
-        /// <param name="leftM1x4"></param>
-        /// <param name="leftM2x0"></param>
-        /// <param name="leftM2x1"></param>
-        /// <param name="leftM2x2"></param>
-        /// <param name="leftM2x3"></param>
-        /// <param name="leftM2x4"></param>
-        /// <param name="leftM3x0"></param>
-        /// <param name="leftM3x1"></param>
-        /// <param name="leftM3x2"></param>
-        /// <param name="leftM3x3"></param>
-        /// <param name="leftM3x4"></param>
-        /// <param name="leftM4x0"></param>
-        /// <param name="leftM4x1"></param>
-        /// <param name="leftM4x2"></param>
-        /// <param name="leftM4x3"></param>
-        /// <param name="leftM4x4"></param>
-        /// <param name="scalar"></param>
+        /// <param name="multiplicandM0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicandM0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicandM0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicandM0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicandM0x4">The multiplicand M0X4.</param>
+        /// <param name="multiplicandM1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicandM1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicandM1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicandM1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicandM1x4">The multiplicand M1X4.</param>
+        /// <param name="multiplicandM2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicandM2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicandM2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicandM2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicandM2x4">The multiplicand M2X4.</param>
+        /// <param name="multiplicandM3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicandM3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicandM3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicandM3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplicandM3x4">The multiplicand M3X4.</param>
+        /// <param name="multiplicandM4x0">The multiplicand M4X0.</param>
+        /// <param name="multiplicandM4x1">The multiplicand M4X1.</param>
+        /// <param name="multiplicandM4x2">The multiplicand M4X2.</param>
+        /// <param name="multiplicandM4x3">The multiplicand M4X3.</param>
+        /// <param name="multiplicandM4x4">The multiplicand M4X4.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1185,58 +1211,60 @@ namespace Engine
             double m3x0, double m3x1, double m3x2, double m3x3, double m3x4,
             double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
             ) Scale5x5(
-            double leftM0x0, double leftM0x1, double leftM0x2, double leftM0x3, double leftM0x4,
-            double leftM1x0, double leftM1x1, double leftM1x2, double leftM1x3, double leftM1x4,
-            double leftM2x0, double leftM2x1, double leftM2x2, double leftM2x3, double leftM2x4,
-            double leftM3x0, double leftM3x1, double leftM3x2, double leftM3x3, double leftM3x4,
-            double leftM4x0, double leftM4x1, double leftM4x2, double leftM4x3, double leftM4x4,
-            double scalar)
-            => (leftM0x0 * scalar, leftM0x1 * scalar, leftM0x2 * scalar, leftM0x3 * scalar, leftM0x4 * scalar,
-                leftM1x0 * scalar, leftM1x1 * scalar, leftM1x2 * scalar, leftM1x3 * scalar, leftM1x4 * scalar,
-                leftM2x0 * scalar, leftM2x1 * scalar, leftM2x2 * scalar, leftM2x3 * scalar, leftM2x4 * scalar,
-                leftM3x0 * scalar, leftM3x1 * scalar, leftM3x2 * scalar, leftM3x3 * scalar, leftM3x4 * scalar,
-                leftM4x0 * scalar, leftM4x1 * scalar, leftM4x2 * scalar, leftM4x3 * scalar, leftM4x4 * scalar);
+            double multiplicandM0x0, double multiplicandM0x1, double multiplicandM0x2, double multiplicandM0x3, double multiplicandM0x4,
+            double multiplicandM1x0, double multiplicandM1x1, double multiplicandM1x2, double multiplicandM1x3, double multiplicandM1x4,
+            double multiplicandM2x0, double multiplicandM2x1, double multiplicandM2x2, double multiplicandM2x3, double multiplicandM2x4,
+            double multiplicandM3x0, double multiplicandM3x1, double multiplicandM3x2, double multiplicandM3x3, double multiplicandM3x4,
+            double multiplicandM4x0, double multiplicandM4x1, double multiplicandM4x2, double multiplicandM4x3, double multiplicandM4x4,
+            double multiplier)
+            => (
+                multiplicandM0x0 * multiplier, multiplicandM0x1 * multiplier, multiplicandM0x2 * multiplier, multiplicandM0x3 * multiplier, multiplicandM0x4 * multiplier,
+                multiplicandM1x0 * multiplier, multiplicandM1x1 * multiplier, multiplicandM1x2 * multiplier, multiplicandM1x3 * multiplier, multiplicandM1x4 * multiplier,
+                multiplicandM2x0 * multiplier, multiplicandM2x1 * multiplier, multiplicandM2x2 * multiplier, multiplicandM2x3 * multiplier, multiplicandM2x4 * multiplier,
+                multiplicandM3x0 * multiplier, multiplicandM3x1 * multiplier, multiplicandM3x2 * multiplier, multiplicandM3x3 * multiplier, multiplicandM3x4 * multiplier,
+                multiplicandM4x0 * multiplier, multiplicandM4x1 * multiplier, multiplicandM4x2 * multiplier, multiplicandM4x3 * multiplier, multiplicandM4x4 * multiplier
+            );
 
         /// <summary>
         /// Used to multiply (concatenate) two Matrix5x5Ds.
         /// </summary>
-        /// <param name="leftM0x0"></param>
-        /// <param name="leftM0x1"></param>
-        /// <param name="leftM0x2"></param>
-        /// <param name="leftM0x3"></param>
-        /// <param name="leftM0x4"></param>
-        /// <param name="leftM0x5"></param>
-        /// <param name="leftM1x0"></param>
-        /// <param name="leftM1x1"></param>
-        /// <param name="leftM1x2"></param>
-        /// <param name="leftM1x3"></param>
-        /// <param name="leftM1x4"></param>
-        /// <param name="leftM1x5"></param>
-        /// <param name="leftM2x0"></param>
-        /// <param name="leftM2x1"></param>
-        /// <param name="leftM2x2"></param>
-        /// <param name="leftM2x3"></param>
-        /// <param name="leftM2x4"></param>
-        /// <param name="leftM2x5"></param>
-        /// <param name="leftM3x0"></param>
-        /// <param name="leftM3x1"></param>
-        /// <param name="leftM3x2"></param>
-        /// <param name="leftM3x3"></param>
-        /// <param name="leftM3x4"></param>
-        /// <param name="leftM3x5"></param>
-        /// <param name="leftM4x0"></param>
-        /// <param name="leftM4x1"></param>
-        /// <param name="leftM4x2"></param>
-        /// <param name="leftM4x3"></param>
-        /// <param name="leftM4x4"></param>
-        /// <param name="leftM4x5"></param>
-        /// <param name="leftM5x0"></param>
-        /// <param name="leftM5x1"></param>
-        /// <param name="leftM5x2"></param>
-        /// <param name="leftM5x3"></param>
-        /// <param name="leftM5x4"></param>
-        /// <param name="leftM5x5"></param>
-        /// <param name="scalar"></param>
+        /// <param name="multiplicandM0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicandM0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicandM0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicandM0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicandM0x4">The multiplicand M0X4.</param>
+        /// <param name="multiplicandM0x5">The multiplicand M0X5.</param>
+        /// <param name="multiplicandM1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicandM1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicandM1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicandM1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicandM1x4">The multiplicand M1X4.</param>
+        /// <param name="multiplicandM1x5">The multiplicand M1X5.</param>
+        /// <param name="multiplicandM2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicandM2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicandM2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicandM2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicandM2x4">The multiplicand M2X4.</param>
+        /// <param name="multiplicandM2x5">The multiplicand M2X5.</param>
+        /// <param name="multiplicandM3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicandM3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicandM3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicandM3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplicandM3x4">The multiplicand M3X4.</param>
+        /// <param name="multiplicandM3x5">The multiplicand M3X5.</param>
+        /// <param name="multiplicandM4x0">The multiplicand M4X0.</param>
+        /// <param name="multiplicandM4x1">The multiplicand M4X1.</param>
+        /// <param name="multiplicandM4x2">The multiplicand M4X2.</param>
+        /// <param name="multiplicandM4x3">The multiplicand M4X3.</param>
+        /// <param name="multiplicandM4x4">The multiplicand M4X4.</param>
+        /// <param name="multiplicandM4x5">The multiplicand M4X5.</param>
+        /// <param name="multiplicandM5x0">The multiplicand M5X0.</param>
+        /// <param name="multiplicandM5x1">The multiplicand M5X1.</param>
+        /// <param name="multiplicandM5x2">The multiplicand M5X2.</param>
+        /// <param name="multiplicandM5x3">The multiplicand M5X3.</param>
+        /// <param name="multiplicandM5x4">The multiplicand M5X4.</param>
+        /// <param name="multiplicandM5x5">The multiplicand M5X5.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1248,19 +1276,21 @@ namespace Engine
             double m4x0, double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
             double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
             ) Scale6x6(
-            double leftM0x0, double leftM0x1, double leftM0x2, double leftM0x3, double leftM0x4, double leftM0x5,
-            double leftM1x0, double leftM1x1, double leftM1x2, double leftM1x3, double leftM1x4, double leftM1x5,
-            double leftM2x0, double leftM2x1, double leftM2x2, double leftM2x3, double leftM2x4, double leftM2x5,
-            double leftM3x0, double leftM3x1, double leftM3x2, double leftM3x3, double leftM3x4, double leftM3x5,
-            double leftM4x0, double leftM4x1, double leftM4x2, double leftM4x3, double leftM4x4, double leftM4x5,
-            double leftM5x0, double leftM5x1, double leftM5x2, double leftM5x3, double leftM5x4, double leftM5x5,
-            double scalar)
-            => (leftM0x0 * scalar, leftM0x1 * scalar, leftM0x2 * scalar, leftM0x3 * scalar, leftM0x4 * scalar, leftM0x5 * scalar,
-                leftM1x0 * scalar, leftM1x1 * scalar, leftM1x2 * scalar, leftM1x3 * scalar, leftM1x4 * scalar, leftM1x5 * scalar,
-                leftM2x0 * scalar, leftM2x1 * scalar, leftM2x2 * scalar, leftM2x3 * scalar, leftM2x4 * scalar, leftM2x5 * scalar,
-                leftM3x0 * scalar, leftM3x1 * scalar, leftM3x2 * scalar, leftM3x3 * scalar, leftM3x4 * scalar, leftM3x5 * scalar,
-                leftM4x0 * scalar, leftM4x1 * scalar, leftM4x2 * scalar, leftM4x3 * scalar, leftM4x4 * scalar, leftM4x5 * scalar,
-                leftM5x0 * scalar, leftM5x1 * scalar, leftM5x2 * scalar, leftM5x3 * scalar, leftM5x4 * scalar, leftM5x5 * scalar);
+            double multiplicandM0x0, double multiplicandM0x1, double multiplicandM0x2, double multiplicandM0x3, double multiplicandM0x4, double multiplicandM0x5,
+            double multiplicandM1x0, double multiplicandM1x1, double multiplicandM1x2, double multiplicandM1x3, double multiplicandM1x4, double multiplicandM1x5,
+            double multiplicandM2x0, double multiplicandM2x1, double multiplicandM2x2, double multiplicandM2x3, double multiplicandM2x4, double multiplicandM2x5,
+            double multiplicandM3x0, double multiplicandM3x1, double multiplicandM3x2, double multiplicandM3x3, double multiplicandM3x4, double multiplicandM3x5,
+            double multiplicandM4x0, double multiplicandM4x1, double multiplicandM4x2, double multiplicandM4x3, double multiplicandM4x4, double multiplicandM4x5,
+            double multiplicandM5x0, double multiplicandM5x1, double multiplicandM5x2, double multiplicandM5x3, double multiplicandM5x4, double multiplicandM5x5,
+            double multiplier)
+            => (
+                multiplicandM0x0 * multiplier, multiplicandM0x1 * multiplier, multiplicandM0x2 * multiplier, multiplicandM0x3 * multiplier, multiplicandM0x4 * multiplier, multiplicandM0x5 * multiplier,
+                multiplicandM1x0 * multiplier, multiplicandM1x1 * multiplier, multiplicandM1x2 * multiplier, multiplicandM1x3 * multiplier, multiplicandM1x4 * multiplier, multiplicandM1x5 * multiplier,
+                multiplicandM2x0 * multiplier, multiplicandM2x1 * multiplier, multiplicandM2x2 * multiplier, multiplicandM2x3 * multiplier, multiplicandM2x4 * multiplier, multiplicandM2x5 * multiplier,
+                multiplicandM3x0 * multiplier, multiplicandM3x1 * multiplier, multiplicandM3x2 * multiplier, multiplicandM3x3 * multiplier, multiplicandM3x4 * multiplier, multiplicandM3x5 * multiplier,
+                multiplicandM4x0 * multiplier, multiplicandM4x1 * multiplier, multiplicandM4x2 * multiplier, multiplicandM4x3 * multiplier, multiplicandM4x4 * multiplier, multiplicandM4x5 * multiplier,
+                multiplicandM5x0 * multiplier, multiplicandM5x1 * multiplier, multiplicandM5x2 * multiplier, multiplicandM5x3 * multiplier, multiplicandM5x4 * multiplier, multiplicandM5x5 * multiplier
+            );
         #endregion Scale
 
         #region Multiply
@@ -1280,8 +1310,10 @@ namespace Engine
             double x, double y,
             double m1x1, double m1x2,
             double m2x1, double m2x2)
-            => (x * m1x1 + x * m1x2,
-                y * m2x1 + y * m2x2);
+            => (
+                (x * m1x1) + (x * m1x2),
+                (y * m2x1) + (y * m2x2)
+            );
 
         /// <summary>
         /// Multiplies a vector3 and matrix3x3.
@@ -1306,9 +1338,11 @@ namespace Engine
             double m1x1, double m1x2, double m1x3,
             double m2x1, double m2x2, double m2x3,
             double m3x1, double m3x2, double m3x3)
-            => (x * m1x1 + x * m1x2 + x * m1x3,
-                y * m2x1 + y * m2x2 + y * m2x3,
-                z * m3x1 + z * m3x2 + z * m3x3);
+            => (
+                (x * m1x1) + (x * m1x2) + (x * m1x3),
+                (y * m2x1) + (y * m2x2) + (y * m2x3),
+                (z * m3x1) + (z * m3x2) + (z * m3x3)
+            );
 
         /// <summary>
         /// Multiplies a vector4 and matrix4x4.
@@ -1342,10 +1376,12 @@ namespace Engine
             double m2x1, double m2x2, double m2x3, double m2x4,
             double m3x1, double m3x2, double m3x3, double m3x4,
             double m4x1, double m4x2, double m4x3, double m4x4)
-            => (x * m1x1 + x * m1x2 + x * m1x3 + x * m1x4,
-                y * m2x1 + y * m2x2 + y * m2x3 + y * m2x4,
-                z * m3x1 + z * m3x2 + z * m3x3 + z * m3x4,
-                w * m4x1 + w * m4x2 + w * m4x3 + w * m4x4);
+            => (
+                (x * m1x1) + (x * m1x2) + (x * m1x3) + (x * m1x4),
+                (y * m2x1) + (y * m2x2) + (y * m2x3) + (y * m2x4),
+                (z * m3x1) + (z * m3x2) + (z * m3x3) + (z * m3x4),
+                (w * m4x1) + (w * m4x2) + (w * m4x3) + (w * m4x4)
+            );
 
         /// <summary>
         /// Multiplies a vector5 and matrix5x5.
@@ -1390,11 +1426,13 @@ namespace Engine
             double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
             double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
             double m5x1, double m5x2, double m5x3, double m5x4, double m5x5)
-            => (x * m1x1 + x * m1x2 + x * m1x3 + x * m1x4 + x * m1x5,
-                y * m2x1 + y * m2x2 + y * m2x3 + y * m2x4 + y * m2x5,
-                z * m3x1 + z * m3x2 + z * m3x3 + z * m3x4 + z * m3x5,
-                w * m4x1 + w * m4x2 + w * m4x3 + w * m4x4 + w * m4x5,
-                w * m5x1 + v * m5x2 + v * m5x3 + v * m5x4 + v * m5x5);
+            => (
+                (x * m1x1) + (x * m1x2) + (x * m1x3) + (x * m1x4) + (x * m1x5),
+                (y * m2x1) + (y * m2x2) + (y * m2x3) + (y * m2x4) + (y * m2x5),
+                (z * m3x1) + (z * m3x2) + (z * m3x3) + (z * m3x4) + (z * m3x5),
+                (w * m4x1) + (w * m4x2) + (w * m4x3) + (w * m4x4) + (w * m4x5),
+                (w * m5x1) + (v * m5x2) + (v * m5x3) + (v * m5x4) + (v * m5x5)
+            );
 
         /// <summary>
         /// Multiplies a vector6 and matrix6x6.
@@ -1452,24 +1490,26 @@ namespace Engine
             double m4x1, double m4x2, double m4x3, double m4x4, double m4x5, double m4x6,
             double m5x1, double m5x2, double m5x3, double m5x4, double m5x5, double m5x6,
             double m6x1, double m6x2, double m6x3, double m6x4, double m6x5, double m6x6)
-            => (x * m1x1 + x * m1x2 + x * m1x3 + x * m1x4 + x * m1x5 + x * m1x6,
-                y * m2x1 + y * m2x2 + y * m2x3 + y * m2x4 + y * m2x5 + y * m2x6,
-                z * m3x1 + z * m3x2 + z * m3x3 + z * m3x4 + z * m3x5 + z * m3x6,
-                w * m4x1 + w * m4x2 + w * m4x3 + w * m4x4 + w * m4x5 + w * m4x6,
-                w * m5x1 + v * m5x2 + v * m5x3 + v * m5x4 + v * m5x5 + v * m5x6,
-                w * m6x1 + u * m6x2 + u * m6x3 + u * m6x4 + u * m6x5 + u * m6x6);
+            => (
+                (x * m1x1) + (x * m1x2) + (x * m1x3) + (x * m1x4) + (x * m1x5) + (x * m1x6),
+                (y * m2x1) + (y * m2x2) + (y * m2x3) + (y * m2x4) + (y * m2x5) + (y * m2x6),
+                (z * m3x1) + (z * m3x2) + (z * m3x3) + (z * m3x4) + (z * m3x5) + (z * m3x6),
+                (w * m4x1) + (w * m4x2) + (w * m4x3) + (w * m4x4) + (w * m4x5) + (w * m4x6),
+                (w * m5x1) + (v * m5x2) + (v * m5x3) + (v * m5x4) + (v * m5x5) + (v * m5x6),
+                (w * m6x1) + (u * m6x2) + (u * m6x3) + (u * m6x4) + (u * m6x5) + (u * m6x6)
+            );
 
         /// <summary>
         /// Used to multiply (concatenate) two Matrix2x2s.
         /// </summary>
-        /// <param name="leftM0x0"></param>
-        /// <param name="leftM0x1"></param>
-        /// <param name="leftM1x0"></param>
-        /// <param name="leftM1x1"></param>
-        /// <param name="rightM0x0"></param>
-        /// <param name="rightM0x1"></param>
-        /// <param name="rightM1x0"></param>
-        /// <param name="rightM1x1"></param>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1477,29 +1517,31 @@ namespace Engine
             double m0x0, double m0x1,
             double m1x0, double m1x1
             ) Multiply2x2x2x2(
-            double leftM0x0, double leftM0x1,
-            double leftM1x0, double leftM1x1,
-            double rightM0x0, double rightM0x1,
-            double rightM1x0, double rightM1x1)
-            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0), (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1),
-                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0), (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1));
+            double multiplicand0x0, double multiplicand0x1,
+            double multiplicand1x0, double multiplicand1x1,
+            double multiplier0x0, double multiplier0x1,
+            double multiplier1x0, double multiplier1x1)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0), (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1),
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0), (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1)
+            );
 
         /// <summary>
         /// Used to multiply (concatenate) two Matrix3x3s.
         /// </summary>
-        /// <param name="leftM0x0"></param>
-        /// <param name="leftM0x1"></param>
-        /// <param name="leftM0x2"></param>
-        /// <param name="leftM1x0"></param>
-        /// <param name="leftM1x1"></param>
-        /// <param name="leftM1x2"></param>
-        /// <param name="leftM2x0"></param>
-        /// <param name="leftM2x1"></param>
-        /// <param name="leftM2x2"></param>
-        /// <param name="rightM0x0"></param>
-        /// <param name="rightM0x1"></param>
-        /// <param name="rightM1x0"></param>
-        /// <param name="rightM1x1"></param>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1508,31 +1550,33 @@ namespace Engine
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2
             ) Multiply3x3x2x2(
-            double leftM0x0, double leftM0x1, double leftM0x2,
-            double leftM1x0, double leftM1x1, double leftM1x2,
-            double leftM2x0, double leftM2x1, double leftM2x2,
-            double rightM0x0, double rightM0x1,
-            double rightM1x0, double rightM1x1)
-            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0), (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1), leftM0x2,
-                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0), (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1), leftM1x2,
-                (leftM2x0 * rightM0x0) + (leftM2x1 * rightM1x0), (leftM2x0 * rightM0x1) + (leftM2x1 * rightM1x1), leftM2x2);
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2,
+            double multiplier0x0, double multiplier0x1,
+            double multiplier1x0, double multiplier1x1)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0), (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1), multiplicand0x2,
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0), (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1), multiplicand1x2,
+                (multiplicand2x0 * multiplier0x0) + (multiplicand2x1 * multiplier1x0), (multiplicand2x0 * multiplier0x1) + (multiplicand2x1 * multiplier1x1), multiplicand2x2
+            );
 
         /// <summary>
         /// Used to multiply (concatenate) two Matrix3x3s.
         /// </summary>
-        /// <param name="leftM0x0"></param>
-        /// <param name="leftM0x1"></param>
-        /// <param name="leftM1x0"></param>
-        /// <param name="leftM1x1"></param>
-        /// <param name="rightM0x0"></param>
-        /// <param name="rightM0x1"></param>
-        /// <param name="rightM0x2"></param>
-        /// <param name="rightM1x0"></param>
-        /// <param name="rightM1x1"></param>
-        /// <param name="rightM1x2"></param>
-        /// <param name="rightM2x0"></param>
-        /// <param name="rightM2x1"></param>
-        /// <param name="rightM2x2"></param>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1541,36 +1585,38 @@ namespace Engine
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2
             ) Multiply2x2x3x3(
-            double leftM0x0, double leftM0x1,
-            double leftM1x0, double leftM1x1,
-            double rightM0x0, double rightM0x1, double rightM0x2,
-            double rightM1x0, double rightM1x1, double rightM1x2,
-            double rightM2x0, double rightM2x1, double rightM2x2)
-            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0), (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1), (leftM0x0 * rightM0x2) + (leftM0x1 * rightM1x2),
-                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0), (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1), (leftM1x0 * rightM0x2) + (leftM1x1 * rightM1x2),
-                rightM2x0, rightM2x1, rightM2x2);
+            double multiplicand0x0, double multiplicand0x1,
+            double multiplicand1x0, double multiplicand1x1,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0), (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1), (multiplicand0x0 * multiplier0x2) + (multiplicand0x1 * multiplier1x2),
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0), (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1), (multiplicand1x0 * multiplier0x2) + (multiplicand1x1 * multiplier1x2),
+                multiplier2x0, multiplier2x1, multiplier2x2
+            );
 
         /// <summary>
-        /// Used to multiply (concatenate) two <see cref="Matrix3x3D"/>s.
+        /// Used to multiply (concatenate) two <see cref="Matrix3x3D" />s.
         /// </summary>
-        /// <param name="leftM0x0"></param>
-        /// <param name="leftM0x1"></param>
-        /// <param name="leftM0x2"></param>
-        /// <param name="leftM1x0"></param>
-        /// <param name="leftM1x1"></param>
-        /// <param name="leftM1x2"></param>
-        /// <param name="leftM2x0"></param>
-        /// <param name="leftM2x1"></param>
-        /// <param name="leftM2x2"></param>
-        /// <param name="rightM0x0"></param>
-        /// <param name="rightM0x1"></param>
-        /// <param name="rightM0x2"></param>
-        /// <param name="rightM1x0"></param>
-        /// <param name="rightM1x1"></param>
-        /// <param name="rightM1x2"></param>
-        /// <param name="rightM2x0"></param>
-        /// <param name="rightM2x1"></param>
-        /// <param name="rightM2x2"></param>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1579,39 +1625,41 @@ namespace Engine
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2
             ) Multiply3x3x3x3(
-            double leftM0x0, double leftM0x1, double leftM0x2,
-            double leftM1x0, double leftM1x1, double leftM1x2,
-            double leftM2x0, double leftM2x1, double leftM2x2,
-            double rightM0x0, double rightM0x1, double rightM0x2,
-            double rightM1x0, double rightM1x1, double rightM1x2,
-            double rightM2x0, double rightM2x1, double rightM2x2)
-            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0) + (leftM0x2 * rightM2x0), (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1) + (leftM0x2 * rightM2x1), (leftM0x0 * rightM0x2) + (leftM0x1 * rightM1x2) + (leftM0x2 * rightM2x2),
-                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0) + (leftM1x2 * rightM2x0), (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1) + (leftM1x2 * rightM2x1), (leftM1x0 * rightM0x2) + (leftM1x1 * rightM1x2) + (leftM1x2 * rightM2x2),
-                (leftM2x0 * rightM0x0) + (leftM2x1 * rightM1x0) + (leftM2x2 * rightM2x0), (leftM2x0 * rightM0x1) + (leftM2x1 * rightM1x1) + (leftM2x2 * rightM2x1), (leftM2x0 * rightM0x2) + (leftM2x1 * rightM1x2) + (leftM2x2 * rightM2x2));
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0) + (multiplicand0x2 * multiplier2x0), (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1) + (multiplicand0x2 * multiplier2x1), (multiplicand0x0 * multiplier0x2) + (multiplicand0x1 * multiplier1x2) + (multiplicand0x2 * multiplier2x2),
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0) + (multiplicand1x2 * multiplier2x0), (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1) + (multiplicand1x2 * multiplier2x1), (multiplicand1x0 * multiplier0x2) + (multiplicand1x1 * multiplier1x2) + (multiplicand1x2 * multiplier2x2),
+                (multiplicand2x0 * multiplier0x0) + (multiplicand2x1 * multiplier1x0) + (multiplicand2x2 * multiplier2x0), (multiplicand2x0 * multiplier0x1) + (multiplicand2x1 * multiplier1x1) + (multiplicand2x2 * multiplier2x1), (multiplicand2x0 * multiplier0x2) + (multiplicand2x1 * multiplier1x2) + (multiplicand2x2 * multiplier2x2)
+            );
 
         /// <summary>
-        /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
+        /// Used to multiply (concatenate) two <see cref="Matrix4x4D" />s.
         /// </summary>
-        /// <param name="leftM0x0"></param>
-        /// <param name="leftM0x1"></param>
-        /// <param name="leftM1x0"></param>
-        /// <param name="leftM1x1"></param>
-        /// <param name="rightM0x0"></param>
-        /// <param name="rightM0x1"></param>
-        /// <param name="rightM0x2"></param>
-        /// <param name="rightM0x3"></param>
-        /// <param name="rightM1x0"></param>
-        /// <param name="rightM1x1"></param>
-        /// <param name="rightM1x2"></param>
-        /// <param name="rightM1x3"></param>
-        /// <param name="rightM2x0"></param>
-        /// <param name="rightM2x1"></param>
-        /// <param name="rightM2x2"></param>
-        /// <param name="rightM2x3"></param>
-        /// <param name="rightM3x0"></param>
-        /// <param name="rightM3x1"></param>
-        /// <param name="rightM3x2"></param>
-        /// <param name="rightM3x3"></param>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1621,45 +1669,47 @@ namespace Engine
             double m2x0, double m2x1, double m2x2, double m2x3,
             double m3x0, double m3x1, double m3x2, double m3x3
             ) Multiply2x2x4x4(
-            double leftM0x0, double leftM0x1,
-            double leftM1x0, double leftM1x1,
-            double rightM0x0, double rightM0x1, double rightM0x2, double rightM0x3,
-            double rightM1x0, double rightM1x1, double rightM1x2, double rightM1x3,
-            double rightM2x0, double rightM2x1, double rightM2x2, double rightM2x3,
-            double rightM3x0, double rightM3x1, double rightM3x2, double rightM3x3)
-            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0), (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1), (leftM0x0 * rightM0x2) + (leftM0x1 * rightM1x2), (leftM0x0 * rightM0x3) + (leftM0x1 * rightM1x3),
-                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0), (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1), (leftM1x0 * rightM0x2) + (leftM1x1 * rightM1x2), (leftM1x0 * rightM0x3) + (leftM1x1 * rightM1x3),
-                rightM2x0, rightM2x1, rightM2x2, rightM2x3,
-                rightM3x0, rightM3x1, rightM3x2, rightM3x3);
+            double multiplicand0x0, double multiplicand0x1,
+            double multiplicand1x0, double multiplicand1x1,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0), (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1), (multiplicand0x0 * multiplier0x2) + (multiplicand0x1 * multiplier1x2), (multiplicand0x0 * multiplier0x3) + (multiplicand0x1 * multiplier1x3),
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0), (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1), (multiplicand1x0 * multiplier0x2) + (multiplicand1x1 * multiplier1x2), (multiplicand1x0 * multiplier0x3) + (multiplicand1x1 * multiplier1x3),
+                multiplier2x0, multiplier2x1, multiplier2x2, multiplier2x3,
+                multiplier3x0, multiplier3x1, multiplier3x2, multiplier3x3
+            );
 
         /// <summary>
-        /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
+        /// Used to multiply (concatenate) two <see cref="Matrix4x4D" />s.
         /// </summary>
-        /// <param name="leftM0x0"></param>
-        /// <param name="leftM0x1"></param>
-        /// <param name="leftM0x2"></param>
-        /// <param name="leftM1x0"></param>
-        /// <param name="leftM1x1"></param>
-        /// <param name="leftM1x2"></param>
-        /// <param name="leftM2x0"></param>
-        /// <param name="leftM2x1"></param>
-        /// <param name="leftM2x2"></param>
-        /// <param name="rightM0x0"></param>
-        /// <param name="rightM0x1"></param>
-        /// <param name="rightM0x2"></param>
-        /// <param name="rightM0x3"></param>
-        /// <param name="rightM1x0"></param>
-        /// <param name="rightM1x1"></param>
-        /// <param name="rightM1x2"></param>
-        /// <param name="rightM1x3"></param>
-        /// <param name="rightM2x0"></param>
-        /// <param name="rightM2x1"></param>
-        /// <param name="rightM2x2"></param>
-        /// <param name="rightM2x3"></param>
-        /// <param name="rightM3x0"></param>
-        /// <param name="rightM3x1"></param>
-        /// <param name="rightM3x2"></param>
-        /// <param name="rightM3x3"></param>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1669,41 +1719,43 @@ namespace Engine
             double m2x0, double m2x1, double m2x2, double m2x3,
             double m3x0, double m3x1, double m3x2, double m3x3
             ) Multiply3x3x4x4(
-            double leftM0x0, double leftM0x1, double leftM0x2,
-            double leftM1x0, double leftM1x1, double leftM1x2,
-            double leftM2x0, double leftM2x1, double leftM2x2,
-            double rightM0x0, double rightM0x1, double rightM0x2, double rightM0x3,
-            double rightM1x0, double rightM1x1, double rightM1x2, double rightM1x3,
-            double rightM2x0, double rightM2x1, double rightM2x2, double rightM2x3,
-            double rightM3x0, double rightM3x1, double rightM3x2, double rightM3x3)
-            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0) + (leftM0x2 * rightM2x0), (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1) + (leftM0x2 * rightM2x1), (leftM0x0 * rightM0x2) + (leftM0x1 * rightM1x2) + (leftM0x2 * rightM2x2), (leftM0x0 * rightM0x3) + (leftM0x1 * rightM1x3) + (leftM0x2 * rightM2x3),
-                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0) + (leftM1x2 * rightM2x0), (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1) + (leftM1x2 * rightM2x1), (leftM1x0 * rightM0x2) + (leftM1x1 * rightM1x2) + (leftM1x2 * rightM2x2), (leftM1x0 * rightM0x3) + (leftM1x1 * rightM1x3) + (leftM1x2 * rightM2x3),
-                (leftM2x0 * rightM0x0) + (leftM2x1 * rightM1x0) + (leftM2x2 * rightM2x0), (leftM2x0 * rightM0x1) + (leftM2x1 * rightM1x1) + (leftM2x2 * rightM2x1), (leftM2x0 * rightM0x2) + (leftM2x1 * rightM1x2) + (leftM2x2 * rightM2x2), (leftM2x0 * rightM0x3) + (leftM2x1 * rightM1x3) + (leftM2x2 * rightM2x3),
-                rightM3x0, rightM3x1, rightM3x2, rightM3x3);
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0) + (multiplicand0x2 * multiplier2x0), (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1) + (multiplicand0x2 * multiplier2x1), (multiplicand0x0 * multiplier0x2) + (multiplicand0x1 * multiplier1x2) + (multiplicand0x2 * multiplier2x2), (multiplicand0x0 * multiplier0x3) + (multiplicand0x1 * multiplier1x3) + (multiplicand0x2 * multiplier2x3),
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0) + (multiplicand1x2 * multiplier2x0), (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1) + (multiplicand1x2 * multiplier2x1), (multiplicand1x0 * multiplier0x2) + (multiplicand1x1 * multiplier1x2) + (multiplicand1x2 * multiplier2x2), (multiplicand1x0 * multiplier0x3) + (multiplicand1x1 * multiplier1x3) + (multiplicand1x2 * multiplier2x3),
+                (multiplicand2x0 * multiplier0x0) + (multiplicand2x1 * multiplier1x0) + (multiplicand2x2 * multiplier2x0), (multiplicand2x0 * multiplier0x1) + (multiplicand2x1 * multiplier1x1) + (multiplicand2x2 * multiplier2x1), (multiplicand2x0 * multiplier0x2) + (multiplicand2x1 * multiplier1x2) + (multiplicand2x2 * multiplier2x2), (multiplicand2x0 * multiplier0x3) + (multiplicand2x1 * multiplier1x3) + (multiplicand2x2 * multiplier2x3),
+                multiplier3x0, multiplier3x1, multiplier3x2, multiplier3x3
+            );
 
         /// <summary>
-        /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
+        /// Used to multiply (concatenate) two <see cref="Matrix4x4D" />s.
         /// </summary>
-        /// <param name="leftM0x0"></param>
-        /// <param name="leftM0x1"></param>
-        /// <param name="leftM0x2"></param>
-        /// <param name="leftM0x3"></param>
-        /// <param name="leftM1x0"></param>
-        /// <param name="leftM1x1"></param>
-        /// <param name="leftM1x2"></param>
-        /// <param name="leftM1x3"></param>
-        /// <param name="leftM2x0"></param>
-        /// <param name="leftM2x1"></param>
-        /// <param name="leftM2x2"></param>
-        /// <param name="leftM2x3"></param>
-        /// <param name="leftM3x0"></param>
-        /// <param name="leftM3x1"></param>
-        /// <param name="leftM3x2"></param>
-        /// <param name="leftM3x3"></param>
-        /// <param name="rightM0x0"></param>
-        /// <param name="rightM0x1"></param>
-        /// <param name="rightM1x0"></param>
-        /// <param name="rightM1x1"></param>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1713,45 +1765,47 @@ namespace Engine
             double m2x0, double m2x1, double m2x2, double m2x3,
             double m3x0, double m3x1, double m3x2, double m3x3
             ) Multiply4x4x2x2(
-            double leftM0x0, double leftM0x1, double leftM0x2, double leftM0x3,
-            double leftM1x0, double leftM1x1, double leftM1x2, double leftM1x3,
-            double leftM2x0, double leftM2x1, double leftM2x2, double leftM2x3,
-            double leftM3x0, double leftM3x1, double leftM3x2, double leftM3x3,
-            double rightM0x0, double rightM0x1,
-            double rightM1x0, double rightM1x1)
-            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0), (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1), leftM0x2, leftM0x3,
-                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0), (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1), leftM1x2, leftM1x3,
-                (leftM2x0 * rightM0x0) + (leftM2x1 * rightM1x0), (leftM2x0 * rightM0x1) + (leftM2x1 * rightM1x1), leftM2x2, leftM2x3,
-                (leftM3x0 * rightM0x0) + (leftM3x1 * rightM1x0), (leftM3x0 * rightM0x1) + (leftM3x1 * rightM1x1), leftM3x2, leftM3x3);
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3,
+            double multiplier0x0, double multiplier0x1,
+            double multiplier1x0, double multiplier1x1)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0), (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1), multiplicand0x2, multiplicand0x3,
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0), (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1), multiplicand1x2, multiplicand1x3,
+                (multiplicand2x0 * multiplier0x0) + (multiplicand2x1 * multiplier1x0), (multiplicand2x0 * multiplier0x1) + (multiplicand2x1 * multiplier1x1), multiplicand2x2, multiplicand2x3,
+                (multiplicand3x0 * multiplier0x0) + (multiplicand3x1 * multiplier1x0), (multiplicand3x0 * multiplier0x1) + (multiplicand3x1 * multiplier1x1), multiplicand3x2, multiplicand3x3
+            );
 
         /// <summary>
-        /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
+        /// Used to multiply (concatenate) two <see cref="Matrix4x4D" />s.
         /// </summary>
-        /// <param name="leftM0x0"></param>
-        /// <param name="leftM0x1"></param>
-        /// <param name="leftM0x2"></param>
-        /// <param name="leftM0x3"></param>
-        /// <param name="leftM1x0"></param>
-        /// <param name="leftM1x1"></param>
-        /// <param name="leftM1x2"></param>
-        /// <param name="leftM1x3"></param>
-        /// <param name="leftM2x0"></param>
-        /// <param name="leftM2x1"></param>
-        /// <param name="leftM2x2"></param>
-        /// <param name="leftM2x3"></param>
-        /// <param name="leftM3x0"></param>
-        /// <param name="leftM3x1"></param>
-        /// <param name="leftM3x2"></param>
-        /// <param name="leftM3x3"></param>
-        /// <param name="rightM0x0"></param>
-        /// <param name="rightM0x1"></param>
-        /// <param name="rightM0x2"></param>
-        /// <param name="rightM1x0"></param>
-        /// <param name="rightM1x1"></param>
-        /// <param name="rightM1x2"></param>
-        /// <param name="rightM2x0"></param>
-        /// <param name="rightM2x1"></param>
-        /// <param name="rightM2x2"></param>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1761,55 +1815,55 @@ namespace Engine
             double m2x0, double m2x1, double m2x2, double m2x3,
             double m3x0, double m3x1, double m3x2, double m3x3
             ) Multiply4x4x3x3(
-            double leftM0x0, double leftM0x1, double leftM0x2, double leftM0x3,
-            double leftM1x0, double leftM1x1, double leftM1x2, double leftM1x3,
-            double leftM2x0, double leftM2x1, double leftM2x2, double leftM2x3,
-            double leftM3x0, double leftM3x1, double leftM3x2, double leftM3x3,
-            double rightM0x0, double rightM0x1, double rightM0x2,
-            double rightM1x0, double rightM1x1, double rightM1x2,
-            double rightM2x0, double rightM2x1, double rightM2x2)
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2)
             => (
-                (leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0) + (leftM0x2 * rightM2x0), (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1) + (leftM0x2 * rightM2x1), (leftM0x0 * rightM0x2) + (leftM0x1 * rightM1x2) + (leftM0x2 * rightM2x2), leftM0x3,
-                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0) + (leftM1x2 * rightM2x0), (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1) + (leftM1x2 * rightM2x1), (leftM1x0 * rightM0x2) + (leftM1x1 * rightM1x2) + (leftM1x2 * rightM2x2), leftM1x3,
-                (leftM2x0 * rightM0x0) + (leftM2x1 * rightM1x0) + (leftM2x2 * rightM2x0), (leftM2x0 * rightM0x1) + (leftM2x1 * rightM1x1) + (leftM2x2 * rightM2x1), (leftM2x0 * rightM0x2) + (leftM2x1 * rightM1x2) + (leftM2x2 * rightM2x2), leftM2x3,
-                (leftM3x0 * rightM0x0) + (leftM3x1 * rightM1x0) + (leftM3x2 * rightM2x0), (leftM3x0 * rightM0x1) + (leftM3x1 * rightM1x1) + (leftM3x2 * rightM2x1), (leftM3x0 * rightM0x2) + (leftM3x1 * rightM1x2) + (leftM3x2 * rightM2x2), leftM3x3
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0) + (multiplicand0x2 * multiplier2x0), (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1) + (multiplicand0x2 * multiplier2x1), (multiplicand0x0 * multiplier0x2) + (multiplicand0x1 * multiplier1x2) + (multiplicand0x2 * multiplier2x2), multiplicand0x3,
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0) + (multiplicand1x2 * multiplier2x0), (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1) + (multiplicand1x2 * multiplier2x1), (multiplicand1x0 * multiplier0x2) + (multiplicand1x1 * multiplier1x2) + (multiplicand1x2 * multiplier2x2), multiplicand1x3,
+                (multiplicand2x0 * multiplier0x0) + (multiplicand2x1 * multiplier1x0) + (multiplicand2x2 * multiplier2x0), (multiplicand2x0 * multiplier0x1) + (multiplicand2x1 * multiplier1x1) + (multiplicand2x2 * multiplier2x1), (multiplicand2x0 * multiplier0x2) + (multiplicand2x1 * multiplier1x2) + (multiplicand2x2 * multiplier2x2), multiplicand2x3,
+                (multiplicand3x0 * multiplier0x0) + (multiplicand3x1 * multiplier1x0) + (multiplicand3x2 * multiplier2x0), (multiplicand3x0 * multiplier0x1) + (multiplicand3x1 * multiplier1x1) + (multiplicand3x2 * multiplier2x1), (multiplicand3x0 * multiplier0x2) + (multiplicand3x1 * multiplier1x2) + (multiplicand3x2 * multiplier2x2), multiplicand3x3
             );
 
         /// <summary>
-        /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
+        /// Used to multiply (concatenate) two <see cref="Matrix4x4D" />s.
         /// </summary>
-        /// <param name="leftM0x0"></param>
-        /// <param name="leftM0x1"></param>
-        /// <param name="leftM0x2"></param>
-        /// <param name="leftM0x3"></param>
-        /// <param name="leftM1x0"></param>
-        /// <param name="leftM1x1"></param>
-        /// <param name="leftM1x2"></param>
-        /// <param name="leftM1x3"></param>
-        /// <param name="leftM2x0"></param>
-        /// <param name="leftM2x1"></param>
-        /// <param name="leftM2x2"></param>
-        /// <param name="leftM2x3"></param>
-        /// <param name="leftM3x0"></param>
-        /// <param name="leftM3x1"></param>
-        /// <param name="leftM3x2"></param>
-        /// <param name="leftM3x3"></param>
-        /// <param name="rightM0x0"></param>
-        /// <param name="rightM0x1"></param>
-        /// <param name="rightM0x2"></param>
-        /// <param name="rightM0x3"></param>
-        /// <param name="rightM1x0"></param>
-        /// <param name="rightM1x1"></param>
-        /// <param name="rightM1x2"></param>
-        /// <param name="rightM1x3"></param>
-        /// <param name="rightM2x0"></param>
-        /// <param name="rightM2x1"></param>
-        /// <param name="rightM2x2"></param>
-        /// <param name="rightM2x3"></param>
-        /// <param name="rightM3x0"></param>
-        /// <param name="rightM3x1"></param>
-        /// <param name="rightM3x2"></param>
-        /// <param name="rightM3x3"></param>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1819,31 +1873,1679 @@ namespace Engine
             double m2x0, double m2x1, double m2x2, double m2x3,
             double m3x0, double m3x1, double m3x2, double m3x3
             ) Multiply4x4x4x4(
-            double leftM0x0, double leftM0x1, double leftM0x2, double leftM0x3,
-            double leftM1x0, double leftM1x1, double leftM1x2, double leftM1x3,
-            double leftM2x0, double leftM2x1, double leftM2x2, double leftM2x3,
-            double leftM3x0, double leftM3x1, double leftM3x2, double leftM3x3,
-            double rightM0x0, double rightM0x1, double rightM0x2, double rightM0x3,
-            double rightM1x0, double rightM1x1, double rightM1x2, double rightM1x3,
-            double rightM2x0, double rightM2x1, double rightM2x2, double rightM2x3,
-            double rightM3x0, double rightM3x1, double rightM3x2, double rightM3x3)
-            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0) + (leftM0x2 * rightM2x0) + (leftM0x3 * rightM3x0), (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1) + (leftM0x2 * rightM2x1) + (leftM0x3 * rightM3x1), (leftM0x0 * rightM0x2) + (leftM0x1 * rightM1x2) + (leftM0x2 * rightM2x2) + (leftM0x3 * rightM3x2), (leftM0x0 * rightM0x3) + (leftM0x1 * rightM1x3) + (leftM0x2 * rightM2x3) + (leftM0x3 * rightM3x3),
-                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0) + (leftM1x2 * rightM2x0) + (leftM1x3 * rightM3x0), (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1) + (leftM1x2 * rightM2x1) + (leftM1x3 * rightM3x1), (leftM1x0 * rightM0x2) + (leftM1x1 * rightM1x2) + (leftM1x2 * rightM2x2) + (leftM1x3 * rightM3x2), (leftM1x0 * rightM0x3) + (leftM1x1 * rightM1x3) + (leftM1x2 * rightM2x3) + (leftM1x3 * rightM3x3),
-                (leftM2x0 * rightM0x0) + (leftM2x1 * rightM1x0) + (leftM2x2 * rightM2x0) + (leftM2x3 * rightM3x0), (leftM2x0 * rightM0x1) + (leftM2x1 * rightM1x1) + (leftM2x2 * rightM2x1) + (leftM2x3 * rightM3x1), (leftM2x0 * rightM0x2) + (leftM2x1 * rightM1x2) + (leftM2x2 * rightM2x2) + (leftM2x3 * rightM3x2), (leftM2x0 * rightM0x3) + (leftM2x1 * rightM1x3) + (leftM2x2 * rightM2x3) + (leftM2x3 * rightM3x3),
-                (leftM3x0 * rightM0x0) + (leftM3x1 * rightM1x0) + (leftM3x2 * rightM2x0) + (leftM3x3 * rightM3x0), (leftM3x0 * rightM0x1) + (leftM3x1 * rightM1x1) + (leftM3x2 * rightM2x1) + (leftM3x3 * rightM3x1), (leftM3x0 * rightM0x2) + (leftM3x1 * rightM1x2) + (leftM3x2 * rightM2x2) + (leftM3x3 * rightM3x2), (leftM3x0 * rightM0x3) + (leftM3x1 * rightM1x3) + (leftM3x2 * rightM2x3) + (leftM3x3 * rightM3x3));
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0) + (multiplicand0x2 * multiplier2x0) + (multiplicand0x3 * multiplier3x0), (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1) + (multiplicand0x2 * multiplier2x1) + (multiplicand0x3 * multiplier3x1), (multiplicand0x0 * multiplier0x2) + (multiplicand0x1 * multiplier1x2) + (multiplicand0x2 * multiplier2x2) + (multiplicand0x3 * multiplier3x2), (multiplicand0x0 * multiplier0x3) + (multiplicand0x1 * multiplier1x3) + (multiplicand0x2 * multiplier2x3) + (multiplicand0x3 * multiplier3x3),
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0) + (multiplicand1x2 * multiplier2x0) + (multiplicand1x3 * multiplier3x0), (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1) + (multiplicand1x2 * multiplier2x1) + (multiplicand1x3 * multiplier3x1), (multiplicand1x0 * multiplier0x2) + (multiplicand1x1 * multiplier1x2) + (multiplicand1x2 * multiplier2x2) + (multiplicand1x3 * multiplier3x2), (multiplicand1x0 * multiplier0x3) + (multiplicand1x1 * multiplier1x3) + (multiplicand1x2 * multiplier2x3) + (multiplicand1x3 * multiplier3x3),
+                (multiplicand2x0 * multiplier0x0) + (multiplicand2x1 * multiplier1x0) + (multiplicand2x2 * multiplier2x0) + (multiplicand2x3 * multiplier3x0), (multiplicand2x0 * multiplier0x1) + (multiplicand2x1 * multiplier1x1) + (multiplicand2x2 * multiplier2x1) + (multiplicand2x3 * multiplier3x1), (multiplicand2x0 * multiplier0x2) + (multiplicand2x1 * multiplier1x2) + (multiplicand2x2 * multiplier2x2) + (multiplicand2x3 * multiplier3x2), (multiplicand2x0 * multiplier0x3) + (multiplicand2x1 * multiplier1x3) + (multiplicand2x2 * multiplier2x3) + (multiplicand2x3 * multiplier3x3),
+                (multiplicand3x0 * multiplier0x0) + (multiplicand3x1 * multiplier1x0) + (multiplicand3x2 * multiplier2x0) + (multiplicand3x3 * multiplier3x0), (multiplicand3x0 * multiplier0x1) + (multiplicand3x1 * multiplier1x1) + (multiplicand3x2 * multiplier2x1) + (multiplicand3x3 * multiplier3x1), (multiplicand3x0 * multiplier0x2) + (multiplicand3x1 * multiplier1x2) + (multiplicand3x2 * multiplier2x2) + (multiplicand3x3 * multiplier3x2), (multiplicand3x0 * multiplier0x3) + (multiplicand3x1 * multiplier1x3) + (multiplicand3x2 * multiplier2x3) + (multiplicand3x3 * multiplier3x3)
+            );
+
+        /// <summary>
+        /// Multiply2x2x5x5s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier0x4">The multiplier M0X4.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier1x4">The multiplier M1X4.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier2x4">The multiplier M2X4.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
+        /// <param name="multiplier3x4">The multiplier M3X4.</param>
+        /// <param name="multiplier4x0">The multiplier M4X0.</param>
+        /// <param name="multiplier4x1">The multiplier M4X1.</param>
+        /// <param name="multiplier4x2">The multiplier M4X2.</param>
+        /// <param name="multiplier4x3">The multiplier M4X3.</param>
+        /// <param name="multiplier4x4">The multiplier M4X4.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4
+            ) Multiply2x2x5x5(
+            double multiplicand0x0, double multiplicand0x1,
+            double multiplicand1x0, double multiplicand1x1,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3, double multiplier0x4,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3, double multiplier1x4,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3, double multiplier2x4,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3, double multiplier3x4,
+            double multiplier4x0, double multiplier4x1, double multiplier4x2, double multiplier4x3, double multiplier4x4)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0) + multiplier2x0 + multiplier3x0 + multiplier4x0,
+                (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1) + multiplier2x1 + multiplier3x1 + multiplier4x1,
+                (multiplicand0x0 * multiplier0x2) + (multiplicand0x1 * multiplier1x2) + multiplier2x2 + multiplier3x2 + multiplier4x2,
+                (multiplicand0x0 * multiplier0x3) + (multiplicand0x1 * multiplier1x3) + multiplier2x3 + multiplier3x3 + multiplier4x3,
+                (multiplicand0x0 * multiplier0x4) + (multiplicand0x1 * multiplier1x4) + multiplier2x4 + multiplier3x4 + multiplier4x4,
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0) + multiplier2x0 + multiplier3x0 + multiplier4x0,
+                (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1) + multiplier2x1 + multiplier3x1 + multiplier4x1,
+                (multiplicand1x0 * multiplier0x2) + (multiplicand1x1 * multiplier1x2) + multiplier2x2 + multiplier3x2 + multiplier4x2,
+                (multiplicand1x0 * multiplier0x3) + (multiplicand1x1 * multiplier1x3) + multiplier2x3 + multiplier3x3 + multiplier4x3,
+                (multiplicand1x0 * multiplier0x4) + (multiplicand1x1 * multiplier1x4) + multiplier2x4 + multiplier3x4 + multiplier4x4,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 + multiplier4x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 + multiplier4x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 + multiplier4x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 + multiplier4x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 + multiplier4x4,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 + multiplier4x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 + multiplier4x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 + multiplier4x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 + multiplier4x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 + multiplier4x4,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 + multiplier4x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 + multiplier4x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 + multiplier4x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 + multiplier4x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 + multiplier4x4
+            );
+
+        /// <summary>
+        /// Multiply5x5x2x2s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand0x4">The multiplicand M0X4.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand1x4">The multiplicand M1X4.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand2x4">The multiplicand M2X4.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplicand3x4">The multiplicand M3X4.</param>
+        /// <param name="multiplicand4x0">The multiplicand M4X0.</param>
+        /// <param name="multiplicand4x1">The multiplicand M4X1.</param>
+        /// <param name="multiplicand4x2">The multiplicand M4X2.</param>
+        /// <param name="multiplicand4x3">The multiplicand M4X3.</param>
+        /// <param name="multiplicand4x4">The multiplicand M4X4.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4
+            ) Multiply5x5x2x2(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3, double multiplicand0x4,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3, double multiplicand1x4,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3, double multiplicand2x4,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3, double multiplicand3x4,
+            double multiplicand4x0, double multiplicand4x1, double multiplicand4x2, double multiplicand4x3, double multiplicand4x4,
+            double multiplier0x0, double multiplier0x1,
+            double multiplier1x0, double multiplier1x1)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0) + multiplicand0x2 + multiplicand0x3 + multiplicand0x4,
+                (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1) + multiplicand0x2 + multiplicand0x3 + multiplicand0x4,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4,
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0) + multiplicand1x2 + multiplicand1x3 + multiplicand1x4,
+                (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1) + multiplicand1x2 + multiplicand1x3 + multiplicand1x4,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4,
+                (multiplicand2x0 * multiplier0x0) + (multiplicand2x1 * multiplier1x0) + multiplicand2x2 + multiplicand2x3 + multiplicand2x4,
+                (multiplicand2x0 * multiplier0x1) + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4,
+                (multiplicand3x0 * multiplier0x0) + (multiplicand3x1 * multiplier1x0) + multiplicand3x2 + multiplicand3x3 + multiplicand3x4,
+                (multiplicand3x0 * multiplier0x1) + (multiplicand3x1 * multiplier1x1) + multiplicand3x2 + multiplicand3x3 + multiplicand3x4,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4,
+                (multiplicand4x0 * multiplier0x0) + (multiplicand4x1 * multiplier1x0) + multiplicand4x2 + multiplicand4x3 + multiplicand4x4,
+                (multiplicand4x0 * multiplier0x1) + (multiplicand4x1 * multiplier1x1) + multiplicand4x2 + multiplicand4x3 + multiplicand4x4,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4
+            );
+
+        /// <summary>
+        /// Multiply3x3x5x5s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier0x4">The multiplier M0X4.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier1x4">The multiplier M1X4.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier2x4">The multiplier M2X4.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
+        /// <param name="multiplier3x4">The multiplier M3X4.</param>
+        /// <param name="multiplier4x0">The multiplier M4X0.</param>
+        /// <param name="multiplier4x1">The multiplier M4X1.</param>
+        /// <param name="multiplier4x2">The multiplier M4X2.</param>
+        /// <param name="multiplier4x3">The multiplier M4X3.</param>
+        /// <param name="multiplier4x4">The multiplier M4X4.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4
+            ) Multiply3x3x5x5(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3, double multiplier0x4,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3, double multiplier1x4,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3, double multiplier2x4,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3, double multiplier3x4,
+            double multiplier4x0, double multiplier4x1, double multiplier4x2, double multiplier4x3, double multiplier4x4)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0) + (multiplicand0x2 * multiplier2x0) + multiplier3x0 + multiplier4x0,
+                (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1) + (multiplicand0x2 * multiplier2x1) + multiplier3x1 + multiplier4x1,
+                (multiplicand0x0 * multiplier0x2) + (multiplicand0x1 * multiplier1x2) + (multiplicand0x2 * multiplier2x2) + multiplier3x2 + multiplier4x2,
+                (multiplicand0x0 * multiplier0x3) + (multiplicand0x1 * multiplier1x3) + (multiplicand0x2 * multiplier2x3) + multiplier3x3 + multiplier4x3,
+                (multiplicand0x0 * multiplier0x4) + (multiplicand0x1 * multiplier1x4) + (multiplicand0x2 * multiplier2x4) + multiplier3x4 + multiplier4x4,
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0) + (multiplicand1x2 * multiplier2x0) + multiplier3x0 + multiplier4x0,
+                (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1) + (multiplicand1x2 * multiplier2x1) + multiplier3x1 + multiplier4x1,
+                (multiplicand1x0 * multiplier0x2) + (multiplicand1x1 * multiplier1x2) + (multiplicand1x2 * multiplier2x2) + multiplier3x2 + multiplier4x2,
+                (multiplicand1x0 * multiplier0x3) + (multiplicand1x1 * multiplier1x3) + (multiplicand1x2 * multiplier2x3) + multiplier3x3 + multiplier4x3,
+                (multiplicand1x0 * multiplier0x4) + (multiplicand1x1 * multiplier1x4) + (multiplicand1x2 * multiplier2x4) + multiplier3x4 + multiplier4x4,
+                (multiplicand2x0 * multiplier0x0) + (multiplicand2x1 * multiplier1x0) + (multiplicand2x2 * multiplier2x0) + multiplier3x0 + multiplier4x0,
+                (multiplicand2x0 * multiplier0x1) + (multiplicand2x1 * multiplier1x1) + (multiplicand2x2 * multiplier2x1) + multiplier3x1 + multiplier4x1,
+                (multiplicand2x0 * multiplier0x2) + (multiplicand2x1 * multiplier1x2) + (multiplicand2x2 * multiplier2x2) + multiplier3x2 + multiplier4x2,
+                (multiplicand2x0 * multiplier0x3) + (multiplicand2x1 * multiplier1x3) + (multiplicand2x2 * multiplier2x3) + multiplier3x3 + multiplier4x3,
+                (multiplicand2x0 * multiplier0x4) + (multiplicand2x1 * multiplier1x4) + (multiplicand2x2 * multiplier2x4) + multiplier3x4 + multiplier4x4,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 + multiplier4x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 + multiplier4x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 + multiplier4x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 + multiplier4x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 + multiplier4x4,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 + multiplier4x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 + multiplier4x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 + multiplier4x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 + multiplier4x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 + multiplier4x4
+            );
+
+        /// <summary>
+        /// Multiply5x5x3x3s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand0x4">The multiplicand M0X4.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand1x4">The multiplicand M1X4.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand2x4">The multiplicand M2X4.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplicand3x4">The multiplicand M3X4.</param>
+        /// <param name="multiplicand4x0">The multiplicand M4X0.</param>
+        /// <param name="multiplicand4x1">The multiplicand M4X1.</param>
+        /// <param name="multiplicand4x2">The multiplicand M4X2.</param>
+        /// <param name="multiplicand4x3">The multiplicand M4X3.</param>
+        /// <param name="multiplicand4x4">The multiplicand M4X4.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4
+            ) Multiply5x5x3x3(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3, double multiplicand0x4,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3, double multiplicand1x4,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3, double multiplicand2x4,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3, double multiplicand3x4,
+            double multiplicand4x0, double multiplicand4x1, double multiplicand4x2, double multiplicand4x3, double multiplicand4x4,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0) + (multiplicand0x2 * multiplier2x0) + multiplicand0x3 + multiplicand0x4,
+                (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1) + (multiplicand0x2 * multiplier2x1) + multiplicand0x3 + multiplicand0x4,
+                (multiplicand0x0 * multiplier0x2) + (multiplicand0x1 * multiplier1x2) + (multiplicand0x2 * multiplier2x2) + multiplicand0x3 + multiplicand0x4,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4,
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0) + (multiplicand1x2 * multiplier2x0) + multiplicand1x3 + multiplicand1x4,
+                (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1) + (multiplicand1x2 * multiplier2x1) + multiplicand1x3 + multiplicand1x4,
+                (multiplicand1x0 * multiplier0x2) + (multiplicand1x1 * multiplier1x2) + (multiplicand1x2 * multiplier2x2) + multiplicand1x3 + multiplicand1x4,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4,
+                (multiplicand2x0 * multiplier0x0) + (multiplicand2x1 * multiplier1x0) + (multiplicand2x2 * multiplier2x0) + multiplicand2x3 + multiplicand2x4,
+                (multiplicand2x0 * multiplier0x1) + (multiplicand2x1 * multiplier1x1) + (multiplicand2x2 * multiplier2x1) + multiplicand2x3 + multiplicand2x4,
+                (multiplicand2x0 * multiplier0x2) + (multiplicand2x1 * multiplier1x2) + (multiplicand2x2 * multiplier2x2) + multiplicand2x3 + multiplicand2x4,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4,
+                (multiplicand3x0 * multiplier0x0) + (multiplicand3x1 * multiplier1x0) + (multiplicand3x2 * multiplier2x0) + multiplicand3x3 + multiplicand3x4,
+                (multiplicand3x0 * multiplier0x1) + (multiplicand3x1 * multiplier1x1) + (multiplicand3x2 * multiplier2x1) + multiplicand3x3 + multiplicand3x4,
+                (multiplicand3x0 * multiplier0x2) + (multiplicand3x1 * multiplier1x2) + (multiplicand3x2 * multiplier2x2) + multiplicand3x3 + multiplicand3x4,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4,
+                (multiplicand4x0 * multiplier0x0) + (multiplicand4x1 * multiplier1x0) + (multiplicand4x2 * multiplier2x0) + multiplicand4x3 + multiplicand4x4,
+                (multiplicand4x0 * multiplier0x1) + (multiplicand4x1 * multiplier1x1) + (multiplicand4x2 * multiplier2x1) + multiplicand4x3 + multiplicand4x4,
+                (multiplicand4x0 * multiplier0x2) + (multiplicand4x1 * multiplier1x2) + (multiplicand4x2 * multiplier2x2) + multiplicand4x3 + multiplicand4x4,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4
+            );
+
+        /// <summary>
+        /// Multiply4x4x5x5s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier0x4">The multiplier M0X4.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier1x4">The multiplier M1X4.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier2x4">The multiplier M2X4.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
+        /// <param name="multiplier3x4">The multiplier M3X4.</param>
+        /// <param name="multiplier4x0">The multiplier M4X0.</param>
+        /// <param name="multiplier4x1">The multiplier M4X1.</param>
+        /// <param name="multiplier4x2">The multiplier M4X2.</param>
+        /// <param name="multiplier4x3">The multiplier M4X3.</param>
+        /// <param name="multiplier4x4">The multiplier M4X4.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4
+            ) Multiply4x4x5x5(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3, double multiplier0x4,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3, double multiplier1x4,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3, double multiplier2x4,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3, double multiplier3x4,
+            double multiplier4x0, double multiplier4x1, double multiplier4x2, double multiplier4x3, double multiplier4x4)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0) + (multiplicand0x2 * multiplier2x0) + (multiplicand0x3 * multiplier3x0) + multiplier4x0,
+                (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1) + (multiplicand0x2 * multiplier2x1) + (multiplicand0x3 * multiplier3x1) + multiplier4x1,
+                (multiplicand0x0 * multiplier0x2) + (multiplicand0x1 * multiplier1x2) + (multiplicand0x2 * multiplier2x2) + (multiplicand0x3 * multiplier3x2) + multiplier4x2,
+                (multiplicand0x0 * multiplier0x3) + (multiplicand0x1 * multiplier1x3) + (multiplicand0x2 * multiplier2x3) + (multiplicand0x3 * multiplier3x3) + multiplier4x3,
+                (multiplicand0x0 * multiplier0x4) + (multiplicand0x1 * multiplier1x4) + (multiplicand0x2 * multiplier2x4) + (multiplicand0x3 * multiplier3x4) + multiplier4x4,
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0) + (multiplicand1x2 * multiplier2x0) + (multiplicand1x3 * multiplier3x0) + multiplier4x0,
+                (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1) + (multiplicand1x2 * multiplier2x1) + (multiplicand1x3 * multiplier3x1) + multiplier4x1,
+                (multiplicand1x0 * multiplier0x2) + (multiplicand1x1 * multiplier1x2) + (multiplicand1x2 * multiplier2x2) + (multiplicand1x3 * multiplier3x2) + multiplier4x2,
+                (multiplicand1x0 * multiplier0x3) + (multiplicand1x1 * multiplier1x3) + (multiplicand1x2 * multiplier2x3) + (multiplicand1x3 * multiplier3x3) + multiplier4x3,
+                (multiplicand1x0 * multiplier0x4) + (multiplicand1x1 * multiplier1x4) + (multiplicand1x2 * multiplier2x4) + (multiplicand1x3 * multiplier3x4) + multiplier4x4,
+                (multiplicand2x0 * multiplier0x0) + (multiplicand2x1 * multiplier1x0) + (multiplicand2x2 * multiplier2x0) + (multiplicand2x3 * multiplier3x0) + multiplier4x0,
+                (multiplicand2x0 * multiplier0x1) + (multiplicand2x1 * multiplier1x1) + (multiplicand2x2 * multiplier2x1) + (multiplicand2x3 * multiplier3x1) + multiplier4x1,
+                (multiplicand2x0 * multiplier0x2) + (multiplicand2x1 * multiplier1x2) + (multiplicand2x2 * multiplier2x2) + (multiplicand2x3 * multiplier3x2) + multiplier4x2,
+                (multiplicand2x0 * multiplier0x3) + (multiplicand2x1 * multiplier1x3) + (multiplicand2x2 * multiplier2x3) + (multiplicand2x3 * multiplier3x3) + multiplier4x3,
+                (multiplicand2x0 * multiplier0x4) + (multiplicand2x1 * multiplier1x4) + (multiplicand2x2 * multiplier2x4) + (multiplicand2x3 * multiplier3x4) + multiplier4x4,
+                (multiplicand3x0 * multiplier0x0) + (multiplicand3x1 * multiplier1x0) + (multiplicand3x2 * multiplier2x0) + (multiplicand3x3 * multiplier3x0) + multiplier4x0,
+                (multiplicand3x0 * multiplier0x1) + (multiplicand3x1 * multiplier1x1) + (multiplicand3x2 * multiplier2x1) + (multiplicand3x3 * multiplier3x1) + multiplier4x1,
+                (multiplicand3x0 * multiplier0x2) + (multiplicand3x1 * multiplier1x2) + (multiplicand3x2 * multiplier2x2) + (multiplicand3x3 * multiplier3x2) + multiplier4x2,
+                (multiplicand3x0 * multiplier0x3) + (multiplicand3x1 * multiplier1x3) + (multiplicand3x2 * multiplier2x3) + (multiplicand3x3 * multiplier3x3) + multiplier4x3,
+                (multiplicand3x0 * multiplier0x4) + (multiplicand3x1 * multiplier1x4) + (multiplicand3x2 * multiplier2x4) + (multiplicand3x3 * multiplier3x4) + multiplier4x4,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 + multiplier4x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 + multiplier4x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 + multiplier4x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 + multiplier4x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 + multiplier4x4
+            );
+
+        /// <summary>
+        /// Multiply5x5x4x4s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand0x4">The multiplicand M0X4.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand1x4">The multiplicand M1X4.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand2x4">The multiplicand M2X4.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplicand3x4">The multiplicand M3X4.</param>
+        /// <param name="multiplicand4x0">The multiplicand M4X0.</param>
+        /// <param name="multiplicand4x1">The multiplicand M4X1.</param>
+        /// <param name="multiplicand4x2">The multiplicand M4X2.</param>
+        /// <param name="multiplicand4x3">The multiplicand M4X3.</param>
+        /// <param name="multiplicand4x4">The multiplicand M4X4.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4
+            ) Multiply5x5x4x4(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3, double multiplicand0x4,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3, double multiplicand1x4,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3, double multiplicand2x4,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3, double multiplicand3x4,
+            double multiplicand4x0, double multiplicand4x1, double multiplicand4x2, double multiplicand4x3, double multiplicand4x4,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0) + (multiplicand0x2 * multiplier2x0) + (multiplicand0x3 * multiplier3x0) + multiplicand0x4,
+                (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1) + (multiplicand0x2 * multiplier2x1) + (multiplicand0x3 * multiplier3x1) + multiplicand0x4,
+                (multiplicand0x0 * multiplier0x2) + (multiplicand0x1 * multiplier1x2) + (multiplicand0x2 * multiplier2x2) + (multiplicand0x3 * multiplier3x2) + multiplicand0x4,
+                (multiplicand0x0 * multiplier0x3) + (multiplicand0x1 * multiplier1x3) + (multiplicand0x2 * multiplier2x3) + (multiplicand0x3 * multiplier3x3) + multiplicand0x4,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4,
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0) + (multiplicand1x2 * multiplier2x0) + (multiplicand1x3 * multiplier3x0) + multiplicand1x4,
+                (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1) + (multiplicand1x2 * multiplier2x1) + (multiplicand1x3 * multiplier3x1) + multiplicand1x4,
+                (multiplicand1x0 * multiplier0x2) + (multiplicand1x1 * multiplier1x2) + (multiplicand1x2 * multiplier2x2) + (multiplicand1x3 * multiplier3x2) + multiplicand1x4,
+                (multiplicand1x0 * multiplier0x3) + (multiplicand1x1 * multiplier1x3) + (multiplicand1x2 * multiplier2x3) + (multiplicand1x3 * multiplier3x3) + multiplicand1x4,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4,
+                (multiplicand2x0 * multiplier0x0) + (multiplicand2x1 * multiplier1x0) + (multiplicand2x2 * multiplier2x0) + (multiplicand2x3 * multiplier3x0) + multiplicand2x4,
+                (multiplicand2x0 * multiplier0x1) + (multiplicand2x1 * multiplier1x1) + (multiplicand2x2 * multiplier2x1) + (multiplicand2x3 * multiplier3x1) + multiplicand2x4,
+                (multiplicand2x0 * multiplier0x2) + (multiplicand2x1 * multiplier1x2) + (multiplicand2x2 * multiplier2x2) + (multiplicand2x3 * multiplier3x2) + multiplicand2x4,
+                (multiplicand2x0 * multiplier0x3) + (multiplicand2x1 * multiplier1x3) + (multiplicand2x2 * multiplier2x3) + (multiplicand2x3 * multiplier3x3) + multiplicand2x4,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4,
+                (multiplicand3x0 * multiplier0x0) + (multiplicand3x1 * multiplier1x0) + (multiplicand3x2 * multiplier2x0) + (multiplicand3x3 * multiplier3x0) + multiplicand3x4,
+                (multiplicand3x0 * multiplier0x1) + (multiplicand3x1 * multiplier1x1) + (multiplicand3x2 * multiplier2x1) + (multiplicand3x3 * multiplier3x1) + multiplicand3x4,
+                (multiplicand3x0 * multiplier0x2) + (multiplicand3x1 * multiplier1x2) + (multiplicand3x2 * multiplier2x2) + (multiplicand3x3 * multiplier3x2) + multiplicand3x4,
+                (multiplicand3x0 * multiplier0x3) + (multiplicand3x1 * multiplier1x3) + (multiplicand3x2 * multiplier2x3) + (multiplicand3x3 * multiplier3x3) + multiplicand3x4,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4,
+                (multiplicand4x0 * multiplier0x0) + (multiplicand4x1 * multiplier1x0) + (multiplicand4x2 * multiplier2x0) + (multiplicand4x3 * multiplier3x0) + multiplicand4x4,
+                (multiplicand4x0 * multiplier0x1) + (multiplicand4x1 * multiplier1x1) + (multiplicand4x2 * multiplier2x1) + (multiplicand4x3 * multiplier3x1) + multiplicand4x4,
+                (multiplicand4x0 * multiplier0x2) + (multiplicand4x1 * multiplier1x2) + (multiplicand4x2 * multiplier2x2) + (multiplicand4x3 * multiplier3x2) + multiplicand4x4,
+                (multiplicand4x0 * multiplier0x3) + (multiplicand4x1 * multiplier1x3) + (multiplicand4x2 * multiplier2x3) + (multiplicand4x3 * multiplier3x3) + multiplicand4x4,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4
+            );
+
+        /// <summary>
+        /// Multiply5x5x5x5s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand0x4">The multiplicand M0X4.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand1x4">The multiplicand M1X4.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand2x4">The multiplicand M2X4.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplicand3x4">The multiplicand M3X4.</param>
+        /// <param name="multiplicand4x0">The multiplicand M4X0.</param>
+        /// <param name="multiplicand4x1">The multiplicand M4X1.</param>
+        /// <param name="multiplicand4x2">The multiplicand M4X2.</param>
+        /// <param name="multiplicand4x3">The multiplicand M4X3.</param>
+        /// <param name="multiplicand4x4">The multiplicand M4X4.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier0x4">The multiplier M0X4.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier1x4">The multiplier M1X4.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier2x4">The multiplier M2X4.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
+        /// <param name="multiplier3x4">The multiplier M3X4.</param>
+        /// <param name="multiplier4x0">The multiplier M4X0.</param>
+        /// <param name="multiplier4x1">The multiplier M4X1.</param>
+        /// <param name="multiplier4x2">The multiplier M4X2.</param>
+        /// <param name="multiplier4x3">The multiplier M4X3.</param>
+        /// <param name="multiplier4x4">The multiplier M4X4.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4
+            ) Multiply5x5x5x5(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3, double multiplicand0x4,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3, double multiplicand1x4,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3, double multiplicand2x4,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3, double multiplicand3x4,
+            double multiplicand4x0, double multiplicand4x1, double multiplicand4x2, double multiplicand4x3, double multiplicand4x4,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3, double multiplier0x4,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3, double multiplier1x4,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3, double multiplier2x4,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3, double multiplier3x4,
+            double multiplier4x0, double multiplier4x1, double multiplier4x2, double multiplier4x3, double multiplier4x4)
+            => (
+                (multiplicand0x0 * multiplier0x0) + (multiplicand0x1 * multiplier1x0) + (multiplicand0x2 * multiplier2x0) + (multiplicand0x3 * multiplier3x0) + (multiplicand0x4 * multiplier4x0),
+                (multiplicand0x0 * multiplier0x1) + (multiplicand0x1 * multiplier1x1) + (multiplicand0x2 * multiplier2x1) + (multiplicand0x3 * multiplier3x1) + (multiplicand0x4 * multiplier4x1),
+                (multiplicand0x0 * multiplier0x2) + (multiplicand0x1 * multiplier1x2) + (multiplicand0x2 * multiplier2x2) + (multiplicand0x3 * multiplier3x2) + (multiplicand0x4 * multiplier4x2),
+                (multiplicand0x0 * multiplier0x3) + (multiplicand0x1 * multiplier1x3) + (multiplicand0x2 * multiplier2x3) + (multiplicand0x3 * multiplier3x3) + (multiplicand0x4 * multiplier4x3),
+                (multiplicand0x0 * multiplier0x4) + (multiplicand0x1 * multiplier1x4) + (multiplicand0x2 * multiplier2x4) + (multiplicand0x3 * multiplier3x4) + (multiplicand0x4 * multiplier4x4),
+                (multiplicand1x0 * multiplier0x0) + (multiplicand1x1 * multiplier1x0) + (multiplicand1x2 * multiplier2x0) + (multiplicand1x3 * multiplier3x0) + (multiplicand1x4 * multiplier4x0),
+                (multiplicand1x0 * multiplier0x1) + (multiplicand1x1 * multiplier1x1) + (multiplicand1x2 * multiplier2x1) + (multiplicand1x3 * multiplier3x1) + (multiplicand1x4 * multiplier4x1),
+                (multiplicand1x0 * multiplier0x2) + (multiplicand1x1 * multiplier1x2) + (multiplicand1x2 * multiplier2x2) + (multiplicand1x3 * multiplier3x2) + (multiplicand1x4 * multiplier4x2),
+                (multiplicand1x0 * multiplier0x3) + (multiplicand1x1 * multiplier1x3) + (multiplicand1x2 * multiplier2x3) + (multiplicand1x3 * multiplier3x3) + (multiplicand1x4 * multiplier4x3),
+                (multiplicand1x0 * multiplier0x4) + (multiplicand1x1 * multiplier1x4) + (multiplicand1x2 * multiplier2x4) + (multiplicand1x3 * multiplier3x4) + (multiplicand1x4 * multiplier4x4),
+                (multiplicand2x0 * multiplier0x0) + (multiplicand2x1 * multiplier1x0) + (multiplicand2x2 * multiplier2x0) + (multiplicand2x3 * multiplier3x0) + (multiplicand2x4 * multiplier4x0),
+                (multiplicand2x0 * multiplier0x1) + (multiplicand2x1 * multiplier1x1) + (multiplicand2x2 * multiplier2x1) + (multiplicand2x3 * multiplier3x1) + (multiplicand2x4 * multiplier4x1),
+                (multiplicand2x0 * multiplier0x2) + (multiplicand2x1 * multiplier1x2) + (multiplicand2x2 * multiplier2x2) + (multiplicand2x3 * multiplier3x2) + (multiplicand2x4 * multiplier4x2),
+                (multiplicand2x0 * multiplier0x3) + (multiplicand2x1 * multiplier1x3) + (multiplicand2x2 * multiplier2x3) + (multiplicand2x3 * multiplier3x3) + (multiplicand2x4 * multiplier4x3),
+                (multiplicand2x0 * multiplier0x4) + (multiplicand2x1 * multiplier1x4) + (multiplicand2x2 * multiplier2x4) + (multiplicand2x3 * multiplier3x4) + (multiplicand2x4 * multiplier4x4),
+                (multiplicand3x0 * multiplier0x0) + (multiplicand3x1 * multiplier1x0) + (multiplicand3x2 * multiplier2x0) + (multiplicand3x3 * multiplier3x0) + (multiplicand3x4 * multiplier4x0),
+                (multiplicand3x0 * multiplier0x1) + (multiplicand3x1 * multiplier1x1) + (multiplicand3x2 * multiplier2x1) + (multiplicand3x3 * multiplier3x1) + (multiplicand3x4 * multiplier4x1),
+                (multiplicand3x0 * multiplier0x2) + (multiplicand3x1 * multiplier1x2) + (multiplicand3x2 * multiplier2x2) + (multiplicand3x3 * multiplier3x2) + (multiplicand3x4 * multiplier4x2),
+                (multiplicand3x0 * multiplier0x3) + (multiplicand3x1 * multiplier1x3) + (multiplicand3x2 * multiplier2x3) + (multiplicand3x3 * multiplier3x3) + (multiplicand3x4 * multiplier4x3),
+                (multiplicand3x0 * multiplier0x4) + (multiplicand3x1 * multiplier1x4) + (multiplicand3x2 * multiplier2x4) + (multiplicand3x3 * multiplier3x4) + (multiplicand3x4 * multiplier4x4),
+                (multiplicand4x0 * multiplier0x0) + (multiplicand4x1 * multiplier1x0) + (multiplicand4x2 * multiplier2x0) + (multiplicand4x3 * multiplier3x0) + (multiplicand4x4 * multiplier4x0),
+                (multiplicand4x0 * multiplier0x1) + (multiplicand4x1 * multiplier1x1) + (multiplicand4x2 * multiplier2x1) + (multiplicand4x3 * multiplier3x1) + (multiplicand4x4 * multiplier4x1),
+                (multiplicand4x0 * multiplier0x2) + (multiplicand4x1 * multiplier1x2) + (multiplicand4x2 * multiplier2x2) + (multiplicand4x3 * multiplier3x2) + (multiplicand4x4 * multiplier4x2),
+                (multiplicand4x0 * multiplier0x3) + (multiplicand4x1 * multiplier1x3) + (multiplicand4x2 * multiplier2x3) + (multiplicand4x3 * multiplier3x3) + (multiplicand4x4 * multiplier4x3),
+                (multiplicand4x0 * multiplier0x4) + (multiplicand4x1 * multiplier1x4) + (multiplicand4x2 * multiplier2x4) + (multiplicand4x3 * multiplier3x4) + (multiplicand4x4 * multiplier4x4)
+            );
+
+        /// <summary>
+        /// Multiply2x2x6x6s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier0x4">The multiplier M0X4.</param>
+        /// <param name="multiplier0x5">The multiplier M0X5.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier1x4">The multiplier M1X4.</param>
+        /// <param name="multiplier1x5">The multiplier M1X5.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier2x4">The multiplier M2X4.</param>
+        /// <param name="multiplier2x5">The multiplier M2X5.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
+        /// <param name="multiplier3x4">The multiplier M3X4.</param>
+        /// <param name="multiplier3x5">The multiplier M3X5.</param>
+        /// <param name="multiplier4x0">The multiplier M4X0.</param>
+        /// <param name="multiplier4x1">The multiplier M4X1.</param>
+        /// <param name="multiplier4x2">The multiplier M4X2.</param>
+        /// <param name="multiplier4x3">The multiplier M4X3.</param>
+        /// <param name="multiplier4x4">The multiplier M4X4.</param>
+        /// <param name="multiplier4x5">The multiplier M4X5.</param>
+        /// <param name="multiplier5x0">The multiplier M5X0.</param>
+        /// <param name="multiplier5x1">The multiplier M5X1.</param>
+        /// <param name="multiplier5x2">The multiplier M5X2.</param>
+        /// <param name="multiplier5x3">The multiplier M5X3.</param>
+        /// <param name="multiplier5x4">The multiplier M5X4.</param>
+        /// <param name="multiplier5x5">The multiplier M5X5.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4, double M0x5,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4, double M1x5,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4, double M2x5,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4, double M3x5,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4, double M4x5,
+            double M5x0, double M5x1, double M5x2, double M5x3, double M5x4, double M5x5
+            ) Multiply2x2x6x6(
+            double multiplicand0x0, double multiplicand0x1,
+            double multiplicand1x0, double multiplicand1x1,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3, double multiplier0x4, double multiplier0x5,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3, double multiplier1x4, double multiplier1x5,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3, double multiplier2x4, double multiplier2x5,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3, double multiplier3x4, double multiplier3x5,
+            double multiplier4x0, double multiplier4x1, double multiplier4x2, double multiplier4x3, double multiplier4x4, double multiplier4x5,
+            double multiplier5x0, double multiplier5x1, double multiplier5x2, double multiplier5x3, double multiplier5x4, double multiplier5x5)
+            => (
+                multiplicand0x0 * multiplier0x0 + multiplicand0x1 * multiplier1x0 + multiplier2x0 + multiplier3x0 * multiplier4x0 + multiplier5x0,
+                multiplicand0x0 * multiplier0x1 + multiplicand0x1 * multiplier1x1 + multiplier2x1 + multiplier3x1 * multiplier4x1 + multiplier5x1,
+                multiplicand0x0 * multiplier0x2 + multiplicand0x1 * multiplier1x2 + multiplier2x2 + multiplier3x2 * multiplier4x2 + multiplier5x2,
+                multiplicand0x0 * multiplier0x3 + multiplicand0x1 * multiplier1x3 + multiplier2x3 + multiplier3x3 * multiplier4x3 + multiplier5x3,
+                multiplicand0x0 * multiplier0x4 + multiplicand0x1 * multiplier1x4 + multiplier2x4 + multiplier3x4 * multiplier4x4 + multiplier5x4,
+                multiplicand0x0 * multiplier0x5 + multiplicand0x1 * multiplier1x5 + multiplier2x5 + multiplier3x5 * multiplier4x5 + multiplier5x5,
+                multiplicand1x0 * multiplier0x0 + multiplicand1x1 * multiplier1x0 + multiplier2x0 + multiplier3x0 * multiplier4x0 + multiplier5x0,
+                multiplicand1x0 * multiplier0x1 + multiplicand1x1 * multiplier1x1 + multiplier2x1 + multiplier3x1 * multiplier4x1 + multiplier5x1,
+                multiplicand1x0 * multiplier0x2 + multiplicand1x1 * multiplier1x2 + multiplier2x2 + multiplier3x2 * multiplier4x2 + multiplier5x2,
+                multiplicand1x0 * multiplier0x3 + multiplicand1x1 * multiplier1x3 + multiplier2x3 + multiplier3x3 * multiplier4x3 + multiplier5x3,
+                multiplicand1x0 * multiplier0x4 + multiplicand1x1 * multiplier1x4 + multiplier2x4 + multiplier3x4 * multiplier4x4 + multiplier5x4,
+                multiplicand1x0 * multiplier0x5 + multiplicand1x1 * multiplier1x5 + multiplier2x5 + multiplier3x5 * multiplier4x5 + multiplier5x5,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 * multiplier4x0 + multiplier5x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 * multiplier4x1 + multiplier5x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 * multiplier4x2 + multiplier5x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 * multiplier4x3 + multiplier5x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 * multiplier4x4 + multiplier5x4,
+                multiplier0x5 + multiplier1x5 + multiplier2x5 + multiplier3x5 * multiplier4x5 + multiplier5x5,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 * multiplier4x0 + multiplier5x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 * multiplier4x1 + multiplier5x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 * multiplier4x2 + multiplier5x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 * multiplier4x3 + multiplier5x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 * multiplier4x4 + multiplier5x4,
+                multiplier0x5 + multiplier1x5 + multiplier2x5 + multiplier3x5 * multiplier4x5 + multiplier5x5,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 * multiplier4x0 + multiplier5x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 * multiplier4x1 + multiplier5x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 * multiplier4x2 + multiplier5x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 * multiplier4x3 + multiplier5x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 * multiplier4x4 + multiplier5x4,
+                multiplier0x5 + multiplier1x5 + multiplier2x5 + multiplier3x5 * multiplier4x5 + multiplier5x5,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 * multiplier4x0 + multiplier5x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 * multiplier4x1 + multiplier5x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 * multiplier4x2 + multiplier5x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 * multiplier4x3 + multiplier5x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 * multiplier4x4 + multiplier5x4,
+                multiplier0x5 + multiplier1x5 + multiplier2x5 + multiplier3x5 * multiplier4x5 + multiplier5x5
+            );
+
+        /// <summary>
+        /// Multiply6x6x2x2s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand0x4">The multiplicand M0X4.</param>
+        /// <param name="multiplicand0x5">The multiplicand M0X5.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand1x4">The multiplicand M1X4.</param>
+        /// <param name="multiplicand1x5">The multiplicand M1X5.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand2x4">The multiplicand M2X4.</param>
+        /// <param name="multiplicand2x5">The multiplicand M2X5.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplicand3x4">The multiplicand M3X4.</param>
+        /// <param name="multiplicand3x5">The multiplicand M3X5.</param>
+        /// <param name="multiplicand4x0">The multiplicand M4X0.</param>
+        /// <param name="multiplicand4x1">The multiplicand M4X1.</param>
+        /// <param name="multiplicand4x2">The multiplicand M4X2.</param>
+        /// <param name="multiplicand4x3">The multiplicand M4X3.</param>
+        /// <param name="multiplicand4x4">The multiplicand M4X4.</param>
+        /// <param name="multiplicand4x5">The multiplicand M4X5.</param>
+        /// <param name="multiplicand5x0">The multiplicand M5X0.</param>
+        /// <param name="multiplicand5x1">The multiplicand M5X1.</param>
+        /// <param name="multiplicand5x2">The multiplicand M5X2.</param>
+        /// <param name="multiplicand5x3">The multiplicand M5X3.</param>
+        /// <param name="multiplicand5x4">The multiplicand M5X4.</param>
+        /// <param name="multiplicand5x5">The multiplicand M5X5.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4, double M0x5,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4, double M1x5,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4, double M2x5,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4, double M3x5,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4, double M4x5,
+            double M5x0, double M5x1, double M5x2, double M5x3, double M5x4, double M5x5
+            ) Multiply6x6x2x2(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3, double multiplicand0x4, double multiplicand0x5,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3, double multiplicand1x4, double multiplicand1x5,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3, double multiplicand2x4, double multiplicand2x5,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3, double multiplicand3x4, double multiplicand3x5,
+            double multiplicand4x0, double multiplicand4x1, double multiplicand4x2, double multiplicand4x3, double multiplicand4x4, double multiplicand4x5,
+            double multiplicand5x0, double multiplicand5x1, double multiplicand5x2, double multiplicand5x3, double multiplicand5x4, double multiplicand5x5,
+            double multiplier0x0, double multiplier0x1,
+            double multiplier1x0, double multiplier1x1)
+            => (
+                multiplicand0x0 * multiplier0x0 + multiplicand0x1 * multiplier1x0 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 * multiplier0x1 + multiplicand0x1 * multiplier1x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand1x0 * multiplier0x0 + multiplicand1x1 * multiplier1x0 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 * multiplier0x1 + multiplicand1x1 * multiplier1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand2x0 * multiplier0x0 + multiplicand2x1 * multiplier1x0 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 * multiplier0x1 + multiplicand2x1 * multiplier1x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand3x0 * multiplier0x0 + multiplicand3x1 * multiplier1x0 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 * multiplier0x1 + multiplicand3x1 * multiplier1x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand4x0 * multiplier0x0 + multiplicand4x1 * multiplier1x0 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 * multiplier0x1 + multiplicand4x1 * multiplier1x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand5x0 * multiplier0x0 + multiplicand5x1 * multiplier1x0 + multiplicand5x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 * multiplier0x1 + multiplicand5x1 * multiplier1x1 + multiplicand5x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 + multiplicand5x1 + multiplicand5x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 + multiplicand5x1 + multiplicand5x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 + multiplicand5x1 + multiplicand5x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 + multiplicand5x1 + multiplicand5x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5
+            );
+
+        /// <summary>
+        /// Multiply3x3x6x6s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier0x4">The multiplier M0X4.</param>
+        /// <param name="multiplier0x5">The multiplier M0X5.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier1x4">The multiplier M1X4.</param>
+        /// <param name="multiplier1x5">The multiplier M1X5.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier2x4">The multiplier M2X4.</param>
+        /// <param name="multiplier2x5">The multiplier M2X5.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
+        /// <param name="multiplier3x4">The multiplier M3X4.</param>
+        /// <param name="multiplier3x5">The multiplier M3X5.</param>
+        /// <param name="multiplier4x0">The multiplier M4X0.</param>
+        /// <param name="multiplier4x1">The multiplier M4X1.</param>
+        /// <param name="multiplier4x2">The multiplier M4X2.</param>
+        /// <param name="multiplier4x3">The multiplier M4X3.</param>
+        /// <param name="multiplier4x4">The multiplier M4X4.</param>
+        /// <param name="multiplier4x5">The multiplier M4X5.</param>
+        /// <param name="multiplier5x0">The multiplier M5X0.</param>
+        /// <param name="multiplier5x1">The multiplier M5X1.</param>
+        /// <param name="multiplier5x2">The multiplier M5X2.</param>
+        /// <param name="multiplier5x3">The multiplier M5X3.</param>
+        /// <param name="multiplier5x4">The multiplier M5X4.</param>
+        /// <param name="multiplier5x5">The multiplier M5X5.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4, double M0x5,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4, double M1x5,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4, double M2x5,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4, double M3x5,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4, double M4x5,
+            double M5x0, double M5x1, double M5x2, double M5x3, double M5x4, double M5x5
+            ) Multiply3x3x6x6(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3, double multiplier0x4, double multiplier0x5,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3, double multiplier1x4, double multiplier1x5,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3, double multiplier2x4, double multiplier2x5,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3, double multiplier3x4, double multiplier3x5,
+            double multiplier4x0, double multiplier4x1, double multiplier4x2, double multiplier4x3, double multiplier4x4, double multiplier4x5,
+            double multiplier5x0, double multiplier5x1, double multiplier5x2, double multiplier5x3, double multiplier5x4, double multiplier5x5)
+            => (
+                multiplicand0x0 * multiplier0x0 + multiplicand0x1 * multiplier1x0 + multiplicand0x2 * multiplier2x0 + multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplicand0x0 * multiplier0x1 + multiplicand0x1 * multiplier1x1 + multiplicand0x2 * multiplier2x1 + multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplicand0x0 * multiplier0x2 + multiplicand0x1 * multiplier1x2 + multiplicand0x2 * multiplier2x2 + multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplicand0x0 * multiplier0x3 + multiplicand0x1 * multiplier1x3 + multiplicand0x2 * multiplier2x3 + multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplicand0x0 * multiplier0x4 + multiplicand0x1 * multiplier1x4 + multiplicand0x2 * multiplier2x4 + multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplicand0x0 * multiplier0x5 + multiplicand0x1 * multiplier1x5 + multiplicand0x2 * multiplier2x5 + multiplier3x5 + multiplier4x5 + multiplier5x5,
+                multiplicand1x0 * multiplier0x0 + multiplicand1x1 * multiplier1x0 + multiplicand1x2 * multiplier2x0 + multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplicand1x0 * multiplier0x1 + multiplicand1x1 * multiplier1x1 + multiplicand1x2 * multiplier2x1 + multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplicand1x0 * multiplier0x2 + multiplicand1x1 * multiplier1x2 + multiplicand1x2 * multiplier2x2 + multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplicand1x0 * multiplier0x3 + multiplicand1x1 * multiplier1x3 + multiplicand1x2 * multiplier2x3 + multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplicand1x0 * multiplier0x4 + multiplicand1x1 * multiplier1x4 + multiplicand1x2 * multiplier2x4 + multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplicand1x0 * multiplier0x5 + multiplicand1x1 * multiplier1x5 + multiplicand1x2 * multiplier2x5 + multiplier3x5 + multiplier4x5 + multiplier5x5,
+                multiplicand2x0 * multiplier0x0 + multiplicand2x1 * multiplier1x0 + multiplicand2x2 * multiplier2x0 + multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplicand2x0 * multiplier0x1 + multiplicand2x1 * multiplier1x1 + multiplicand2x2 * multiplier2x1 + multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplicand2x0 * multiplier0x2 + multiplicand2x1 * multiplier1x2 + multiplicand2x2 * multiplier2x2 + multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplicand2x0 * multiplier0x3 + multiplicand2x1 * multiplier1x3 + multiplicand2x2 * multiplier2x3 + multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplicand2x0 * multiplier0x4 + multiplicand2x1 * multiplier1x4 + multiplicand2x2 * multiplier2x4 + multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplicand2x0 * multiplier0x5 + multiplicand2x1 * multiplier1x5 + multiplicand2x2 * multiplier2x5 + multiplier3x5 + multiplier4x5 + multiplier5x5,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplier0x5 + multiplier1x5 + multiplier2x5 + multiplier3x5 + multiplier4x5 + multiplier5x5,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplier0x5 + multiplier1x5 + multiplier2x5 + multiplier3x5 + multiplier4x5 + multiplier5x5,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplier0x5 + multiplier1x5 + multiplier2x5 + multiplier3x5 + multiplier4x5 + multiplier5x5
+            );
+
+        /// <summary>
+        /// Multiply6x6x3x3s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand0x4">The multiplicand M0X4.</param>
+        /// <param name="multiplicand0x5">The multiplicand M0X5.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand1x4">The multiplicand M1X4.</param>
+        /// <param name="multiplicand1x5">The multiplicand M1X5.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand2x4">The multiplicand M2X4.</param>
+        /// <param name="multiplicand2x5">The multiplicand M2X5.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplicand3x4">The multiplicand M3X4.</param>
+        /// <param name="multiplicand3x5">The multiplicand M3X5.</param>
+        /// <param name="multiplicand4x0">The multiplicand M4X0.</param>
+        /// <param name="multiplicand4x1">The multiplicand M4X1.</param>
+        /// <param name="multiplicand4x2">The multiplicand M4X2.</param>
+        /// <param name="multiplicand4x3">The multiplicand M4X3.</param>
+        /// <param name="multiplicand4x4">The multiplicand M4X4.</param>
+        /// <param name="multiplicand4x5">The multiplicand M4X5.</param>
+        /// <param name="multiplicand5x0">The multiplicand M5X0.</param>
+        /// <param name="multiplicand5x1">The multiplicand M5X1.</param>
+        /// <param name="multiplicand5x2">The multiplicand M5X2.</param>
+        /// <param name="multiplicand5x3">The multiplicand M5X3.</param>
+        /// <param name="multiplicand5x4">The multiplicand M5X4.</param>
+        /// <param name="multiplicand5x5">The multiplicand M5X5.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4, double M0x5,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4, double M1x5,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4, double M2x5,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4, double M3x5,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4, double M4x5,
+            double M5x0, double M5x1, double M5x2, double M5x3, double M5x4, double M5x5
+            ) Multiply6x6x3x3(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3, double multiplicand0x4, double multiplicand0x5,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3, double multiplicand1x4, double multiplicand1x5,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3, double multiplicand2x4, double multiplicand2x5,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3, double multiplicand3x4, double multiplicand3x5,
+            double multiplicand4x0, double multiplicand4x1, double multiplicand4x2, double multiplicand4x3, double multiplicand4x4, double multiplicand4x5,
+            double multiplicand5x0, double multiplicand5x1, double multiplicand5x2, double multiplicand5x3, double multiplicand5x4, double multiplicand5x5,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2)
+            => (
+                multiplicand0x0 * multiplier0x0 + multiplicand0x1 * multiplier1x0 + multiplicand0x2 * multiplier2x0 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 * multiplier0x1 + multiplicand0x1 * multiplier1x1 + multiplicand0x2 * multiplier2x1 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 * multiplier0x2 + multiplicand0x1 * multiplier1x2 + multiplicand0x2 * multiplier2x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand1x0 * multiplier0x0 + multiplicand1x1 * multiplier1x0 + multiplicand1x2 * multiplier2x0 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 * multiplier0x1 + multiplicand1x1 * multiplier1x1 + multiplicand1x2 * multiplier2x1 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 * multiplier0x2 + multiplicand1x1 * multiplier1x2 + multiplicand1x2 * multiplier2x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand2x0 * multiplier0x0 + multiplicand2x1 * multiplier1x0 + multiplicand2x2 * multiplier2x0 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 * multiplier0x1 + multiplicand2x1 * multiplier1x1 + multiplicand2x2 * multiplier2x1 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 * multiplier0x2 + multiplicand2x1 * multiplier1x2 + multiplicand2x2 * multiplier2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand3x0 * multiplier0x0 + multiplicand3x1 * multiplier1x0 + multiplicand3x2 * multiplier2x0 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 * multiplier0x1 + multiplicand3x1 * multiplier1x1 + multiplicand3x2 * multiplier2x1 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 * multiplier0x2 + multiplicand3x1 * multiplier1x2 + multiplicand3x2 * multiplier2x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand4x0 * multiplier0x0 + multiplicand4x1 * multiplier1x0 + multiplicand4x2 * multiplier2x0 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 * multiplier0x1 + multiplicand4x1 * multiplier1x1 + multiplicand4x2 * multiplier2x1 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 * multiplier0x2 + multiplicand4x1 * multiplier1x2 + multiplicand4x2 * multiplier2x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand5x0 * multiplier0x0 + multiplicand5x1 * multiplier1x0 + multiplicand5x2 * multiplier2x0 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 * multiplier0x1 + multiplicand5x1 * multiplier1x1 + multiplicand5x2 * multiplier2x1 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 * multiplier0x2 + multiplicand5x1 * multiplier1x2 + multiplicand5x2 * multiplier2x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 + multiplicand5x1 + multiplicand5x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 + multiplicand5x1 + multiplicand5x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 + multiplicand5x1 + multiplicand5x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5
+            );
+
+        /// <summary>
+        /// Multiply4x4x6x6s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier0x4">The multiplier M0X4.</param>
+        /// <param name="multiplier0x5">The multiplier M0X5.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier1x4">The multiplier M1X4.</param>
+        /// <param name="multiplier1x5">The multiplier M1X5.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier2x4">The multiplier M2X4.</param>
+        /// <param name="multiplier2x5">The multiplier M2X5.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
+        /// <param name="multiplier3x4">The multiplier M3X4.</param>
+        /// <param name="multiplier3x5">The multiplier M3X5.</param>
+        /// <param name="multiplier4x0">The multiplier M4X0.</param>
+        /// <param name="multiplier4x1">The multiplier M4X1.</param>
+        /// <param name="multiplier4x2">The multiplier M4X2.</param>
+        /// <param name="multiplier4x3">The multiplier M4X3.</param>
+        /// <param name="multiplier4x4">The multiplier M4X4.</param>
+        /// <param name="multiplier4x5">The multiplier M4X5.</param>
+        /// <param name="multiplier5x0">The multiplier M5X0.</param>
+        /// <param name="multiplier5x1">The multiplier M5X1.</param>
+        /// <param name="multiplier5x2">The multiplier M5X2.</param>
+        /// <param name="multiplier5x3">The multiplier M5X3.</param>
+        /// <param name="multiplier5x4">The multiplier M5X4.</param>
+        /// <param name="multiplier5x5">The multiplier M5X5.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4, double M0x5,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4, double M1x5,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4, double M2x5,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4, double M3x5,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4, double M4x5,
+            double M5x0, double M5x1, double M5x2, double M5x3, double M5x4, double M5x5
+            ) Multiply4x4x6x6(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3, double multiplier0x4, double multiplier0x5,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3, double multiplier1x4, double multiplier1x5,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3, double multiplier2x4, double multiplier2x5,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3, double multiplier3x4, double multiplier3x5,
+            double multiplier4x0, double multiplier4x1, double multiplier4x2, double multiplier4x3, double multiplier4x4, double multiplier4x5,
+            double multiplier5x0, double multiplier5x1, double multiplier5x2, double multiplier5x3, double multiplier5x4, double multiplier5x5)
+            => (
+                multiplicand0x0 * multiplier0x0 + multiplicand0x1 * multiplier1x0 + multiplicand0x2 * multiplier2x0 + multiplicand0x3 * multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplicand0x0 * multiplier0x1 + multiplicand0x1 * multiplier1x1 + multiplicand0x2 * multiplier2x1 + multiplicand0x3 * multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplicand0x0 * multiplier0x2 + multiplicand0x1 * multiplier1x2 + multiplicand0x2 * multiplier2x2 + multiplicand0x3 * multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplicand0x0 * multiplier0x3 + multiplicand0x1 * multiplier1x3 + multiplicand0x2 * multiplier2x3 + multiplicand0x3 * multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplicand0x0 * multiplier0x4 + multiplicand0x1 * multiplier1x4 + multiplicand0x2 * multiplier2x4 + multiplicand0x3 * multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplicand0x0 * multiplier0x5 + multiplicand0x1 * multiplier1x5 + multiplicand0x2 * multiplier2x5 + multiplicand0x3 * multiplier3x5 + multiplier4x5 + multiplier5x5,
+                multiplicand1x0 * multiplier0x0 + multiplicand1x1 * multiplier1x0 + multiplicand1x2 * multiplier2x0 + multiplicand1x3 * multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplicand1x0 * multiplier0x1 + multiplicand1x1 * multiplier1x1 + multiplicand1x2 * multiplier2x1 + multiplicand1x3 * multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplicand1x0 * multiplier0x2 + multiplicand1x1 * multiplier1x2 + multiplicand1x2 * multiplier2x2 + multiplicand1x3 * multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplicand1x0 * multiplier0x3 + multiplicand1x1 * multiplier1x3 + multiplicand1x2 * multiplier2x3 + multiplicand1x3 * multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplicand1x0 * multiplier0x4 + multiplicand1x1 * multiplier1x4 + multiplicand1x2 * multiplier2x4 + multiplicand1x3 * multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplicand1x0 * multiplier0x5 + multiplicand1x1 * multiplier1x5 + multiplicand1x2 * multiplier2x5 + multiplicand1x3 * multiplier3x5 + multiplier4x5 + multiplier5x5,
+                multiplicand2x0 * multiplier0x0 + multiplicand2x1 * multiplier1x0 + multiplicand2x2 * multiplier2x0 + multiplicand2x3 * multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplicand2x0 * multiplier0x1 + multiplicand2x1 * multiplier1x1 + multiplicand2x2 * multiplier2x1 + multiplicand2x3 * multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplicand2x0 * multiplier0x2 + multiplicand2x1 * multiplier1x2 + multiplicand2x2 * multiplier2x2 + multiplicand2x3 * multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplicand2x0 * multiplier0x3 + multiplicand2x1 * multiplier1x3 + multiplicand2x2 * multiplier2x3 + multiplicand2x3 * multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplicand2x0 * multiplier0x4 + multiplicand2x1 * multiplier1x4 + multiplicand2x2 * multiplier2x4 + multiplicand2x3 * multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplicand2x0 * multiplier0x5 + multiplicand2x1 * multiplier1x5 + multiplicand2x2 * multiplier2x5 + multiplicand2x3 * multiplier3x5 + multiplier4x5 + multiplier5x5,
+                multiplicand3x0 * multiplier0x0 + multiplicand3x1 * multiplier1x0 + multiplicand3x2 * multiplier2x0 + multiplicand3x3 * multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplicand3x0 * multiplier0x1 + multiplicand3x1 * multiplier1x1 + multiplicand3x2 * multiplier2x1 + multiplicand3x3 * multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplicand3x0 * multiplier0x2 + multiplicand3x1 * multiplier1x2 + multiplicand3x2 * multiplier2x2 + multiplicand3x3 * multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplicand3x0 * multiplier0x3 + multiplicand3x1 * multiplier1x3 + multiplicand3x2 * multiplier2x3 + multiplicand3x3 * multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplicand3x0 * multiplier0x4 + multiplicand3x1 * multiplier1x4 + multiplicand3x2 * multiplier2x4 + multiplicand3x3 * multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplicand3x0 * multiplier0x5 + multiplicand3x1 * multiplier1x5 + multiplicand3x2 * multiplier2x5 + multiplicand3x3 * multiplier3x5 + multiplier4x5 + multiplier5x5,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplier0x5 + multiplier1x5 + multiplier2x5 + multiplier3x5 + multiplier4x5 + multiplier5x5,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplier0x5 + multiplier1x5 + multiplier2x5 + multiplier3x5 + multiplier4x5 + multiplier5x5
+            );
+
+        /// <summary>
+        /// Multiply6x6x4x4s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand0x4">The multiplicand M0X4.</param>
+        /// <param name="multiplicand0x5">The multiplicand M0X5.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand1x4">The multiplicand M1X4.</param>
+        /// <param name="multiplicand1x5">The multiplicand M1X5.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand2x4">The multiplicand M2X4.</param>
+        /// <param name="multiplicand2x5">The multiplicand M2X5.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplicand3x4">The multiplicand M3X4.</param>
+        /// <param name="multiplicand3x5">The multiplicand M3X5.</param>
+        /// <param name="multiplicand4x0">The multiplicand M4X0.</param>
+        /// <param name="multiplicand4x1">The multiplicand M4X1.</param>
+        /// <param name="multiplicand4x2">The multiplicand M4X2.</param>
+        /// <param name="multiplicand4x3">The multiplicand M4X3.</param>
+        /// <param name="multiplicand4x4">The multiplicand M4X4.</param>
+        /// <param name="multiplicand4x5">The multiplicand M4X5.</param>
+        /// <param name="multiplicand5x0">The multiplicand M5X0.</param>
+        /// <param name="multiplicand5x1">The multiplicand M5X1.</param>
+        /// <param name="multiplicand5x2">The multiplicand M5X2.</param>
+        /// <param name="multiplicand5x3">The multiplicand M5X3.</param>
+        /// <param name="multiplicand5x4">The multiplicand M5X4.</param>
+        /// <param name="multiplicand5x5">The multiplicand M5X5.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4, double M0x5,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4, double M1x5,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4, double M2x5,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4, double M3x5,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4, double M4x5,
+            double M5x0, double M5x1, double M5x2, double M5x3, double M5x4, double M5x5
+            ) Multiply6x6x4x4(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3, double multiplicand0x4, double multiplicand0x5,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3, double multiplicand1x4, double multiplicand1x5,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3, double multiplicand2x4, double multiplicand2x5,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3, double multiplicand3x4, double multiplicand3x5,
+            double multiplicand4x0, double multiplicand4x1, double multiplicand4x2, double multiplicand4x3, double multiplicand4x4, double multiplicand4x5,
+            double multiplicand5x0, double multiplicand5x1, double multiplicand5x2, double multiplicand5x3, double multiplicand5x4, double multiplicand5x5,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3)
+            => (
+                multiplicand0x0 * multiplier0x0 + multiplicand0x1 * multiplier1x0 + multiplicand0x2 * multiplier2x0 + multiplicand0x3 * multiplier3x0 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 * multiplier0x1 + multiplicand0x1 * multiplier1x1 + multiplicand0x2 * multiplier2x1 + multiplicand0x3 * multiplier3x1 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 * multiplier0x2 + multiplicand0x1 * multiplier1x2 + multiplicand0x2 * multiplier2x2 + multiplicand0x3 * multiplier3x2 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 * multiplier0x3 + multiplicand0x1 * multiplier1x3 + multiplicand0x2 * multiplier2x3 + multiplicand0x3 * multiplier3x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand1x0 * multiplier0x0 + multiplicand1x1 * multiplier1x0 + multiplicand1x2 * multiplier2x0 + multiplicand1x3 * multiplier3x0 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 * multiplier0x1 + multiplicand1x1 * multiplier1x1 + multiplicand1x2 * multiplier2x1 + multiplicand1x3 * multiplier3x1 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 * multiplier0x2 + multiplicand1x1 * multiplier1x2 + multiplicand1x2 * multiplier2x2 + multiplicand1x3 * multiplier3x2 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 * multiplier0x3 + multiplicand1x1 * multiplier1x3 + multiplicand1x2 * multiplier2x3 + multiplicand1x3 * multiplier3x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand2x0 * multiplier0x0 + multiplicand2x1 * multiplier1x0 + multiplicand2x2 * multiplier2x0 + multiplicand2x3 * multiplier3x0 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 * multiplier0x1 + multiplicand2x1 * multiplier1x1 + multiplicand2x2 * multiplier2x1 + multiplicand2x3 * multiplier3x1 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 * multiplier0x2 + multiplicand2x1 * multiplier1x2 + multiplicand2x2 * multiplier2x2 + multiplicand2x3 * multiplier3x2 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 * multiplier0x3 + multiplicand2x1 * multiplier1x3 + multiplicand2x2 * multiplier2x3 + multiplicand2x3 * multiplier3x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand3x0 * multiplier0x0 + multiplicand3x1 * multiplier1x0 + multiplicand3x2 * multiplier2x0 + multiplicand3x3 * multiplier3x0 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 * multiplier0x1 + multiplicand3x1 * multiplier1x1 + multiplicand3x2 * multiplier2x1 + multiplicand3x3 * multiplier3x1 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 * multiplier0x2 + multiplicand3x1 * multiplier1x2 + multiplicand3x2 * multiplier2x2 + multiplicand3x3 * multiplier3x2 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 * multiplier0x3 + multiplicand3x1 * multiplier1x3 + multiplicand3x2 * multiplier2x3 + multiplicand3x3 * multiplier3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand4x0 * multiplier0x0 + multiplicand4x1 * multiplier1x0 + multiplicand4x2 * multiplier2x0 + multiplicand4x3 * multiplier3x0 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 * multiplier0x1 + multiplicand4x1 * multiplier1x1 + multiplicand4x2 * multiplier2x1 + multiplicand4x3 * multiplier3x1 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 * multiplier0x2 + multiplicand4x1 * multiplier1x2 + multiplicand4x2 * multiplier2x2 + multiplicand4x3 * multiplier3x2 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 * multiplier0x3 + multiplicand4x1 * multiplier1x3 + multiplicand4x2 * multiplier2x3 + multiplicand4x3 * multiplier3x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand5x0 * multiplier0x0 + multiplicand5x1 * multiplier1x0 + multiplicand5x2 * multiplier2x0 + multiplicand5x3 * multiplier3x0 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 * multiplier0x1 + multiplicand5x1 * multiplier1x1 + multiplicand5x2 * multiplier2x1 + multiplicand5x3 * multiplier3x1 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 * multiplier0x2 + multiplicand5x1 * multiplier1x2 + multiplicand5x2 * multiplier2x2 + multiplicand5x3 * multiplier3x2 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 * multiplier0x3 + multiplicand5x1 * multiplier1x3 + multiplicand5x2 * multiplier2x3 + multiplicand5x3 * multiplier3x3 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 + multiplicand5x1 + multiplicand5x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5,
+                multiplicand5x0 + multiplicand5x1 + multiplicand5x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5
+            );
+
+        /// <summary>
+        /// Multiply5x5x6x6s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand0x4">The multiplicand M0X4.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand1x4">The multiplicand M1X4.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand2x4">The multiplicand M2X4.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplicand3x4">The multiplicand M3X4.</param>
+        /// <param name="multiplicand4x0">The multiplicand M4X0.</param>
+        /// <param name="multiplicand4x1">The multiplicand M4X1.</param>
+        /// <param name="multiplicand4x2">The multiplicand M4X2.</param>
+        /// <param name="multiplicand4x3">The multiplicand M4X3.</param>
+        /// <param name="multiplicand4x4">The multiplicand M4X4.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier0x4">The multiplier M0X4.</param>
+        /// <param name="multiplier0x5">The multiplier M0X5.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier1x4">The multiplier M1X4.</param>
+        /// <param name="multiplier1x5">The multiplier M1X5.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier2x4">The multiplier M2X4.</param>
+        /// <param name="multiplier2x5">The multiplier M2X5.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
+        /// <param name="multiplier3x4">The multiplier M3X4.</param>
+        /// <param name="multiplier3x5">The multiplier M3X5.</param>
+        /// <param name="multiplier4x0">The multiplier M4X0.</param>
+        /// <param name="multiplier4x1">The multiplier M4X1.</param>
+        /// <param name="multiplier4x2">The multiplier M4X2.</param>
+        /// <param name="multiplier4x3">The multiplier M4X3.</param>
+        /// <param name="multiplier4x4">The multiplier M4X4.</param>
+        /// <param name="multiplier4x5">The multiplier M4X5.</param>
+        /// <param name="multiplier5x0">The multiplier M5X0.</param>
+        /// <param name="multiplier5x1">The multiplier M5X1.</param>
+        /// <param name="multiplier5x2">The multiplier M5X2.</param>
+        /// <param name="multiplier5x3">The multiplier M5X3.</param>
+        /// <param name="multiplier5x4">The multiplier M5X4.</param>
+        /// <param name="multiplier5x5">The multiplier M5X5.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4, double M0x5,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4, double M1x5,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4, double M2x5,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4, double M3x5,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4, double M4x5,
+            double M5x0, double M5x1, double M5x2, double M5x3, double M5x4, double M5x5
+            ) Multiply5x5x6x6(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3, double multiplicand0x4,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3, double multiplicand1x4,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3, double multiplicand2x4,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3, double multiplicand3x4,
+            double multiplicand4x0, double multiplicand4x1, double multiplicand4x2, double multiplicand4x3, double multiplicand4x4,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3, double multiplier0x4, double multiplier0x5,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3, double multiplier1x4, double multiplier1x5,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3, double multiplier2x4, double multiplier2x5,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3, double multiplier3x4, double multiplier3x5,
+            double multiplier4x0, double multiplier4x1, double multiplier4x2, double multiplier4x3, double multiplier4x4, double multiplier4x5,
+            double multiplier5x0, double multiplier5x1, double multiplier5x2, double multiplier5x3, double multiplier5x4, double multiplier5x5)
+            => (
+                multiplicand0x0 * multiplier0x0 + multiplicand0x1 * multiplier1x0 + multiplicand0x2 * multiplier2x0 + multiplicand0x3 * multiplier3x0 + multiplicand0x4 * multiplier4x0 + multiplier5x0,
+                multiplicand0x0 * multiplier0x1 + multiplicand0x1 * multiplier1x1 + multiplicand0x2 * multiplier2x1 + multiplicand0x3 * multiplier3x1 + multiplicand0x4 * multiplier4x1 + multiplier5x1,
+                multiplicand0x0 * multiplier0x2 + multiplicand0x1 * multiplier1x2 + multiplicand0x2 * multiplier2x2 + multiplicand0x3 * multiplier3x2 + multiplicand0x4 * multiplier4x2 + multiplier5x2,
+                multiplicand0x0 * multiplier0x3 + multiplicand0x1 * multiplier1x3 + multiplicand0x2 * multiplier2x3 + multiplicand0x3 * multiplier3x3 + multiplicand0x4 * multiplier4x3 + multiplier5x3,
+                multiplicand0x0 * multiplier0x4 + multiplicand0x1 * multiplier1x4 + multiplicand0x2 * multiplier2x4 + multiplicand0x3 * multiplier3x4 + multiplicand0x4 * multiplier4x4 + multiplier5x4,
+                multiplicand0x0 * multiplier0x5 + multiplicand0x1 * multiplier1x5 + multiplicand0x2 * multiplier2x5 + multiplicand0x3 * multiplier3x5 + multiplicand0x4 * multiplier4x5 + multiplier5x5,
+                multiplicand1x0 * multiplier0x0 + multiplicand1x1 * multiplier1x0 + multiplicand1x2 * multiplier2x0 + multiplicand1x3 * multiplier3x0 + multiplicand1x4 * multiplier4x0 + multiplier5x0,
+                multiplicand1x0 * multiplier0x1 + multiplicand1x1 * multiplier1x1 + multiplicand1x2 * multiplier2x1 + multiplicand1x3 * multiplier3x1 + multiplicand1x4 * multiplier4x1 + multiplier5x1,
+                multiplicand1x0 * multiplier0x2 + multiplicand1x1 * multiplier1x2 + multiplicand1x2 * multiplier2x2 + multiplicand1x3 * multiplier3x2 + multiplicand1x4 * multiplier4x2 + multiplier5x2,
+                multiplicand1x0 * multiplier0x3 + multiplicand1x1 * multiplier1x3 + multiplicand1x2 * multiplier2x3 + multiplicand1x3 * multiplier3x3 + multiplicand1x4 * multiplier4x3 + multiplier5x3,
+                multiplicand1x0 * multiplier0x4 + multiplicand1x1 * multiplier1x4 + multiplicand1x2 * multiplier2x4 + multiplicand1x3 * multiplier3x4 + multiplicand1x4 * multiplier4x4 + multiplier5x4,
+                multiplicand1x0 * multiplier0x5 + multiplicand1x1 * multiplier1x5 + multiplicand1x2 * multiplier2x5 + multiplicand1x3 * multiplier3x5 + multiplicand1x4 * multiplier4x5 + multiplier5x5,
+                multiplicand2x0 * multiplier0x0 + multiplicand2x1 * multiplier1x0 + multiplicand2x2 * multiplier2x0 + multiplicand2x3 * multiplier3x0 + multiplicand2x4 * multiplier4x0 + multiplier5x0,
+                multiplicand2x0 * multiplier0x1 + multiplicand2x1 * multiplier1x1 + multiplicand2x2 * multiplier2x1 + multiplicand2x3 * multiplier3x1 + multiplicand2x4 * multiplier4x1 + multiplier5x1,
+                multiplicand2x0 * multiplier0x2 + multiplicand2x1 * multiplier1x2 + multiplicand2x2 * multiplier2x2 + multiplicand2x3 * multiplier3x2 + multiplicand2x4 * multiplier4x2 + multiplier5x2,
+                multiplicand2x0 * multiplier0x3 + multiplicand2x1 * multiplier1x3 + multiplicand2x2 * multiplier2x3 + multiplicand2x3 * multiplier3x3 + multiplicand2x4 * multiplier4x3 + multiplier5x3,
+                multiplicand2x0 * multiplier0x4 + multiplicand2x1 * multiplier1x4 + multiplicand2x2 * multiplier2x4 + multiplicand2x3 * multiplier3x4 + multiplicand2x4 * multiplier4x4 + multiplier5x4,
+                multiplicand2x0 * multiplier0x5 + multiplicand2x1 * multiplier1x5 + multiplicand2x2 * multiplier2x5 + multiplicand2x3 * multiplier3x5 + multiplicand2x4 * multiplier4x5 + multiplier5x5,
+                multiplicand3x0 * multiplier0x0 + multiplicand3x1 * multiplier1x0 + multiplicand3x2 * multiplier2x0 + multiplicand3x3 * multiplier3x0 + multiplicand3x4 * multiplier4x0 + multiplier5x0,
+                multiplicand3x0 * multiplier0x1 + multiplicand3x1 * multiplier1x1 + multiplicand3x2 * multiplier2x1 + multiplicand3x3 * multiplier3x1 + multiplicand3x4 * multiplier4x1 + multiplier5x1,
+                multiplicand3x0 * multiplier0x2 + multiplicand3x1 * multiplier1x2 + multiplicand3x2 * multiplier2x2 + multiplicand3x3 * multiplier3x2 + multiplicand3x4 * multiplier4x2 + multiplier5x2,
+                multiplicand3x0 * multiplier0x3 + multiplicand3x1 * multiplier1x3 + multiplicand3x2 * multiplier2x3 + multiplicand3x3 * multiplier3x3 + multiplicand3x4 * multiplier4x3 + multiplier5x3,
+                multiplicand3x0 * multiplier0x4 + multiplicand3x1 * multiplier1x4 + multiplicand3x2 * multiplier2x4 + multiplicand3x3 * multiplier3x4 + multiplicand3x4 * multiplier4x4 + multiplier5x4,
+                multiplicand3x0 * multiplier0x5 + multiplicand3x1 * multiplier1x5 + multiplicand3x2 * multiplier2x5 + multiplicand3x3 * multiplier3x5 + multiplicand3x4 * multiplier4x5 + multiplier5x5,
+                multiplicand4x0 * multiplier0x0 + multiplicand4x1 * multiplier1x0 + multiplicand4x2 * multiplier2x0 + multiplicand4x3 * multiplier3x0 + multiplicand4x4 * multiplier4x0 + multiplier5x0,
+                multiplicand4x0 * multiplier0x1 + multiplicand4x1 * multiplier1x1 + multiplicand4x2 * multiplier2x1 + multiplicand4x3 * multiplier3x1 + multiplicand4x4 * multiplier4x1 + multiplier5x1,
+                multiplicand4x0 * multiplier0x2 + multiplicand4x1 * multiplier1x2 + multiplicand4x2 * multiplier2x2 + multiplicand4x3 * multiplier3x2 + multiplicand4x4 * multiplier4x2 + multiplier5x2,
+                multiplicand4x0 * multiplier0x3 + multiplicand4x1 * multiplier1x3 + multiplicand4x2 * multiplier2x3 + multiplicand4x3 * multiplier3x3 + multiplicand4x4 * multiplier4x3 + multiplier5x3,
+                multiplicand4x0 * multiplier0x4 + multiplicand4x1 * multiplier1x4 + multiplicand4x2 * multiplier2x4 + multiplicand4x3 * multiplier3x4 + multiplicand4x4 * multiplier4x4 + multiplier5x4,
+                multiplicand4x0 * multiplier0x5 + multiplicand4x1 * multiplier1x5 + multiplicand4x2 * multiplier2x5 + multiplicand4x3 * multiplier3x5 + multiplicand4x4 * multiplier4x5 + multiplier5x5,
+                multiplier0x0 + multiplier1x0 + multiplier2x0 + multiplier3x0 + multiplier4x0 + multiplier5x0,
+                multiplier0x1 + multiplier1x1 + multiplier2x1 + multiplier3x1 + multiplier4x1 + multiplier5x1,
+                multiplier0x2 + multiplier1x2 + multiplier2x2 + multiplier3x2 + multiplier4x2 + multiplier5x2,
+                multiplier0x3 + multiplier1x3 + multiplier2x3 + multiplier3x3 + multiplier4x3 + multiplier5x3,
+                multiplier0x4 + multiplier1x4 + multiplier2x4 + multiplier3x4 + multiplier4x4 + multiplier5x4,
+                multiplier0x5 + multiplier1x5 + multiplier2x5 + multiplier3x5 + multiplier4x5 + multiplier5x5
+            );
+
+        /// <summary>
+        /// Multiply6x6x5x5s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand0x4">The multiplicand M0X4.</param>
+        /// <param name="multiplicand0x5">The multiplicand M0X5.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand1x4">The multiplicand M1X4.</param>
+        /// <param name="multiplicand1x5">The multiplicand M1X5.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand2x4">The multiplicand M2X4.</param>
+        /// <param name="multiplicand2x5">The multiplicand M2X5.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplicand3x4">The multiplicand M3X4.</param>
+        /// <param name="multiplicand3x5">The multiplicand M3X5.</param>
+        /// <param name="multiplicand4x0">The multiplicand M4X0.</param>
+        /// <param name="multiplicand4x1">The multiplicand M4X1.</param>
+        /// <param name="multiplicand4x2">The multiplicand M4X2.</param>
+        /// <param name="multiplicand4x3">The multiplicand M4X3.</param>
+        /// <param name="multiplicand4x4">The multiplicand M4X4.</param>
+        /// <param name="multiplicand4x5">The multiplicand M4X5.</param>
+        /// <param name="multiplicand5x0">The multiplicand M5X0.</param>
+        /// <param name="multiplicand5x1">The multiplicand M5X1.</param>
+        /// <param name="multiplicand5x2">The multiplicand M5X2.</param>
+        /// <param name="multiplicand5x3">The multiplicand M5X3.</param>
+        /// <param name="multiplicand5x4">The multiplicand M5X4.</param>
+        /// <param name="multiplicand5x5">The multiplicand M5X5.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier0x4">The multiplier M0X4.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier1x4">The multiplier M1X4.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier2x4">The multiplier M2X4.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
+        /// <param name="multiplier3x4">The multiplier M3X4.</param>
+        /// <param name="multiplier4x0">The multiplier M4X0.</param>
+        /// <param name="multiplier4x1">The multiplier M4X1.</param>
+        /// <param name="multiplier4x2">The multiplier M4X2.</param>
+        /// <param name="multiplier4x3">The multiplier M4X3.</param>
+        /// <param name="multiplier4x4">The multiplier M4X4.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4, double M0x5,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4, double M1x5,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4, double M2x5,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4, double M3x5,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4, double M4x5,
+            double M5x0, double M5x1, double M5x2, double M5x3, double M5x4, double M5x5
+            ) Multiply6x6x5x5(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3, double multiplicand0x4, double multiplicand0x5,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3, double multiplicand1x4, double multiplicand1x5,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3, double multiplicand2x4, double multiplicand2x5,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3, double multiplicand3x4, double multiplicand3x5,
+            double multiplicand4x0, double multiplicand4x1, double multiplicand4x2, double multiplicand4x3, double multiplicand4x4, double multiplicand4x5,
+            double multiplicand5x0, double multiplicand5x1, double multiplicand5x2, double multiplicand5x3, double multiplicand5x4, double multiplicand5x5,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3, double multiplier0x4,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3, double multiplier1x4,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3, double multiplier2x4,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3, double multiplier3x4,
+            double multiplier4x0, double multiplier4x1, double multiplier4x2, double multiplier4x3, double multiplier4x4)
+            => (
+                multiplicand0x0 * multiplier0x0 + multiplicand0x1 * multiplier1x0 + multiplicand0x2 * multiplier2x0 + multiplicand0x3 * multiplier3x0 + multiplicand0x4 * multiplier4x0 + multiplicand0x5,
+                multiplicand0x0 * multiplier0x1 + multiplicand0x1 * multiplier1x1 + multiplicand0x2 * multiplier2x1 + multiplicand0x3 * multiplier3x1 + multiplicand0x4 * multiplier4x1 + multiplicand0x5,
+                multiplicand0x0 * multiplier0x2 + multiplicand0x1 * multiplier1x2 + multiplicand0x2 * multiplier2x2 + multiplicand0x3 * multiplier3x2 + multiplicand0x4 * multiplier4x2 + multiplicand0x5,
+                multiplicand0x0 * multiplier0x3 + multiplicand0x1 * multiplier1x3 + multiplicand0x2 * multiplier2x3 + multiplicand0x3 * multiplier3x3 + multiplicand0x4 * multiplier4x3 + multiplicand0x5,
+                multiplicand0x0 * multiplier0x4 + multiplicand0x1 * multiplier1x4 + multiplicand0x2 * multiplier2x4 + multiplicand0x3 * multiplier3x4 + multiplicand0x4 * multiplier4x4 + multiplicand0x5,
+                multiplicand0x0 + multiplicand0x1 + multiplicand0x2 + multiplicand0x3 + multiplicand0x4 + multiplicand0x5,
+                multiplicand1x0 * multiplier0x0 + multiplicand1x1 * multiplier1x0 + multiplicand1x2 * multiplier2x0 + multiplicand1x3 * multiplier3x0 + multiplicand1x4 * multiplier4x0 + multiplicand1x5,
+                multiplicand1x0 * multiplier0x1 + multiplicand1x1 * multiplier1x1 + multiplicand1x2 * multiplier2x1 + multiplicand1x3 * multiplier3x1 + multiplicand1x4 * multiplier4x1 + multiplicand1x5,
+                multiplicand1x0 * multiplier0x2 + multiplicand1x1 * multiplier1x2 + multiplicand1x2 * multiplier2x2 + multiplicand1x3 * multiplier3x2 + multiplicand1x4 * multiplier4x2 + multiplicand1x5,
+                multiplicand1x0 * multiplier0x3 + multiplicand1x1 * multiplier1x3 + multiplicand1x2 * multiplier2x3 + multiplicand1x3 * multiplier3x3 + multiplicand1x4 * multiplier4x3 + multiplicand1x5,
+                multiplicand1x0 * multiplier0x4 + multiplicand1x1 * multiplier1x4 + multiplicand1x2 * multiplier2x4 + multiplicand1x3 * multiplier3x4 + multiplicand1x4 * multiplier4x4 + multiplicand1x5,
+                multiplicand1x0 + multiplicand1x1 + multiplicand1x2 + multiplicand1x3 + multiplicand1x4 + multiplicand1x5,
+                multiplicand2x0 * multiplier0x0 + multiplicand2x1 * multiplier1x0 + multiplicand2x2 * multiplier2x0 + multiplicand2x3 * multiplier3x0 + multiplicand2x4 * multiplier4x0 + multiplicand2x5,
+                multiplicand2x0 * multiplier0x1 + multiplicand2x1 * multiplier1x1 + multiplicand2x2 * multiplier2x1 + multiplicand2x3 * multiplier3x1 + multiplicand2x4 * multiplier4x1 + multiplicand2x5,
+                multiplicand2x0 * multiplier0x2 + multiplicand2x1 * multiplier1x2 + multiplicand2x2 * multiplier2x2 + multiplicand2x3 * multiplier3x2 + multiplicand2x4 * multiplier4x2 + multiplicand2x5,
+                multiplicand2x0 * multiplier0x3 + multiplicand2x1 * multiplier1x3 + multiplicand2x2 * multiplier2x3 + multiplicand2x3 * multiplier3x3 + multiplicand2x4 * multiplier4x3 + multiplicand2x5,
+                multiplicand2x0 * multiplier0x4 + multiplicand2x1 * multiplier1x4 + multiplicand2x2 * multiplier2x4 + multiplicand2x3 * multiplier3x4 + multiplicand2x4 * multiplier4x4 + multiplicand2x5,
+                multiplicand2x0 + multiplicand2x1 + multiplicand2x2 + multiplicand2x3 + multiplicand2x4 + multiplicand2x5,
+                multiplicand3x0 * multiplier0x0 + multiplicand3x1 * multiplier1x0 + multiplicand3x2 * multiplier2x0 + multiplicand3x3 * multiplier3x0 + multiplicand3x4 * multiplier4x0 + multiplicand3x5,
+                multiplicand3x0 * multiplier0x1 + multiplicand3x1 * multiplier1x1 + multiplicand3x2 * multiplier2x1 + multiplicand3x3 * multiplier3x1 + multiplicand3x4 * multiplier4x1 + multiplicand3x5,
+                multiplicand3x0 * multiplier0x2 + multiplicand3x1 * multiplier1x2 + multiplicand3x2 * multiplier2x2 + multiplicand3x3 * multiplier3x2 + multiplicand3x4 * multiplier4x2 + multiplicand3x5,
+                multiplicand3x0 * multiplier0x3 + multiplicand3x1 * multiplier1x3 + multiplicand3x2 * multiplier2x3 + multiplicand3x3 * multiplier3x3 + multiplicand3x4 * multiplier4x3 + multiplicand3x5,
+                multiplicand3x0 * multiplier0x4 + multiplicand3x1 * multiplier1x4 + multiplicand3x2 * multiplier2x4 + multiplicand3x3 * multiplier3x4 + multiplicand3x4 * multiplier4x4 + multiplicand3x5,
+                multiplicand3x0 + multiplicand3x1 + multiplicand3x2 + multiplicand3x3 + multiplicand3x4 + multiplicand3x5,
+                multiplicand4x0 * multiplier0x0 + multiplicand4x1 * multiplier1x0 + multiplicand4x2 * multiplier2x0 + multiplicand4x3 * multiplier3x0 + multiplicand4x4 * multiplier4x0 + multiplicand4x5,
+                multiplicand4x0 * multiplier0x1 + multiplicand4x1 * multiplier1x1 + multiplicand4x2 * multiplier2x1 + multiplicand4x3 * multiplier3x1 + multiplicand4x4 * multiplier4x1 + multiplicand4x5,
+                multiplicand4x0 * multiplier0x2 + multiplicand4x1 * multiplier1x2 + multiplicand4x2 * multiplier2x2 + multiplicand4x3 * multiplier3x2 + multiplicand4x4 * multiplier4x2 + multiplicand4x5,
+                multiplicand4x0 * multiplier0x3 + multiplicand4x1 * multiplier1x3 + multiplicand4x2 * multiplier2x3 + multiplicand4x3 * multiplier3x3 + multiplicand4x4 * multiplier4x3 + multiplicand4x5,
+                multiplicand4x0 * multiplier0x4 + multiplicand4x1 * multiplier1x4 + multiplicand4x2 * multiplier2x4 + multiplicand4x3 * multiplier3x4 + multiplicand4x4 * multiplier4x4 + multiplicand4x5,
+                multiplicand4x0 + multiplicand4x1 + multiplicand4x2 + multiplicand4x3 + multiplicand4x4 + multiplicand4x5,
+                multiplicand5x0 * multiplier0x0 + multiplicand5x1 * multiplier1x0 + multiplicand5x2 * multiplier2x0 + multiplicand5x3 * multiplier3x0 + multiplicand5x4 * multiplier4x0 + multiplicand5x5,
+                multiplicand5x0 * multiplier0x1 + multiplicand5x1 * multiplier1x1 + multiplicand5x2 * multiplier2x1 + multiplicand5x3 * multiplier3x1 + multiplicand5x4 * multiplier4x1 + multiplicand5x5,
+                multiplicand5x0 * multiplier0x2 + multiplicand5x1 * multiplier1x2 + multiplicand5x2 * multiplier2x2 + multiplicand5x3 * multiplier3x2 + multiplicand5x4 * multiplier4x2 + multiplicand5x5,
+                multiplicand5x0 * multiplier0x3 + multiplicand5x1 * multiplier1x3 + multiplicand5x2 * multiplier2x3 + multiplicand5x3 * multiplier3x3 + multiplicand5x4 * multiplier4x3 + multiplicand5x5,
+                multiplicand5x0 * multiplier0x4 + multiplicand5x1 * multiplier1x4 + multiplicand5x2 * multiplier2x4 + multiplicand5x3 * multiplier3x4 + multiplicand5x4 * multiplier4x4 + multiplicand5x5,
+                multiplicand5x0 + multiplicand5x1 + multiplicand5x2 + multiplicand5x3 + multiplicand5x4 + multiplicand5x5
+            );
+
+        /// <summary>
+        /// Multiply6x6x6x6s the specified multiplicand M0X0.
+        /// </summary>
+        /// <param name="multiplicand0x0">The multiplicand M0X0.</param>
+        /// <param name="multiplicand0x1">The multiplicand M0X1.</param>
+        /// <param name="multiplicand0x2">The multiplicand M0X2.</param>
+        /// <param name="multiplicand0x3">The multiplicand M0X3.</param>
+        /// <param name="multiplicand0x4">The multiplicand M0X4.</param>
+        /// <param name="multiplicand0x5">The multiplicand M0X5.</param>
+        /// <param name="multiplicand1x0">The multiplicand M1X0.</param>
+        /// <param name="multiplicand1x1">The multiplicand M1X1.</param>
+        /// <param name="multiplicand1x2">The multiplicand M1X2.</param>
+        /// <param name="multiplicand1x3">The multiplicand M1X3.</param>
+        /// <param name="multiplicand1x4">The multiplicand M1X4.</param>
+        /// <param name="multiplicand1x5">The multiplicand M1X5.</param>
+        /// <param name="multiplicand2x0">The multiplicand M2X0.</param>
+        /// <param name="multiplicand2x1">The multiplicand M2X1.</param>
+        /// <param name="multiplicand2x2">The multiplicand M2X2.</param>
+        /// <param name="multiplicand2x3">The multiplicand M2X3.</param>
+        /// <param name="multiplicand2x4">The multiplicand M2X4.</param>
+        /// <param name="multiplicand2x5">The multiplicand M2X5.</param>
+        /// <param name="multiplicand3x0">The multiplicand M3X0.</param>
+        /// <param name="multiplicand3x1">The multiplicand M3X1.</param>
+        /// <param name="multiplicand3x2">The multiplicand M3X2.</param>
+        /// <param name="multiplicand3x3">The multiplicand M3X3.</param>
+        /// <param name="multiplicand3x4">The multiplicand M3X4.</param>
+        /// <param name="multiplicand3x5">The multiplicand M3X5.</param>
+        /// <param name="multiplicand4x0">The multiplicand M4X0.</param>
+        /// <param name="multiplicand4x1">The multiplicand M4X1.</param>
+        /// <param name="multiplicand4x2">The multiplicand M4X2.</param>
+        /// <param name="multiplicand4x3">The multiplicand M4X3.</param>
+        /// <param name="multiplicand4x4">The multiplicand M4X4.</param>
+        /// <param name="multiplicand4x5">The multiplicand M4X5.</param>
+        /// <param name="multiplicand5x0">The multiplicand M5X0.</param>
+        /// <param name="multiplicand5x1">The multiplicand M5X1.</param>
+        /// <param name="multiplicand5x2">The multiplicand M5X2.</param>
+        /// <param name="multiplicand5x3">The multiplicand M5X3.</param>
+        /// <param name="multiplicand5x4">The multiplicand M5X4.</param>
+        /// <param name="multiplicand5x5">The multiplicand M5X5.</param>
+        /// <param name="multiplier0x0">The multiplier M0X0.</param>
+        /// <param name="multiplier0x1">The multiplier M0X1.</param>
+        /// <param name="multiplier0x2">The multiplier M0X2.</param>
+        /// <param name="multiplier0x3">The multiplier M0X3.</param>
+        /// <param name="multiplier0x4">The multiplier M0X4.</param>
+        /// <param name="multiplier0x5">The multiplier M0X5.</param>
+        /// <param name="multiplier1x0">The multiplier M1X0.</param>
+        /// <param name="multiplier1x1">The multiplier M1X1.</param>
+        /// <param name="multiplier1x2">The multiplier M1X2.</param>
+        /// <param name="multiplier1x3">The multiplier M1X3.</param>
+        /// <param name="multiplier1x4">The multiplier M1X4.</param>
+        /// <param name="multiplier1x5">The multiplier M1X5.</param>
+        /// <param name="multiplier2x0">The multiplier M2X0.</param>
+        /// <param name="multiplier2x1">The multiplier M2X1.</param>
+        /// <param name="multiplier2x2">The multiplier M2X2.</param>
+        /// <param name="multiplier2x3">The multiplier M2X3.</param>
+        /// <param name="multiplier2x4">The multiplier M2X4.</param>
+        /// <param name="multiplier2x5">The multiplier M2X5.</param>
+        /// <param name="multiplier3x0">The multiplier M3X0.</param>
+        /// <param name="multiplier3x1">The multiplier M3X1.</param>
+        /// <param name="multiplier3x2">The multiplier M3X2.</param>
+        /// <param name="multiplier3x3">The multiplier M3X3.</param>
+        /// <param name="multiplier3x4">The multiplier M3X4.</param>
+        /// <param name="multiplier3x5">The multiplier M3X5.</param>
+        /// <param name="multiplier4x0">The multiplier M4X0.</param>
+        /// <param name="multiplier4x1">The multiplier M4X1.</param>
+        /// <param name="multiplier4x2">The multiplier M4X2.</param>
+        /// <param name="multiplier4x3">The multiplier M4X3.</param>
+        /// <param name="multiplier4x4">The multiplier M4X4.</param>
+        /// <param name="multiplier4x5">The multiplier M4X5.</param>
+        /// <param name="multiplier5x0">The multiplier M5X0.</param>
+        /// <param name="multiplier5x1">The multiplier M5X1.</param>
+        /// <param name="multiplier5x2">The multiplier M5X2.</param>
+        /// <param name="multiplier5x3">The multiplier M5X3.</param>
+        /// <param name="multiplier5x4">The multiplier M5X4.</param>
+        /// <param name="multiplier5x5">The multiplier M5X5.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double M0x0, double M0x1, double M0x2, double M0x3, double M0x4, double M0x5,
+            double M1x0, double M1x1, double M1x2, double M1x3, double M1x4, double M1x5,
+            double M2x0, double M2x1, double M2x2, double M2x3, double M2x4, double M2x5,
+            double M3x0, double M3x1, double M3x2, double M3x3, double M3x4, double M3x5,
+            double M4x0, double M4x1, double M4x2, double M4x3, double M4x4, double M4x5,
+            double M5x0, double M5x1, double M5x2, double M5x3, double M5x4, double M5x5
+            ) Multiply6x6x6x6(
+            double multiplicand0x0, double multiplicand0x1, double multiplicand0x2, double multiplicand0x3, double multiplicand0x4, double multiplicand0x5,
+            double multiplicand1x0, double multiplicand1x1, double multiplicand1x2, double multiplicand1x3, double multiplicand1x4, double multiplicand1x5,
+            double multiplicand2x0, double multiplicand2x1, double multiplicand2x2, double multiplicand2x3, double multiplicand2x4, double multiplicand2x5,
+            double multiplicand3x0, double multiplicand3x1, double multiplicand3x2, double multiplicand3x3, double multiplicand3x4, double multiplicand3x5,
+            double multiplicand4x0, double multiplicand4x1, double multiplicand4x2, double multiplicand4x3, double multiplicand4x4, double multiplicand4x5,
+            double multiplicand5x0, double multiplicand5x1, double multiplicand5x2, double multiplicand5x3, double multiplicand5x4, double multiplicand5x5,
+            double multiplier0x0, double multiplier0x1, double multiplier0x2, double multiplier0x3, double multiplier0x4, double multiplier0x5,
+            double multiplier1x0, double multiplier1x1, double multiplier1x2, double multiplier1x3, double multiplier1x4, double multiplier1x5,
+            double multiplier2x0, double multiplier2x1, double multiplier2x2, double multiplier2x3, double multiplier2x4, double multiplier2x5,
+            double multiplier3x0, double multiplier3x1, double multiplier3x2, double multiplier3x3, double multiplier3x4, double multiplier3x5,
+            double multiplier4x0, double multiplier4x1, double multiplier4x2, double multiplier4x3, double multiplier4x4, double multiplier4x5,
+            double multiplier5x0, double multiplier5x1, double multiplier5x2, double multiplier5x3, double multiplier5x4, double multiplier5x5)
+            => (
+                multiplicand0x0 * multiplier0x0 + multiplicand0x1 * multiplier1x0 + multiplicand0x2 * multiplier2x0 + multiplicand0x3 * multiplier3x0 + multiplicand0x4 * multiplier4x0 + multiplicand0x5 * multiplier5x0,
+                multiplicand0x0 * multiplier0x1 + multiplicand0x1 * multiplier1x1 + multiplicand0x2 * multiplier2x1 + multiplicand0x3 * multiplier3x1 + multiplicand0x4 * multiplier4x1 + multiplicand0x5 * multiplier5x1,
+                multiplicand0x0 * multiplier0x2 + multiplicand0x1 * multiplier1x2 + multiplicand0x2 * multiplier2x2 + multiplicand0x3 * multiplier3x2 + multiplicand0x4 * multiplier4x2 + multiplicand0x5 * multiplier5x2,
+                multiplicand0x0 * multiplier0x3 + multiplicand0x1 * multiplier1x3 + multiplicand0x2 * multiplier2x3 + multiplicand0x3 * multiplier3x3 + multiplicand0x4 * multiplier4x3 + multiplicand0x5 * multiplier5x3,
+                multiplicand0x0 * multiplier0x4 + multiplicand0x1 * multiplier1x4 + multiplicand0x2 * multiplier2x4 + multiplicand0x3 * multiplier3x4 + multiplicand0x4 * multiplier4x4 + multiplicand0x5 * multiplier5x4,
+                multiplicand0x0 * multiplier0x5 + multiplicand0x1 * multiplier1x5 + multiplicand0x2 * multiplier2x5 + multiplicand0x3 * multiplier3x5 + multiplicand0x4 * multiplier4x5 + multiplicand0x5 * multiplier5x5,
+                multiplicand1x0 * multiplier0x0 + multiplicand1x1 * multiplier1x0 + multiplicand1x2 * multiplier2x0 + multiplicand1x3 * multiplier3x0 + multiplicand1x4 * multiplier4x0 + multiplicand1x5 * multiplier5x0,
+                multiplicand1x0 * multiplier0x1 + multiplicand1x1 * multiplier1x1 + multiplicand1x2 * multiplier2x1 + multiplicand1x3 * multiplier3x1 + multiplicand1x4 * multiplier4x1 + multiplicand1x5 * multiplier5x1,
+                multiplicand1x0 * multiplier0x2 + multiplicand1x1 * multiplier1x2 + multiplicand1x2 * multiplier2x2 + multiplicand1x3 * multiplier3x2 + multiplicand1x4 * multiplier4x2 + multiplicand1x5 * multiplier5x2,
+                multiplicand1x0 * multiplier0x3 + multiplicand1x1 * multiplier1x3 + multiplicand1x2 * multiplier2x3 + multiplicand1x3 * multiplier3x3 + multiplicand1x4 * multiplier4x3 + multiplicand1x5 * multiplier5x3,
+                multiplicand1x0 * multiplier0x4 + multiplicand1x1 * multiplier1x4 + multiplicand1x2 * multiplier2x4 + multiplicand1x3 * multiplier3x4 + multiplicand1x4 * multiplier4x4 + multiplicand1x5 * multiplier5x4,
+                multiplicand1x0 * multiplier0x5 + multiplicand1x1 * multiplier1x5 + multiplicand1x2 * multiplier2x5 + multiplicand1x3 * multiplier3x5 + multiplicand1x4 * multiplier4x5 + multiplicand1x5 * multiplier5x5,
+                multiplicand2x0 * multiplier0x0 + multiplicand2x1 * multiplier1x0 + multiplicand2x2 * multiplier2x0 + multiplicand2x3 * multiplier3x0 + multiplicand2x4 * multiplier4x0 + multiplicand2x5 * multiplier5x0,
+                multiplicand2x0 * multiplier0x1 + multiplicand2x1 * multiplier1x1 + multiplicand2x2 * multiplier2x1 + multiplicand2x3 * multiplier3x1 + multiplicand2x4 * multiplier4x1 + multiplicand2x5 * multiplier5x1,
+                multiplicand2x0 * multiplier0x2 + multiplicand2x1 * multiplier1x2 + multiplicand2x2 * multiplier2x2 + multiplicand2x3 * multiplier3x2 + multiplicand2x4 * multiplier4x2 + multiplicand2x5 * multiplier5x2,
+                multiplicand2x0 * multiplier0x3 + multiplicand2x1 * multiplier1x3 + multiplicand2x2 * multiplier2x3 + multiplicand2x3 * multiplier3x3 + multiplicand2x4 * multiplier4x3 + multiplicand2x5 * multiplier5x3,
+                multiplicand2x0 * multiplier0x4 + multiplicand2x1 * multiplier1x4 + multiplicand2x2 * multiplier2x4 + multiplicand2x3 * multiplier3x4 + multiplicand2x4 * multiplier4x4 + multiplicand2x5 * multiplier5x4,
+                multiplicand2x0 * multiplier0x5 + multiplicand2x1 * multiplier1x5 + multiplicand2x2 * multiplier2x5 + multiplicand2x3 * multiplier3x5 + multiplicand2x4 * multiplier4x5 + multiplicand2x5 * multiplier5x5,
+                multiplicand3x0 * multiplier0x0 + multiplicand3x1 * multiplier1x0 + multiplicand3x2 * multiplier2x0 + multiplicand3x3 * multiplier3x0 + multiplicand3x4 * multiplier4x0 + multiplicand3x5 * multiplier5x0,
+                multiplicand3x0 * multiplier0x1 + multiplicand3x1 * multiplier1x1 + multiplicand3x2 * multiplier2x1 + multiplicand3x3 * multiplier3x1 + multiplicand3x4 * multiplier4x1 + multiplicand3x5 * multiplier5x1,
+                multiplicand3x0 * multiplier0x2 + multiplicand3x1 * multiplier1x2 + multiplicand3x2 * multiplier2x2 + multiplicand3x3 * multiplier3x2 + multiplicand3x4 * multiplier4x2 + multiplicand3x5 * multiplier5x2,
+                multiplicand3x0 * multiplier0x3 + multiplicand3x1 * multiplier1x3 + multiplicand3x2 * multiplier2x3 + multiplicand3x3 * multiplier3x3 + multiplicand3x4 * multiplier4x3 + multiplicand3x5 * multiplier5x3,
+                multiplicand3x0 * multiplier0x4 + multiplicand3x1 * multiplier1x4 + multiplicand3x2 * multiplier2x4 + multiplicand3x3 * multiplier3x4 + multiplicand3x4 * multiplier4x4 + multiplicand3x5 * multiplier5x4,
+                multiplicand3x0 * multiplier0x5 + multiplicand3x1 * multiplier1x5 + multiplicand3x2 * multiplier2x5 + multiplicand3x3 * multiplier3x5 + multiplicand3x4 * multiplier4x5 + multiplicand3x5 * multiplier5x5,
+                multiplicand4x0 * multiplier0x0 + multiplicand4x1 * multiplier1x0 + multiplicand4x2 * multiplier2x0 + multiplicand4x3 * multiplier3x0 + multiplicand4x4 * multiplier4x0 + multiplicand4x5 * multiplier5x0,
+                multiplicand4x0 * multiplier0x1 + multiplicand4x1 * multiplier1x1 + multiplicand4x2 * multiplier2x1 + multiplicand4x3 * multiplier3x1 + multiplicand4x4 * multiplier4x1 + multiplicand4x5 * multiplier5x1,
+                multiplicand4x0 * multiplier0x2 + multiplicand4x1 * multiplier1x2 + multiplicand4x2 * multiplier2x2 + multiplicand4x3 * multiplier3x2 + multiplicand4x4 * multiplier4x2 + multiplicand4x5 * multiplier5x2,
+                multiplicand4x0 * multiplier0x3 + multiplicand4x1 * multiplier1x3 + multiplicand4x2 * multiplier2x3 + multiplicand4x3 * multiplier3x3 + multiplicand4x4 * multiplier4x3 + multiplicand4x5 * multiplier5x3,
+                multiplicand4x0 * multiplier0x4 + multiplicand4x1 * multiplier1x4 + multiplicand4x2 * multiplier2x4 + multiplicand4x3 * multiplier3x4 + multiplicand4x4 * multiplier4x4 + multiplicand4x5 * multiplier5x4,
+                multiplicand4x0 * multiplier0x5 + multiplicand4x1 * multiplier1x5 + multiplicand4x2 * multiplier2x5 + multiplicand4x3 * multiplier3x5 + multiplicand4x4 * multiplier4x5 + multiplicand4x5 * multiplier5x5,
+                multiplicand5x0 * multiplier0x0 + multiplicand5x1 * multiplier1x0 + multiplicand5x2 * multiplier2x0 + multiplicand5x3 * multiplier3x0 + multiplicand5x4 * multiplier4x0 + multiplicand5x5 * multiplier5x0,
+                multiplicand5x0 * multiplier0x1 + multiplicand5x1 * multiplier1x1 + multiplicand5x2 * multiplier2x1 + multiplicand5x3 * multiplier3x1 + multiplicand5x4 * multiplier4x1 + multiplicand5x5 * multiplier5x1,
+                multiplicand5x0 * multiplier0x2 + multiplicand5x1 * multiplier1x2 + multiplicand5x2 * multiplier2x2 + multiplicand5x3 * multiplier3x2 + multiplicand5x4 * multiplier4x2 + multiplicand5x5 * multiplier5x2,
+                multiplicand5x0 * multiplier0x3 + multiplicand5x1 * multiplier1x3 + multiplicand5x2 * multiplier2x3 + multiplicand5x3 * multiplier3x3 + multiplicand5x4 * multiplier4x3 + multiplicand5x5 * multiplier5x3,
+                multiplicand5x0 * multiplier0x4 + multiplicand5x1 * multiplier1x4 + multiplicand5x2 * multiplier2x4 + multiplicand5x3 * multiplier3x4 + multiplicand5x4 * multiplier4x4 + multiplicand5x5 * multiplier5x4,
+                multiplicand5x0 * multiplier0x5 + multiplicand5x1 * multiplier1x5 + multiplicand5x2 * multiplier2x5 + multiplicand5x3 * multiplier3x5 + multiplicand5x4 * multiplier4x5 + multiplicand5x5 * multiplier5x5
+            );
         #endregion Multiply
 
         #region Is Identity
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
-        /// <param name="m0x0"></param>
-        /// <param name="m0x1"></param>
-        /// <param name="m1x0"></param>
-        /// <param name="m1x1"></param>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified M0X0 is identity; otherwise, <c>false</c>.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsIdentity(
+        public static bool IsMatrixIdentity(
             double m0x0, double m0x1,
             double m1x0, double m1x1)
             => Math.Abs(m0x0 - 1d) < double.Epsilon && Math.Abs(m0x1) < double.Epsilon
@@ -1852,18 +3554,21 @@ namespace Engine
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
-        /// <param name="m0x0"></param>
-        /// <param name="m0x1"></param>
-        /// <param name="m0x2"></param>
-        /// <param name="m1x0"></param>
-        /// <param name="m1x1"></param>
-        /// <param name="m1x2"></param>
-        /// <param name="m2x0"></param>
-        /// <param name="m2x1"></param>
-        /// <param name="m2x2"></param>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified M0X0 is identity; otherwise, <c>false</c>.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsIdentity(
+        public static bool IsMatrixIdentity(
             double m0x0, double m0x1, double m0x2,
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2)
@@ -1874,25 +3579,28 @@ namespace Engine
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
-        /// <param name="m0x0"></param>
-        /// <param name="m0x1"></param>
-        /// <param name="m0x2"></param>
-        /// <param name="m0x3"></param>
-        /// <param name="m1x0"></param>
-        /// <param name="m1x1"></param>
-        /// <param name="m1x2"></param>
-        /// <param name="m1x3"></param>
-        /// <param name="m2x0"></param>
-        /// <param name="m2x1"></param>
-        /// <param name="m2x2"></param>
-        /// <param name="m2x3"></param>
-        /// <param name="m3x0"></param>
-        /// <param name="m3x1"></param>
-        /// <param name="m3x2"></param>
-        /// <param name="m3x3"></param>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified M0X0 is identity; otherwise, <c>false</c>.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsIdentity(
+        public static bool IsMatrixIdentity(
             double m0x0, double m0x1, double m0x2, double m0x3,
             double m1x0, double m1x1, double m1x2, double m1x3,
             double m2x0, double m2x1, double m2x2, double m2x3,
@@ -1905,34 +3613,37 @@ namespace Engine
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
-        /// <param name="m0x0"></param>
-        /// <param name="m0x1"></param>
-        /// <param name="m0x2"></param>
-        /// <param name="m0x3"></param>
-        /// <param name="m0x4"></param>
-        /// <param name="m1x0"></param>
-        /// <param name="m1x1"></param>
-        /// <param name="m1x2"></param>
-        /// <param name="m1x3"></param>
-        /// <param name="m1x4"></param>
-        /// <param name="m2x0"></param>
-        /// <param name="m2x1"></param>
-        /// <param name="m2x2"></param>
-        /// <param name="m2x3"></param>
-        /// <param name="m2x4"></param>
-        /// <param name="m3x0"></param>
-        /// <param name="m3x1"></param>
-        /// <param name="m3x2"></param>
-        /// <param name="m3x3"></param>
-        /// <param name="m3x4"></param>
-        /// <param name="m4x0"></param>
-        /// <param name="m4x1"></param>
-        /// <param name="m4x2"></param>
-        /// <param name="m4x3"></param>
-        /// <param name="m4x4"></param>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
+        /// <param name="m0x4">The M0X4.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m4x0">The M4X0.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified M0X0 is identity; otherwise, <c>false</c>.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsIdentity(
+        public static bool IsMatrixIdentity(
             double m0x0, double m0x1, double m0x2, double m0x3, double m0x4,
             double m1x0, double m1x1, double m1x2, double m1x3, double m1x4,
             double m2x0, double m2x1, double m2x2, double m2x3, double m2x4,
@@ -1947,45 +3658,48 @@ namespace Engine
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
-        /// <param name="m0x0"></param>
-        /// <param name="m0x1"></param>
-        /// <param name="m0x2"></param>
-        /// <param name="m0x3"></param>
-        /// <param name="m0x4"></param>
-        /// <param name="m0x5"></param>
-        /// <param name="m1x0"></param>
-        /// <param name="m1x1"></param>
-        /// <param name="m1x2"></param>
-        /// <param name="m1x3"></param>
-        /// <param name="m1x4"></param>
-        /// <param name="m1x5"></param>
-        /// <param name="m2x0"></param>
-        /// <param name="m2x1"></param>
-        /// <param name="m2x2"></param>
-        /// <param name="m2x3"></param>
-        /// <param name="m2x4"></param>
-        /// <param name="m2x5"></param>
-        /// <param name="m3x0"></param>
-        /// <param name="m3x1"></param>
-        /// <param name="m3x2"></param>
-        /// <param name="m3x3"></param>
-        /// <param name="m3x4"></param>
-        /// <param name="m3x5"></param>
-        /// <param name="m4x0"></param>
-        /// <param name="m4x1"></param>
-        /// <param name="m4x2"></param>
-        /// <param name="m4x3"></param>
-        /// <param name="m4x4"></param>
-        /// <param name="m4x5"></param>
-        /// <param name="m5x0"></param>
-        /// <param name="m5x1"></param>
-        /// <param name="m5x2"></param>
-        /// <param name="m5x3"></param>
-        /// <param name="m5x4"></param>
-        /// <param name="m5x5"></param>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
+        /// <param name="m0x4">The M0X4.</param>
+        /// <param name="m0x5">The M0X5.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m1x5">The M1X5.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m2x5">The M2X5.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m3x5">The M3X5.</param>
+        /// <param name="m4x0">The M4X0.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <param name="m4x5">The M4X5.</param>
+        /// <param name="m5x0">The M5X0.</param>
+        /// <param name="m5x1">The M5X1.</param>
+        /// <param name="m5x2">The M5X2.</param>
+        /// <param name="m5x3">The M5X3.</param>
+        /// <param name="m5x4">The M5X4.</param>
+        /// <param name="m5x5">The M5X5.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified M0X0 is identity; otherwise, <c>false</c>.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsIdentity(
+        public static bool IsMatrixIdentity(
             double m0x0, double m0x1, double m0x2, double m0x3, double m0x4, double m0x5,
             double m1x0, double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
             double m2x0, double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
@@ -2004,13 +3718,19 @@ namespace Engine
         /// <summary>
         /// The adjoint.
         /// </summary>
-        /// <returns>The <see cref="Matrix2x2D"/>.</returns>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <returns>
+        /// The <see cref="Matrix2x2D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
             double m0x0, double m0x1,
             double m1x0, double m1x1
-            ) Adjoint(
+            ) AdjointMatrix(
             double m0x0, double m0x1,
             double m1x0, double m1x1)
             => (
@@ -2020,14 +3740,25 @@ namespace Engine
         /// <summary>
         /// The adjoint.
         /// </summary>
-        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <returns>
+        /// The <see cref="Matrix3x3D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
             double m0x0, double m0x1, double m0x2,
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2
-            ) Adjoint(
+            ) AdjointMatrix(
             double m0x0, double m0x1, double m0x2,
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2)
@@ -2039,7 +3770,25 @@ namespace Engine
         /// <summary>
         /// Used to generate the adjoint of this matrix.
         /// </summary>
-        /// <returns>The adjoint matrix of the current instance.</returns>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <returns>
+        /// The adjoint matrix of the current instance.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -2047,7 +3796,7 @@ namespace Engine
             double m1x0, double m1x1, double m1x2, double m1x3,
             double m2x0, double m2x1, double m2x2, double m2x3,
             double m3x0, double m3x1, double m3x2, double m3x3
-            ) Adjoint(
+            ) AdjointMatrix(
             double m0x0, double m0x1, double m0x2, double m0x3,
             double m1x0, double m1x1, double m1x2, double m1x3,
             double m2x0, double m2x1, double m2x2, double m2x3,
@@ -2095,19 +3844,130 @@ namespace Engine
                 -((m0x0 * m11m32m31m12) - (m0x1 * m10m32m30m12) + (m0x2 * m10m31m30m11)),
                 (m0x0 * m11m22m21m12) - (m0x1 * m10m22m20m12) + (m0x2 * m10m21m20m11));
         }
+
+        /// <summary>
+        /// Adjoints the specified M0X0.
+        /// </summary>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
+        /// <param name="m0x4">The M0X4.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m4x0">The M4X0.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4,
+            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4,
+            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4,
+            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4,
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
+            ) AdjointMatrix(
+            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4,
+            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4,
+            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4,
+            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4,
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
+            ) => throw new NotImplementedException();
+
+        /// <summary>
+        /// Adjoints the specified M0X0.
+        /// </summary>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
+        /// <param name="m0x4">The M0X4.</param>
+        /// <param name="m0x5">The M0X5.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m1x5">The M1X5.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m2x5">The M2X5.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m3x5">The M3X5.</param>
+        /// <param name="m4x0">The M4X0.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <param name="m4x5">The M4X5.</param>
+        /// <param name="m5x0">The M5X0.</param>
+        /// <param name="m5x1">The M5X1.</param>
+        /// <param name="m5x2">The M5X2.</param>
+        /// <param name="m5x3">The M5X3.</param>
+        /// <param name="m5x4">The M5X4.</param>
+        /// <param name="m5x5">The M5X5.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4, double m0x5,
+            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
+            ) AdjointMatrix(
+            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4, double m0x5,
+            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
+            ) => throw new NotImplementedException();
         #endregion Adjoint
 
         #region Cofactor
         /// <summary>
         /// The cofactor.
         /// </summary>
-        /// <returns>The <see cref="Matrix2x2D"/>.</returns>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <returns>
+        /// The <see cref="Matrix2x2D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
             double m0x0, double m0x1,
             double m1x0, double m1x1
-            ) Cofactor(
+            ) CofactorMatrix(
             double m0x0, double m0x1,
             double m1x0, double m1x1)
             => (-m1x1, m0x1,
@@ -2116,14 +3976,25 @@ namespace Engine
         /// <summary>
         /// The cofactor.
         /// </summary>
-        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <returns>
+        /// The <see cref="Matrix3x3D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
             double m0x0, double m0x1, double m0x2,
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2
-            ) Cofactor(
+            ) CofactorMatrix(
             double m0x0, double m0x1, double m0x2,
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2)
@@ -2134,7 +4005,25 @@ namespace Engine
         /// <summary>
         /// The cofactor.
         /// </summary>
-        /// <returns>The <see cref="Matrix4x4D"/>.</returns>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <returns>
+        /// The <see cref="Matrix4x4D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -2142,7 +4031,7 @@ namespace Engine
             double m1x0, double m1x1, double m1x2, double m1x3,
             double m2x0, double m2x1, double m2x2, double m2x3,
             double m3x0, double m3x1, double m3x2, double m3x3
-            ) Cofactor(
+            ) CofactorMatrix(
             double m0x0, double m0x1, double m0x2, double m0x3,
             double m1x0, double m1x1, double m1x2, double m1x3,
             double m2x0, double m2x1, double m2x2, double m2x3,
@@ -2189,19 +4078,89 @@ namespace Engine
                 (m0x0 * m11m32m31m12) - (m0x1 * m10m32m30m12) + (m0x2 * m10m31m30m11),
                 -((m0x0 * m11m22m21m12) - (m0x1 * m10m22m20m12) + (m0x2 * m10m21m20m11)));
         }
+
+        /// <summary>
+        /// Cofactors the specified M0X0.
+        /// </summary>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
+        /// <param name="m0x4">The M0X4.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m4x0">The M4X0.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4,
+            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4,
+            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4,
+            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4,
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
+            ) CofactorMatrix(
+            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4,
+            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4,
+            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4,
+            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4,
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
+            ) => throw new NotImplementedException();
+
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4, double m0x5,
+            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
+            ) CofactorMatrix(
+            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4, double m0x5,
+            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
+            ) => throw new NotImplementedException();
         #endregion Cofactor
 
         #region Invert
         /// <summary>
         /// The invert.
         /// </summary>
-        /// <returns>The <see cref="Matrix2x2D"/>.</returns>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <returns>
+        /// The <see cref="Matrix2x2D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
             double m0x0, double m0x1,
             double m1x0, double m1x1
-            ) Invert(
+            ) InvertMatrix(
             double m0x0, double m0x1,
             double m1x0, double m1x1)
         {
@@ -2214,14 +4173,25 @@ namespace Engine
         /// <summary>
         /// The invert.
         /// </summary>
-        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <returns>
+        /// The <see cref="Matrix3x3D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
             double m0x0, double m0x1, double m0x2,
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2
-            ) Invert(
+            ) InvertMatrix(
             double m0x0, double m0x1, double m0x2,
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2)
@@ -2231,21 +4201,33 @@ namespace Engine
             var m10m21m11m20 = (m1x0 * m2x1) - (m1x1 * m2x0);
             var detInv = 1d / ((m0x0 * m11m22m12m21) - (m0x1 * m10m22m12m20) + (m0x2 * m10m21m11m20));
             return (
-                detInv * m11m22m12m21,
-                detInv * (-((m0x1 * m2x2) - (m0x2 * m2x1))),
-                detInv * ((m0x1 * m1x2) - (m0x2 * m1x1)),
-                detInv * (-m10m22m12m20),
-                detInv * ((m0x0 * m2x2) - (m0x2 * m2x0)),
-                detInv * (-((m0x0 * m1x2) - (m0x2 * m1x0))),
-                detInv * m10m21m11m20,
-                detInv * (-((m0x0 * m2x1) - (m0x1 * m2x0))),
-                detInv * ((m0x0 * m1x1) - (m0x1 * m1x0)));
+                detInv * m11m22m12m21, detInv * (-((m0x1 * m2x2) - (m0x2 * m2x1))), detInv * ((m0x1 * m1x2) - (m0x2 * m1x1)),
+                detInv * (-m10m22m12m20), detInv * ((m0x0 * m2x2) - (m0x2 * m2x0)), detInv * (-((m0x0 * m1x2) - (m0x2 * m1x0))),
+                detInv * m10m21m11m20, detInv * (-((m0x0 * m2x1) - (m0x1 * m2x0))), detInv * ((m0x0 * m1x1) - (m0x1 * m1x0)));
         }
 
         /// <summary>
         /// The invert.
         /// </summary>
-        /// <returns>The <see cref="Matrix4x4D"/>.</returns>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <returns>
+        /// The <see cref="Matrix4x4D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -2253,7 +4235,7 @@ namespace Engine
             double m1x0, double m1x1, double m1x2, double m1x3,
             double m2x0, double m2x1, double m2x2, double m2x3,
             double m3x0, double m3x1, double m3x2, double m3x3
-            ) Invert(
+            ) InvertMatrix(
             double m0x0, double m0x1, double m0x2, double m0x3,
             double m1x0, double m1x1, double m1x2, double m1x3,
             double m2x0, double m2x1, double m2x2, double m2x3,
@@ -2307,37 +4289,118 @@ namespace Engine
                 detInv * (-((m0x0 * m11m32m31m12) - (m0x1 * m10m32m30m12) + (m0x2 * m10m31m30m11))),
                 detInv * ((m0x0 * m11m22m21m12) - (m0x1 * m10m22m20m12) + (m0x2 * m10m21m20m11)));
         }
+
+        /// <summary>
+        /// Inverts the specified M0X0.
+        /// </summary>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
+        /// <param name="m0x4">The M0X4.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m4x0">The M4X0.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4,
+            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4,
+            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4,
+            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4,
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
+            ) InvertMatrix(
+            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4,
+            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4,
+            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4,
+            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4,
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
+            ) => throw new NotImplementedException();
+
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4, double m0x5,
+            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
+            ) InvertMatrix(
+            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4, double m0x5,
+            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
+            ) => throw new NotImplementedException();
         #endregion Invert
 
         #region Transpose
         /// <summary>
         /// Swap the rows of the matrix with the columns.
         /// </summary>
-        /// <returns>A transposed Matrix.</returns>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <returns>
+        /// A transposed Matrix.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
             double a, double b,
             double c, double d)
-            Transpose(
+            TransposeMatrix(
             double a, double b,
             double c, double d)
             => (
                 a, c,
                 b, d
-                );
+            );
 
         /// <summary>
         /// Swap the rows of the matrix with the columns.
         /// </summary>
-        /// <returns>A transposed Matrix.</returns>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <returns>
+        /// A transposed Matrix.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
             double a, double b, double c,
             double d, double e, double f,
             double g, double h, double i
-            ) Transpose(
+            ) TransposeMatrix(
             double a, double b, double c,
             double d, double e, double f,
             double g, double h, double i)
@@ -2350,7 +4413,25 @@ namespace Engine
         /// <summary>
         /// Swap the rows of the matrix with the columns.
         /// </summary>
-        /// <returns>A transposed Matrix.</returns>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="n">The n.</param>
+        /// <param name="o">The o.</param>
+        /// <param name="p">The p.</param>
+        /// <returns>
+        /// A transposed Matrix.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -2358,7 +4439,7 @@ namespace Engine
             double e, double f, double g, double h,
             double i, double j, double k, double l,
             double m, double n, double o, double p
-            ) Transpose(
+            ) TransposeMatrix(
             double a, double b, double c, double d,
             double e, double f, double g, double h,
             double i, double j, double k, double l,
@@ -2373,7 +4454,34 @@ namespace Engine
         /// <summary>
         /// Swap the rows of the matrix with the columns.
         /// </summary>
-        /// <returns>A transposed Matrix.</returns>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="n">The n.</param>
+        /// <param name="o">The o.</param>
+        /// <param name="p">The p.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="t">The t.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>
+        /// A transposed Matrix.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -2382,7 +4490,7 @@ namespace Engine
             double k, double l, double m, double n, double o,
             double p, double q, double r, double s, double t,
             double u, double v, double w, double x, double y
-            ) Transpose(
+            ) TransposeMatrix(
             double a, double b, double c, double d, double e,
             double f, double g, double h, double i, double j,
             double k, double l, double m, double n, double o,
@@ -2399,7 +4507,45 @@ namespace Engine
         /// <summary>
         /// Swap the rows of the matrix with the columns.
         /// </summary>
-        /// <returns>A transposed Matrix.</returns>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="n">The n.</param>
+        /// <param name="o">The o.</param>
+        /// <param name="p">The p.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="t">The t.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="aa">The aa.</param>
+        /// <param name="bb">The bb.</param>
+        /// <param name="cc">The cc.</param>
+        /// <param name="dd">The dd.</param>
+        /// <param name="ee">The ee.</param>
+        /// <param name="ff">The ff.</param>
+        /// <param name="gg">The gg.</param>
+        /// <param name="hh">The hh.</param>
+        /// <param name="ii">The ii.</param>
+        /// <param name="jj">The jj.</param>
+        /// <returns>
+        /// A transposed Matrix.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -2409,7 +4555,7 @@ namespace Engine
             double s, double t, double u, double v, double w, double x,
             double y, double z, double aa, double bb, double cc, double dd,
             double ee, double ff, double gg, double hh, double ii, double jj
-            ) Transpose(
+            ) TransposeMatrix(
             double a, double b, double c, double d, double e, double f,
             double g, double h, double i, double j, double k, double l,
             double m, double n, double o, double p, double q, double r,
@@ -2430,17 +4576,17 @@ namespace Engine
         /// <summary>
         /// Find the determinant of a 2 by 2 matrix.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Determinant(
+        public static double MatrixDeterminant(
             double a, double b,
             double c, double d)
             => (a * d)
@@ -2449,176 +4595,176 @@ namespace Engine
         /// <summary>
         /// Find the determinant of a 3 by 3 matrix.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Determinant(
+        public static double MatrixDeterminant(
             double a, double b, double c,
             double d, double e, double f,
             double g, double h, double i)
-            => (a * Determinant(e, f, h, i))
-              - (b * Determinant(d, f, g, i))
-              + (c * Determinant(d, e, g, h));
+            => (a * MatrixDeterminant(e, f, h, i))
+              - (b * MatrixDeterminant(d, f, g, i))
+              + (c * MatrixDeterminant(d, e, g, h));
 
         /// <summary>
         /// Find the determinant of a 4 by 4 matrix.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
-        /// <param name="l"></param>
-        /// <param name="m"></param>
-        /// <param name="n"></param>
-        /// <param name="o"></param>
-        /// <param name="p"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="n">The n.</param>
+        /// <param name="o">The o.</param>
+        /// <param name="p">The p.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Determinant(
+        public static double MatrixDeterminant(
             double a, double b, double c, double d,
             double e, double f, double g, double h,
             double i, double j, double k, double l,
             double m, double n, double o, double p)
-            => (a * Determinant(f, g, h, j, k, l, n, o, p))
-              - (b * Determinant(e, g, h, i, k, l, m, o, p))
-              + (c * Determinant(e, f, h, i, j, l, m, n, p))
-              - (d * Determinant(e, f, g, i, j, k, m, n, o));
+            => (a * MatrixDeterminant(f, g, h, j, k, l, n, o, p))
+              - (b * MatrixDeterminant(e, g, h, i, k, l, m, o, p))
+              + (c * MatrixDeterminant(e, f, h, i, j, l, m, n, p))
+              - (d * MatrixDeterminant(e, f, g, i, j, k, m, n, o));
 
         /// <summary>
         /// Find the determinant of a 5 by 5 matrix.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
-        /// <param name="l"></param>
-        /// <param name="m"></param>
-        /// <param name="n"></param>
-        /// <param name="o"></param>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
-        /// <param name="s"></param>
-        /// <param name="t"></param>
-        /// <param name="u"></param>
-        /// <param name="v"></param>
-        /// <param name="w"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="n">The n.</param>
+        /// <param name="o">The o.</param>
+        /// <param name="p">The p.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="t">The t.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Determinant(
+        public static double MatrixDeterminant(
             double a, double b, double c, double d, double e,
             double f, double g, double h, double i, double j,
             double k, double l, double m, double n, double o,
             double p, double q, double r, double s, double t,
             double u, double v, double w, double x, double y)
-            => (a * Determinant(g, h, i, j, l, m, n, o, q, r, s, t, v, w, x, y))
-              - (b * Determinant(f, h, i, j, k, m, n, o, p, r, s, t, u, w, x, y))
-              + (c * Determinant(f, g, i, j, k, l, n, o, p, q, s, t, u, v, x, y))
-              - (d * Determinant(f, g, h, j, k, l, m, o, p, q, r, t, u, v, w, y))
-              + (e * Determinant(f, g, h, i, k, l, m, n, p, q, r, s, u, v, w, x));
+            => (a * MatrixDeterminant(g, h, i, j, l, m, n, o, q, r, s, t, v, w, x, y))
+              - (b * MatrixDeterminant(f, h, i, j, k, m, n, o, p, r, s, t, u, w, x, y))
+              + (c * MatrixDeterminant(f, g, i, j, k, l, n, o, p, q, s, t, u, v, x, y))
+              - (d * MatrixDeterminant(f, g, h, j, k, l, m, o, p, q, r, t, u, v, w, y))
+              + (e * MatrixDeterminant(f, g, h, i, k, l, m, n, p, q, r, s, u, v, w, x));
 
         /// <summary>
         /// Find the determinant of a 6 by 6 matrix.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
-        /// <param name="l"></param>
-        /// <param name="m"></param>
-        /// <param name="n"></param>
-        /// <param name="o"></param>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
-        /// <param name="s"></param>
-        /// <param name="t"></param>
-        /// <param name="u"></param>
-        /// <param name="v"></param>
-        /// <param name="w"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <param name="aa"></param>
-        /// <param name="bb"></param>
-        /// <param name="cc"></param>
-        /// <param name="dd"></param>
-        /// <param name="ee"></param>
-        /// <param name="ff"></param>
-        /// <param name="gg"></param>
-        /// <param name="hh"></param>
-        /// <param name="ii"></param>
-        /// <param name="jj"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="n">The n.</param>
+        /// <param name="o">The o.</param>
+        /// <param name="p">The p.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="t">The t.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="aa">The aa.</param>
+        /// <param name="bb">The bb.</param>
+        /// <param name="cc">The cc.</param>
+        /// <param name="dd">The dd.</param>
+        /// <param name="ee">The ee.</param>
+        /// <param name="ff">The ff.</param>
+        /// <param name="gg">The gg.</param>
+        /// <param name="hh">The hh.</param>
+        /// <param name="ii">The ii.</param>
+        /// <param name="jj">The jj.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Determinant(
+        public static double MatrixDeterminant(
             double a, double b, double c, double d, double e, double f,
             double g, double h, double i, double j, double k, double l,
             double m, double n, double o, double p, double q, double r,
             double s, double t, double u, double v, double w, double x,
             double y, double z, double aa, double bb, double cc, double dd,
             double ee, double ff, double gg, double hh, double ii, double jj)
-            => (a * Determinant(h, i, j, k, l, n, o, p, q, r, t, u, v, w, x, z, aa, bb, cc, dd, ff, gg, hh, ii, jj))
-              - (b * Determinant(g, i, j, k, l, m, o, p, q, r, s, u, v, w, x, y, aa, bb, cc, dd, ee, gg, hh, ii, jj))
-              + (c * Determinant(g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z, bb, cc, dd, ee, ff, hh, ii, jj))
-              - (d * Determinant(g, h, i, k, l, m, n, o, q, r, s, t, u, w, x, y, z, aa, cc, dd, ee, ff, gg, ii, jj))
-              + (e * Determinant(g, h, i, j, l, m, n, o, p, r, s, t, u, v, x, y, z, aa, bb, dd, ee, ff, gg, hh, jj))
-              - (f * Determinant(g, h, i, j, k, m, n, o, p, q, s, t, u, v, w, y, z, aa, bb, cc, ee, ff, gg, hh, ii));
+            => (a * MatrixDeterminant(h, i, j, k, l, n, o, p, q, r, t, u, v, w, x, z, aa, bb, cc, dd, ff, gg, hh, ii, jj))
+              - (b * MatrixDeterminant(g, i, j, k, l, m, o, p, q, r, s, u, v, w, x, y, aa, bb, cc, dd, ee, gg, hh, ii, jj))
+              + (c * MatrixDeterminant(g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z, bb, cc, dd, ee, ff, hh, ii, jj))
+              - (d * MatrixDeterminant(g, h, i, k, l, m, n, o, q, r, s, t, u, w, x, y, z, aa, cc, dd, ee, ff, gg, ii, jj))
+              + (e * MatrixDeterminant(g, h, i, j, l, m, n, o, p, r, s, t, u, v, x, y, z, aa, bb, dd, ee, ff, gg, hh, jj))
+              - (f * MatrixDeterminant(g, h, i, j, k, m, n, o, p, q, s, t, u, v, w, y, z, aa, bb, cc, ee, ff, gg, hh, ii));
         #endregion Determinant
 
         #region Inverse Determinant
         /// <summary>
         /// Find the inverse of the determinant of a 2 by 2 matrix.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double InverseDeterminant(
+        public static double MatrixInverseDeterminant(
             double a, double b,
             double c, double d)
             => 1d / ((a * d)
@@ -2627,162 +4773,162 @@ namespace Engine
         /// <summary>
         /// Find the inverse of the determinant of a 3 by 3 matrix.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double InverseDeterminant(
+        public static double MatrixInverseDeterminant(
             double a, double b, double c,
             double d, double e, double f,
             double g, double h, double i)
-            => 1d / ((a * Determinant(e, f, h, i))
-              - (b * Determinant(d, f, g, i))
-              + (c * Determinant(d, e, g, h)));
+            => 1d / ((a * MatrixDeterminant(e, f, h, i))
+              - (b * MatrixDeterminant(d, f, g, i))
+              + (c * MatrixDeterminant(d, e, g, h)));
 
         /// <summary>
         /// Find the inverse of the determinant of a 4 by 4 matrix.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
-        /// <param name="l"></param>
-        /// <param name="m"></param>
-        /// <param name="n"></param>
-        /// <param name="o"></param>
-        /// <param name="p"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="n">The n.</param>
+        /// <param name="o">The o.</param>
+        /// <param name="p">The p.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double InverseDeterminant(
+        public static double MatrixInverseDeterminant(
             double a, double b, double c, double d,
             double e, double f, double g, double h,
             double i, double j, double k, double l,
             double m, double n, double o, double p)
-            => 1d / ((a * Determinant(f, g, h, j, k, l, n, o, p))
-              - (b * Determinant(e, g, h, i, k, l, m, o, p))
-              + (c * Determinant(e, f, h, i, j, l, m, n, p))
-              - (d * Determinant(e, f, g, i, j, k, m, n, o)));
+            => 1d / ((a * MatrixDeterminant(f, g, h, j, k, l, n, o, p))
+              - (b * MatrixDeterminant(e, g, h, i, k, l, m, o, p))
+              + (c * MatrixDeterminant(e, f, h, i, j, l, m, n, p))
+              - (d * MatrixDeterminant(e, f, g, i, j, k, m, n, o)));
 
         /// <summary>
         /// Find the inverse of the determinant of a 5 by 5 matrix.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
-        /// <param name="l"></param>
-        /// <param name="m"></param>
-        /// <param name="n"></param>
-        /// <param name="o"></param>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
-        /// <param name="s"></param>
-        /// <param name="t"></param>
-        /// <param name="u"></param>
-        /// <param name="v"></param>
-        /// <param name="w"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="n">The n.</param>
+        /// <param name="o">The o.</param>
+        /// <param name="p">The p.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="t">The t.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double InverseDeterminant(
+        public static double MatrixInverseDeterminant(
             double a, double b, double c, double d, double e,
             double f, double g, double h, double i, double j,
             double k, double l, double m, double n, double o,
             double p, double q, double r, double s, double t,
             double u, double v, double w, double x, double y)
-            => 1d / ((a * Determinant(g, h, i, j, l, m, n, o, q, r, s, t, v, w, x, y))
-              - (b * Determinant(f, h, i, j, k, m, n, o, p, r, s, t, u, w, x, y))
-              + (c * Determinant(f, g, i, j, k, l, n, o, p, q, s, t, u, v, x, y))
-              - (d * Determinant(f, g, h, j, k, l, m, o, p, q, r, t, u, v, w, y))
-              + (e * Determinant(f, g, h, i, k, l, m, n, p, q, r, s, u, v, w, x)));
+            => 1d / ((a * MatrixDeterminant(g, h, i, j, l, m, n, o, q, r, s, t, v, w, x, y))
+              - (b * MatrixDeterminant(f, h, i, j, k, m, n, o, p, r, s, t, u, w, x, y))
+              + (c * MatrixDeterminant(f, g, i, j, k, l, n, o, p, q, s, t, u, v, x, y))
+              - (d * MatrixDeterminant(f, g, h, j, k, l, m, o, p, q, r, t, u, v, w, y))
+              + (e * MatrixDeterminant(f, g, h, i, k, l, m, n, p, q, r, s, u, v, w, x)));
 
         /// <summary>
         /// Find the inverse of the determinant of a 6 by 6 matrix.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
-        /// <param name="l"></param>
-        /// <param name="m"></param>
-        /// <param name="n"></param>
-        /// <param name="o"></param>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
-        /// <param name="s"></param>
-        /// <param name="t"></param>
-        /// <param name="u"></param>
-        /// <param name="v"></param>
-        /// <param name="w"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <param name="aa"></param>
-        /// <param name="bb"></param>
-        /// <param name="cc"></param>
-        /// <param name="dd"></param>
-        /// <param name="ee"></param>
-        /// <param name="ff"></param>
-        /// <param name="gg"></param>
-        /// <param name="hh"></param>
-        /// <param name="ii"></param>
-        /// <param name="jj"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="n">The n.</param>
+        /// <param name="o">The o.</param>
+        /// <param name="p">The p.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="t">The t.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="aa">The aa.</param>
+        /// <param name="bb">The bb.</param>
+        /// <param name="cc">The cc.</param>
+        /// <param name="dd">The dd.</param>
+        /// <param name="ee">The ee.</param>
+        /// <param name="ff">The ff.</param>
+        /// <param name="gg">The gg.</param>
+        /// <param name="hh">The hh.</param>
+        /// <param name="ii">The ii.</param>
+        /// <param name="jj">The jj.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double InverseDeterminant(
+        public static double MatrixInverseDeterminant(
             double a, double b, double c, double d, double e, double f,
             double g, double h, double i, double j, double k, double l,
             double m, double n, double o, double p, double q, double r,
             double s, double t, double u, double v, double w, double x,
             double y, double z, double aa, double bb, double cc, double dd,
             double ee, double ff, double gg, double hh, double ii, double jj)
-            => 1d / ((a * Determinant(h, i, j, k, l, n, o, p, q, r, t, u, v, w, x, z, aa, bb, cc, dd, ff, gg, hh, ii, jj))
-              - (b * Determinant(g, i, j, k, l, m, o, p, q, r, s, u, v, w, x, y, aa, bb, cc, dd, ee, gg, hh, ii, jj))
-              + (c * Determinant(g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z, bb, cc, dd, ee, ff, hh, ii, jj))
-              - (d * Determinant(g, h, i, k, l, m, n, o, q, r, s, t, u, w, x, y, z, aa, cc, dd, ee, ff, gg, ii, jj))
-              + (e * Determinant(g, h, i, j, l, m, n, o, p, r, s, t, u, v, x, y, z, aa, bb, dd, ee, ff, gg, hh, jj))
-              - (f * Determinant(g, h, i, j, k, m, n, o, p, q, s, t, u, v, w, y, z, aa, bb, cc, ee, ff, gg, hh, ii)));
+            => 1d / ((a * MatrixDeterminant(h, i, j, k, l, n, o, p, q, r, t, u, v, w, x, z, aa, bb, cc, dd, ff, gg, hh, ii, jj))
+              - (b * MatrixDeterminant(g, i, j, k, l, m, o, p, q, r, s, u, v, w, x, y, aa, bb, cc, dd, ee, gg, hh, ii, jj))
+              + (c * MatrixDeterminant(g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z, bb, cc, dd, ee, ff, hh, ii, jj))
+              - (d * MatrixDeterminant(g, h, i, k, l, m, n, o, q, r, s, t, u, w, x, y, z, aa, cc, dd, ee, ff, gg, ii, jj))
+              + (e * MatrixDeterminant(g, h, i, j, l, m, n, o, p, r, s, t, u, v, x, y, z, aa, bb, dd, ee, ff, gg, hh, jj))
+              - (f * MatrixDeterminant(g, h, i, j, k, m, n, o, p, q, s, t, u, v, w, y, z, aa, bb, cc, ee, ff, gg, hh, ii)));
         #endregion Inverse Determinant
     }
 }

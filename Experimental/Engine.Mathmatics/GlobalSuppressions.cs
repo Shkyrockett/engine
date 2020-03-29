@@ -8,3 +8,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix", Justification = "<Pending>", Scope = "type", Target = "~T:Engine.Matrix2x2D")]
 [assembly: SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix", Justification = "<Pending>", Scope = "type", Target = "~T:Engine.Matrix3x3D")]
 [assembly: SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix", Justification = "<Pending>", Scope = "type", Target = "~T:Engine.Matrix4x4D")]
+[assembly: SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix", Justification = "<Pending>", Scope = "type", Target = "~T:Engine.Matrix5x5D")]

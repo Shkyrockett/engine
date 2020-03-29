@@ -15,6 +15,11 @@ namespace Engine
 {
     public class CurveFit
     {
-        internal static object Fit(List<Point2D> list, double oneHalf) => throw new NotImplementedException();
+        public static List<IShapeSegment> Fit(List<Point2D> list, double oneHalf)
+        {
+            _ = list;
+            _ = oneHalf;
+            throw new NotImplementedException();
+        }
     }
 }

@@ -25,10 +25,10 @@ namespace Engine
             var Ax = ax - (bx * 2d) + cx;
             var Ay = ay - (by * 2d) + cy;
 
-            var tanx = Ay * t + By;
-            var tany = -(Ax * t + Bx);
+            var tanx = (Ay * t) + By;
+            var tany = -((Ax * t) + Bx);
 
-            var lNorm = Math.Sqrt(tanx * tanx + tany * tany);
+            var lNorm = Math.Sqrt((tanx * tanx) + (tany * tany));
 
             if (lNorm > 0)
             {

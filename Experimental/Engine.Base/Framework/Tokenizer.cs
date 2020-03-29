@@ -88,7 +88,7 @@ namespace Engine
         public Tokenizer(string str, char quoteChar, char separator)
         {
             this.str = str?.ToCharArray();
-            strLen = this.str!.Length;
+            strLen = this.str.Length;
             currentTokenIndex = -1;
             this.quoteChar = quoteChar;
             argSeparator = separator;

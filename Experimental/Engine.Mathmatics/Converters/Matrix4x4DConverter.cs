@@ -31,7 +31,7 @@ namespace Engine
         /// </returns>
         /// <param name="context"> The ITypeDescriptorContext for this call. </param>
         /// <param name="sourceType"> The Type being queried for support. </param>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string) ? true : base.CanConvertFrom(context, sourceType);
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
 
         /// <summary>
         /// Returns true if this type converter can convert to the given type.
@@ -41,7 +41,7 @@ namespace Engine
         /// </returns>
         /// <param name="context"> The ITypeDescriptorContext for this call. </param>
         /// <param name="destinationType"> The Type being queried for support. </param>
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) ? true : base.CanConvertTo(context, destinationType);
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
 
         /// <summary>
         /// Attempts to convert to a Matrix from the given object.
@@ -87,10 +87,8 @@ namespace Engine
         /// <param name="destinationType"> The type to which this will convert the Matrix instance. </param>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType != null && value is Matrix4x4D)
+            if (!(destinationType is null) && value is Matrix4x4D instance)
             {
-                var instance = (Matrix4x4D)value;
-
                 if (destinationType == typeof(string))
                 {
                     // Delegate to the formatting/culture-aware ConvertToString method.

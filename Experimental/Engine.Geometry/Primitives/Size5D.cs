@@ -1,4 +1,4 @@
-﻿// <copyright file="Size2D.cs" company="Shkyrockett" >
+﻿// <copyright file="Size5D.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -17,131 +17,146 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using static Engine.Mathematics;
-using static Engine.Operations;
-using static System.Math;
 
 namespace Engine
 {
     /// <summary>
-    /// The size2d struct.
+    /// The size5D struct.
     /// </summary>
     /// <seealso cref="IVector{T}" />
     [DataContract, Serializable]
-    [TypeConverter(typeof(Size2DConverter))]
+    [TypeConverter(typeof(Size5DConverter))]
     [DebuggerDisplay("{ToString()}")]
-    public struct Size2D
-        : IVector<Size2D>
+    public struct Size5D
+        : IVector<Size5D>
     {
         #region Implementations
         /// <summary>
-        /// Represents a <see cref="Size2D" /> that has <see cref="Width" />, and <see cref="Height" /> values set to zero.
+        /// Represents a <see cref="Size5D" /> that has <see cref="Width" />, <see cref="Height" />, <see cref="Depth" />, <see cref="Breadth" />, and <see cref="Length" /> values set to zero.
         /// </summary>
-        public static readonly Size2D Empty = new Size2D(0d, 0d);
+        public static readonly Size5D Empty = new Size5D(0d, 0d, 0d, 0d, 0d);
 
         /// <summary>
-        /// Represents a <see cref="Size2D" /> that has <see cref="Width" />, and <see cref="Height" /> values set to 1.
+        /// Represents a <see cref="Size5D" /> that has <see cref="Width" />, <see cref="Height" />, <see cref="Depth" />, <see cref="Breadth" />, and <see cref="Length" /> values set to 1.
         /// </summary>
-        public static readonly Size2D Unit = new Size2D(1d, 1d);
+        public static readonly Size5D Unit = new Size5D(1d, 1d, 1d, 1d, 1d);
 
         /// <summary>
-        /// Represents a <see cref="Size2D" /> that has <see cref="Width" />, and <see cref="Height" /> values set to NaN.
+        /// Represents a <see cref="Size5D" /> that has <see cref="Width" />, <see cref="Height" />, <see cref="Depth" />, <see cref="Breadth" />, and <see cref="Length" /> values set to NaN.
         /// </summary>
-        public static readonly Size2D NaN = new Size2D(double.NaN, double.NaN);
+        public static readonly Size5D NaN = new Size5D(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
         #endregion Implementations
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Size2D" /> class.
+        /// Initializes a new instance of the <see cref="Size5D" /> class.
         /// </summary>
         /// <param name="size">The size.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Size2D(Size2D size)
-            : this(size.Width, size.Height)
+        public Size5D(Size5D size)
+            : this(size.Width, size.Height, size.Depth, size.Breadth, size.Length)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Size2D" /> class.
+        /// Initializes a new instance of the <see cref="Size5D" /> class.
         /// </summary>
         /// <param name="point">The point.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Size2D(Point2D point)
-            : this(point.X, point.Y)
+        public Size5D(Point5D point)
+            : this(point.X, point.Y, point.Z, point.W, point.V)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Size2D" /> class.
+        /// Initializes a new instance of the <see cref="Size5D" /> class.
         /// </summary>
         /// <param name="width">The Width component of the Size.</param>
         /// <param name="height">The Height component of the Size.</param>
+        /// <param name="depth">The Depth component of the Size.</param>
+        /// <param name="breadth">The Breadth component of the Size.</param>
+        /// <param name="length">The length.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Size2D(double width, double height)
+        public Size5D(double width, double height, double depth, double breadth, double length)
             : this()
         {
-            (Width, Height) = (width, height);
+            (Width, Height, Depth, Breadth, Length) = (width, height, depth, breadth, length);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Size2D" /> class.
+        /// Initializes a new instance of the <see cref="Size5D" /> class.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Size2D((double Width, double Height) tuple)
+        public Size5D((double Width, double Height, double Depth, double Breadth, double Length) tuple)
             : this()
         {
-            (Width, Height) = tuple;
+            (Width, Height, Depth, Breadth, Length) = tuple;
         }
         #endregion Constructors
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="Size2D" /> to a <see cref="ValueTuple{T1, T2}" />.
+        /// Deconstruct this <see cref="Size5D" /> to a <see cref="ValueTuple{T1, T2, T3, T4, T5}" />.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
+        /// <param name="depth">The depth.</param>
+        /// <param name="breadth">The breadth.</param>
+        /// <param name="length">The length.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out double width, out double height)
-        {
-            (width, height) = (Width, Height);
-        }
+        public void Deconstruct(out double width, out double height, out double depth, out double breadth, out double length) => (width, height, depth, breadth, length) = (Width, Height, Depth, Breadth, Length);
         #endregion Deconstructors
 
         #region Properties
         /// <summary>
-        /// Gets or sets the Width component of a <see cref="Size2D" /> coordinate.
+        /// Gets or sets the Width component of a <see cref="Size5D" /> coordinate.
         /// </summary>
         /// <value>
         /// The width.
         /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
-        public double Width { get; set; }
+        public double Width { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the Height component of a <see cref="Size2D" /> coordinate.
+        /// Gets or sets the Height component of a <see cref="Size5D" /> coordinate.
         /// </summary>
         /// <value>
         /// The height.
         /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
-        public double Height { get; set; }
+        public double Height { get; internal set; }
 
         /// <summary>
-        /// Gets a value indicating whether this <see cref="Point2D" /> is empty.
+        /// Gets or sets the Depth component of a <see cref="Size5D" /> coordinate.
         /// </summary>
         /// <value>
-        ///   <see langword="true"/> if this instance is empty; otherwise, <see langword="false"/>.
+        /// The depth.
         /// </value>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        [Browsable(false)]
-        public bool IsEmpty
-            => Abs(Width) < Epsilon
-            && Abs(Height) < Epsilon;
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Depth { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets the Breadth component of a <see cref="Size5D" /> coordinate.
+        /// </summary>
+        /// <value>
+        /// The breadth.
+        /// </value>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Breadth { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets the Length component of a <see cref="Size5D" /> coordinate.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Length { get; internal set; }
         #endregion Properties
 
         #region Operators
@@ -150,14 +165,14 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>
-        /// The <see cref="Size2D" />.
+        /// The <see cref="Size5D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value) => Plus(value);
+        public static Size5D operator +(Size5D value) => Plus(value);
 
         /// <summary>
-        /// Add an amount to both values in the <see cref="Point2D" /> classes.
+        /// Add an amount to both values in the <see cref="Point5D" /> classes.
         /// </summary>
         /// <param name="augend">The original value</param>
         /// <param name="addend">The amount to add.</param>
@@ -166,10 +181,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D augend, double addend) => Add(augend, addend);
+        public static Size5D operator +(Size5D augend, double addend) => Add(augend, addend);
 
         /// <summary>
-        /// Add an amount to both values in the <see cref="Point2D" /> classes.
+        /// Add an amount to both values in the <see cref="Point5D" /> classes.
         /// </summary>
         /// <param name="augend">The original value</param>
         /// <param name="addend">The amount to add.</param>
@@ -178,10 +193,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(double augend, Size2D addend) => Add(augend, addend);
+        public static Size5D operator +(double augend, Size5D addend) => Add(augend, addend);
 
         /// <summary>
-        /// Add two <see cref="Size2D" /> classes together.
+        /// Add two <see cref="Size5D" /> classes together.
         /// </summary>
         /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
@@ -190,10 +205,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D augend, Size2D addend) => Add(augend, addend);
+        public static Size5D operator +(Size5D augend, Size5D addend) => Add(augend, addend);
 
         /// <summary>
-        /// Add two <see cref="Size2D" /> classes together.
+        /// Add two <see cref="Size5D" /> classes together.
         /// </summary>
         /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
@@ -202,10 +217,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator +(Size2D augend, Point2D addend) => Add(augend, addend);
+        public static Point5D operator +(Size5D augend, Point5D addend) => Add(augend, addend);
 
         /// <summary>
-        /// Add a <see cref="Point2D" /> and a <see cref="Size2D" /> classes together.
+        /// Add a <see cref="Point5D" /> and a <see cref="Size5D" /> classes together.
         /// </summary>
         /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
@@ -214,10 +229,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator +(Point2D augend, Size2D addend) => Add(augend, addend);
+        public static Point5D operator +(Point5D augend, Size5D addend) => Add(augend, addend);
 
         /// <summary>
-        /// Add a <see cref="Size2D" /> to a <see cref="Vector2D" /> class.
+        /// Add a <see cref="Size5D" /> to a <see cref="Vector5D" /> class.
         /// </summary>
         /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
@@ -226,10 +241,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Size2D augend, Vector2D addend) => Add(augend, addend);
+        public static Vector5D operator +(Size5D augend, Vector5D addend) => Add(augend, addend);
 
         /// <summary>
-        /// Add a <see cref="Vector2D" /> and a <see cref="Size2D" /> classes together.
+        /// Add a <see cref="Vector5D" /> and a <see cref="Size5D" /> classes together.
         /// </summary>
         /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
@@ -238,21 +253,21 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D augend, Size2D addend) => Add(augend, addend);
+        public static Vector5D operator +(Vector5D augend, Size5D addend) => Add(augend, addend);
 
         /// <summary>
         /// The operator -.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>
-        /// The <see cref="Size2D" />.
+        /// The <see cref="Size5D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D value) => Negate(value);
+        public static Size5D operator -(Size5D value) => Negate(value);
 
         /// <summary>
-        /// Subtract a <see cref="Size2D" /> from a <see cref="double" /> value.
+        /// Subtract a <see cref="Size5D" /> from a <see cref="double" /> value.
         /// </summary>
         /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
@@ -261,10 +276,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D minuend, double subend) => Subtract(minuend, subend);
+        public static Size5D operator -(Size5D minuend, double subend) => Subtract(minuend, subend);
 
         /// <summary>
-        /// Subtract a <see cref="double" /> value from a <see cref="Size2D" />.
+        /// Subtract a <see cref="double" /> value from a <see cref="Size5D" />.
         /// </summary>
         /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
@@ -273,10 +288,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(double minuend, Size2D subend) => Subtract(minuend, subend);
+        public static Size5D operator -(double minuend, Size5D subend) => Subtract(minuend, subend);
 
         /// <summary>
-        /// Subtract a <see cref="Size2D" /> from another <see cref="Size2D" /> class.
+        /// Subtract a <see cref="Size5D" /> from another <see cref="Size5D" /> class.
         /// </summary>
         /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
@@ -285,10 +300,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D minuend, Size2D subend) => Subtract(minuend, subend);
+        public static Size5D operator -(Size5D minuend, Size5D subend) => Subtract(minuend, subend);
 
         /// <summary>
-        /// Subtract a <see cref="Size2D" /> from a <see cref="Point2D" /> class.
+        /// Subtract a <see cref="Size5D" /> from a <see cref="Point5D" /> class.
         /// </summary>
         /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
@@ -297,10 +312,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator -(Size2D minuend, Point2D subend) => Subtract(minuend, subend);
+        public static Point5D operator -(Size5D minuend, Point5D subend) => Subtract(minuend, subend);
 
         /// <summary>
-        /// Subtract a <see cref="Point2D" /> from another <see cref="Size2D" /> class.
+        /// Subtract a <see cref="Point5D" /> from another <see cref="Size5D" /> class.
         /// </summary>
         /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
@@ -309,10 +324,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator -(Point2D minuend, Size2D subend) => Subtract(minuend, subend);
+        public static Point5D operator -(Point5D minuend, Size5D subend) => Subtract(minuend, subend);
 
         /// <summary>
-        /// Subtract a <see cref="Size2D" /> from a <see cref="Vector2D" /> class.
+        /// Subtract a <see cref="Size5D" /> from a <see cref="Vector5D" /> class.
         /// </summary>
         /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
@@ -321,10 +336,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Size2D minuend, Vector2D subend) => Subtract(minuend, subend);
+        public static Vector5D operator -(Size5D minuend, Vector5D subend) => Subtract(minuend, subend);
 
         /// <summary>
-        /// Subtract a <see cref="Vector2D" /> from another <see cref="Size2D" /> class.
+        /// Subtract a <see cref="Vector5D" /> from another <see cref="Size5D" /> class.
         /// </summary>
         /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
@@ -333,10 +348,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D minuend, Size2D subend) => Subtract(minuend, subend);
+        public static Vector5D operator -(Vector5D minuend, Size5D subend) => Subtract(minuend, subend);
 
         /// <summary>
-        /// Scale a point.
+        /// Scale a Size.
         /// </summary>
         /// <param name="multiplicand">The multiplicand.</param>
         /// <param name="multiplier">The multiplier.</param>
@@ -345,7 +360,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator *(Size2D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
+        public static Size5D operator *(Size5D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a point
@@ -357,10 +372,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator *(double multiplicand, Size2D multiplier) => Multiply(multiplicand, multiplier);
+        public static Size5D operator *(double multiplicand, Size5D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
-        /// Scale a Size2D
+        /// Scale a Size5D
         /// </summary>
         /// <param name="multiplicand">The Point</param>
         /// <param name="multiplier">The Multiplier</param>
@@ -369,7 +384,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator *(Size2D multiplicand, Size2D multiplier) => Multiply(multiplicand, multiplier);
+        public static Size5D operator *(Size5D multiplicand, Size5D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a Point
@@ -381,7 +396,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator *(Size2D multiplicand, Point2D multiplier) => Multiply(multiplicand, multiplier);
+        public static Point5D operator *(Size5D multiplicand, Point5D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a Point
@@ -393,7 +408,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator *(Point2D multiplicand, Size2D multiplier) => Multiply(multiplicand, multiplier);
+        public static Point5D operator *(Point5D multiplicand, Size5D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a Vector
@@ -405,7 +420,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(Size2D multiplicand, Vector2D multiplier) => Multiply(multiplicand, multiplier);
+        public static Vector5D operator *(Size5D multiplicand, Vector5D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a Vector
@@ -417,10 +432,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(Vector2D multiplicand, Size2D multiplier) => Multiply(multiplicand, multiplier);
+        public static Vector5D operator *(Vector5D multiplicand, Size5D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
-        /// Divide a <see cref="Size2D" /> by a <see cref="double" /> value.
+        /// Divide a <see cref="Size5D" /> by a <see cref="double" /> value.
         /// </summary>
         /// <param name="dividend">The dividend.</param>
         /// <param name="divisor">The divisor.</param>
@@ -429,10 +444,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator /(Size2D dividend, double divisor) => Divide(dividend, divisor);
+        public static Size5D operator /(Size5D dividend, double divisor) => Divide(dividend, divisor);
 
         /// <summary>
-        /// Divide a <see cref="double" /> by a <see cref="Size2D" /> value.
+        /// Divide a <see cref="double" /> by a <see cref="Size5D" /> value.
         /// </summary>
         /// <param name="dividend">The dividend.</param>
         /// <param name="divisor">The divisor.</param>
@@ -441,10 +456,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator /(double dividend, Size2D divisor) => Divide(dividend, divisor);
+        public static Size5D operator /(double dividend, Size5D divisor) => Divide(dividend, divisor);
 
         /// <summary>
-        /// Divide a Size2D
+        /// Divide a Size5D
         /// </summary>
         /// <param name="dividend">The Point</param>
         /// <param name="divisor">The Multiplier</param>
@@ -453,7 +468,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator /(Size2D dividend, Size2D divisor) => Divide(dividend, divisor);
+        public static Size5D operator /(Size5D dividend, Size5D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a Point
@@ -465,7 +480,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator /(Size2D dividend, Point2D divisor) => Divide(dividend, divisor);
+        public static Point5D operator /(Size5D dividend, Point5D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a Point
@@ -477,7 +492,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator /(Point2D dividend, Size2D divisor) => Divide(dividend, divisor);
+        public static Point5D operator /(Point5D dividend, Size5D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a Vector
@@ -489,7 +504,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(Size2D dividend, Vector2D divisor) => Divide(dividend, divisor);
+        public static Vector5D operator /(Size5D dividend, Vector5D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a Vector
@@ -501,12 +516,12 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(Vector2D dividend, Size2D divisor) => Divide(dividend, divisor);
+        public static Vector5D operator /(Vector5D dividend, Size5D divisor) => Divide(dividend, divisor);
 
         /// <summary>
-        /// Compares two <see cref="Size2D" /> objects.
-        /// The result specifies whether the values of the <see cref="Width" /> and <see cref="Height" />
-        /// values of the two <see cref="Size2D" /> objects are equal.
+        /// Compares two <see cref="Size5D" /> objects.
+        /// The result specifies whether the values of the <see cref="Width" />, <see cref="Height" />, <see cref="Depth" /> and <see cref="Breadth" />
+        /// values of the two <see cref="Size5D" /> objects are equal.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -515,12 +530,12 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Size2D left, Size2D right) => Equals(left, right);
+        public static bool operator ==(Size5D left, Size5D right) => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="Size2D" /> objects.
-        /// The result specifies whether the values of the <see cref="Width" /> or <see cref="Height" />
-        /// values of the two <see cref="Size2D" /> objects are unequal.
+        /// Compares two <see cref="Size5D" /> objects.
+        /// The result specifies whether the values of the <see cref="Width" />, <see cref="Height" />, <see cref="Depth" /> or <see cref="Breadth" />
+        /// values of the two <see cref="Size5D" /> objects are unequal.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -529,18 +544,18 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Size2D left, Size2D right) => !Equals(left, right);
+        public static bool operator !=(Size5D left, Size5D right) => !Equals(left, right);
 
         /// <summary>
-        /// Explicit conversion to Size2D.
+        /// Converts the specified <see cref="Vector5D" /> structure to a <see cref="Size5D" /> structure.
         /// </summary>
-        /// <param name="size">The size.</param>
+        /// <param name="vector">The <see cref="Vector5D" /> to be converted.</param>
         /// <returns>
         /// Size - A Size equal to this Size
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Size2D(Vector2D size) => new Size2D(size.I, size.J);
+        public static explicit operator Size5D(Vector5D vector) => new Size5D(vector.I, vector.J, vector.K, vector.L, vector.M);
 
         /// <summary>
         /// Explicit conversion to Vector.
@@ -551,21 +566,21 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Vector2D(Size2D size) => new Vector2D(size.Width, size.Height);
+        public static explicit operator Vector5D(Size5D size) => new Vector5D(size.Width, size.Height, size.Depth, size.Breadth, size.Length);
 
         /// <summary>
-        /// Converts the specified <see cref="Point2D" /> to a <see cref="Size2D" />.
+        /// Converts the specified <see cref="Point5D" /> structure to a <see cref="Size5D" /> structure.
         /// </summary>
-        /// <param name="size">The size.</param>
+        /// <param name="point">The <see cref="Point5D" /> to be converted.</param>
         /// <returns>
         /// Size - A Vector equal to this Size
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Size2D(Point2D size) => new Size2D(size.X, size.Y);
+        public static explicit operator Size5D(Point5D point) => new Size5D(point.X, point.Y, point.Z, point.W, point.V);
 
         /// <summary>
-        /// Converts the specified <see cref="Size2D" /> to a <see cref="Point2D" />.
+        /// Converts the specified <see cref="Size5D" /> to a <see cref="Point5D" />.
         /// </summary>
         /// <param name="size">The size.</param>
         /// <returns>
@@ -573,7 +588,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Point2D(Size2D size) => new Point2D(size.Width, size.Height);
+        public static explicit operator Point5D(Size5D size) => new Point5D(size.Width, size.Height, size.Depth, size.Breadth, size.Length);
 
         /// <summary>
         /// Implicit conversion from tuple.
@@ -584,18 +599,18 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Size2D((double Width, double Height) tuple) => new Size2D(tuple);
+        public static implicit operator Size5D((double Width, double Height, double Depth, double Breadth, double Length) tuple) => new Size5D(tuple);
 
         /// <summary>
-        /// Converts the specified <see cref="Point2D" /> structure to a <see cref="ValueTuple{T1, T2}" /> structure.
+        /// Converts the specified <see cref="Size5D" /> structure to a <see cref="ValueTuple{T1, T2, T3, T4, T5}" /> structure.
         /// </summary>
-        /// <param name="point">The <see cref="Point2D" /> to be converted.</param>
+        /// <param name="size">The <see cref="Size5D" /> to be converted.</param>
         /// <returns>
         /// The result of the conversion.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double Width, double Height)(Size2D point) => (point.Width, point.Height);
+        public static implicit operator (double Width, double Height, double Depth, double Breadth, double Length)(Size5D size) => (size.Width, size.Height, size.Depth, size.Breadth, size.Length);
         #endregion Operators
 
         #region Operator Backing Methods
@@ -606,7 +621,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Plus(Size2D value) => UnaryAdd(value.Width, value.Height);
+        public static Size5D Plus(Size5D value) => Operations.UnaryAdd(value.Width, value.Height, value.Depth, value.Breadth, value.Length);
 
         /// <summary>
         /// Adds the specified augend.
@@ -616,7 +631,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Add(Size2D augend, double addend) => AddVectorUniform(augend.Width, augend.Height, addend);
+        public static Size5D Add(Size5D augend, double addend) => Operations.AddVectorUniform(augend.Width, augend.Height, augend.Depth, augend.Breadth, augend.Length, addend);
 
         /// <summary>
         /// Adds the specified augend.
@@ -626,7 +641,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Add(double augend, Size2D addend) => AddVectorUniform(addend.Width, addend.Height, augend);
+        public static Size5D Add(double augend, Size5D addend) => Operations.AddVectorUniform(addend.Width, addend.Height, addend.Depth, addend.Breadth, addend.Length, augend);
 
         /// <summary>
         /// Adds the specified augend.
@@ -636,7 +651,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Add(Size2D augend, Size2D addend) => AddVectors(augend.Width, augend.Height, addend.Width, addend.Height);
+        public static Size5D Add(Size5D augend, Size5D addend) => Operations.AddVectors(augend.Width, augend.Height, augend.Depth, augend.Breadth, augend.Length, addend.Width, addend.Height, addend.Depth, addend.Breadth, addend.Length);
 
         /// <summary>
         /// Adds the specified augend.
@@ -646,7 +661,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(Size2D augend, Point2D addend) => AddVectors(augend.Width, augend.Height, addend.X, addend.Y);
+        public static Point5D Add(Size5D augend, Point5D addend) => Operations.AddVectors(augend.Width, augend.Height, augend.Depth, augend.Breadth, augend.Length, addend.X, addend.Y, addend.Z, addend.W, addend.V);
 
         /// <summary>
         /// Adds the specified augend.
@@ -656,7 +671,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(Point2D augend, Size2D addend) => AddVectors(augend.X, augend.Y, addend.Width, addend.Height);
+        public static Point5D Add(Point5D augend, Size5D addend) => Operations.AddVectors(augend.X, augend.Y, augend.Z, augend.W, augend.V, addend.Width, addend.Height, addend.Depth, addend.Breadth, addend.Length);
 
         /// <summary>
         /// Adds the specified augend.
@@ -666,7 +681,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(Size2D augend, Vector2D addend) => AddVectors(augend.Width, augend.Height, addend.I, addend.J);
+        public static Vector5D Add(Size5D augend, Vector5D addend) => Operations.AddVectors(augend.Width, augend.Height, augend.Depth, augend.Breadth, augend.Length, addend.I, addend.J, addend.K, addend.L, addend.M);
 
         /// <summary>
         /// Adds the specified augend.
@@ -676,7 +691,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(Vector2D augend, Size2D addend) => AddVectors(augend.I, augend.J, addend.Width, addend.Height);
+        public static Vector5D Add(Vector5D augend, Size5D addend) => Operations.AddVectors(augend.I, augend.J, augend.K, augend.L, augend.M, addend.Width, addend.Height, addend.Depth, addend.Breadth, addend.Length);
 
         /// <summary>
         /// Negates the specified value.
@@ -685,7 +700,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Negate(Size2D value) => NegateVector(value.Width, value.Height);
+        public static Size5D Negate(Size5D value) => Operations.NegateVector(value.Width, value.Height, value.Depth, value.Breadth, value.Length);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -695,7 +710,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Subtract(Size2D minuend, double subend) => SubtractVectorUniform(minuend.Width, minuend.Height, subend);
+        public static Size5D Subtract(Size5D minuend, double subend) => Operations.SubtractVectorUniform(minuend.Width, minuend.Height, minuend.Depth, minuend.Breadth, minuend.Length, subend);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -705,7 +720,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Subtract(double minuend, Size2D subend) => SubtractVectorUniform(minuend, subend.Width, subend.Height);
+        public static Size5D Subtract(double minuend, Size5D subend) => Operations.SubtractVectorUniform(minuend, subend.Width, subend.Height, subend.Depth, subend.Breadth, subend.Length);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -715,7 +730,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Subtract(Size2D minuend, Size2D subend) => SubtractVector(minuend.Width, minuend.Height, subend.Width, subend.Height);
+        public static Size5D Subtract(Size5D minuend, Size5D subend) => Operations.SubtractVector(minuend.Width, minuend.Height, minuend.Depth, minuend.Breadth, minuend.Length, subend.Width, subend.Height, subend.Depth, subend.Breadth, subend.Length);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -725,7 +740,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Subtract(Size2D minuend, Point2D subend) => SubtractVector(minuend.Width, minuend.Height, subend.X, subend.Y);
+        public static Point5D Subtract(Size5D minuend, Point5D subend) => Operations.SubtractVector(minuend.Width, minuend.Height, minuend.Depth, minuend.Breadth, minuend.Length, subend.X, subend.Y, subend.Z, subend.W, subend.V);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -735,7 +750,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Subtract(Point2D minuend, Size2D subend) => SubtractVector(minuend.X, minuend.Y, subend.Width, subend.Height);
+        public static Point5D Subtract(Point5D minuend, Size5D subend) => Operations.SubtractVector(minuend.X, minuend.Y, minuend.Z, minuend.W, minuend.V, subend.Width, subend.Height, subend.Depth, subend.Breadth, subend.Length);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -745,7 +760,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Subtract(Size2D minuend, Vector2D subend) => SubtractVector(minuend.Width, minuend.Height, subend.I, subend.J);
+        public static Vector5D Subtract(Size5D minuend, Vector5D subend) => Operations.SubtractVector(minuend.Width, minuend.Height, minuend.Depth, minuend.Breadth, minuend.Length, subend.I, subend.J, subend.K, subend.L, subend.M);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -755,7 +770,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Subtract(Vector2D minuend, Size2D subend) => SubtractVector(minuend.I, minuend.J, subend.Width, subend.Height);
+        public static Vector5D Subtract(Vector5D minuend, Size5D subend) => Operations.SubtractVector(minuend.I, minuend.J, minuend.K, minuend.L, minuend.M, subend.Width, subend.Height, subend.Depth, subend.Breadth, subend.Length);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -765,7 +780,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Multiply(Size2D multiplicand, double multiplier) => ScaleVector(multiplicand.Width, multiplicand.Height, multiplier);
+        public static Size5D Multiply(Size5D multiplicand, double multiplier) => Operations.ScaleVector(multiplicand.Width, multiplicand.Height, multiplicand.Depth, multiplicand.Breadth, multiplicand.Length, multiplier);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -775,7 +790,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Multiply(double multiplicand, Size2D multiplier) => ScaleVector(multiplier.Width, multiplier.Height, multiplicand);
+        public static Size5D Multiply(double multiplicand, Size5D multiplier) => Operations.ScaleVector(multiplier.Width, multiplier.Height, multiplier.Depth, multiplier.Breadth, multiplier.Length, multiplicand);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -785,7 +800,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Multiply(Size2D multiplicand, Size2D multiplier) => ScaleVectorParametric(multiplicand.Width, multiplicand.Height, multiplier.Width, multiplier.Height);
+        public static Size5D Multiply(Size5D multiplicand, Size5D multiplier) => Operations.ScaleVectorParametric(multiplicand.Width, multiplicand.Height, multiplicand.Depth, multiplicand.Breadth, multiplicand.Length, multiplier.Width, multiplier.Height, multiplier.Depth, multiplier.Breadth, multiplier.Length);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -795,7 +810,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Multiply(Size2D multiplicand, Point2D multiplier) => ScaleVectorParametric(multiplicand.Width, multiplicand.Height, multiplier.X, multiplier.Y);
+        public static Point5D Multiply(Size5D multiplicand, Point5D multiplier) => Operations.ScaleVectorParametric(multiplicand.Width, multiplicand.Height, multiplicand.Depth, multiplicand.Breadth, multiplicand.Length, multiplier.X, multiplier.Y, multiplier.Z, multiplier.W, multiplier.V);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -805,7 +820,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Multiply(Point2D multiplicand, Size2D multiplier) => ScaleVectorParametric(multiplicand.X, multiplicand.Y, multiplier.Width, multiplier.Height);
+        public static Point5D Multiply(Point5D multiplicand, Size5D multiplier) => Operations.ScaleVectorParametric(multiplicand.X, multiplicand.Y, multiplicand.Z, multiplicand.W, multiplicand.V, multiplier.Width, multiplier.Height, multiplier.Depth, multiplier.Breadth, multiplier.Length);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -815,7 +830,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Multiply(Size2D multiplicand, Vector2D multiplier) => ScaleVectorParametric(multiplicand.Width, multiplicand.Height, multiplier.I, multiplier.J);
+        public static Vector5D Multiply(Size5D multiplicand, Vector5D multiplier) => Operations.ScaleVectorParametric(multiplicand.Width, multiplicand.Height, multiplicand.Depth, multiplicand.Breadth, multiplicand.Length, multiplier.I, multiplier.J, multiplier.K, multiplier.L, multiplier.M);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -825,7 +840,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Multiply(Vector2D multiplicand, Size2D multiplier) => ScaleVectorParametric(multiplicand.I, multiplicand.J, multiplier.Width, multiplier.Height);
+        public static Vector5D Multiply(Vector5D multiplicand, Size5D multiplier) => Operations.ScaleVectorParametric(multiplicand.I, multiplicand.J, multiplicand.K, multiplicand.L, multiplicand.M, multiplier.Width, multiplier.Height, multiplier.Depth, multiplier.Breadth, multiplier.Length);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -835,7 +850,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Divide(Size2D dividend, double divisor) => DivideVectorUniform(dividend.Width, dividend.Height, divisor);
+        public static Size5D Divide(Size5D dividend, double divisor) => Operations.DivideVectorUniform(dividend.Width, dividend.Height, dividend.Depth, dividend.Breadth, dividend.Length, divisor);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -845,7 +860,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Divide(double dividend, Size2D divisor) => DivideByVectorUniform(dividend, divisor.Width, divisor.Height);
+        public static Size5D Divide(double dividend, Size5D divisor) => Operations.DivideByVectorUniform(dividend, divisor.Width, divisor.Height, divisor.Depth, divisor.Breadth, divisor.Length);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -855,7 +870,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Divide(Size2D dividend, Size2D divisor) => DivideVectorParametric(dividend.Width, dividend.Height, divisor.Width, divisor.Height);
+        public static Size5D Divide(Size5D dividend, Size5D divisor) => Operations.DivideVectorParametric(dividend.Width, dividend.Height, dividend.Depth, dividend.Breadth, dividend.Length, divisor.Width, divisor.Height, divisor.Depth, divisor.Breadth, divisor.Length);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -865,7 +880,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Divide(Size2D dividend, Point2D divisor) => DivideVectorParametric(dividend.Width, dividend.Height, divisor.X, divisor.Y);
+        public static Point5D Divide(Size5D dividend, Point5D divisor) => Operations.DivideVectorParametric(dividend.Width, dividend.Height, dividend.Depth, dividend.Breadth, dividend.Length, divisor.X, divisor.Y, divisor.Z, divisor.W, divisor.V);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -875,7 +890,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Divide(Point2D dividend, Size2D divisor) => DivideVectorParametric(dividend.X, dividend.Y, divisor.Width, divisor.Height);
+        public static Point5D Divide(Point5D dividend, Size5D divisor) => Operations.DivideVectorParametric(dividend.X, dividend.Y, dividend.Z, dividend.W, dividend.V, divisor.Width, divisor.Height, divisor.Depth, divisor.Breadth, divisor.Length);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -885,7 +900,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Divide(Size2D dividend, Vector2D divisor) => ScaleVectorParametric(dividend.Width, dividend.Height, divisor.I, divisor.J);
+        public static Vector5D Divide(Size5D dividend, Vector5D divisor) => Operations.ScaleVectorParametric(dividend.Width, dividend.Height, dividend.Depth, dividend.Breadth, dividend.Length, divisor.I, divisor.J, divisor.K, divisor.L, divisor.M);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -895,7 +910,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Divide(Vector2D dividend, Size2D divisor) => DivideVectorParametric(dividend.I, dividend.J, divisor.Width, divisor.Height);
+        public static Vector5D Divide(Vector5D dividend, Size5D divisor) => Operations.DivideVectorParametric(dividend.I, dividend.J, dividend.K, dividend.L, dividend.M, divisor.Width, divisor.Height, divisor.Depth, divisor.Breadth, divisor.Length);
 
         /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.
@@ -917,7 +932,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Size2D other) => (Width == other.Width) && (Height == other.Height);
+        public bool Equals(Size5D other) => (Width == other.Width) && (Height == other.Height) && (Depth == other.Depth) && (Breadth == other.Breadth) && (Length == other.Length);
 
         /// <summary>
         /// Converts to valuetuple.
@@ -925,7 +940,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public (double Width, double Height) ToValueTuple() => (Width, Height);
+        public (double Width, double Height, double Depth, double Breadth, double Length) ToValueTuple() => (Width, Height, Depth, Breadth, Length);
 
         /// <summary>
         /// Froms the value tuple.
@@ -934,89 +949,92 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D FromValueTuple((double Width, double Height) tuple) => new Size2D(tuple.Width, tuple.Height);
+        public static Size5D FromValueTuple((double Width, double Height, double Depth, double Breadth, double Length) tuple) => new Size5D(tuple.Width, tuple.Height, tuple.Depth, tuple.Breadth, tuple.Length);
 
         /// <summary>
-        /// Converts to size2d.
+        /// Converts to size5D.
         /// </summary>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Size2D ToSize2D() => new Size2D(Width, Height);
+        public Size5D ToSize5D() => new Size5D(Width, Height, Depth, Breadth, Length);
 
         /// <summary>
-        /// Converts to size2d.
+        /// Converts to size5D.
         /// </summary>
         /// <param name="size">The size.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D FromSize2D(Size2D size) => new Size2D(size.Width, size.Height);
+        public static Size5D FromSize5D(Size5D size) => new Size5D(size.Width, size.Height, size.Depth, size.Breadth, size.Length);
 
         /// <summary>
-        /// Converts to vector2d.
+        /// Converts to vector5D.
         /// </summary>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D ToVector2D() => new Vector2D(Width, Height);
+        public Vector5D ToVector5D() => new Vector5D(Width, Height, Depth, Breadth, Length);
 
         /// <summary>
-        /// Converts to Vector2D.
+        /// Converts to Vector5D.
         /// </summary>
         /// <param name="vector">The vector.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D FromVector2D(Vector2D vector) => new Vector2D(vector.I, vector.J);
+        public static Vector5D FromVector5D(Vector5D vector) => new Vector5D(vector.I, vector.J, vector.K, vector.L, vector.M);
 
         /// <summary>
-        /// Converts to point2d.
+        /// Converts to point5D.
         /// </summary>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D ToPoint2D() => new Point2D(Width, Height);
+        public Point5D ToPoint5D() => new Point5D(Width, Height, Depth, Breadth, Length);
 
         /// <summary>
-        /// Converts to Point2D.
+        /// Converts to Point5D.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D FromPoint2D(Point2D point) => new Point2D(point.X, point.Y);
+        public static Point5D FromPoint5D(Point5D point) => new Point5D(point.X, point.Y, point.Z, point.W, point.V);
         #endregion
 
         #region Factories
         /// <summary>
-        /// Parse a string for a <see cref="Size2D" /> value.
+        /// Parse a string for a <see cref="Size5D" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string" /> with <see cref="Size2D" /> data</param>
+        /// <param name="source"><see cref="string" /> with <see cref="Size5D" /> data</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Size2D" /> struct converted
+        /// Returns an instance of the <see cref="Size5D" /> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         [ParseMethod]
-        public static Size2D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
+        public static Size5D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// Parse a string for a <see cref="Size2D" /> value.
+        /// Parse a string for a <see cref="Size5D" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string" /> with <see cref="Size2D" /> data</param>
+        /// <param name="source"><see cref="string" /> with <see cref="Size5D" /> data</param>
         /// <param name="provider">The provider.</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Size2D" /> struct converted
+        /// Returns an instance of the <see cref="Size5D" /> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
-        public static Size2D Parse(string source, IFormatProvider provider)
+        public static Size5D Parse(string source, IFormatProvider provider)
         {
             var tokenizer = new Tokenizer(source, provider);
             var firstToken = tokenizer.NextTokenRequired();
 
             // The token will already have had whitespace trimmed so we can do a simple string compare.
-            var value = firstToken == nameof(Empty) ? Empty : new Size2D(
+            var value = firstToken == nameof(Empty) ? Empty : new Size5D(
                 Convert.ToDouble(firstToken, provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
                 Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
                 );
 
@@ -1024,14 +1042,6 @@ namespace Engine
             tokenizer.LastTokenRequired();
             return value;
         }
-
-        /// <summary>
-        /// The truncate.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="Size2D" />.
-        /// </returns>
-        public Size2D Truncate() => new Size2D((int)Width, (int)Height);
         #endregion Factories
 
         #region Methods
@@ -1043,48 +1053,36 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => HashCode.Combine(Width, Height);
+        public override int GetHashCode() => HashCode.Combine(Width, Height, Depth, Breadth, Length);
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Size2D" /> struct.
+        /// Converts to string.
         /// </summary>
         /// <returns>
-        /// A string representation of this <see cref="Size2D" />.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Size2D" /> struct based on the IFormatProvider
-        /// passed in.  If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
-        /// <returns>
-        /// A string representation of this <see cref="Size2D" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Size2D" /> struct based on the format string
+        /// Creates a string representation of this <see cref="Size5D" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="formatProvider">The <see cref="CultureInfo"/> provider.</param>
+        /// <param name="formatProvider">The format provider.</param>
         /// <returns>
-        /// A string representation of this <see cref="Size2D" />.
+        /// A string representation of this <see cref="Size5D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            if (this == null) return nameof(Size2D);
+            if (this == null) return nameof(Size5D);
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
-            return $"{nameof(Size2D)}({nameof(Width)}: {Width.ToString(format, formatProvider)}{s} {nameof(Height)}: {Height.ToString(format, formatProvider)})";
+            return $"{nameof(Size5D)}({nameof(Width)}:{Width.ToString(format, formatProvider)}{s} {nameof(Height)}:{Height.ToString(format, formatProvider)}{s} {nameof(Depth)}:{Depth.ToString(format, formatProvider)}{s} {nameof(Breadth)}:{Breadth.ToString(format, formatProvider)}{s} {nameof(Length)}:{Length.ToString(format, formatProvider)})";
         }
         #endregion Methods
     }

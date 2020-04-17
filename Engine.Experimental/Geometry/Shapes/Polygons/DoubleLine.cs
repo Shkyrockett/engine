@@ -1,5 +1,5 @@
 ﻿// <copyright file="DoubleLine.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -21,7 +21,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName(nameof(DoubleLine))]
     public class DoubleLine
-        : Shape
+        : Shape2D
     {
         /// <summary>
         /// The border points (readonly). Value: new List&lt;Point2D&gt;().

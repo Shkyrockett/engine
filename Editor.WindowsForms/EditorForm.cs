@@ -1,5 +1,5 @@
 ﻿// <copyright file="EditorForm.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -21,6 +21,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace Editor
@@ -195,8 +196,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void Timer1_Tick(object sender, EventArgs e)
-            => tweener.Update(tick);
+        private void Timer1_Tick(object sender, EventArgs e) => tweener.Update(tick);
 
         /// <summary>
         /// The list box1 selected value changed.
@@ -547,8 +547,8 @@ namespace Editor
         /// <returns>The <see cref="object"/>.</returns>
         private object LoadFile(string filename)
         {
-            using TextReader reader = new StreamReader(filename);
-            return vectorMapSerializer.Deserialize(reader);
+            using var reader = XmlReader.Create(filename);
+            return vectorMapSerializer?.Deserialize(reader);
         }
 
         /// <summary>

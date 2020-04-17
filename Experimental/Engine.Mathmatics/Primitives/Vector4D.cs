@@ -16,13 +16,15 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static Engine.Operations;
 using static System.Math;
 
 namespace Engine
 {
     /// <summary>
-    /// The <see cref="Vector4D"/> struct. Represents a vector in 4D coordinate space (double precision floating-point coordinates).
+    /// The <see cref="Vector4D" /> struct. Represents a vector in 4D coordinate space (double precision floating-point coordinates).
     /// </summary>
+    /// <seealso cref="IVector{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Vector4DConverter))]
     [DebuggerDisplay("{ToString()}")]
@@ -31,46 +33,46 @@ namespace Engine
     {
         #region Static Fields
         /// <summary>
-        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/>, <see cref="J"/>, <see cref="K"/>, and <see cref="L"/> values set to zero.
+        /// Represents a <see cref="Vector4D" /> that has <see cref="I" />, <see cref="J" />, <see cref="K" />, and <see cref="L" /> values set to zero.
         /// </summary>
         public static readonly Vector4D Empty = new Vector4D(0d, 0d, 0d, 0d);
 
         /// <summary>
-        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/>, <see cref="J"/>, <see cref="K"/>, and <see cref="L"/> values set to 1.
+        /// Represents a <see cref="Vector4D" /> that has <see cref="I" />, <see cref="J" />, <see cref="K" />, and <see cref="L" /> values set to 1.
         /// </summary>
         public static readonly Vector4D Unit = new Vector4D(1d, 1d, 1d, 1d);
 
         /// <summary>
-        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/>, <see cref="J"/>, <see cref="K"/>, and <see cref="L"/> values set to NaN.
+        /// Represents a <see cref="Vector4D" /> that has <see cref="I" />, <see cref="J" />, <see cref="K" />, and <see cref="L" /> values set to NaN.
         /// </summary>
         public static readonly Vector4D NaN = new Vector4D(double.NaN, double.NaN, double.NaN, double.NaN);
 
         /// <summary>
-        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/> set to 1, <see cref="J"/> set to 0, <see cref="K"/> set to 0, and <see cref="L"/> set to 0.
+        /// Represents a <see cref="Vector4D" /> that has <see cref="I" /> set to 1, <see cref="J" /> set to 0, <see cref="K" /> set to 0, and <see cref="L" /> set to 0.
         /// </summary>
         public static readonly Vector4D XAxis = new Vector4D(1d, 0d, 0d, 0d);
 
         /// <summary>
-        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/> set to 0, <see cref="J"/> set to 1, <see cref="K"/> set to 0, and <see cref="L"/> set to 0.
+        /// Represents a <see cref="Vector4D" /> that has <see cref="I" /> set to 0, <see cref="J" /> set to 1, <see cref="K" /> set to 0, and <see cref="L" /> set to 0.
         /// </summary>
         public static readonly Vector4D YAxis = new Vector4D(0d, 1d, 0d, 0d);
 
         /// <summary>
-        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/> set to 0, <see cref="J"/> set to 0, <see cref="K"/> set to 1, and <see cref="L"/> set to 0.
+        /// Represents a <see cref="Vector4D" /> that has <see cref="I" /> set to 0, <see cref="J" /> set to 0, <see cref="K" /> set to 1, and <see cref="L" /> set to 0.
         /// </summary>
         public static readonly Vector4D ZAxis = new Vector4D(0d, 0d, 1d, 0d);
 
         /// <summary>
-        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/> set to 0, <see cref="J"/> set to 0, <see cref="K"/> set to 0, and <see cref="L"/> set to 1.
+        /// Represents a <see cref="Vector4D" /> that has <see cref="I" /> set to 0, <see cref="J" /> set to 0, <see cref="K" /> set to 0, and <see cref="L" /> set to 1.
         /// </summary>
         public static readonly Vector4D WAxis = new Vector4D(0d, 0d, 0d, 1d);
         #endregion Static Fields
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector4D"/> class as a copy of the one provided.
+        /// Initializes a new instance of the <see cref="Vector4D" /> class as a copy of the one provided.
         /// </summary>
-        /// <param name="vector4D">A <see cref="Vector4D"/> class to clone.</param>
+        /// <param name="vector4D">A <see cref="Vector4D" /> class to clone.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector4D(Vector4D vector4D)
@@ -78,12 +80,12 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector4D"/> class.
+        /// Initializes a new instance of the <see cref="Vector4D" /> class.
         /// </summary>
-        /// <param name="i">The <see cref="I"/> component of the <see cref="Vector4D"/> class.</param>
-        /// <param name="j">The <see cref="J"/> component of the <see cref="Vector4D"/> class.</param>
-        /// <param name="k">The <see cref="K"/> component of the <see cref="Vector4D"/> class.</param>
-        /// <param name="l">The <see cref="L"/> component of the <see cref="Vector4D"/> class.</param>
+        /// <param name="i">The <see cref="I" /> component of the <see cref="Vector4D" /> class.</param>
+        /// <param name="j">The <see cref="J" /> component of the <see cref="Vector4D" /> class.</param>
+        /// <param name="k">The <see cref="K" /> component of the <see cref="Vector4D" /> class.</param>
+        /// <param name="l">The <see cref="L" /> component of the <see cref="Vector4D" /> class.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector4D(double i, double j, double k, double l)
@@ -93,7 +95,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector4D"/> class.
+        /// Initializes a new instance of the <see cref="Vector4D" /> class.
         /// </summary>
         /// <param name="tuple">The X, Y, Z and W values in tuple form.</param>
         [DebuggerStepThrough]
@@ -105,7 +107,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector4D"/> struct.
+        /// Initializes a new instance of the <see cref="Vector4D" /> struct.
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
@@ -116,7 +118,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector4D"/> class.
+        /// Initializes a new instance of the <see cref="Vector4D" /> class.
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
@@ -127,7 +129,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector4D"/> class.
+        /// Initializes a new instance of the <see cref="Vector4D" /> class.
         /// </summary>
         /// <param name="aI">The aI.</param>
         /// <param name="aJ">The aJ.</param>
@@ -142,23 +144,22 @@ namespace Engine
         public Vector4D(double aI, double aJ, double aK, double aL, double bI, double bJ, double bK, double bL)
             : this()
         {
+            // This creates a normalized vector. It is debatable that it is what we actually want. We may only want the first line.
+
+            // Find the new vector.
             (var i, var j, var k, var l) = (bI - aI, bJ - aJ, bK - aK, bL - aL);
+
+            // Get the length of the vector.
             var d = Sqrt((i * i) + (j * j) + (k * k) + (l * l));
-            if (d is 0d)
-            {
-                // ToDo: Figure out what to do when d is 0;
-                (I, J, K, L) = (i * 1d / d, j * 1d / d, k * 1d / d, l * 1d / d);
-            }
-            else
-            {
-                (I, J, K, L) = (i * 1d / d, j * 1d / d, k * 1d / d, l * 1d / d);
-            }
+
+            // Calculate the normalized vector.
+            (I, J, K, L) = d == 0d ? (i, j, k, l) : (i * 1d / d, j * 1d / d, k * 1d / d, l * 1d / d);
         }
         #endregion Constructors
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="Vector4D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
+        /// Deconstruct this <see cref="Vector4D" /> to a <see cref="ValueTuple{T1, T2, T3, T4}" />.
         /// </summary>
         /// <param name="i">The i.</param>
         /// <param name="j">The j.</param>
@@ -174,26 +175,78 @@ namespace Engine
         /// <summary>
         /// Gets or sets the I or first Component of a 4D Vector
         /// </summary>
+        /// <value>
+        /// The i.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double I { get; set; }
 
         /// <summary>
         /// Gets or sets the j or second Component of a 4D Vector
         /// </summary>
+        /// <value>
+        /// The j.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double J { get; set; }
 
         /// <summary>
         /// Gets or sets the k or third Component of a 4D Vector
         /// </summary>
+        /// <value>
+        /// The k.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double K { get; set; }
 
         /// <summary>
         /// Gets or sets the l or fourth Component of a 4D Vector
         /// </summary>
+        /// <value>
+        /// The l.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double L { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="Vector4D" /> is empty.
+        /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if this instance is empty; otherwise, <see langword="false"/>.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public bool IsEmpty => IsEmptyVector(I, J, K, L);
+
+        /// <summary>
+        /// Gets the magnitude.
+        /// </summary>
+        /// <value>
+        /// The magnitude.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public double Magnitude => VectorMagnitude(I, J, K, L);
+
+        /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public double Length => VectorMagnitude(I, J, K, L);
+
+        /// <summary>
+        /// Gets the length squared.
+        /// </summary>
+        /// <value>
+        /// The length squared.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public double LengthSquared => VectorMagnitudeSquared(I, J, K, L);
         #endregion Properties
 
         #region Operators
@@ -201,7 +254,9 @@ namespace Engine
         /// The operator +.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="Vector4D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Vector4D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D operator +(Vector4D value) => Plus(value);
@@ -211,7 +266,9 @@ namespace Engine
         /// </summary>
         /// <param name="augend"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D operator +(Vector4D augend, double addend) => Add(augend, addend);
@@ -221,7 +278,9 @@ namespace Engine
         /// </summary>
         /// <param name="augend"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D operator +(double augend, Vector4D addend) => Add(augend, addend);
@@ -231,7 +290,9 @@ namespace Engine
         /// </summary>
         /// <param name="augend"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D operator +(Vector4D augend, Vector4D addend) => Add(augend, addend);
@@ -240,7 +301,9 @@ namespace Engine
         /// The operator -.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="Vector4D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Vector4D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D operator -(Vector4D value) => Negate(value);
@@ -250,7 +313,9 @@ namespace Engine
         /// </summary>
         /// <param name="minuend"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D operator -(Vector4D minuend, double subend) => Subtract(minuend, subend);
@@ -260,7 +325,9 @@ namespace Engine
         /// </summary>
         /// <param name="minuend"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D operator -(double minuend, Vector4D subend) => Subtract(minuend, subend);
@@ -270,7 +337,9 @@ namespace Engine
         /// </summary>
         /// <param name="minuend"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D operator -(Vector4D minuend, Vector4D subend) => Subtract(minuend, subend);
@@ -280,7 +349,9 @@ namespace Engine
         /// </summary>
         /// <param name="multiplicand">The Point</param>
         /// <param name="multiplier">The Multiplier</param>
-        /// <returns>A Vector Multiplied by the Multiplier</returns>
+        /// <returns>
+        /// A Vector Multiplied by the Multiplier
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D operator *(Vector4D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
@@ -290,27 +361,33 @@ namespace Engine
         /// </summary>
         /// <param name="multiplicand">The Multiplier</param>
         /// <param name="multiplier">The Point</param>
-        /// <returns>A Vector Multiplied by the Multiplier</returns>
+        /// <returns>
+        /// A Vector Multiplied by the Multiplier
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D operator *(double multiplicand, Vector4D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
-        /// Divide a <see cref="Vector4D"/>
+        /// Divide a <see cref="Vector4D" />
         /// </summary>
         /// <param name="dividend">The <see cref="Vector4D"/></param>
         /// <param name="divedend">The divisor</param>
-        /// <returns>A <see cref="Vector4D"/> divided by the divisor</returns>
+        /// <returns>
+        /// A <see cref="Vector4D" /> divided by the divisor
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D operator /(Vector4D dividend, double divisor) => Divide(dividend, divisor);
 
         /// <summary>
-        /// Divide a <see cref="Vector4D"/>
+        /// Divide a <see cref="Vector4D" />
         /// </summary>
         /// <param name="dividend">The <see cref="Vector4D"/></param>
         /// <param name="divisor">The divisor</param>
-        /// <returns>A <see cref="Vector4D"/> divided by the divisor</returns>
+        /// <returns>
+        /// A <see cref="Vector4D" /> divided by the divisor
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D operator /(double dividend, Vector4D divisor) => Divide(dividend, divisor);
@@ -320,7 +397,9 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Vector4D a, Vector4D b) => Equals(a, b);
@@ -330,15 +409,20 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Vector4D a, Vector4D b) => !Equals(a, b);
 
         /// <summary>
-        /// Converts the specified <see cref="Vector4D"/> structure to a <see cref="ValueTuple{T1, T2, T3, T4}"/> structure.
+        /// Converts the specified <see cref="Vector4D" /> structure to a <see cref="ValueTuple{T1, T2, T3, T4}" /> structure.
         /// </summary>
-        /// <param name="vector">The <see cref="Vector4D"/> to be converted.</param>
+        /// <param name="vector">The <see cref="Vector4D" /> to be converted.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator (double I, double J, double K, double L)(Vector4D vector) => (vector.I, vector.J, vector.K, vector.L);
@@ -347,7 +431,9 @@ namespace Engine
         /// Tuple to Vector4D
         /// </summary>
         /// <param name="tuple"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Vector4D((double X, double Y, double Z, double W) tuple) => new Vector4D(tuple);
@@ -361,7 +447,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Plus(Vector4D value) => Operations.UnaryAdd(value.I, value.J, value.K, value.L);
+        public static Vector4D Plus(Vector4D value) => Operations.Plus(value.I, value.J, value.K, value.L);
 
         /// <summary>
         /// Adds the specified augend.
@@ -400,7 +486,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Negate(Vector4D value) => Operations.NegateVector(value.I, value.J, value.K, value.L);
+        public static Vector4D Negate(Vector4D value) => Operations.Negate(value.I, value.J, value.K, value.L);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -476,7 +562,9 @@ namespace Engine
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals([AllowNull] object obj) => obj is Vector4D d && Equals(d);
@@ -485,10 +573,12 @@ namespace Engine
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Vector4D other) => I == other.I && J == other.J && K == other.K && L == other.L;
+        public bool Equals([AllowNull] Vector4D other) => I == other.I && J == other.J && K == other.K && L == other.L;
 
         /// <summary>
         /// Converts to valuetuple.
@@ -518,25 +608,25 @@ namespace Engine
 
         #region Factories
         /// <summary>
-        /// Parse a string for a <see cref="Vector4D"/> value.
+        /// Parse a string for a <see cref="Vector4D" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Vector4D"/> data </param>
+        /// <param name="source"><see cref="string" /> with <see cref="Vector4D" /> data</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Vector4D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// Returns an instance of the <see cref="Vector4D" /> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         [ParseMethod]
         public static Vector4D Parse(string source)
             => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// Parse a string for a <see cref="Vector4D"/> value.
+        /// Parse a string for a <see cref="Vector4D" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Vector4D"/> data </param>
-        /// <param name="provider"></param>
+        /// <param name="source"><see cref="string" /> with <see cref="Vector4D" /> data</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Vector4D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// Returns an instance of the <see cref="Vector4D" /> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         public static Vector4D Parse(string source, IFormatProvider provider)
         {
@@ -560,21 +650,37 @@ namespace Engine
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
-        /// <returns>A 32-bit signed <see cref="int"/> hash code.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => HashCode.Combine(I, J, K, L);
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Vector4D"/> struct.
+        /// Creates a human-readable string that represents this <see cref="Vector4D" /> struct.
         /// </summary>
-        /// <returns>A string representation of this <see cref="Vector4D"/>.</returns>
+        /// <returns>
+        /// A string representation of this <see cref="Vector4D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Vector4D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Vector4D" /> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <returns>
+        /// A string representation of this <see cref="Vector4D" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Vector4D" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

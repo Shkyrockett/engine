@@ -905,7 +905,7 @@ namespace Engine
         }
 
         ///// <summary>
-        ///// Cut a <see cref="BezierSegment"/> into multiple fragments at the given t indices, using "De Casteljau" algorithm.
+        ///// Cut a <see cref="BezierSegment2D"/> into multiple fragments at the given t indices, using "De Casteljau" algorithm.
         ///// The value at which to split the curve. Should be strictly inside ]0,1[ interval.
         ///// </summary>
         ///// <param name="t">The t.</param>
@@ -2088,7 +2088,7 @@ namespace Engine
             => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="CubicBezier"/> struct based on the format string
+        /// Creates a string representation of this <see cref="CubicBezier2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

@@ -1,5 +1,5 @@
 ﻿// <copyright file="TuneRequest.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -20,7 +20,6 @@ namespace Engine.File
     /// Upon receiving a Tune Request, all analog synthesizers should tune their oscillators.</para>
     /// </remarks>
     [ElementName(nameof(TuneRequest))]
-    [DisplayName("Tune Request")]
     public class TuneRequest
         : EventStatus
     {
@@ -29,7 +28,7 @@ namespace Engine.File
         /// </summary>
         /// <param name="status">The status.</param>
         public TuneRequest(EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         { }
 
         /// <summary>
@@ -43,5 +42,13 @@ namespace Engine.File
             _ = reader;
             return new TuneRequest(status);
         }
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Tune Request";
     }
 }

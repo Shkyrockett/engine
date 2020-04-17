@@ -1,5 +1,5 @@
 ﻿// <copyright file="Sprite.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -20,7 +20,7 @@ namespace Engine
         /// <summary>
         /// The graphic objects.
         /// </summary>
-        public List<Shape> GraphicObjects;
+        public List<Shape2D> GraphicObjects;
 
         /// <summary>
         /// The state.

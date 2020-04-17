@@ -19,9 +19,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using static Engine.Mathematics;
 using static Engine.Operations;
-using static System.Math;
 
 namespace Engine
 {
@@ -856,7 +854,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix5x5D Plus(Matrix5x5D value) => UnaryAdd(
+        public static Matrix5x5D Plus(Matrix5x5D value) => Operations.Plus(
             value.M0x0, value.M0x1, value.M0x2, value.M0x3, value.M0x4,
             value.M1x0, value.M1x1, value.M1x2, value.M1x3, value.M1x4,
             value.M2x0, value.M2x1, value.M2x2, value.M2x3, value.M2x4,
@@ -1418,6 +1416,18 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Matrix3x2D" /> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">The provider.</param>
+        /// <returns>
+        /// A string representation of this <see cref="Matrix3x2D" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D" /> struct based on the format string

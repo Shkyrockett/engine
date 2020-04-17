@@ -1,5 +1,5 @@
 ﻿// <copyright file="PolylineLocus.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -61,8 +61,8 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Polyline(PolylineLocus locus)
-            => new Polyline(locus.Points);
+        public static implicit operator Polyline2D(PolylineLocus locus)
+            => new Polyline2D(locus.Points);
 
         /// <summary>
         /// Add.
@@ -81,6 +81,6 @@ namespace Engine
         /// Converts to polyline.
         /// </summary>
         /// <returns></returns>
-        public Polyline ToPolyline() => new Polyline(Points);
+        public Polyline2D ToPolyline() => new Polyline2D(Points);
     }
 }

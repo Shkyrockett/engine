@@ -1,5 +1,5 @@
 ﻿// <copyright file="Chunk.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -27,7 +27,7 @@ namespace Engine.File
         /// <param name="text">The text.</param>
         /// <param name="status">The status.</param>
         public BaseTextEvent(string text, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
             Text = text;
         }
@@ -36,5 +36,13 @@ namespace Engine.File
         /// Gets or sets the text.
         /// </summary>
         public string Text { get; set; }
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => (Text is string t) && !string.IsNullOrWhiteSpace(t) ? $"{base.ToString()}:{t}" : base.ToString();
     }
 }

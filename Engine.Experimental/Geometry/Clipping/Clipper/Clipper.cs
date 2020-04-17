@@ -289,7 +289,7 @@ namespace Engine.Experimental
         /// <param name="clipType">The clipType.</param>
         /// <param name="ft">The ft.</param>
         /// <returns>The <see cref="Polygon"/>.</returns>
-        public virtual Polygon Execute(ClippingOperation clipType, WindingRule ft = WindingRule.EvenOdd)
+        public virtual Polygon2D Execute(ClippingOperation clipType, WindingRule ft = WindingRule.EvenOdd)
         {
             try
             {
@@ -309,7 +309,7 @@ namespace Engine.Experimental
         /// <param name="Open">The Open.</param>
         /// <param name="ft">The ft.</param>
         /// <returns>The <see cref="Polygon"/>.</returns>
-        public virtual Polygon Execute(ClippingOperation clipType, Polygon Open, WindingRule ft = WindingRule.EvenOdd)
+        public virtual Polygon2D Execute(ClippingOperation clipType, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd)
         {
             try
             {
@@ -331,7 +331,7 @@ namespace Engine.Experimental
         /// <param name="Open">The Open.</param>
         /// <param name="ft">The ft.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public virtual bool Execute(ClippingOperation clipType, PolyTree polytree, Polygon Open, WindingRule ft = WindingRule.EvenOdd)
+        public virtual bool Execute(ClippingOperation clipType, PolyTree polytree, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd)
         {
             try
             {
@@ -505,7 +505,7 @@ namespace Engine.Experimental
         /// <param name="path">The path.</param>
         /// <param name="relation">The relation.</param>
         /// <param name="isOpen">The isOpen.</param>
-        private void AddPathToVertexList(PolygonContour path, ClippingRelation relation, bool isOpen)
+        private void AddPathToVertexList(PolygonContour2D path, ClippingRelation relation, bool isOpen)
         {
             var pathLen = path.Count;
             while (pathLen > 1 && path[pathLen - 1] == path[0])
@@ -653,7 +653,7 @@ namespace Engine.Experimental
         /// <param name="relation">The relation.</param>
         /// <param name="isOpen">The isOpen.</param>
         /// <exception cref="EngineException"></exception>
-        public void AddPath(PolygonContour path, ClippingRelation relation, bool isOpen = false)
+        public void AddPath(PolygonContour2D path, ClippingRelation relation, bool isOpen = false)
         {
             if (isOpen)
             {
@@ -674,7 +674,7 @@ namespace Engine.Experimental
         /// <param name="paths">The paths.</param>
         /// <param name="pt">The pt.</param>
         /// <param name="isOpen">The isOpen.</param>
-        public void AddPaths(Polygon paths, ClippingRelation pt, bool isOpen = false)
+        public void AddPaths(Polygon2D paths, ClippingRelation pt, bool isOpen = false)
         {
             foreach (var path in paths)
             {
@@ -2147,9 +2147,9 @@ namespace Engine.Experimental
         /// <param name="openPaths">The openPaths.</param>
         /// <returns>The <see cref="Polygon"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private Polygon BuildResult(Polygon openPaths)
+        private Polygon2D BuildResult(Polygon2D openPaths)
         {
-            var closedPaths = new Polygon
+            var closedPaths = new Polygon2D
             {
                 // closedPaths.Clear();
                 Capacity = OutRecList.Count
@@ -2179,7 +2179,7 @@ namespace Engine.Experimental
                             continue;
                         }
 
-                        var p = new PolygonContour
+                        var p = new PolygonContour2D
                         {
                             Capacity = count
                         };
@@ -2193,7 +2193,7 @@ namespace Engine.Experimental
                             continue;
                         }
 
-                        var p = new PolygonContour
+                        var p = new PolygonContour2D
                         {
                             Capacity = count
                         };
@@ -2212,7 +2212,7 @@ namespace Engine.Experimental
         /// <param name="polyTree">The pt.</param>
         /// <param name="openPaths">The openPaths.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void BuildResult(PolyTree polyTree, Polygon openPaths)
+        private void BuildResult(PolyTree polyTree, Polygon2D openPaths)
         {
             if (polyTree is null)
             {
@@ -2245,7 +2245,7 @@ namespace Engine.Experimental
                         }
                     }
 
-                    var p = new PolygonContour
+                    var p = new PolygonContour2D
                     {
                         Capacity = count
                     };

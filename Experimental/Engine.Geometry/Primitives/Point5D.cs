@@ -422,7 +422,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point5D Plus(Point5D value) => UnaryAdd(value.X, value.Y, value.Z, value.W, value.V);
+        public static Point5D Plus(Point5D value) => Operations.Plus(value.X, value.Y, value.Z, value.W, value.V);
 
         /// <summary>
         /// Adds the specified augend.
@@ -481,7 +481,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Negate(Point5D value) => NegateVector(value.X, value.Y, value.Z, value.W, value.V);
+        public static Vector5D Negate(Point5D value) => Operations.Negate(value.X, value.Y, value.Z, value.W, value.V);
 
         /// <summary>
         /// Subtracts the specified minuend.

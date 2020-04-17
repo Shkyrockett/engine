@@ -1,5 +1,5 @@
 ﻿// <copyright file="TimeSignature.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -19,7 +19,6 @@ namespace Engine.File
     /// <para>FF 58 04  NN DD CC BB</para>
     /// </remarks>
     [ElementName(nameof(TimeSignature))]
-    [DisplayName("Time Signature")]
     public class TimeSignature
         : EventStatus
     {
@@ -32,7 +31,7 @@ namespace Engine.File
         /// <param name="beats">The beats.</param>
         /// <param name="status">The status.</param>
         public TimeSignature(byte numerator, byte denominator, byte clocks, byte beats, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
             Numerator = numerator;
             Denominator = denominator;
@@ -66,7 +65,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="TimeSignature"/>.</returns>
-        internal static TimeSignature Read(BinaryReaderExtended reader, EventStatus status)
-            => new TimeSignature(reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), status);
+        internal static TimeSignature Read(BinaryReaderExtended reader, EventStatus status) => new TimeSignature(reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Time Signature";
     }
 }

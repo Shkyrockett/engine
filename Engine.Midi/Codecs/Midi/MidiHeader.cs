@@ -1,5 +1,5 @@
 ﻿// <copyright file="MidiHeader.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -16,30 +16,49 @@ namespace Engine.File
     /// The header structure of a standard midi file.
     /// </summary>
     [ElementName(nameof(MidiHeader))]
-    [DisplayName("Midi File Header")]
     public class MidiHeader
-        : IMidiElement
+        : IMediaElement
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MidiHeader"/> class.
         /// </summary>
         public MidiHeader()
+            : this(MidiFileTrackFormat.SingleTrack, 0, new DeltaTime())
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MidiHeader"/> class.
+        /// </summary>
+        /// <param name="headerSize">Size of the header.</param>
+        /// <param name="midiFileFormat">The midi file format.</param>
+        /// <param name="trackCount">The track count.</param>
+        /// <param name="deltaTime">The delta time.</param>
+        public MidiHeader(MidiFileTrackFormat midiFileFormat, ushort trackCount, DeltaTime deltaTime)
+           : this("MThd", 6, midiFileFormat, trackCount, deltaTime)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MidiHeader" /> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="headerSize">Size of the header.</param>
+        /// <param name="midiFileFormat">The midi file format.</param>
+        /// <param name="trackCount">The track count.</param>
+        /// <param name="deltaTime">The delta time.</param>
+        public MidiHeader(string id, int headerSize, MidiFileTrackFormat midiFileFormat, ushort trackCount, DeltaTime deltaTime)
         {
-            MidiFileFormat = MidiFileTrackFormat.SingleTrack;
-            TrackCount = 0;
-            DeltaTime = new DeltaTime();
+            (ID, HeaderSize, MidiFileFormat, TrackCount, DeltaTime) = (id, headerSize, midiFileFormat, trackCount, deltaTime);
         }
 
         /// <summary>
         /// The standard Midi file header identifier.
         /// </summary>
-        //new List<byte> { 0x4D, 0x54, 0x68, 0x64 };
-        public string ID { get; } = "MThd";
+        public string ID { get; } // = "MThd"; //new byte[] { 0x4D, 0x54, 0x68, 0x64 };
 
         /// <summary>
         /// The size of the Midi file header in bytes.
         /// </summary>
-        public int HeaderSize { get; set; } = 6;
+        public int HeaderSize { get; set; } // = 6;
 
         /// <summary>
         /// The format of the Midi file.
@@ -63,26 +82,15 @@ namespace Engine.File
         /// <param name="chunk"></param>
         /// <returns></returns>
         internal static MidiHeader Read(BinaryReaderExtended reader, Chunk chunk)
-        {
-            //string id = reader.ReadASCIIBytes(4);
-            if (string.IsNullOrWhiteSpace(chunk.Id))
-            {
-                return null;
-            }
+            => string.IsNullOrWhiteSpace(chunk.Id) || chunk.Id != "MThd" ? null
+            : new MidiHeader(chunk.Id, chunk.Length, (MidiFileTrackFormat)reader.ReadNetworkInt16(), reader.ReadNetworkUInt16(), DeltaTime.Read(reader));
 
-            var header = new MidiHeader
-            {
-                HeaderSize = chunk.Length, //reader.ReadNetworkInt32(),
-                MidiFileFormat = (MidiFileTrackFormat)reader.ReadNetworkInt16(),
-                TrackCount = (ushort)reader.ReadNetworkInt16(),
-                DeltaTime = DeltaTime.Read(reader)
-            };
-            if (chunk.Id != header.ID)
-            {
-                return null;
-            }
-
-            return header;
-        }
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Midi Header";
     }
 }

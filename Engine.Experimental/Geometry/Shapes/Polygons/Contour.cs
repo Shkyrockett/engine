@@ -82,14 +82,14 @@ namespace Engine
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>The <see cref="LineSegment"/>.</returns>
-        public LineSegment GetSegment(int index)
+        public LineSegment2D GetSegment(int index)
         {
             if (index == points.Count - 1)
             {
-                return new LineSegment(points[points.Count - 1], points[0]);
+                return new LineSegment2D(points[points.Count - 1], points[0]);
             }
 
-            return new LineSegment(points[index], points[index + 1]);
+            return new LineSegment2D(points[index], points[index + 1]);
         }
 
         /// <summary>

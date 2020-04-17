@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Shkyrockett")]
 [assembly: AssemblyProduct("Engine.WindowsForms")]
-[assembly: AssemblyCopyright("Copyright © 2013 - 2019 Shkyrockett")]
+[assembly: AssemblyCopyright("Copyright © 2013 - 2020 Shkyrockett")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,5 +1,5 @@
 ﻿// <copyright file="DeviceName.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -19,7 +19,6 @@ namespace Engine.File
     /// <para>FF 09 len text</para>
     /// </remarks>
     [ElementName(nameof(DeviceName))]
-    [DisplayName("Device Name")]
     public class DeviceName
         : BaseTextEvent
     {
@@ -38,7 +37,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="DeviceName"/>.</returns>
-        internal static DeviceName Read(BinaryReaderExtended reader, EventStatus status)
-            => new DeviceName(reader.ReadASCIIString(), status);
+        internal static DeviceName Read(BinaryReaderExtended reader, EventStatus status) => new DeviceName(reader.ReadASCIIString(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => (Text is string t) && !string.IsNullOrWhiteSpace(t) ? $"Device Name: {t}" : "Device Name";
     }
 }

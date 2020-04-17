@@ -1,5 +1,5 @@
 ﻿// <copyright file="SequenceNumber.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -19,7 +19,6 @@ namespace Engine.File
     /// <para>FF 00 02  SS SS or 00</para>
     /// </remarks>
     [ElementName(nameof(SequenceNumber))]
-    [DisplayName("Sequence Number")]
     public class SequenceNumber
         : EventStatus
     {
@@ -29,7 +28,7 @@ namespace Engine.File
         /// <param name="value">The value.</param>
         /// <param name="status">The status.</param>
         public SequenceNumber(short value, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
             Value = value;
         }
@@ -45,7 +44,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="SequenceNumber"/>.</returns>
-        internal static SequenceNumber Read(BinaryReaderExtended reader, EventStatus status)
-            => new SequenceNumber(reader.ReadNetworkInt16(), status);
+        internal static SequenceNumber Read(BinaryReaderExtended reader, EventStatus status) => new SequenceNumber(reader.ReadNetworkInt16(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Sequence Number";
     }
 }

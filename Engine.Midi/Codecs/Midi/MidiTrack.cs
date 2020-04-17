@@ -1,5 +1,5 @@
 ﻿// <copyright file="MidiTrack.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,6 +11,8 @@
 // </references>
 
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 
 namespace Engine.File
 {
@@ -18,50 +20,80 @@ namespace Engine.File
     /// The midi track class.
     /// </summary>
     [ElementName(nameof(MidiTrack))]
-    [DisplayName("Midi Track")]
     public class MidiTrack
-        : IMidiElement
+        : IMediaElement
     {
-        /// <summary>
-        /// The events.
-        /// </summary>
-        private List<EventStatus> events = new List<EventStatus>();
-
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="MidiTrack"/> class.
         /// </summary>
         public MidiTrack()
+            : this(new List<EventStatus>())
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MidiTrack"/> class.
+        /// </summary>
+        /// <param name="events">The events.</param>
+        public MidiTrack(params EventStatus[] events)
+            : this(new List<EventStatus>(events))
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MidiTrack"/> class.
+        /// </summary>
+        /// <param name="events">The events.</param>
+        public MidiTrack(List<EventStatus> events)
+            : this("MTrk", 6, events)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MidiTrack"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="trackHeaderLength">Length of the track header.</param>
+        /// <param name="events">The events.</param>
+        public MidiTrack(string id, int trackHeaderLength, List<EventStatus> events)
         {
-            TrackHeaderLength = 6;
-            events = new List<EventStatus>();
+            (ID, TrackHeaderLength, Events) = (id, trackHeaderLength, events);
         }
+        #endregion
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public Event this[int index]
-        //{
-        //    get { return events[index]; }
-        //    set { events[index] = value; }
-        //}
+        #region Indexers
+        /// <summary>
+        /// Gets or sets the <see cref="EventStatus"/> at the specified index.
+        /// </summary>
+        /// <value>
+        /// The <see cref="EventStatus"/>.
+        /// </value>
+        /// <param name="index">The index.</param>
+        /// <returns></returns>
+        public EventStatus this[int index]
+        {
+            get { return Events[index]; }
+            set { Events[index] = value; }
+        }
+        #endregion
 
-        //new List<byte> { 0x4D, 0x54, 0x72, 0x6B };
+        #region Properties
         /// <summary>
         /// Gets the ID.
         /// </summary>
-        public string ID { get; } = "MTrk";
+        public string ID { get; } // = "MTrk"; // new byte[] { 0x4D, 0x54, 0x72, 0x6B };
 
         /// <summary>
         /// Gets or sets the track header length.
         /// </summary>
-        public int TrackHeaderLength { get; set; } = 6;
+        public int TrackHeaderLength { get; set; } // = 6;
 
         /// <summary>
         /// Gets the items.
         /// </summary>
-        public List<EventStatus> Items
-            => events;
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
+        public List<EventStatus> Events { get; }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Read.
         /// </summary>
@@ -77,12 +109,12 @@ namespace Engine.File
 
             var ps = MidiStatusMessage.Unknown;
 
+            var st = (reader.BaseStream as SubStream).BaseStream; // For debug reference.
+
             while (reader.BaseStream.Position < reader.Length)
             {
                 var deltaTime = (uint)reader.Read7BitEncodedInt();
-#pragma warning disable CS0612 // Type or member is obsolete
                 var test = reader.PeekByte();
-#pragma warning restore CS0612 // Type or member is obsolete
                 if (test == 0)
                 {
                     break; // throw new System.Exception("Invalid file.");
@@ -183,11 +215,11 @@ namespace Engine.File
                     case MidiStatusMessage.DeviceName:
                         events.Add(DeviceName.Read(reader, status));
                         break;
-                    case MidiStatusMessage.MIDIChannel:
-                        events.Add(MIDIChannel.Read(reader, status));
+                    case MidiStatusMessage.ChannelPrefix:
+                        events.Add(ChannelPrefix.Read(reader, status));
                         break;
-                    case MidiStatusMessage.MIDIPort:
-                        events.Add(MIDIPort.Read(reader, status));
+                    case MidiStatusMessage.PortPrefix:
+                        events.Add(PortPrefix.Read(reader, status));
                         break;
                     case MidiStatusMessage.EndOfTrack:
                         events.Add(EndOfTrack.Read(reader, status));
@@ -208,18 +240,22 @@ namespace Engine.File
                         events.Add(SequencerSpecific.Read(reader, status));
                         break;
                     case MidiStatusMessage.Unknown:
-                    default:
-                        break;
+                    default: break;
                 }
 
                 ps = status.Status;
             }
 
-            return new MidiTrack
-            {
-                TrackHeaderLength = chunk.Length,
-                events = events
-            };
+            return new MidiTrack(chunk.Id, chunk.Length, events);
         }
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => $"{(Events?.FirstOrDefault(t => t is TrackName) is TrackName m ? $"Midi Track: {m.Text}" : "Midi Track")}";
+        #endregion
     }
 }

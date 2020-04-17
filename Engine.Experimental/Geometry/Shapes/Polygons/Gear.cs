@@ -1,5 +1,5 @@
 ﻿// <copyright file="Gear.cs" company="Shkyrockett" >
-//     Copyright © 2015 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2015 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -21,7 +21,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName(nameof(Gear))]
     public class Gear
-        : PolygonContour
+        : PolygonContour2D
     {
         /// <summary>
         /// The to string.

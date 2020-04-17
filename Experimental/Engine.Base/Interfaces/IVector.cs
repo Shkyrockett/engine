@@ -33,6 +33,6 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals([AllowNull] object item) => item is V && Equals(this, (V)item);
+        public bool Equals([AllowNull] object vector) => vector is V d && Equals(d);
     }
 }

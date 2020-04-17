@@ -1,5 +1,5 @@
 ﻿// <copyright file="ChannelPressure.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -22,7 +22,6 @@ namespace Engine.File
     /// single greatest pressure value (of all the current depressed keys). (vvvvvvv) is the pressure value.</para>
     /// </remarks>
     [ElementName(nameof(ChannelPressure))]
-    [DisplayName("Channel Pressure")]
     public class ChannelPressure
         : EventStatus
     {
@@ -32,7 +31,7 @@ namespace Engine.File
         /// <param name="pressure">The pressure.</param>
         /// <param name="status">The status.</param>
         public ChannelPressure(byte pressure, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
             Pressure = pressure;
         }
@@ -48,7 +47,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="ChannelPressure"/>.</returns>
-        internal static ChannelPressure Read(BinaryReaderExtended reader, EventStatus status)
-            => new ChannelPressure(reader.ReadByte(), status);
+        internal static ChannelPressure Read(BinaryReaderExtended reader, EventStatus status) => new ChannelPressure(reader.ReadByte(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Channel Pressure";
     }
 }

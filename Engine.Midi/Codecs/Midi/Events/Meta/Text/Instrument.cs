@@ -1,5 +1,5 @@
 ﻿// <copyright file="Instrument.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -19,7 +19,6 @@ namespace Engine.File
     /// <para>FF 04 len text</para>
     /// </remarks>
     [ElementName(nameof(Instrument))]
-    [DisplayName(nameof(Instrument))]
     public class Instrument
         : BaseTextEvent
     {
@@ -38,7 +37,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="Instrument"/>.</returns>
-        internal static Instrument Read(BinaryReaderExtended reader, EventStatus status)
-            => new Instrument(reader.ReadASCIIString(), status);
+        internal static Instrument Read(BinaryReaderExtended reader, EventStatus status) => new Instrument(reader.ReadASCIIString(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => (Text is string t) && !string.IsNullOrWhiteSpace(t) ? $"Instrument: {t}" : "Instrument";
     }
 }

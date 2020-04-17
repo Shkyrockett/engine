@@ -27,18 +27,18 @@ namespace Engine
     /// or use the <see cref="Curves"/> property. The results might be updated every time a point is added.
     /// </summary>
     public sealed class CurveBuilder
-        : CurveFitBase, IEnumerable<CubicBezier>
+        : CurveFitBase, IEnumerable<CubicBezier2D>
     {
         #region Fields
         /// <summary>
         /// result curves (updated whenever a new point is added)
         /// </summary>
-        private readonly List<CubicBezier> result;
+        private readonly List<CubicBezier2D> result;
 
         /// <summary>
         /// ReadOnlyCollection view of result
         /// </summary>
-        private readonly ReadOnlyCollection<CubicBezier> resultView;
+        private readonly ReadOnlyCollection<CubicBezier2D> resultView;
 
         /// <summary>
         /// distance between points
@@ -75,8 +75,8 @@ namespace Engine
         public CurveBuilder(double linDist, double error)
         {
             squaredError = error * error;
-            result = new List<CubicBezier>(16);
-            resultView = new ReadOnlyCollection<CubicBezier>(result);
+            result = new List<CubicBezier2D>(16);
+            resultView = new ReadOnlyCollection<CubicBezier2D>(result);
             this.linDist = linDist;
         }
         #endregion Constructors
@@ -85,7 +85,7 @@ namespace Engine
         /// <summary>
         /// The current curves in the builder.
         /// </summary>
-        public ReadOnlyCollection<CubicBezier> Curves
+        public ReadOnlyCollection<CubicBezier2D> Curves
             => resultView;
         #endregion Properties
 
@@ -153,7 +153,7 @@ namespace Engine
                 var alpha = linDist / 3;
                 var p1 = (tanL * alpha) + p0;
                 var p2 = (tanR * alpha) + np;
-                result.Add(new CubicBezier(p0, p1, p2, np));
+                result.Add(new CubicBezier2D(p0, p1, p2, np));
                 return new AddPointResult(0, true);
             }
             else
@@ -227,14 +227,14 @@ namespace Engine
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="List{CubicBezier}.Enumerator"/>.</returns>
-        public List<CubicBezier>.Enumerator GetEnumerator()
+        public List<CubicBezier2D>.Enumerator GetEnumerator()
             => result.GetEnumerator();
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
-        IEnumerator<CubicBezier> IEnumerable<CubicBezier>.GetEnumerator()
+        IEnumerator<CubicBezier2D> IEnumerable<CubicBezier2D>.GetEnumerator()
             => GetEnumerator();
 
         /// <summary>

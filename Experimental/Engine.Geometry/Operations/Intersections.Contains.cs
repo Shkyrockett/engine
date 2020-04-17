@@ -34,6 +34,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -95,7 +96,7 @@ namespace Engine
         ///// </summary>
         ///// <param name="figure"><see cref="PolyBezierContour"/> class.</param>
         ///// <param name="point">Point to test.</param>
-        ///// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        ///// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         //[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         //public static Inclusion Contains(this PolycurveContour figure, Point2D point) => PolycurveContourContainsPoint(figure, point);
@@ -105,7 +106,7 @@ namespace Engine
         ///// </summary>
         ///// <param name="polygons">List of <see cref="PolygonContour2D"/> classes.</param>
         ///// <param name="point">Point to test.</param>
-        ///// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        ///// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         ///// <remarks>This function automatically knows that enclosed polygons are "no-go" areas.</remarks>
         //[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -116,7 +117,7 @@ namespace Engine
         /// </summary>
         /// <param name="circle"><see cref="Circle2D"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusions Contains(this Circle2D circle, Point2D point) => CircleContainsPoint(circle.X, circle.Y, circle.Radius, point.X, point.Y);
@@ -160,203 +161,86 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Contains(this Rectangle2D a, Rectangle2D b) => RectangleContainsRectangle(a.X, a.Y, a.Width, a.Height, b.X, b.Y, b.Width, b.Height);
-        #endregion Contains Extension Method Overloads
-
-        #region Contains Methods
-        /// <summary>
-        /// Determines whether the specified point is contained within the region defined by a triangle.
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="o"></param>
-        /// <param name="p"></param>
-        /// <param name="epsilon"></param>
-        /// <returns>Returns a Boolean value indicating whether the shape contains the point.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInTriangle(
-            LineSegment2D s, Point2D o, Point2D p,
-            double epsilon = Epsilon)
-        {
-            _ = epsilon;
-            var x = Sign(s.A, s.B, p);
-            return (x == Sign(s.B, o, p)) && (x == Sign(o, s.A, p));
-        }
-
-        /// <summary>
-        /// The triangle contains point.
-        /// </summary>
-        /// <param name="aX">The aX.</param>
-        /// <param name="aY">The aY.</param>
-        /// <param name="bX">The bX.</param>
-        /// <param name="bY">The bY.</param>
-        /// <param name="cX">The cX.</param>
-        /// <param name="cY">The cY.</param>
-        /// <param name="pX">The pX.</param>
-        /// <param name="pY">The pY.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="Inclusions"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions TriangleContainsPoint(
-            double aX, double aY, double bX, double bY, double cX, double cY,
-            double pX, double pY,
-            double epsilon = Epsilon)
-        {
-            _ = epsilon;
-            var a = new Point2D(aX, aY);
-            var b = new Point2D(bX, bY);
-            var c = new Point2D(cX, cY);
-            var p = new Point2D(pX, pY);
-            if (Intersects(p, a, b) || Intersects(p, b, c) || Intersects(p, c, a))
-            {
-                return Inclusions.Boundary;
-            }
-
-            var clockwise = CrossProduct(b - a, p - b) >= 0;
-            return !(((CrossProduct(c - b, p - c) >= 0) ^ clockwise) && ((CrossProduct(a - c, p - a) >= 0) ^ clockwise)) ? Inclusions.Inside : Inclusions.Outside;
-        }
-
-        /// <summary>
-        /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
-        /// </summary>
-        /// <param name="left">The left location of the <see cref="Rectangle2D"/>.</param>
-        /// <param name="top">The top location of the <see cref="Rectangle2D"/>.</param>
-        /// <param name="right">The right location of the <see cref="Rectangle2D"/>.</param>
-        /// <param name="bottom">The bottom location of the <see cref="Rectangle2D"/>.</param>
-        /// <param name="pX">The x-coordinate of the test point.</param>
-        /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions RectangleContainsPoint(
-            double left, double top, double right, double bottom,
-            double pX, double pY,
-            double epsilon = Epsilon)
-        {
-            _ = epsilon;
-            return (((left == pX || right == pX) && ((top <= pY) == (bottom >= pY)))
-                    || ((top == pY || bottom == pY) && ((left <= pX) == (right >= pX)))) ? Inclusions.Boundary
-                    : (left <= pX && pX < right && top <= pY && pY < bottom) ? Inclusions.Inside : Inclusions.Outside;
-        }
-
-        /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="PolygonContour2D"/>.
-        /// </summary>
-        /// <param name="points">The points that form the corners of the polygon.</param>
-        /// <param name="pX">The x-coordinate of the test point.</param>
-        /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>
-        /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
-        /// </returns>
-        /// <acknowledgment>
-        /// Adapted from Clipper library: http://www.angusj.com/delphi/clipper.php
-        /// See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann and Agathos
-        /// http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions PolygonContourContainsPoint(List<Point2D> points, double pX, double pY, double epsilon = Epsilon)
-        {
-            // Default value is no inclusion.
-            var result = Inclusions.Outside;
-
-            // Special cases for points and line segments.
-            if (points.Count < 3)
-            {
-                if (points.Count == 1)
-                {
-                    // If the polygon has 1 point, it is a point and has no interior, but a point can intersect a point.
-                    return (pX == points[0].X && pY == points[0].Y) ? Inclusions.Boundary : Inclusions.Outside;
-                }
-                else if (points.Count == 2)
-                {
-                    // If the polygon has 2 points, it is a line and has no interior, but a point can intersect a line.
-                    return ((pX == points[0].X) && (pY == points[0].Y))
-                        || ((pX == points[1].X) && (pY == points[1].Y))
-                        || (((pX > points[0].X) == (pX < points[1].X))
-                        && ((pY > points[0].Y) == (pY < points[1].Y))
-                        && ((pX - points[0].X) * (points[1].Y - points[0].Y) == (pY - points[0].Y) * (points[1].X - points[0].X))) ? Inclusions.Boundary : Inclusions.Outside;
-                }
-                else
-                {
-                    // Empty geometry.
-                    return Inclusions.Outside;
-                }
-            }
-
-            // Loop through each line segment.
-            var curPoint = points[0];
-            for (var i = 1; i <= points.Count; ++i)
-            {
-                var nextPoint = i == points.Count ? points[0] : points[i];
-
-                // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
-                if (curPoint.Y == pY && (curPoint.X == pX || ((nextPoint.Y == pY) && ((curPoint.X > pX) == (nextPoint.X < pX)))))
-                //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
-                {
-                    return Inclusions.Boundary;
-                }
-
-                // If Point between start and end points horizontally.
-                //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
-                if ((nextPoint.Y < pY) != (curPoint.Y < pY)) // At least one point is below the Y threshold and the other is above or equal
-                {
-                    // Optimization: at least one point must be to the right of the test point
-                    // If point between start and end points vertically.
-                    if (nextPoint.X >= pX)
-                    {
-                        if (curPoint.X > pX)
-                        {
-                            result = 1 - result;
-                        }
-                        else
-                        {
-                            var determinant = ((nextPoint.X - pX) * (curPoint.Y - pY)) - ((curPoint.X - pX) * (nextPoint.Y - pY));
-                            if (Abs(determinant) < epsilon)
-                            {
-                                return Inclusions.Boundary;
-                            }
-                            else if ((determinant > 0) == (curPoint.Y > nextPoint.Y))
-                            {
-                                result = 1 - result;
-                            }
-                        }
-                    }
-                    else if (curPoint.X > pX)
-                    {
-                        var determinant = ((nextPoint.X - pX) * (curPoint.Y - pY)) - ((curPoint.X - pX) * (nextPoint.Y - pY));
-                        if (Abs(determinant) < epsilon)
-                        {
-                            return Inclusions.Boundary;
-                        }
-
-                        if ((determinant > 0) == (curPoint.Y > nextPoint.Y))
-                        {
-                            result = 1 - result;
-                        }
-                    }
-                }
-
-                curPoint = nextPoint;
-            }
-
-            return result;
-        }
 
         ///// <summary>
-        ///// The monotones.
+        ///// The polygon set contains points.
+        ///// This function should be called with the full set of *all* relevant polygons.
+        ///// (The algorithm automatically knows that enclosed polygons are “no-go” areas.)
+        ///// Note:  As much as possible, this algorithm tries to return YES when the
+        ///// test line-segment is exactly on the border of the polygon, particularly
+        ///// if the test line-segment *is* a side of a polygon.
         ///// </summary>
-        ///// <param name="arc">The arc.</param>
-        ///// <returns>The <see cref="ArcSegment[]"/>.</returns>
+        ///// <param name="polygons">The polygons.</param>
+        ///// <param name="start">The start.</param>
+        ///// <param name="end">The end.</param>
+        ///// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        ///// <returns>The <see cref="Inclusion"/>.</returns>
         ///// <acknowledgment>
-        ///// https://stackoverflow.com/a/34884949
+        ///// Public-domain code by Darel Rex Finley, 2006.
+        ///// http://alienryderflex.com/shortest_path/
         ///// </acknowledgment>
-        //public static EllipticalArc2D[] Monotones(EllipticalArc2D arc)
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static Inclusion PolygonSetContainsPoints(this Polygon polygons, Point2D start, Point2D end, double epsilon = Epsilon)
         //{
-        //    var angles = EllipticalArcVerticalExtremeAngles(arc.RX, arc.RY, arc.Angle, arc.StartAngle, arc.SweepAngle);
-        //    return arc.Split(angles);
+        //    end.X -= start.X;
+        //    end.Y -= start.Y;
+        //    var dist = Sqrt((end.X * end.X) + (end.Y * end.Y));
+        //    var theCos = end.X / dist;
+        //    var theSin = end.Y / dist;
+
+        //    foreach (var poly in polygons.Contours)
+        //    {
+        //        for (var i = 0; i < poly.Points.Count; i++)
+        //        {
+        //            var j = i + 1;
+        //            if (j == poly.Points.Count)
+        //            {
+        //                j = 0;
+        //            }
+
+        //            var sX = poly.Points[i].X - start.X;
+        //            var sY = poly.Points[i].Y - start.Y;
+        //            var eX = poly.Points[j].X - start.X;
+        //            var eY = poly.Points[j].Y - start.Y;
+
+        //            if (Abs(sX) < epsilon && Abs(sY) < epsilon
+        //                && Abs(eX - end.X) < epsilon && Abs(eY - end.Y) < epsilon
+        //                || Abs(eX) < epsilon
+        //                && Abs(eY) < epsilon && Abs(sX - end.X) < epsilon
+        //                && Abs(sY - end.Y) < epsilon)
+        //            {
+        //                return Inclusion.Inside;
+        //            }
+
+        //            var rotSX = (sX * theCos) + (sY * theSin);
+        //            var rotSY = (sY * theCos) - (sX * theSin);
+        //            var rotEX = (eX * theCos) + (eY * theSin);
+        //            var rotEY = (eY * theCos) - (eX * theSin);
+
+        //            if (rotSY < 0.0 && rotEY > 0.0
+        //            || rotEY < 0.0 && rotSY > 0.0)
+        //            {
+        //                var crossX = rotSX + ((rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY));
+        //                if (crossX >= 0.0 && crossX <= dist)
+        //                {
+        //                    return Inclusion.Outside;
+        //                }
+        //            }
+
+        //            if (Abs(rotSY) < epsilon
+        //                && Abs(rotEY) < epsilon
+        //                && (rotSX >= 0.0 || rotEX >= 0.0)
+        //                && (rotSX <= dist || rotEX <= dist)
+        //                && (rotSX < 0.0 || rotEX < 0.0
+        //                || rotSX > dist || rotEX > dist))
+        //            {
+        //                return Inclusion.Outside;
+        //            }
+        //        }
+        //    }
+
+        //    return PolygonContainsPoint(polygons.Contours, start.X + (end.X / 2.0), start.Y + (end.Y / 2.0));
         //}
 
         ///// <summary>
@@ -655,45 +539,83 @@ namespace Engine
         //    }
         //    return result;
         //}
+        #endregion Contains Extension Method Overloads
+
+        #region Contains Methods
+        /// <summary>
+        /// Determines whether the specified point is contained within the region defined by a triangle.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="o"></param>
+        /// <param name="p"></param>
+        /// <param name="epsilon"></param>
+        /// <returns>Returns a Boolean value indicating whether the shape contains the point.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TriangleContainsPoint(LineSegment2D s, Point2D o, Point2D p, double epsilon = double.Epsilon)
+        {
+            _ = epsilon;
+            var x = Sign(s.A, s.B, p);
+            return (x == Sign(s.B, o, p)) && (x == Sign(o, s.A, p));
+        }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="PolygonContour2D"/>.
+        /// The triangle contains point.
         /// </summary>
-        /// <param name="polygons">List of polygons.</param>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
+        /// <param name="pX">The pX.</param>
+        /// <param name="pY">The pY.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusions TriangleContainsPoint(double aX, double aY, double bX, double bY, double cX, double cY, double pX, double pY, double epsilon = Epsilon)
+        {
+            _ = epsilon;
+            var a = new Point2D(aX, aY);
+            var b = new Point2D(bX, bY);
+            var c = new Point2D(cX, cY);
+            var p = new Point2D(pX, pY);
+            if (Intersects(p, a, b) || Intersects(p, b, c) || Intersects(p, c, a))
+            {
+                return Inclusions.Boundary;
+            }
+
+            var clockwise = CrossProduct(b - a, p - b) >= 0;
+            return !(((CrossProduct(c - b, p - c) >= 0) ^ clockwise) && ((CrossProduct(a - c, p - a) >= 0) ^ clockwise)) ? Inclusions.Inside : Inclusions.Outside;
+        }
+
+        /// <summary>
+        /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
+        /// </summary>
+        /// <param name="left">The left location of the <see cref="Rectangle2D"/>.</param>
+        /// <param name="top">The top location of the <see cref="Rectangle2D"/>.</param>
+        /// <param name="right">The right location of the <see cref="Rectangle2D"/>.</param>
+        /// <param name="bottom">The bottom location of the <see cref="Rectangle2D"/>.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions PolygonContainsPoint(
-            List<PolygonContour2D> polygons,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions RectangleContainsPoint(double left, double top, double right, double bottom, double pX, double pY, double epsilon = Epsilon)
         {
-            var returnValue = Inclusions.Outside;
-
-            foreach (var poly in polygons)
-            {
-                // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
-                // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
-                returnValue ^= PolygonContourContainsPoint(poly.Points, pX, pY, epsilon);
-
-                // Any point on any boundary is on a boundary.
-                if (returnValue == Inclusions.Boundary)
-                {
-                    return Inclusions.Boundary;
-                }
-            }
-
-            return returnValue;
+            _ = epsilon;
+            return (((left == pX || right == pX) && ((top <= pY) == (bottom >= pY)))
+                    || ((top == pY || bottom == pY) && ((left <= pX) == (right >= pX)))) ? Inclusions.Boundary
+                    : (left <= pX && pX < right && top <= pY && pY < bottom) ? Inclusions.Inside : Inclusions.Outside;
         }
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle2D"/>.
         /// </summary>
-        /// <param name="x">Center x-coordinate.</param>
-        /// <param name="y">Center y-coordinate.</param>
+        /// <param name="h">Center x-coordinate.</param>
+        /// <param name="k">Center y-coordinate.</param>
         /// <param name="r">Radius of circle.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
@@ -704,17 +626,14 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions CircleContainsPoint(
-            double x, double y, double r,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions CircleContainsPoint(double h, double k, double r, double pX, double pY, double epsilon = Epsilon)
         {
             // Check if it is within the bounding rectangle.
-            if (pX >= x - r && pX <= x + r
-                && pY >= y - r && pY <= y + r)
+            if (pX >= h - r && pX <= h + r
+                && pY >= k - r && pY <= k + r)
             {
-                var dx = x - pX;
-                var dy = y - pY;
+                var dx = h - pX;
+                var dy = k - pY;
                 dx *= dx;
                 dy *= dy;
                 var distanceSquared = dx + dy;
@@ -728,10 +647,10 @@ namespace Engine
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse2D"/>.
         /// </summary>
-        /// <param name="cX">Center x-coordinate.</param>
-        /// <param name="cY">Center y-coordinate.</param>
-        /// <param name="rx">The first radius of the Ellipse.</param>
-        /// <param name="ry">The second radius of the Ellipse.</param>
+        /// <param name="h">Center x-coordinate.</param>
+        /// <param name="k">Center y-coordinate.</param>
+        /// <param name="a">The first radius of the Ellipse.</param>
+        /// <param name="b">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
@@ -741,17 +660,13 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions EllipseContainsPoint(
-            double cX, double cY, double rx, double ry, double angle,
-            double pX, double pY,
-            double epsilon = Epsilon)
-            => EllipseContainsPoint(cX, cY, rx, ry, Cos(angle), Sin(angle), pX, pY, epsilon);
+        public static Inclusions EllipseContainsPoint(double h, double k, double a, double b, double angle, double pX, double pY, double epsilon = Epsilon) => EllipseContainsPoint(h, k, a, b, Cos(angle), Sin(angle), pX, pY, epsilon);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse2D"/>.
         /// </summary>
-        /// <param name="cX">Center x-coordinate.</param>
-        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="h">Center x-coordinate.</param>
+        /// <param name="k">Center y-coordinate.</param>
         /// <param name="rx">The first radius of the Ellipse.</param>
         /// <param name="ry">The second radius of the Ellipse.</param>
         /// <param name="cosT">The cosine of the angle of rotation of Ellipse about it's center.</param>
@@ -765,10 +680,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions EllipseContainsPoint(
-            double cX, double cY, double rx, double ry, double cosT, double sinT,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions EllipseContainsPoint(double h, double k, double rx, double ry, double cosT, double sinT, double pX, double pY, double epsilon = Epsilon)
         {
             if (rx <= 0d || ry <= 0d)
             {
@@ -776,14 +688,14 @@ namespace Engine
             }
 
             // Translate point to origin.
-            var u = pX - cX;
-            var v = pY - cY;
+            var dx = pX - h;
+            var dy = pY - k;
 
             // Apply the rotation transformation.
-            var a = (u * cosT) + (v * sinT);
-            var b = (u * sinT) - (v * cosT);
+            var u = (dx * cosT) + (dy * sinT);
+            var v = (dx * sinT) - (dy * cosT);
 
-            var normalizedRadius = (a * a / (rx * rx)) + (b * b / (ry * ry));
+            var normalizedRadius = (u * u / (rx * rx)) + (v * v / (ry * ry));
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < epsilon)
@@ -807,10 +719,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions CircularArcSectorContainsPoint(
-            double x, double y, double r, double startAngle, double sweepAngle,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions CircularArcSectorContainsPoint(double x, double y, double r, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
         {
             if (r <= 0d)
             {
@@ -870,15 +779,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions EllipticalArcContainsPoint(
-            double cX, double cY,
-            double r1, double r2,
-            double angle,
-            double startAngle,
-            double sweepAngle,
-            double pX, double pY,
-            double epsilon = Epsilon)
-            => EllipticalArcContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(startAngle + sweepAngle), Sin(startAngle + sweepAngle), sweepAngle, pX, pY, epsilon);
+        public static Inclusions EllipticalArcContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon) => EllipticalArcContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(startAngle + sweepAngle), Sin(startAngle + sweepAngle), sweepAngle, pX, pY, epsilon);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc2D"/>.
@@ -904,15 +805,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions EllipticalArcContainsPoint(
-            double cX, double cY,
-            double r1, double r2,
-            double cosT, double sinT,
-            double startCosT, double startSinT,
-            double endCosT, double endSinT,
-            double sweepAngle,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions EllipticalArcContainsPoint(double cX, double cY, double r1, double r2, double cosT, double sinT, double startCosT, double startSinT, double endCosT, double endSinT, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
         {
             // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
@@ -989,15 +882,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions EllipticalArcSectorContainsPoint(
-            double cX, double cY,
-            double r1, double r2,
-            double angle,
-            double startAngle,
-            double sweepAngle,
-            double pX, double pY,
-            double epsilon = Epsilon)
-            => EllipticalArcSectorContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(startAngle + sweepAngle), Sin(startAngle + sweepAngle), sweepAngle, pX, pY, epsilon);
+        public static Inclusions EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon) => EllipticalArcSectorContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(startAngle + sweepAngle), Sin(startAngle + sweepAngle), sweepAngle, pX, pY, epsilon);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc2D"/>.
@@ -1022,15 +907,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions EllipticalArcSectorContainsPoint(
-            double cX, double cY,
-            double r1, double r2,
-            double cosT, double sinT,
-            double startCosT, double startSinT,
-            double endCosT, double endSinT,
-            double sweepAngle,
-            double pX, double pY,
-            double epsilon = Epsilon)
+        public static Inclusions EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double cosT, double sinT, double startCosT, double startSinT, double endCosT, double endSinT, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
         {
             // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
@@ -1098,89 +975,140 @@ namespace Engine
                 ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
 
-        ///// <summary>
-        ///// The polygon set contains points.
-        ///// This function should be called with the full set of *all* relevant polygons.
-        ///// (The algorithm automatically knows that enclosed polygons are “no-go” areas.)
-        ///// Note:  As much as possible, this algorithm tries to return YES when the
-        ///// test line-segment is exactly on the border of the polygon, particularly
-        ///// if the test line-segment *is* a side of a polygon.
-        ///// </summary>
-        ///// <param name="polygons">The polygons.</param>
-        ///// <param name="start">The start.</param>
-        ///// <param name="end">The end.</param>
-        ///// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        ///// <returns>The <see cref="Inclusion"/>.</returns>
-        ///// <acknowledgment>
-        ///// Public-domain code by Darel Rex Finley, 2006.
-        ///// http://alienryderflex.com/shortest_path/
-        ///// </acknowledgment>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Inclusion PolygonSetContainsPoints(
-        //    this Polygon polygons,
-        //    Point2D start, Point2D end,
-        //    double epsilon = Epsilon)
-        //{
-        //    end.X -= start.X;
-        //    end.Y -= start.Y;
-        //    var dist = Sqrt((end.X * end.X) + (end.Y * end.Y));
-        //    var theCos = end.X / dist;
-        //    var theSin = end.Y / dist;
+        /// <summary>
+        /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="PolygonContour2D"/>.
+        /// </summary>
+        /// <param name="polygons">List of polygons.</param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusions PolygonContainsPoint(List<PolygonContour2D> polygons, double pX, double pY, double epsilon = Epsilon)
+        {
+            var returnValue = Inclusions.Outside;
 
-        //    foreach (var poly in polygons.Contours)
-        //    {
-        //        for (var i = 0; i < poly.Points.Count; i++)
-        //        {
-        //            var j = i + 1;
-        //            if (j == poly.Points.Count)
-        //            {
-        //                j = 0;
-        //            }
+            foreach (var poly in polygons)
+            {
+                // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
+                // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
+                returnValue ^= PolygonContourContainsPoint(poly.Points, pX, pY, epsilon);
 
-        //            var sX = poly.Points[i].X - start.X;
-        //            var sY = poly.Points[i].Y - start.Y;
-        //            var eX = poly.Points[j].X - start.X;
-        //            var eY = poly.Points[j].Y - start.Y;
+                // Any point on any boundary is on a boundary.
+                if (returnValue == Inclusions.Boundary)
+                {
+                    return Inclusions.Boundary;
+                }
+            }
 
-        //            if (Abs(sX) < epsilon && Abs(sY) < epsilon
-        //                && Abs(eX - end.X) < epsilon && Abs(eY - end.Y) < epsilon
-        //                || Abs(eX) < epsilon
-        //                && Abs(eY) < epsilon && Abs(sX - end.X) < epsilon
-        //                && Abs(sY - end.Y) < epsilon)
-        //            {
-        //                return Inclusion.Inside;
-        //            }
+            return returnValue;
+        }
 
-        //            var rotSX = (sX * theCos) + (sY * theSin);
-        //            var rotSY = (sY * theCos) - (sX * theSin);
-        //            var rotEX = (eX * theCos) + (eY * theSin);
-        //            var rotEY = (eY * theCos) - (eX * theSin);
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="PolygonContour2D"/>.
+        /// </summary>
+        /// <param name="points">The points that form the corners of the polygon.</param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
+        /// </returns>
+        /// <acknowledgment>
+        /// Adapted from Clipper library: http://www.angusj.com/delphi/clipper.php
+        /// See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann and Agathos
+        /// http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusions PolygonContourContainsPoint(List<Point2D> points, double pX, double pY, double epsilon = Epsilon)
+        {
+            // Default value is no inclusion.
+            var result = Inclusions.Outside;
 
-        //            if (rotSY < 0.0 && rotEY > 0.0
-        //            || rotEY < 0.0 && rotSY > 0.0)
-        //            {
-        //                var crossX = rotSX + ((rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY));
-        //                if (crossX >= 0.0 && crossX <= dist)
-        //                {
-        //                    return Inclusion.Outside;
-        //                }
-        //            }
+            // Special cases for points and line segments.
+            if (points.Count < 3)
+            {
+                if (points.Count == 1)
+                {
+                    // If the polygon has 1 point, it is a point and has no interior, but a point can intersect a point.
+                    return (pX == points[0].X && pY == points[0].Y) ? Inclusions.Boundary : Inclusions.Outside;
+                }
+                else if (points.Count == 2)
+                {
+                    // If the polygon has 2 points, it is a line and has no interior, but a point can intersect a line.
+                    return ((pX == points[0].X) && (pY == points[0].Y))
+                        || ((pX == points[1].X) && (pY == points[1].Y))
+                        || (((pX > points[0].X) == (pX < points[1].X))
+                        && ((pY > points[0].Y) == (pY < points[1].Y))
+                        && ((pX - points[0].X) * (points[1].Y - points[0].Y) == (pY - points[0].Y) * (points[1].X - points[0].X))) ? Inclusions.Boundary : Inclusions.Outside;
+                }
+                else
+                {
+                    // Empty geometry.
+                    return Inclusions.Outside;
+                }
+            }
 
-        //            if (Abs(rotSY) < epsilon
-        //                && Abs(rotEY) < epsilon
-        //                && (rotSX >= 0.0 || rotEX >= 0.0)
-        //                && (rotSX <= dist || rotEX <= dist)
-        //                && (rotSX < 0.0 || rotEX < 0.0
-        //                || rotSX > dist || rotEX > dist))
-        //            {
-        //                return Inclusion.Outside;
-        //            }
-        //        }
-        //    }
+            // Loop through each line segment.
+            var curPoint = points[0];
+            for (var i = 1; i <= points.Count; ++i)
+            {
+                var nextPoint = i == points.Count ? points[0] : points[i];
 
-        //    return PolygonContainsPoint(polygons.Contours, start.X + (end.X / 2.0), start.Y + (end.Y / 2.0));
-        //}
+                // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
+                if (curPoint.Y == pY && (curPoint.X == pX || ((nextPoint.Y == pY) && ((curPoint.X > pX) == (nextPoint.X < pX)))))
+                //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
+                {
+                    return Inclusions.Boundary;
+                }
+
+                // If Point between start and end points horizontally.
+                //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
+                if ((nextPoint.Y < pY) != (curPoint.Y < pY)) // At least one point is below the Y threshold and the other is above or equal
+                {
+                    // Optimization: at least one point must be to the right of the test point
+                    // If point between start and end points vertically.
+                    if (nextPoint.X >= pX)
+                    {
+                        if (curPoint.X > pX)
+                        {
+                            result = 1 - result;
+                        }
+                        else
+                        {
+                            var determinant = ((nextPoint.X - pX) * (curPoint.Y - pY)) - ((curPoint.X - pX) * (nextPoint.Y - pY));
+                            if (Abs(determinant) < epsilon)
+                            {
+                                return Inclusions.Boundary;
+                            }
+                            else if ((determinant > 0) == (curPoint.Y > nextPoint.Y))
+                            {
+                                result = 1 - result;
+                            }
+                        }
+                    }
+                    else if (curPoint.X > pX)
+                    {
+                        var determinant = ((nextPoint.X - pX) * (curPoint.Y - pY)) - ((curPoint.X - pX) * (nextPoint.Y - pY));
+                        if (Abs(determinant) < epsilon)
+                        {
+                            return Inclusions.Boundary;
+                        }
+
+                        if ((determinant > 0) == (curPoint.Y > nextPoint.Y))
+                        {
+                            result = 1 - result;
+                        }
+                    }
+                }
+
+                curPoint = nextPoint;
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// Determines if the rectangular region is entirely contained within the <see cref="Rectangle2D"/> region represented by another <see cref="Rectangle2D"/>.
@@ -1206,5 +1134,19 @@ namespace Engine
                    && ((bY + bHeight) <= (aY + aHeight));
         }
         #endregion Contains Methods
+
+        /// <summary>
+        /// The monotones.
+        /// </summary>
+        /// <param name="arc">The arc.</param>
+        /// <returns>The <see cref="Array"/>.</returns>
+        /// <acknowledgment>
+        /// https://stackoverflow.com/a/34884949
+        /// </acknowledgment>
+        public static EllipticalArc2D[] Monotones(EllipticalArc2D arc)
+        {
+            var angles = EllipticalArcVerticalExtremeAngles(arc.RadiusA, arc.RadiusB, arc.Angle, arc.StartAngle, arc.SweepAngle);
+            return arc.Split(angles);
+        }
     }
 }

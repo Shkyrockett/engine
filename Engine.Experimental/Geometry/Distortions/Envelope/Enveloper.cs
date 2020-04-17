@@ -174,10 +174,10 @@ namespace Engine.Experimental
             Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
         {
             var size = bounds.Size;
-            var cpTL = new CubicControlPoint(topLeft, topLeftH, topLeftV);
-            var cpTR = new CubicControlPoint(topRight, topRightH, topRightV);
-            var cpBL = new CubicControlPoint(bottomRight, bottomRightH, bottomRightV);
-            var cpBR = new CubicControlPoint(bottomLeft, bottomLeftH, bottomLeftV);
+            var cpTL = new CubicControlPoint2D(topLeft, topLeftH, topLeftV);
+            var cpTR = new CubicControlPoint2D(topRight, topRightH, topRightV);
+            var cpBL = new CubicControlPoint2D(bottomRight, bottomRightH, bottomRightV);
+            var cpBR = new CubicControlPoint2D(bottomLeft, bottomLeftH, bottomLeftV);
 
             // LEFT LINE
             var anchor1 = CubicInterpolate(cpTL.Point, cpTL.AnchorAGlobal, cpBL.AnchorAGlobal, cpBL.Point, point.Y * (1d / (size.Height - 1d)));

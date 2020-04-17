@@ -1,5 +1,5 @@
 ﻿// <copyright file="Hermite.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -25,7 +25,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName("Hermite Curve")]
     public class Hermite
-        : Shape
+        : Shape2D
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Hermite"/> class.
@@ -94,10 +94,10 @@ namespace Engine
         /// <summary>
         /// The to cubic bezier.
         /// </summary>
-        /// <returns>The <see cref="CubicBezier"/>.</returns>
+        /// <returns>The <see cref="CubicBezier2D"/>.</returns>
         /// <remarks><para>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</para></remarks>
-        public CubicBezier ToCubicBezier()
-            => new CubicBezier(ATan, new Point2D(ATan.X - ((B.X - A.X) / 6), ATan.Y - ((B.Y - A.Y) / 6)), new Point2D(B.X + ((BTan.X - ATan.X) / 6), B.Y + ((BTan.Y - ATan.Y) / 6)), BTan);
+        public CubicBezier2D ToCubicBezier()
+            => new CubicBezier2D(ATan, new Point2D(ATan.X - ((B.X - A.X) / 6), ATan.Y - ((B.Y - A.Y) / 6)), new Point2D(B.X + ((BTan.X - ATan.X) / 6), B.Y + ((BTan.Y - ATan.Y) / 6)), BTan);
 
         /// <summary>
         /// The to string.

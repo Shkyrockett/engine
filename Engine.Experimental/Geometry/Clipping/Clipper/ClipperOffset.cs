@@ -67,17 +67,17 @@ namespace Engine.Experimental
         /// <summary>
         /// The solution.
         /// </summary>
-        private Polygon solution;
+        private Polygon2D solution;
 
         /// <summary>
         /// The path in.
         /// </summary>
-        private PolygonContour pathIn;
+        private PolygonContour2D pathIn;
 
         /// <summary>
         /// The path out.
         /// </summary>
-        private PolygonContour pathOut;
+        private PolygonContour2D pathOut;
 
         /// <summary>
         /// The lowest idx.
@@ -127,7 +127,7 @@ namespace Engine.Experimental
         /// <param name="p">The p.</param>
         /// <param name="jt">The jt.</param>
         /// <param name="et">The et.</param>
-        public void AddPath(PolygonContour p, LineJoin jt, LineEndType et)
+        public void AddPath(PolygonContour2D p, LineJoin jt, LineEndType et)
         {
             PathNode? pn = new PathNode(p, jt, et);
             if (!(pn.Value.Path is null))
@@ -142,7 +142,7 @@ namespace Engine.Experimental
         /// <param name="paths">The paths.</param>
         /// <param name="jt">The jt.</param>
         /// <param name="et">The et.</param>
-        public void AddPaths(Polygon paths, LineJoin jt, LineEndType et)
+        public void AddPaths(Polygon2D paths, LineJoin jt, LineEndType et)
         {
             foreach (var p in paths)
             {
@@ -155,9 +155,9 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="delta">The delta.</param>
         /// <returns>The <see cref="Polygon"/>.</returns>
-        public Polygon Execute(double delta)
+        public Polygon2D Execute(double delta)
         {
-            var sol = new Polygon();
+            var sol = new Polygon2D();
             if (Nodes.Count == 0)
             {
                 return null;
@@ -191,7 +191,7 @@ namespace Engine.Experimental
         /// <param name="jt">The jt.</param>
         /// <param name="et">The et.</param>
         /// <returns>The <see cref="Polygon"/>.</returns>
-        public static Polygon OffsetPaths(Polygon pp, double delta, LineJoin jt, LineEndType et)
+        public static Polygon2D OffsetPaths(Polygon2D pp, double delta, LineJoin jt, LineEndType et)
         {
             var co = new ClipperOffset();
             co.AddPaths(pp, jt, et);
@@ -419,7 +419,7 @@ namespace Engine.Experimental
             // if a Zero offset, then just copy CLOSED polygons to FSolution and return ...
             if (absDelta < tolerance)
             {
-                solution = new Polygon
+                solution = new Polygon2D
                 {
                     Capacity = Nodes.Count
                 };
@@ -456,14 +456,14 @@ namespace Engine.Experimental
 
             stepsPerRad = steps / Tau;
 
-            solution = new Polygon
+            solution = new Polygon2D
             {
                 Capacity = Nodes.Count * 2
             };
             foreach (var node in Nodes)
             {
                 pathIn = node.Path;
-                pathOut = new PolygonContour();
+                pathOut = new PolygonContour2D();
                 var pathInCnt = pathIn.Count;
 
                 // if a single vertex then build circle or a square ...
@@ -546,7 +546,7 @@ namespace Engine.Experimental
                     }
 
                     solution.Add(pathOut);
-                    pathOut = new PolygonContour();
+                    pathOut = new PolygonContour2D();
                     // re-build norms ...
                     var n = Norms[pathInCnt - 1];
                     for (var j = pathInCnt - 1; j > 0; j--)

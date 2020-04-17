@@ -606,7 +606,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Plus(Size2D value) => UnaryAdd(value.Width, value.Height);
+        public static Size2D Plus(Size2D value) => Operations.Plus(value.Width, value.Height);
 
         /// <summary>
         /// Adds the specified augend.
@@ -685,7 +685,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D Negate(Size2D value) => NegateVector(value.Width, value.Height);
+        public static Size2D Negate(Size2D value) => Operations.Negate(value.Width, value.Height);
 
         /// <summary>
         /// Subtracts the specified minuend.

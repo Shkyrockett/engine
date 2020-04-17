@@ -1,5 +1,5 @@
 ﻿// <copyright file="SystemExclusive.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,6 +11,7 @@
 // </references>
 
 using System;
+using System.ComponentModel;
 
 namespace Engine.File
 {
@@ -40,7 +41,7 @@ namespace Engine.File
         /// <param name="exclusive">The exclusive.</param>
         /// <param name="status">The status.</param>
         public SystemExclusive(byte[] exclusive, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
             Exclusive = exclusive;
         }
@@ -48,6 +49,7 @@ namespace Engine.File
         /// <summary>
         /// Gets or sets the exclusive.
         /// </summary>
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public byte[] Exclusive { get; set; }
 
         /// <summary>

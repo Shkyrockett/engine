@@ -30,7 +30,7 @@ namespace Engine.Experimental
         /// <param name="parent"></param>
         /// <param name="children"></param>
         /// <param name="path"></param>
-        public PolyPath(PolyPath parent, List<PolyPath> children, PolygonContour path)
+        public PolyPath(PolyPath parent, List<PolyPath> children, PolygonContour2D path)
         {
             Parent = parent;
             Children = children;
@@ -51,7 +51,7 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets the path.
         /// </summary>
-        public PolygonContour Path { get; private set; }
+        public PolygonContour2D Path { get; private set; }
 
         /// <summary>
         /// Gets the child count.
@@ -65,7 +65,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="p">The p.</param>
         /// <returns>The <see cref="PolyPath"/>.</returns>
-        public PolyPath AddChild(PolygonContour p)
+        public PolyPath AddChild(PolygonContour2D p)
         {
             var child = new PolyPath()
             {
@@ -105,12 +105,12 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="pp">The pp.</param>
         /// <param name="paths">The paths.</param>
-        private static void AddPolyNodeToPaths(PolyPath pp, Polygon paths)
+        private static void AddPolyNodeToPaths(PolyPath pp, Polygon2D paths)
         {
             var cnt = pp.Path.Count;
             if (cnt > 0)
             {
-                var p = new PolygonContour
+                var p = new PolygonContour2D
                 {
                     Capacity = cnt
                 };
@@ -131,9 +131,9 @@ namespace Engine.Experimental
         /// The PolyTree to paths.
         /// </summary>
         /// <returns>The <see cref="Polygon"/>.</returns>
-        public Polygon PolyTreeToPaths()
+        public Polygon2D PolyTreeToPaths()
         {
-            var paths = new Polygon();
+            var paths = new Polygon2D();
             AddPolyNodeToPaths(this, paths);
             return paths;
         }

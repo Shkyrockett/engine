@@ -311,7 +311,7 @@ namespace MethodSpeedTester
         //#undef	QUADRANT
         //#undef	Y_INTERCEPT
 
-        //* ======= Triangle half-plane algorithm ================================== */
+        //* ======= Triangle2D half-plane algorithm ================================== */
 
         //* Split the polygon into a fan of triangles and for each triangle test if
         // * the point is inside of the three half-planes formed by the triangle's edges.

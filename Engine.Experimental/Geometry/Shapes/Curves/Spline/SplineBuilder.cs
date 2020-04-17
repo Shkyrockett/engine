@@ -49,7 +49,7 @@ namespace Engine
         /// <summary>
         /// The curves that make up the spline.
         /// </summary>
-        public ReadOnlyCollection<CubicBezier> Curves
+        public ReadOnlyCollection<CubicBezier2D> Curves
             => spline.Curves;
         #endregion Properties
 

@@ -1,5 +1,5 @@
 ﻿// <copyright file="PolygonPointTester.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -65,11 +65,11 @@ namespace MethodSpeedTester
             //    new PointF(100, 25),
             //    new PointF(100, 100),
             //    new PointF(25, 100) }));
-            //polygons.Add(("Top Left Triangle", new List<PointF> {
+            //polygons.Add(("Top Left Triangle2D", new List<PointF> {
             //    new PointF(25, 25),
             //    new PointF(100, 25),
             //    new PointF(25, 100) }));
-            //polygons.Add(("Bottom Right Triangle", new List<PointF> {
+            //polygons.Add(("Bottom Right Triangle2D", new List<PointF> {
             //    new PointF(100, 100),
             //    new PointF(100, 25),
             //    new PointF(25, 100) }));
@@ -83,7 +83,7 @@ namespace MethodSpeedTester
             //    new PointF(100, 100),
             //    new PointF(25, 25),
             //    new PointF(25, 100) }));
-            //polygons.Add(("C Shape", new List<PointF> {
+            //polygons.Add(("C Shape2D", new List<PointF> {
             //    new PointF(25, 25),
             //    new PointF(100, 25),
             //    new PointF(100, 50),
@@ -92,7 +92,7 @@ namespace MethodSpeedTester
             //    new PointF(100, 75),
             //    new PointF(100, 100),
             //    new PointF(25, 100) }));
-            //polygons.Add(("n Shape", new List<PointF> {
+            //polygons.Add(("n Shape2D", new List<PointF> {
             //    new PointF(25, 25),
             //    new PointF(100, 25),
             //    new PointF(100, 100),
@@ -101,7 +101,7 @@ namespace MethodSpeedTester
             //    new PointF(50, 50),
             //    new PointF(50, 100),
             //    new PointF(25, 100) }));
-            //polygons.Add(("C Bow-tie hole Shape", new List<PointF> {
+            //polygons.Add(("C Bow-tie hole Shape2D", new List<PointF> {
             //    new PointF(25, 25),
             //    new PointF(100, 25),
             //    new PointF(100, 50),
@@ -110,7 +110,7 @@ namespace MethodSpeedTester
             //    new PointF(100, 75),
             //    new PointF(100, 100),
             //    new PointF(25, 100) }));
-            //polygons.Add(("n Bow-tie hole Shape", new List<PointF> {
+            //polygons.Add(("n Bow-tie hole Shape2D", new List<PointF> {
             //    new PointF(25, 25),
             //    new PointF(100, 25),
             //    new PointF(100, 100),

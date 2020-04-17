@@ -1,5 +1,5 @@
 ﻿// <copyright file="Renderer.Geometry.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -21,11 +21,11 @@ namespace Engine.Imaging
     {
         //public static void Render(this GraphicItem item, Graphics g)
         //{
-        //    if (g.VisibleClipBounds.ToRectangle2D().Contains(item.Shape.Bounds))
-        //        switch (item?.Shape)
+        //    if (g.VisibleClipBounds.ToRectangle2D().Contains(item.Shape2D.Bounds))
+        //        switch (item?.Shape2D)
         //        {
-        //            case ParametricDelegateCurve s:
-        //                Render(item, g, (ParametricDelegateCurve)item.Shape);
+        //            case ParametricDelegateCurve2D s:
+        //                Render(item, g, (ParametricDelegateCurve2D)item.Shape2D);
         //                break;
         //            default:
         //                break;
@@ -40,10 +40,10 @@ namespace Engine.Imaging
         ///// <param name="g"></param>
         ///// <param name="shape"></param>
         //public static void Render<T>(this GraphicItem item, T shape, Graphics g)
-        //    where T : ParametricDelegateCurve
+        //    where T : ParametricDelegateCurve2D
         //{
         //    var itemStyle = item.Style as ShapeStyle ?? default;
-        //    var points = item.Shape.InterpolatePoints(100);
+        //    var points = item.Shape2D.InterpolatePoints(100);
         //    g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
         //    g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
         //}
@@ -56,7 +56,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this ParametricDelegateCurve shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this ParametricDelegateCurve2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -76,7 +76,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this ScreenPoint shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this ScreenPoint2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -95,7 +95,7 @@ namespace Engine.Imaging
         /// <param name="item">The item.</param>
         /// <param name="bounds">The bounds.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this Ray shape, Graphics g, IRenderer renderer, GraphicItem item, Rectangle2D bounds, ShapeStyle style = null)
+        public static void Render(this Ray2D shape, Graphics g, IRenderer renderer, GraphicItem item, Rectangle2D bounds, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -126,7 +126,7 @@ namespace Engine.Imaging
         /// <param name="item">The item.</param>
         /// <param name="bounds">The bounds.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this Line shape, Graphics g, IRenderer renderer, GraphicItem item, Rectangle2D bounds, ShapeStyle style = null)
+        public static void Render(this Line2D shape, Graphics g, IRenderer renderer, GraphicItem item, Rectangle2D bounds, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -148,7 +148,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this LineSegment shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this LineSegment2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -166,7 +166,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this PolygonContour shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this PolygonContour2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -185,7 +185,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this Polyline shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this Polyline2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -204,7 +204,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this PolylineSet set, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this PolylineSet2D set, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -225,7 +225,7 @@ namespace Engine.Imaging
         /// <param name="g">The g.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this Polygon set, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this Polygon2D set, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item?.Style;
             // Start the Path object.
@@ -248,7 +248,7 @@ namespace Engine.Imaging
         /// <param name="style">The style.</param>
         /// <exception cref="NullReferenceException"></exception>
         /// <exception cref="InvalidCastException"></exception>
-        public static void Render(this PolycurveContour shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this PolycurveContour2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item?.Style;
             // Start the Path object.
@@ -257,14 +257,14 @@ namespace Engine.Imaging
             {
                 switch (figureItem)
                 {
-                    case PointSegment t:
+                    case PointSegment2D t:
                         path.StartFigure();
                         path.AddLine(t.Head.Value.ToPointF(), t.Tail.Value.ToPointF());
                         break;
-                    case LineCurveSegment t:
+                    case LineCurveSegment2D t:
                         path.AddLine(t.Head.Value.ToPointF(), t.Tail.Value.ToPointF());
                         break;
-                    case ArcSegment t:
+                    case ArcSegment2D t:
                         var arc = t.ToEllipticalArc();
                         using (var mat = new Matrix())
                         {
@@ -275,13 +275,13 @@ namespace Engine.Imaging
                             path.Transform(mat);
                         }
                         break;
-                    case CubicBezierSegment t:
+                    case CubicBezierSegment2D t:
                         path.AddBezier(t.Head.Value.ToPointF(), t.Handle1.ToPointF(), t.Handle2.Value.ToPointF(), t.Tail.Value.ToPointF());
                         break;
-                    case QuadraticBezierSegment t:
+                    case QuadraticBezierSegment2D t:
                         path.AddBeziers(new PointF[] { t.Head.Value.ToPointF(), t.Handle.Value.ToPointF(), t.Tail.Value.ToPointF() });
                         break;
-                    case CardinalSegment t:
+                    case CardinalSegment2D t:
                         path.AddCurve(t.Nodes.ToPointFArray());
                         break;
                     case null:
@@ -311,7 +311,7 @@ namespace Engine.Imaging
         /// <param name="style">The style.</param>
         /// <exception cref="NullReferenceException"></exception>
         /// <exception cref="InvalidCastException"></exception>
-        public static void Render(this Polycurve set, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this Polycurve2D set, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item?.Style;
             // Start the Path object.
@@ -322,14 +322,14 @@ namespace Engine.Imaging
                 {
                     switch (figureItem)
                     {
-                        case PointSegment t:
+                        case PointSegment2D t:
                             path.StartFigure();
                             path.AddLine(t.Head.Value.ToPointF(), t.Tail.Value.ToPointF());
                             break;
-                        case LineCurveSegment t:
+                        case LineCurveSegment2D t:
                             path.AddLine(t.Head.Value.ToPointF(), t.Tail.Value.ToPointF());
                             break;
-                        case ArcSegment t:
+                        case ArcSegment2D t:
                             var arc = t.ToEllipticalArc();
                             using (var mat = new Matrix())
                             {
@@ -340,13 +340,13 @@ namespace Engine.Imaging
                                 path.Transform(mat);
                             }
                             break;
-                        case CubicBezierSegment t:
+                        case CubicBezierSegment2D t:
                             path.AddBezier(t.Head.Value.ToPointF(), t.Handle1.ToPointF(), t.Handle2.Value.ToPointF(), t.Tail.Value.ToPointF());
                             break;
-                        case QuadraticBezierSegment t:
+                        case QuadraticBezierSegment2D t:
                             path.AddBeziers(new PointF[] { t.Head.Value.ToPointF(), t.Handle.Value.ToPointF(), t.Tail.Value.ToPointF() });
                             break;
-                        case CardinalSegment t:
+                        case CardinalSegment2D t:
                             path.AddCurve(t.Nodes.ToPointFArray());
                             break;
                         case null:
@@ -395,7 +395,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this Circle shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this Circle2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -415,7 +415,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this CircularArc shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this CircularArc2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -455,7 +455,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this EllipticalArc shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this EllipticalArc2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -505,7 +505,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this BezierSegment shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this BezierSegment2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -538,7 +538,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this CubicBezier shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this CubicBezier2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -557,7 +557,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this QuadraticBezier shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this QuadraticBezier2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;

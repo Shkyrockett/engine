@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Tweening\Enums\**" />
+    <EmbeddedResource Remove="Tweening\Enums\**" />
+    <None Remove="Tweening\Enums\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Operations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />
+    <ProjectReference Include="..\Engine.Geometry\Engine.Geometry.csproj" />
+    <ProjectReference Include="..\Engine.Mathematics\Engine.Mathematics.csproj" />
+    <ProjectReference Include="..\Engine.Physics\Engine.Physics.csproj" />
+  </ItemGroup>
+
+</Project>

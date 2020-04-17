@@ -1,5 +1,5 @@
 ﻿// <copyright file="Geometry.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -18,12 +18,12 @@ namespace Engine
         /// <summary>
         /// Gets or sets the origional.
         /// </summary>
-        public Shape[] Origional { get; set; }
+        public Shape2D[] Origional { get; set; }
 
         /// <summary>
         /// Gets or sets the current.
         /// </summary>
-        public Shape[] Current { get; set; }
+        public Shape2D[] Current { get; set; }
 
         /// <summary>
         /// Gets or sets the transform.

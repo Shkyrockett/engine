@@ -22,7 +22,7 @@ namespace Engine.Imaging
         ///// <param name="g"></param>
         ///// <param name="item"></param>
         ///// <param name="style"></param>
-        //public static void Render(this ParametricDelegateCurve shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        //public static void Render(this ParametricDelegateCurve2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         //{
         //    ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
         //    List<Point2D> points = shape.InterpolatePoints(100);
@@ -37,7 +37,7 @@ namespace Engine.Imaging
         ///// <param name="item"></param>
         ///// <param name="shape"></param>
         ///// <param name="style"></param>
-        //public static void Render(this ScreenPoint shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        //public static void Render(this ScreenPoint2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         //{
         //    ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
         //    g.FillRectangle(itemStyle.ForeBrush, (float)shape.X, (float)shape.Y, 1, 1);
@@ -50,7 +50,7 @@ namespace Engine.Imaging
         ///// <param name="item"></param>
         ///// <param name="shape"></param>
         ///// <param name="style"></param>
-        //public static void Render(this LineSegment shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        //public static void Render(this LineSegment2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         //{
         //    ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
         //    g.DrawLine(itemStyle.ForePen, shape.A.ToPointF(), shape.B.ToPointF());
@@ -77,7 +77,7 @@ namespace Engine.Imaging
         ///// <param name="item"></param>
         ///// <param name="shape"></param>
         ///// <param name="style"></param>
-        //public static void Render(this Polyline shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        //public static void Render(this Polyline2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         //{
         //    ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
         //    g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
@@ -91,10 +91,10 @@ namespace Engine.Imaging
         ///// <param name="g"></param>
         ///// <param name="item"></param>
         ///// <param name="style"></param>
-        //public static void Render(this PolylineSet set, Graphics g, GraphicItem item, ShapeStyle style = null)
+        //public static void Render(this PolylineSet2D set, Graphics g, GraphicItem item, ShapeStyle style = null)
         //{
         //    ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
-        //    foreach (Polyline shape in set.Polylines)
+        //    foreach (Polyline2D shape in set.Polylines)
         //    {
         //        g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
         //        g.DrawLines((itemStyle).ForePen, shape.Points.ToPointFArray());
@@ -108,7 +108,7 @@ namespace Engine.Imaging
         ///// <param name="g"></param>
         ///// <param name="item"></param>
         ///// <param name="style"></param>
-        //public static void Render(this Polygon set, Graphics g, GraphicItem item, ShapeStyle style = null)
+        //public static void Render(this Polygon2D set, Graphics g, GraphicItem item, ShapeStyle style = null)
         //{
         //    ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
         //    // Start the Path object.
@@ -189,7 +189,7 @@ namespace Engine.Imaging
         ///// <param name="item"></param>
         ///// <param name="shape"></param>
         ///// <param name="style"></param>
-        //public static void Render(this EllipticalArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        //public static void Render(this EllipticalArc2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         //{
         //    ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
         //    var path = new GraphicsPath();
@@ -239,7 +239,7 @@ namespace Engine.Imaging
         ///// <param name="item"></param>
         ///// <param name="shape"></param>
         ///// <param name="style"></param>
-        //public static void Render(this BezierSegment shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        //public static void Render(this BezierSegment2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         //{
         //    ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
         //    var path = new GraphicsPath();
@@ -287,7 +287,7 @@ namespace Engine.Imaging
         ///// <param name="item"></param>
         ///// <param name="shape"></param>
         ///// <param name="style"></param>
-        //public static void Render(this QuadraticBezier shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        //public static void Render(this QuadraticBezier2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         //{
         //    ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
         //    var path = new GraphicsPath();
@@ -306,7 +306,7 @@ namespace Engine.Imaging
         ///// <param name="item"></param>
         ///// <param name="shape"></param>
         ///// <param name="style"></param>
-        //public static void Render(this PolycurveContour shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        //public static void Render(this PolycurveContour2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         //{
         //    ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
         //    // Start the Path object.
@@ -315,14 +315,14 @@ namespace Engine.Imaging
         //    {
         //        switch (figureItem)
         //        {
-        //            case PointSegment t:
+        //            case PointSegment2D t:
         //                path.StartFigure();
         //                path.AddLine(t.Start.Value.ToPointF(), t.End.Value.ToPointF());
         //                break;
-        //            case LineCurveSegment t:
+        //            case LineCurveSegment2D t:
         //                path.AddLine(t.Start.Value.ToPointF(), t.End.Value.ToPointF());
         //                break;
-        //            case ArcSegment t:
+        //            case ArcSegment2D t:
         //                var arc = t.ToEllipticalArc();
         //                var mat = new Matrix();
         //                mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
@@ -331,13 +331,13 @@ namespace Engine.Imaging
         //                mat.RotateAt(2 * (float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
         //                path.Transform(mat);
         //                break;
-        //            case CubicBezierSegment t:
+        //            case CubicBezierSegment2D t:
         //                path.AddBezier(t.Start.Value.ToPointF(), t.Handle1.ToPointF(), t.Handle2.Value.ToPointF(), t.End.Value.ToPointF());
         //                break;
-        //            case QuadraticBezierSegment t:
+        //            case QuadraticBezierSegment2D t:
         //                path.AddBeziers(new PointF[] { t.Start.Value.ToPointF(), t.Handle.Value.ToPointF(), t.End.Value.ToPointF() });
         //                break;
-        //            case CardinalSegment t:
+        //            case CardinalSegment2D t:
         //                path.AddCurve(t.Nodes.ToPointFArray());
         //                break;
         //            case null:

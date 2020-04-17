@@ -1,5 +1,5 @@
 ﻿// <copyright file="MidiTimeCode.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -20,7 +20,6 @@ namespace Engine.File
     /// nnn = Message Type dddd = Values</para>
     /// </remarks>
     [ElementName(nameof(MidiTimeCode))]
-    [DisplayName("Midi Time Code")]
     public class MidiTimeCode
         : EventStatus
     {
@@ -30,7 +29,7 @@ namespace Engine.File
         /// <param name="timeCode">The timeCode.</param>
         /// <param name="status">The status.</param>
         public MidiTimeCode(byte timeCode, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
             TimeCode = timeCode;
         }
@@ -46,7 +45,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="MidiTimeCode"/>.</returns>
-        internal static MidiTimeCode Read(BinaryReaderExtended reader, EventStatus status)
-            => new MidiTimeCode(reader.ReadByte(), status);
+        internal static MidiTimeCode Read(BinaryReaderExtended reader, EventStatus status) => new MidiTimeCode(reader.ReadByte(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Midi Time Code";
     }
 }

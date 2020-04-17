@@ -1,5 +1,5 @@
 ﻿// <copyright file="Sine.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -20,7 +20,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName(nameof(Sine))]
     public class Sine
-        : Shape
+        : Shape2D
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Sine"/> class.

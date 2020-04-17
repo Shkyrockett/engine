@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static System.Math;
 
@@ -19,6 +20,90 @@ namespace Engine
     /// </summary>
     public static partial class Operations
     {
+        /// <summary>
+        /// Check whether the double value is between lower and upper bounds.
+        /// </summary>
+        /// <param name="value">The <paramref name="value"/>.</param>
+        /// <param name="lowerLimit">The lower limit.</param>
+        /// <param name="upperLimit">The upper limit.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://github.com/dystopiancode/colorspace-conversions/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool BetweenLowerUpper(double value, double lowerLimit, double upperLimit) => value >= lowerLimit && value <= upperLimit;
+
+        /// <summary>
+        /// Check whether the integer value is between lower and upper bounds.
+        /// </summary>
+        /// <param name="value">The <paramref name="value"/>.</param>
+        /// <param name="lowerLimit">The lower limit.</param>
+        /// <param name="upperLimit">The upper limit.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://github.com/dystopiancode/colorspace-conversions/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool BetweenLowerUpper(int value, int lowerLimit, int upperLimit) => value >= lowerLimit && value <= upperLimit;
+
+        /// <summary>
+        /// Check whether the byte value is between lower and upper bounds.
+        /// </summary>
+        /// <param name="value">The <paramref name="value"/>.</param>
+        /// <param name="lowerLimit">The lower limit.</param>
+        /// <param name="upperLimit">The upper limit.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://github.com/dystopiancode/colorspace-conversions/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool BetweenLowerUpper(byte value, byte lowerLimit, byte upperLimit) => value >= lowerLimit && value <= upperLimit;
+
+        /// <summary>
+        /// Return true iff c is between a and b.  Normalize all parameters wrt c, then ask if a and b are on opposite sides of zero.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Between(double c, double a, double b) => (a - c) * (b - c) <= 0;
+
+        /// <summary>
+        /// Return true iff c is between a and b.  Normalize all parameters wrt c, then ask if a and b are on opposite sides of zero.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Between(int c, int a, int b) => (a - c) * (b - c) <= 0;
+
+        /// <summary>
+        /// Return true iff c is between a and b.  Normalize all parameters wrt c, then ask if a and b are on opposite sides of zero.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Between(byte c, byte a, byte b) => (a - c) * (b - c) <= 0;
+
         #region Numeric Digits
         /// <summary>
         /// Counts the number of base 10 digits an integer is represented by.

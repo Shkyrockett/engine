@@ -1,5 +1,5 @@
 ﻿// <copyright file="Bone.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -14,7 +14,7 @@ namespace Engine
     /// The bone class.
     /// </summary>
     public class Bone
-        : Shape
+        : Shape2D
     {
         /// <summary>
         /// 

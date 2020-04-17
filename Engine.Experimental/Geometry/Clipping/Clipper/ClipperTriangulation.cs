@@ -28,7 +28,7 @@ namespace Engine.Experimental
         /// <summary>
         /// The triangles.
         /// </summary>
-        private readonly Polygon triangles = new Polygon();
+        private readonly Polygon2D triangles = new Polygon2D();
         #endregion Fields
 
         #region Overrides
@@ -222,9 +222,9 @@ namespace Engine.Experimental
         /// <param name="clipType">The clipType.</param>
         /// <param name="ft">The ft.</param>
         /// <returns>The <see cref="Polygon"/>.</returns>
-        public override Polygon Execute(ClippingOperation clipType, WindingRule ft = WindingRule.EvenOdd)
+        public override Polygon2D Execute(ClippingOperation clipType, WindingRule ft = WindingRule.EvenOdd)
         {
-            var tris = new Polygon();
+            var tris = new Polygon2D();
             try
             {
                 if (!ExecuteInternal(clipType, ft))
@@ -250,7 +250,7 @@ namespace Engine.Experimental
         /// <param name="Open">The Open.</param>
         /// <param name="ft">The ft.</param>
         /// <returns>The <see cref="Polygon"/>.</returns>
-        public override Polygon Execute(ClippingOperation clipType, Polygon Open, WindingRule ft = WindingRule.EvenOdd)
+        public override Polygon2D Execute(ClippingOperation clipType, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd)
             => null; //unsupported
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace Engine.Experimental
         /// <param name="Open">The Open.</param>
         /// <param name="ft">The ft.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Execute(ClippingOperation clipType, PolyTree polytree, Polygon Open, WindingRule ft = WindingRule.EvenOdd)
+        public override bool Execute(ClippingOperation clipType, PolyTree polytree, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd)
             => false; //unsupported
         #endregion Overrides
 
@@ -294,7 +294,7 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void AddPolygon(Point2D pt1, Point2D pt2, Point2D pt3)
         {
-            var p = new PolygonContour
+            var p = new PolygonContour2D
             {
                 Capacity = 3
             };

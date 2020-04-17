@@ -44,7 +44,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Incidence AngleVectorIncidence(double cos1, double sin1, double cos2, double sin2, double epsilon = Epsilon)
+        public static Incidence AngleVectorIncidence(double cos1, double sin1, double cos2, double sin2, double epsilon = double.Epsilon)
         {
             var crossProduct = CrossProduct(cos1, sin1, cos2, sin2);
             return Math.Abs(crossProduct) < epsilon

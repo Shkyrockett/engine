@@ -1,5 +1,5 @@
 ﻿// <copyright file="SutherlandHodgman.cs" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -70,7 +70,7 @@ namespace Engine
                     {
                         if (!PolygonExtensions.IsInside(clipEdge, S))
                         {
-                            var point = Intersections.Intersection(new LineSegment(S.X, S.Y, e.X, e.Y), new LineSegment(clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y));
+                            var point = Intersections.Intersection(new LineSegment2D(S.X, S.Y, e.X, e.Y), new LineSegment2D(clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y));
                             if (point.Count < 1)
                             {
                                 // May be collinear, or may be a bug
@@ -91,7 +91,7 @@ namespace Engine
                     }
                     else if (PolygonExtensions.IsInside(clipEdge, S))
                     {
-                        var point = Intersections.Intersection(new LineSegment(S.X, S.Y, e.X, e.Y), new LineSegment(clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y));
+                        var point = Intersections.Intersection(new LineSegment2D(S.X, S.Y, e.X, e.Y), new LineSegment2D(clipEdge.A.X, clipEdge.A.Y, clipEdge.B.X, clipEdge.B.Y));
                         if (point.Count < 1)
                         {
                             // may be collinear, or may be a bug

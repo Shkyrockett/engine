@@ -120,7 +120,7 @@
     <Compile Include="FormMidiEventEditor.Designer.cs">
       <DependentUpon>FormMidiEventEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Framework\MusicFiles.cs" />
+    <Compile Include="Framework\MediaFiles.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormMidiEventEditor.resx">
@@ -151,6 +151,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Engine.Base\Engine.Base.csproj">
+      <Project>{8240b9de-f6bf-417b-b399-b8e9114ec2e1}</Project>
+      <Name>Engine.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engine.File\Engine.File.csproj">
       <Project>{4c4da771-9467-484f-bbb7-75860c3e7697}</Project>
       <Name>Engine.File</Name>
@@ -166,10 +170,6 @@
     <ProjectReference Include="..\Engine.WindowsForms\Engine.WindowsForms.csproj">
       <Project>{3a89b55c-8d51-46a4-86ca-825c28958dfd}</Project>
       <Name>Engine.WindowsForms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{32553305-ddb2-4fd1-b359-8ebd8587bd6f}</Project>
-      <Name>Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

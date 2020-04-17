@@ -1,5 +1,5 @@
 ﻿// <copyright file="PolyphonicPressure.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -21,7 +21,6 @@ namespace Engine.File
     /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the pressure value.</para>
     /// </remarks>
     [ElementName(nameof(PolyphonicPressure))]
-    [DisplayName("Polyphonic Pressure")]
     public class PolyphonicPressure
         : EventStatus
     {
@@ -32,10 +31,9 @@ namespace Engine.File
         /// <param name="pressure">The pressure.</param>
         /// <param name="status">The status.</param>
         public PolyphonicPressure(byte note, byte pressure, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
-            Note = note;
-            Pressure = pressure;
+            (Note, Pressure) = (note, pressure);
         }
 
         /// <summary>
@@ -54,7 +52,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="PolyphonicPressure"/>.</returns>
-        internal static PolyphonicPressure Read(BinaryReaderExtended reader, EventStatus status)
-            => new PolyphonicPressure(reader.ReadByte(), reader.ReadByte(), status);
+        internal static PolyphonicPressure Read(BinaryReaderExtended reader, EventStatus status) => new PolyphonicPressure(reader.ReadByte(), reader.ReadByte(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Polyphonic Pressure";
     }
 }

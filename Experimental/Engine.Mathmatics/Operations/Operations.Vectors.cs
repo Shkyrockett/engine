@@ -20,6 +20,78 @@ namespace Engine
     /// </summary>
     public static partial class Operations
     {
+        #region Is Empty Vector
+        /// <summary>
+        /// Determines whether [is empty vector] [the specified i].
+        /// </summary>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <returns>
+        ///   <c>true</c> if [is empty vector] [the specified i]; otherwise, <c>false</c>.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEmptyVector(double i, double j) => Math.Abs(i) < double.Epsilon && Math.Abs(j) < double.Epsilon;
+
+        /// <summary>
+        /// Determines whether [is empty vector] [the specified i].
+        /// </summary>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <returns>
+        ///   <c>true</c> if [is empty vector] [the specified i]; otherwise, <c>false</c>.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEmptyVector(double i, double j, double k) => Math.Abs(i) < double.Epsilon && Math.Abs(j) < double.Epsilon && Math.Abs(k) < double.Epsilon;
+
+        /// <summary>
+        /// Determines whether [is empty vector] [the specified i].
+        /// </summary>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="l">The l.</param>
+        /// <returns>
+        ///   <c>true</c> if [is empty vector] [the specified i]; otherwise, <c>false</c>.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEmptyVector(double i, double j, double k, double l) => Math.Abs(i) < double.Epsilon && Math.Abs(j) < double.Epsilon && Math.Abs(k) < double.Epsilon && Math.Abs(l) < double.Epsilon;
+
+        /// <summary>
+        /// Determines whether [is empty vector] [the specified i].
+        /// </summary>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="m">The m.</param>
+        /// <returns>
+        ///   <c>true</c> if [is empty vector] [the specified i]; otherwise, <c>false</c>.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEmptyVector(double i, double j, double k, double l, double m) => Math.Abs(i) < double.Epsilon && Math.Abs(j) < double.Epsilon && Math.Abs(k) < double.Epsilon && Math.Abs(l) < double.Epsilon && Math.Abs(m) < double.Epsilon;
+
+        /// <summary>
+        /// Determines whether [is empty vector] [the specified i].
+        /// </summary>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="n">The n.</param>
+        /// <returns>
+        ///   <c>true</c> if [is empty vector] [the specified i]; otherwise, <c>false</c>.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEmptyVector(double i, double j, double k, double l, double m, double n) => Math.Abs(i) < double.Epsilon && Math.Abs(j) < double.Epsilon && Math.Abs(k) < double.Epsilon && Math.Abs(l) < double.Epsilon && Math.Abs(m) < double.Epsilon && Math.Abs(n) < double.Epsilon;
+        #endregion
+
         #region Is Unit Vector
         /// <summary>
         /// The is unit vector.
@@ -32,7 +104,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i, double j) => Math.Abs(Magnitude(i, j) - 1d) < double.Epsilon;
 
@@ -48,7 +120,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i, double j, double k) => Math.Abs(Magnitude(i, j, k) - 1d) < double.Epsilon;
 
@@ -65,7 +137,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i, double j, double k, double l) => Math.Abs(Magnitude(i, j, k, l) - 1d) < double.Epsilon;
 
@@ -83,7 +155,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i, double j, double k, double l, double m) => Math.Abs(Magnitude(i, j, k, l, m) - 1d) < double.Epsilon;
 
@@ -102,134 +174,10 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector(double i, double j, double k, double l, double m, double n) => Math.Abs(Magnitude(i, j, k, l, m, n) - 1d) < double.Epsilon;
         #endregion
-
-        #region Unary Add
-        /// <summary>
-        /// Unaries the add2 d.
-        /// </summary>
-        /// <param name="valueA">The value a.</param>
-        /// <param name="valueB">The value b.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B) UnaryAdd(double valueA, double valueB) => (+valueA, +valueB);
-
-        /// <summary>
-        /// Unaries the add3 d.
-        /// </summary>
-        /// <param name="valueA">The value a.</param>
-        /// <param name="valueB">The value b.</param>
-        /// <param name="valueC">The value c.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C) UnaryAdd(double valueA, double valueB, double valueC) => (+valueA, +valueB, +valueC);
-
-        ///// <summary>
-        ///// Unaries the add4 d.
-        ///// </summary>
-        ///// <param name="valueA">The value a.</param>
-        ///// <param name="valueB">The value b.</param>
-        ///// <param name="valueC">The value c.</param>
-        ///// <param name="valueD">The value d.</param>
-        ///// <returns></returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static (double A, double B, double C, double D) UnaryAdd(double valueA, double valueB, double valueC, double valueD) => (+valueA, +valueB, +valueC, +valueD);
-
-        /// <summary>
-        /// Unaries the add5 d.
-        /// </summary>
-        /// <param name="valueA">The value a.</param>
-        /// <param name="valueB">The value b.</param>
-        /// <param name="valueC">The value c.</param>
-        /// <param name="valueD">The value d.</param>
-        /// <param name="valueE">The value e.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E) UnaryAdd(double valueA, double valueB, double valueC, double valueD, double valueE) => (+valueA, +valueB, +valueC, +valueD, +valueE);
-
-        /// <summary>
-        /// Unaries the add6 d.
-        /// </summary>
-        /// <param name="valueA">The value a.</param>
-        /// <param name="valueB">The value b.</param>
-        /// <param name="valueC">The value c.</param>
-        /// <param name="valueD">The value d.</param>
-        /// <param name="valueE">The value e.</param>
-        /// <param name="valueF">The value f.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F) UnaryAdd(double valueA, double valueB, double valueC, double valueD, double valueE, double valueF) => (+valueA, +valueB, +valueC, +valueD, +valueE, +valueF);
-        #endregion Unary Add
-
-        #region Unary Negate
-        /// <summary>
-        /// Negates the vector.
-        /// </summary>
-        /// <param name="valueA">The value a.</param>
-        /// <param name="valueB">The value b.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B) NegateVector(double valueA, double valueB) => (-valueA, -valueB);
-
-        /// <summary>
-        /// Negates the vector.
-        /// </summary>
-        /// <param name="valueA">The value a.</param>
-        /// <param name="valueB">The value b.</param>
-        /// <param name="valueC">The value c.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C) NegateVector(double valueA, double valueB, double valueC) => (-valueA, -valueB, -valueC);
-
-        /// <summary>
-        /// Negates the vector.
-        /// </summary>
-        /// <param name="valueA">The value a.</param>
-        /// <param name="valueB">The value b.</param>
-        /// <param name="valueC">The value c.</param>
-        /// <param name="valueD">The value d.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D) NegateVector(double valueA, double valueB, double valueC, double valueD) => (-valueA, -valueB, -valueC, -valueD);
-
-        /// <summary>
-        /// Negates the vector.
-        /// </summary>
-        /// <param name="valueA">The value a.</param>
-        /// <param name="valueB">The value b.</param>
-        /// <param name="valueC">The value c.</param>
-        /// <param name="valueD">The value d.</param>
-        /// <param name="valueE">The value e.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E) NegateVector(double valueA, double valueB, double valueC, double valueD, double valueE) => (-valueA, -valueB, -valueC, -valueD, -valueE);
-
-        /// <summary>
-        /// Negates the vector.
-        /// </summary>
-        /// <param name="valueA">The value a.</param>
-        /// <param name="valueB">The value b.</param>
-        /// <param name="valueC">The value c.</param>
-        /// <param name="valueD">The value d.</param>
-        /// <param name="valueE">The value e.</param>
-        /// <param name="valueF">The value f.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F) NegateVector(double valueA, double valueB, double valueC, double valueD, double valueE, double valueF) => (-valueA, -valueB, -valueC, -valueD, -valueE, -valueF);
-        #endregion Unary Negate
 
         #region Add Value To Vector
         /// <summary>
@@ -1287,6 +1235,138 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z, double W, double V, double U) Lerp(double x0, double y0, double z0, double w0, double v0, double u0, double x1, double y1, double z1, double w1, double v1, double u1, double t) => (x0 + ((x1 - x0) * t), y0 + ((y1 - y0) * t), z0 + ((z1 - z0) * t), w0 + ((w1 - w0) * t), v0 + ((v1 - v0) * t), u0 + ((u1 - u0) * t));
         #endregion Linear Interpolate
+
+        #region Magnitude
+        /// <summary>
+        /// Calculates the magnitude or length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter of the vector.</param>
+        /// <param name="j">The j parameter of the vector.</param>
+        /// <returns>Returns the magnitude of the vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitude(double i, double j) => Sqrt((i * i) + (j * j));
+
+        /// <summary>
+        /// Calculates the magnitude or length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter of the vector.</param>
+        /// <param name="j">The j parameter of the vector.</param>
+        /// <param name="k">The k parameter of the vector.</param>
+        /// <returns>Returns the magnitude of the vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitude(double i, double j, double k) => Sqrt((i * i) + (j * j) + (k * k));
+
+        /// <summary>
+        /// Calculates the magnitude or length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter of the vector.</param>
+        /// <param name="j">The j parameter of the vector.</param>
+        /// <param name="k">The k parameter of the vector.</param>
+        /// <param name="l">The l parameter of the vector.</param>
+        /// <returns>Returns the magnitude of the vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitude(double i, double j, double k, double l) => Sqrt((i * i) + (j * j) + (k * k) + (l * l));
+
+        /// <summary>
+        /// Calculates the magnitude or length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter of the vector.</param>
+        /// <param name="j">The j parameter of the vector.</param>
+        /// <param name="k">The k parameter of the vector.</param>
+        /// <param name="l">The l parameter of the vector.</param>
+        /// <param name="m">The m.</param>
+        /// <returns>
+        /// Returns the magnitude of the vector.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitude(double i, double j, double k, double l, double m) => Sqrt((i * i) + (j * j) + (k * k) + (l * l) + (m * m));
+
+        /// <summary>
+        /// Calculates the magnitude or length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter of the vector.</param>
+        /// <param name="j">The j parameter of the vector.</param>
+        /// <param name="k">The k parameter of the vector.</param>
+        /// <param name="l">The l parameter of the vector.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="n">The n.</param>
+        /// <returns>
+        /// Returns the magnitude of the vector.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitude(double i, double j, double k, double l, double m, double n) => Sqrt((i * i) + (j * j) + (k * k) + (l * l) + (m * m) + (n * n));
+        #endregion
+
+        #region Magnitude Squared
+        /// <summary>
+        /// Calculates the Magnitude or squared length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter.</param>
+        /// <param name="j">The j parameter.</param>
+        /// <returns>Returns the squared magnitude of the vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitudeSquared(double i, double j) => (i * i) + (j * j);
+
+        /// <summary>
+        /// Calculates the Magnitude or squared length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter.</param>
+        /// <param name="j">The j parameter.</param>
+        /// <param name="k">The k parameter.</param>
+        /// <returns>Returns the squared magnitude of the vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitudeSquared(double i, double j, double k) => (i * i) + (j * j) + (k * k);
+
+        /// <summary>
+        /// Calculates the Magnitude or squared length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter.</param>
+        /// <param name="j">The j parameter.</param>
+        /// <param name="k">The k parameter.</param>
+        /// <param name="l">The l parameter.</param>
+        /// <returns>Returns the squared magnitude of the vector.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitudeSquared(double i, double j, double k, double l) => (i * i) + (j * j) + (k * k) + (l * l);
+
+        /// <summary>
+        /// Calculates the Magnitude or squared length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter.</param>
+        /// <param name="j">The j parameter.</param>
+        /// <param name="k">The k parameter.</param>
+        /// <param name="l">The l parameter.</param>
+        /// <param name="m">The m.</param>
+        /// <returns>
+        /// Returns the squared magnitude of the vector.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitudeSquared(double i, double j, double k, double l, double m) => (i * i) + (j * j) + (k * k) + (l * l) + (m * m);
+
+        /// <summary>
+        /// Calculates the Magnitude or squared length of a vector.
+        /// </summary>
+        /// <param name="i">The i parameter.</param>
+        /// <param name="j">The j parameter.</param>
+        /// <param name="k">The k parameter.</param>
+        /// <param name="l">The l parameter.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="n">The n.</param>
+        /// <returns>
+        /// Returns the squared magnitude of the vector.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double VectorMagnitudeSquared(double i, double j, double k, double l, double m, double n) => (i * i) + (j * j) + (k * k) + (l * l) + (m * m) + (n * n);
+        #endregion
 
         #region Dot Product
         /// <summary>

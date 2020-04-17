@@ -1,5 +1,5 @@
 ﻿// <copyright file="IntersectionsPreview.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -23,7 +23,7 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="segment">The segment.</param>
         /// <returns>The <see cref="Locus"/>.</returns>
-        public static Locus Intersection(Point2D point, LineSegment segment)
+        public static Locus Intersection(Point2D point, LineSegment2D segment)
             => LineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Engine
         /// <param name="segment">The segment.</param>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Locus"/>.</returns>
-        public static Locus Intersection(LineSegment segment, Point2D point)
+        public static Locus Intersection(LineSegment2D segment, Point2D point)
             => LineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Engine
         /// <param name="segmentA">The segmentA.</param>
         /// <param name="segmentB">The segmentB.</param>
         /// <returns>The <see cref="Locus"/>.</returns>
-        public static Locus Intersection(LineSegment segmentA, LineSegment segmentB)
+        public static Locus Intersection(LineSegment2D segmentA, LineSegment2D segmentB)
             => LineSegmentLineSegment(segmentA.AX, segmentA.AY, segmentA.BX, segmentA.BY, segmentB.AX, segmentB.AY, segmentB.BX, segmentB.BY);
 
         /// <summary>

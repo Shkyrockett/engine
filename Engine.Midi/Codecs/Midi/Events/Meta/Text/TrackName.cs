@@ -1,5 +1,5 @@
 ﻿// <copyright file="TrackName.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -19,7 +19,6 @@ namespace Engine.File
     /// <para>FF 03 len text</para>
     /// </remarks>
     [ElementName(nameof(TrackName))]
-    [DisplayName("Track Name")]
     public class TrackName
         : BaseTextEvent
     {
@@ -38,7 +37,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="TrackName"/>.</returns>
-        internal static TrackName Read(BinaryReaderExtended reader, EventStatus status)
-            => new TrackName(reader.ReadASCIIString(), status);
+        internal static TrackName Read(BinaryReaderExtended reader, EventStatus status) => new TrackName(reader.ReadASCIIString(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => (Text is string t) && !string.IsNullOrWhiteSpace(t)? $"Track Name: {t}" : "Track Name";
     }
 }

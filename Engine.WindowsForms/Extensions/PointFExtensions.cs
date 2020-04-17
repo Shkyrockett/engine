@@ -1,5 +1,5 @@
 ﻿// <copyright file="PointFExtentions.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2013 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -380,7 +380,7 @@ namespace Engine
         /// <param name="segment">The line segment</param>
         /// <param name="axis">Point to reflect about</param>
         /// <returns></returns>
-        public static PointF Reflect(this LineSegment segment, PointF axis)
+        public static PointF Reflect(this LineSegment2D segment, PointF axis)
         {
             var SegmentVectorDelta = segment.A.Delta(segment.B);
             var QC12 = new Vector2D(

@@ -39,46 +39,46 @@ namespace Engine
         : IFormattable, IEquatable<Intersection>
     {
         #region Implementations
-        public static readonly Intersection Empty = new Intersection(IntersectionState.NoIntersection);
+        public static readonly Intersection Empty = new Intersection(IntersectionStates.NoIntersection);
         #endregion
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Intersection"/> class.
+        /// Initializes a new instance of the <see cref="Intersection" /> class.
         /// </summary>
         /// <param name="status">The status.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState status)
+        public Intersection(IntersectionStates status)
             : this(status, new List<Point2D>())
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Intersection"/> class.
+        /// Initializes a new instance of the <see cref="Intersection" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
         /// <param name="points">The points.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state, params Point2D[] points)
+        public Intersection(IntersectionStates state, params Point2D[] points)
             : this(state, new List<Point2D>(points))
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Intersection"/> class.
+        /// Initializes a new instance of the <see cref="Intersection" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
         /// <param name="points">The points.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state, IEnumerable<Point2D> points)
+        public Intersection(IntersectionStates state, IEnumerable<Point2D> points)
             : this(state, new List<Point2D>(points))
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Intersection"/> class.
+        /// Initializes a new instance of the <see cref="Intersection" /> class.
         /// </summary>
         /// <param name="state">The state.</param>
         /// <param name="points">The points.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state, List<Point2D> points)
+        public Intersection(IntersectionStates state, List<Point2D> points)
         {
             State = state;
             Points = points;
@@ -91,7 +91,7 @@ namespace Engine
         /// </summary>
         /// <param name="state">The state.</param>
         /// <param name="points">The points.</param>
-        public void Deconstruct(out IntersectionState state, out List<Point2D> points)
+        public void Deconstruct(out IntersectionStates state, out List<Point2D> points)
         {
             state = State;
             points = Points;
@@ -102,8 +102,13 @@ namespace Engine
         /// <summary>
         /// The Indexer.
         /// </summary>
+        /// <value>
+        /// The <see cref="Point2D"/>.
+        /// </value>
         /// <param name="index">The index index.</param>
-        /// <returns>One element of type Point2D.</returns>
+        /// <returns>
+        /// One element of type Point2D.
+        /// </returns>
         public Point2D this[int index]
         {
             get { return Points[index]; }
@@ -115,46 +120,56 @@ namespace Engine
         /// <summary>
         /// Gets or sets the state.
         /// </summary>
-        public IntersectionState State { get; set; }
+        /// <value>
+        /// The state.
+        /// </value>
+        public IntersectionStates State { get; set; }
 
         /// <summary>
         /// Gets or sets the points.
         /// </summary>
+        /// <value>
+        /// The points.
+        /// </value>
         public List<Point2D> Points { get; set; }
 
         /// <summary>
         /// Gets the count.
         /// </summary>
-        public int Count
-            => (Points is null) ? 0 : Points.Count;
+        /// <value>
+        /// The count.
+        /// </value>
+        public int Count => (Points is null) ? 0 : Points.Count;
         #endregion Properties
 
         #region Operators
         /// <summary>
         /// The operator ==.
-        /// Compares two <see cref="Intersection"/> objects.
-        /// The result specifies whether the values of the two <see cref="Intersection"/> objects are equal.
+        /// Compares two <see cref="Intersection" /> objects.
+        /// The result specifies whether the values of the two <see cref="Intersection" /> objects are equal.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Intersection left, Intersection right)
-            => Equals(left, right);
+        public static bool operator ==(Intersection left, Intersection right) => Equals(left, right);
 
         /// <summary>
         /// The operator !=.
-        /// Compares two <see cref="Intersection"/> objects.
-        /// The result specifies whether the values the two <see cref="Intersection"/> objects are unequal.
+        /// Compares two <see cref="Intersection" /> objects.
+        /// The result specifies whether the values the two <see cref="Intersection" /> objects are unequal.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Intersection left, Intersection right)
-            => !Equals(left, right);
+        public static bool operator !=(Intersection left, Intersection right) => !Equals(left, right);
         #endregion Operators
 
         #region Mutators
@@ -239,7 +254,7 @@ namespace Engine
         /// Returns the hash code for this instance.
         /// </summary>
         /// <returns>
-        /// The <see cref="int" />.
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -287,7 +302,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Intersection" /> struct based on the IFormatProvider
@@ -299,7 +314,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// The to string.
@@ -307,33 +322,18 @@ namespace Engine
         /// <param name="format">The format.</param>
         /// <param name="provider">The provider.</param>
         /// <returns>
-        /// Creates a <see cref="string"/> representation of this <see cref="Intersection"/> class based on the format string
+        /// Creates a <see cref="string" /> representation of this <see cref="Intersection" /> class based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Intersection" /> class based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
-        /// <returns>
-        /// A <see cref="string" /> representation of this object.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ConvertToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Intersection);
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Intersection)}{{{nameof(State)}: {State}, {string.Join(sep.ToString(), Points)}}}";
+            IFormattable formatable = $"{nameof(Intersection)}{{{nameof(State)}: {State.ToString()}, {string.Join(sep.ToString(provider), Points)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Standard Class Methods

@@ -28,7 +28,7 @@ namespace Engine
         /// Retrieves a list of points interpolated from a function.
         /// </summary>
         /// <param name="count">The number of points desired.</param>
-        /// <param name="func"></param>
+        /// <param name="func">The function.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -41,7 +41,9 @@ namespace Engine
         /// <param name="t">The t index of the linear curve.</param>
         /// <param name="aV">The first anchor value.</param>
         /// <param name="bV">The second anchor value.</param>
-        /// <returns>Returns a <see cref="double"/> representing a point on the linear curve at the t index.</returns>
+        /// <returns>
+        /// Returns a <see cref="double" /> representing a point on the linear curve at the t index.
+        /// </returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
@@ -75,7 +77,9 @@ namespace Engine
         /// <param name="bX">The second anchor point x value.</param>
         /// <param name="bY">The second anchor point y value.</param>
         /// <param name="bZ">The second anchor point z value.</param>
-        /// <returns>Returns a <see cref="ValueTuple{T1, T2, T3}"/> representing a point on the linear curve at the t index.</returns>
+        /// <returns>
+        /// Returns a <see cref="ValueTuple{T1, T2, T3}" /> representing a point on the linear curve at the t index.
+        /// </returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
@@ -89,7 +93,9 @@ namespace Engine
         /// <param name="t">The t index of the linear curve.</param>
         /// <param name="a">The first anchor point.</param>
         /// <param name="b">The second anchor point value.</param>
-        /// <returns>Returns a <see cref="Point2D"/> representing a point on the linear curve at the t index.</returns>
+        /// <returns>
+        /// Returns a <see cref="Point2D" /> representing a point on the linear curve at the t index.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Linear(double t, Point2D a, Point2D b) => new Point2D(Linear(t, a.X, a.Y, b.X, b.Y));
@@ -110,16 +116,16 @@ namespace Engine
         /// <summary>
         /// The nlerp.
         /// </summary>
+        /// <param name="t">The percent.</param>
         /// <param name="aV">The start.</param>
         /// <param name="bV">The end.</param>
-        /// <param name="t">The percent.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
         /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Nlerp(double aV, double bV, double t) => Normalize(Linear(t, aV, bV));
+        public static double Nlerp(double t, double aV, double bV) => Normalize(Linear(t, aV, bV));
 
         /// <summary>
         /// The nlerp.
@@ -211,7 +217,7 @@ namespace Engine
             // Clamp it to be in the range of Acos()
             // This may be unnecessary, but floating point
             // precision can be a fickle mistress.
-            var dot = Clamp(DotProduct(a.X, a.Y, b.X, b.Y), -1d, 1d);
+            var dot = Operations.Clamp(DotProduct(a.X, a.Y, b.X, b.Y), -1d, 1d);
 
             // Acos(dot) returns the angle between start and end,
             // And multiplying that by percent returns the angle between
@@ -244,7 +250,7 @@ namespace Engine
             // Clamp it to be in the range of Acos()
             // This may be unnecessary, but floating point
             // precision can be a fickle mistress.
-            var dot = Clamp(DotProduct(a.X, a.Y, a.Y, b.X, b.Y, b.Z), -1d, 1d);
+            var dot = Operations.Clamp(DotProduct(a.X, a.Y, a.Y, b.X, b.Y, b.Z), -1d, 1d);
 
             // Acos(dot) returns the angle between start and end,
             // And multiplying that by percent returns the angle between
@@ -628,6 +634,26 @@ namespace Engine
         }
         #endregion Cubic Bézier Interpolation
 
+        #region Quintic Bézier Interpolation
+        /// <summary>
+        /// Quintics the bezier.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <param name="p0X">The p0 x.</param>
+        /// <param name="p0Y">The p0 y.</param>
+        /// <param name="p1X">The p1 x.</param>
+        /// <param name="p1Y">The p1 y.</param>
+        /// <param name="p2X">The p2 x.</param>
+        /// <param name="p2Y">The p2 y.</param>
+        /// <param name="p3X">The p3 x.</param>
+        /// <param name="p3Y">The p3 y.</param>
+        /// <param name="p4X">The p4 x.</param>
+        /// <param name="p4Y">The p4 y.</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) QuinticBezier(double t, double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y) => CubicBezierSpline(t, new List<Point2D> { (p0X, p0Y), (p1X, p1Y), (p2X, p2Y), (p3X, p3Y), (p4X, p4Y) });
+        #endregion
+
         #region N Bézier Interpolation
         /// <summary>
         /// General Bézier curve Number of control points is n+1 0 less than or equal to mu less than 1
@@ -649,8 +675,8 @@ namespace Engine
             int nkn;
 
             double blend;
-            double muk = 1;
-            var munk = Pow(1 - t, n);
+            var muk = 1d;
+            var munk = Pow(1d - t, n);
 
             var b = Point2D.Empty;
 
@@ -733,7 +759,7 @@ namespace Engine
         /// Calculated Spline Point
         /// </returns>
         /// <remarks>
-        /// Points calculated exist on the spline between points two and three.
+        /// <para>Points calculated exist on the spline between points two and three.</para>
         /// </remarks>
         /// <acknowledgment>
         /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
@@ -806,7 +832,7 @@ namespace Engine
         /// <param name="tangentB">The tangentB.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
-        /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
+        /// http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1006,7 +1032,7 @@ namespace Engine
 
         #region Ellipse Interpolation
         /// <summary>
-        /// Interpolates the unrotated elliptical Arc.
+        /// Interpolates the orthogonal elliptical Arc.
         /// </summary>
         /// <param name="t">Theta of interpolation.</param>
         /// <param name="cX">Center x-coordinate.</param>
@@ -1317,19 +1343,136 @@ namespace Engine
         }
         #endregion Sine Interpolation
 
-        ///// <summary>
-        ///// Linearly tweens between two cubic Bézier curves, from key1 to key2.
-        ///// </summary>
-        ///// <param name="t">The t index.</param>
-        ///// <param name="key1">The first cubic Bézier key.</param>
-        ///// <param name="key2">The second cubic Bézier key.</param>
-        ///// <returns>The <see cref="Point2D[]"/>.</returns>
-        //public static CubicBezier2D TweenCubic(double t, CubicBezier2D key1, CubicBezier2D key2)
-        //    => new CubicBezier2D(
-        //         key1.A + (t * (key2.A - key1.A)),
-        //         key1.B + (t * (key2.B - key1.B)),
-        //         key1.C + (t * (key2.C - key1.C)),
-        //         key1.D + (t * (key2.D - key1.D))
-        //        );
+        #region Parabola
+        /// <summary>
+        /// Interpolate a parabola from the standard parabolic equation.
+        /// </summary>
+        /// <param name="t">The <paramref name="t" />ime index of the iteration.</param>
+        /// <param name="a">The <paramref name="a" /> component of the parabola.</param>
+        /// <param name="b">The <paramref name="b" /> component of the parabola.</param>
+        /// <param name="c">The <paramref name="c" /> component of the parabola.</param>
+        /// <param name="x1">The <paramref name="x1" />imum x value to interpolate.</param>
+        /// <param name="x2">The <paramref name="x2" />imum x value to interpolate.</param>
+        /// <returns>
+        /// Returns a <see cref="ValueTuple{T1, T2}" /> representing the interpolated point at the t index.
+        /// </returns>
+        /// <example>
+        ///   <code>
+        /// var a = 0.0125d;
+        /// var h = 100d;
+        /// var k = 100d;
+        /// var b = -2d * a * h;
+        /// var c = (b * b / (4 * a)) + k;
+        /// var min = -100d;
+        /// var max = 100d;
+        /// var list = new List&lt;(double X, double Y)&gt;();
+        /// for (int i = 0; i &lt; 100; i++)
+        /// {
+        /// list.Add(InterpolateVertexParabola(a, b, c, -100, 100, 1d / i));
+        /// }
+        /// </code>
+        /// </example>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) InterpolateStandardParabola(double t, double a, double b, double c, double x1, double x2)
+        {
+            // Scale the t index to the segment range.
+            var x = x1 + ((x2 - x1) * t);
+            return (x, Y: (a * (x * x)) + ((b * x) + c));
+        }
+
+        /// <summary>
+        /// Interpolate a parabola from the general vertex form of the parabolic equation.
+        /// </summary>
+        /// <param name="t">The <paramref name="t" />ime index of the iteration.</param>
+        /// <param name="a">The <paramref name="a" /> component of the parabola.</param>
+        /// <param name="h">The horizontal component of the parabola vertex.</param>
+        /// <param name="k">The vertical component of the parabola vertex.</param>
+        /// <param name="x1">The <paramref name="x1" />imum x value to interpolate.</param>
+        /// <param name="x2">The <paramref name="x2" />imum x value to interpolate.</param>
+        /// <returns>
+        /// Returns a <see cref="ValueTuple{T1, T2}" /> representing the interpolated point at the t index.
+        /// </returns>
+        /// <example>
+        ///   <code>
+        /// var a = 0.0125d;
+        /// var h = 100d;
+        /// var k = 100d;
+        /// var min = -100d;
+        /// var max = 100d;
+        /// var list = new List&lt;(double X, double Y)&gt;();
+        /// for (int i = 0; i &lt; 100; i++)
+        /// {
+        /// list.Add(InterpolateVertexParabola(a, h, k, -100, 100, 1d / i));
+        /// }
+        /// </code>
+        /// </example>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) InterpolateVertexParabola(double t, double a, double h, double k, double x1, double x2)
+        {
+            // Scale the t index to the segment range.
+            var x = x1 + ((x2 - x1) * t);
+            return (x, Y: (a * (x - h) * (x - h)) + k);
+        }
+
+        /// <summary>
+        /// Interpolates the parabola.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="k">The k.</param>
+        /// <returns></returns>
+        public static (double X, double Y) InterpolateParabola(double t, double x1, double y1, double x2, double y2, double k)
+        {
+            var parabolicT = (t * 2d) - 1d;
+            var (dX, dY) = (x2 - x1, y2 - y1);
+            if (Abs(dX) < Epsilon && Abs(dY) < Epsilon)
+            {
+                // In place Vertical Throw.
+                return (x1, y1 + k * ((-4d * t * t) + (4d * t)));
+            }
+            if (Abs(dX) < Epsilon)
+            {
+                // Vertical throw with different heights.
+                return (x1, y1 + (t * dY) + (((-parabolicT * parabolicT) + 1d) * k));
+            }
+            else if (Abs(dY) < Epsilon && y1 == k)
+            {
+                // Horizontal slide.
+                return (((1d - t) * x1) + (t * x2), y1);
+            }
+            else if (Abs(dY) < Epsilon)
+            {
+                // Start and end are roughly level, pretend they are - simpler solution with fewer steps.
+                return (x1 + (t * dX), y1 + (t * dY) + (((-parabolicT * parabolicT) + 1d) * k));
+            }
+            else
+            {
+                // Other parabola.
+                return (double.NaN, double.NaN);
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// Linearly tweens between two cubic Bézier curves, from key1 to key2.
+        /// </summary>
+        /// <param name="t">The t index.</param>
+        /// <param name="key1">The first cubic Bézier key.</param>
+        /// <param name="key2">The second cubic Bézier key.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
+        public static CubicBezier2D TweenCubic(double t, CubicBezier2D key1, CubicBezier2D key2)
+            => new CubicBezier2D(
+                 (key1.A) + (t * ((key2.A) - key1.A)),
+                 key1.B + (t * (key2.B - key1.B)),
+                 key1.C + (t * (key2.C - key1.C)),
+                 key1.D + (t * (key2.D - key1.D))
+                );
     }
 }

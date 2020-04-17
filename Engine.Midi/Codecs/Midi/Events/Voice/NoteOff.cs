@@ -1,5 +1,5 @@
 ﻿// <copyright file="NoteOff.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -21,7 +21,6 @@ namespace Engine.File
     /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the velocity.</para>
     /// </remarks>
     [ElementName(nameof(NoteOff))]
-    [DisplayName("Note Off")]
     public class NoteOff
         : EventStatus
     {
@@ -32,10 +31,9 @@ namespace Engine.File
         /// <param name="velocity">The velocity.</param>
         /// <param name="status">The status.</param>
         public NoteOff(byte note, byte velocity, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
-            Note = note;
-            Velocity = velocity;
+            (Note, Velocity) = (note, velocity);
         }
 
         /// <summary>
@@ -54,7 +52,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="NoteOff"/>.</returns>
-        internal static NoteOff Read(BinaryReaderExtended reader, EventStatus status)
-            => new NoteOff(reader.ReadByte(), reader.ReadByte(), status);
+        internal static NoteOff Read(BinaryReaderExtended reader, EventStatus status) => new NoteOff(reader.ReadByte(), reader.ReadByte(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Note Off";
     }
 }

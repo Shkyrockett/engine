@@ -1,5 +1,5 @@
 ﻿// <copyright file="MidiBinaryWriter.cs" company="Shkyrockett">
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -127,7 +127,8 @@ namespace Engine.File
         /// <param name="input">The Value to write.</param>
         /// <exception cref="EndOfStreamException">The end of the stream is reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
-        /// <exception cref="IOException">The stream is closed.</exception>
+        /// <exception cref="IOException">The stream is closed.</exception>
+
         public void WriteVarLen0(uint input)
         {
             if (input < 0)
@@ -168,7 +169,8 @@ namespace Engine.File
         /// <param name="input">The Value to write.</param>
         /// <exception cref="EndOfStreamException">The end of the stream is reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
-        /// <exception cref="IOException">The stream is closed.</exception>
+        /// <exception cref="IOException">The stream is closed.</exception>
+
         public void WriteVarLen1(uint input)
         {
             if (input < 0)
@@ -206,7 +208,8 @@ namespace Engine.File
         /// <param name="input">The Value to write.</param>
         /// <exception cref="EndOfStreamException">The end of the stream is reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
-        /// <exception cref="IOException">The stream is closed.</exception>
+        /// <exception cref="IOException">The stream is closed.</exception>
+
         public void WriteVarLen2(uint input)
         {
             if (input < 0)

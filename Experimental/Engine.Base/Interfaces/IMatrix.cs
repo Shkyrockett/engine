@@ -38,6 +38,6 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals([AllowNull] object item) => item is M o && Equals(this, o);
+        public bool Equals([AllowNull] object item) => item is M d && Equals(this, d);
     }
 }

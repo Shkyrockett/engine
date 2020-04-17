@@ -337,7 +337,7 @@ namespace Engine
         ///   <see langword="true"/> if this instance is identity; otherwise, <see langword="false"/>.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public bool IsIdentity => Abs(M0x0 - 1) < double.Epsilon && Abs(M0x1) < double.Epsilon && Abs(M0x2) < double.Epsilon && Abs(M1x0) < double.Epsilon && Abs(M1x1 - 1) < double.Epsilon && Abs(M1x2) < double.Epsilon && Abs(M2x0) < double.Epsilon && Abs(M2x1) < double.Epsilon && Abs(M2x2 - 1) < double.Epsilon;
+        public bool IsIdentity => IsMatrixIdentity(M0x0, M0x1, M0x2, M1x0, M1x1, M1x2, M2x0, M2x1, M2x2);
         #endregion Properties
 
         #region Operators
@@ -519,7 +519,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix3x3D Plus(Matrix3x3D value) => UnaryAdd(value.M0x0, value.M0x1, value.M0x2, value.M1x0, value.M1x1, value.M1x2, value.M2x0, value.M2x1, value.M2x2);
+        public static Matrix3x3D Plus(Matrix3x3D value) => Operations.Plus(value.M0x0, value.M0x1, value.M0x2, value.M1x0, value.M1x1, value.M1x2, value.M2x0, value.M2x1, value.M2x2);
 
         /// <summary>
         /// Adds the specified augend.
@@ -601,7 +601,11 @@ namespace Engine
         public static Matrix3x3D Multiply(Matrix2x2D multiplicand, Matrix3x3D multiplier) => Multiply2x2x3x3(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M1x0, multiplicand.M1x1, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2);
 
         /// <summary>
-        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// Equals - compares this Matrix with the passed in object.  In this equality
+        /// Double.NaN is equal to itself, unlike in numeric equality.
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which
+        /// are logically equal may fail.
         /// </summary>
         /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
@@ -618,11 +622,10 @@ namespace Engine
         /// an exact comparison between two values which
         /// are logically equal may fail.
         /// </summary>
+        /// <param name='other'>The second Matrix to compare</param>
         /// <returns>
         /// bool - true if the two Matrix instances are exactly equal, false otherwise
         /// </returns>
-        /// <param name='matrix1'>The first Matrix to compare</param>
-        /// <param name='other'>The second Matrix to compare</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Matrix3x3D other)
@@ -999,6 +1002,18 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Matrix3x2D" /> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">The provider.</param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D" /> struct based on the format string

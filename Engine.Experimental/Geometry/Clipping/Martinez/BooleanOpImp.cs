@@ -11,17 +11,17 @@ namespace Engine
         /// <summary>
         /// The subject.
         /// </summary>
-        private readonly Polygon subject;
+        private readonly Polygon2D subject;
 
         /// <summary>
         /// The clipping.
         /// </summary>
-        private readonly Polygon clipping;
+        private readonly Polygon2D clipping;
 
         /// <summary>
         /// The result.
         /// </summary>
-        private readonly Polygon result;
+        private readonly Polygon2D result;
 
         /// <summary>
         /// The operation.
@@ -60,7 +60,7 @@ namespace Engine
         /// <param name="clip">The clip.</param>
         /// <param name="result">The result.</param>
         /// <param name="op">The op.</param>
-        public BooleanOpImp(Polygon subj, Polygon clip, Polygon result, ClippingOperation op)
+        public BooleanOpImp(Polygon2D subj, Polygon2D clip, Polygon2D result, ClippingOperation op)
         {
             subject = subj;
             clipping = clip;
@@ -187,7 +187,7 @@ namespace Engine
         /// </summary>
         /// <param name="s">The s.</param>
         /// <param name="pt">The pt.</param>
-        public static void ProcessSegment(LineSegment s, ClippingRelation pt)
+        public static void ProcessSegment(LineSegment2D s, ClippingRelation pt)
         {
             //*	if (s.degenerate ()) // if the two edge endpoints are equal the segment is dicarded
             //    return;          // This can be done as preprocessing to avoid "polygons" with less than 3 edges */
@@ -533,7 +533,7 @@ namespace Engine
         /// <param name="clip">The clip.</param>
         /// <param name="result">The result.</param>
         /// <param name="op">The op.</param>
-        public static void Compute(Polygon subj, Polygon clip, Polygon result, ClippingOperation op)
+        public static void Compute(Polygon2D subj, Polygon2D clip, Polygon2D result, ClippingOperation op)
         {
             var boi = new BooleanOpImp(subj, clip, result, op);
             Run();

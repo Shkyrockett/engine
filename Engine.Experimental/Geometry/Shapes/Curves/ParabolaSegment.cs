@@ -1,5 +1,5 @@
 ﻿// <copyright file="Parabola.cs" company="Shkyrockett" >
-//     Copyright © 2015 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2015 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>

@@ -1,5 +1,5 @@
 ﻿// <copyright file="BoundingRectPolygon.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -14,7 +14,7 @@ namespace Engine
     /// The bounding rect polygon class.
     /// </summary>
     public class BoundingRectPolygon
-        : Shape
+        : Shape2D
     {
         /// <summary>
         /// Gets or sets the num points.

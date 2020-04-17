@@ -16,6 +16,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static Engine.Operations;
 using static System.Math;
 
 namespace Engine
@@ -150,17 +151,16 @@ namespace Engine
         public Vector5D(double aI, double aJ, double aK, double aL, double aM, double bI, double bJ, double bK, double bL, double bM)
             : this()
         {
+            // This creates a normalized vector. It is debatable that it is what we actually want. We may only want the first line.
+
+            // Find the new vector.
             (var i, var j, var k, var l, var m) = (bI - aI, bJ - aJ, bK - aK, bL - aL, bM - aM);
+
+            // Get the length of the vector.
             var d = Sqrt((i * i) + (j * j) + (k * k) + (l * l) + (m * m));
-            if (d is 0d)
-            {
-                // ToDo: Figure out what to do when d is 0;
-                (I, J, K, L, M) = (i * 1d / d, j * 1d / d, k * 1d / d, l * 1d / d, m * 1d / d);
-            }
-            else
-            {
-                (I, J, K, L, M) = (i * 1d / d, j * 1d / d, k * 1d / d, l * 1d / d, m * 1d / d);
-            }
+
+            // Calculate the normalized vector.
+            (I, J, K, L, M) = d == 0d ? (i, j, k, l, m) : (i * 1d / d, j * 1d / d, k * 1d / d, l * 1d / d, m * 1d / d);
         }
         #endregion Constructors
 
@@ -183,32 +183,87 @@ namespace Engine
         /// <summary>
         /// Gets or sets the I or first Component of a 5D Vector
         /// </summary>
+        /// <value>
+        /// The i.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double I { get; set; }
 
         /// <summary>
         /// Gets or sets the j or second Component of a 5D Vector
         /// </summary>
+        /// <value>
+        /// The j.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double J { get; set; }
 
         /// <summary>
         /// Gets or sets the k or third Component of a 5D Vector
         /// </summary>
+        /// <value>
+        /// The k.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double K { get; set; }
 
         /// <summary>
         /// Gets or sets the l or fourth Component of a 5D Vector
         /// </summary>
+        /// <value>
+        /// The l.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double L { get; set; }
 
         /// <summary>
         /// Gets or sets the m or fifth Component of a 5D Vector
         /// </summary>
+        /// <value>
+        /// The m.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double M { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="Vector4D" /> is empty.
+        /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if this instance is empty; otherwise, <see langword="false"/>.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public bool IsEmpty => IsEmptyVector(I, J, K, L, M);
+
+        /// <summary>
+        /// Gets the magnitude.
+        /// </summary>
+        /// <value>
+        /// The magnitude.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public double Magnitude => VectorMagnitude(I, J, K, L, M);
+
+        /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public double Length => VectorMagnitude(I, J, K, L, M);
+
+        /// <summary>
+        /// Gets the length squared.
+        /// </summary>
+        /// <value>
+        /// The length squared.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public double LengthSquared => VectorMagnitudeSquared(I, J, K, L, M);
         #endregion Properties
 
         #region Operators
@@ -226,7 +281,9 @@ namespace Engine
         /// </summary>
         /// <param name="augend"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector5D operator +(Vector5D augend, double addend) => Add(augend, addend);
@@ -236,7 +293,9 @@ namespace Engine
         /// </summary>
         /// <param name="augend"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector5D operator +(double augend, Vector5D addend) => Add(augend, addend);
@@ -246,7 +305,9 @@ namespace Engine
         /// </summary>
         /// <param name="augend"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector5D operator +(Vector5D augend, Vector5D addend) => Add(augend, addend);
@@ -275,7 +336,9 @@ namespace Engine
         /// </summary>
         /// <param name="minuend"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector5D operator -(double minuend, Vector5D subend) => Subtract(minuend, subend);
@@ -285,7 +348,9 @@ namespace Engine
         /// </summary>
         /// <param name="minuend"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector5D operator -(Vector5D minuend, Vector5D subend) => Subtract(minuend, subend);
@@ -295,7 +360,9 @@ namespace Engine
         /// </summary>
         /// <param name="multiplicand">The Point</param>
         /// <param name="multiplier">The Multiplier</param>
-        /// <returns>A Vector Multiplied by the Multiplier</returns>
+        /// <returns>
+        /// A Vector Multiplied by the Multiplier
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector5D operator *(Vector5D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
@@ -305,7 +372,9 @@ namespace Engine
         /// </summary>
         /// <param name="multiplicand">The Multiplier</param>
         /// <param name="multiplier">The Point</param>
-        /// <returns>A Vector Multiplied by the Multiplier</returns>
+        /// <returns>
+        /// A Vector Multiplied by the Multiplier
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector5D operator *(double multiplicand, Vector5D multiplier) => Multiply(multiplicand, multiplier);
@@ -335,7 +404,9 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Vector5D a, Vector5D b) => Equals(a, b);
@@ -345,7 +416,9 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Vector5D a, Vector5D b) => !Equals(a, b);
@@ -354,6 +427,9 @@ namespace Engine
         /// Converts the specified <see cref="Vector5D"/> structure to a <see cref="ValueTuple{T1, T2, T3, T4}"/> structure.
         /// </summary>
         /// <param name="vector">The <see cref="Vector5D"/> to be converted.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator (double I, double J, double K, double L, double M)(Vector5D vector) => (vector.I, vector.J, vector.K, vector.L, vector.M);
@@ -362,7 +438,9 @@ namespace Engine
         /// Tuple to Vector5D
         /// </summary>
         /// <param name="tuple"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Vector5D((double X, double Y, double Z, double W, double V) tuple) => new Vector5D(tuple);
@@ -376,7 +454,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Plus(Vector5D value) => Operations.UnaryAdd(value.I, value.J, value.K, value.L, value.M);
+        public static Vector5D Plus(Vector5D value) => Operations.Plus(value.I, value.J, value.K, value.L, value.M);
 
         /// <summary>
         /// Adds the specified augend.
@@ -415,7 +493,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Negate(Vector5D value) => Operations.NegateVector(value.I, value.J, value.K, value.L, value.M);
+        public static Vector5D Negate(Vector5D value) => Operations.Negate(value.I, value.J, value.K, value.L, value.M);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -491,7 +569,9 @@ namespace Engine
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals([AllowNull] object obj) => obj is Vector5D d && Equals(d);
@@ -500,10 +580,12 @@ namespace Engine
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Vector5D other) => I == other.I && J == other.J && K == other.K && L == other.L && L == other.M;
+        public bool Equals([AllowNull] Vector5D other) => I == other.I && J == other.J && K == other.K && L == other.L && L == other.M;
 
         /// <summary>
         /// Converts to valuetuple.
@@ -547,7 +629,7 @@ namespace Engine
         /// Parse a string for a <see cref="Vector5D"/> value.
         /// </summary>
         /// <param name="source"><see cref="string"/> with <see cref="Vector5D"/> data </param>
-        /// <param name="provider"></param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// Returns an instance of the <see cref="Vector5D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
@@ -575,7 +657,9 @@ namespace Engine
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
-        /// <returns>A 32-bit signed <see cref="int"/> hash code.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => HashCode.Combine(I, J, K, L, M);
@@ -583,10 +667,24 @@ namespace Engine
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Vector5D"/> struct.
         /// </summary>
-        /// <returns>A string representation of this <see cref="Vector5D"/>.</returns>
+        /// <returns>
+        /// A string representation of this <see cref="Vector5D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Vector5D" /> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <returns>
+        /// A string representation of this <see cref="Vector5D" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector5D"/> struct based on the format string

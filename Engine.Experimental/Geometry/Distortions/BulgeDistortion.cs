@@ -23,7 +23,7 @@ namespace Engine
         /// <summary>
         /// The distortion path.
         /// </summary>
-        public PolycurveContour distortionPath;
+        public PolycurveContour2D distortionPath;
 
         /// <summary>
         /// The distortion bounds.
@@ -67,7 +67,7 @@ namespace Engine
         /// <param name="source">The source.</param>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public Point2D Distort(PolycurveContour source, Point2D point)
+        public Point2D Distort(PolycurveContour2D source, Point2D point)
         {
             if (distortionPath is null)
             {
@@ -143,7 +143,7 @@ namespace Engine
         /// Build the distortion.
         /// </summary>
         /// <param name="source">The source.</param>
-        private void BuildDistortion(PolycurveContour source)
+        private void BuildDistortion(PolycurveContour2D source)
         {
             sourceBounds = source.Bounds();
 
@@ -152,7 +152,7 @@ namespace Engine
             upperLeft = new Point2D(sourceBounds.Left, sourceBounds.Top);
             upperRight = new Point2D(sourceBounds.Right, sourceBounds.Top);
 
-            distortionPath = new PolycurveContour(lowerLeft);// source.FillMode);
+            distortionPath = new PolycurveContour2D(lowerLeft);// source.FillMode);
             distortionPath.AddLineSegment(upperLeft);
 
             distortionPath.AddCubicBezier(
@@ -209,7 +209,7 @@ namespace Engine
         /// <param name="height">The height.</param>
         /// <returns>The <see cref="PolygonContour"/>.</returns>
         /// <remarks> <para>http://stackoverflow.com/a/9019432</para> </remarks>
-        internal static PolygonContour Deform(PolygonContour path, int width, int height)
+        internal static PolygonContour2D Deform(PolygonContour2D path, int width, int height)
         {
             var rng = new Random();
             const int WarpFactor = 4;
@@ -229,7 +229,7 @@ namespace Engine
                 deformed[i++] = new Point2D(original.X + xOffset, original.Y + yOffset);
             }
 
-            return new PolygonContour(deformed);
+            return new PolygonContour2D(deformed);
         }
     }
 }

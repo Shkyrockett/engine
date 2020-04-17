@@ -1,5 +1,5 @@
 ﻿// <copyright file="Straightener.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -35,7 +35,7 @@ namespace Engine.Tools
             Index = 0;
 
             // Setup the storage properties.
-            Line = LineSegment.Empty;
+            Line = LineSegment2D.Empty;
 
             // Setup the calculation properties.
             Angle = 0;
@@ -46,7 +46,7 @@ namespace Engine.Tools
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
-        public LineSegment Line { get; set; }
+        public LineSegment2D Line { get; set; }
 
         /// <summary>
         /// Provides the current index of the rubber-band line used to find the angle.
@@ -160,7 +160,7 @@ namespace Engine.Tools
             Angle = 0;
             Theta = 0;
             Delta = 0;
-            Line = LineSegment.Empty;
+            Line = LineSegment2D.Empty;
         }
 
         /// <summary>

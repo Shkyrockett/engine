@@ -22,9 +22,9 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
-    [DisplayName(nameof(Polyline))]
+    [DisplayName(nameof(Polyline2D))]
     public class Spline
-        : Shape
+        : Shape2D
     {
         #region Constants
         /// <summary>
@@ -42,7 +42,7 @@ namespace Engine
         /// <summary>
         /// The curves.
         /// </summary>
-        private readonly List<CubicBezier> curves;
+        private readonly List<CubicBezier2D> curves;
 
         /// <summary>
         /// The arclen.
@@ -68,8 +68,8 @@ namespace Engine
             }
 
             this.samplesPerCurve = samplesPerCurve;
-            curves = new List<CubicBezier>(16);
-            Curves = new ReadOnlyCollection<CubicBezier>(curves);
+            curves = new List<CubicBezier2D>(16);
+            Curves = new ReadOnlyCollection<CubicBezier2D>(curves);
             arclen = new List<double>(16 * samplesPerCurve);
         }
 
@@ -78,7 +78,7 @@ namespace Engine
         /// </summary>
         /// <param name="curves">Curves to create the spline from.</param>
         /// <param name="samplesPerCurve">Resolution of the curve. Values 32-256 work well. You may need more or less depending on how big the curves are.</param>
-        public Spline(ICollection<CubicBezier> curves, int samplesPerCurve)
+        public Spline(ICollection<CubicBezier2D> curves, int samplesPerCurve)
         {
             if (curves is null)
             {
@@ -91,8 +91,8 @@ namespace Engine
             }
 
             this.samplesPerCurve = samplesPerCurve;
-            this.curves = new List<CubicBezier>(curves.Count);
-            Curves = new ReadOnlyCollection<CubicBezier>(this.curves);
+            this.curves = new List<CubicBezier2D>(curves.Count);
+            Curves = new ReadOnlyCollection<CubicBezier2D>(this.curves);
             arclen = new List<double>(this.curves.Count * samplesPerCurve);
             foreach (var curve in curves)
             {
@@ -105,7 +105,7 @@ namespace Engine
         /// <summary>
         /// Gets a read-only view of the current curves collection.
         /// </summary>
-        public ReadOnlyCollection<CubicBezier> Curves { get; }
+        public ReadOnlyCollection<CubicBezier2D> Curves { get; }
 
         /// <summary>
         /// Gets the total length of the spline.
@@ -125,7 +125,7 @@ namespace Engine
         /// <summary>
         /// Adds a curve to the end of the spline.
         /// </summary>
-        public void Add(CubicBezier curve)
+        public void Add(CubicBezier2D curve)
         {
             if (curves.Count > 0 && !Operations.EqualsOrClose(curves[curves.Count - 1].D, curve.A))
             {
@@ -150,7 +150,7 @@ namespace Engine
         /// </summary>
         /// <param name="index">Index of the curve to update in <see cref="Curves"/>.</param>
         /// <param name="curve">The new curve with which to replace it.</param>
-        public void Update(int index, CubicBezier curve)
+        public void Update(int index, CubicBezier2D curve)
         {
             if (curve is null) return;
             if (index < 0)

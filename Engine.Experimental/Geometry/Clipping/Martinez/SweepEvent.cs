@@ -40,7 +40,7 @@ namespace Engine
         private SweepEvent otherEvent;
 
         /// <summary>
-        /// Polygon to which the associated segment belongs to
+        /// Polygon2D to which the associated segment belongs to
         /// </summary>
         private ClippingRelation belongsTo;
 
@@ -146,7 +146,7 @@ namespace Engine
         public Point2D Point { get { return point; } set { point = value; } }
 
         /// <summary>
-        /// Polygon to which the associated segment belongs to
+        /// Polygon2D to which the associated segment belongs to
         /// </summary>
         /// <value>
         /// The belongs to.
@@ -332,8 +332,8 @@ namespace Engine
         /// Return the line segment associated to the SweepEvent
         /// </summary>
         /// <returns></returns>
-        public LineSegment Segment()
-            => new LineSegment(Point, OtherEvent.Point);
+        public LineSegment2D Segment()
+            => new LineSegment2D(Point, OtherEvent.Point);
 
         /// <summary>
         /// The to string.
@@ -347,7 +347,7 @@ namespace Engine
             oss += $"({Point.X},{Point.Y})";
             var leftRight = IsLeft ? "left" : "right";
             oss += $" ({leftRight})";
-            var s = new LineSegment(Point, OtherEvent.Point);
+            var s = new LineSegment2D(Point, OtherEvent.Point);
             oss += $" S:[({s.Min.X},{s.Min.Y}) - ({s.Max.X},{s.Max.Y})]";
             oss += $" ({BelongsTo})";
             oss += $" ({Contribution})";

@@ -1,5 +1,5 @@
 ﻿// <copyright file="RoundRectangle.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -21,7 +21,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName(nameof(RoundRectangle))]
     public class RoundRectangle
-        : Shape
+        : Shape2D
     {
         /// <summary>
         /// The radius.

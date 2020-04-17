@@ -1,5 +1,5 @@
 ﻿// <copyright file="MidiMetaEvents.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -119,7 +119,7 @@ namespace Engine.File
         /// <remarks>
         /// <para>FF 20 01  cc</para>
         /// </remarks>
-        MIDIChannel = 0x20,
+        ChannelPrefix = 0x20,
 
         /// <summary>
         /// MIDI Port (not official?).
@@ -127,7 +127,7 @@ namespace Engine.File
         /// <remarks>
         /// <para>FF 21 01  pp</para>
         /// </remarks>
-        MIDIPort = 0x21,
+        PortPrefix = 0x21,
 
         /// <summary>
         /// End of track.

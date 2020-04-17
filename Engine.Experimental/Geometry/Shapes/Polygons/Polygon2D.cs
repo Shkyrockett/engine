@@ -10,7 +10,7 @@ namespace Engine
         /// <summary>
         /// The contours.
         /// </summary>
-        public List<PolygonContour> contours = new List<PolygonContour>();
+        public List<PolygonContour2D> contours = new List<PolygonContour2D>();
 
         /// <summary>
         /// The bounds.
@@ -22,7 +22,7 @@ namespace Engine
         /// </summary>
         public Polygon2D()
         {
-            contours = new List<PolygonContour>();
+            contours = new List<PolygonContour2D>();
         }
 
         /// <summary>
@@ -70,19 +70,19 @@ namespace Engine
         /// Add.
         /// </summary>
         /// <param name="c">The c.</param>
-        public void Add(PolygonContour c)
+        public void Add(PolygonContour2D c)
             => contours.Add(c);
 
         /// <summary>
         /// Clone.
         /// </summary>
         /// <returns>The <see cref="Polygon"/>.</returns>
-        public Polygon Clone()
+        public Polygon2D Clone()
         {
-            var poly = new Polygon();
+            var poly = new Polygon2D();
             foreach (var cont in contours)
             {
-                var c = new PolygonContour();
+                var c = new PolygonContour2D();
                 foreach (var p in cont.Points)
                 {
                     c.Add(new Point2D(p));

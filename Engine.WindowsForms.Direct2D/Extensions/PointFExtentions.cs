@@ -387,7 +387,7 @@ namespace Engine
         /// <param name="axis">Point to reflect about</param>
         /// <returns></returns>
 
-        public static PointF Reflect(this LineSegment segment, PointF axis)
+        public static PointF Reflect(this LineSegment2D segment, PointF axis)
         {
             var SegmentVectorDelta = segment.A.Delta(segment.B);
             var QC12 = new Vector2D(

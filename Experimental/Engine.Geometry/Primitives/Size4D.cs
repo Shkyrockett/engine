@@ -613,7 +613,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size4D Plus(Size4D value) => Operations.UnaryAdd(value.Width, value.Height, value.Depth, value.Breadth);
+        public static Size4D Plus(Size4D value) => Operations.Plus(value.Width, value.Height, value.Depth, value.Breadth);
 
         /// <summary>
         /// Adds the specified augend.
@@ -692,7 +692,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size4D Negate(Size4D value) => Operations.NegateVector(value.Width, value.Height, value.Depth, value.Breadth);
+        public static Size4D Negate(Size4D value) => Operations.Negate(value.Width, value.Height, value.Depth, value.Breadth);
 
         /// <summary>
         /// Subtracts the specified minuend.

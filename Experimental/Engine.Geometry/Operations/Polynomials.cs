@@ -10,6 +10,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using static System.Math;
 
@@ -21,6 +22,57 @@ namespace Engine
     public static class Polynomials
     {
         #region Bézier Bernstein Basis Overloads
+        /// <summary>
+        /// Creates a Matrix transformed Bezier Polynomial from the Bezier parameters.
+        /// </summary>
+        /// <param name="values">The Bezier node parameters.</param>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">At least 2 different points must be given</exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Bezier(params double[] values)
+        {
+            Contract.Ensures(Contract.Result<Polynomial>() != null);
+
+            return values.Length - 1 switch
+            {
+                var n when n < 1 => throw new ArgumentNullException(nameof(values), "At least 2 different points must be given"),
+                1 => LinearBezierBernsteinBasis(values[0], values[1]),
+                2 => QuadraticBezierBernsteinBasis(values[0], values[1], values[2]),
+                3 => CubicBezierBernsteinBasis(values[0], values[1], values[2], values[3]),
+                4 => QuarticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4]),
+                5 => QuinticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5]),
+                6 => SexticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6]),
+                7 => SepticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]),
+                8 => OcticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]),
+                9 => NonicBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]),
+                10 => DecicBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]),
+                // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
+                _ => Bezier(0, values.Length - 1, values),
+            };
+        }
+
+        /// <summary>
+        /// Internal Recursive method for calculating the Bezier Polynomial.
+        /// </summary>
+        /// <param name="from">The from.</param>
+        /// <param name="to">The to.</param>
+        /// <param name="values">The values.</param>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Polynomial Bezier(int from, int to, double[] values)
+            => (from == to)
+            ? new Polynomial(values[from])
+            : (Polynomial.OneMinusT * Bezier(from, to - 1, values)) + (Polynomial.T * Bezier(from + 1, to, values));
+
         /// <summary>
         /// Coefficients for a Linear Bézier curve.
         /// </summary>
@@ -1251,7 +1303,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial BezoutPolynomial(Polynomial a, Polynomial b) => new Polynomial(ConicSectionBezout((a[0], a[1], a[2], a[3], a[4], a[5]), (b[0], b[1], b[2], b[3], b[4], b[5])));
+        public static (double a, double b, double c, double d, double e) ConicSectionBezout(Polynomial a, Polynomial b) => ConicSectionBezout(a[0], a[1], a[2], a[3], a[4], a[5], b[0], b[1], b[2], b[3], b[4], b[5]);
 
         /// <summary>
         /// Calculate the intersection polynomial coefficients of two ellipses.
@@ -1261,16 +1313,68 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial BezoutPolynomial((double a, double b, double c, double d, double e, double f) a, (double a, double b, double c, double d, double e, double f) b) => new Polynomial(ConicSectionBezout(a, b));
+        public static (double a, double b, double c, double d, double e) ConicSectionBezout(
+            (double a, double b, double c, double d, double e, double f) a,
+            (double a, double b, double c, double d, double e, double f) b) => ConicSectionBezout(a.a, a.b, a.c, a.d, a.e, a.f, b.a, b.b, b.c, b.d, b.e, b.f);
 
         /// <summary>
-        /// Calculate the intersection polynomial coefficients of two ellipses.
+        /// Calculate the Bézier curve polynomial of ellipses.
         /// </summary>
-        /// <param name="a">The first ellipse.</param>
-        /// <param name="b">The first ellipse.</param>
-        /// <returns>
-        /// Returns a <see cref="Polynomial" /> of the ellipse.
-        /// </returns>
+        /// <param name="e1">First Ellipse parameters.</param>
+        /// <param name="e2">Second Ellipse parameters.</param>
+        /// <returns>Returns a <see cref="Polynomial"/> of the ellipse.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// This code is based on MgcIntr2DElpElp.cpp written by David Eberly.
+        /// His code along with many other excellent examples formerly available
+        /// at his site but the latest version now at: https://www.geometrictools.com/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double a, double b, double c, double d, double e) ConicSectionBezout(Span<double> e1, Span<double> e2)
+        {
+            var ab = (e1[0] * e2[1]) - (e2[0] * e1[1]);
+            var ac = (e1[0] * e2[2]) - (e2[0] * e1[2]);
+            var ad = (e1[0] * e2[3]) - (e2[0] * e1[3]);
+            var ae = (e1[0] * e2[4]) - (e2[0] * e1[4]);
+            var af = (e1[0] * e2[5]) - (e2[0] * e1[5]);
+
+            var bc = (e1[1] * e2[2]) - (e2[1] * e1[2]);
+            var be = (e1[1] * e2[4]) - (e2[1] * e1[4]);
+            var bf = (e1[1] * e2[5]) - (e2[1] * e1[5]);
+
+            var cd = (e1[2] * e2[3]) - (e2[2] * e1[3]);
+
+            var de = (e1[3] * e2[4]) - (e2[3] * e1[4]);
+            var df = (e1[3] * e2[5]) - (e2[3] * e1[5]);
+
+            var bfPde = bf + de;
+            var beMcd = be - cd;
+
+            return (
+                /* x⁴ */ (ab * bc) - (ac * ac),
+                /* x³ */ (ab * beMcd) + (ad * bc) - (2d * ac * ae),
+                /* x² */ (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
+                /* x¹ */ (ab * df) + (ad * bfPde) - (2d * ae * af),
+                /* c  */ (ad * df) - (af * af));
+        }
+
+        /// <summary>
+        /// Calculate the Bézier curve polynomial of ellipses.
+        /// </summary>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="f1">The f1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
+        /// <param name="d2">The d2.</param>
+        /// <param name="e2">The e2.</param>
+        /// <param name="f2">The f2.</param>
+        /// <returns>Returns a <see cref="Polynomial"/> of the ellipse.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// This code is based on MgcIntr2DElpElp.cpp written by David Eberly.
@@ -1280,36 +1384,35 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double b, double c, double d, double e) ConicSectionBezout(
-            (double a, double b, double c, double d, double e, double f) a,
-            (double a, double b, double c, double d, double e, double f) b)
+            double a1, double b1, double c1, double d1, double e1, double f1,
+            double a2, double b2, double c2, double d2, double e2, double f2)
         {
-            // 1: | a | b | c | d | e | f |
-            // 2: | a | b | c | d | e | f |
+            // 1 | a | b | c | d | e | f |
+            // 2 | a | b | c | d | e | f |
+            var ab = (a1 * b2) - (a2 * b1);
+            var ac = (a1 * c2) - (a2 * c1);
+            var ad = (a1 * d2) - (a2 * d1);
+            var ae = (a1 * e2) - (a2 * e1);
+            var af = (a1 * f2) - (a2 * f1);
 
-            var ab = (a.a * b.b) - (b.a * a.b);
-            var ac = (a.a * b.c) - (b.a * a.c);
-            var ad = (a.a * b.d) - (b.a * a.d);
-            var ae = (a.a * b.e) - (b.a * a.e);
-            var af = (a.a * b.f) - (b.a * a.f);
+            var bc = (b1 * c2) - (b2 * c1);
+            var be = (b1 * e2) - (b2 * e1);
+            var bf = (b1 * f2) - (b2 * f1);
 
-            var bc = (a.b * b.c) - (b.b * a.c);
-            var be = (a.b * b.e) - (b.b * a.e);
-            var bf = (a.b * b.f) - (b.b * a.f);
+            var cd = (c1 * d2) - (c2 * d1);
 
-            var cd = (a.c * b.d) - (b.c * a.d);
-
-            var de = (a.d * b.e) - (b.d * a.e);
-            var df = (a.d * b.f) - (b.d * a.f);
+            var de = (d1 * e2) - (d2 * e1);
+            var df = (d1 * f2) - (d2 * f1);
 
             var bfPde = bf + de;
             var beMcd = be - cd;
 
             return (
-                a: (ab * bc) - (ac * ac),
-                b: (ab * beMcd) + (ad * bc) - (2d * ac * ae),
-                c: (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
-                d: (ab * df) + (ad * bfPde) - (2d * ae * af),
-                e: (ad * df) - (af * af));
+                /* x⁴ */ (ab * bc) - (ac * ac),
+                /* x³ */ (ab * beMcd) + (ad * bc) - (2d * ac * ae),
+                /* x² */ (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
+                /* x¹ */ (ab * df) + (ad * bfPde) - (2d * ae * af),
+                /* c  */ (ad * df) - (af * af));
         }
 
         /// <summary>

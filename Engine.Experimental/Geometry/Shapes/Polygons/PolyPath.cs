@@ -1,5 +1,5 @@
 ﻿// <copyright file="Path.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -21,12 +21,12 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName(nameof(PolyPath))]
     public class PolyPath
-            : Shape
+            : Shape2D
     {
         /// <summary>
         /// Gets or sets the shapes.
         /// </summary>
-        public List<Shape> Shapes { get; set; }
+        public List<Shape2D> Shapes { get; set; }
 
         /// <summary>
         /// The to string.

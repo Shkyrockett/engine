@@ -407,7 +407,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Plus(Point2D value) => Operations.UnaryAdd(value.X, value.Y);
+        public static Point2D Plus(Point2D value) => Operations.Plus(value.X, value.Y);
 
         /// <summary>
         /// Adds the specified augend.
@@ -466,7 +466,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Negate(Point2D value) => Operations.NegateVector(value.X, value.Y);
+        public static Point2D Negate(Point2D value) => Operations.Negate(value.X, value.Y);
 
         /// <summary>
         /// Subtracts the specified minuend.

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Platforms>AnyCPU;x64;x86</Platforms>
-    <Copyright>Copyright © 2013 - 2019 Shkyrockett</Copyright>
+    <Copyright>Copyright © 2013 - 2020 Shkyrockett</Copyright>
     <Version>0.0.0.1</Version>
     <Authors>Shkyrockett</Authors>
     <Company>Shkyrockett</Company>
@@ -61,7 +61,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Engine\Engine.csproj" />
+    <ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />
+    <ProjectReference Include="..\Engine.Mathematics\Engine.Mathematics.csproj" />
   </ItemGroup>
 
   <ItemGroup>

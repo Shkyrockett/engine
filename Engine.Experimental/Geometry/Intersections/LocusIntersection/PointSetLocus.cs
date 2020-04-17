@@ -1,5 +1,5 @@
 ﻿// <copyright file="PointSetLocus.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -75,8 +75,8 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator PointSet(PointSetLocus locus)
-            => new PointSet(locus.Points);
+        public static implicit operator PointSet2D(PointSetLocus locus)
+            => new PointSet2D(locus.Points);
 
         /// <summary>
         /// Performs an explicit conversion from <see cref="PolylineLocus"/> to <see cref="PointSetLocus"/>.
@@ -135,6 +135,6 @@ namespace Engine
         /// Converts to pointset.
         /// </summary>
         /// <returns></returns>
-        public PointSet ToPointSet() => new PointSet(Points);
+        public PointSet2D ToPointSet() => new PointSet2D(Points);
     }
 }

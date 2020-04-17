@@ -1,5 +1,5 @@
 ﻿// <copyright file="SequencerSpecific.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -9,6 +9,8 @@
 // <notes></notes>
 // <references>
 // </references>
+
+using System.ComponentModel;
 
 namespace Engine.File
 {
@@ -31,7 +33,7 @@ namespace Engine.File
         /// <param name="data">The data.</param>
         /// <param name="status">The status.</param>
         public SequencerSpecific(byte[] data, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
             Data = data;
         }
@@ -39,6 +41,7 @@ namespace Engine.File
         /// <summary>
         /// Gets or sets the data.
         /// </summary>
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
         public byte[] Data { get; set; }
 
         /// <summary>

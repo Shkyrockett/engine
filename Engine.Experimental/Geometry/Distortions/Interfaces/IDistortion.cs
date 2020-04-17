@@ -21,6 +21,6 @@ namespace Engine
         /// <param name="source">The source.</param>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        Point2D Distort(PolycurveContour source, Point2D point);
+        Point2D Distort(PolycurveContour2D source, Point2D point);
     }
 }

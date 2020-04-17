@@ -1,5 +1,5 @@
 ﻿// <copyright file="PitchBend.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -24,7 +24,6 @@ namespace Engine.File
     /// (mmmmmm) are the most significant 7 bits.</para>
     /// </remarks>
     [ElementName(nameof(PitchBend))]
-    [DisplayName("Pitch Bend")]
     public class PitchBend
         : EventStatus
     {
@@ -34,7 +33,7 @@ namespace Engine.File
         /// <param name="bend">The bend.</param>
         /// <param name="status">The status.</param>
         public PitchBend(short bend, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
             Bend = bend;
         }
@@ -50,7 +49,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="PitchBend"/>.</returns>
-        internal static PitchBend Read(BinaryReaderExtended reader, EventStatus status)
-            => new PitchBend(reader.ReadNetworkInt14(), status);
+        internal static PitchBend Read(BinaryReaderExtended reader, EventStatus status) => new PitchBend(reader.ReadNetworkInt14(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Pitch Bend";
     }
 }

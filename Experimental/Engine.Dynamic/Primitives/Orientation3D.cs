@@ -313,7 +313,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Orientation3D Plus(Orientation3D value) => UnaryAdd(value.Roll, value.Pitch, value.Yaw);
+        public static Orientation3D Plus(Orientation3D value) => Operations.Plus(value.Roll, value.Pitch, value.Yaw);
 
         /// <summary>
         /// Adds the specified augend.
@@ -352,7 +352,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Orientation3D Negate(Orientation3D value) => NegateVector(value.Roll, value.Pitch, value.Yaw);
+        public static Orientation3D Negate(Orientation3D value) => Operations.Negate(value.Roll, value.Pitch, value.Yaw);
 
         /// <summary>
         /// Subtracts the specified minuend.

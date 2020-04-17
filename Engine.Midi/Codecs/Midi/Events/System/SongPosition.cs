@@ -1,5 +1,5 @@
 ﻿// <copyright file="SongPosition.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -22,7 +22,6 @@ namespace Engine.File
     /// since the start of the song. l is the LSB, m the MSB.</para>
     /// </remarks>
     [ElementName(nameof(SongPosition))]
-    [DisplayName("Song Position")]
     public class SongPosition
         : EventStatus
     {
@@ -32,7 +31,7 @@ namespace Engine.File
         /// <param name="beats">The beats.</param>
         /// <param name="status">The status.</param>
         public SongPosition(short beats, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
             Beats = beats;
         }
@@ -48,7 +47,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="SongPosition"/>.</returns>
-        internal static SongPosition Read(BinaryReaderExtended reader, EventStatus status)
-            => new SongPosition(reader.ReadNetworkInt14(), status);
+        internal static SongPosition Read(BinaryReaderExtended reader, EventStatus status) => new SongPosition(reader.ReadNetworkInt14(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Song Position";
     }
 }

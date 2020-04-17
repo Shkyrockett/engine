@@ -4,7 +4,7 @@
     /// The cubic Bézier quad class intended for Envelope manipulation.
     /// </summary>
     public class CubicBezierQuad
-        : Shape
+        : Shape2D
     {
         /// <summary>
         /// Gets or sets the node top left.

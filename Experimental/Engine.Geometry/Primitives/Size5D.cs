@@ -621,7 +621,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size5D Plus(Size5D value) => Operations.UnaryAdd(value.Width, value.Height, value.Depth, value.Breadth, value.Length);
+        public static Size5D Plus(Size5D value) => Operations.Plus(value.Width, value.Height, value.Depth, value.Breadth, value.Length);
 
         /// <summary>
         /// Adds the specified augend.
@@ -700,7 +700,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size5D Negate(Size5D value) => Operations.NegateVector(value.Width, value.Height, value.Depth, value.Breadth, value.Length);
+        public static Size5D Negate(Size5D value) => Operations.Negate(value.Width, value.Height, value.Depth, value.Breadth, value.Length);
 
         /// <summary>
         /// Subtracts the specified minuend.

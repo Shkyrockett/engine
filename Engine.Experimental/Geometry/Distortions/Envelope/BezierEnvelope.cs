@@ -87,7 +87,7 @@ namespace Engine
         ///// <exception cref="Exception">Two paths must be selected. The 1st is the letter, the 2nd is the envelope and must have 4 sides.</exception>
         ///// <exception cref="Exception">No axes found on envelope.</exception>
         ///// <exception cref="Exception">The envelope path has less than 4 segments.</exception>
-        //public static void Effect(Polycurve shape, CubicBezierQuad envelope)
+        //public static void Effect(Polycurve2D shape, CubicBezierQuad envelope)
         //{
         //    if (shape is null || envelope is null)
         //    {
@@ -121,7 +121,7 @@ namespace Engine
         ///// <param name="path">The path.</param>
         ///// <param name="envelopeElement">The envelopeElement.</param>
         ///// <param name="axes">The axes.</param>
-        //public static void MorphElement(PolycurveContour path, CubicBezierQuad envelopeElement, Point2D[] axes)
+        //public static void MorphElement(PolycurveContour2D path, CubicBezierQuad envelopeElement, Point2D[] axes)
         //{
         //    var morphedPath = MorphPath(path, envelopeElement, axes);
         //    //letterElement.set("d", simplepath.formatPath(morphedPath));
@@ -133,18 +133,18 @@ namespace Engine
         ///// <param name="path">The path.</param>
         ///// <param name="envelopeElement"></param>
         ///// <param name="axes">The axes.</param>
-        ///// <returns>The <see cref="Polycurve"/>.</returns>
-        //public static Polycurve MorphPath(PolycurveContour path, CubicBezierQuad envelopeElement, Point2D[] axes)
+        ///// <returns>The <see cref="Polycurve2D"/>.</returns>
+        //public static Polycurve2D MorphPath(PolycurveContour2D path, CubicBezierQuad envelopeElement, Point2D[] axes)
         //{
         //    var bounds = path.Bounds;
-        //    var newPath = new Polycurve();
+        //    var newPath = new Polycurve2D();
         //    var current = new Point2D(0.0, 0.0);
         //    var start = new Point2D(0.0, 0.0);
 
         //    foreach (var segmentType in path)
         //    {
         //        //var points = segmentType.;
-        //        if (segmentType is PointSegment)
+        //        if (segmentType is PointSegment2D)
         //        {
         //            start = points[0];
         //        }
@@ -169,19 +169,19 @@ namespace Engine
         ///// </summary>
         ///// <param name="curveSegment">The curveSegment.</param>
         ///// <returns>The <see cref="int"/>.</returns>
-        //private static int GetNumPts(CurveSegment curveSegment)
+        //private static int GetNumPts(CurveSegment2D curveSegment)
         //{
         //    switch (curveSegment)
         //    {
-        //        case PointSegment p:
+        //        case PointSegment2D p:
         //            return 1;
-        //        case LineCurveSegment l:
+        //        case LineCurveSegment2D l:
         //            return 1;
-        //        case QuadraticBezierSegment q:
+        //        case QuadraticBezierSegment2D q:
         //            return 2;
-        //        case CubicBezierSegment c:
+        //        case CubicBezierSegment2D c:
         //            return 3;
-        //        case ArcSegment a:
+        //        case ArcSegment2D a:
         //            return 0;
         //        default:
         //            return -1;
@@ -194,7 +194,7 @@ namespace Engine
         ///// <param name="path">The path.</param>
         ///// <param name="segmentType">The segmentType.</param>
         ///// <param name="points">The points.</param>
-        //private static void AddSegment(PolyBezier path, SegmentTypes segmentType, Point2D[] points)
+        //private static void AddSegment(PolyBezier2D path, SegmentTypes segmentType, Point2D[] points)
         //{
         //    path.Add(segmentType, points);
         //}
@@ -203,23 +203,23 @@ namespace Engine
         ///// Converts visible path segments (Z,L,Q) into absolute cubic segments (C).
         ///// </summary>
         ///// <param name="current">The current.</param>
-        ///// <returns>The <see cref="CurveSegment"/>.</returns>
+        ///// <returns>The <see cref="CurveSegment2D"/>.</returns>
         ///// <exception cref="Exception"></exception>
-        //private static CurveSegment ConvertSegmentToCubic(CurveSegment current)
+        //private static CurveSegment2D ConvertSegmentToCubic(CurveSegment2D current)
         //{
         //    switch (current)
         //    {
-        //        case CubicBezierSegment c:
+        //        case CubicBezierSegment2D c:
         //            return c;
-        //        case LineCurveSegment l:
-        //            return new CubicBezierSegment(
+        //        case LineCurveSegment2D l:
+        //            return new CubicBezierSegment2D(
         //                l.Previous,
         //                Maths.Lerp(l.Start.Value.X, l.Start.Value.Y, l.End.Value.X, l.End.Value.Y, 1d / 3d),
         //                Maths.Lerp(l.Start.Value.X, l.Start.Value.Y, l.End.Value.X, l.End.Value.Y, 2d / 3d),
         //                l.End.Value);
-        //        case QuadraticBezierSegment q:
+        //        case QuadraticBezierSegment2D q:
         //            var cubic = Conversions.QuadraticBezierToCubicBezierList(q.Start.Value, q.Handle.Value, q.End.Value);
-        //            return new CubicBezierSegment(q.Previous, cubic[1], cubic[2], q.End.Value);
+        //            return new CubicBezierSegment2D(q.Previous, cubic[1], cubic[2], q.End.Value);
         //        default:
         //            throw new Exception($"unsupported segment type: {current}");
         //    }
@@ -248,7 +248,7 @@ namespace Engine
         ///// </summary>
         ///// <param name="path">The path that is formed by the axes.</param>
         ///// <returns>The definition points of the 4 cubic path axes as float arrays, bundled in another array.</returns>
-        //private static Point2D[] ExtractMorphAxes(Polycurve path)
+        //private static Point2D[] ExtractMorphAxes(Polycurve2D path)
         //{
         //    var points = new Point2D[4];
         //    var current = new Point2D(0.0, 0.0);

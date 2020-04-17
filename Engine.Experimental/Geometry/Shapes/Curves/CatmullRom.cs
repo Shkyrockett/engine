@@ -1,5 +1,5 @@
 ﻿// <copyright file="CatmullRom.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -27,7 +27,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName("CatmullRom Spline")]
     public class CatmullRom
-        : Shape
+        : Shape2D
     {
         /// <summary>
         /// The tangent a.

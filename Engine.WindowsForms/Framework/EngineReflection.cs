@@ -1,5 +1,5 @@
 ﻿// <copyright file="EngineReflection.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -72,7 +72,7 @@ namespace Engine
         /// <returns>A list of types that are derived from the <see cref="Shape"/> class.</returns>
         public static List<Type> ListShapes()
         {
-            var shapeType = typeof(Shape);
+            var shapeType = typeof(Shape2D);
             var assembly = Assembly.GetAssembly(shapeType);
             return GetAssemblyTypes(assembly, shapeType);
         }

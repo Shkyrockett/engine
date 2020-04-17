@@ -1,5 +1,5 @@
 ﻿// <copyright file="KeySignature.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -29,7 +29,6 @@ namespace Engine.File
     ///   mi is <see cref="MidiTonality"/></para>
     /// </remarks>
     [ElementName(nameof(KeySignature))]
-    [DisplayName("Key Signature")]
     public class KeySignature
         : EventStatus
     {
@@ -40,10 +39,9 @@ namespace Engine.File
         /// <param name="tonality">The tonality.</param>
         /// <param name="status">The status.</param>
         public KeySignature(MidiKeySignature keySignature, MidiTonality tonality, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
-            Key = keySignature;
-            Tonality = tonality;
+            (Key, Tonality) = (keySignature, tonality);
         }
 
         /// <summary>
@@ -62,7 +60,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="KeySignature"/>.</returns>
-        internal static KeySignature Read(BinaryReaderExtended reader, EventStatus status)
-            => new KeySignature((MidiKeySignature)reader.ReadByte(), (MidiTonality)reader.ReadByte(), status);
+        internal static KeySignature Read(BinaryReaderExtended reader, EventStatus status) => new KeySignature((MidiKeySignature)reader.ReadByte(), (MidiTonality)reader.ReadByte(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Key Signature";
     }
 }

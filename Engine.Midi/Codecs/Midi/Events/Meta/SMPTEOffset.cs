@@ -1,5 +1,5 @@
 ﻿// <copyright file="SMPTEOffset.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -19,7 +19,6 @@ namespace Engine.File
     /// <para>FF 54 05  HR MN SE FR FF</para>
     /// </remarks>
     [ElementName(nameof(SMPTEOffset))]
-    [DisplayName("SMPTE Offset")]
     public class SMPTEOffset
         : EventStatus
     {
@@ -33,7 +32,7 @@ namespace Engine.File
         /// <param name="fractionalFrames">The fractionalFrames.</param>
         /// <param name="status">The status.</param>
         public SMPTEOffset(byte hours, byte minutes, byte seconds, byte frames, byte fractionalFrames, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
             Hours = hours;
             Minutes = minutes;
@@ -73,7 +72,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="SMPTEOffset"/>.</returns>
-        internal static SMPTEOffset Read(BinaryReaderExtended reader, EventStatus status)
-            => new SMPTEOffset(reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), status);
+        internal static SMPTEOffset Read(BinaryReaderExtended reader, EventStatus status) => new SMPTEOffset(reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "SMPTE Offset";
     }
 }

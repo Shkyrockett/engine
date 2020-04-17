@@ -599,7 +599,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D Plus(Size3D value) => Operations.UnaryAdd(value.Width, value.Height, value.Depth);
+        public static Size3D Plus(Size3D value) => Operations.Plus(value.Width, value.Height, value.Depth);
 
         /// <summary>
         /// Adds the specified augend.
@@ -678,7 +678,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D Negate(Size3D value) => Operations.NegateVector(value.Width, value.Height, value.Depth);
+        public static Size3D Negate(Size3D value) => Operations.Negate(value.Width, value.Height, value.Depth);
 
         /// <summary>
         /// Subtracts the specified minuend.

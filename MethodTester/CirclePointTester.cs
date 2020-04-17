@@ -1,5 +1,5 @@
 ﻿// <copyright file="CirclePointTester.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -32,12 +32,12 @@ namespace MethodSpeedTester
         /// <summary>
         /// The circle.
         /// </summary>
-        private Circle circle;
+        private Circle2D circle;
 
         /// <summary>
         /// The circles.
         /// </summary>
-        private readonly List<(string, Circle)> circles = new List<(string, Circle)>();
+        private readonly List<(string, Circle2D)> circles = new List<(string, Circle2D)>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CirclePointTester"/> class.
@@ -56,9 +56,9 @@ namespace MethodSpeedTester
         {
             points = GenerateGrid(25, 25, 130, 130, 5, 5);
 
-            circles.Add(("Circle 1", new Circle(25, 25, 10)));
-            circles.Add(("Circle 2", new Circle(75, 75, 50)));
-            circles.Add(("Circle 3", new Circle(125, 125, 100)));
+            circles.Add(("Circle 1", new Circle2D(25, 25, 10)));
+            circles.Add(("Circle 2", new Circle2D(75, 75, 50)));
+            circles.Add(("Circle 3", new Circle2D(125, 125, 100)));
 
             circle = circles[0].Item2;
 
@@ -77,9 +77,9 @@ namespace MethodSpeedTester
         /// <param name="method">The method.</param>
         /// <param name="text">The text.</param>
         public static void DrawCircles(Graphics g, Font font,
-            Circle circle,
+            Circle2D circle,
             List<PointF> points,
-            Func<Circle, PointF, Inclusions> method,
+            Func<Circle2D, PointF, Inclusions> method,
             string text)
         {
             if (circle is null || points is null) return;
@@ -143,7 +143,7 @@ namespace MethodSpeedTester
         /// <param name="e">The event arguments.</param>
         private void ComboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            circle = (((string, Circle))comboBox1.SelectedItem).Item2;
+            circle = (((string, Circle2D))comboBox1.SelectedItem).Item2;
             Invalidate(true);
         }
 

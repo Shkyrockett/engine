@@ -1,5 +1,5 @@
 ﻿// <copyright file="IPrimitive.cs" company="Shkyrockett" >
-//     Copyright © 2020 Shkyrockett. All rights reserved.
+//     Copyright © 2019 - 2020 Shkyrockett. All rights reserved.
 // </copyright> 
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>

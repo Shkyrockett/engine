@@ -1,5 +1,5 @@
 ﻿// <copyright file="EventStatus.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -17,16 +17,14 @@ namespace Engine.File
     /// </summary>
     [Expandable]
     public class EventStatus
-        : IMidiElement
+        : IMediaElement
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EventStatus"/> class.
         /// </summary>
         public EventStatus()
         {
-            DeltaTime = 0;
-            Status = MidiStatusMessage.Unknown;
-            Channel = 0;
+            (DeltaTime, Status, Channel) = (0, MidiStatusMessage.Unknown, 0);
         }
 
         /// <summary>
@@ -37,9 +35,7 @@ namespace Engine.File
         /// <param name="channel">The channel.</param>
         public EventStatus(uint deltaTime, MidiStatusMessage status, byte channel)
         {
-            DeltaTime = deltaTime;
-            Status = status;
-            Channel = channel;
+            (DeltaTime, Status, Channel) = (deltaTime, status, channel);
         }
 
         /// <summary>

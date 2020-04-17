@@ -25,7 +25,7 @@ namespace Engine
         /// Initializes a new instance of the <see cref="PointChain"/> class.
         /// </summary>
         /// <param name="s">The s.</param>
-        public PointChain(LineSegment s)
+        public PointChain(LineSegment2D s)
         {
             PointList = new List<Point2D>
             {
@@ -53,7 +53,7 @@ namespace Engine
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public bool LinkSegment(LineSegment s)
+        public bool LinkSegment(LineSegment2D s)
         {
             var front = PointList[0];
             var back = PointList[PointList.Count - 1];

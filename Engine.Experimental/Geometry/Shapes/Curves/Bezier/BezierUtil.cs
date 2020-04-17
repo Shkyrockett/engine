@@ -1215,7 +1215,7 @@ namespace Engine.Experimental
                 endcap: end,
                 bbox: FindBoundingBox(new List<Bezier> { start, forward, back, end })
               );
-            //shape.intersections = new Shape.IntersectionsDelegate(Bezier s2)
+            //shape.intersections = new Shape2D.IntersectionsDelegate(Bezier s2)
             //{
             //    return shapeintersections(shape, shape.bbox, s2, s2.bbox);
             //};

@@ -24,12 +24,12 @@ namespace Engine
         /// <summary>
         /// The subject.
         /// </summary>
-        private readonly Polygon subject;
+        private readonly Polygon2D subject;
 
         /// <summary>
         /// The clipping.
         /// </summary>
-        private readonly Polygon clipping;
+        private readonly Polygon2D clipping;
 
         /// <summary>
         /// The event queue.
@@ -43,7 +43,7 @@ namespace Engine
         /// </summary>
         /// <param name="subject">The subject.</param>
         /// <param name="clipping">The clipping.</param>
-        public MartinezPolygonClipper(Polygon subject, Polygon clipping)
+        public MartinezPolygonClipper(Polygon2D subject, Polygon2D clipping)
         {
             this.subject = subject;
             this.clipping = clipping;
@@ -57,9 +57,9 @@ namespace Engine
         /// </summary>
         /// <param name="operation">A value specifying which boolean operation to compute.</param>
         /// <returns>The resulting polygon from the specified clipping operation.</returns>
-        public Polygon Compute(ClippingOperation operation)
+        public Polygon2D Compute(ClippingOperation operation)
         {
-            var result = new Polygon();
+            var result = new Polygon2D();
 
             // Test 1 for trivial result case
             if (subject.Contours.Count * clipping.Contours.Count == 0)
@@ -304,7 +304,7 @@ namespace Engine
         /// <param name="seg0">The seg0.</param>
         /// <param name="seg1">The seg1.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        private static (int, Point2D[]) FindIntersection(LineSegment seg0, LineSegment seg1)
+        private static (int, Point2D[]) FindIntersection(LineSegment2D seg0, LineSegment2D seg1)
         {
             var pi0 = new Point2D();
             var pi1 = new Point2D();
@@ -566,7 +566,7 @@ namespace Engine
         /// </summary>
         /// <param name="segment">The segment.</param>
         /// <param name="polyType">The polyType.</param>
-        private void ProcessSegment(LineSegment segment, ClippingRelation polyType)
+        private void ProcessSegment(LineSegment2D segment, ClippingRelation polyType)
         {
             if (segment.A.Equals(segment.B)) // Possible degenerate condition.
             {

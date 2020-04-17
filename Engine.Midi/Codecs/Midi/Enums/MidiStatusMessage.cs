@@ -1,5 +1,5 @@
 ﻿// <copyright file="MidiStatusMessages.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -280,20 +280,20 @@ namespace Engine.File
         DeviceName = MidiStatus.Meta | (MidiMetaEvent.DeviceName << 8),
 
         /// <summary>
-        /// MIDI Channel (not official?).
+        /// MIDI Channel Prefix (not official?).
         /// </summary>
         /// <remarks>
         /// <para>FF 20 01  cc</para>
         /// </remarks>
-        MIDIChannel = MidiStatus.Meta | (MidiMetaEvent.MIDIChannel << 8),// | 0x01 << 16,
+        ChannelPrefix = MidiStatus.Meta | (MidiMetaEvent.ChannelPrefix << 8),// | 0x01 << 16,
 
         /// <summary>
-        /// MIDI Port (not official?).
+        /// MIDI Port Prefix (not official?).
         /// </summary>
         /// <remarks>
         /// <para>FF 21 01  pp</para>
         /// </remarks>
-        MIDIPort = MidiStatus.Meta | (MidiMetaEvent.MIDIPort << 8),// | 0x01 << 16,
+        PortPrefix = MidiStatus.Meta | (MidiMetaEvent.PortPrefix << 8),// | 0x01 << 16,
 
         /// <summary>
         /// End of track.

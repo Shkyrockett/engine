@@ -1,12 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>preview</LangVersion>
+    <Platforms>AnyCPU;x64;x86</Platforms>
     <Version>0.0.0.1</Version>
     <Authors>Shkyrockett</Authors>
-    <Copyright>Copyright © 2013 - 2019 Shkyrockett</Copyright>
+    <Copyright>Copyright © 2013 - 2020 Shkyrockett</Copyright>
     <Description>A Geometry Library for Engine.</Description>
+   <RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +21,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />
+    <ProjectReference Include="..\Engine.Mathematics\Engine.Mathematics.csproj" />
   </ItemGroup>
 
 </Project>

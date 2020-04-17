@@ -1,5 +1,5 @@
 ﻿// <copyright file="CubicFilter.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -34,28 +34,28 @@ namespace Engine
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="T"></typeparam>
         public T Process<S, T>(S shape)
-            where S : Shape
-            where T : Shape
+            where S : Shape2D
+            where T : Shape2D
         {
             switch (shape)
             {
-                case ScreenPoint t:
-                    return new ScreenPoint(Process(t.Point)) as T;
-                case Line t:
+                case ScreenPoint2D t:
+                    return new ScreenPoint2D(Process(t.Point)) as T;
+                case Line2D t:
                     return Process(t) as T;
-                case LineSegment t:
+                case LineSegment2D t:
                     return Process(t) as T;
-                case PointSet t:
+                case PointSet2D t:
                     return Process(t) as T;
-                case Polygon t:
+                case Polygon2D t:
                     return Process(t) as T;
-                case PolygonContour t:
+                case PolygonContour2D t:
                     return Process(t) as T;
-                case PolylineSet t:
+                case PolylineSet2D t:
                     return Process(t) as T;
-                case Polyline t:
+                case Polyline2D t:
                     return Process(t) as T;
-                case PolycurveContour t:
+                case PolycurveContour2D t:
                     return Process(t) as T;
                 case Rectangle2D t:
                     return Process(t) as T;
@@ -63,7 +63,7 @@ namespace Engine
                     break;
             }
 
-            // Shape not supported.
+            // Shape2D not supported.
             return shape as T;
         }
 
@@ -72,9 +72,9 @@ namespace Engine
         /// </summary>
         /// <param name="line">The line.</param>
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
-        public PolycurveContour Process(LineSegment line)
+        public PolycurveContour2D Process(LineSegment2D line)
         {
-            var result = new PolycurveContour(Process(line.A));
+            var result = new PolycurveContour2D(Process(line.A));
             var curve = Conversions.LineSegmentToCubicBezier(line.A, line.B);
             result.AddCubicBezier(Process(curve.B), Process(curve.C), Process(curve.D));
             return result;
@@ -84,12 +84,12 @@ namespace Engine
         /// Process.
         /// </summary>
         /// <param name="line">The line.</param>
-        /// <returns>The <see cref="Line"/>.</returns>
-        public Line Process(Line line)
+        /// <returns>The <see cref="Line2D"/>.</returns>
+        public Line2D Process(Line2D line)
         {
             // ToDo: Figure out how to handle the infiniteness of lines.
             var location = Process(line.Location);
-            var result = new Line(location, Process(line.Location + line.Direction) - location);
+            var result = new Line2D(location, Process(line.Location + line.Direction) - location);
             return result;
         }
 
@@ -98,9 +98,9 @@ namespace Engine
         /// </summary>
         /// <param name="points">The points.</param>
         /// <returns>The <see cref="PointSet"/>.</returns>
-        public PointSet Process(PointSet points)
+        public PointSet2D Process(PointSet2D points)
         {
-            var results = new PointSet();
+            var results = new PointSet2D();
             foreach (var point in points)
             {
                 results.Add(Process(point));
@@ -113,9 +113,9 @@ namespace Engine
         /// </summary>
         /// <param name="polygon">The polygon.</param>
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
-        public PolycurveContour Process(Polygon polygon)
+        public PolycurveContour2D Process(Polygon2D polygon)
         {
-            var result = new PolycurveContour();
+            var result = new PolycurveContour2D();
             foreach (var contour in polygon)
             {
                 result.Add(Process(contour));
@@ -128,9 +128,9 @@ namespace Engine
         /// </summary>
         /// <param name="contour">The contour.</param>
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
-        public PolycurveContour Process(PolygonContour contour)
+        public PolycurveContour2D Process(PolygonContour2D contour)
         {
-            var result = new PolycurveContour(Process(contour.Points[0]));
+            var result = new PolycurveContour2D(Process(contour.Points[0]));
             for (var i = 1; i < contour.Count; i++)
             {
                 var curve = Conversions.LineSegmentToCubicBezier(contour[i - 1], contour[i]);
@@ -146,9 +146,9 @@ namespace Engine
         /// </summary>
         /// <param name="polylines">The polylines.</param>
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
-        public PolycurveContour Process(PolylineSet polylines)
+        public PolycurveContour2D Process(PolylineSet2D polylines)
         {
-            var result = new PolycurveContour();
+            var result = new PolycurveContour2D();
             foreach (var contour in polylines)
             {
                 result.Add(Process(contour));
@@ -161,9 +161,9 @@ namespace Engine
         /// </summary>
         /// <param name="contour">The contour.</param>
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
-        public PolycurveContour Process(Polyline contour)
+        public PolycurveContour2D Process(Polyline2D contour)
         {
-            var result = new PolycurveContour(Process(contour.Points[0]));
+            var result = new PolycurveContour2D(Process(contour.Points[0]));
             for (var i = 1; i < contour.Count; i++)
             {
                 var curve = Conversions.LineSegmentToCubicBezier(contour[i - 1], contour[i]);
@@ -177,27 +177,27 @@ namespace Engine
         /// </summary>
         /// <param name="contour">The contour.</param>
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
-        public PolycurveContour Process(PolycurveContour contour)
+        public PolycurveContour2D Process(PolycurveContour2D contour)
         {
-            var result = new PolycurveContour(Process(contour.Items[0].Head.Value));
+            var result = new PolycurveContour2D(Process(contour.Items[0].Head.Value));
             foreach (var side in contour)
             {
                 switch (side)
                 {
-                    case PointSegment p:
+                    case PointSegment2D p:
                         if (p != result[0])
                         {
                             result.Add(Process(p.Head.Value));
                         }
 
                         continue;
-                    case LineCurveSegment l:
+                    case LineCurveSegment2D l:
                         {
                             var c = Conversions.LineSegmentToCubicBezier(l.Head.Value, l.Tail.Value);
                             result.AddCubicBezier(Process(c.B), Process(c.C), Process(c.D));
                             continue;
                         }
-                    case ArcSegment a:
+                    case ArcSegment2D a:
                         {
                             var c = Conversions.ToCubicBeziers(a.ToEllipticalArc());
                             foreach (var e in c)
@@ -206,18 +206,18 @@ namespace Engine
                             }
                             continue;
                         }
-                    case QuadraticBezierSegment q:
+                    case QuadraticBezierSegment2D q:
                         {
                             var c = q.ToQuadtraticBezier().ToCubicBezier();
                             result.AddCubicBezier(Process(c.B), Process(c.C), Process(c.D));
                             continue;
                         }
-                    case CubicBezierSegment b:
+                    case CubicBezierSegment2D b:
                         {
                             result.AddCubicBezier(Process(b.Handle1), Process(b.Handle2.Value), Process(b.Tail.Value));
                             continue;
                         }
-                    case CardinalSegment s:
+                    case CardinalSegment2D s:
                     default:
                         break;
                 }
@@ -231,9 +231,9 @@ namespace Engine
         /// </summary>
         /// <param name="rect">The rect.</param>
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
-        public PolycurveContour Process(Rectangle2D rect)
+        public PolycurveContour2D Process(Rectangle2D rect)
         {
-            var result = new PolycurveContour(Process(rect.Location));
+            var result = new PolycurveContour2D(Process(rect.Location));
             var curve = Conversions.LineSegmentToCubicBezier(rect.Location, rect.TopRight);
             result.AddCubicBezier(Process(curve.B), Process(curve.C), Process(curve.D));
             curve = Conversions.LineSegmentToCubicBezier(rect.TopRight, rect.BottomRight);

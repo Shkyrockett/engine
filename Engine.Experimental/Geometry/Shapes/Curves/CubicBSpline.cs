@@ -1,5 +1,5 @@
 ﻿// <copyright file="CubicBSpline.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -21,7 +21,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName("Cubic B Spline")]
     public class CubicBSpline
-        : Shape
+        : Shape2D
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CubicBSpline"/> class.

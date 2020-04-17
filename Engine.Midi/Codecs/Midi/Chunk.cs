@@ -1,5 +1,5 @@
 ﻿// <copyright file="Chunk.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -13,6 +13,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace Engine.File
 {
@@ -21,6 +22,7 @@ namespace Engine.File
     /// </summary>
     public class Chunk
     {
+        #region Constants
         /// <summary>
         /// List of supported Chunk types.
         /// </summary>
@@ -30,17 +32,41 @@ namespace Engine.File
             "MThd",
             "MTrk"
         };
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Chunk"/> class.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Chunk()
+            : this(string.Empty, 0, null)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Chunk"/> class.
         /// </summary>
-        public Chunk()
-        {
-            Id = string.Empty;
-            Length = 0;
-            SubStream = null;
-        }
+        /// <param name="id">The identifier.</param>
+        /// <param name="length">The length.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Chunk(string id, int length)
+            : this(id, length, null)
+        { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Chunk"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="length">The length.</param>
+        /// <param name="subStream">The sub stream.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal Chunk(string id, int length, Stream subStream)
+        {
+            (Id, Length, SubStream) = (id, length, subStream);
+        }
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Gets or sets the chunk ID.
         /// </summary>
@@ -55,7 +81,9 @@ namespace Engine.File
         /// Gets or sets the chunk sub stream.
         /// </summary>
         internal Stream SubStream { get; set; }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Read a file from a reader.
         /// </summary>
@@ -63,14 +91,8 @@ namespace Engine.File
         /// <returns></returns>
         internal static Chunk Read(BinaryReaderExtended reader)
         {
-            var chunk = new Chunk
-            {
-                Id = reader.ReadASCIIBytes(4),
-                Length = reader.ReadNetworkInt32()
-            };
-
+            var chunk = new Chunk(reader.ReadASCIIBytes(4), reader.ReadNetworkInt32());
             Validate(chunk);
-
             if (chunk.Length > reader.BaseStream.Length - reader.BaseStream.Position)
             {
                 throw new ArgumentOutOfRangeException(nameof(chunk.Length), "Chunk length larger than remaining stream length.");
@@ -78,7 +100,6 @@ namespace Engine.File
 
             // Isolate a chunk of the stream as a sub-stream to try to prevent over-reading. 
             chunk.SubStream = new SubStream(reader.BaseStream, reader.Position, chunk.Length);
-
             return chunk;
         }
 
@@ -92,17 +113,15 @@ namespace Engine.File
             if (string.IsNullOrWhiteSpace(chunk.Id))
             {
                 throw new InvalidDataException("Chunk length not set.");
-                // return value;
             }
 
             if (chunk.Length < 1)
             {
                 throw new InvalidDataException("Chunk length not set.");
-                // return value;
             }
 
-            var value = true;
-            return value;
+            return true;
         }
+        #endregion
     }
 }

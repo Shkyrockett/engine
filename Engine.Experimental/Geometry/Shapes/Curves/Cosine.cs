@@ -1,5 +1,5 @@
 ﻿// <copyright file="Cosine.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -20,7 +20,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName("Cosine Curve")]
     public class Cosine
-        : Shape
+        : Shape2D
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Cosine"/> class.

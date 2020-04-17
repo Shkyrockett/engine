@@ -52,92 +52,6 @@ namespace Engine
     {
         #region Between Extension Method Overloads
         /// <summary>
-        /// Check whether the double value is between lower and upper bounds.
-        /// </summary>
-        /// <param name="value">The <paramref name="value"/>.</param>
-        /// <param name="lowerLimit">The lower limit.</param>
-        /// <param name="upperLimit">The upper limit.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <acknowledgment>
-        /// https://github.com/dystopiancode/colorspace-conversions/
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool BetweenLowerUpper(double value, double lowerLimit, double upperLimit) => value >= lowerLimit && value <= upperLimit;
-
-        /// <summary>
-        /// Check whether the integer value is between lower and upper bounds.
-        /// </summary>
-        /// <param name="value">The <paramref name="value"/>.</param>
-        /// <param name="lowerLimit">The lower limit.</param>
-        /// <param name="upperLimit">The upper limit.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <acknowledgment>
-        /// https://github.com/dystopiancode/colorspace-conversions/
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool BetweenLowerUpper(int value, int lowerLimit, int upperLimit)
-            => value >= lowerLimit && value <= upperLimit;
-
-        /// <summary>
-        /// Check whether the byte value is between lower and upper bounds.
-        /// </summary>
-        /// <param name="value">The <paramref name="value"/>.</param>
-        /// <param name="lowerLimit">The lower limit.</param>
-        /// <param name="upperLimit">The upper limit.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <acknowledgment>
-        /// https://github.com/dystopiancode/colorspace-conversions/
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool BetweenLowerUpper(byte value, byte lowerLimit, byte upperLimit)
-            => value >= lowerLimit && value <= upperLimit;
-
-        /// <summary>
-        /// Return true iff c is between a and b.  Normalize all parameters wrt c, then ask if a and b are on opposite sides of zero.
-        /// </summary>
-        /// <param name="c">The c.</param>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Between(double c, double a, double b) => (a - c) * (b - c) <= 0;
-
-        /// <summary>
-        /// Return true iff c is between a and b.  Normalize all parameters wrt c, then ask if a and b are on opposite sides of zero.
-        /// </summary>
-        /// <param name="c">The c.</param>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Between(int c, int a, int b) => (a - c) * (b - c) <= 0;
-
-        /// <summary>
-        /// Return true iff c is between a and b.  Normalize all parameters wrt c, then ask if a and b are on opposite sides of zero.
-        /// </summary>
-        /// <param name="c">The c.</param>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Between(byte c, byte a, byte b) => (a - c) * (b - c) <= 0;
-
-        /// <summary>
         /// Check whether a vector lies between two other vectors.
         /// </summary>
         /// <param name="a">The vector <paramref name="a"/> to compare.</param>
@@ -160,8 +74,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool ApproximatelyBetween(double v, double m, double M)
-            => (m <= v && v <= M) || Approximately(v, m) || Approximately(v, M);
+        public static bool ApproximatelyBetween(double v, double m, double M) => (m <= v && v <= M) || Approximately(v, m) || Approximately(v, M);
 
         /// <summary>
         /// Return true iff angle c is between angles

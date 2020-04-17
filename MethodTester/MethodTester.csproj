@@ -197,6 +197,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Engine.Base\Engine.Base.csproj">
+      <Project>{8240b9de-f6bf-417b-b399-b8e9114ec2e1}</Project>
+      <Name>Engine.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engine.Experimental\Engine.Experimental.csproj">
       <Project>{10c8ef71-cc3d-4e11-b4ec-01e43cb47936}</Project>
       <Name>Engine.Experimental</Name>
@@ -205,9 +209,21 @@
       <Project>{4c4da771-9467-484f-bbb7-75860c3e7697}</Project>
       <Name>Engine.File</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Engine.Geometry\Engine.Geometry.csproj">
+      <Project>{cc0f6635-2a7b-4b43-b612-13afccdaece3}</Project>
+      <Name>Engine.Geometry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine.Mathematics\Engine.Mathematics.csproj">
+      <Project>{5dde8f2c-1c00-41fc-835d-707c848c9231}</Project>
+      <Name>Engine.Mathematics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engine.Midi\Engine.Midi.csproj">
       <Project>{928573a5-3e62-4132-8e0b-f05235bbedc7}</Project>
       <Name>Engine.Midi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine.Physics\Engine.Physics.csproj">
+      <Project>{110c6d8d-2f7b-4457-b680-c6675f834cfd}</Project>
+      <Name>Engine.Physics</Name>
     </ProjectReference>
     <ProjectReference Include="..\Engine.WindowsForms.Controls\Engine.WindowsForms.Controls.csproj">
       <Project>{059ab8be-2690-4104-9d5e-6f25972d89f9}</Project>
@@ -216,10 +232,6 @@
     <ProjectReference Include="..\Engine.WindowsForms\Engine.WindowsForms.csproj">
       <Project>{3a89b55c-8d51-46a4-86ca-825c28958dfd}</Project>
       <Name>Engine.WindowsForms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{32553305-ddb2-4fd1-b359-8ebd8587bd6f}</Project>
-      <Name>Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

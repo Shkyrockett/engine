@@ -394,7 +394,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix2x2D Plus(Matrix2x2D value) => UnaryAdd(value.M0x0, value.M0x1, value.M1x0, value.M1x1);
+        public static Matrix2x2D Plus(Matrix2x2D value) => Operations.Plus(value.M0x0, value.M0x1, value.M1x0, value.M1x1);
 
         /// <summary>
         /// Adds the specified augend.
@@ -456,7 +456,11 @@ namespace Engine
         public static Matrix2x2D Multiply(Matrix2x2D multiplicand, Matrix2x2D multiplier) => Multiply2x2x2x2(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M1x0, multiplicand.M1x1, multiplier.M0x0, multiplier.M0x1, multiplier.M1x0, multiplier.M1x1);
 
         /// <summary>
-        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// Equals - compares this Matrix with the passed in object.  In this equality
+        /// Double.NaN is equal to itself, unlike in numeric equality.
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which
+        /// are logically equal may fail.
         /// </summary>
         /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
@@ -464,10 +468,14 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals([AllowNull] object obj) => base.Equals(obj);
+        public override bool Equals([AllowNull] object obj) => obj is Matrix2x2D d && Equals(d);
 
         /// <summary>
-        /// Indicates whether the current object is equal to another object of the same type.
+        /// Equals - compares this <see cref="Matrix2x2D" /> with the passed in object.  In this equality
+        /// Double.NaN is equal to itself, unlike in numeric equality.
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which
+        /// are logically equal may fail.
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
@@ -475,7 +483,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Matrix2x2D other) => M0x0 == other.M0x0 && M0x1 == other.M0x1 && M1x0 == other.M1x0 && M1x1 == other.M1x1;
+        public bool Equals([AllowNull] Matrix2x2D other) => M0x0 == other.M0x0 && M0x1 == other.M0x1 && M1x0 == other.M1x0 && M1x1 == other.M1x1;
 
         /// <summary>
         /// Converts to valuetuple.
@@ -643,6 +651,18 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Matrix2x2D" /> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">The provider.</param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix2x2D" /> struct based on the format string

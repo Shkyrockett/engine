@@ -1,5 +1,5 @@
 ﻿// <copyright file="LyricText.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -19,7 +19,6 @@ namespace Engine.File
     /// <para>FF 05 len text</para>
     /// </remarks>
     [ElementName(nameof(LyricText))]
-    [DisplayName("Lyric Text")]
     public class LyricText
         : BaseTextEvent
     {
@@ -38,7 +37,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="LyricText"/>.</returns>
-        internal static LyricText Read(BinaryReaderExtended reader, EventStatus status)
-            => new LyricText(reader.ReadASCIIString(), status);
+        internal static LyricText Read(BinaryReaderExtended reader, EventStatus status) => new LyricText(reader.ReadASCIIString(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => (Text is string t) && !string.IsNullOrWhiteSpace(t) ? $"Lyric Text: {t}" : "Lyric Text";
     }
 }

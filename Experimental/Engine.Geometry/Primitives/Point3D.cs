@@ -419,7 +419,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D Plus(Point3D value) => UnaryAdd(value.X, value.Y, value.Z);
+        public static Point3D Plus(Point3D value) => Operations.Plus(value.X, value.Y, value.Z);
 
         /// <summary>
         /// Adds the specified augend.
@@ -478,7 +478,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D Negate(Point3D value) => NegateVector(value.X, value.Y, value.Z);
+        public static Point3D Negate(Point3D value) => Operations.Negate(value.X, value.Y, value.Z);
 
         /// <summary>
         /// Subtracts the specified minuend.

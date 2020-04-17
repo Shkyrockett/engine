@@ -1,5 +1,5 @@
 ﻿// <copyright file="PolygonLocus.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -61,8 +61,8 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator PolygonContour(PolygonLocus locus)
-            => new PolygonContour(locus.Points);
+        public static implicit operator PolygonContour2D(PolygonLocus locus)
+            => new PolygonContour2D(locus.Points);
 
         /// <summary>
         /// Add.
@@ -81,6 +81,6 @@ namespace Engine
         /// Converts to polygoncontour.
         /// </summary>
         /// <returns></returns>
-        public PolygonContour ToPolygonContour() => new PolygonContour(Points);
+        public PolygonContour2D ToPolygonContour() => new PolygonContour2D(Points);
     }
 }

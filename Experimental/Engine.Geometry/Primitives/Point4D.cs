@@ -420,7 +420,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Plus(Point4D value) => UnaryAdd(value.X, value.Y, value.Z, value.W);
+        public static Point4D Plus(Point4D value) => Operations.Plus(value.X, value.Y, value.Z, value.W);
 
         /// <summary>
         /// Adds the specified augend.
@@ -479,7 +479,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Negate(Point4D value) => NegateVector(value.X, value.Y, value.Z, value.W);
+        public static Vector4D Negate(Point4D value) => Operations.Negate(value.X, value.Y, value.Z, value.W);
 
         /// <summary>
         /// Subtracts the specified minuend.

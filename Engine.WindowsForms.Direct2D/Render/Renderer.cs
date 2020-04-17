@@ -27,7 +27,7 @@ namespace Engine.Direct2D
 
         //    switch (item?.Item)
         //    {
-        //        case ParametricDelegateCurve t:
+        //        case ParametricDelegateCurve2D t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
         //        case ParametricPointTester t:
@@ -57,22 +57,22 @@ namespace Engine.Direct2D
         //        case Logarithm t:
         //            t.Render(g, item, style as TextStyle);
         //            break;
-        //        case ScreenPoint t:
+        //        case ScreenPoint2D t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
-        //        case LineSegment t: // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
+        //        case LineSegment2D t: // Line segment needs to be in front of Polyline2D because LineSegment2D is a subset of Polyline2D.
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
-        //        case Polyline t:
+        //        case Polyline2D t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
-        //        case PolylineSet t:
+        //        case PolylineSet2D t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
         //        case Contour t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
-        //        case Polygon t:
+        //        case Polygon2D t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
         //        case Oval t:
@@ -84,7 +84,7 @@ namespace Engine.Direct2D
         //        case CircularArc t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
-        //        case EllipticalArc t:
+        //        case EllipticalArc2D t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
         //        case Circle t:
@@ -93,16 +93,16 @@ namespace Engine.Direct2D
         //        case Ellipse t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
-        //        case BezierSegment t:
+        //        case BezierSegment2D t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
         //        case CubicBezier t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
-        //        case QuadraticBezier t:
+        //        case QuadraticBezier2D t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
-        //        case PolycurveContour t:
+        //        case PolycurveContour2D t:
         //            t.Render(g, item, style as ShapeStyle);
         //            break;
         //        case null:

@@ -44,7 +44,7 @@ namespace Engine
         /// Add.
         /// </summary>
         /// <param name="s">The s.</param>
-        public void Add(LineSegment s)
+        public void Add(LineSegment2D s)
         {
             // j iterates through the openPolygon chains.
             for (var j = 0; j < openPolygons.Count; j++)
@@ -93,9 +93,9 @@ namespace Engine
         /// The to polygon.
         /// </summary>
         /// <returns>The <see cref="Polygon"/>.</returns>
-        public Polygon ToPolygon()
+        public Polygon2D ToPolygon()
         {
-            var polygon = new Polygon();
+            var polygon = new Polygon2D();
             foreach (var pointChain in closedPolygons)
             {
                 /*if (pointChain.pointList.length == 2)
@@ -104,7 +104,7 @@ namespace Engine
                     throw new Error("Invalid contour");
                 }*/
 
-                var c = new PolygonContour();
+                var c = new PolygonContour2D();
                 foreach (var p in pointChain.PointList)
                 {
                     c.Add(p);

@@ -1,5 +1,5 @@
 ﻿// <copyright file="PolygonSetLocus.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -61,8 +61,8 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Polygon(PolygonSetLocus locus)
-            => new Polygon(locus.Polygons);
+        public static implicit operator Polygon2D(PolygonSetLocus locus)
+            => new Polygon2D(locus.Polygons);
 
         /// <summary>
         /// Add.
@@ -82,6 +82,6 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public Polygon ToPolygon() => new Polygon(Polygons);
+        public Polygon2D ToPolygon() => new Polygon2D(Polygons);
     }
 }

@@ -145,7 +145,7 @@ namespace Engine.Experimental
         /// Build the polygon contour.
         /// </summary>
         /// <returns>The <see cref="PolygonContour"/>.</returns>
-        private PolygonContour BuildPolygonContour()
+        private PolygonContour2D BuildPolygonContour()
         {
             // ToDo: This is a rough guess of what needs to happen. This needs to be tested and corrected.
             var corners = (int)Shape;
@@ -161,7 +161,7 @@ namespace Engine.Experimental
                 polygon.AddRange(polyline.Slice(1).ToArray());
                 start = polyline[polyline.Length - 1];
             }
-            return new PolygonContour(polygon);
+            return new PolygonContour2D(polygon);
         }
         #endregion Methods
     }

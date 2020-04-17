@@ -1,5 +1,5 @@
 ﻿// <copyright file="PolylineSetLocus.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -61,8 +61,8 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator PolylineSet(PolylineSetLocus locus)
-            => new PolylineSet(locus.Polylines);
+        public static implicit operator PolylineSet2D(PolylineSetLocus locus)
+            => new PolylineSet2D(locus.Polylines);
 
         /// <summary>
         /// Add.
@@ -81,6 +81,6 @@ namespace Engine
         /// Converts to polylineset.
         /// </summary>
         /// <returns></returns>
-        public PolylineSet ToPolylineSet() => new PolylineSet(Polylines);
+        public PolylineSet2D ToPolylineSet() => new PolylineSet2D(Polylines);
     }
 }

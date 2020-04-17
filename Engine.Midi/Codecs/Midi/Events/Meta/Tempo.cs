@@ -1,5 +1,5 @@
 ﻿// <copyright file="Tempo.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -19,7 +19,6 @@ namespace Engine.File
     /// <para>FF 51 03  TT TT TT</para>
     /// </remarks>
     [ElementName(nameof(Tempo))]
-    [DisplayName(nameof(Tempo))]
     public class Tempo
         : EventStatus
     {
@@ -29,7 +28,7 @@ namespace Engine.File
         /// <param name="value">The value.</param>
         /// <param name="status">The status.</param>
         public Tempo(int value, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
             Value = value;
         }
@@ -45,7 +44,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="Tempo"/>.</returns>
-        internal static Tempo Read(BinaryReaderExtended reader, EventStatus status)
-            => new Tempo(reader.ReadNetworkInt24(), status);
+        internal static Tempo Read(BinaryReaderExtended reader, EventStatus status) => new Tempo(reader.ReadNetworkInt24(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Tempo";
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Start.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -20,7 +20,6 @@ namespace Engine.File
     /// Start the current sequence playing. (This message will be followed with Timing Clocks).</para>
     /// </remarks>
     [ElementName(nameof(Start))]
-    [DisplayName(nameof(Start))]
     public class Start
         : EventStatus
     {
@@ -29,7 +28,7 @@ namespace Engine.File
         /// </summary>
         /// <param name="status">The status.</param>
         public Start(EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         { }
 
         /// <summary>
@@ -43,5 +42,13 @@ namespace Engine.File
             _ = reader;
             return new Start(status);
         }
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Start";
     }
 }

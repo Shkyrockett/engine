@@ -1,5 +1,5 @@
 ﻿// <copyright file="Heart.cs" company="Shkyrockett" >
-//     Copyright © 2015 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2015 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -23,7 +23,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName(nameof(Heart))]
     public class Heart
-        : Shape
+        : Shape2D
     {
         /// <summary>
         /// The to string.

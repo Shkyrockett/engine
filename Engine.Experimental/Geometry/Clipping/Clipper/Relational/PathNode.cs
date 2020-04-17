@@ -19,7 +19,7 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets or sets the path.
         /// </summary>
-        public PolygonContour Path { get; set; }
+        public PolygonContour2D Path { get; set; }
 
         /// <summary>
         /// Gets or sets the join type.
@@ -44,7 +44,7 @@ namespace Engine.Experimental
         /// <param name="p">The p.</param>
         /// <param name="jt">The jt.</param>
         /// <param name="et">The et.</param>
-        public PathNode(PolygonContour p, LineJoin jt, LineEndType et)
+        public PathNode(PolygonContour2D p, LineJoin jt, LineEndType et)
         {
             JoinType = jt;
             EndType = et;
@@ -74,7 +74,7 @@ namespace Engine.Experimental
                 EndType = jt == LineJoin.Round ? LineEndType.OpenRound : LineEndType.OpenSquare;
             }
 
-            Path = new PolygonContour()
+            Path = new PolygonContour2D()
             {
                 p[0]
             };

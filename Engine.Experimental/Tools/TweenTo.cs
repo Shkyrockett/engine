@@ -1,5 +1,5 @@
 ﻿// <copyright file="TweenTo.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -36,7 +36,7 @@ namespace Engine.Tools
             Index = 0;
 
             // Setup the storage properties. 
-            Line = LineSegment.Empty;
+            Line = LineSegment2D.Empty;
         }
         #endregion Constructors
 
@@ -44,7 +44,7 @@ namespace Engine.Tools
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
-        public LineSegment Line { get; set; }
+        public LineSegment2D Line { get; set; }
 
         /// <summary>
         /// Provides the current index of the rubber-band line used to find the angle.
@@ -141,7 +141,7 @@ namespace Engine.Tools
             InUse = false;
             Started = false;
             Index = 0;
-            Line = LineSegment.Empty;
+            Line = LineSegment2D.Empty;
         }
 
         /// <summary>

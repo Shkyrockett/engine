@@ -1,5 +1,5 @@
 ﻿// <copyright file="LineSegmentLocus.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -76,8 +76,8 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator LineSegment(LineSegmentLocus locus)
-            => new LineSegment(locus.A, locus.B);
+        public static implicit operator LineSegment2D(LineSegmentLocus locus)
+            => new LineSegment2D(locus.A, locus.B);
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="LineSegmentLocus"/> to <see cref="Polyline"/>.
@@ -86,19 +86,19 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Polyline(LineSegmentLocus locus)
-            => new Polyline(locus.A, locus.B);
+        public static implicit operator Polyline2D(LineSegmentLocus locus)
+            => new Polyline2D(locus.A, locus.B);
 
         /// <summary>
         /// Converts to linesegment.
         /// </summary>
         /// <returns></returns>
-        public LineSegment ToLineSegment() => new LineSegment(A, B);
+        public LineSegment2D ToLineSegment() => new LineSegment2D(A, B);
 
         /// <summary>
         /// Converts to polyline.
         /// </summary>
         /// <returns></returns>
-        public Polyline ToPolyline() => new Polyline(A, B);
+        public Polyline2D ToPolyline() => new Polyline2D(A, B);
     }
 }

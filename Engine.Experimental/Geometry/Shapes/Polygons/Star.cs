@@ -1,5 +1,5 @@
 ﻿// <copyright file="Star.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -22,7 +22,7 @@ namespace Engine
     //[GraphicsObject]
     [DisplayName(nameof(Star))]
     public class Star
-        : PolygonContour
+        : PolygonContour2D
     {
         //// Draw the indicated star in the rectangle.
         ///// <summary>

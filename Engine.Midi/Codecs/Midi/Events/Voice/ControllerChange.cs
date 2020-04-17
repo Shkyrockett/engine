@@ -1,5 +1,5 @@
 ﻿// <copyright file="ControllerChange.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -24,7 +24,6 @@ namespace Engine.File
     /// (vvvvvvv) is the controller value (0-127).</para>
     /// </remarks>
     [ElementName(nameof(ControllerChange))]
-    [DisplayName("Controller Change")]
     public class ControllerChange
         : EventStatus
     {
@@ -35,10 +34,9 @@ namespace Engine.File
         /// <param name="value">The value.</param>
         /// <param name="status">The status.</param>
         public ControllerChange(byte controller, byte value, EventStatus status)
-            : base(status.DeltaTime, status.Status, status.Channel)
+            : base((status?.DeltaTime).Value, status.Status, status.Channel)
         {
-            Controller = controller;
-            Value = value;
+            (Controller, Value) = (controller, value);
         }
 
         /// <summary>
@@ -57,7 +55,14 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="ControllerChange"/>.</returns>
-        internal static ControllerChange Read(BinaryReaderExtended reader, EventStatus status)
-            => new ControllerChange(reader.ReadByte(), reader.ReadByte(), status);
+        internal static ControllerChange Read(BinaryReaderExtended reader, EventStatus status) => new ControllerChange(reader.ReadByte(), reader.ReadByte(), status);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Controller Change";
     }
 }

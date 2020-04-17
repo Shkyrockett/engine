@@ -162,7 +162,7 @@ namespace Engine
         /// The normal.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Normal => Measurements.QuaternionNormal(X, Y, Z, W);
+        public double Normal => Operations.QuaternionNormal(X, Y, Z, W);
 
         /// <summary>
         /// Gets the squared 'length' of this quaternion.
@@ -171,7 +171,7 @@ namespace Engine
         /// The length squared.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double LengthSquared => Measurements.QuaternionNormal(X, Y, Z, W);
+        public double LengthSquared => Operations.QuaternionNormal(X, Y, Z, W);
 
         /// <summary>
         /// Gets the 'length' of this quaternion.
@@ -180,7 +180,7 @@ namespace Engine
         /// The length.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Length => Measurements.QuaternionMagnitude(X, Y, Z, W);
+        public double Length => Operations.QuaternionMagnitude(X, Y, Z, W);
 
         /// <summary>
         /// Gets or sets the pitch.
@@ -555,7 +555,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Quaternion4D Plus(Quaternion4D value) => UnaryAdd(value.X, value.Y, value.Z, value.W);
+        public static Quaternion4D Plus(Quaternion4D value) => Operations.Plus(value.X, value.Y, value.Z, value.W);
 
         /// <summary>
         /// Adds the specified augend.
@@ -594,7 +594,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Quaternion4D Negate(Quaternion4D value) => NegateVector(value.X, value.Y, value.Z, value.W);
+        public static Quaternion4D Negate(Quaternion4D value) => Operations.Negate(value.X, value.Y, value.Z, value.W);
 
         /// <summary>
         /// Subtracts the specified minuend.

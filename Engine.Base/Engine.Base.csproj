@@ -1,15 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
     <LangVersion>preview</LangVersion>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Version>0.0.0.1</Version>
     <Authors>Shkyrockett</Authors>
+    <Description>General purpose engine.</Description>
     <Copyright>Copyright © 2013 - 2020 Shkyrockett</Copyright>
-     <Description>General purpose engine.</Description>
-   <RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
@@ -17,18 +17,33 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>bin\Debug\netcoreapp3.0\</OutputPath>
-    <DocumentationFile>bin\Debug\netcoreapp3.0\Engine.Base.xml</DocumentationFile>
+    <OutputPath>bin\AnyCPU\Debug\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\AnyCPU\Debug\netcoreapp5.0\Engine.Base.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutputPath>bin\x64\Debug\netcoreapp3.0\</OutputPath>
-    <DocumentationFile>bin\x64\Debug\netcoreapp3.0\Engine.Base.xml</DocumentationFile>
+    <OutputPath>bin\x64\Debug\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\x64\Debug\netcoreapp5.0\Engine.Base.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <OutputPath>bin\x64\Debug\netcoreapp3.0\</OutputPath>
-    <DocumentationFile>bin\x64\Debug\netcoreapp3.0\Engine.Base.xml</DocumentationFile>
+    <OutputPath>bin\x86\Debug\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\x86\Debug\netcoreapp5.0\Engine.Base.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\AnyCPU\Release\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\AnyCPU\Release\netcoreapp5.0\Engine.Base.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <OutputPath>bin\x86\Release\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\x86\Release\netcoreapp5.0\Engine.Base.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutputPath>bin\x64\Release\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\x64\Release\netcoreapp5.0\Engine.Base.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

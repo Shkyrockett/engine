@@ -11,6 +11,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using static Engine.LengthUnits;
@@ -366,7 +367,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(Mils other) => Value == other.Value;
+        public bool Equals([AllowNull] Mils other) => Value == other.Value;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -374,7 +375,7 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode() => -1937169414 + Value.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(Value);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Mils" /> struct.

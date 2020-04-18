@@ -24,7 +24,7 @@ namespace Engine
         /// <param name="p">The p.</param>
         public ClippingPolygon(List<Point2D> p)
         {
-            for (int i = 0, len = p.Count; i < len; i++)
+            for (int i = 0, len = (p?.Count).Value; i < len; i++)
             {
                 AddVertex(new ClippingVertex(p[i]));
             }
@@ -59,6 +59,11 @@ namespace Engine
         /// <param name="vertex"></param>
         public void AddVertex(ClippingVertex vertex)
         {
+            if (vertex is null)
+            {
+                throw new System.ArgumentNullException(nameof(vertex));
+            }
+
             if (First is null)
             {
                 First = vertex;
@@ -86,16 +91,25 @@ namespace Engine
         /// <param name="end"></param>
         public void InsertVertex(ClippingVertex vertex, ClippingVertex start, ClippingVertex end)
         {
-            ClippingVertex prev;
-            var curr = start;
+            if (vertex is null)
+            {
+                throw new System.ArgumentNullException(nameof(vertex));
+            }
 
-            while (!curr.Equals(end) && curr.distance < vertex.distance)
+            if (end is null)
+            {
+                throw new System.ArgumentNullException(nameof(end));
+            }
+
+            var curr = start ?? throw new System.ArgumentNullException(nameof(start));
+
+            while (!curr.Equals(end) && curr?.distance < vertex?.distance)
             {
                 curr = curr.Next;
             }
 
             vertex.Next = curr;
-            prev = curr.Previous;
+            var prev = curr.Previous;
 
             vertex.Previous = prev;
             prev.Next = vertex;
@@ -112,7 +126,7 @@ namespace Engine
         public static ClippingVertex GetNext(ClippingVertex v)
         {
             var c = v;
-            while (c.isIntersection)
+            while ((c?.isIntersection).Value)
             {
                 c = c.Next;
             }

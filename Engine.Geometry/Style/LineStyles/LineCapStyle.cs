@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -162,7 +163,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(LineCapStyle other) => EqualityComparer<PolycurveContour2D>.Default.Equals(capPath, other.capPath);
+        public bool Equals([AllowNull] LineCapStyle other) => EqualityComparer<PolycurveContour2D>.Default.Equals(capPath, other.capPath);
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -170,7 +171,7 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode() => 1210406348 + EqualityComparer<PolycurveContour2D>.Default.GetHashCode(capPath);
+        public override int GetHashCode() => HashCode.Combine(capPath);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="LineCapStyle" /> struct.

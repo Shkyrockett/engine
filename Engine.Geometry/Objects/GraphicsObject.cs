@@ -56,7 +56,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// Gets the <see cref="Area"/> of a <see cref="Shape"/>.
+        /// Gets the <see cref="Area"/> of a <see cref="Shape2D"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
@@ -64,7 +64,7 @@ namespace Engine
         public virtual double Area { get; set; }
 
         /// <summary>
-        /// Gets the <see cref="Perimeter"/> of a <see cref="Shape"/>.
+        /// Gets the <see cref="Perimeter"/> of a <see cref="Shape2D"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
@@ -72,7 +72,7 @@ namespace Engine
         public virtual double Perimeter { get; set; }
 
         /// <summary>
-        /// Gets the <see cref="Bounds"/> of a <see cref="Shape"/>.
+        /// Gets the <see cref="Bounds"/> of a <see cref="Shape2D"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
@@ -82,7 +82,7 @@ namespace Engine
 
         #region Interpolation
         /// <summary>
-        /// Interpolates a <see cref="Shape"/>.
+        /// Interpolates a <see cref="Shape2D"/>.
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -90,7 +90,7 @@ namespace Engine
             => new Point2D();
 
         /// <summary>
-        /// Retrieves a list of points interpolated from a<see cref="Shape"/>.
+        /// Retrieves a list of points interpolated from a<see cref="Shape2D"/>.
         /// </summary>
         /// <param name="count">The number of points desired.</param>
         /// <returns></returns>
@@ -171,16 +171,18 @@ namespace Engine
         /// Private method for caching computationally and memory intensive properties of child objects
         /// so that the intensive properties only get recalculated and stored when necessary.
         /// </summary>
-        /// <param name="property"></param>
-        /// <param name="name"></param>
+        /// <param name="property">The property.</param>
+        /// <param name="name">The name.</param>
         /// <returns></returns>
-        /// <remarks><para>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</para></remarks>
+        /// <remarks>
+        /// http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html
+        /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
+        protected object CachingProperty(Func<object> property, [CallerMemberName] string name = "")
         {
             if (!propertyCache.ContainsKey(name))
             {
-                var value = property.Invoke();
+                var value = property?.Invoke();
                 propertyCache.Add(name, value);
                 return value;
             }
@@ -203,8 +205,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the IFormatProvider
@@ -216,8 +217,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the format string
@@ -232,8 +232,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the format string

@@ -131,7 +131,7 @@ namespace Engine
             get { return Rectangle2D.FromLTRB(MinX, MinY, MaxX, MaxY); }
             set
             {
-                MinX = value.Left;
+                MinX = (value?.Left).Value;
                 MinY = value.Top;
                 MaxX = value.Right;
                 MaxY = value.Bottom;

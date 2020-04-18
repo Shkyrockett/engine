@@ -11,9 +11,9 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static Engine.Mathematics;
@@ -25,10 +25,10 @@ namespace Engine
     /// <summary>
     /// The <see cref="Point3D" /> struct.
     /// </summary>
+    /// <seealso cref="Engine.IVector{Engine.Point3D}" />
     /// <seealso cref="IVector{T}" />
-    [ComVisible(true)]
     [DataContract, Serializable]
-    [TypeConverter(typeof(StructConverter<Point3D>))]
+    [TypeConverter(typeof(Point3DConverter))]
     [DebuggerDisplay("{ToString()}")]
     public struct Point3D
         : IVector<Point3D>
@@ -115,7 +115,7 @@ namespace Engine
         /// <value>
         /// The x.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
         public double X { get; set; }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Engine
         /// <value>
         /// The y.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
         public double Y { get; set; }
 
         /// <summary>
@@ -133,21 +133,18 @@ namespace Engine
         /// <value>
         /// The z.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Z)), XmlAttribute(nameof(Z)), SoapAttribute(nameof(Z))]
         public double Z { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Point3D" /> is empty.
         /// </summary>
         /// <value>
-        ///   <see langword="true"/> if this instance is empty; otherwise, <see langword="false"/>.
+        /// <see langword="true"/> if this instance is empty; otherwise, <see langword="false"/>.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        public bool IsEmpty
-            => Abs(X) < Epsilon
-            && Abs(Y) < Epsilon
-            && Abs(Z) < Epsilon;
+        public bool IsEmpty => Abs(X) < Epsilon && Abs(Y) < Epsilon && Abs(Z) < Epsilon;
         #endregion Properties
 
         #region Operators
@@ -160,67 +157,67 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator +(Point3D value) => UnaryAdd(value.X, value.Y, value.Z);
+        public static Point3D operator +(Point3D value) => Plus(value);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point3D" /> classes.
         /// </summary>
-        /// <param name="value">The original value</param>
+        /// <param name="augend">The original value</param>
         /// <param name="addend">The amount to add.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator +(Point3D value, double addend) => Add3D(value.X, value.Y, value.Z, addend);
+        public static Point3D operator +(Point3D augend, double addend) => Add(augend, addend);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point3D" /> classes.
         /// </summary>
-        /// <param name="value">The original value</param>
+        /// <param name="augend">The original value</param>
         /// <param name="addend">The amount to add.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator +(double value, Point3D addend) => Add3D(addend.X, addend.Y, addend.Z, value);
+        public static Point3D operator +(double augend, Point3D addend) => Add(addend, augend);
 
         /// <summary>
         /// Add two <see cref="Point3D" /> classes together.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="addend">The addend.</param>
+        /// <param name="augend">The original value</param>
+        /// <param name="addend">The amount to add.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator +(Point3D value, Point3D addend) => Add3D(value.X, value.Y, value.Z, addend.X, addend.Y, addend.Z);
+        public static Vector3D operator +(Point3D augend, Point3D addend) => Add(augend, addend);
 
         /// <summary>
         /// Operator Point + Vector
         /// </summary>
-        /// <param name="value">The Point to be added to the Vector</param>
-        /// <param name="addend">The Vector to be added to the Point</param>
+        /// <param name="augend">The original value</param>
+        /// <param name="addend">The amount to add.</param>
         /// <returns>
         /// Point - The result of the addition
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator +(Point3D value, Vector3D addend) => Add3D(value.X, value.Y, value.Z, addend.I, addend.J, addend.K);
+        public static Point3D operator +(Point3D augend, Vector3D addend) => Add(augend, addend);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator +(Vector3D value, Point3D addend) => Add3D(value.I, value.J, value.K, addend.X, addend.Y, addend.Z);
+        public static Point3D operator +(Vector3D augend, Point3D addend) => Add(augend, addend);
 
         /// <summary>
         /// Unary subtraction operator.
@@ -231,91 +228,91 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator -(Point3D value) => UnaryNegate3D(value.X, value.Y, value.Z);
+        public static Point3D operator -(Point3D value) => Negate(value);
 
         /// <summary>
         /// Subtract a <see cref="Point3D" /> from a <see cref="double" /> value.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator -(Point3D value, double subend) => SubtractSubtrahend3D(value.X, value.Y, value.Z, subend);
+        public static Point3D operator -(Point3D minuend, double subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract a <see cref="Point3D" /> from a <see cref="double" /> value.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator -(double value, Point3D subend) => SubtractFromMinuend3D(value, subend.X, subend.Y, subend.Z);
+        public static Point3D operator -(double minuend, Point3D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract a <see cref="Point3D" /> from another <see cref="Point3D" /> class.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator -(Point3D value, Point3D subend) => Subtract3D(value.X, value.Y, value.Z, subend.X, subend.Y, subend.Z);
+        public static Vector3D operator -(Point3D minuend, Point3D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract a <see cref="Point3D" /> from another <see cref="Point3D" /> class.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator -(Point3D value, Vector3D subend) => new Point3D(value.X - subend.I, value.Y - subend.J, value.Z - subend.K);
+        public static Point3D operator -(Point3D minuend, Vector3D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator -(Vector3D value, Point3D subend) => Subtract3D(value.I, value.J, value.K, subend.X, subend.Y, subend.Z);
-
-        /// <summary>
-        /// Scale a point
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="factor">The factor.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator *(double value, Point3D factor) => Scale3D(factor.X, factor.Y, factor.Z, value);
+        public static Point3D operator -(Vector3D minuend, Point3D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Scale a point.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="factor">The factor.</param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator *(Point3D value, double factor) => Scale3D(value.X, value.Y, value.Z, factor);
+        public static Point3D operator *(Point3D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Scale a point
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D operator *(double multiplicand, Point3D multiplier) => Multiply(multiplier, multiplicand);
 
         /// <summary>
         /// Divide a <see cref="Point3D" /> by a value.
@@ -327,7 +324,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator /(Point3D divisor, double dividend) => DivideByDividend3D(divisor.X, divisor.Y, divisor.Z, dividend);
+        public static Point3D operator /(Point3D divisor, double dividend) => Divide(divisor, dividend);
 
         /// <summary>
         /// Divide a <see cref="Point3D" />
@@ -339,35 +336,35 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator /(double divisor, Point3D dividend) => DivideDivisor3D(divisor, dividend.X, dividend.Y, dividend.Z);
+        public static Point3D operator /(double divisor, Point3D dividend) => Divide(divisor, dividend);
 
         /// <summary>
         /// Compares two <see cref="Point3D" /> objects.
         /// The result specifies whether the values of the <see cref="X" /> and <see cref="Y" />
         /// values of the two <see cref="Point3D" /> objects are equal.
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
+        /// <param name="comparand">The comparand.</param>
+        /// <param name="comparanda">The comparanda.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Point3D left, Point3D right) => Equals(left, right);
+        public static bool operator ==(Point3D comparand, Point3D comparanda) => Equals(comparand, comparanda);
 
         /// <summary>
         /// Compares two <see cref="Point3D" /> objects.
         /// The result specifies whether the values of the <see cref="X" /> or <see cref="Y" />
         /// values of the two <see cref="Point3D" /> objects are unequal.
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
+        /// <param name="comparand">The comparand.</param>
+        /// <param name="comparanda">The comparanda.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Point3D left, Point3D right) => !Equals(left, right);
+        public static bool operator !=(Point3D comparand, Point3D comparanda) => !Equals(comparand, comparanda);
 
         /// <summary>
         /// Explicit conversion of the specified <see cref="Vector3D" /> structure to a <see cref="Point3D" /> structure.
@@ -414,6 +411,223 @@ namespace Engine
         public static implicit operator (double X, double Y, double Z)(Point3D point) => (point.X, point.Y, point.Z);
         #endregion Operators
 
+        #region Operator Backing Methods
+        /// <summary>
+        /// Pluses the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Plus(Point3D value) => Operations.Plus(value.X, value.Y, value.Z);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Add(Point3D augend, double addend) => AddVectorUniform(augend.X, augend.Y, augend.Z, addend);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Add(double augend, Point3D addend) => AddVectorUniform(addend.X, addend.Y, addend.Z, augend);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Add(Point3D augend, Point3D addend) => AddVectors(augend.X, augend.Y, augend.Z, addend.X, addend.Y, addend.Z);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Add(Point3D augend, Vector3D addend) => AddVectors(augend.X, augend.Y, augend.Z, addend.I, addend.J, addend.K);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Add(Vector3D augend, Point3D addend) => AddVectors(augend.I, augend.J, augend.K, addend.X, addend.Y, addend.Z);
+
+        /// <summary>
+        /// Negates the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Negate(Point3D value) => Operations.Negate(value.X, value.Y, value.Z);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Subtract(Point3D minuend, double subend) => SubtractVectorUniform(minuend.X, minuend.Y, minuend.Z, subend);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Subtract(double minuend, Point3D subend) => SubtractFromMinuend(minuend, subend.X, subend.Y, subend.Z);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Subtract(Point3D minuend, Point3D subend) => SubtractVector(minuend.X, minuend.Y, minuend.Z, subend.X, subend.Y, subend.Z);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Subtract(Point3D minuend, Vector3D subend) => SubtractVector(minuend.X, minuend.Y, minuend.Z, subend.I, subend.J, subend.K);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Subtract(Vector3D minuend, Point3D subend) => SubtractVector(minuend.I, minuend.J, minuend.K, subend.X, subend.Y, subend.Z);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Multiply(Point3D multiplicand, double multiplier) => ScaleVector(multiplicand.X, multiplicand.Y, multiplicand.Z, multiplier);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Multiply(double multiplicand, Point3D multiplier) => ScaleVector(multiplier.X, multiplier.Y, multiplier.Z, multiplicand);
+
+        /// <summary>
+        /// Divides the specified divisor.
+        /// </summary>
+        /// <param name="divisor">The divisor.</param>
+        /// <param name="dividend">The dividend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Divide(Point3D divisor, double dividend) => DivideVectorUniform(divisor.X, divisor.Y, divisor.Z, dividend);
+
+        /// <summary>
+        /// Divides the specified divisor.
+        /// </summary>
+        /// <param name="divisor">The divisor.</param>
+        /// <param name="dividend">The dividend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Divide(double divisor, Point3D dividend) => DivideByVectorUniform(divisor, dividend.X, dividend.Y, dividend.Z);
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals([AllowNull] object obj) => obj is Point3D d && Equals(d);
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals([AllowNull] Point3D other) => X == other.X && Y == other.Y && Z == other.Z;
+
+        /// <summary>
+        /// Converts to point3d.
+        /// </summary>
+        /// <param name="vector">The vector.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D FromVector3D(Vector3D vector) => new Point3D(vector.I, vector.J, vector.K);
+
+        /// <summary>
+        /// Converts to vector3d.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector3D ToVector3D() => new Vector3D(X, Y, Z);
+
+        /// <summary>
+        /// Creates a new <see cref="Point3D" /> from a <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D FromValueTuple((double X, double Y, double Z) tuple) => new Point3D(tuple);
+
+        /// <summary>
+        /// Converts to valuetuple.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double X, double Y, double Z) ToValueTuple() => (X, Y, Z);
+        #endregion
+
         #region Factories
         /// <summary>
         /// Parse a string for a <see cref="Point3D" /> value.
@@ -424,8 +638,7 @@ namespace Engine
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         [ParseMethod]
-        public static Point3D Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
+        public static Point3D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Parse a string for a <see cref="Point3D" /> value.
@@ -453,72 +666,7 @@ namespace Engine
         }
         #endregion Factories
 
-        #region Methods
-        /// <summary>
-        /// Compares two Vectors
-        /// </summary>
-        /// <param name="a">a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Point3D a, Point3D b)
-            => Equals(a, b);
-
-        /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>
-        /// The <see cref="bool" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Point3D a, Point3D b) => (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z);
-
-        /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="obj">The obj.</param>
-        /// <returns>
-        /// The <see cref="bool" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is Point3D && Equals(this, (Point3D)obj);
-
-        /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        /// The <see cref="bool" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Point3D value) => Equals(this, value);
-
-        /// <summary>
-        /// Get the hash code.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="int" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
-
-        /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Point3D" /> struct.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this <see cref="Point3D" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
+        #region Standard Methods
         /// <summary>
         /// Creates a string representation of this <see cref="Point3D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
@@ -532,86 +680,44 @@ namespace Engine
         public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(X, Y, Z);
+
+        /// <summary>
+        /// Creates a human-readable string that represents this <see cref="Point3D" /> struct.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this <see cref="Point3D" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
         /// Creates a string representation of this <see cref="Point3D" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <param name="formatProvider">The format provider.</param>
         /// <returns>
         /// A string representation of this <see cref="Point3D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             if (this == null) return nameof(Point3D);
-            var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Point3D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Z)}:{Z.ToString(format, provider)})";
+            var s = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(Point3D)}({nameof(X)}: {X.ToString(format, formatProvider)}{s} {nameof(Y)}: {Y.ToString(format, formatProvider)}{s} {nameof(Z)}: {Z.ToString(format, formatProvider)})";
         }
-
-        /// <summary>
-        /// Pluses the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        public static Point3D Plus(Point3D item) => +item;
-
-        /// <summary>
-        /// Adds the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Vector3D Add(Point3D left, Point3D right) => left + right;
-
-        /// <summary>
-        /// Negates the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        public static Point3D Negate(Point3D item) => -item;
-
-        /// <summary>
-        /// Subtracts the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Vector3D Subtract(Point3D left, Point3D right) => left - right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Point3D Multiply(double left, Point3D right) => left * right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Point3D Multiply(Point3D left, double right) => left * right;
-
-        /// <summary>
-        /// Divides the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Point3D Divide(double left, Point3D right) => left / right;
-
-        /// <summary>
-        /// Divides the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Point3D Divide(Point3D left, double right) => left / right;
         #endregion Methods
     }
 }

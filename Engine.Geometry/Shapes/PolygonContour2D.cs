@@ -43,30 +43,30 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolygonContour"/> class.
+        /// Initializes a new instance of the <see cref="PolygonContour2D"/> class.
         /// </summary>
         public PolygonContour2D()
             : this(new List<Point2D>())
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolygonContour"/> class.
+        /// Initializes a new instance of the <see cref="PolygonContour2D"/> class.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
         public PolygonContour2D(PolygonContour2D polygon)
-            : this(polygon.points)
+            : this(polygon?.points)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolygonContour"/> class.
+        /// Initializes a new instance of the <see cref="PolygonContour2D"/> class.
         /// </summary>
         /// <param name="polyline">The polyline.</param>
         public PolygonContour2D(Polyline2D polyline)
-            : this(polyline.Points)
+            : this(polyline?.Points)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolygonContour"/> class.
+        /// Initializes a new instance of the <see cref="PolygonContour2D"/> class.
         /// </summary>
         /// <param name="points">The points.</param>
         public PolygonContour2D(params Point2D[] points)
@@ -74,7 +74,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolygonContour"/> class.
+        /// Initializes a new instance of the <see cref="PolygonContour2D"/> class.
         /// </summary>
         /// <param name="points">The points.</param>
         public PolygonContour2D(IEnumerable<Point2D> points)
@@ -83,7 +83,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolygonContour"/> class.
+        /// Initializes a new instance of the <see cref="PolygonContour2D"/> class.
         /// </summary>
         /// <param name="polylines">The polylines.</param>
         public PolygonContour2D(IEnumerable<Polyline2D> polylines)
@@ -228,7 +228,7 @@ namespace Engine
         /// Add.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <returns>The <see cref="PolygonContour"/>.</returns>
+        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
         public PolygonContour2D Add(Point2D point)
         {
             Points.Add(point);
@@ -248,7 +248,7 @@ namespace Engine
         /// <summary>
         /// The reverse.
         /// </summary>
-        /// <returns>The <see cref="PolygonContour"/>.</returns>
+        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
         public PolygonContour2D Reverse()
         {
             Points.Reverse();
@@ -262,7 +262,7 @@ namespace Engine
         /// Translate.
         /// </summary>
         /// <param name="delta">The delta.</param>
-        /// <returns>The <see cref="PolygonContour"/>.</returns>
+        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
         public PolygonContour2D Translate(Point2D delta)
             => Translate(this, delta);
 
@@ -271,10 +271,10 @@ namespace Engine
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="delta">The delta.</param>
-        /// <returns>The <see cref="PolygonContour"/>.</returns>
+        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
         public static PolygonContour2D Translate(PolygonContour2D path, Point2D delta)
         {
-            var outPath = new List<Point2D>(path.points.Count);
+            var outPath = new List<Point2D>((path?.points).Count);
             for (var i = 0; i < path.points.Count; i++)
             {
                 outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
@@ -333,11 +333,8 @@ namespace Engine
         /// The segment.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <returns>The <see cref="LineSegment"/>.</returns>
-        public LineSegment2D Segment(int index)
-            => (index == points.Count - 1)
-                ? new LineSegment2D(points[points.Count - 1], points[0])
-                : new LineSegment2D(points[index], points[index + 1]);
+        /// <returns>The <see cref="LineSegment2D"/>.</returns>
+        public LineSegment2D Segment(int index) => (index == points.Count - 1) ? new LineSegment2D(points[^1], points[0]) : new LineSegment2D(points[index], points[index + 1]);
 
         #region Methods
         /// <summary>
@@ -347,49 +344,43 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Contains(Point2D point)
-            => Intersections.Contains(this, point) != Inclusions.Outside;
+        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != Inclusions.Outside;
 
         /// <summary>
         /// Clone.
         /// </summary>
-        /// <returns>The <see cref="PolygonContour"/>.</returns>
+        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public PolygonContour2D Clone()
-            => new PolygonContour2D(points.ToArray());
+        public PolygonContour2D Clone() => new PolygonContour2D(points.ToArray());
 
         /// <summary>
         /// The offset.
         /// </summary>
         /// <param name="offset">The offset.</param>
-        /// <returns>The <see cref="PolygonContour"/>.</returns>
+        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public virtual PolygonContour2D Offset(double offset)
-            => Offsets.Offset(this, offset);
+        public virtual PolygonContour2D Offset(double offset) => Offsets.Offset(this, offset);
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
-        public IEnumerator<Point2D> GetEnumerator()
-            => points.GetEnumerator();
+        public IEnumerator<Point2D> GetEnumerator() => points.GetEnumerator();
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator"/>.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-            => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Parse the path def string.
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        public static List<Point2D> ParsePathDefString(string pathDefinition)
-            => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
+        public static List<Point2D> ParsePathDefString(string pathDefinition) => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Parse the path def string.
@@ -397,7 +388,7 @@ namespace Engine
         /// <param name="pathDefinition">The pathDefinition.</param>
         /// <param name="provider">The provider.</param>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        /// <exception cref="Exception">Polygon2D definitions must be in sets of two numbers.</exception>
+        /// <exception cref="Exception">Polygon definitions must be in sets of two numbers.</exception>
         public static List<Point2D> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             // Discard whitespace and comma but keep the - minus sign.
@@ -410,7 +401,7 @@ namespace Engine
 
             if (list.Length % 2 != 0)
             {
-                throw new Exception("Polygon2D definitions must be in sets of two numbers.");
+                throw new Exception("Polygon definitions must be in sets of two numbers.");
             }
 
             for (var i = 0; i < list.Length - 1; i = i = 2)
@@ -454,7 +445,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Creates a string representation of this <see cref="PolygonContour"/> struct based on the format string
+        /// Creates a string representation of this <see cref="PolygonContour2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

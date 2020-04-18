@@ -20,27 +20,28 @@ namespace Engine.Tweening
     /// </summary>
     [DataContract, Serializable]
     public class Tweener
+        : ITweener
     {
         #region Fields
         /// <summary>
         /// The tweens.
         /// </summary>
-        private readonly Dictionary<object, List<Tween>> tweens;
+        private readonly Dictionary<object, List<ITween>> tweens;
 
         /// <summary>
         /// The to remove.
         /// </summary>
-        private readonly List<Tween> toRemove;
+        private readonly List<ITween> toRemove;
 
         /// <summary>
         /// The to add.
         /// </summary>
-        private readonly List<Tween> toAdd;
+        private readonly List<ITween> toAdd;
 
         /// <summary>
         /// The all tweens.
         /// </summary>
-        private readonly List<Tween> allTweens;
+        private readonly List<ITween> allTweens;
         #endregion Fields
 
         #region Constructors
@@ -82,10 +83,10 @@ namespace Engine.Tweening
         /// </summary>
         public Tweener()
         {
-            tweens = new Dictionary<object, List<Tween>>();
-            toRemove = new List<Tween>();
-            toAdd = new List<Tween>();
-            allTweens = new List<Tween>();
+            tweens = new Dictionary<object, List<ITween>>();
+            toRemove = new List<ITween>();
+            toAdd = new List<ITween>();
+            allTweens = new List<ITween>();
         }
         #endregion Constructors
 
@@ -101,18 +102,14 @@ namespace Engine.Tweening
         /// </summary>
         /// <typeparam name="TLerper">The Lerper class to use for properties of the given type.</typeparam>
         /// <param name="propertyType">The type of the property to associate the given Lerper with.</param>
-        public static void RegisterLerper<TLerper>(Type propertyType)
-            where TLerper
-            : MemberLerper, new()
-            => RegisterLerper(typeof(TLerper), propertyType);
+        public static void RegisterLerper<TLerper>(Type propertyType) where TLerper : IMemberLerper, new() => RegisterLerper(typeof(TLerper), propertyType);
 
         /// <summary>
         /// Associate a Lerper type with a property type.
         /// </summary>
         /// <param name="lerperType">The type of the Lerper to use for properties of the given type.</param>
         /// <param name="propertyType">The type of the property to associate the given Lerper with.</param>
-        public static void RegisterLerper(Type lerperType, Type propertyType)
-            => RegisteredLerpers[propertyType] = lerperType.GetConstructor(Type.EmptyTypes);
+        public static void RegisterLerper(Type lerperType, Type propertyType) => RegisteredLerpers[propertyType] = lerperType?.GetConstructor(Type.EmptyTypes);
 
         /// <summary>
         /// <para>Tweens a set of properties on an object.</para>
@@ -125,7 +122,7 @@ namespace Engine.Tweening
         /// <param name="delay">Delay before the tween starts, in seconds.</param>
         /// <param name="overwrite">Whether preexisting tweens should be overwritten if this tween involves the same properties.</param>
         /// <returns>The tween created, for setting properties on.</returns>
-        public Tween Tween<T>(T target, object dests, double duration, double delay = 0, bool overwrite = true) where T : class
+        public ITween Tween<T>(T target, object dests, double duration, double delay = 0, bool overwrite = true) where T : class
         {
             if (target is null)
             {
@@ -177,7 +174,7 @@ namespace Engine.Tweening
         /// <param name="duration">How long the timer will run for, in seconds.</param>
         /// <param name="delay">How long to wait before starting the timer, in seconds.</param>
         /// <returns>The tween created, for setting properties.</returns>
-        public Tween Timer(double duration, double delay = 0)
+        public ITween Timer(double duration, double delay = 0)
         {
             var tween = new Tween(null, duration, delay, this);
             AddAndRemove();
@@ -188,8 +185,7 @@ namespace Engine.Tweening
         /// <summary>
         /// Remove tweens from the tweener without calling their complete functions.
         /// </summary>
-        public void Cancel()
-            => toRemove.AddRange(allTweens);
+        public void Cancel() => toRemove.AddRange(allTweens);
 
         /// <summary>
         /// Assign tweens their final value and remove them from the tweener.
@@ -255,22 +251,21 @@ namespace Engine.Tweening
         /// <param name="propertyType">The propertyType.</param>
         /// <returns>The <see cref="MemberLerper"/>.</returns>
         /// <exception cref="Exception"></exception>
-        private static MemberLerper CreateLerper(Type propertyType)
+        private static IMemberLerper CreateLerper(Type propertyType)
         {
             if (!RegisteredLerpers.TryGetValue(propertyType, out var lerper))
             {
-                throw new Exception($"No {nameof(MemberLerper)} found for type {propertyType.FullName}.");
+                throw new Exception($"No {nameof(IMemberLerper)} found for type {propertyType.FullName}.");
             }
 
-            return lerper.Invoke(null) as MemberLerper;
+            return lerper.Invoke(null) as IMemberLerper;
         }
 
         /// <summary>
         /// Remove.
         /// </summary>
         /// <param name="tween">The tween.</param>
-        internal void Remove(Tween tween)
-            => toRemove.Add(tween);
+        internal void Remove(ITween tween) => toRemove.Add(tween);
 
         /// <summary>
         /// Add the and remove.
@@ -289,7 +284,7 @@ namespace Engine.Tweening
 
                 if (!tweens.TryGetValue(tween.Target, out var list))
                 {
-                    tweens[tween.Target] = list = new List<Tween>();
+                    tweens[tween.Target] = list = new List<ITween>();
                 }
 
                 list.Add(tween);

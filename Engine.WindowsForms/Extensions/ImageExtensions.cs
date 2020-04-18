@@ -11,6 +11,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Engine.Imaging
@@ -25,7 +26,7 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="image">The image to get the bounds from.</param>
         /// <returns>A rectangle the size of the image.</returns>
-        public static RectangleF Bounds(this Image image) => new RectangleF(PointF.Empty, image.Size);
+        public static RectangleF Bounds(this Image image) => new RectangleF(PointF.Empty, (image?.Size).Value);
 
         /// <summary>
         /// Convert an image to a different bit format.
@@ -70,7 +71,7 @@ namespace Engine.Imaging
         /// <remarks><para>http://tech.pro/tutorial/620/csharp-tutorial-image-editing-saving-cropping-and-resizing</para></remarks>
         public static Image ResizeImage(this Image canvas, Size size)
         {
-            var sourceWidth = canvas.Width;
+            var sourceWidth = canvas?.Width;
             var sourceHeight = canvas.Height;
             var nPercentW = size.Width / (float)sourceWidth;
             var nPercentH = size.Height / (float)sourceHeight;
@@ -181,7 +182,7 @@ namespace Engine.Imaging
         public static Cursor RetriveCursorResource(string ResourceName)
         {
             //  Get the namespace
-            var strNameSpace = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString();
+            var strNameSpace = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString(CultureInfo.InvariantCulture);
             //  Get the resource into a stream
             var ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream($"{strNameSpace}.{ResourceName}");
             if (ResourceStream is null)
@@ -189,23 +190,24 @@ namespace Engine.Imaging
                 // ToDo: #If Then ... Warning! not translated
                 MessageBox.Show($"Unable to find: {ResourceName}\r\nBe Sure {ResourceName} Property Build Action is set to Embedded Resource\r\nAnother reason can be that the Project Root Namespace is not the same as the Assembly Name");
                 // ToDo: # ... Warning! not translated
-            }
-            else
-            {
+
                 //  ToDo: Report the Error message in a nicer fashion since this in game.
                 //  Perhaps on Exit provide a message errors were encountered and
                 //  ignored would you like to send an error report?
                 // ToDo: #End If ... Warning! not translated
                 return Cursors.Default;
             }
-            //  Return the Resource as a cursor
-            if (ResourceStream.CanRead)
-            {
-                return new Cursor(ResourceStream);
-            }
             else
             {
-                return Cursors.Default;
+                //  Return the Resource as a cursor
+                if (ResourceStream.CanRead)
+                {
+                    return new Cursor(ResourceStream);
+                }
+                else
+                {
+                    return Cursors.Default;
+                }
             }
         }
     }

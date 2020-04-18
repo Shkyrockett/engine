@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -94,7 +95,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(Work other) => EqualityComparer<IForce>.Default.Equals(Force, other.Force) && EqualityComparer<ILength>.Default.Equals(Distance, other.Distance);
+        public bool Equals([AllowNull] Work other) => EqualityComparer<IForce>.Default.Equals(Force, other.Force) && EqualityComparer<ILength>.Default.Equals(Distance, other.Distance);
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -102,19 +103,14 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -1543019450;
-            hashCode = hashCode * -1521134295 + EqualityComparer<IForce>.Default.GetHashCode(Force);
-            hashCode = hashCode * -1521134295 + EqualityComparer<ILength>.Default.GetHashCode(Distance);
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Force, Distance);
+
 
         /// <summary>
         /// The to string.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         public override string ToString() => $"{Value} {Force.Abbreviation}{Distance.Abbreviation}";
     }

@@ -21,7 +21,6 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(Heart))]
     public class Heart
         : Shape2D
     {
@@ -29,7 +28,6 @@ namespace Engine
         /// The to string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString()
-            => nameof(Heart);
+        public override string ToString() => nameof(Heart);
     }
 }

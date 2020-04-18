@@ -46,8 +46,7 @@ namespace Engine
         /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Min(params double[] values)
-            => values.Min();
+        public static double Min(params double[] values) => values.Min();
 
         /// <summary>
         /// The min.
@@ -56,8 +55,7 @@ namespace Engine
         /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Min(List<double> values)
-            => values.Min();
+        public static double Min(List<double> values) => values.Min();
 
         /// <summary>
         /// The min.
@@ -66,8 +64,7 @@ namespace Engine
         /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Min(IEnumerable<double> values)
-            => values.Min();
+        public static double Min(IEnumerable<double> values) => values.Min();
 
         /// <summary>
         /// The max.
@@ -76,8 +73,7 @@ namespace Engine
         /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Max(params double[] values)
-            => values.Max();
+        public static double Max(params double[] values) => values.Max();
 
         /// <summary>
         /// The max.
@@ -86,8 +82,7 @@ namespace Engine
         /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Max(List<double> values)
-            => values.Max();
+        public static double Max(List<double> values) => values.Max();
 
         /// <summary>
         /// The max.
@@ -96,8 +91,7 @@ namespace Engine
         /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Max(IEnumerable<double> values)
-            => values.Max();
+        public static double Max(IEnumerable<double> values) => values.Max();
 
         /// <summary>
         /// The sum.
@@ -106,8 +100,7 @@ namespace Engine
         /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Sum(params double[] values)
-            => values.Sum();
+        public static double Sum(params double[] values) => values.Sum();
 
         /// <summary>
         /// Find the sum of an array of Numbers
@@ -116,8 +109,7 @@ namespace Engine
         /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Sum(List<double> values)
-            => values.Sum();
+        public static double Sum(List<double> values) => values.Sum();
 
         /// <summary>
         /// Find the sum of an array of Numbers
@@ -126,8 +118,7 @@ namespace Engine
         /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Sum(IEnumerable<double> values)
-            => values.Sum();
+        public static double Sum(IEnumerable<double> values) => values.Sum();
 
         /// <summary>
         /// Returns the average value of a numeric array.
@@ -137,8 +128,7 @@ namespace Engine
         /// <remarks><para>Note: Uses Following Sum Function as well.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Average(params double[] values)
-            => values.Sum() / values.Length;
+        public static double Average(params double[] values) => values.Sum() / values.Length;
 
         /// <summary>
         /// Returns the average value of a numeric array.
@@ -148,8 +138,7 @@ namespace Engine
         /// <remarks><para>Note: Uses Following Sum Function as well.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Average(this List<double> values)
-            => values.Sum() / values.Count;
+        public static double Average(this List<double> values) => values.Sum() / values.Count;
 
         /// <summary>
         /// Returns the average value of a numeric array.
@@ -159,8 +148,7 @@ namespace Engine
         /// <remarks><para>Note: Uses Following Sum Function as well.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Average(this IEnumerable<double> values)
-            => values.Sum() / values.Count();
+        public static double Average(this IEnumerable<double> values) => values.Sum() / values.Count();
         #endregion Array Math
     }
 }

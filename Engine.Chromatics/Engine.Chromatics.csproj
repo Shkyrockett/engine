@@ -1,8 +1,61 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <Version>0.0.0.1</Version>
+    <Authors>Shkyrockett</Authors>
+    <Description>Engine color manipulation Plug in.</Description>
+    <Copyright>Copyright © 2013 - 2020 Shkyrockett</Copyright>
+    <RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>bin\AnyCPU\Debug\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\AnyCPU\Debug\netcoreapp5.0\Engine.Chromatics.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutputPath>bin\x64\Debug\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\x64\Debug\netcoreapp5.0\Engine.Chromatics.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <OutputPath>bin\x86\Debug\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\x86\Debug\netcoreapp5.0\Engine.Chromatics.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\AnyCPU\Release\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\AnyCPU\Release\netcoreapp5.0\Engine.Chromatics.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <OutputPath>bin\x86\Release\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\x86\Release\netcoreapp5.0\Engine.Chromatics.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutputPath>bin\x64\Release\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\x64\Release\netcoreapp5.0\Engine.Chromatics.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0-beta3.final">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />

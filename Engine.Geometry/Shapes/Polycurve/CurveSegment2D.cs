@@ -125,7 +125,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html
         /// </acknowledgment>
-        protected object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
+        protected object CachingProperty(Func<object> property, [CallerMemberName] string name = "")
         {
             if (property is null) return null;
             if (!propertyCache.ContainsKey(name))

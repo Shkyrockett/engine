@@ -26,27 +26,6 @@ namespace Engine
         : UserControl
     {
         /// <summary>
-        /// The value changed event args class.
-        /// </summary>
-        public class ValueChangedEventArgs
-            : EventArgs
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="ValueChangedEventArgs"/> class.
-            /// </summary>
-            /// <param name="value">The value.</param>
-            public ValueChangedEventArgs(double value)
-            {
-                Value = value;
-            }
-
-            /// <summary>
-            /// Gets or sets the value.
-            /// </summary>
-            public double Value { get; set; }
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
@@ -176,7 +155,7 @@ namespace Engine
         {
             var sqr = ToSquare(new Rectangle(Point.Empty, Bounds.Size));
             using var g = new GraphicsPath();
-            g.AddEllipse(sqr);
+            g?.AddEllipse(sqr);
             Region = new Region(g);
         }
 

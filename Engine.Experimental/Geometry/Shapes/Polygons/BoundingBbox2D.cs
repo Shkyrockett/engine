@@ -62,7 +62,7 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>        public static BoundingBbox2D operator +(BoundingBbox2D a, BoundingBbox2D b)
-            => new BoundingBbox2D(Math.Min(a.Xmin, b.Xmin),
+            => new BoundingBbox2D(Math.Min((a?.Xmin).Value, (b?.Xmin).Value),
                                   Math.Min(a.Ymin, b.Ymin),
                                   Math.Max(a.Xmax, b.Xmax),
                                   Math.Max(a.Ymax, b.Ymax));

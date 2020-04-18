@@ -9,8 +9,11 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -25,13 +28,24 @@ namespace Engine
     /// </summary>
     /// <seealso cref="IPrimitive" />
     /// <seealso cref="IEquatable{T}" />
-    [TypeConverter(typeof(ExpandableObjectConverter))]
+    [DataContract, Serializable]
+    [TypeConverter(typeof(StructConverter<Transform2D>))]
     [DebuggerDisplay("{ToString()}")]
     public struct Transform2D
-        : IPrimitive, // IMatrix<Transform2D, Vector2D>,
+        : IPrimitive, IMatrix<Transform2D, Vector2D>,
         IEquatable<Transform2D>
     {
         #region Implementations
+        /// <summary>
+        /// The empty
+        /// </summary>
+        public static readonly Transform2D Empty = new Transform2D(0d, 0d, 0d, 0d, 0d, 0d);
+
+        /// <summary>
+        /// The na n
+        /// </summary>
+        public static readonly Transform2D NaN = new Transform2D(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+
         /// <summary>
         /// The identity.
         /// </summary>
@@ -217,7 +231,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the <see cref="Rotation" /> angle of the <see cref="Transform2D" /> in Degrees.
         /// </summary>
-
         /// <value>
         /// The rotation degrees.
         /// </value>
@@ -234,7 +247,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the <see cref="Location" /> of the <see cref="Transform2D" />
         /// </summary>
-
         /// <value>
         /// The location.
         /// </value>
@@ -251,7 +263,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the <see cref="SkewY" /> vector of the <see cref="Transform2D" />
         /// </summary>
-
         /// <value>
         /// The skew.
         /// </value>
@@ -268,7 +279,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the <see cref="Scale" /> of the <see cref="Transform2D" />
         /// </summary>
-
         /// <value>
         /// The scale.
         /// </value>
@@ -292,25 +302,21 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
-
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Transform2D operator +(Transform2D value, Transform2D addend)
-            => value.Add(addend);
+        public static Transform2D operator +(Transform2D augend, Transform2D addend) => Add(augend, addend);
 
         /// <summary>
         /// Subtract a <see cref="Transform2D" /> struct from another.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
-
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Transform2D operator -(Transform2D value, Transform2D subend)
-            => value.Subtract(subend);
+        public static Transform2D operator -(Transform2D minuend, Transform2D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Compares two <see cref="Transform2D" /> instances for exact equality.
@@ -341,7 +347,72 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Transform2D transform1, Transform2D transform2) => !Equals(transform1, transform2);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="ValueTuple{T, T, T, T, T, T}" /> to <see cref="Transform2D" />.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Transform2D((double X, double Y, double SkewX, double SkewY, double ScaleX, double ScaleY) tuple) => FromValueTuple(tuple);
         #endregion Operators
+
+        #region Operator Backing Methods
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Transform2D Add(Transform2D augend, Transform2D addend) => Operations.AddTransformMatrix(augend.X, augend.Y, augend.SkewX, augend.SkewY, augend.ScaleX, augend.ScaleY, addend.X, addend.Y, addend.SkewX, addend.SkewY, addend.ScaleX, addend.ScaleY);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Transform2D Subtract(Transform2D minuend, Transform2D subend) => Operations.SubtractTransformMatrix(minuend.X, minuend.Y, minuend.SkewX, minuend.SkewY, minuend.ScaleX, minuend.ScaleY, subend.X, subend.Y, subend.SkewX, subend.SkewY, subend.ScaleX, subend.ScaleY);
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals([AllowNull] object obj) => obj is Ellipse2D o && Equals(o);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals([AllowNull] Transform2D other) => X == other.X && Y == other.Y && SkewX == other.SkewX && SkewY == other.SkewY && ScaleX == other.ScaleX && ScaleY == other.ScaleY;
+
+        /// <summary>
+        /// Froms the value tuple.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Transform2D FromValueTuple((double X, double Y, double SkewX, double SkewY, double ScaleX, double ScaleY) tuple) => new Transform2D(tuple);
+        #endregion
 
         #region Factories
         /// <summary>
@@ -392,65 +463,41 @@ namespace Engine
         /// <returns>
         /// The <see cref="Matrix3x2D" />.
         /// </returns>
-        public Matrix3x2D ToMatrix()
-            => new Matrix3x2D(ScaleX * Cos(SkewY), ScaleX * Sin(SkewY), -ScaleY * Sin(SkewX), ScaleY * Cos(SkewX), X, Y);
+        public Matrix3x2D ToMatrix() => new Matrix3x2D(ScaleX * Cos(SkewY), ScaleX * Sin(SkewY), -ScaleY * Sin(SkewX), ScaleY * Cos(SkewX), X, Y);
         #endregion Factories
 
-        #region Methods
+        #region Standard Methods
         /// <summary>
-        /// Compares two Vectors
+        /// Returns an enumerator that iterates through a collection.
         /// </summary>
-        /// <param name="a">a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns></returns>
-
+        /// <returns>
+        /// An <see cref="System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Transform2D a, Transform2D b) => Equals(a, b);
+        IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
 
         /// <summary>
-        /// The equals.
+        /// Returns an enumerator that iterates through the collection.
         /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
         /// <returns>
-        /// The <see cref="bool" />.
+        /// An enumerator that can be used to iterate through the collection.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public IEnumerator<IEnumerable<double>> GetEnumerator() => throw new NotImplementedException();
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Transform2D a, Transform2D b) => a.X == b.X & a.Y == b.Y & a.SkewX == b.SkewX & a.SkewY == b.SkewY & a.ScaleX == b.ScaleX & a.ScaleY == b.ScaleY;
-
-        /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="obj">The obj.</param>
-        /// <returns>
-        /// The <see cref="bool" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is Transform2D && Equals(this, (Transform2D)obj);
-
-        /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        /// The <see cref="bool" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Transform2D value) => Equals(this, value);
-
-        /// <summary>
-        /// Get the hash code.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="int" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => X.GetHashCode() ^ Y.GetHashCode() ^ SkewX.GetHashCode() ^ SkewY.GetHashCode() ^ ScaleX.GetHashCode() ^ ScaleY.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(X, Y, SkewX, SkewY, ScaleX, ScaleY);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Transform2D" />.
@@ -481,9 +528,9 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The format provider.</param>
         /// <returns>
-        /// A string representation of this object.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -493,22 +540,6 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Transform2D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(SkewX)}:{SkewX.ToString(format, provider)}{s} {nameof(SkewY)}:{SkewY.ToString(format, provider)}{s} {nameof(ScaleX)}:{ScaleX.ToString(format, provider)}{s} {nameof(ScaleY)}:{ScaleY.ToString(format, provider)})";
         }
-
-        /// <summary>
-        /// Adds the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Transform2D Add(Transform2D left, Transform2D right) => left + right;
-
-        /// <summary>
-        /// Subtracts the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Transform2D Subtract(Transform2D left, Transform2D right) => left - right;
-        #endregion Methods
+        #endregion
     }
 }

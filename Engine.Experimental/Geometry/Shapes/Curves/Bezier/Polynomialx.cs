@@ -26,7 +26,7 @@ namespace Engine
     /// <summary>
     /// The polynomialx class.
     /// </summary>
-    /// <seealso cref="System.IFormattable" />
+    /// <seealso cref="IFormattable" />
     public class Polynomialx
         : IFormattable
     {
@@ -152,7 +152,7 @@ namespace Engine
         /// </remarks>
         public static Polynomialx operator +(double a, Polynomialx b)
         {
-            var res = new double[b.Coefficients.Count];
+            var res = new double[(b?.Coefficients).Count];
             for (var i = 0; i < res.Length; i++)
             {
                 res[i] = b.Coefficients[i];
@@ -207,7 +207,7 @@ namespace Engine
         /// </remarks>
         public static Polynomialx operator -(Polynomialx a)
         {
-            var res = new double[a.Coefficients.Count];
+            var res = new double[(a?.Coefficients).Count];
             for (var i = 0; i < res.Length; i++)
             {
                 res[i] = -a.Coefficients[i];
@@ -243,7 +243,7 @@ namespace Engine
         /// </remarks>
         public static Polynomialx operator -(double b, Polynomialx a)
         {
-            var res = new double[a.Coefficients.Count];
+            var res = new double[(a?.Coefficients).Count];
             for (var i = 0; i < res.Length; i++)
             {
                 res[i] = -a.Coefficients[i];
@@ -969,7 +969,7 @@ namespace Engine
                         if (Abs(p) < Epsilon)
                         {
                             // t^3 + q = 0  => t = -q^1/3 => x = -q^1/3 - a/3
-                            yield return -Crt(p) - (a / 3);
+                            yield return -CubeRoot(p) - (a / 3);
                         }
                         else if (Abs(q) < Epsilon)
                         {
@@ -978,7 +978,7 @@ namespace Engine
                             yield return -a / 3;
                             if (p < 0)
                             {
-                                var root = Crt(p);
+                                var root = CubeRoot(p);
                                 yield return root - (a / 3);
                                 yield return -root - (a / 3);
                             }
@@ -991,7 +991,7 @@ namespace Engine
                                 // 3 roots
                                 var r = Sqrt(-p * p * p / 27);
                                 var phi = Acos(MinMax(-q / 2 / r, -1, 1));
-                                var t1 = 2 * Crt(r);
+                                var t1 = 2 * CubeRoot(r);
                                 yield return (t1 * Cos(phi / 3)) - (a / 3);
                                 yield return (t1 * Cos((phi + (2 * PI)) / 3)) - (a / 3);
                                 yield return (t1 * Cos((phi + (4 * PI)) / 3)) - (a / 3);
@@ -999,7 +999,7 @@ namespace Engine
                             else if (disc < Epsilon)
                             {
                                 // 2 real roots
-                                var cq = Crt(q / 2);
+                                var cq = CubeRoot(q / 2);
                                 yield return (-2 * cq) - (a / 3);
                                 yield return cq - (a / 3);
                             }
@@ -1007,7 +1007,7 @@ namespace Engine
                             {
                                 // 1 real root
                                 var sd = Sqrt(disc);
-                                yield return Crt((-q / 2) + sd) - Crt((q / 2) + sd) - (a / 3);
+                                yield return CubeRoot((-q / 2) + sd) - CubeRoot((q / 2) + sd) - (a / 3);
                             }
                         }
                     }
@@ -1025,7 +1025,7 @@ namespace Engine
                         var p = c - (3 * b * b / 8);
                         var q = ((b * b * b) - (4 * b * c) + (8 * d)) / 8;
                         var r = ((-3 * b * b * b * b) + (256 * e) - (64 * b * d) + (16 * b * b * c)) / 256;
-                        if (Abs(q) <= Epsilon)
+                        if (Abs(q) <= double.Epsilon)
                         {
                             // z = y^2, x = +/- sqrt(z) - b/4, z^2 + p z + r = 0
                             foreach (var z in SolveRealRoots(r, p, 1))
@@ -1034,7 +1034,7 @@ namespace Engine
                                 {
                                     continue;
                                 }
-                                if (z <= Epsilon)
+                                if (z <= double.Epsilon)
                                 {
                                     yield return -b / 4;
                                     continue;
@@ -1189,7 +1189,7 @@ namespace Engine
                     }
 
                     // find root on [droots[count-1],xmax]
-                    root = Bisection(droots[droots.Count - 1], max);
+                    root = Bisection(droots[^1], max);
                     if (root != null)
                     {
                         roots.Add(root.Value);
@@ -1216,7 +1216,7 @@ namespace Engine
         public static void RemoveMultipleRootsIn01(List<double> roots)
         {
             const double ZEROepsilon = 1e-15;
-            roots.Sort();// (a, b)=> { return a - b; });
+            roots?.Sort();// (a, b)=> { return a - b; });
             for (var i = 1; i < roots.Count;)
             {
                 if (Abs(roots[i] - roots[i - 1]) < ZEROepsilon)
@@ -1324,7 +1324,7 @@ namespace Engine
         /// Creates a human-readable string that represents this <see cref="Polynomialx" /> inherited class.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -32,7 +32,7 @@ namespace Engine.Chrono
         /// </remarks>
         public static Occasion DalightSavingsTimeBegins(int year, Culture culture)
         {
-            switch (culture.Country)
+            switch (culture?.Country)
             {
                 case Country.CA:
                 case Country.US:
@@ -152,7 +152,7 @@ namespace Engine.Chrono
         /// </remarks>
         public static Occasion DalightSavingsTimeEnds(int year, Culture culture)
         {
-            switch (culture.Country)
+            switch (culture?.Country)
             {
                 case Country.CA:
                 case Country.US:
@@ -371,44 +371,50 @@ namespace Engine.Chrono
         /// </remarks>
         public static Occasion ThanksgivingDay(int year, Culture culture)
         {
-            return culture.Country switch
+            switch (culture?.Country)
             {
-                Country.AU => new Occasion(
-                                       "Thanksgiving Day (Norfolk Island Australia)",
-                                       culture,
-                                       OccasionDateType.DynamicAnnualDate,
-                                       EventType.Holiday,
-                                       new DateTime(year, (int)Month.November, 1).LastInstanceWeekdayOfMonth(1, DayOfWeek.Wednesday),
-                                       "The Last Wednesday in November."),
-                Country.CA => new Occasion(
-"Thanksgiving Day (Canada)",
-culture,
-OccasionDateType.DynamicAnnualDate,
-EventType.Holiday,
-new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Thursday),
-"The Second Monday in October."),
-                Country.GD => new Occasion(
-"Thanksgiving Day (Grenada)",
-culture,
-OccasionDateType.AnnualDate,
-EventType.Holiday,
-new DateTime(year, (int)Month.October, 25),
-"October Twenty Fifth."),
-                Country.LR => new Occasion(
-"Thanksgiving Day (Liberia)",
-culture,
-OccasionDateType.DynamicAnnualDate,
-EventType.Holiday,
-new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Thursday),
-"The First Thursday in November."),
-                _ => new Occasion(
-"Thanksgiving Day (USA)",
-culture,
-OccasionDateType.DynamicAnnualDate,
-EventType.Holiday,
-new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfWeek.Thursday),
-"The Fourth Thursday in November."),
-            };
+                case Country.AU:
+                    return new Occasion(
+                        "Thanksgiving Day (Norfolk Island Australia)",
+                        culture,
+                        OccasionDateType.DynamicAnnualDate,
+                        EventType.Holiday,
+                        new DateTime(year, (int)Month.November, 1).LastInstanceWeekdayOfMonth(1, DayOfWeek.Wednesday),
+                        "The Last Wednesday in November.");
+                case Country.CA:
+                    return new Occasion(
+                        "Thanksgiving Day (Canada)",
+                        culture,
+                        OccasionDateType.DynamicAnnualDate,
+                        EventType.Holiday,
+                        new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Thursday),
+                        "The Second Monday in October.");
+                case Country.GD:
+                    return new Occasion(
+                        "Thanksgiving Day (Grenada)",
+                        culture,
+                        OccasionDateType.AnnualDate,
+                        EventType.Holiday,
+                        new DateTime(year, (int)Month.October, 25),
+                        "October Twenty Fifth.");
+                case Country.LR:
+                    return new Occasion(
+                        "Thanksgiving Day (Liberia)",
+                        culture,
+                        OccasionDateType.DynamicAnnualDate,
+                        EventType.Holiday,
+                        new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Thursday),
+                        "The First Thursday in November.");
+                case Country.US:
+                default:
+                    return new Occasion(
+                       "Thanksgiving Day (USA)",
+                       culture,
+                       OccasionDateType.DynamicAnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfWeek.Thursday),
+                       "The Fourth Thursday in November.");
+            }
         }
 
         // - Christian Floating holidays -
@@ -1043,14 +1049,7 @@ new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfW
         /// <param name="year">The year to look up.</param>
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns></returns>
-        public static Occasion VernalEquinoxNorthernHemisphere(int year, Culture culture)
-            => new Occasion(
-            "Vernal Equinox",
-            culture,
-            OccasionDateType.DynamicAnnualDate,
-            EventType.Holiday,
-            CalculateEquinoxSolsticeDate(year, Season.Spring, culture),
-            "Vernal Equinox for the Northern Hemisphere.");
+        public static Occasion VernalEquinoxNorthernHemisphere(int year, Culture culture) { if (culture is null) { throw new ArgumentNullException(nameof(culture)); } return new Occasion("Vernal Equinox", culture, OccasionDateType.DynamicAnnualDate, EventType.Holiday, CalculateEquinoxSolsticeDate(year, Season.Spring, culture), "Vernal Equinox for the Northern Hemisphere."); }
 
         /// <summary>
         /// Summer Solstice Northern Hemisphere
@@ -1059,13 +1058,10 @@ new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfW
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns></returns>
         public static Occasion SummerSolsticeNorthernHemisphere(int year, Culture culture)
-            => new Occasion(
-            "Summer Solstice",
-            culture,
-            OccasionDateType.DynamicAnnualDate,
-            EventType.Holiday,
-            CalculateEquinoxSolsticeDate(year, Season.Summer, culture),
-            "Summer Solstice for the Northern Hemisphere.");
+        {
+            if (culture is null) { throw new ArgumentNullException(nameof(culture)); }
+            return new Occasion("Summer Solstice", culture, OccasionDateType.DynamicAnnualDate, EventType.Holiday, CalculateEquinoxSolsticeDate(year, Season.Summer, culture), "Summer Solstice for the Northern Hemisphere.");
+        }
 
         /// <summary>
         /// Autumnal Equinox Northern Hemisphere
@@ -1074,13 +1070,20 @@ new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfW
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns></returns>
         public static Occasion AutumnalEquinoxNorthernHemisphere(int year, Culture culture)
-            => new Occasion(
+        {
+            if (culture is null)
+            {
+                throw new ArgumentNullException(nameof(culture));
+            }
+
+            return new Occasion(
             "Autumnal Equinox",
             culture,
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
             CalculateEquinoxSolsticeDate(year, Season.Autumn, culture),
             "Autumnal Equinox for the Northern Hemisphere.");
+        }
 
         /// <summary>
         /// Winter Solstice Northern Hemisphere
@@ -1089,13 +1092,20 @@ new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfW
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns></returns>
         public static Occasion WinterSolsticeNorthernHemisphere(int year, Culture culture)
-            => new Occasion(
+        {
+            if (culture is null)
+            {
+                throw new ArgumentNullException(nameof(culture));
+            }
+
+            return new Occasion(
             "Winter Solstice",
             culture,
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
             CalculateEquinoxSolsticeDate(year, Season.Winter, culture),
             "Winter Solstice for the Northern Hemisphere.");
+        }
 
         // - Season Helpers -
 
@@ -1195,10 +1205,10 @@ new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfW
         {
             return (date.Month + (date.Day / 100f)) /* <month>.<day(2 digit)> */switch
             {
-                var v when v < 3.21 || v >= 12.22 => getSeasonOffset(Season.Winter),// 3: Winter
-                var v when v < 6.21 => getSeasonOffset(Season.Spring),// 0: Spring
-                var v when v < 9.23 => getSeasonOffset(Season.Summer),// 1: Summer
-                _ => getSeasonOffset(Season.Autumn),// 2: Autumn
+                var v when v < 3.21 || v >= 12.22 => getSeasonOffset(Season.Winter),
+                var v when v < 6.21 => getSeasonOffset(Season.Spring),
+                var v when v < 9.23 => getSeasonOffset(Season.Summer),
+                _ => getSeasonOffset(Season.Autumn),
             };
             Season getSeasonOffset(Season northern)
                 => (Season)(((int)northern + (ofSouthernHemisphere ? 2 : 0)) % 4);

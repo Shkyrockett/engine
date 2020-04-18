@@ -20,76 +20,15 @@ namespace Engine
     /// as the sweep line passes through the polygons.
     /// </summary>
     /// <seealso cref="IComparable{T}" />
+    /// <seealso cref="IEquatable{T}" />
     public class SweepEvent
         : IComparable<SweepEvent>
     {
         #region Fields
         /// <summary>
-        /// is point the left endpoint of the edge (point, otherEvent.point)?
-        /// </summary>
-        private bool isLeft;
-
-        /// <summary>
         /// point associated with the event
         /// </summary>
         private Point2D point;
-
-        /// <summary>
-        /// event associated to the other endpoint of the edge
-        /// </summary>
-        private SweepEvent otherEvent;
-
-        /// <summary>
-        /// Polygon2D to which the associated segment belongs to
-        /// </summary>
-        private ClippingRelation belongsTo;
-
-        /// <summary>
-        /// The contribution.
-        /// </summary>
-        private EdgeContribution contribution;
-
-        //The following fields are only used in "left" events
-
-        /// <summary>
-        /// Does segment (point, otherEvent.p) represent an inside-outside transition in the polygon for a vertical ray from (p.x, -infinite)?
-        /// </summary>
-        private bool inOut;
-
-        /// <summary>
-        /// inOut transition for the segment from the other polygon preceding this segment in sl
-        /// </summary>
-        private bool otherInOut;
-
-        /// <summary>
-        /// Position of the event (line segment) in sl
-        /// </summary>
-        private SortedSet<SweepEvent> posSL;
-
-        /// <summary>
-        /// previous segment in sl belonging to the result of the boolean operation
-        /// </summary>
-        private SweepEvent prevInResult;
-
-        /// <summary>
-        /// The in result.
-        /// </summary>
-        private bool inResult = false;
-
-        /// <summary>
-        /// The pos.
-        /// </summary>
-        private int pos;
-
-        /// <summary>
-        /// The result in out.
-        /// </summary>
-        private bool resultInOut;
-
-        /// <summary>
-        /// The contour id.
-        /// </summary>
-        private int contourId;
         #endregion Fields
 
         #region Constructors
@@ -124,18 +63,17 @@ namespace Engine
         /// Is the line segment (point, otherEvent.point) a vertical line segment
         /// </summary>
         /// <value>
-        ///   <see langword="true"/> if this instance is vertical; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if this instance is vertical; otherwise, <see langword="false" />.
         /// </value>
-        public bool IsVertical
-            => Point.X == OtherEvent.Point.X;
+        public bool IsVertical => Point.X == OtherEvent.Point.X;
 
         /// <summary>
         /// is point the left endpoint of the edge (point, otherEvent.point)?
         /// </summary>
         /// <value>
-        ///   <see langword="true"/> if this instance is left; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if this instance is left; otherwise, <see langword="false" />.
         /// </value>
-        public bool IsLeft { get { return isLeft; } set { isLeft = value; } }
+        public bool IsLeft { get; set; }
 
         /// <summary>
         /// point associated with the event
@@ -146,12 +84,12 @@ namespace Engine
         public Point2D Point { get { return point; } set { point = value; } }
 
         /// <summary>
-        /// Polygon2D to which the associated segment belongs to
+        /// Polygon to which the associated segment belongs to
         /// </summary>
         /// <value>
         /// The belongs to.
         /// </value>
-        public ClippingRelation BelongsTo { get { return belongsTo; } set { belongsTo = value; } }
+        public ClippingRelation BelongsTo { get; set; }
 
         /// <summary>
         /// Event associated to the other endpoint of the edge.
@@ -159,7 +97,7 @@ namespace Engine
         /// <value>
         /// The other event.
         /// </value>
-        public SweepEvent OtherEvent { get { return otherEvent; } set { otherEvent = value; } }
+        public SweepEvent OtherEvent { get; set; }
 
         /// <summary>
         /// Gets or sets the contribution.
@@ -167,7 +105,7 @@ namespace Engine
         /// <value>
         /// The contribution.
         /// </value>
-        public EdgeContribution Contribution { get { return contribution; } set { contribution = value; } }
+        public EdgeContribution Contribution { get; set; }
 
         // The following properties are only used in "left" events.
 
@@ -175,17 +113,17 @@ namespace Engine
         /// Does segment (point, otherEvent.p) represent an inside-outside transition in the polygon for a vertical ray from (p.x, -infinite)?
         /// </summary>
         /// <value>
-        ///   <see langword="true"/> if [in out]; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if [in out]; otherwise, <see langword="false" />.
         /// </value>
-        public bool InOut { get { return inOut; } set { inOut = value; } }
+        public bool InOut { get; set; }
 
         /// <summary>
         /// inOut transition for the segment from the other polygon preceding this segment in sl
         /// </summary>
         /// <value>
-        ///   <see langword="true"/> if [other in out]; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if [other in out]; otherwise, <see langword="false" />.
         /// </value>
-        public bool OtherInOut { get { return otherInOut; } set { otherInOut = value; } }
+        public bool OtherInOut { get; set; }
 
         /// <summary>
         /// Position of the event (line segment) in sl.
@@ -193,7 +131,7 @@ namespace Engine
         /// <value>
         /// The position sl.
         /// </value>
-        public SortedSet<SweepEvent> PosSL { get { return posSL; } set { posSL = value; } }
+        public SortedSet<SweepEvent> PosSL { get; set; }
 
         /// <summary>
         /// previous segment in sl belonging to the result of the boolean operation.
@@ -201,15 +139,15 @@ namespace Engine
         /// <value>
         /// The previous in result.
         /// </value>
-        public SweepEvent PrevInResult { get { return prevInResult; } set { prevInResult = value; } }
+        public SweepEvent PrevInResult { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether
         /// </summary>
         /// <value>
-        ///   <see langword="true"/> if [in result]; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if [in result]; otherwise, <see langword="false" />.
         /// </value>
-        public bool InResult { get { return inResult; } set { inResult = value; } }
+        public bool InResult { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the pos.
@@ -217,15 +155,15 @@ namespace Engine
         /// <value>
         /// The position.
         /// </value>
-        public int Pos { get { return pos; } set { pos = value; } }
+        public int Pos { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether
         /// </summary>
         /// <value>
-        ///   <see langword="true"/> if [result in out]; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if [result in out]; otherwise, <see langword="false" />.
         /// </value>
-        public bool ResultInOut { get { return resultInOut; } set { resultInOut = value; } }
+        public bool ResultInOut { get; set; }
 
         /// <summary>
         /// Gets or sets the contour id.
@@ -233,7 +171,7 @@ namespace Engine
         /// <value>
         /// The contour identifier.
         /// </value>
-        public int ContourId { get { return contourId; } set { contourId = value; } }
+        public int ContourId { get; set; }
         #endregion Properties
 
         #region Operators
@@ -276,6 +214,26 @@ namespace Engine
         /// The result of the operator.
         /// </returns>
         public static bool operator >=(SweepEvent left, SweepEvent right) => left is null ? right is null : SweepEventComp(left, right) >= 0;
+
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(SweepEvent left, SweepEvent right) => left is null ? right is null : left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(SweepEvent left, SweepEvent right) => !(left == right);
         #endregion Operators
 
         #region Methods
@@ -286,54 +244,39 @@ namespace Engine
         /// <returns>
         /// The <see cref="int" />.
         /// </returns>
-        public int CompareTo(SweepEvent other)
-            => SweepEventComp(this, other);
+        public int CompareTo(SweepEvent other) => SweepEventComp(this, other);
 
         /// <summary>
         /// Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -1882060874;
-            hashCode = hashCode * -1521134295 + isLeft.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<Point2D>.Default.GetHashCode(point);
-            hashCode = hashCode * -1521134295 + EqualityComparer<SweepEvent>.Default.GetHashCode(otherEvent);
-            hashCode = hashCode * -1521134295 + belongsTo.GetHashCode();
-            hashCode = hashCode * -1521134295 + contribution.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<SweepEvent>.Default.GetHashCode(prevInResult);
-            hashCode = hashCode * -1521134295 + inResult.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(IsLeft, point, OtherEvent, BelongsTo, Contribution, PrevInResult, InResult);
 
         /// <summary>
         /// Is the line segment (point, otherEvent.point) below point p
         /// </summary>
         /// <param name="p">The p.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified p is below; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if the specified p is below; otherwise, <see langword="false" />.
         /// </returns>
-        public bool IsBelow(Point2D p)
-            => IsLeft ? SignedTriangleArea(Point, OtherEvent.Point, p) > 0 : SignedTriangleArea(OtherEvent.Point, Point, p) > 0;
+        public bool IsBelow(Point2D p) => IsLeft ? SignedTriangleArea(Point, OtherEvent.Point, p) > 0 : SignedTriangleArea(OtherEvent.Point, Point, p) > 0;
 
         /// <summary>
         /// Is the line segment (point, otherEvent.point) above point p
         /// </summary>
         /// <param name="p">ToDo: describe p parameter on IsAbove</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified p is above; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if the specified p is above; otherwise, <see langword="false" />.
         /// </returns>
-        public bool IsAbove(Point2D p)
-            => !IsBelow(p);
+        public bool IsAbove(Point2D p) => !IsBelow(p);
 
         /// <summary>
         /// Return the line segment associated to the SweepEvent
         /// </summary>
         /// <returns></returns>
-        public LineSegment2D Segment()
-            => new LineSegment2D(Point, OtherEvent.Point);
+        public LineSegment2D Segment() => new LineSegment2D(Point, OtherEvent.Point);
 
         /// <summary>
         /// The to string.
@@ -351,12 +294,21 @@ namespace Engine
             oss += $" S:[({s.Min.X},{s.Min.Y}) - ({s.Max.X},{s.Max.Y})]";
             oss += $" ({BelongsTo})";
             oss += $" ({Contribution})";
-            var inOutOutIn = InOut ? nameof(inOut) : "outIn";
+            var inOutOutIn = InOut ? nameof(InOut) : "outIn";
             oss += $" ({inOutOutIn})";
-            var otherInOutOutIn = OtherInOut ? nameof(inOut) : "outIn";
+            var otherInOutOutIn = OtherInOut ? nameof(InOut) : "outIn";
             oss += $" otherInOut: ({otherInOutOutIn})";
             return oss;
         }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
+        /// </returns>
+        public override bool Equals(object obj) => base.Equals(obj);
         #endregion Methods
     }
 }

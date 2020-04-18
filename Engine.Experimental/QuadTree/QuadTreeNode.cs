@@ -172,7 +172,7 @@ namespace Engine.Experimental
                 return false;
             }
 
-            if (TopLeftNode.ContainsRect(item.Bounds))
+            if (TopLeftNode.ContainsRect(item?.Bounds))
             {
                 TopLeftNode.Insert(item);
             }
@@ -467,8 +467,8 @@ namespace Engine.Experimental
                     else if (!ContainsRect(item.Bounds))
                     {
                         WorldResize(new Rectangle2D(
-                             Operations.Min(Rect.TopLeft, item.Bounds.TopLeft) * 2,
-                             Operations.Max(Rect.BottomRight, item.Bounds.BottomRight) * 2));
+                             GeometryOperations.Min(Rect.TopLeft, item.Bounds.TopLeft) * 2,
+                             GeometryOperations.Max(Rect.BottomRight, item.Bounds.BottomRight) * 2));
                     }
 
                 }

@@ -19,6 +19,7 @@ namespace Engine
     /// <remarks>
     /// <para>This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178</para>
     /// </remarks>
+    /// <seealso cref="Locus" />
     public class PolylineLocus
         : Locus
     {
@@ -55,14 +56,13 @@ namespace Engine
         public List<Point2D> Points { get; set; }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="PolylineLocus"/> to <see cref="Polyline"/>.
+        /// Performs an implicit conversion from <see cref="PolylineLocus" /> to <see cref="Polyline2D" />.
         /// </summary>
         /// <param name="locus">The locus.</param>
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Polyline2D(PolylineLocus locus)
-            => new Polyline2D(locus.Points);
+        public static implicit operator Polyline2D(PolylineLocus locus) => new Polyline2D(locus?.Points);
 
         /// <summary>
         /// Add.

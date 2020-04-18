@@ -10,6 +10,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -113,7 +114,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(Vector other) => Magnitude == other.Magnitude && Direction == other.Direction;
+        public bool Equals([AllowNull] Vector other) => Magnitude == other.Magnitude && Direction == other.Direction;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -121,13 +122,7 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -1720283545;
-            hashCode = hashCode * -1521134295 + Magnitude.GetHashCode();
-            hashCode = hashCode * -1521134295 + Direction.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Magnitude, Direction);
 
         /// <summary>
         /// The to string.

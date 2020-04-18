@@ -12,6 +12,7 @@ using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Reflection;
 using static Engine.EngineReflection;
 
 namespace Engine.WindowsForms
@@ -31,8 +32,14 @@ namespace Engine.WindowsForms
         /// </summary>
         static WinformsReflection()
         {
+            //var assemblyName = Type.GetType("System.Windows.Forms.Design.StringCollectionEditor")?.Assembly?.GetName();
+            var assemblyName = Assembly.GetAssembly(typeof(System.Windows.Forms.Design.ComponentEditorForm)).GetName();
+            var version = assemblyName.Version.ToString();
+            var token = assemblyName.GetPublicKeyTokenFromAssembly();
+
             // No clue why System.Design.StringCollectionEditor is internal rather than public.
-            TypeDescriptor.AddAttributes(typeof(StringCollection), new EditorAttribute("System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version = 4.0.0.0, Culture = neutral, PublicKeyToken = b03f5f7f11d50a3a", typeof(UITypeEditor)));
+            TypeDescriptor.AddAttributes(typeof(StringCollection), new EditorAttribute($"System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version = {version}, Culture = neutral, PublicKeyToken = {token}", typeof(UITypeEditor)));
+
 
             // Add the AngleEditor EditorAttribute UITypeEditor attribute to all properties tagged with the GeometryAngleAttribute attribute.
             Attribute lookupAttribute = new GeometryAngleRadiansAttribute();

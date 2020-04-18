@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -94,7 +95,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(WeightDensity other) => EqualityComparer<IMass>.Default.Equals(Weight, other.Weight) && EqualityComparer<IVolume>.Default.Equals(Volume, other.Volume);
+        public bool Equals([AllowNull] WeightDensity other) => EqualityComparer<IMass>.Default.Equals(Weight, other.Weight) && EqualityComparer<IVolume>.Default.Equals(Volume, other.Volume);
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -102,19 +103,14 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -1113466256;
-            hashCode = hashCode * -1521134295 + EqualityComparer<IMass>.Default.GetHashCode(Weight);
-            hashCode = hashCode * -1521134295 + EqualityComparer<IVolume>.Default.GetHashCode(Volume);
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Weight, Volume);
+
 
         /// <summary>
         /// The to string.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         public override string ToString() => $"{Value}{Weight.Abbreviation}/{Volume.Abbreviation}³";
     }

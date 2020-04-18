@@ -208,6 +208,11 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Arcfn(double t, DerivitiveMethod2D derivativeFn)
         {
+            if (derivativeFn is null)
+            {
+                throw new ArgumentNullException(nameof(derivativeFn));
+            }
+
             var d = derivativeFn(t);
             var l = (d.X * d.X) + (d.Y * d.Y);
             return Sqrt(l);
@@ -228,6 +233,11 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Arcfn(double t, DerivitiveMethod3D derivativeFn)
         {
+            if (derivativeFn is null)
+            {
+                throw new ArgumentNullException(nameof(derivativeFn));
+            }
+
             var d = derivativeFn(t);
             var l = (d.X * d.X) + (d.Y * d.Y) + (d.Z * d.Z);
             return Sqrt(l);
@@ -246,10 +256,10 @@ namespace Engine.Experimental
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<Point2D> AlignPoints(List<Point2D> points, Line2D line)
+        public static List<Point2D> AlignPoints(List<Point2D> points, LineSegment2D line)
         {
             if (points is null) return null;
-            var angle = -Atan2(line.P2.Y - line.P1.Y, line.P2.X - line.P1.X);
+            var angle = -Atan2(line.A.Y - line.B.Y, line.A.X - line.B.X);
             var sinA = Sin(angle);
             var cosA = Cos(angle);
 
@@ -258,8 +268,8 @@ namespace Engine.Experimental
             foreach (var point in points)
             {
                 results.Add(new Point2D(
-                    ((point.X - line.P1.X) * cosA) - ((point.Y - line.P1.Y) * sinA),
-                    ((point.X - line.P1.X) * sinA) + ((point.Y - line.P1.Y) * cosA))
+                    ((point.X - line.A.X) * cosA) - ((point.Y - line.A.Y) * sinA),
+                    ((point.X - line.A.X) * sinA) + ((point.Y - line.A.Y) * cosA))
                     );
             }
 
@@ -756,7 +766,7 @@ namespace Engine.Experimental
         public static List<double> Inflections(List<Point2D> points)
         {
             if (points is null) return null;
-            var p = AlignPoints(points, new Line2D(p1: points[0], p2: points[3]));
+            var p = AlignPoints(points, new LineSegment2D(points[0], points[3]));
             var a = p[2].X * p[1].Y;
             var b = p[3].X * p[1].Y;
             var c = p[1].X * p[2].Y;
@@ -842,7 +852,7 @@ namespace Engine.Experimental
         {
             var mdist = Pow(2, 63);
             double mpos = 0;
-            for (var i = 0; i < lookUpTable.Count; i++)
+            for (var i = 0; i < lookUpTable?.Count; i++)
             {
                 var d = Measurements.Distance(point, lookUpTable[i]);
                 if (d < mdist)
@@ -872,7 +882,7 @@ namespace Engine.Experimental
         {
             var mdist = Pow(2, 63);
             double mpos = 0;
-            for (var i = 0; i < lookUpTable.Count; i++)
+            for (var i = 0; i < lookUpTable?.Count; i++)
             {
                 var d = Measurements.Distance(point, lookUpTable[i]);
                 if (d < mdist)
@@ -1113,7 +1123,7 @@ namespace Engine.Experimental
         /// <summary>
         /// Copy.
         /// </summary>
-        /// <param name="obj">The obj.</param>
+        /// <param name="point">The obj.</param>
         /// <returns>
         /// The <see cref="Point3D" />.
         /// </returns>
@@ -1122,13 +1132,12 @@ namespace Engine.Experimental
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Copy(Point2D obj)
-            => new Point2D(obj);
+        public static Point2D Copy(Point2D point) => new Point2D(point);
 
         /// <summary>
         /// Copy.
         /// </summary>
-        /// <param name="obj">The obj.</param>
+        /// <param name="point">The obj.</param>
         /// <returns>
         /// The <see cref="Point3D" />.
         /// </returns>
@@ -1137,8 +1146,7 @@ namespace Engine.Experimental
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D Copy(Point3D obj)
-            => new Point3D(obj);
+        public static Point3D Copy(Point3D point) => new Point3D(point);
 
         /// <summary>
         /// The make line.
@@ -1215,7 +1223,7 @@ namespace Engine.Experimental
                 endcap: end,
                 bbox: FindBoundingBox(new List<Bezier> { start, forward, back, end })
               );
-            //shape.intersections = new Shape2D.IntersectionsDelegate(Bezier s2)
+            //shape.intersections = new Shape.IntersectionsDelegate(Bezier s2)
             //{
             //    return shapeintersections(shape, shape.bbox, s2, s2.bbox);
             //};
@@ -1435,8 +1443,8 @@ namespace Engine.Experimental
             }
 
             var intersections = new List<Pair>();
-            var a1 = new List<Bezier> { s1.Startcap, s1.Forward, s1.Back, s1.Endcap };
-            var a2 = new List<Bezier> { s2.Startcap, s2.Forward, s2.Back, s2.Endcap };
+            var a1 = new List<Bezier> { s1?.Startcap, s1.Forward, s1.Back, s1.Endcap };
+            var a2 = new List<Bezier> { s2?.Startcap, s2.Forward, s2.Back, s2.Endcap };
             foreach (var l1 in a1)
             {
                 if (l1.Virtual)
@@ -1481,7 +1489,7 @@ namespace Engine.Experimental
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> Roots(List<Point2D> points, Line2D line)
+        public static List<double> Roots(List<Point2D> points, LineSegment2D line)
         {
             if (points is null) return null;
             //line = line || new Line(p1: new Point2D(x: 0, y: 0), p2: new Point2D(x: 1, y: 0));
@@ -1549,7 +1557,7 @@ namespace Engine.Experimental
                 var t = -q / (2d * r);
                 var cosphi = t < -1d ? -1d : t > 1d ? 1d : t;
                 var phi = Acos(cosphi);
-                var crtr = Crt(r);
+                var crtr = CubeRoot(r);
                 var t1 = 2d * crtr;
                 x1 = (t1 * Cos(phi / 3d)) - (a / 3d);
                 x2 = (t1 * Cos((phi + Tau) / 3d)) - (a / 3d);
@@ -1563,7 +1571,7 @@ namespace Engine.Experimental
             }
             else if (discriminant == 0)
             {
-                u1 = q2 < 0d ? Crt(-q2) : -Crt(q2);
+                u1 = q2 < 0d ? CubeRoot(-q2) : -CubeRoot(q2);
                 x1 = (2d * u1) - (a / 3d);
                 x2 = -u1 - (a / 3d);
 
@@ -1576,8 +1584,8 @@ namespace Engine.Experimental
             else
             {
                 var sd = Sqrt(discriminant);
-                u1 = Crt(-q2 + sd);
-                v1 = Crt(q2 + sd);
+                u1 = CubeRoot(-q2 + sd);
+                v1 = CubeRoot(q2 + sd);
 
                 return new List<double>(
                     from t4 in new List<double> { u1 - v1 - (a / 3d) }
@@ -1668,7 +1676,7 @@ namespace Engine.Experimental
                 var t = -q / (2d * r);
                 var cosphi = t < -1d ? -1d : t > 1d ? 1d : t;
                 var phi = Acos(cosphi);
-                var crtr = Crt(r);
+                var crtr = CubeRoot(r);
                 var t1 = 2d * crtr;
                 x1 = (t1 * Cos(phi / 3d)) - (a / 3d);
                 x2 = (t1 * Cos((phi + Tau) / 3d)) - (a / 3d);
@@ -1682,7 +1690,7 @@ namespace Engine.Experimental
             }
             else if (discriminant == 0)
             {
-                u1 = q2 < 0d ? Crt(-q2) : -Crt(q2);
+                u1 = q2 < 0d ? CubeRoot(-q2) : -CubeRoot(q2);
                 x1 = (2d * u1) - (a / 3);
                 x2 = -u1 - (a / 3d);
 
@@ -1695,8 +1703,8 @@ namespace Engine.Experimental
             else
             {
                 var sd = Sqrt(discriminant);
-                u1 = Crt(-q2 + sd);
-                v1 = Crt(q2 + sd);
+                u1 = CubeRoot(-q2 + sd);
+                v1 = CubeRoot(q2 + sd);
 
                 return new List<double>(
                     from t4 in new List<double> { u1 - v1 - (a / 3d) }

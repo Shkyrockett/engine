@@ -70,12 +70,12 @@ namespace EngineTests
         public void PerimeterTest()
         {
             // Test a perfect circle.
-            var ellipse = new Ellipse(new Point2D(), 100, 100, 0);
+            var ellipse = new Ellipse2D(new Point2D(), 100, 100, 0);
             var value = ellipse.Perimeter;
             Assert.AreEqual((2d * Math.PI * ellipse.MajorRadius).ToString(CultureInfo.InvariantCulture), value.ToString(CultureInfo.InvariantCulture));
 
             // Test a flat line.
-            ellipse = new Ellipse(new Point2D(), 100, 0, 0);
+            ellipse = new Ellipse2D(new Point2D(), 100, 0, 0);
             value = ellipse.Perimeter;
             Assert.AreEqual(400.ToString(CultureInfo.InvariantCulture), value.ToString(CultureInfo.InvariantCulture));
         }

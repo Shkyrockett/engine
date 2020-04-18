@@ -49,7 +49,7 @@ namespace Engine
         /// </summary>
         /// <param name="field">The field.</param>
         public AdvPropertyDescriptor(FieldInfo field)
-            : this(field.Name, field)
+            : this(field?.Name, field)
         { }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Engine
         /// <param name="name">The name.</param>
         /// <param name="field">The field.</param>
         public AdvPropertyDescriptor(string name, FieldInfo field)
-            : base(name, (Attribute[])field.GetCustomAttributes(typeof(Attribute), true))
+            : base(name, (Attribute[])field?.GetCustomAttributes(typeof(Attribute), true))
         {
             info = field;
             this.field = field;
@@ -70,7 +70,7 @@ namespace Engine
         /// </summary>
         /// <param name="property">The property.</param>
         public AdvPropertyDescriptor(PropertyInfo property)
-            : this(property.Name, property)
+            : this(property?.Name, property)
         { }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Engine
         /// <param name="name">The name.</param>
         /// <param name="property">The property.</param>
         public AdvPropertyDescriptor(string name, PropertyInfo property)
-            : base(name, (Attribute[])property.GetCustomAttributes(typeof(Attribute), true))
+            : base(name, (Attribute[])property?.GetCustomAttributes(typeof(Attribute), true))
         {
             info = property;
             this.property = property;
@@ -92,20 +92,17 @@ namespace Engine
         /// <summary>
         /// Gets the description.
         /// </summary>
-        public override string Description
-            => description;
+        public override string Description => description;
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        public override bool IsReadOnly
-            => !(property is null || !property.CanWrite);
+        public override bool IsReadOnly => !(property is null || !property.CanWrite);
 
         /// <summary>
         /// Gets the component type.
         /// </summary>
-        public override Type ComponentType
-            => info.DeclaringType;
+        public override Type ComponentType => info.DeclaringType;
 
         /// <summary>
         /// Gets the property type.
@@ -129,15 +126,13 @@ namespace Engine
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool CanResetValue(object component)
-            => false;
+        public override bool CanResetValue(object component) => false;
 
         /// <summary>
         /// Reset the value.
         /// </summary>
         /// <param name="component">The component.</param>
-        public override void ResetValue(object component)
-            => throw new NotSupportedException();
+        public override void ResetValue(object component) => throw new NotSupportedException();
 
         /// <summary>
         /// Get the value.
@@ -176,38 +171,33 @@ namespace Engine
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool ShouldSerializeValue(object component)
-            => true;
+        public override bool ShouldSerializeValue(object component) => true;
 
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
-        public override int GetHashCode()
-            => info.GetHashCode();
+        public override int GetHashCode() => info.GetHashCode();
 
         /// <summary>
         /// Set the description.
         /// </summary>
         /// <param name="value">The value.</param>
-        public void SetDescription(string value)
-            => description = value;
+        public void SetDescription(string value) => description = value;
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Equals(object obj)
-            => obj is AdvPropertyDescriptor && Equals((AdvPropertyDescriptor)obj);
+        public override bool Equals(object obj) => obj is AdvPropertyDescriptor && Equals((AdvPropertyDescriptor)obj);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public bool Equals(AdvPropertyDescriptor other)
-            => info.Equals(other.info);
+        public bool Equals(AdvPropertyDescriptor other) => info.Equals(other?.info);
         #endregion Methods
     }
 }

@@ -67,11 +67,11 @@ namespace Engine
         /// <summary>
         /// Gets the tangent for the start of the curve.
         /// </summary>
-        protected Vector2D GetLeftTangent(int last, double epsilon = Epsilon)
+        protected Vector2D GetLeftTangent(int last, double epsilon = double.Epsilon)
         {
-            var totalLen = arclen[arclen.Count - 1];
+            var totalLen = arclen[^1];
             var p0 = points[0];
-            var tanL = Operations.Normalize(points[1] - p0);
+            var tanL = GeometryOperations.Normalize(points[1] - p0);
             var total = tanL;
             var weightTotal = 1d;
             last = Min(EndTangentNPoints, last - 1);
@@ -80,7 +80,7 @@ namespace Engine
             {
                 var ti = 1d - (arclen[i] / totalLen);
                 var weight = ti * ti * ti;
-                var v = Operations.Normalize(points[i] - p0);
+                var v = GeometryOperations.Normalize(points[i] - p0);
                 total += v * weight;
                 weightTotal += weight;
             }
@@ -88,7 +88,7 @@ namespace Engine
             // if the vectors add up to zero (IE going opposite directions), there's no way to normalize them
             if (total.Length > epsilon)
             {
-                tanL = Operations.Normalize(total / weightTotal);
+                tanL = GeometryOperations.Normalize(total / weightTotal);
             }
 
             return tanL;
@@ -97,7 +97,7 @@ namespace Engine
         /// <summary>
         /// Gets the tangent at a given point in the curve.
         /// </summary>
-        protected Vector2D GetCenterTangent(int first, int last, int split, double epsilon = Epsilon)
+        protected Vector2D GetCenterTangent(int first, int last, int split, double epsilon = double.Epsilon)
         {
             // Because we want to maintain C1 continuity on the spline, the tangents on either side must be inverses of one another.
             Debug.Assert(first < split && split < last);
@@ -166,11 +166,11 @@ namespace Engine
         /// <summary>
         /// Gets the tangent for the end of the curve.
         /// </summary>
-        protected Vector2D GetRightTangent(int first, double epsilon = Epsilon)
+        protected Vector2D GetRightTangent(int first, double epsilon = double.Epsilon)
         {
-            var totalLen = arclen[arclen.Count - 1];
-            var p3 = points[points.Count - 1];
-            var tanR = (points[points.Count - 2] - p3).Normalize();
+            var totalLen = arclen[^1];
+            var p3 = points[^1];
+            var tanR = (points[^2] - p3).Normalize();
             var total = tanR;
             var weightTotal = 1d;
             first = Max(points.Count - (EndTangentNPoints + 1), first + 1);
@@ -294,7 +294,7 @@ namespace Engine
         /// Generates a Bézier curve for the segment using a least-squares approximation. for the derivation of this and why it works,
         /// see http://read.pudn.com/downloads141/ebook/610086/Graphics_Gems_I.pdf page 626 and beyond. tl;dr: math.
         /// </summary>
-        protected CubicBezier2D GenerateCubicBezier(int first, int last, Vector2D tanL, Vector2D tanR, double epsilon = Epsilon)
+        protected CubicBezier2D GenerateCubicBezier(int first, int last, Vector2D tanL, Vector2D tanR, double epsilon = double.Epsilon)
         {
             var nPts = last - first + 1;
             var p0 = points[first];
@@ -354,7 +354,7 @@ namespace Engine
         /// <summary>
         /// Attempts to find a slightly better parameterization for u on the given curve.
         /// </summary>
-        protected void Reparameterize(int first, int last, CubicBezier2D curve, double epsilon = Epsilon)
+        protected void Reparameterize(int first, int last, CubicBezier2D curve, double epsilon = double.Epsilon)
         {
             if (curve is null) return;
             var nPts = last - first;

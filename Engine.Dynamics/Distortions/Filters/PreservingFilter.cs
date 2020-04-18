@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine
 {
@@ -43,15 +44,15 @@ namespace Engine
         /// </summary>
         /// <param name="contour">The contour.</param>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        public List<Point2D> Process(List<Point2D> contour)
+        public List<Point2D> Process(Span<Point2D> contour)
         {
-            if (contour is null) return contour;
-            var results = new List<Point2D>();
+            //if (contour is null) return contour.ToArray();
+            var results = new HashSet<Point2D>();
             foreach (var point in contour)
             {
                 results.Add(Process(point));
             }
-            return results;
+            return results.ToList();
         }
 
         /// <summary>
@@ -99,7 +100,7 @@ namespace Engine
                     break;
             }
 
-            // Shape2D not supported.
+            // Shape not supported.
             return shape as T;
         }
 
@@ -117,10 +118,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process a <see cref="Ray"/> structure with a distortion filter.
+        /// Process a <see cref="Ray2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="line">The line.</param>
-        /// <returns>The <see cref="Ray"/>.</returns>
+        /// <returns>The <see cref="Ray2D"/>.</returns>
         public Ray2D Process(Ray2D line)
         {
             if (line is null) return line;
@@ -130,10 +131,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process a <see cref="LineSegment"/> structure with a distortion filter.
+        /// Process a <see cref="LineSegment2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="line">The line.</param>
-        /// <returns>The <see cref="LineSegment"/>.</returns>
+        /// <returns>The <see cref="LineSegment2D"/>.</returns>
         public LineSegment2D Process(LineSegment2D line)
         {
             if (line is null) return line;
@@ -142,10 +143,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process a <see cref="QuadraticBezier"/> structure with a distortion filter.
+        /// Process a <see cref="QuadraticBezier2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="bezier">The Bézier.</param>
-        /// <returns>The <see cref="QuadraticBezier"/>.</returns>
+        /// <returns>The <see cref="QuadraticBezier2D"/>.</returns>
         public QuadraticBezier2D Process(QuadraticBezier2D bezier)
         {
             if (bezier is null) return bezier;
@@ -182,10 +183,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process a <see cref="Triangle"/> structure with a distortion filter.
+        /// Process a <see cref="Triangle2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="triangle">The triangle.</param>
-        /// <returns>The <see cref="Triangle"/>.</returns>
+        /// <returns>The <see cref="Triangle2D"/>.</returns>
         public Triangle2D Process(Triangle2D triangle)
         {
             if (triangle is null) return triangle;
@@ -196,7 +197,7 @@ namespace Engine
         /// Process a <see cref="Rectangle2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="rect">The rectangle.</param>
-        /// <returns>The <see cref="PolygonContour"/>.</returns>
+        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
         public PolygonContour2D Process(Rectangle2D rect)
         {
             if (rect is null) return null;
@@ -204,10 +205,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process a <see cref="Polygon"/> structure with a distortion filter.
+        /// Process a <see cref="Polygon2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <returns>The <see cref="Polygon"/>.</returns>
+        /// <returns>The <see cref="Polygon2D"/>.</returns>
         public Polygon2D Process(Polygon2D polygon)
         {
             if (polygon is null) return polygon;
@@ -220,10 +221,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process a <see cref="PolygonContour"/> structure with a distortion filter.
+        /// Process a <see cref="PolygonContour2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="contour">The contour.</param>
-        /// <returns>The <see cref="PolygonContour"/>.</returns>
+        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
         public PolygonContour2D Process(PolygonContour2D contour)
         {
             if (contour is null) return contour;
@@ -236,10 +237,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process a <see cref="PolylineSet"/> structure with a distortion filter.
+        /// Process a <see cref="PolylineSet2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="polylines">The polylines.</param>
-        /// <returns>The <see cref="PolylineSet"/>.</returns>
+        /// <returns>The <see cref="PolylineSet2D"/>.</returns>
         public PolylineSet2D Process(PolylineSet2D polylines)
         {
             if (polylines is null) return polylines;
@@ -252,10 +253,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process a <see cref="Polyline"/> structure with a distortion filter.
+        /// Process a <see cref="Polyline2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="contour">The contour.</param>
-        /// <returns>The <see cref="Polyline"/>.</returns>
+        /// <returns>The <see cref="Polyline2D"/>.</returns>
         public Polyline2D Process(Polyline2D contour)
         {
             if (contour is null) return contour;
@@ -280,7 +281,7 @@ namespace Engine
             {
                 switch (item)
                 {
-                    case PointSegment2D t:
+                    case PointSegment2D _:
                         break;
                     case LineCurveSegment2D t:
                         result.AddLineSegment(Process(t.Tail.Value));
@@ -288,9 +289,9 @@ namespace Engine
                     case ArcSegment2D t:
                         result.AddArc(t.RX, t.RY, t.Angle, t.LargeArc, t.Sweep, Process(t.Tail.Value));
                         break;
-                    case CardinalSegment2D t:
-                        result.AddCardinalCurve(Process(t.CentralPoints));
-                        break;
+                    //case CardinalSegment2D t:
+                    //    result.AddCardinalCurve(Process(t.CentralPoints.ToArray()));
+                    //    break;
                     case QuadraticBezierSegment2D t:
                         result.AddQuadraticBezier(Process(t.Handle.Value), Process(t.Tail.Value));
                         break;
@@ -309,7 +310,7 @@ namespace Engine
         /// Process an <see cref="Envelope2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="envelope">The contour.</param>
-        /// <returns>The <see cref="Polyline"/>.</returns>
+        /// <returns>The <see cref="Polyline2D"/>.</returns>
         public Envelope2D Process(Envelope2D envelope)
         {
             var results = new Envelope2D

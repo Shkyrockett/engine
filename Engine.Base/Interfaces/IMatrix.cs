@@ -12,6 +12,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace Engine
 {
@@ -25,5 +28,16 @@ namespace Engine
         : IPrimitive,
         IEnumerable<IEnumerable<double>>,
         IEquatable<M> where M : struct, IMatrix<M, V> where V : struct, IVector<V>
-    { }
+    {
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="item">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals([AllowNull] object item) => item is M d && Equals(this, d);
+    }
 }

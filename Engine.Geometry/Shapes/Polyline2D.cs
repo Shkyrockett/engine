@@ -40,30 +40,30 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polyline"/> class.
+        /// Initializes a new instance of the <see cref="Polyline2D"/> class.
         /// </summary>
         public Polyline2D()
             : this(new List<Point2D>())
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polyline"/> class.
+        /// Initializes a new instance of the <see cref="Polyline2D"/> class.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
         public Polyline2D(PolygonContour2D polygon)
-            : this(polygon.Points)
+            : this(polygon?.Points)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polyline"/> class.
+        /// Initializes a new instance of the <see cref="Polyline2D"/> class.
         /// </summary>
         /// <param name="polyline">The polyline.</param>
         public Polyline2D(Polyline2D polyline)
-            : this(polyline.points)
+            : this(polyline?.points)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polyline"/> class.
+        /// Initializes a new instance of the <see cref="Polyline2D"/> class.
         /// </summary>
         /// <param name="points">The points.</param>
         public Polyline2D(params Point2D[] points)
@@ -71,7 +71,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polyline"/> class.
+        /// Initializes a new instance of the <see cref="Polyline2D"/> class.
         /// </summary>
         /// <param name="points">The points.</param>
         public Polyline2D(IEnumerable<Point2D> points)
@@ -80,7 +80,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polyline"/> class.
+        /// Initializes a new instance of the <see cref="Polyline2D"/> class.
         /// </summary>
         /// <param name="polylines">The polylines.</param>
         public Polyline2D(IEnumerable<Polyline2D> polylines)
@@ -180,7 +180,7 @@ namespace Engine
         /// Add.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <returns>The <see cref="Polyline"/>.</returns>
+        /// <returns>The <see cref="Polyline2D"/>.</returns>
         public Polyline2D Add(Point2D point)
         {
             Points.Add(point);
@@ -192,7 +192,7 @@ namespace Engine
         /// <summary>
         /// The reverse.
         /// </summary>
-        /// <returns>The <see cref="Polyline"/>.</returns>
+        /// <returns>The <see cref="Polyline2D"/>.</returns>
         public Polyline2D Reverse()
         {
             Points.Reverse();
@@ -214,7 +214,7 @@ namespace Engine
                 case 0:
                     return points[0];
                 case 1:
-                    return points[points.Count - 1];
+                    return points[^1];
                 default:
                     break;
             }
@@ -254,19 +254,18 @@ namespace Engine
         /// Translate.
         /// </summary>
         /// <param name="delta">The delta.</param>
-        /// <returns>The <see cref="Polyline"/>.</returns>
-        public Polyline2D Translate(Point2D delta)
-            => Translate(this, delta);
+        /// <returns>The <see cref="Polyline2D"/>.</returns>
+        public Polyline2D Translate(Point2D delta) => Translate(this, delta);
 
         /// <summary>
         /// Translate.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="delta">The delta.</param>
-        /// <returns>The <see cref="Polyline"/>.</returns>
+        /// <returns>The <see cref="Polyline2D"/>.</returns>
         public static Polyline2D Translate(Polyline2D path, Point2D delta)
         {
-            var outPath = new List<Point2D>(path.points.Count);
+            var outPath = new List<Point2D>((path?.points).Count);
             for (var i = 0; i < path.points.Count; i++)
             {
                 outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
@@ -279,7 +278,7 @@ namespace Engine
         /// <summary>
         /// Clone.
         /// </summary>
-        /// <returns>The <see cref="Polyline"/>.</returns>
+        /// <returns>The <see cref="Polyline2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polyline2D Clone()
@@ -289,7 +288,7 @@ namespace Engine
         /// The offset.
         /// </summary>
         /// <param name="offset">The offset.</param>
-        /// <returns>The <see cref="Polyline"/>.</returns>
+        /// <returns>The <see cref="Polyline2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polyline2D Offset(double offset)
@@ -310,7 +309,7 @@ namespace Engine
             => GetEnumerator();
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Polyline"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Polyline2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

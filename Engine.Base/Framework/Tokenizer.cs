@@ -87,21 +87,24 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Tokenizer(string str, char quoteChar, char separator)
         {
-            this.str = str.ToCharArray();
-            strLen = this.str.Length;
-            currentTokenIndex = -1;
-            this.quoteChar = quoteChar;
-            argSeparator = separator;
-
-            // Skip past any whitespace so NextToken() logic always starts on the first character of the next token.
-            while (charIndex < strLen)
+            if (!(str is null))
             {
-                if (!char.IsWhiteSpace(this.str[charIndex]))
-                {
-                    break;
-                }
+                this.str = str.ToCharArray();
+                strLen = this.str.Length;
+                currentTokenIndex = -1;
+                this.quoteChar = quoteChar;
+                argSeparator = separator;
 
-                ++charIndex;
+                // Skip past any whitespace so NextToken() logic always starts on the first character of the next token.
+                while (charIndex < strLen)
+                {
+                    if (!char.IsWhiteSpace(this.str[charIndex]))
+                    {
+                        break;
+                    }
+
+                    ++charIndex;
+                }
             }
         }
         #endregion Constructors
@@ -120,9 +123,7 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string GetCurrentToken()
-            // If no current token, return empty string.
-            => currentTokenIndex < 0 ? string.Empty : str.Slice(currentTokenIndex, currentTokenLength).ToString();
+        public string GetCurrentToken() => currentTokenIndex < 0 ? string.Empty : new Span<char>(str).Slice(currentTokenIndex, currentTokenLength).ToString();
 
         /// <summary>
         /// Throws an exception if there is any non-whitespace left unparsed.
@@ -143,8 +144,7 @@ namespace Engine
         /// <returns>true if next token was found, false if at end of string</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool NextToken()
-            => NextToken(false);
+        public bool NextToken() => NextToken(false);
 
         /// <summary>
         /// Advances to the NextToken
@@ -249,14 +249,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string NextTokenRequired(bool allowQuotedToken = false)
-        {
-            if (!NextToken(allowQuotedToken))
-            {
-                throw new InvalidOperationException("Premature string termination encountered while advancing to next token.");
-            }
-
-            return GetCurrentToken();
-        }
+            => NextToken(allowQuotedToken) ? GetCurrentToken() : throw new InvalidOperationException("Premature string termination encountered while advancing to next token.");
 
         /// <summary>
         /// helper to move the _charIndex to the next token or to the end of the string

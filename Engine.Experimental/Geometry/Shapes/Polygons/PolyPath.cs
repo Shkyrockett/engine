@@ -19,7 +19,6 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(PolyPath))]
     public class PolyPath
             : Shape2D
     {
@@ -32,7 +31,6 @@ namespace Engine
         /// The to string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString()
-            => "Path";
+        public override string ToString() => "Path";
     }
 }

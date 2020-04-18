@@ -19,7 +19,6 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(Gear))]
     public class Gear
         : PolygonContour2D
     {

@@ -14,7 +14,6 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using static Engine.Mathematics;
 using static Engine.Operations;
 using static System.Math;
 
@@ -33,10 +32,12 @@ namespace Engine
         /// <param name="z2">The z2.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="z0">The z0.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672
-        /// Thanks to Dr.David Goldberg for the convertion to a depressed quartic!
+        /// Thanks to Dr.David Goldberg for the conversion to a depressed quartic!
         /// See http://en.wikipedia.org/wiki/Quartic_function
         /// </acknowledgment>
         //[DebuggerStepThrough]
@@ -89,11 +90,13 @@ namespace Engine
         /// Does the quartic function described by z have *any* real solutions?
         /// </summary>
         /// <param name="z">The z.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672
         /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
-        /// Thanks to Dr. David Goldberg for the convertion to a depressed quartic!
+        /// Thanks to Dr. David Goldberg for the conversion to a depressed quartic!
         /// See http://en.wikipedia.org/wiki/Quartic_function
         /// </acknowledgment>
         //[DebuggerStepThrough]
@@ -160,7 +163,9 @@ namespace Engine
         /// <param name="d1">The d1.</param>
         /// <param name="e1">The e1.</param>
         /// <param name="f1">The f1.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672
         /// </acknowledgment>
@@ -207,7 +212,9 @@ namespace Engine
         /// </summary>
         /// <param name="el">The el.</param>
         /// <param name="el1">The el1.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672
         /// https://docs.google.com/file/d/0B7wsEy6bpVePSEt2Ql9hY0hFdjA/
@@ -229,19 +236,23 @@ namespace Engine
         /// </summary>
         /// <param name="el1">The el1.</param>
         /// <param name="el2">The el2.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5}"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4, T5}" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672
         /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
         /// https://www.khanacademy.org/computer-programming/c/5567955982876672
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
+        /// http://jsfiddle.net/blyon/78kcn39s/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double b, double c, double d, double e) GetQuartic(
             (double a, double b, double c, double d, double e, double f) el1,
-            (double a, double b, double c, double d, double e, double f) el2, double epsilon = Epsilon)
+            (double a, double b, double c, double d, double e, double f) el2,
+            double epsilon = double.Epsilon)
         {
             _ = epsilon;
             return (
@@ -261,7 +272,9 @@ namespace Engine
         /// <param name="rx">The rx.</param>
         /// <param name="ry">The ry.</param>
         /// <param name="rotation">The rotation.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
@@ -293,8 +306,10 @@ namespace Engine
         /// <param name="rx">The rx.</param>
         /// <param name="ry">The ry.</param>
         /// <param name="rotation">The rotation.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/c/5567955982876672
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
@@ -302,26 +317,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double b, double c, double d, double e, double f) GetQuadratic(
-            (double x, double y) origin, double rx, double ry, double rotation, double epsilon = Epsilon)
-            => GetQuadratic(origin, rx, ry, (Cos(rotation), Sin(rotation)), epsilon);
-
-        /// <summary>
-        /// Create a general quadratic function for the ellipse a x^2 + b x y + c y^2 + d x + e y + c = 0
-        /// </summary>
-        /// <param name="origin">The origin.</param>
-        /// <param name="rx">The rx.</param>
-        /// <param name="ry">The ry.</param>
-        /// <param name="rotation">The rotation.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
-        /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e, double f) GetQuadratic(
-            (double x, double y) origin, double rx, double ry, (double cos, double sin) rotation, double epsilon = Epsilon)
+            (double x, double y) origin, double rx, double ry, (double cos, double sin) rotation, double epsilon = double.Epsilon)
         {
             _ = epsilon;
             var (x, y) = origin;
@@ -346,6 +342,27 @@ namespace Engine
         }
 
         /// <summary>
+        /// Create a general quadratic function for the ellipse a x^2 + b x y + c y^2 + d x + e y + c = 0
+        /// </summary>
+        /// <param name="origin">The origin.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="rotation">The rotation.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
+        /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double a, double b, double c, double d, double e, double f) GetQuadratic(
+            (double x, double y) origin, double rx, double ry, double rotation, double epsilon = double.Epsilon)
+            => GetQuadratic(origin, rx, ry, (Cos(rotation), Sin(rotation)), epsilon);
+
+        /// <summary>
         /// Express the traditional KA ellipse rotated by rot in terms of a "bivariate" polynomial that sums to zero.
         /// </summary>
         /// <param name="cx">The cx.</param>
@@ -353,7 +370,9 @@ namespace Engine
         /// <param name="rx">The rx.</param>
         /// <param name="ry">The ry.</param>
         /// <param name="angle">The angle.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
         /// See http://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses
@@ -366,44 +385,21 @@ namespace Engine
         /// <summary>
         /// Express the traditional KA ellipse rotated by rot in terms of a "bivariate" polynomial that sums to zero.
         /// </summary>
-        /// <param name="cx">The cx.</param>
-        /// <param name="cy">The cy.</param>
+        /// <param name="origin">The origin.</param>
         /// <param name="rx">The rx.</param>
         /// <param name="ry">The ry.</param>
-        /// <param name="cosA">The cosA.</param>
-        /// <param name="sinA">The sinA.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
+        /// <param name="angle">The angle.</param>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
         /// See http://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e, double f) BivariateForm2(double cx, double cy, double rx, double ry, double cosA, double sinA)
-        {
-            // Start by rotating the ellipse center by the OPPOSITE
-            // of the desired angle. That way when the bivariate
-            // computation transforms it back, it WILL be at the
-            // correct(and original) coordinates.
-            var a = (cosA * cx) + (sinA * cy);
-            var c = (-sinA * cx) + (cosA * cy);
-
-            // Now let the bivariate computation
-            // rotate in the opposite direction.
-            // NOTE: the OPPOSITE angle
-            var nSinA = -sinA;
-
-            var b = rx * rx / 4d;
-            var d = ry * ry / 4d;
-            return (
-                /* x^2 */ a: (cosA * cosA / b) + (nSinA * nSinA / d),
-                /* xy  */ b: (-2d * cosA * nSinA / b) + (2d * cosA * nSinA / d),
-                /* y^2 */ c: (nSinA * nSinA / b) + (cosA * cosA / d),
-                /* x   */ d: (-2d * a * cosA / b) - (2d * c * nSinA / d),
-                /* y   */ e: (2d * a * nSinA / b) - (2d * c * cosA / d),
-                /* const */ f: (a * a / b) + (c * c / d) - 1d
-                );
-        }
+        public static (double a, double b, double c, double d, double e, double f) BivariateForm((double x, double y) origin, double rx, double ry, double angle)
+            => BivariateForm(origin, rx, ry, (Cos(angle), Sin(angle)));
 
         /// <summary>
         /// Express the traditional KA ellipse, rotated by an angle
@@ -417,7 +413,9 @@ namespace Engine
         /// <param name="height">The height.</param>
         /// <param name="cos">The A.</param>
         /// <param name="sin">The B.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double b, double c, double d, double e, double f) BivariateForm(double x, double y, double width, double height, double cos, double sin)
@@ -445,11 +443,100 @@ namespace Engine
         }
 
         /// <summary>
+        /// Express the traditional KA ellipse, rotated by an angle
+        /// whose cosine and sine are A and B, in terms of a "bivariate"
+        /// polynomial that sums to zero.  See
+        /// http://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses
+        /// </summary>
+        /// <param name="origin">The origin.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="rotation">The rotation.</param>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}" />.
+        /// </returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double a, double b, double c, double d, double e, double f) BivariateForm((double x, double y) origin, double width, double height, (double cos, double sin) rotation)
+        {
+            var (x, y) = origin;
+            var (cos, sin) = (rotation.cos, rotation.sin);
+
+            // Start by rotating the ellipse center by the OPPOSITE
+            // of the desired angle.  That way when the bivariate
+            // computation transforms it back, it WILL be at the
+            // correct (and original) coordinates.
+            (var h, var k) = RotatePoint2D(x, y, cos, sin);
+
+            // Now let the bivariate computation
+            // rotate in the opposite direction.
+            sin = -sin;  /* A = cos(-rot); B = sin(-rot); */
+            var b = width * width / 4d;
+            var d = height * height / 4d;
+            return (
+                /* x² coefficient */ a: (cos * cos / b) + (sin * sin / d),
+                /* xy coefficient */ b: (-2 * cos * sin / b) + (2 * cos * sin / d),
+                /* y² coefficient */ c: (sin * sin / b) + (cos * cos / d),
+                /* x coefficient */ d: (-2 * h * cos / b) - (2 * k * sin / d),
+                /* y coefficient */ e: (2 * h * sin / b) - (2 * k * cos / d),
+                /* constant */ f: (h * h / b) + (k * k / d) - 1
+            /* So, ax² + bxy + cy² + dx + ey + f = 0 */
+            );
+        }
+
+        /// <summary>
+        /// Express the traditional KA ellipse rotated by rot in terms of a "bivariate" polynomial that sums to zero.
+        /// </summary>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="cosA">The cosA.</param>
+        /// <param name="sinA">The sinA.</param>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
+        /// See http://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double a, double b, double c, double d, double e, double f) BivariateForm2(double cx, double cy, double rx, double ry, double cosA, double sinA)
+        {
+            // Start by rotating the ellipse center by the OPPOSITE
+            // of the desired angle. That way when the bivariate
+            // computation transforms it back, it WILL be at the
+            // correct(and original) coordinates.
+            var a = (cosA * cx) + (sinA * cy);
+            var c = (-sinA * cx) + (cosA * cy);
+
+            // Now let the bivariate computation
+            // rotate in the opposite direction.
+            // NOTE: the OPPOSITE angle
+            var nSinA = -sinA;
+
+            var b = rx * rx / 4d;
+            var d = ry * ry / 4d;
+            return (
+                /* x^2 */ a: (cosA * cosA / b) + (nSinA * nSinA / d),
+                /* xy  */ b: (-2d * cosA * nSinA / b) + (2d * cosA * nSinA / d),
+                /* y^2 */ c: (nSinA * nSinA / b) + (cosA * cosA / d),
+
+                /* x   */ d: (-2d * a * cosA / b) - (2d * c * nSinA / d),
+                /* y   */ e: (2d * a * nSinA / b) - (2d * c * cosA / d),
+                /* const */ f: (a * a / b) + (c * c / d) - 1d
+                );
+        }
+
+        /// <summary>
         /// Convert pairs of X-Y coordinate parameters to an array of Points with x and y properties.
         /// </summary>
         /// <param name="x1">The x1.</param>
         /// <param name="y1">The y1.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/c/5567955982876672
         /// </acknowledgment>
@@ -459,8 +546,9 @@ namespace Engine
         {
             /* Pass any number of X - Y coordinate pairs. */
             var points = new List<(double x, double y)>();
+            if (x1 is null || y1 is null) return points.ToArray();
             int j;
-            for (var i = j = 0; i < x1.Length; j++)
+            for (var i = j = 0; i < x1?.Length; j++)
             {
                 points.Add((x: x1[i], y: y1[i++]));
             }
@@ -472,7 +560,9 @@ namespace Engine
         /// Convert pairs of X-Y coordinate parameters to an array of Points with x and y properties.
         /// </summary>
         /// <param name="arguments">The arguments.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/c/5567955982876672
         /// </acknowledgment>
@@ -497,7 +587,9 @@ namespace Engine
         /// <param name="aNumber">The aNumber.</param>
         /// <param name="aMin">The aMin.</param>
         /// <param name="aMax">The aMax.</param>
-        /// <returns>The <see cref="double"/>.</returns>
+        /// <returns>
+        /// The <see cref="double" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Constrain(double aNumber, double aMin, double aMax)
@@ -510,15 +602,17 @@ namespace Engine
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
         /// <param name="d">The d.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/c/5567955982876672
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Overlap(double a, double b, double c, double d)
-            => Intersections.Between((c < d) ? c : d, a, b)
-            || Intersections.Between((a < b) ? a : b, c, d);
+            => Operations.Between((c < d) ? c : d, a, b)
+            || Operations.Between((a < b) ? a : b, c, d);
 
         /// <summary>
         /// Return true iff the polygon is convex.  It is
@@ -526,7 +620,9 @@ namespace Engine
         /// sides have the same sign.
         /// </summary>
         /// <param name="poly">The poly.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/c/5567955982876672
         /// </acknowledgment>
@@ -535,7 +631,7 @@ namespace Engine
         public static bool IsConvex((double x, double y)[] poly)
         {
             var first = false;
-            var prev = poly.Length - 1;
+            var prev = (poly?.Length).Value - 1;
             var pprev = prev - 1;
             for (var i = 0; i < poly.Length; pprev = prev, prev = i, i++)
             {
@@ -566,8 +662,10 @@ namespace Engine
         /// <param name="w">The w.</param>
         /// <param name="h">The h.</param>
         /// <param name="theta">The theta.</param>
-        /// <param name="rectangleMode"></param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <param name="rectangleMode">The rectangle mode.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y)[] Rect2Points(double x, double y, double w, double h, double theta, Mode rectangleMode)

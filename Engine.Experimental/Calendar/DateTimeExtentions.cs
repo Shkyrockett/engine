@@ -44,29 +44,23 @@ namespace Engine.Chrono
         /// </summary>
         /// <param name="date">The date to find the Weekday from.</param>
         /// <returns></returns>
-        public static DateTime EnsureWeekday(this DateTime date)
+        public static DateTime EnsureWeekday(this DateTime date) => date.DayOfWeek switch
         {
-            return date.DayOfWeek switch
-            {
-                DayOfWeek.Saturday => date.AddDays(-1),
-                DayOfWeek.Sunday => date.AddDays(1),
-                _ => date,
-            };
-        }
+            DayOfWeek.Saturday => date.AddDays(-1),
+            DayOfWeek.Sunday => date.AddDays(1),
+            _ => date,
+        };
 
         /// <summary>
         /// If the date falls on a Sunday, adjust to the nearest Saturday day.
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public static DateTime BeforeSunday(this DateTime date)
+        public static DateTime BeforeSunday(this DateTime date) => date.DayOfWeek switch
         {
-            return date.DayOfWeek switch
-            {
-                DayOfWeek.Sunday => date.AddDays(-1),
-                _ => date,
-            };
-        }
+            DayOfWeek.Sunday => date.AddDays(-1),
+            _ => date,
+        };
 
         /// <summary>
         /// Returns the next date which falls on the given day of the week

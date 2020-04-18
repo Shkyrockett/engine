@@ -92,7 +92,7 @@ namespace Engine
         /// <summary>
         /// The to polygon.
         /// </summary>
-        /// <returns>The <see cref="Polygon"/>.</returns>
+        /// <returns>The <see cref="Polygon2D"/>.</returns>
         public Polygon2D ToPolygon()
         {
             var polygon = new Polygon2D();

@@ -28,7 +28,7 @@ namespace Editor.Midi
         {
             // Tickle reflection to get it to change attributes for WinForms.
             EngineWinformsReflection.Tickle();
-
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             using var formMidiEventEditor = new FormMidiEventEditor();

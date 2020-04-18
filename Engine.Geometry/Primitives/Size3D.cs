@@ -12,9 +12,9 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -24,10 +24,8 @@ namespace Engine
     /// The size3D struct.
     /// </summary>
     /// <seealso cref="IVector{T}" />
-    [ComVisible(true)]
     [DataContract, Serializable]
-    //[TypeConverter(typeof(Size3DConverter))]
-    [TypeConverter(typeof(StructConverter<Size3D>))]
+    [TypeConverter(typeof(Size3DConverter))]
     [DebuggerDisplay("{ToString()}")]
     public struct Size3D
         : IVector<Size3D>
@@ -81,9 +79,7 @@ namespace Engine
         public Size3D(double width, double height, double depth)
             : this()
         {
-            Width = width;
-            Height = height;
-            Depth = depth;
+            (Width, Height, Depth) = (width, height, depth);
         }
 
         /// <summary>
@@ -109,12 +105,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out double width, out double height, out double depth)
-        {
-            width = Width;
-            height = Height;
-            depth = Depth;
-        }
+        public void Deconstruct(out double width, out double height, out double depth) => (width, height, depth) = (Width, Height, Depth);
         #endregion Deconstructors
 
         #region Properties
@@ -124,7 +115,7 @@ namespace Engine
         /// <value>
         /// The width.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Width)), XmlAttribute(nameof(Width)), SoapAttribute(nameof(Width))]
         public double Width { get; set; }
 
         /// <summary>
@@ -133,7 +124,7 @@ namespace Engine
         /// <value>
         /// The height.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Height)), XmlAttribute(nameof(Height)), SoapAttribute(nameof(Height))]
         public double Height { get; set; }
 
         /// <summary>
@@ -142,7 +133,7 @@ namespace Engine
         /// <value>
         /// The depth.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Depth)), XmlAttribute(nameof(Depth)), SoapAttribute(nameof(Depth))]
         public double Depth { get; set; }
         #endregion Properties
 
@@ -156,91 +147,91 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator +(Size3D value) => Operations.UnaryAdd(value.Width, value.Height, value.Depth);
+        public static Size3D operator +(Size3D value) => Plus(value);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point3D" /> classes.
         /// </summary>
-        /// <param name="value">The original value</param>
+        /// <param name="augend">The original value</param>
         /// <param name="addend">The amount to add.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator +(Size3D value, double addend) => Operations.Add3D(value.Width, value.Height, value.Depth, addend);
+        public static Size3D operator +(Size3D augend, double addend) => Add(augend, addend);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point3D" /> classes.
         /// </summary>
-        /// <param name="value">The original value</param>
+        /// <param name="augend">The original value</param>
         /// <param name="addend">The amount to add.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator +(double value, Size3D addend) => Operations.Add3D(addend.Width, addend.Height, addend.Depth, value);
+        public static Size3D operator +(double augend, Size3D addend) => Add(augend, addend);
 
         /// <summary>
         /// Add two <see cref="Size3D" /> classes together.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator +(Size3D value, Size3D addend) => Operations.Add3D(value.Width, value.Height, value.Depth, addend.Width, addend.Height, addend.Depth);
+        public static Size3D operator +(Size3D augend, Size3D addend) => Add(augend, addend);
 
         /// <summary>
         /// Add two <see cref="Size3D" /> classes together.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator +(Size3D value, Point3D addend) => Operations.Add3D(value.Width, value.Height, value.Depth, addend.X, addend.Y, addend.Z);
+        public static Point3D operator +(Size3D augend, Point3D addend) => Add(augend, addend);
 
         /// <summary>
         /// Add a <see cref="Point3D" /> and a <see cref="Size3D" /> classes together.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator +(Point3D value, Size3D addend) => Operations.Add3D(value.X, value.Y, value.Z, addend.Width, addend.Height, addend.Depth);
+        public static Point3D operator +(Point3D augend, Size3D addend) => Add(augend, addend);
 
         /// <summary>
         /// Add a <see cref="Size3D" /> to a <see cref="Vector3D" /> class.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator +(Size3D value, Vector3D addend) => Operations.Add3D(value.Width, value.Height, value.Depth, addend.I, addend.J, addend.K);
+        public static Vector3D operator +(Size3D augend, Vector3D addend) => Add(augend, addend);
 
         /// <summary>
         /// Add a <see cref="Vector3D" /> and a <see cref="Size3D" /> classes together.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator +(Vector3D value, Size3D addend) => Operations.Add3D(value.I, value.J, value.K, addend.Width, addend.Height, addend.Depth);
+        public static Vector3D operator +(Vector3D augend, Size3D addend) => Add(augend, addend);
 
         /// <summary>
         /// The operator -.
@@ -251,259 +242,259 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator -(Size3D value) => Operations.UnaryNegate3D(value.Width, value.Height, value.Depth);
+        public static Size3D operator -(Size3D value) => Negate(value);
 
         /// <summary>
         /// Subtract a <see cref="Size3D" /> from a <see cref="double" /> value.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator -(Size3D value, double subend) => Operations.SubtractSubtrahend3D(value.Width, value.Height, value.Depth, subend);
+        public static Size3D operator -(Size3D minuend, double subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract a <see cref="double" /> value from a <see cref="Size3D" />.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator -(double value, Size3D subend) => Operations.SubtractSubtrahend3D(value, subend.Width, subend.Height, subend.Depth);
+        public static Size3D operator -(double minuend, Size3D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract a <see cref="Size3D" /> from another <see cref="Size3D" /> class.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator -(Size3D value, Size3D subend) => Operations.Subtract3D(value.Width, value.Height, value.Depth, subend.Width, subend.Height, subend.Depth);
+        public static Size3D operator -(Size3D minuend, Size3D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract a <see cref="Size3D" /> from a <see cref="Point3D" /> class.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator -(Size3D value, Point3D subend) => Operations.Subtract3D(value.Width, value.Height, value.Depth, subend.X, subend.Y, subend.Z);
+        public static Point3D operator -(Size3D minuend, Point3D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract a <see cref="Point3D" /> from another <see cref="Size3D" /> class.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator -(Point3D value, Size3D subend) => Operations.Subtract3D(value.X, value.Y, value.Z, subend.Width, subend.Height, subend.Depth);
+        public static Point3D operator -(Point3D minuend, Size3D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract a <see cref="Size3D" /> from a <see cref="Vector3D" /> class.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator -(Size3D value, Vector3D subend) => Operations.Subtract3D(value.Width, value.Height, value.Depth, subend.I, subend.J, subend.K);
+        public static Vector3D operator -(Size3D minuend, Vector3D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract a <see cref="Vector3D" /> from another <see cref="Size3D" /> class.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="minuend">The minuend.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator -(Vector3D value, Size3D subend) => Operations.Subtract3D(value.I, value.J, value.K, subend.Width, subend.Height, subend.Depth);
-
-        /// <summary>
-        /// Scale a point
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="factor">The factor.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator *(double value, Size3D factor) => Operations.Scale3D(factor.Width, factor.Height, factor.Depth, value);
+        public static Vector3D operator -(Vector3D minuend, Size3D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Scale a point.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="factor">The factor.</param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator *(Size3D value, double factor) => Operations.Scale3D(value.Width, value.Height, value.Depth, factor);
+        public static Size3D operator *(Size3D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Scale a point
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D operator *(double multiplicand, Size3D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a Size3D
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="multiplicand">The Point</param>
+        /// <param name="multiplier">The Multiplier</param>
         /// <returns>
         /// A Point Multiplied by the Multiplier
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator *(Size3D value, Size3D factor) => Operations.ParametricScale3D(value.Width, value.Height, value.Depth, factor.Width, factor.Height, factor.Depth);
+        public static Size3D operator *(Size3D multiplicand, Size3D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a Point
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="multiplicand">The Point</param>
+        /// <param name="multiplier">The Multiplier</param>
         /// <returns>
         /// A Point Multiplied by the Multiplier
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator *(Point3D value, Size3D factor) => Operations.ParametricScale3D(value.X, value.Y, value.Z, factor.Width, factor.Height, factor.Depth);
+        public static Point3D operator *(Size3D multiplicand, Point3D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a Point
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="multiplicand">The Point</param>
+        /// <param name="multiplier">The Multiplier</param>
         /// <returns>
         /// A Point Multiplied by the Multiplier
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator *(Size3D value, Point3D factor) => Operations.ParametricScale3D(value.Width, value.Height, value.Depth, factor.X, factor.Y, factor.Z);
+        public static Point3D operator *(Point3D multiplicand, Size3D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a Vector
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="multiplicand">The Point</param>
+        /// <param name="multiplier">The Multiplier</param>
         /// <returns>
         /// A Point Multiplied by the Multiplier
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator *(Vector3D value, Size3D factor) => Operations.ParametricScale3D(value.I, value.J, value.K, factor.Width, factor.Height, factor.Depth);
+        public static Vector3D operator *(Size3D multiplicand, Vector3D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a Vector
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="multiplicand">The Point</param>
+        /// <param name="multiplier">The Multiplier</param>
         /// <returns>
         /// A Point Multiplied by the Multiplier
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator *(Size3D value, Vector3D factor) => Operations.ParametricScale3D(value.Width, value.Height, value.Depth, factor.I, factor.J, factor.K);
+        public static Vector3D operator *(Vector3D multiplicand, Size3D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Divide a <see cref="Size3D" /> by a <see cref="double" /> value.
         /// </summary>
-        /// <param name="divisor">The divisor.</param>
         /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator /(Size3D divisor, double dividend) => Operations.DivideByDividend3D(divisor.Width, divisor.Height, divisor.Depth, dividend);
+        public static Size3D operator /(Size3D dividend, double divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a <see cref="double" /> by a <see cref="Size3D" /> value.
         /// </summary>
-        /// <param name="divisor">The divisor.</param>
         /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator /(double divisor, Size3D dividend) => Operations.DivideDivisor3D(divisor, dividend.Width, dividend.Height, dividend.Depth);
+        public static Size3D operator /(double dividend, Size3D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a Size3D
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="dividend">The Point</param>
+        /// <param name="divisor">The Multiplier</param>
         /// <returns>
         /// A Point Multiplied by the Multiplier
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size3D operator /(Size3D value, Size3D factor) => Operations.ParametricDivide3D(value.Width, value.Height, value.Depth, factor.Width, factor.Height, factor.Depth);
+        public static Size3D operator /(Size3D dividend, Size3D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a Point
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="dividend">The Point</param>
+        /// <param name="divisor">The Multiplier</param>
         /// <returns>
         /// A Point Multiplied by the Multiplier
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator /(Point3D value, Size3D factor) => Operations.ParametricDivide3D(value.X, value.Y, value.Z, factor.Width, factor.Height, factor.Depth);
+        public static Point3D operator /(Size3D dividend, Point3D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a Point
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="dividend">The Point</param>
+        /// <param name="divisor">The Multiplier</param>
         /// <returns>
         /// A Point Multiplied by the Multiplier
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator /(Size3D value, Point3D factor) => Operations.ParametricDivide3D(value.Width, value.Height, value.Depth, factor.X, factor.Y, factor.Z);
+        public static Point3D operator /(Point3D dividend, Size3D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a Vector
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="dividend">The Point</param>
+        /// <param name="divisor">The Multiplier</param>
         /// <returns>
         /// A Point Multiplied by the Multiplier
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator /(Vector3D value, Size3D factor) => Operations.ParametricDivide3D(value.I, value.J, value.K, factor.Width, factor.Height, factor.Depth);
+        public static Vector3D operator /(Size3D dividend, Vector3D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a Vector
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="dividend">The Point</param>
+        /// <param name="divisor">The Multiplier</param>
         /// <returns>
         /// A Point Multiplied by the Multiplier
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator /(Size3D value, Vector3D factor) => Operations.ParametricScale3D(value.Width, value.Height, value.Depth, factor.I, factor.J, factor.K);
+        public static Vector3D operator /(Vector3D dividend, Size3D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Compares two <see cref="Size3D" /> objects.
@@ -600,6 +591,396 @@ namespace Engine
         public static implicit operator (double Width, double Height, double Depth)(Size3D size) => (size.Width, size.Height, size.Depth);
         #endregion Operators
 
+        #region Operator Backing Methods
+        /// <summary>
+        /// Pluses the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Plus(Size3D value) => Operations.Plus(value.Width, value.Height, value.Depth);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Add(Size3D augend, double addend) => Operations.AddVectorUniform(augend.Width, augend.Height, augend.Depth, addend);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Add(double augend, Size3D addend) => Operations.AddVectorUniform(addend.Width, addend.Height, addend.Depth, augend);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Add(Size3D augend, Size3D addend) => Operations.AddVectors(augend.Width, augend.Height, augend.Depth, addend.Width, addend.Height, addend.Depth);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Add(Size3D augend, Point3D addend) => Operations.AddVectors(augend.Width, augend.Height, augend.Depth, addend.X, addend.Y, addend.Z);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Add(Point3D augend, Size3D addend) => Operations.AddVectors(augend.X, augend.Y, augend.Z, addend.Width, addend.Height, addend.Depth);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Add(Size3D augend, Vector3D addend) => Operations.AddVectors(augend.Width, augend.Height, augend.Depth, addend.I, addend.J, addend.K);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Add(Vector3D augend, Size3D addend) => Operations.AddVectors(augend.I, augend.J, augend.K, addend.Width, addend.Height, addend.Depth);
+
+        /// <summary>
+        /// Negates the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Negate(Size3D value) => Operations.Negate(value.Width, value.Height, value.Depth);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Subtract(Size3D minuend, double subend) => Operations.SubtractVectorUniform(minuend.Width, minuend.Height, minuend.Depth, subend);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Subtract(double minuend, Size3D subend) => Operations.SubtractVectorUniform(minuend, subend.Width, subend.Height, subend.Depth);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Subtract(Size3D minuend, Size3D subend) => Operations.SubtractVector(minuend.Width, minuend.Height, minuend.Depth, subend.Width, subend.Height, subend.Depth);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Subtract(Size3D minuend, Point3D subend) => Operations.SubtractVector(minuend.Width, minuend.Height, minuend.Depth, subend.X, subend.Y, subend.Z);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Subtract(Point3D minuend, Size3D subend) => Operations.SubtractVector(minuend.X, minuend.Y, minuend.Z, subend.Width, subend.Height, subend.Depth);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Subtract(Size3D minuend, Vector3D subend) => Operations.SubtractVector(minuend.Width, minuend.Height, minuend.Depth, subend.I, subend.J, subend.K);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Subtract(Vector3D minuend, Size3D subend) => Operations.SubtractVector(minuend.I, minuend.J, minuend.K, subend.Width, subend.Height, subend.Depth);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Multiply(Size3D multiplicand, double multiplier) => Operations.ScaleVector(multiplicand.Width, multiplicand.Height, multiplicand.Depth, multiplier);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Multiply(double multiplicand, Size3D multiplier) => Operations.ScaleVector(multiplier.Width, multiplier.Height, multiplier.Depth, multiplicand);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Multiply(Size3D multiplicand, Size3D multiplier) => Operations.ScaleVectorParametric(multiplicand.Width, multiplicand.Height, multiplicand.Depth, multiplier.Width, multiplier.Height, multiplier.Depth);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Multiply(Size3D multiplicand, Point3D multiplier) => Operations.ScaleVectorParametric(multiplicand.Width, multiplicand.Height, multiplicand.Depth, multiplier.X, multiplier.Y, multiplier.Z);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Multiply(Point3D multiplicand, Size3D multiplier) => Operations.ScaleVectorParametric(multiplicand.X, multiplicand.Y, multiplicand.Z, multiplier.Width, multiplier.Height, multiplier.Depth);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Multiply(Size3D multiplicand, Vector3D multiplier) => Operations.ScaleVectorParametric(multiplicand.Width, multiplicand.Height, multiplicand.Depth, multiplier.I, multiplier.J, multiplier.K);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Multiply(Vector3D multiplicand, Size3D multiplier) => Operations.ScaleVectorParametric(multiplicand.I, multiplicand.J, multiplicand.K, multiplier.Width, multiplier.Height, multiplier.Depth);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Divide(Size3D dividend, double divisor) => Operations.DivideVectorUniform(dividend.Width, dividend.Height, dividend.Depth, divisor);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Divide(double dividend, Size3D divisor) => Operations.DivideByVectorUniform(dividend, divisor.Width, divisor.Height, divisor.Depth);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D Divide(Size3D dividend, Size3D divisor) => Operations.DivideVectorParametric(dividend.Width, dividend.Height, dividend.Depth, divisor.Width, divisor.Height, divisor.Depth);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Divide(Size3D dividend, Point3D divisor) => Operations.DivideVectorParametric(dividend.Width, dividend.Height, dividend.Depth, divisor.X, divisor.Y, divisor.Z);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Divide(Point3D dividend, Size3D divisor) => Operations.DivideVectorParametric(dividend.X, dividend.Y, dividend.Z, divisor.Width, divisor.Height, divisor.Depth);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Divide(Size3D dividend, Vector3D divisor) => Operations.ScaleVectorParametric(dividend.Width, dividend.Height, dividend.Depth, divisor.I, divisor.J, divisor.K);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D Divide(Vector3D dividend, Size3D divisor) => Operations.DivideVectorParametric(dividend.I, dividend.J, dividend.K, divisor.Width, divisor.Height, divisor.Depth);
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals([AllowNull] object obj) => obj is Point2D d && Equals(d);
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Size3D other) => (Width == other.Width) && (Height == other.Height) && (Depth == other.Depth);
+
+        /// <summary>
+        /// Converts to valuetuple.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double Width, double Height, double Depth) ToValueTuple() => (Width, Height, Depth);
+
+        /// <summary>
+        /// Froms the value tuple.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D FromValueTuple((double Width, double Height, double Depth) tuple) => new Size3D(tuple.Width, tuple.Height, tuple.Depth);
+
+        /// <summary>
+        /// Converts to size3d.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Size3D ToSize3D() => new Size3D(Width, Height, Depth);
+
+        /// <summary>
+        /// Converts to size3d.
+        /// </summary>
+        /// <param name="size">The size.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size3D FromSize3D(Size3D size) => new Size3D(size.Width, size.Height, size.Depth);
+
+        /// <summary>
+        /// Converts to vector3d.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector3D ToVector3D() => new Vector3D(Width, Height, Depth);
+
+        /// <summary>
+        /// Converts to Vector3D.
+        /// </summary>
+        /// <param name="vector">The vector.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3D FromVector3D(Vector3D vector) => new Vector3D(vector.I, vector.J, vector.K);
+
+        /// <summary>
+        /// Converts to point3d.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point3D ToPoint3D() => new Point3D(Width, Height, Depth);
+
+        /// <summary>
+        /// Converts to Point3D.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D FromPoint3D(Point3D point) => new Point3D(point.X, point.Y, point.Z);
+        #endregion
+
         #region Factories
         /// <summary>
         /// Parse a string for a <see cref="Size3D" /> value.
@@ -640,7 +1021,7 @@ namespace Engine
         }
         #endregion Factories
 
-        #region Methods
+        #region Standard Methods
         /// <summary>
         /// Get the hash code.
         /// </summary>
@@ -649,29 +1030,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => Width.GetHashCode() ^ Height.GetHashCode() ^ Depth.GetHashCode();
-
-        /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="other">An object to compare with this object.</param>
-        /// <returns>
-        /// The <see cref="bool" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Size3D other) => (Width == other.Width) && (Height == other.Height) && (Depth == other.Depth);
-
-        /// <summary>
-        /// Determines whether the specified <see cref="object" />, is equal to this instance.
-        /// </summary>
-        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
-        /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => base.Equals(obj);
+        public override int GetHashCode() => HashCode.Combine(Width, Height, Depth);
 
         /// <summary>
         /// Converts to string.
@@ -681,7 +1040,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => base.ToString();
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Size3D" /> struct based on the format string
@@ -690,96 +1049,18 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <param name="formatProvider">The format provider.</param>
         /// <returns>
         /// A string representation of this <see cref="Size3D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             if (this == null) return nameof(Size3D);
-            var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Size3D)}({nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)}{s} {nameof(Depth)}:{Depth.ToString(format, provider)})";
+            var s = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(Size3D)}({nameof(Width)}:{Width.ToString(format, formatProvider)}{s} {nameof(Height)}:{Height.ToString(format, formatProvider)}{s} {nameof(Depth)}:{Depth.ToString(format, formatProvider)})";
         }
-
-        /// <summary>
-        /// Pluses the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        public static Size3D Plus(Size3D item) => +item;
-
-        /// <summary>
-        /// Adds the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Size3D Add(Size3D left, Size3D right) => left + right;
-
-        /// <summary>
-        /// Negates the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        public static Size3D Negate(Size3D item) => -item;
-
-        /// <summary>
-        /// Subtracts the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Size3D Subtract(Size3D left, Size3D right) => left - right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Size3D Multiply(Size3D left, Size3D right) => left * right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Size3D Multiply(double left, Size3D right) => left * right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Size3D Multiply(Size3D left, double right) => left * right;
-
-        /// <summary>
-        /// Divides the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Size3D Divide(Size3D left, Size3D right) => left / right;
-
-        /// <summary>
-        /// Divides the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Size3D Divide(double left, Size3D right) => left / right;
-
-        /// <summary>
-        /// Divides the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Size3D Divide(Size3D left, double right) => left / right;
         #endregion Methods
     }
 }

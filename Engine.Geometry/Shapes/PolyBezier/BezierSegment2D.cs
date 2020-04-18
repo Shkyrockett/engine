@@ -43,14 +43,14 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="BezierSegment"/> class.
+        /// Initializes a new instance of the <see cref="BezierSegment2D"/> class.
         /// </summary>
         public BezierSegment2D()
             : this(Array.Empty<Point2D>())
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BezierSegment"/> class.
+        /// Initializes a new instance of the <see cref="BezierSegment2D"/> class.
         /// </summary>
         /// <param name="points">The points.</param>
         public BezierSegment2D(IEnumerable<Point2D> points)
@@ -58,7 +58,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BezierSegment"/> class.
+        /// Initializes a new instance of the <see cref="BezierSegment2D"/> class.
         /// </summary>
         /// <param name="points">The points.</param>
         public BezierSegment2D(params Point2D[] points)
@@ -120,7 +120,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => Polynomial.Bezier(points.Select(p => p.X).ToArray()));
+                var curveX = (Polynomial)CachingProperty(() => Polynomials.Bezier(points.Select(p => p.X).ToArray()));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -134,7 +134,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => Polynomial.Bezier(points.Select(p => p.Y).ToArray()));
+                var curveY = (Polynomial)CachingProperty(() => Polynomials.Bezier(points.Select(p => p.Y).ToArray()));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -149,7 +149,7 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// Creates a string representation of this <see cref="PolygonContour"/> struct based on the format string
+        /// Creates a string representation of this <see cref="PolygonContour2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -169,7 +169,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(BezierSegment2D)}{{{string.Join(sep.ToString(), points)}}}";
+            IFormattable formatable = $"{nameof(BezierSegment2D)}{{{string.Join(sep, points)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

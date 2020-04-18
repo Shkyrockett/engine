@@ -68,14 +68,14 @@ namespace Engine
         /// </summary>
         /// <param name="triangle"></param>
         public CircularSegment2D(Triangle2D triangle)
-            : this(triangle.A, triangle.B, triangle.C)
+            : this((triangle?.A).Value, triangle.B, triangle.C)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularSegment2D"/> class.
         /// </summary>
         public CircularSegment2D(Circle2D circle, double startAngle, double endAngle)
-            : this(circle.Center, circle.Radius, startAngle, endAngle)
+            : this((circle?.Center).Value, circle.Radius, startAngle, endAngle)
         { }
 
         /// <summary>

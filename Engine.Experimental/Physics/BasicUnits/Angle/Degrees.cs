@@ -25,7 +25,6 @@ namespace Engine
     /// <seealso cref="IFormattable" />
     /// <seealso cref="IEquatable{T}" />
     [DataContract, Serializable]
-    [DisplayName(nameof(Degrees))]
     public struct Degrees
         : IDirection, IFormattable, IEquatable<Degrees>
     {
@@ -221,7 +220,7 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode() => -1937169414 + Value.GetHashCode();
+        public override int GetHashCode() => Value.GetHashCode();
 
         /// <summary>
         /// Convert Degrees to Radians.

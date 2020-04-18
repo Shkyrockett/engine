@@ -70,14 +70,14 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuadraticBezier"/> class.
+        /// Initializes a new instance of the <see cref="QuadraticBezier2D"/> class.
         /// </summary>
         public QuadraticBezier2D()
             : this(0, 0, 0, 0, 0, 0)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuadraticBezier"/> class.
+        /// Initializes a new instance of the <see cref="QuadraticBezier2D"/> class.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -87,7 +87,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuadraticBezier"/> class.
+        /// Initializes a new instance of the <see cref="QuadraticBezier2D"/> class.
         /// </summary>
         /// <param name="ax"></param>
         /// <param name="ay"></param>
@@ -106,7 +106,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuadraticBezier"/> class from a <see cref="QuadraticBezier"/>.
+        /// Initializes a new instance of the <see cref="QuadraticBezier2D"/> class from a <see cref="QuadraticBezier2D"/>.
         /// </summary>
         /// <param name="tuple"></param>
         public QuadraticBezier2D((double aX, double aY, double bX, double bY, double cX, double cY) tuple)
@@ -116,7 +116,7 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="QuadraticBezier"/> to a Tuple.
+        /// Deconstruct this <see cref="QuadraticBezier2D"/> to a Tuple.
         /// </summary>
         /// <param name="ax"></param>
         /// <param name="ay"></param>
@@ -137,7 +137,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// Gets or sets a list of points representing the handles of the <see cref="QuadraticBezier"/> curve.
+        /// Gets or sets a list of points representing the handles of the <see cref="QuadraticBezier2D"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -147,7 +147,7 @@ namespace Engine
             => new List<Point2D> { A, B, C };
 
         /// <summary>
-        /// Gets or sets the starting node for the <see cref="QuadraticBezier"/> curve.
+        /// Gets or sets the starting node for the <see cref="QuadraticBezier2D"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -211,7 +211,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets or sets the middle tangent control node for the <see cref="QuadraticBezier"/> curve.
+        /// Gets or sets the middle tangent control node for the <see cref="QuadraticBezier2D"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -253,7 +253,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets or sets the closing node for the <see cref="QuadraticBezier"/> curve.
+        /// Gets or sets the closing node for the <see cref="QuadraticBezier2D"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -339,7 +339,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets the axial aligned bounding box of the <see cref="QuadraticBezier"/> curve.
+        /// Gets the axial aligned bounding box of the <see cref="QuadraticBezier2D"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [ReadOnly(true)]
@@ -350,28 +350,28 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
-        /// An approximation of the length of a <see cref="QuadraticBezier"/> curve.
+        /// An approximation of the length of a <see cref="QuadraticBezier2D"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Length
             => (double)CachingProperty(() => Measurements.QuadraticBezierArcLengthByIntegral(ax, ay, bx, by, cx, cy));
 
         /// <summary>
-        /// Gets the perimeter length of the <see cref="QuadraticBezier"/> curve.
+        /// Gets the perimeter length of the <see cref="QuadraticBezier2D"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Perimeter
             => Length;
 
         /// <summary>
-        /// Gets the Polynomial degree of the <see cref="QuadraticBezier"/> curve.
+        /// Gets the Polynomial degree of the <see cref="QuadraticBezier2D"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public static PolynomialDegree Degree
             => PolynomialDegree.Quadratic;
 
         /// <summary>
-        /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the x-axis.
+        /// Gets the <see cref="QuadraticBezier2D"/> curve's polynomial representation along the x-axis.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveX
@@ -385,7 +385,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the y-axis.
+        /// Gets the <see cref="QuadraticBezier2D"/> curve's polynomial representation along the y-axis.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveY
@@ -618,7 +618,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(QuadraticBezier2D left, QuadraticBezier2D right) => left.Equals(right);
+        public static bool operator ==(QuadraticBezier2D left, QuadraticBezier2D right) => (left?.Equals(right)).Value;
 
         /// <summary>
         /// The operator !=.
@@ -628,7 +628,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(QuadraticBezier2D left, QuadraticBezier2D right) => !left.Equals(right);
+        public static bool operator !=(QuadraticBezier2D left, QuadraticBezier2D right) => !(left?.Equals(right)).Value;
 
         /// <summary>
         /// Implicit conversion from tuple.
@@ -753,8 +753,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D Tangent(double t)
-            => Derivate(t).Normalize();
+        public Vector2D Tangent(double t) => Derivate(t).Normalize();
 
         #region Methods
         /// <summary>
@@ -795,20 +794,10 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
-        {
-            var hash = new JenkinsHash();
-            hash.Mixin(ax.GetHashCode());
-            hash.Mixin(ay.GetHashCode());
-            hash.Mixin(bx.GetHashCode());
-            hash.Mixin(by.GetHashCode());
-            hash.Mixin(cx.GetHashCode());
-            hash.Mixin(cy.GetHashCode());
-            return hash.GetValue();
-            //return ax.GetHashCode() ^ ay.GetHashCode() ^ bx.GetHashCode() ^ by.GetHashCode() ^ cx.GetHashCode() ^ cy.GetHashCode();
-        }
+            => HashCode.Combine(ax, ay, bx, by, cx, cy);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="QuadraticBezier"/> struct based on the format string
+        /// Creates a string representation of this <see cref="QuadraticBezier2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

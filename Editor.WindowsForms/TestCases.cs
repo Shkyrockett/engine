@@ -43,9 +43,9 @@ namespace Editor
             _ = tools;
             _ = canvasPanel;
             _ = metrics;
-            var foreColor = form?.ForeColor;
+            var foreColor = (form?.ForeColor).Value;
             _ = foreColor;
-            var backColor = form?.BackColor;
+            var backColor = (form?.BackColor).Value;
             _ = backColor;
             boundaryItem = new GraphicItem();
 

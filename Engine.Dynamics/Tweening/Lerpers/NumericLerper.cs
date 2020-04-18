@@ -19,7 +19,7 @@ namespace Engine.Tweening
     /// The numeric lerper class.
     /// </summary>
     public class NumericLerper
-        : MemberLerper
+        : IMemberLerper
     {
         #region Fields
         /// <summary>
@@ -44,7 +44,7 @@ namespace Engine.Tweening
         /// <param name="fromValue">The fromValue.</param>
         /// <param name="toValue">The toValue.</param>
         /// <param name="behavior">The behavior.</param>
-        public override void Initialize(object fromValue, object toValue, LerpBehaviors behavior)
+        public void Initialize(object fromValue, object toValue, LerpBehaviors behavior)
         {
             from = Convert.ToDouble(fromValue, CultureInfo.InvariantCulture);
             to = Convert.ToDouble(toValue, CultureInfo.InvariantCulture);
@@ -78,7 +78,7 @@ namespace Engine.Tweening
         /// <param name="currentValue">The currentValue.</param>
         /// <param name="behavior">The behavior.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object Interpolate(double t, object currentValue, LerpBehaviors behavior)
+        public object Interpolate(double t, object currentValue, LerpBehaviors behavior)
         {
             var value = from + (range * t);
             if (behavior.HasFlag(LerpBehaviors.Rotation))
@@ -106,7 +106,7 @@ namespace Engine.Tweening
                 value = Round(value);
             }
 
-            var type = currentValue.GetType();
+            var type = currentValue?.GetType();
             return Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
         }
     }

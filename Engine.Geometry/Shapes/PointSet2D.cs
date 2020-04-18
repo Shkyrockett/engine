@@ -49,7 +49,7 @@ namespace Engine
         /// </summary>
         /// <param name="polygon">The polygon.</param>
         public PointSet2D(PolygonContour2D polygon)
-            : this(polygon.Points)
+            : this(polygon?.Points)
         { }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Engine
         /// </summary>
         /// <param name="polyline">The polyline.</param>
         public PointSet2D(Polyline2D polyline)
-            : this(polyline.Points)
+            : this(polyline?.Points)
         { }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Engine
         /// </summary>
         /// <param name="polygons">The polygons.</param>
         public PointSet2D(Polygon2D polygons)
-            : this(polygons.Contours)
+            : this(polygons?.Contours)
         { }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Engine
         /// </summary>
         /// <param name="polygons">The polygons.</param>
         public PointSet2D(PolylineSet2D polygons)
-            : this(polygons.Polylines)
+            : this(polygons?.Polylines)
         { }
 
         /// <summary>
@@ -141,10 +141,10 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D this[int index]
         {
-            get { return (points as List<Point2D>)[index]; }
+            get { return points[index]; }
             set
             {
-                (points as List<Point2D>)[index] = value;
+                points[index] = value;
                 update?.Invoke();
             }
         }
@@ -172,8 +172,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public int Count
-            => points.Count;
+        public int Count => points.Count;
 
         /// <summary>
         /// Gets the perimeter.
@@ -181,8 +180,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public override double Perimeter
-            => 0;
+        public override double Perimeter => 0;
 
         /// <summary>
         /// Gets the bounds.
@@ -191,8 +189,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(points));
+        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(points));
 
         /// <summary>
         /// Gets the area.
@@ -246,8 +243,8 @@ namespace Engine
         /// <returns>The <see cref="PointSet"/>.</returns>
         public static PointSet2D Translate(PointSet2D path, Point2D delta)
         {
-            var outPath = new List<Point2D>(path.points.Count);
-            for (var i = 0; i < path.points.Count; i++)
+            var outPath = new List<Point2D>((path?.points).Count);
+            for (var i = 0; i < (path?.points).Count; i++)
             {
                 outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
             }

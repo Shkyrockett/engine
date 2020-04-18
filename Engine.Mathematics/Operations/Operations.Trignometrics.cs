@@ -31,7 +31,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double cos, double sin) RotateAngleVector(double x, double y, double cos, double sin) => (x * cos - y * sin, x * sin + y * cos);
+        public static (double cos, double sin) RotateAngleVector(double x, double y, double cos, double sin) => ((x * cos) - (y * sin), (x * sin) + (y * cos));
 
         /// <summary>
         /// Find the incidence category of vector Angles.
@@ -44,7 +44,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Incidence AngleVectorIncidence(double cos1, double sin1, double cos2, double sin2, double epsilon = Epsilon)
+        public static Incidence AngleVectorIncidence(double cos1, double sin1, double cos2, double sin2, double epsilon = double.Epsilon)
         {
             var crossProduct = CrossProduct(cos1, sin1, cos2, sin2);
             return Math.Abs(crossProduct) < epsilon
@@ -235,8 +235,8 @@ namespace Engine
         /// <summary>
         /// The angle.
         /// </summary>
-        /// <param name="cos">The i.</param>
-        /// <param name="sin">The j.</param>
+        /// <param name="cos">The Cosine.</param>
+        /// <param name="sin">The Sine.</param>
         /// <returns>
         /// The <see cref="double" />.
         /// </returns>
@@ -282,7 +282,7 @@ namespace Engine
             double x2, double y2, double z2)
             => (Math.Abs(x1 - x2) < Epsilon
             && Math.Abs(y1 - y2) < Epsilon
-            && Math.Abs(z1 - z2) < Epsilon) ? 0d : Acos(Math.Min(1d, DotProduct(Normalize3D(x1, y1, z1), Normalize3D(x2, y2, z2))));
+            && Math.Abs(z1 - z2) < Epsilon) ? 0d : Acos(Math.Min(1d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
 
         /// <summary>
         /// The angle vector.
@@ -307,7 +307,7 @@ namespace Engine
         public static double AngleVector(
             double x1, double y1,
             double x2, double y2,
-            double x3, double y3) => Atan2(CrossProductVector(x1, y1, x2, y2, x3, y3), DotProductVector(x1, y1, x2, y2, x3, y3));
+            double x3, double y3) => Atan2(CrossProductTriple(x1, y1, x2, y2, x3, y3), DotProductTriple(x1, y1, x2, y2, x3, y3));
 
         /// <summary>
         /// Find the absolute positive value of a radian angle from two points.
@@ -497,7 +497,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Reflect(double x1, double y1, double x2, double y2, double axisX, double axisY)
         {
-            var (i, j) = Delta(x1, y1, x2, y2);
+            var (i, j) = DeltaVector(x1, y1, x2, y2);
             var magnatude = 0.5d * DotProduct(i, j, i, j);
             var reflection = CrossProduct(i, j, CrossProduct(x2, y2, x1, y1), DotProduct(axisX, axisY, i, j));
             return ((magnatude * reflection) - axisX,
@@ -621,7 +621,7 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J) Unit(double i, double j) => Scale2D(i, j, 1d / Sqrt((i * i) + (j * j)));
+        public static (double I, double J) Unit(double i, double j) => ScaleVector(i, j, 1d / Sqrt((i * i) + (j * j)));
 
         /// <summary>
         /// Unit of a 3D Vector.
@@ -632,7 +632,7 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J, double K) Unit(double i, double j, double k) => Scale3D(i, j, k, 1d / Sqrt((i * i) + (j * j) + (k * k)));
+        public static (double I, double J, double K) Unit(double i, double j, double k) => ScaleVector(i, j, k, 1d / Sqrt((i * i) + (j * j) + (k * k)));
 
         /// <summary>
         /// Unit of a 4D Vector.
@@ -644,7 +644,7 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J, double K, double L) Unit(double i, double j, double k, double l) => Scale4D(i, j, k, l, 1d / Sqrt((i * i) + (j * j) + (k * k) + (l * l)));
+        public static (double I, double J, double K, double L) Unit(double i, double j, double k, double l) => ScaleVector(i, j, k, l, 1d / Sqrt((i * i) + (j * j) + (k * k) + (l * l)));
         #endregion Unit
 
         #region Derived Equivalent Math Functions
@@ -828,12 +828,10 @@ namespace Engine
             {
                 return HalfPi;
             }
-
             else if (value == -1d)
             {
                 return -HalfPi;
             }
-
             else if (Math.Abs(value) < 1d)
             {
                 // Arc-co-sec(X)

@@ -31,7 +31,7 @@ namespace Engine
         /// <param name="count">The count.</param>
         /// <param name="angle">The angle.</param>
         /// <returns>
-        /// The <see cref="PolygonContour" />.
+        /// The <see cref="PolygonContour2D" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour2D RegularConvexPolygon(double x, double y, double radius, int count, double angle = -HalfPi)
@@ -51,21 +51,6 @@ namespace Engine
 
         #region Heart Curves
         /// <summary>
-        /// a is the constant of the original Cardioid.
-        /// </summary>
-        private const double a = 1d;
-
-        /// <summary>
-        /// the minimum values of the phase angle "t".
-        /// </summary>
-        private const double tmin = -HalfPi;
-
-        /// <summary>
-        /// the maximum values of the phase angle "t".
-        /// </summary>
-        private const double tmax = Pau;
-
-        /// <summary>
         /// The heart curve.
         /// </summary>
         /// <param name="x">The x.</param>
@@ -78,6 +63,13 @@ namespace Engine
         /// </returns>
         public static List<Point2D> HeartCurve(double x, double y, double radius, double alpha, double beta)
         {
+            // The maximum values of the phase angle "t".
+            const double tmax = Pau;
+            // The minimum values of the phase angle "t".
+            const double tmin = -HalfPi;
+            // The constant of the original Cardioid.
+            const double a = 1d;
+
             // its increment [radian] of a Cardioid before the conversion plotting interval of the phase angle "t" before conversion
             var dt = (tmax - tmin) / radius; // 10
 

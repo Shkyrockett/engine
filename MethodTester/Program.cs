@@ -25,6 +25,7 @@ namespace MethodTester
         [STAThread]
         private static void Main()
         {
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //using (var rectanglePointTester = new RectanglePointTester())

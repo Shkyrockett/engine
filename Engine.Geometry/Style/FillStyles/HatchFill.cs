@@ -9,7 +9,6 @@
 // <remarks></remarks>
 
 using System;
-using System.Collections.Generic;
 
 namespace Engine.Imaging
 {
@@ -17,7 +16,7 @@ namespace Engine.Imaging
     /// The hatch fill struct.
     /// </summary>
     /// <seealso cref="IFill" />
-    /// <seealso cref="System.IEquatable{T}" />
+    /// <seealso cref="IEquatable{T}" />
     public struct HatchFill
         : IFill, IEquatable<HatchFill>
     {
@@ -56,8 +55,7 @@ namespace Engine.Imaging
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
-        public static bool operator ==(HatchFill left, HatchFill right)
-            => left.Equals(right);
+        public static bool operator ==(HatchFill left, HatchFill right) => left.Equals(right);
 
         /// <summary>
         /// The operator !=.
@@ -67,8 +65,7 @@ namespace Engine.Imaging
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
-        public static bool operator !=(HatchFill left, HatchFill right)
-            => !(left == right);
+        public static bool operator !=(HatchFill left, HatchFill right) => !(left == right);
 
         /// <summary>
         /// The equals.
@@ -95,12 +92,6 @@ namespace Engine.Imaging
         /// <returns>
         /// The <see cref="int" />.
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -404629357;
-            hashCode = hashCode * -1521134295 + EqualityComparer<IColor>.Default.GetHashCode(Color);
-            hashCode = hashCode * -1521134295 + FillMode.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => Color.GetHashCode();
     }
 }

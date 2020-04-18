@@ -56,7 +56,7 @@ namespace Engine
         /// The <see cref="LineSegment" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment2D Offset(this LineSegment2D segment, double distance) => new LineSegment2D(OffsetSegment(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, distance));
+        public static LineSegment2D Offset(this LineSegment2D segment, double distance) => new LineSegment2D(OffsetSegment((segment?.A).Value.X, segment.A.Y, segment.B.X, segment.B.Y, distance));
 
         /// <summary>
         /// The offset segment.
@@ -139,7 +139,7 @@ namespace Engine
         /// The <see cref="Ellipse" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Ellipse2D Offset(this Ellipse2D ellipse, double offset) => new Ellipse2D(ellipse.X, ellipse.Y, ellipse.RX + offset, ellipse.RY + offset, ellipse.Angle);
+        public static Ellipse2D Offset(this Ellipse2D ellipse, double offset) => new Ellipse2D(ellipse.X, ellipse.Y, ellipse.RadiusA + offset, ellipse.RadiusB + offset, ellipse.Angle);
 
         /// <summary>
         /// The offset.
@@ -151,7 +151,7 @@ namespace Engine
         /// The <see cref="Ellipse" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Ellipse2D Offset(this Ellipse2D ellipse, double r1, double r2) => new Ellipse2D(ellipse.X, ellipse.Y, ellipse.RX + r1, ellipse.RY + r2, ellipse.Angle);
+        public static Ellipse2D Offset(this Ellipse2D ellipse, double r1, double r2) => new Ellipse2D(ellipse.X, ellipse.Y, ellipse.RadiusA + r1, ellipse.RadiusB + r2, ellipse.Angle);
 
         /// <summary>
         /// The offset.
@@ -200,7 +200,7 @@ namespace Engine
         {
             var polygon = new Polyline2D();
 
-            var offsetLine = OffsetSegment(polyline.Points[0], polyline.Points[1], offset).ToLine();
+            var offsetLine = OffsetSegment((polyline.Points[0]), polyline.Points[1], offset).ToLine();
             polygon.Add(offsetLine.Location);
 
             for (var i = 2; i < polyline.Points.Count; i++)
@@ -226,7 +226,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour2D Offset(this PolygonContour2D polygon, double offset)
         {
-            var points = polygon.Points as List<Point2D>;
+            var points = polygon.Points;
 
             var polyline = new PolygonContour2D();
 

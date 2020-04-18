@@ -45,6 +45,6 @@ namespace Engine.File
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString() => (Text is string t) && !string.IsNullOrWhiteSpace(t)? $"Track Name: {t}" : "Track Name";
+        public override string ToString() => (Text is string t) && !string.IsNullOrWhiteSpace(t) ? $"Track Name: {t}" : "Track Name";
     }
 }

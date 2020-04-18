@@ -512,8 +512,7 @@ namespace Editor
         /// <summary>
         /// Build the map.
         /// </summary>
-        public void BuildMap()
-            => TestCases.Tests(this, vectorMap, toolStack, CanvasPanel, textMeasurer, out boundaryItem);
+        public void BuildMap() => TestCases.Tests(this, vectorMap, toolStack, CanvasPanel, textMeasurer, out boundaryItem);
 
         /// <summary>
         /// Save the as.
@@ -567,20 +566,17 @@ namespace Editor
         /// </summary>
         /// <param name="writer">The writer.</param>
         /// <param name="item">The item.</param>
-        private void Serialize(TextWriter writer, VectorMap item)
-            => vectorMapSerializer.Serialize(writer, item);
+        private void Serialize(TextWriter writer, VectorMap item) => vectorMapSerializer.Serialize(writer, item);
 
         /// <summary>
         /// Tweening update callback.
         /// </summary>
-        public void UpdateCallback()
-            => CanvasPanel.Invalidate(true);
+        public void UpdateCallback() => CanvasPanel.Invalidate(true);
 
         /// <summary>
         /// Callback for when tweening completes.
         /// </summary>
-        public void CompleteCallback()
-            => CanvasPanel.Invalidate(true);
+        public void CompleteCallback() => CanvasPanel.Invalidate(true);
         #endregion Helpers
     }
 }

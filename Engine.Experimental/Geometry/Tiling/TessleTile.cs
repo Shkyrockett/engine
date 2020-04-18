@@ -124,7 +124,7 @@ namespace Engine.Experimental
         /// <param name="length">The length.</param>
         /// <param name="direction">The direction.</param>
         /// <param name="alterations">The alterations.</param>
-        /// <returns>The <see cref="Polyline"/>.</returns>
+        /// <returns>The <see cref="Polyline2D"/>.</returns>
         private static Point2D[] BuildPolyline(Point2D start, double length, Vector2D direction, (double t, double offset)[] alterations)
         {
             // ToDo: This is a rough guess of what needs to happen. This needs to be tested and corrected.
@@ -137,14 +137,14 @@ namespace Engine.Experimental
                 var point = Interpolators.Linear(t, start, (Point2D)(direction * length));
                 points[i++] = point + (start.CrossProduct(end) * offset);
             }
-            points[points.Length - 1] = end;
+            points[^1] = end;
             return points;
         }
 
         /// <summary>
         /// Build the polygon contour.
         /// </summary>
-        /// <returns>The <see cref="PolygonContour"/>.</returns>
+        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
         private PolygonContour2D BuildPolygonContour()
         {
             // ToDo: This is a rough guess of what needs to happen. This needs to be tested and corrected.
@@ -159,7 +159,7 @@ namespace Engine.Experimental
 
                 var polyline = new Span<Point2D>(BuildPolyline(start, len, dir, set));
                 polygon.AddRange(polyline.Slice(1).ToArray());
-                start = polyline[polyline.Length - 1];
+                start = polyline[^1];
             }
             return new PolygonContour2D(polygon);
         }

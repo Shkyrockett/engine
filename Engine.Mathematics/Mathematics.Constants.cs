@@ -189,6 +189,11 @@ namespace Engine
         public const double Radian = PI / 180d; // 0.01745329251994329576923690768489d;
 
         /// <summary>
+        /// One half radian.
+        /// </summary>
+        public const double HalfRadian = PI / 90d;
+
+        /// <summary>
         /// One degree.
         /// </summary>
         /// <remarks><para>180 / PI</para></remarks>
@@ -275,6 +280,24 @@ namespace Engine
         /// </summary>
         /// <value>≈2.23606...</value>
         public static readonly double Sqrt5 = Sqrt(5d); // 2.2360679774997896964091736687313d;
+
+        /// <summary>
+        /// Represents the constant value of the cube root of 2.
+        /// </summary>
+        /// <value></value>
+        public static readonly double Cbrt2 = Cbrt(2d);
+
+        /// <summary>
+        /// Represents the constant value of the cube root of 3.
+        /// </summary>
+        /// <value></value>
+        public static readonly double Cbrt3 = Cbrt(3d);
+
+        /// <summary>
+        /// Represents the constant value of the cube root of 5.
+        /// </summary>
+        /// <value></value>
+        public static readonly double Cbrt5 = Cbrt(5d);
         #endregion Roots
 
         #region Fractions

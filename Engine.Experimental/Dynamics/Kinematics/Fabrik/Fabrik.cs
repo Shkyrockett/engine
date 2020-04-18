@@ -49,7 +49,7 @@ namespace Engine.Experimental
         public static void Reach(List<Point2D> segments, Point2D target)
         {
             // For each segment (except the last one)
-            for (var i = 0; i < segments.Count - 1; i++)
+            for (var i = 0; i < segments?.Count - 1; i++)
             {
                 // Perform a reach for this segment
                 var (Head, Tail) = Reach(segments[i], segments[i + 1], target);
@@ -62,7 +62,7 @@ namespace Engine.Experimental
             }
 
             // For the last segment, move it to the target
-            segments[segments.Count - 1] = target;
+            segments[^1] = target;
         }
 
         /// <summary>
@@ -76,17 +76,17 @@ namespace Engine.Experimental
         public static void ReachPinned(List<Point2D> segments, Point2D target)
         {
             // Save the fixed base location
-            var constraint = segments[segments.Count - 1];
+            var constraint = segments[^1];
 
             // Perform the iterative reach in the forward direction (same as before)
-            for (var i = 0; i < segments.Count - 1; i++)
+            for (var i = 0; i < segments?.Count - 1; i++)
             {
                 var (Head, Tail) = Reach(segments[i], segments[i + 1], target);
                 segments[i] = Head;
                 target = Tail;
             }
 
-            segments[segments.Count - 1] = target;
+            segments[^1] = target;
 
             // At this point, our base has moved from its original location... so perform the iterative reach in reverse, with the target set to the initial base location
             target = constraint;

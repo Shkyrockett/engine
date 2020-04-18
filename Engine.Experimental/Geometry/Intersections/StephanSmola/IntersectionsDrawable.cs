@@ -32,8 +32,10 @@ namespace Engine
         /// </summary>
         /// <param name="ellipse1">The ellipse1.</param>
         /// <param name="ellipse2">The ellipse2.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// https://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses/
@@ -41,31 +43,154 @@ namespace Engine
         /// ... and some Wolfram alpha.
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x, double y)[] IntersectEllipseEllipse(((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse1, ((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse2, double epsilon = Epsilon)
+        public static (double x, double y)[] IntersectEllipseEllipse(((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse1, ((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse2, double epsilon = double.Epsilon)
+        {
+            _ = epsilon;
+
+            (double cos, double sin) rotation1 = (Cos(ellipse1.angle), Sin(ellipse1.angle));
+            (double cos, double sin) rotation2 = (Cos(ellipse2.angle), Sin(ellipse2.angle));
+            var wrapedAngle1 = ellipse1.angle % PI;
+            var wrapedAngle2 = ellipse2.angle % PI;
+
+            //var intersects = IntersectionsBobLyon.EllipseEllipseIntersects(ellipse1.origin.x, ellipse1.origin.y, ellipse1.radiusX, ellipse1.radiusY, rotation1.cos, rotation1.sin, ellipse2.origin.x, ellipse2.origin.y, ellipse2.radiusX, ellipse2.radiusY, rotation2.cos, rotation2.sin);
+
+            (double a, double b, double c, double d, double e, double f) e1;
+            (double a, double b, double c, double d, double e, double f) e2;
+
+            // General case
+            // Test for one situation:
+            // One of the ellipses axis is parallel to x- or y-axis.
+            // To avoid special cases testing in getY we simply rotate everything around ellipse1 origin by something and later
+            // rotate the results back.
+            var corr = ((wrapedAngle1 == 0) || (wrapedAngle2 == 0)) ? 0.05d : 0d;
+
+            // Check if one of the ellipses has an axis parallel to the x-or y - axis.
+            if (corr != 0d)
+            {
+                // If that is the case rotate the two ellipses by some angle to save checking of some special cases.
+                e1 = GetQuadratic(ellipse1.origin, ellipse1.radiusX, ellipse1.radiusY, ellipse1.angle + corr);
+                e2 = GetQuadratic(RotatePoint2D(ellipse2.origin.x, ellipse2.origin.y, corr, ellipse1.origin.x, ellipse1.origin.y), ellipse2.radiusX, ellipse2.radiusY, ellipse2.angle + corr);
+            }
+            else
+            {
+                e1 = GetQuadratic(ellipse1.origin, ellipse1.radiusX, ellipse1.radiusY, rotation1);
+                e2 = GetQuadratic(ellipse2.origin, ellipse2.radiusX, ellipse2.radiusY, rotation2);
+            }
+
+            var (a, b, c, d, e) = GetQuartic(e1, e2);
+            var y = QuarticRoots((a, b, c, d, e)).ToArray();
+
+            var v = new List<(double x, double y)>();
+            v.AddRange(CalculatePoints(y, e1, e2));
+
+            if (corr != 0d)
+            {
+                for (var i = 0; i < v.Count; i++)
+                {
+                    v[i] = RotatePoint2D(v[i].x, v[i].y, -corr, ellipse1.origin.x, ellipse1.origin.y);
+                }
+            }
+
+            return v.ToArray();
+        }
+
+        /// <summary>
+        /// Interpolates the ellipse y.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="cX">The h.</param>
+        /// <param name="cY">The k.</param>
+        /// <param name="r1">a.</param>
+        /// <param name="r2">The b.</param>
+        /// <param name="angle">The angle.</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x, double y)[] InterpolateEllipseY(double x, double cX, double cY, double r1, double r2, double angle)
+        {
+            var a2 = r1 * r1;
+            var b2 = r2 * r2;
+            (var cos, var sin) = (Cos(angle), Sin(angle));
+            (var cos2, var sin2) = (cos * cos, sin * sin);
+
+            var ac = a2 * cos2;
+            var bs = b2 * sin2;
+            var rotCX = cX * sin * cos;
+            var rotX = x * sin * cos;
+            var scalar = a2 * b2 / 2d * (ac + bs);
+            var discriminant = 2d * 2d * (ac - bs - cX * cX + 2d * cX * x - x * x);
+            var divisor = r1 * r2;
+            var t1 = 2d * (rotCX + cY * sin2 - rotX) / a2;
+            var t2 = 2d * (-rotCX + cY * cos2 + rotX) / b2;
+
+            var y1 = scalar * (-Sqrt(discriminant) / divisor + t1 + t2);
+            var y2 = scalar * (Sqrt(discriminant) / divisor + t1 + t2);
+
+            return new (double x, double y)[] { (x, y1), (x, y2) };
+        }
+
+        /// <summary>
+        /// Intersect two arbitrarily rotated ellipses. In the general case this boils down to solving a quartic equation. This can have complex results, that are ignored.
+        /// Special cases like intersecting two circles or intersecting two congruent ellipses are considered. The latter can be reduced to intersecting a line with one of the ellipses.
+        /// This could numerically be improved by not carrying so many intermediate results, I guess. Also the rotation to avoid problems with ellipses that are not rotated introduces numeric error as well.
+        /// </summary>
+        /// <param name="ellipse1">The ellipse1.</param>
+        /// <param name="ellipse2">The ellipse2.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
+        /// https://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses/
+        /// http://en.wikipedia.org/wiki/Quartic_function#General_formula_for_roots
+        /// ... and some Wolfram alpha.
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x, double y)[] IntersectEllipseEllipseMoc(((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse1, ((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse2, double epsilon = double.Epsilon)
         {
             _ = epsilon;
             var v = new List<(double x, double y)>();
 
-            (double cos, double sin) cosSinAngle1 = (Cos(ellipse1.angle), Sin(ellipse1.angle));
-            (double cos, double sin) cosSinAngle2 = (Cos(ellipse2.angle), Sin(ellipse2.angle));
+            (double cos, double sin) rotation1 = (Cos(ellipse1.angle), Sin(ellipse1.angle));
+            (double cos, double sin) rotation2 = (Cos(ellipse2.angle), Sin(ellipse2.angle));
 
             if ((ellipse1.radiusX == ellipse1.radiusY) && (ellipse2.radiusX == ellipse2.radiusY))
             {
                 // Special case: Two circles
                 return IntersectCircleCircle((ellipse1.origin, ellipse1.radiusX), (ellipse2.origin, ellipse2.radiusX));
             }
+            else if ((ellipse1.angle == 0 || ellipse1.angle == PI) && (ellipse2.angle == 0 || ellipse2.angle == PI))
+            {
+                // Special case, congruent orthogonal ellipses.
+                return OrthogonalEllipseOrthogonalEllipseIntersection(ellipse1.origin.x, ellipse1.origin.y, ellipse1.radiusX, ellipse1.radiusY, ellipse2.origin.x, ellipse2.origin.y, ellipse2.radiusX, ellipse2.radiusY);
+            }
+            else if ((ellipse1.angle == 0 || ellipse1.angle == PI) && (ellipse2.angle == HalfPi || ellipse2.angle == Pau))
+            {
+                // Special case, congruent ellipses, one is rotated 90 degrees.
+                return OrthogonalEllipseOrthogonalEllipseIntersection(ellipse1.origin.x, ellipse1.origin.y, ellipse1.radiusX, ellipse1.radiusY, ellipse2.origin.x, ellipse2.origin.y, ellipse2.radiusY, ellipse2.radiusX);
+            }
+            else if ((ellipse1.angle == HalfPi || ellipse1.angle == Pau) && (ellipse2.angle == 0 || ellipse2.angle == 0))
+            {
+                // Special case, congruent ellipses, one is rotated 90 degrees.
+                return OrthogonalEllipseOrthogonalEllipseIntersection(ellipse1.origin.x, ellipse1.origin.y, ellipse1.radiusY, ellipse1.radiusX, ellipse2.origin.x, ellipse2.origin.y, ellipse2.radiusX, ellipse2.radiusY);
+            }
+            else if ((ellipse1.angle == HalfPi || ellipse1.angle == Pau) && (ellipse2.angle == HalfPi || ellipse2.angle == Pau))
+            {
+                // Special case, congruent ellipses, both are rotated 90 degrees.
+                return OrthogonalEllipseOrthogonalEllipseIntersection(ellipse1.origin.x, ellipse1.origin.y, ellipse1.radiusY, ellipse1.radiusX, ellipse2.origin.x, ellipse2.origin.y, ellipse2.radiusY, ellipse2.radiusX);
+            }
             else if (((ellipse1.angle == ellipse2.angle) || Abs(ellipse1.angle - ellipse2.angle) == PI) && (ellipse1.radiusX == ellipse2.radiusX) && (ellipse1.radiusY == ellipse2.radiusY))
             {
                 // Special cases congruent ellipses incl. rotation
                 // There are at max two intersection points: We can construct a line that runs through these points
-                var l = GetLine(cosSinAngle1, ellipse1.radiusX, ellipse1.radiusY, ellipse1.origin, ellipse2.origin);
+                var l = GetLine(rotation1, ellipse1.radiusX, ellipse1.radiusY, ellipse1.origin, ellipse2.origin);
                 return IntersectLineEllipse(l, ellipse1);
             }
             else if (((Abs(ellipse1.angle - ellipse2.angle) == HalfPi) || Abs(ellipse1.angle - ellipse2.angle) == PI * 3d / 2d) && (ellipse1.radiusX == ellipse2.radiusY) && (ellipse1.radiusY == ellipse2.radiusX))
             {
                 // Special cases congruent ellipses incl. rotation but one is 90 rotated and the radius sizes are swapped
                 // There are at max two intersection points: We can construct a line that runs through these points
-                var l = GetLine(cosSinAngle2, ellipse1.radiusX, ellipse1.radiusY, ellipse1.origin, ellipse2.origin);
+                var l = GetLine(rotation2, ellipse1.radiusX, ellipse1.radiusY, ellipse1.origin, ellipse2.origin);
                 return IntersectLineEllipse(l, ellipse1);
             }
             else
@@ -87,19 +212,21 @@ namespace Engine
                 (double a, double b, double c, double d, double e, double f) e1;
                 (double a, double b, double c, double d, double e, double f) e2;
 
+                // Check if one of the ellipses has an axis parallel to the x- or y-axis.
                 if (corr != 0d)
                 {
+                    // If that is the case rotate the two ellipses by some angle to save checking of some special cases.
                     e1 = GetQuadratic(ellipse1.origin, ellipse1.radiusX, ellipse1.radiusY, ellipse1.angle + corr);
                     e2 = GetQuadratic(RotatePoint2D(ellipse2.origin.x, ellipse2.origin.y, corr, ellipse1.origin.x, ellipse1.origin.y), ellipse2.radiusX, ellipse2.radiusY, ellipse2.angle + corr);
                 }
                 else
                 {
-                    e1 = GetQuadratic(ellipse1.origin, ellipse1.radiusX, ellipse1.radiusY, cosSinAngle1);
-                    e2 = GetQuadratic(ellipse2.origin, ellipse2.radiusX, ellipse2.radiusY, cosSinAngle2);
+                    e1 = GetQuadratic(ellipse1.origin, ellipse1.radiusX, ellipse1.radiusY, rotation1);
+                    e2 = GetQuadratic(ellipse2.origin, ellipse2.radiusX, ellipse2.radiusY, rotation2);
                 }
 
                 var (a, b, c, d, e) = GetQuartic(e1, e2);
-                var y = Operations.QuarticRoots(a, b, c, d, e).ToArray();
+                var y = Operations.QuarticRoots(ref a, ref b, ref c, ref d, ref e).ToArray();
 
                 v.AddRange(CalculatePoints(y, e1, e2));
 
@@ -116,25 +243,29 @@ namespace Engine
         }
 
         /// <summary>
-        /// The intersect LE.
+        /// Intersects the line ellipse.
         /// </summary>
         /// <param name="l">The l.</param>
         /// <param name="ellipse">The ellipse.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (double x, double y)[] IntersectLineEllipse(((double x, double y) origin, double angle) l, ((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse, double epsilon = Epsilon)
+        private static (double x, double y)[] IntersectLineEllipse(((double x, double y) origin, double angle) l, ((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse, double epsilon = double.Epsilon)
             => IntersectLineEllipse((l.origin, (Cos(l.angle), Sin(l.angle))), (ellipse.origin, ellipse.radiusX, ellipse.radiusY, (Cos(ellipse.angle), Sin(ellipse.angle))), epsilon);
 
         /// <summary>
-        /// The intersect LE.
+        /// Intersects the line ellipse.
         /// </summary>
         /// <param name="l">The l.</param>
         /// <param name="ellipse">The ellipse1.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (double x, double y)[] IntersectLineEllipse(((double x, double y) origin, (double cos, double sin) angle) l, ((double x, double y) origin, double radiusX, double radiusY, (double cos, double sin) angle) ellipse, double epsilon = Epsilon)
+        private static (double x, double y)[] IntersectLineEllipse(((double x, double y) origin, (double cos, double sin) angle) l, ((double x, double y) origin, double radiusX, double radiusY, (double cos, double sin) angle) ellipse, double epsilon = double.Epsilon)
         {
             _ = epsilon;
             var cx = ellipse.origin.x;
@@ -179,7 +310,7 @@ namespace Engine
             var discriminant = (b * b) - (4d * a * c);
 
             // Find solutions.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= double.Epsilon) || (discriminant < 0))
             {
                 // No real solutions.
                 //result.State |= IntersectionState.Outside;
@@ -216,14 +347,16 @@ namespace Engine
         }
 
         /// <summary>
-        /// The intersect CC.
+        /// Intersects the circle circle.
         /// </summary>
         /// <param name="c1">The p1.</param>
         /// <param name="c2">The p2.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (double x, double y)[] IntersectCircleCircle(((double x, double y) origin, double radius) c1, ((double x, double y) origin, double radius) c2, double epsilon = Epsilon)
+        private static (double x, double y)[] IntersectCircleCircle(((double x, double y) origin, double radius) c1, ((double x, double y) origin, double radius) c2, double epsilon = double.Epsilon)
         {
             _ = epsilon;
             var result = new List<(double x, double y)>();
@@ -258,13 +391,15 @@ namespace Engine
         /// This basically calculates the rational roots of the quartic.
         /// </summary>
         /// <param name="quartics">The quartics.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[] QuarticRoots((double a, double b, double c, double d, double e) quartics, double epsilon = Epsilon)
+        public static double[] QuarticRoots((double a, double b, double c, double d, double e) quartics, double epsilon = double.Epsilon)
         {
             (var a, var b, var c, var d, var e) = quartics;
             //var delta = (256d * a * a * a * e * e * e) - (192d * a * a * b * d * e * e) - (128d * a * a * c * c * e * e) + (144d * a * a * c * d * d * e) - (27d * a * a * d * d * d * d) + (144d * a * b * b * c * e * e) - (6d * a * b * b * d * d * e) - (80d * a * b * c * c * d * e) + (18d * a * b * c * d * d * d) + (16d * a * c * c * c * c * e) - (4d * a * c * c * c * d * d) - (27d * b * b * b * b * e * e) + (18d * b * b * b * c * d * e) - (4d * b * b * b * d * d * d) - (4d * b * b * c * c * c * e) + (b * b * c * c * d * d);
@@ -282,7 +417,7 @@ namespace Engine
                 // if (delta < 0) I guess the new test is okay because we're only interested in real roots
                 var Q = d1 + Sqrt((d1 * d1) - (4d * d0 * d0 * d0));
                 Q /= 2d;
-                Q = Pow(Q, 1d / 3d);
+                Q = Cbrt(Q);
                 S = 0.5d * Sqrt((-2d / 3d * p) + (1d / (3d * a) * (Q + (d0 / Q))));
             }
             else
@@ -339,17 +474,19 @@ namespace Engine
         /// <param name="y">The y.</param>
         /// <param name="el1">The el1.</param>
         /// <param name="e2">The e2.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x, double y)[] CalculatePoints(double[] y, (double a, double b, double c, double d, double e, double f) el1, (double a, double b, double c, double d, double e, double f) e2, double epsilon = Epsilon)
+        public static (double x, double y)[] CalculatePoints(double[] y, (double a, double b, double c, double d, double e, double f) el1, (double a, double b, double c, double d, double e, double f) e2, double epsilon = double.Epsilon)
         {
             _ = epsilon;
             var r = new List<(double x, double y)>();
-            for (var i = 0; i < y.Length; i++)
+            for (var i = 0; i < y?.Length; i++)
             {
                 var x = -((el1.a * e2.f) + (el1.a * e2.c * y[i] * y[i]) - (e2.a * el1.c * y[i] * y[i]) + (el1.a * e2.e * y[i]) - (e2.a * el1.e * y[i]) - (e2.a * el1.f)) / ((el1.a * e2.b * y[i]) + (el1.a * e2.d) - (e2.a * el1.b * y[i]) - (e2.a * el1.d));
                 r.Add((x, y[i]));
@@ -365,13 +502,15 @@ namespace Engine
         /// <param name="ry">The ry.</param>
         /// <param name="o1">The o1.</param>
         /// <param name="o2">The o2.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2}" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ((double x, double y) v, double angle) GetLine(double rotation, double rx, double ry, (double x, double y) o1, (double x, double y) o2, double epsilon = Epsilon)
+        public static ((double x, double y) v, double angle) GetLine(double rotation, double rx, double ry, (double x, double y) o1, (double x, double y) o2, double epsilon = double.Epsilon)
             => GetLine((Cos(rotation), Sin(rotation)), rx, ry, o1, o2, epsilon);
 
         /// <summary>
@@ -382,23 +521,26 @@ namespace Engine
         /// <param name="ry">The ry.</param>
         /// <param name="o1">The o1.</param>
         /// <param name="o2">The o2.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2}" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ((double x, double y) p, double angle) GetLine((double cos, double sin) rotation, double rx, double ry, (double x, double y) o1, (double x, double y) o2, double epsilon = Epsilon)
+        public static ((double x, double y) p, double angle) GetLine((double cos, double sin) rotation, double rx, double ry, (double x, double y) o1, (double x, double y) o2, double epsilon = double.Epsilon)
         {
             _ = epsilon;
-            // a squared.
             //var a = rx;
+            // a squared.
             var a2 = rx * rx;
 
-            // b squared.
             //var b = ry;
+            // b squared.
             var b2 = ry * ry;
 
+            // Sine/Cosine vector.
             var (cosT, sinT) = (rotation.cos, rotation.sin);
 
             // The polynomial coefficients for the initial rotation.
@@ -418,7 +560,107 @@ namespace Engine
 
             var angle = z - v; // Is z-v an angle? Can I get a direction vector instead?
 
-            return ((x1 - x2, y2 - y1), angle.DegreesToRadians()); // Why don't the y values make any sense? They seem to always be near 0.
+            return ((o1.x + x1 - x2, o1.y + y2 - y1), angle.DegreesToRadians()); // Why don't the y values make any sense? They seem to always be near 0.
+        }
+
+        /// <summary>
+        /// Find the intersection between two orthogonal ellipses.
+        /// </summary>
+        /// <param name="c1X">The c1X.</param>
+        /// <param name="c1Y">The c1Y.</param>
+        /// <param name="rx1">The rx1.</param>
+        /// <param name="ry1">The ry1.</param>
+        /// <param name="c2X">The c2X.</param>
+        /// <param name="c2Y">The c2Y.</param>
+        /// <param name="rx2">The rx2.</param>
+        /// <param name="ry2">The ry2.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x, double y)[] OrthogonalEllipseOrthogonalEllipseIntersection(
+            double c1X, double c1Y, double rx1, double ry1,
+            double c2X, double c2Y, double rx2, double ry2,
+            double epsilon = double.Epsilon)
+        {
+            var result = new List<(double x, double y)>();
+
+            var a = new double[] { ry1 * ry1, 0d, rx1 * rx1, -2 * ry1 * ry1 * c1X, -2d * rx1 * rx1 * c1Y, (ry1 * ry1 * c1X * c1X) + (rx1 * rx1 * c1Y * c1Y) - (rx1 * rx1 * ry1 * ry1) };
+            var b = new double[] { ry2 * ry2, 0d, rx2 * rx2, -2 * ry2 * ry2 * c2X, -2d * rx2 * rx2 * c2Y, (ry2 * ry2 * c2X * c2X) + (rx2 * rx2 * c2Y * c2Y) - (rx2 * rx2 * ry2 * ry2) };
+
+            var yRoots = Bezout(a, b).Trim().Roots();
+
+            var norm0 = ((a[0] * a[0]) + (2d * a[1] * a[1]) + (a[2] * a[2])) * epsilon;
+            //var norm1 = ((b[0] * b[0]) + (2d * b[1] * b[1]) + (b[2] * b[2])) * epsilon;
+
+            for (var y = 0; y < yRoots.Length; y++)
+            {
+                var xRoots = new Polynomial(
+                    a[0],
+                    a[3] + (yRoots[y] * a[1]),
+                    a[5] + (yRoots[y] * (a[4] + (yRoots[y] * a[2]))),
+                    epsilon).Trim().Roots();
+                for (var x = 0; x < xRoots.Length; x++)
+                {
+                    var test = (((a[0] * xRoots[x]) + (a[1] * yRoots[y]) + a[3]) * xRoots[x]) + (((a[2] * yRoots[y]) + a[4]) * yRoots[y]) + a[5];
+                    if (Abs(test) < norm0)
+                    {
+                        test = (((b[0] * xRoots[x]) + (b[1] * yRoots[y]) + b[3]) * xRoots[x]) + (((b[2] * yRoots[y]) + b[4]) * yRoots[y]) + b[5];
+                        if (Abs(test) < 1)//norm1) // Using norm1 breaks when an ellipse intersects another ellipse that 
+                        {
+                            result.Add((xRoots[x], yRoots[y]));
+                        }
+                    }
+                }
+            }
+
+            return result.ToArray();
+        }
+
+        /// <summary>
+        /// Calculate the Bézier curve polynomial of ellipses.
+        /// </summary>
+        /// <param name="e1">First Ellipse parameters.</param>
+        /// <param name="e2">Second Ellipse parameters.</param>
+        /// <returns>Returns a <see cref="Polynomial"/> of the ellipse.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// This code is based on MgcIntr2DElpElp.cpp written by David Eberly.
+        /// His code along with many other excellent examples formerly available
+        /// at his site but the latest version now at: https://www.geometrictools.com/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Bezout(double[] e1, double[] e2)
+        {
+            if (e1 is null || e2 is null) return Polynomial.Empty;
+            var ab = (e1[0] * e2[1]) - (e2[0] * e1[1]);
+            var ac = (e1[0] * e2[2]) - (e2[0] * e1[2]);
+            var ad = (e1[0] * e2[3]) - (e2[0] * e1[3]);
+            var ae = (e1[0] * e2[4]) - (e2[0] * e1[4]);
+            var af = (e1[0] * e2[5]) - (e2[0] * e1[5]);
+
+            var bc = (e1[1] * e2[2]) - (e2[1] * e1[2]);
+            var be = (e1[1] * e2[4]) - (e2[1] * e1[4]);
+            var bf = (e1[1] * e2[5]) - (e2[1] * e1[5]);
+
+            var cd = (e1[2] * e2[3]) - (e2[2] * e1[3]);
+
+            var de = (e1[3] * e2[4]) - (e2[3] * e1[4]);
+            var df = (e1[3] * e2[5]) - (e2[3] * e1[5]);
+
+            var bfPde = bf + de;
+            var beMcd = be - cd;
+
+            return new Polynomial(
+                /* x⁴ */ (ab * bc) - (ac * ac),
+                /* x³ */ (ab * beMcd) + (ad * bc) - (2d * ac * ae),
+                /* x² */ (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
+                /* x¹ */ (ab * df) + (ad * bfPde) - (2d * ae * af),
+                /* c  */ (ad * df) - (af * af));
         }
     }
 }

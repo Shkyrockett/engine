@@ -100,7 +100,7 @@ namespace Engine.Imaging
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
 
-            var p1 = shape.Location;
+            var p1 = (shape?.Location).Value;
             //var p2 = shape.Location + shape.Direction;
             var intersection = Intersections.Intersection(shape, bounds);
 
@@ -435,7 +435,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this Ellipse shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this Ellipse2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
@@ -474,7 +474,7 @@ namespace Engine.Imaging
         ///// <param name="g"></param>
         ///// <param name="item"></param>
         ///// <param name="style"></param>
-        //public static void Render(this Oval shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        //public static void Render(this Oval shape, Graphics g, GraphicItem item, ShapeStyle? style = null)
         //{
         //    ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
         //    // Determine the orientation.

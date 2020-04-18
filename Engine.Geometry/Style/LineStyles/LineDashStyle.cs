@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -186,7 +187,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(LineDashStyle other) => EqualityComparer<float[]>.Default.Equals(dashPattern, other.dashPattern) && DashOffset == other.DashOffset;
+        public bool Equals([AllowNull] LineDashStyle other) => EqualityComparer<float[]>.Default.Equals(dashPattern, other.dashPattern) && DashOffset == other.DashOffset;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -194,13 +195,7 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -1478567301;
-            hashCode = hashCode * -1521134295 + EqualityComparer<float[]>.Default.GetHashCode(dashPattern);
-            hashCode = hashCode * -1521134295 + DashOffset.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(dashPattern, DashOffset);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="LineDashStyle" /> struct.

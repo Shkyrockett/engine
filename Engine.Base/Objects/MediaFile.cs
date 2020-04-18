@@ -10,7 +10,10 @@
 // <references>
 // </references>
 
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace Engine.File
 {
@@ -19,23 +22,50 @@ namespace Engine.File
     /// </summary>
     public class MediaFile
     {
+        #region Constants
+        /// <summary>
+        /// The registered extensions
+        /// </summary>
+        public static readonly Dictionary<string, Func<Stream, IMediaContainer>> RegisteredExtensions = new Dictionary<string, Func<Stream, IMediaContainer>>();
+
+        /// <summary>
+        /// The registered types
+        /// </summary>
+        public static readonly HashSet<Type> RegisteredTypes = new HashSet<Type>();
+        #endregion
+
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="MediaFile"/> class.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public MediaFile()
-        {
-            Media = null;
-        }
+            : this(null)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MediaFile"/> class.
         /// </summary>
-        /// <param name="data">The data.</param>
-        public MediaFile(IMediaContainer data)
-        {
-            Media = data;
-        }
+        /// <param name="media">The data.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public MediaFile(IMediaContainer media)
+            : this(media, string.Empty)
+        { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MediaFile"/> class.
+        /// </summary>
+        /// <param name="media">The media.</param>
+        /// <param name="filename">The filename.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public MediaFile(IMediaContainer media, string filename)
+        {
+            Media = media;
+            FileName = filename;
+        }
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Gets or sets the media.
         /// </summary>
@@ -45,41 +75,27 @@ namespace Engine.File
         /// Gets or sets the name of the Midi file.
         /// </summary>
         public string FileName { get; set; }
+        #endregion
 
+        #region Methods
         /// <summary>
-        /// Load.
+        /// Loads the specified filename.
         /// </summary>
         /// <param name="filename">The filename.</param>
-        /// <param name="stream">The stream.</param>
-        /// <returns>The <see cref="MediaFile"/>.</returns>
-        public static MediaFile Load(string filename, Stream stream)
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MediaFile Load(string filename)
         {
-            IMediaContainer media;
-
-            // http://stackoverflow.com/questions/9033/hidden-features-of-c/12137#12137
-            switch (Path.GetExtension(filename).ToUpperInvariant())
+            string ext = Path.GetExtension(filename).ToUpperInvariant();
+            if (!RegisteredExtensions.ContainsKey(ext))
             {
-                case ".KAR":
-                case ".MID":
-                case ".MIDI":
-                case ".SMF":
-                    media = Midi.Load(stream);
-                    break;
-                case ".RMID":
-                    media = new Riff();
-                    break;
-                case ".XMF":
-                    media = new Xmf();
-                    break;
-                default:
-                    return null;
+                throw new Exception($"The {ext} file format is not supported.");
             }
 
-            return new MediaFile
-            {
-                Media = media,
-                FileName = filename
-            };
+            using var stream = System.IO.File.OpenRead(filename);
+            var media = RegisteredExtensions[ext]?.Invoke(stream);
+            return new MediaFile(media, filename);
         }
+        #endregion
     }
 }

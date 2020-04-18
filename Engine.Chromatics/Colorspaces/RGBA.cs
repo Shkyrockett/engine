@@ -119,8 +119,7 @@ namespace Engine.Colorspace
         /// <param name="color"></param>
         /// <param name="alpha"></param>
         /// <returns></returns>
-        public static RGBA FromRGBA(RGBA color, byte alpha)
-            => new RGBA(color.Red, color.Green, color.Blue, alpha);
+        public static RGBA FromRGBA(RGBA color, byte alpha) => new RGBA(color.Red, color.Green, color.Blue, alpha);
         #endregion Constructors
 
         #region Properties
@@ -191,8 +190,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(RGBA left, RGBA right)
-            => Equals(left, right);
+        public static bool operator ==(RGBA left, RGBA right) => Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="RGBA" /> objects.
@@ -205,8 +203,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(RGBA left, RGBA right)
-            => !Equals(left, right);
+        public static bool operator !=(RGBA left, RGBA right) => !Equals(left, right);
         #endregion Operators
 
         #region Methods
@@ -214,22 +211,19 @@ namespace Engine.Colorspace
         /// Get the brightness.
         /// </summary>
         /// <returns>The <see cref="double"/>.</returns>
-        public double GetBrightness()
-            => Colorspaces.GetLuminance(Red, Green, Blue);
+        public double GetBrightness() => Colorspaces.GetLuminance(Red, Green, Blue);
 
         /// <summary>
         /// Get the hue.
         /// </summary>
         /// <returns>The <see cref="double"/>.</returns>
-        public double GetHue()
-            => Colorspaces.GetHue(Red, Green, Blue);
+        public double GetHue() => Colorspaces.GetHue(Red, Green, Blue);
 
         /// <summary>
         /// Get the saturation.
         /// </summary>
         /// <returns>The <see cref="double"/>.</returns>
-        public double GetSaturation()
-            => Colorspaces.GetSaturation(Red, Green, Blue);
+        public double GetSaturation() => Colorspaces.GetSaturation(Red, Green, Blue);
         #endregion Methods
 
         #region Standard Methods
@@ -239,8 +233,7 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => value.GetHashCode();
+        public override int GetHashCode() => value.GetHashCode();
 
         /// <summary>
         /// Compares two <see cref="RGBA"/> colors
@@ -250,8 +243,7 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(RGBA a, RGBA b)
-            => Equals(a, b);
+        public static bool Compare(RGBA a, RGBA b) => Equals(a, b);
 
         /// <summary>
         /// The equals.
@@ -261,8 +253,7 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(RGBA a, RGBA b)
-            => a.value == b.value;
+        public static bool Equals(RGBA a, RGBA b) => a.value == b.value;
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
@@ -289,15 +280,13 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(IColor value)
-            => Equals(this, value);
+        public bool Equals(IColor value) => Equals(this, value);
 
         /// <summary>
         /// The to RGBA tuple.
         /// </summary>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
-            => (Red, Green, Blue, Alpha);
+        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple() => (Red, Green, Blue, Alpha);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="RGBA"/> struct.
@@ -305,8 +294,7 @@ namespace Engine.Colorspace
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="RGBA"/> struct based on the IFormatProvider
@@ -317,8 +305,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="RGBA"/> class based on the format string
@@ -333,8 +320,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="RGBA"/> struct based on the format string

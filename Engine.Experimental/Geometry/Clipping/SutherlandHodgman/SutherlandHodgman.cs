@@ -28,15 +28,15 @@ namespace Engine
         /// <returns>The intersection of the two polygons (or null)</returns>
         /// <remarks>
         /// <para>http://rosettacode.org/wiki/Sutherland-Hodgman_polygon_clipping#C.23
-        /// Based on the pseudocode from:
+        /// Based on the pseudo code from:
         /// http://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> PolygonPolygon(List<Point2D> subjectPoly, List<Point2D> clipPoly)
         {
-            if (subjectPoly.Count < 3 || clipPoly.Count < 3)
+            if (subjectPoly?.Count < 3 || clipPoly?.Count < 3)
             {
-                throw new ArgumentException($"The polygons passed in must have at least 3 points: subject={subjectPoly.Count}, clip={clipPoly.Count}");
+                throw new ArgumentException($"The polygons passed in must have at least 3 points: subject={subjectPoly?.Count}, clip={clipPoly?.Count}");
             }
 
             // Clone it
@@ -62,7 +62,7 @@ namespace Engine
                     break;
                 }
 
-                var S = inputList[inputList.Count - 1];
+                var S = inputList[^1];
 
                 foreach (var e in inputList)
                 {

@@ -19,7 +19,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// Class housing extensions for the Polygon2D primitive.
+    /// Class housing extensions for the Polygon primitive.
     /// </summary>
     public static class PolygonExtensions
     {
@@ -156,7 +156,7 @@ namespace Engine
         public static (double X, double Y) FindCentroid(this PolygonContour2D polygon)
         {
             // Add the first point at the end of the array.
-            var num_points = polygon.Points.Count;
+            var num_points = (polygon?.Points).Count;
             var pts = new Point2D[num_points + 1];
             polygon.Points.CopyTo(pts, 0);
             pts[num_points] = polygon.Points[0];
@@ -222,14 +222,14 @@ namespace Engine
             // is convex.
             var got_negative = false;
             var got_positive = false;
-            var num_points = polygon.Points.Count;
+            var num_points = (polygon?.Points).Count;
             for (var A = 0; A < num_points; A++)
             {
                 var B = (A + 1) % num_points;
                 var C = (B + 1) % num_points;
 
                 var cross_product =
-                    CrossProductVector(
+                    CrossProductTriple(
                         polygon.Points[A].X, polygon.Points[A].Y,
                         polygon.Points[B].X, polygon.Points[B].Y,
                         polygon.Points[C].X, polygon.Points[C].Y);
@@ -373,7 +373,7 @@ namespace Engine
         public static List<Triangle2D> Triangulate(this PolygonContour2D polygon)
         {
             // Copy the points into a scratch array.
-            var pts = new Point2D[polygon.Points.Count];
+            var pts = new Point2D[(polygon?.Points).Count];
             Array.Copy(polygon.Points.ToArray(), pts, polygon.Points.Count);
 
             // Make a scratch polygon.
@@ -755,7 +755,7 @@ namespace Engine
                     yield return new LineSegment2D(polygon[cntr], polygon[cntr + 1]);
                 }
 
-                yield return new LineSegment2D(polygon[polygon.Count - 1], polygon[0]);
+                yield return new LineSegment2D(polygon[^1], polygon[0]);
             }
             else
             {
@@ -765,7 +765,7 @@ namespace Engine
                     yield return new LineSegment2D(polygon[cntr], polygon[cntr - 1]);
                 }
 
-                yield return new LineSegment2D(polygon[0], polygon[polygon.Count - 1]);
+                yield return new LineSegment2D(polygon[0], polygon[^1]);
             }
         }
 
@@ -801,7 +801,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsClockwise(List<Point2D> polygon)
         {
-            for (var cntr = 2; cntr < polygon.Count; cntr++)
+            for (var cntr = 2; cntr < polygon?.Count; cntr++)
             {
                 var isLeft = IsLeftOf(new LineSegment2D(polygon[0], polygon[1]), polygon[cntr]);
                 if (isLeft != null)
@@ -825,7 +825,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool? IsLeftOf(LineSegment2D edge, Point2D test)
         {
-            var tmp1 = edge.B - edge.A;
+            var tmp1 = (edge?.B).Value - edge.A;
             var tmp2 = test - edge.B;
 
             // dot product of perpendicular?

@@ -68,14 +68,14 @@ namespace Engine
         /// </summary>
         /// <param name="triangle"></param>
         public CircularArc2D(Triangle2D triangle)
-            : this(triangle.A, triangle.B, triangle.C)
+            : this((triangle?.A).Value, triangle.B, triangle.C)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularArc2D"/> class.
         /// </summary>
         public CircularArc2D(Circle2D circle, double startAngle, double sweepAngle)
-            : this(circle.Center, circle.Radius, startAngle, sweepAngle)
+            : this((circle?.Center).Value, circle.Radius, startAngle, sweepAngle)
         { }
 
         /// <summary>
@@ -430,8 +430,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The arc length of the circular arc.")]
-        public double ArcLength
-            => (double)CachingProperty(() => Measurements.ArcLength(radius, SweepAngle));
+        public double ArcLength => (double)CachingProperty(() => Measurements.ArcLength(radius, SweepAngle));
 
         /// <summary>
         /// Gets the length of the perimeter of the circular arc.
@@ -439,8 +438,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The length of the perimeter of the circular arc.")]
-        public override double Perimeter
-            => ArcLength;
+        public override double Perimeter => ArcLength;
 
         /// <summary>
         /// Gets the area of the circular sector contained by the arc.
@@ -448,8 +446,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The area of the circular sector contained by the arc.")]
-        public override double Area
-            => (double)CachingProperty(() => Measurements.CircularArcSectorArea(radius, SweepAngle));
+        public override double Area => (double)CachingProperty(() => Measurements.CircularArcSectorArea(radius, SweepAngle));
 
         /// <summary>
         /// Gets the angles of the extreme points of the circle.
@@ -461,8 +458,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public List<double> ExtremeAngles
-            => (List<double>)CachingProperty(() => Measurements.CirclularArcExtremeAngles(startAngle, sweepAngle));
+        public List<double> ExtremeAngles => (List<double>)CachingProperty(() => Measurements.CirclularArcExtremeAngles(startAngle, sweepAngle));
 
         /// <summary>
         /// Get the points of the Cartesian extremes of the circle.
@@ -474,8 +470,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public List<Point2D> ExtremePoints
-            => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(x, y, radius, radius, 0));
+        public List<Point2D> ExtremePoints => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(x, y, radius, radius, 0));
 
         /// <summary>
         /// Gets the axis aligned bounding box of the circular arc.
@@ -483,8 +478,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The axis aligned bounding box of the circular arc.")]
-        public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.CircularArcBounds(x, y, radius, 0, startAngle, sweepAngle));
+        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Measurements.CircularArcBounds(x, y, radius, 0, startAngle, sweepAngle));
 
         /// <summary>
         /// Gets the axis aligned bounding box of the complete circle that the arc is a segment of.
@@ -492,8 +486,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The axis aligned bounding box of the complete circle that the arc is a segment of.")]
-        public Rectangle2D DrawingBounds
-            => (Rectangle2D)CachingProperty(() => Measurements.CircleBounds(x, y, radius));
+        public Rectangle2D DrawingBounds => (Rectangle2D)CachingProperty(() => Measurements.CircleBounds(x, y, radius));
         #endregion Properties
 
         #region Operators

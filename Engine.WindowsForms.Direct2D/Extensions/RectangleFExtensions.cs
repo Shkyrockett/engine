@@ -122,13 +122,13 @@ namespace Engine
         /// <returns>The <see cref="Rectangle"/>.</returns>
         public static Rectangle Round(this RectangleF rect) => Rectangle.Round(rect);
 
-        /// <summary>
-        /// Creates a <see cref="RectangleF"/> from a center point and it's size.
-        /// </summary>
-        /// <param name="center">The center point to create the <see cref="RectangleF"/> as a <see cref="PointF"/>.</param>
-        /// <param name="size">The height and width of the new <see cref="RectangleF"/> as a <see cref="SizeF"/>.</param>
-        /// <returns>Returns a <see cref="RectangleF"/> based around a center point and it's size.</returns>
-        public static RectangleF RectangleFFromCenter(PointF center, SizeF size) => new RectangleF(PointF.Subtract(center, size.Inflate(0.5f)), size);
+        ///// <summary>
+        ///// Creates a <see cref="RectangleF"/> from a center point and it's size.
+        ///// </summary>
+        ///// <param name="center">The center point to create the <see cref="RectangleF"/> as a <see cref="PointF"/>.</param>
+        ///// <param name="size">The height and width of the new <see cref="RectangleF"/> as a <see cref="SizeF"/>.</param>
+        ///// <returns>Returns a <see cref="RectangleF"/> based around a center point and it's size.</returns>
+        //public static RectangleF RectangleFFromCenter(PointF center, SizeF size) => new RectangleF(PointF.Subtract(center, size.Inflate(0.5f)), size);
 
         /// <summary>
         /// Find the bounding rectangle of a <see cref="RectangleF"/> rotated about it's center by an angle.

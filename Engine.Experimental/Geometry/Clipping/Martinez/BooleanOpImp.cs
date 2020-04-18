@@ -154,8 +154,7 @@ namespace Engine
         /// <param name="subjectBB">The subjectBB.</param>
         /// <param name="clippingBB">The clippingBB.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public static bool TrivialOperation(Rectangle2D subjectBB, Rectangle2D clippingBB)
-        {
+        public static bool TrivialOperation(Rectangle2D subjectBB, Rectangle2D clippingBB) =>
             //// Test 1 for trivial result case
             //if (subject.ncontours() * clipping.ncontours() == 0)
             //{ // At least one of the polygons is empty
@@ -179,8 +178,7 @@ namespace Engine
             //    }
             //    return true;
             //}
-            return false;
-        }
+            false;
 
         /// <summary>
         /// Process the segment.
@@ -256,7 +254,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         public bool InResult(SweepEvent le)
         {
-            switch (le.Contribution)
+            switch (le?.Contribution)
             {
                 case EdgeContribution.Normal:
                     switch (operation)
@@ -287,8 +285,7 @@ namespace Engine
         /// <param name="le1">The le1.</param>
         /// <param name="le2">The le2.</param>
         /// <returns>The <see cref="int"/>.</returns>
-        public static int PossibleIntersection(SweepEvent le1, SweepEvent le2)
-        {
+        public static int PossibleIntersection(SweepEvent le1, SweepEvent le2) =>
             ////	if (e1.pol == e2.pol) // you can uncomment these two lines if self-intersecting polygons are not allowed
             ////		return 0;
 
@@ -371,8 +368,7 @@ namespace Engine
             //// one line segment includes the other one
             //DivideSegment(sortedEvents[0], sortedEvents[1].Point);
             //DivideSegment(sortedEvents[3].OtherEvent, sortedEvents[2].Point);
-            return 3;
-        }
+            3;
 
         /// <summary>
         /// The divide segment.
@@ -383,7 +379,7 @@ namespace Engine
         {
             //	std::cout << "YES. INTERSECTION" << std::endl;
             // "Right event" of the "left line segment" resulting from dividing le.segment ()
-            var r = StoreSweepEvent(new SweepEvent(false, p, le, le.BelongsTo /*, le.type*/));
+            var r = StoreSweepEvent(new SweepEvent(false, p, le, (le?.BelongsTo).Value /*, le.type*/));
             // "Left event" of the "right line segment" resulting from dividing le.segment ()
             var l = StoreSweepEvent(new SweepEvent(true, p, le.OtherEvent, le.BelongsTo /*, le.other.type*/));
             if (SweepEventComp(l, le.OtherEvent) != 0)
@@ -505,8 +501,13 @@ namespace Engine
         /// <returns>The <see cref="int"/>.</returns>
         public static int NextPos(int pos, List<SweepEvent> resultEvents, List<bool> processed)
         {
+            if (processed is null)
+            {
+                throw new System.ArgumentNullException(nameof(processed));
+            }
+
             var newPos = pos + 1;
-            while (newPos < resultEvents.Count && resultEvents[newPos].Point == resultEvents[pos].Point)
+            while (newPos < resultEvents?.Count && resultEvents[newPos].Point == resultEvents[pos].Point)
             {
                 if (!processed[newPos])
                 {

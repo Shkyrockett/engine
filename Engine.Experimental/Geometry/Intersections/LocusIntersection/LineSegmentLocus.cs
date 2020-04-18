@@ -70,27 +70,27 @@ namespace Engine
             => new List<Point2D> { A, B };
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="LineSegmentLocus"/> to <see cref="LineSegment"/>.
+        /// Performs an implicit conversion from <see cref="LineSegmentLocus"/> to <see cref="LineSegment2D"/>.
         /// </summary>
         /// <param name="locus">The locus.</param>
         /// <returns>
         /// The result of the conversion.
         /// </returns>
         public static implicit operator LineSegment2D(LineSegmentLocus locus)
-            => new LineSegment2D(locus.A, locus.B);
+            => new LineSegment2D((locus?.A).Value, (locus?.B).Value);
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="LineSegmentLocus"/> to <see cref="Polyline"/>.
+        /// Performs an implicit conversion from <see cref="LineSegmentLocus"/> to <see cref="Polyline2D"/>.
         /// </summary>
         /// <param name="locus">The locus.</param>
         /// <returns>
         /// The result of the conversion.
         /// </returns>
         public static implicit operator Polyline2D(LineSegmentLocus locus)
-            => new Polyline2D(locus.A, locus.B);
+            => new Polyline2D((locus?.A).Value, (locus?.B).Value);
 
         /// <summary>
-        /// Converts to linesegment.
+        /// Converts to line segment.
         /// </summary>
         /// <returns></returns>
         public LineSegment2D ToLineSegment() => new LineSegment2D(A, B);

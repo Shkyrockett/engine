@@ -34,7 +34,7 @@ namespace Engine
         /// <summary>
         /// The empty (readonly). Value: new Rectangle2D().
         /// </summary>
-        public static readonly Rectangle2D Empty = new Rectangle2D();
+        public static readonly Rectangle2D Empty = new Rectangle2D(0, 0, 0, 0);
 
         /// <summary>
         /// The unit (readonly). Value: new Rectangle2D(0, 0, 1, 1).
@@ -44,25 +44,25 @@ namespace Engine
 
         #region Fields
         /// <summary>
-        /// The x.
+        /// The X coordinate location of the rectangle.
         /// </summary>
         private double x;
 
         /// <summary>
-        /// The y.
+        /// The Y coordinate location of the rectangle.
         /// </summary>
         private double y;
 
         /// <summary>
-        /// The width.
+        /// The width of the rectangle.
         /// </summary>
         private double width;
 
         /// <summary>
-        /// The height.
+        /// The height of the rectangle.
         /// </summary>
         private double height;
-        #endregion Fields
+        #endregion
 
         #region Constructors
         /// <summary>
@@ -85,7 +85,7 @@ namespace Engine
         /// </summary>
         /// <param name="rectangle">The rectangle to clone.</param>
         public Rectangle2D(Rectangle2D rectangle)
-            : this(rectangle.X, rectangle.Y, rectangle.Width, rectangle.height)
+            : this(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height)
         { }
 
         /// <summary>
@@ -120,6 +120,7 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         public Rectangle2D((double, double, double, double) tuple)
+            : this()
         {
             (x, y, width, height) = tuple;
         }
@@ -144,9 +145,12 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D"/> class with the upper left and lower right corners.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Rectangle2D(Point2D point1, Point2D point2)
+            : this()
         {
             x = Min(point1.X, point2.X);
             y = Min(point1.Y, point2.Y);
@@ -662,8 +666,7 @@ namespace Engine
         /// <param name="right"></param>
         /// <param name="bottom"></param>
         /// <returns></returns>
-        public static Rectangle2D FromLTRB(double left, double top, double right, double bottom)
-            => new Rectangle2D(left, top, right - left, bottom - top);
+        public static Rectangle2D FromLTRB(double left, double top, double right, double bottom) => new Rectangle2D(left, top, right - left, bottom - top);
 
         /// <summary>
         /// Creates a <see cref="Rectangle2D"/> from a center point and it's size.
@@ -671,8 +674,7 @@ namespace Engine
         /// <param name="center">The center point to create the <see cref="Rectangle2D"/> as a <see cref="Point2D"/>.</param>
         /// <param name="size">The height and width of the new <see cref="Rectangle2D"/> as a <see cref="Size"/>.</param>
         /// <returns>Returns a <see cref="Rectangle2D"/> based around a center point and it's size.</returns>
-        public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size)
-            => new Rectangle2D(center - size.Inflate(0.5d), size);
+        public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size) => new Rectangle2D(center - size.Inflate(0.5d), size);
 
         /// <summary>
         /// Creates a rectangle that represents the union between a and b.
@@ -682,7 +684,7 @@ namespace Engine
         /// <returns></returns>
         public static Rectangle2D Union(Rectangle2D a, Rectangle2D b)
         {
-            var left = Min(a.X, b.X);
+            var left = Min((a?.X).Value, (b?.X).Value);
             var top = Min(a.Y, b.Y);
             var x2 = Max(a.X + a.Width, b.X + b.Width);
             var y2 = Max(a.Y + a.Height, b.Y + b.Height);
@@ -695,7 +697,7 @@ namespace Engine
         /// </summary>
         public static Rectangle2D Union(Rectangle2D rect, Point2D point)
         {
-            rect.UnionMutate(new Rectangle2D(point, point));
+            rect?.UnionMutate(new Rectangle2D(point, point));
             return rect;
         }
 
@@ -707,7 +709,7 @@ namespace Engine
         /// <returns></returns>
         public static Rectangle2D Intersect(Rectangle2D a, Rectangle2D b)
         {
-            var x1 = Max(a.X, b.X);
+            var x1 = Max((a?.X).Value, (b?.X).Value);
             var x2 = Min(a.X + a.Width, b.X + b.Width);
             var y1 = Max(a.Y, b.Y);
             var y2 = Min(a.Y + a.Height, b.Y + b.Height);
@@ -726,7 +728,7 @@ namespace Engine
         /// </summary>
         public static Rectangle2D Offset(Rectangle2D rect, Vector2D offsetVector)
         {
-            rect.Offset(offsetVector.I, offsetVector.J);
+            rect?.Offset(offsetVector.I, offsetVector.J);
             return rect;
         }
 
@@ -736,7 +738,7 @@ namespace Engine
         /// </summary>
         public static Rectangle2D Offset(Rectangle2D rect, double offsetX, double offsetY)
         {
-            rect.Offset(offsetX, offsetY);
+            rect?.Offset(offsetX, offsetY);
             return rect;
         }
 
@@ -750,7 +752,7 @@ namespace Engine
         public static Rectangle2D Inflate(Rectangle2D rect, float x, float y)
         {
             var r = rect;
-            r.Inflate(x, y);
+            r?.Inflate(x, y);
             return r;
         }
 
@@ -760,7 +762,7 @@ namespace Engine
         /// </summary>
         public static Rectangle2D Inflate(Rectangle2D rect, Size2D size)
         {
-            rect.Inflate(size.Width, size.Height);
+            rect?.Inflate(size.Width, size.Height);
             return rect;
         }
 
@@ -770,29 +772,29 @@ namespace Engine
         /// </summary>
         public static Rectangle2D Inflate(Rectangle2D rect, double width, double height)
         {
-            rect.Inflate(width, height);
+            rect?.Inflate(width, height);
             return rect;
         }
 
-        /// <summary>
-        /// Returns the bounds of the transformed rectangle.
-        /// The Empty Rectangle2D is not affected by this call.
-        /// </summary>
-        /// <returns>
-        /// The Rectangle2D which results from the transformation.
-        /// </returns>
-        /// <param name="rect"> The Rectangle2D to transform. </param>
-        /// <param name="matrix"> The Matrix by which to transform. </param>
-        public static Rectangle2D Transform(Rectangle2D rect, Matrix3x2D matrix)
-        {
-            if (rect is null)
-            {
-                throw new ArgumentNullException(nameof(rect));
-            }
+        ///// <summary>
+        ///// Returns the bounds of the transformed rectangle.
+        ///// The Empty Rectangle2D is not affected by this call.
+        ///// </summary>
+        ///// <returns>
+        ///// The Rectangle2D which results from the transformation.
+        ///// </returns>
+        ///// <param name="rect"> The Rectangle2D to transform. </param>
+        ///// <param name="matrix"> The Matrix by which to transform. </param>
+        //public static Rectangle2D Transform(Rectangle2D rect, Matrix3x2D matrix)
+        //{
+        //    if (rect is null)
+        //    {
+        //        throw new ArgumentNullException(nameof(rect));
+        //    }
 
-            Matrix3x2D.TransformRect(ref rect, ref matrix);
-            return rect;
-        }
+        //    Matrix3x2D.TransformRect(ref rect, ref matrix);
+        //    return rect;
+        //}
         #endregion Factories
 
         #region Mutators
@@ -1018,14 +1020,13 @@ namespace Engine
         /// Gets the hash code for this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode() => unchecked((int)((uint)X ^ (((uint)Y << 13) | ((uint)Y >> 19)) ^ (((uint)Width << 26) | ((uint)Width >> 6)) ^ (((uint)Height << 7) | ((uint)Height >> 25))));
+        public override int GetHashCode() => HashCode.Combine(X, Y, Width, Height);
 
         /// <summary>
         /// Convert a rectangle to a polygon containing an array of the rectangle's corner points.
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
-        public PolygonContour2D ToPolygon()
-            => new PolygonContour2D(ToPoints());
+        public PolygonContour2D ToPolygon() => new PolygonContour2D(ToPoints());
 
         /// <summary>
         /// Creates a string representation of this <see cref="Rectangle2D"/> struct based on the format string

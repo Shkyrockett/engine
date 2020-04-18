@@ -8,8 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using static Engine.Mathematics;
-
 namespace Engine
 {
     /// <summary>
@@ -23,8 +21,7 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="segment">The segment.</param>
         /// <returns>The <see cref="Locus"/>.</returns>
-        public static Locus Intersection(Point2D point, LineSegment2D segment)
-            => LineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
+        public static Locus Intersection(Point2D point, LineSegment2D segment) => LineSegmentPoint((segment?.AX).Value, (segment?.AY).Value, (segment?.BX).Value, (segment?.BY).Value, point.X, point.Y);
 
         /// <summary>
         /// The intersection.
@@ -32,8 +29,7 @@ namespace Engine
         /// <param name="segment">The segment.</param>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Locus"/>.</returns>
-        public static Locus Intersection(LineSegment2D segment, Point2D point)
-            => LineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
+        public static Locus Intersection(LineSegment2D segment, Point2D point) => LineSegmentPoint((segment?.AX).Value, (segment?.AY).Value, (segment?.BX).Value, (segment?.BY).Value, point.X, point.Y);
 
         /// <summary>
         /// The intersection.
@@ -41,8 +37,7 @@ namespace Engine
         /// <param name="segmentA">The segmentA.</param>
         /// <param name="segmentB">The segmentB.</param>
         /// <returns>The <see cref="Locus"/>.</returns>
-        public static Locus Intersection(LineSegment2D segmentA, LineSegment2D segmentB)
-            => LineSegmentLineSegment(segmentA.AX, segmentA.AY, segmentA.BX, segmentA.BY, segmentB.AX, segmentB.AY, segmentB.BX, segmentB.BY);
+        public static Locus Intersection(LineSegment2D segmentA, LineSegment2D segmentB) => LineSegmentLineSegment((segmentA?.AX).Value, (segmentA?.AY).Value, (segmentA?.BX).Value, (segmentA?.BY).Value, (segmentB?.AX).Value, (segmentB?.AY).Value, (segmentB?.BX).Value, (segmentB?.BY).Value);
 
         /// <summary>
         /// The line segment point.
@@ -59,7 +54,7 @@ namespace Engine
             double aX, double aY,
             double bX, double bY,
             double pX, double pY,
-            double epsilon = Epsilon)
+            double epsilon = double.Epsilon)
             => (Measurements.DistanceLinePoint(aX, aY, bX, bY, pX, pY) < epsilon)
                 ? new PointLocus(pX, pY)
                 : (Locus)new EmptyLocus();
@@ -80,7 +75,7 @@ namespace Engine
             double aX, double aY,
             double bX, double bY,
             double pX, double pY,
-            double epsilon = Epsilon)
+            double epsilon = double.Epsilon)
             => (((pX - aX) * (pX - bX)) + ((pY - aY) * (pY - bY)) < epsilon)
                 ? new PointLocus(pX, pY)
                 : (Locus)new EmptyLocus();
@@ -114,14 +109,14 @@ namespace Engine
             else if (a0X == b0X && a0Y == b0Y)
             {
                 // Check for intersection.
-                return ((Measurements.ConstrainedDistanceLineSegmentPoint(a1X, a1Y, b1X, b1Y, a0X, a0Y) ?? 1) <= Epsilon)
+                return ((Measurements.ConstrainedDistanceLineSegmentPoint(a1X, a1Y, b1X, b1Y, a0X, a0Y) ?? 1) <= double.Epsilon)
                     // First line is a point.
                     ? new PointLocus(a0X, a0Y) : (Locus)new EmptyLocus();
             }
             else if (a1X == b1X && a1Y == b1Y)
             {
                 // Check for intersection.
-                return ((Measurements.ConstrainedDistanceLineSegmentPoint(a0X, a0Y, b0X, b0Y, a1X, a1Y) ?? 1) <= Epsilon)
+                return ((Measurements.ConstrainedDistanceLineSegmentPoint(a0X, a0Y, b0X, b0Y, a1X, a1Y) ?? 1) <= double.Epsilon)
                     // Second line is a point.
                     ? new PointLocus(a1X, a1Y) : (Locus)new EmptyLocus();
             }

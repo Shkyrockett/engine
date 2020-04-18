@@ -10,6 +10,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
@@ -198,7 +199,7 @@ namespace Engine.Colorspace
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(HSLA other) => hue == other.hue && saturation == other.saturation && luminance == other.luminance && alpha == other.alpha;
+        public bool Equals([AllowNull] HSLA other) => hue == other.hue && saturation == other.saturation && luminance == other.luminance && alpha == other.alpha;
 
         /// <summary>
         /// The equals.
@@ -220,15 +221,7 @@ namespace Engine.Colorspace
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = 1605070302;
-            hashCode = hashCode * -1521134295 + hue.GetHashCode();
-            hashCode = hashCode * -1521134295 + saturation.GetHashCode();
-            hashCode = hashCode * -1521134295 + luminance.GetHashCode();
-            hashCode = hashCode * -1521134295 + alpha.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(hue, saturation, luminance, alpha);
 
         /// <summary>
         /// The to RGBA tuple.
@@ -236,8 +229,7 @@ namespace Engine.Colorspace
         /// <returns>
         /// The <see cref="ValueTuple{T1, T2, T3, T4}" />.
         /// </returns>
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
-            => Colorspaces.HSLAColorToRGBAColor(hue, saturation, luminance, alpha);
+        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple() => Colorspaces.HSLAColorToRGBAColor(hue, saturation, luminance, alpha);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="HSLA" /> struct.
@@ -247,8 +239,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="HSLA" /> struct based on the IFormatProvider
@@ -260,8 +251,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="HSLA" /> class based on the format string
@@ -276,8 +266,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="HSLA" /> struct based on the format string

@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using static Engine.Mathematics;
 
 namespace Engine
 {
@@ -65,7 +64,7 @@ namespace Engine
         /// <returns>Fitted curves or an empty list if it could not fit.</returns>
         public static CubicBezier2D[] Fit(List<Point2D> points, double maxError)
         {
-            if (maxError < Epsilon)
+            if (maxError < double.Epsilon)
             {
                 throw new InvalidOperationException("maxError cannot be negative/zero/less than epsilon value");
             }

@@ -53,7 +53,7 @@ namespace Engine.Experimental
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
             // Normalize the point to the bounding box.
-            var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
+            var normal = (X: (point.X - bounds?.X).Value / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
             var reverseNormal = (X: 1d - normal.X, Y: 1d - normal.Y);
 
             // Set up Interpolation variables.
@@ -122,7 +122,7 @@ namespace Engine.Experimental
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
             // Normalize the point to the bounding box.
-            var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
+            var normal = (X: (point.X - bounds?.X).Value / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
             //var reverseNormal = (X: 1d - normal.X, Y: 1d - normal.Y);
 
             // Interpolate the normalized point along the Cubic Bézier curves.
@@ -173,7 +173,7 @@ namespace Engine.Experimental
             Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV,
             Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
         {
-            var size = bounds.Size;
+            var size = (bounds?.Size).Value;
             var cpTL = new CubicControlPoint2D(topLeft, topLeftH, topLeftV);
             var cpTR = new CubicControlPoint2D(topRight, topRightH, topRightV);
             var cpBL = new CubicControlPoint2D(bottomRight, bottomRightH, bottomRightV);

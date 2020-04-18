@@ -24,10 +24,9 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// A closed Polygon2D made up of sets of Contours.
+    /// A closed Polygon made up of sets of Contours.
     /// </summary>
     /// <structure>Engine.Geometry.PolyGon2D</structure>
-
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Polycurve2D))]
@@ -38,9 +37,8 @@ namespace Engine
     {
         #region Private Fields
         /// <summary>
-        /// An array of Polygon2D Contours.
+        /// An array of Polygon Contours.
         /// </summary>
-
         [DataMember, XmlAttribute, SoapAttribute]
         private List<PolycurveContour2D> contours;
         #endregion Private Fields
@@ -332,7 +330,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Polycurve2D)}{{{string.Join(sep.ToString(), Contours)}}}";
+            IFormattable formatable = $"{nameof(Polycurve2D)}{{{string.Join(sep, Contours)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

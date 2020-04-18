@@ -23,7 +23,6 @@ namespace Engine
     /// </remarks>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName("Hermite Curve")]
     public class Hermite
         : Shape2D
     {
@@ -88,16 +87,14 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public override Point2D Interpolate(double t)
-            => new Point2D(Interpolators.Hermite(Tension, A.X, A.Y, ATan.X, ATan.Y, B.X, B.Y, BTan.X, BTan.Y, Bias, t));
+        public override Point2D Interpolate(double t) => new Point2D(Interpolators.Hermite(Tension, A.X, A.Y, ATan.X, ATan.Y, B.X, B.Y, BTan.X, BTan.Y, Bias, t));
 
         /// <summary>
         /// The to cubic bezier.
         /// </summary>
         /// <returns>The <see cref="CubicBezier2D"/>.</returns>
         /// <remarks><para>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</para></remarks>
-        public CubicBezier2D ToCubicBezier()
-            => new CubicBezier2D(ATan, new Point2D(ATan.X - ((B.X - A.X) / 6), ATan.Y - ((B.Y - A.Y) / 6)), new Point2D(B.X + ((BTan.X - ATan.X) / 6), B.Y + ((BTan.Y - ATan.Y) / 6)), BTan);
+        public CubicBezier2D ToCubicBezier() => new CubicBezier2D(ATan, new Point2D(ATan.X - ((B.X - A.X) / 6), ATan.Y - ((B.Y - A.Y) / 6)), new Point2D(B.X + ((BTan.X - ATan.X) / 6), B.Y + ((BTan.Y - ATan.Y) / 6)), BTan);
 
         /// <summary>
         /// The to string.

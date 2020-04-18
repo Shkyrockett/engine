@@ -129,6 +129,11 @@ namespace Engine.Experimental
         /// <param name="et">The et.</param>
         public void AddPath(PolygonContour2D p, LineJoin jt, LineEndType et)
         {
+            if (p is null)
+            {
+                throw new System.ArgumentNullException(nameof(p));
+            }
+
             PathNode? pn = new PathNode(p, jt, et);
             if (!(pn.Value.Path is null))
             {
@@ -144,6 +149,11 @@ namespace Engine.Experimental
         /// <param name="et">The et.</param>
         public void AddPaths(Polygon2D paths, LineJoin jt, LineEndType et)
         {
+            if (paths is null)
+            {
+                throw new System.ArgumentNullException(nameof(paths));
+            }
+
             foreach (var p in paths)
             {
                 AddPath(p, jt, et);
@@ -154,7 +164,7 @@ namespace Engine.Experimental
         /// The execute.
         /// </summary>
         /// <param name="delta">The delta.</param>
-        /// <returns>The <see cref="Polygon"/>.</returns>
+        /// <returns>The <see cref="Polygon2D"/>.</returns>
         public Polygon2D Execute(double delta)
         {
             var sol = new Polygon2D();
@@ -190,7 +200,7 @@ namespace Engine.Experimental
         /// <param name="delta">The delta.</param>
         /// <param name="jt">The jt.</param>
         /// <param name="et">The et.</param>
-        /// <returns>The <see cref="Polygon"/>.</returns>
+        /// <returns>The <see cref="Polygon2D"/>.</returns>
         public static Polygon2D OffsetPaths(Polygon2D pp, double delta, LineJoin jt, LineEndType et)
         {
             var co = new ClipperOffset();

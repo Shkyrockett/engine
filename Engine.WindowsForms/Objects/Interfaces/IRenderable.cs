@@ -21,7 +21,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the array of handles for the shape.
         /// </summary>
-        List<PointF> Handles { get; set; }
+        List<PointF> Grips { get; set; }
 
         /// <summary>
         /// Render the shape to the canvas.

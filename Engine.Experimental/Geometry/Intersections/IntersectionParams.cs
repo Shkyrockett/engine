@@ -9,7 +9,7 @@
 // <remarks></remarks>
 
 using System;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -26,8 +26,8 @@ namespace Engine
         /// <param name="params">The params.</param>
         public IntersectionParams(string name, string @params)
         {
-            this.Name = name;
-            this.Params = @params;
+            Name = name;
+            Params = @params;
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(IntersectionParams other) => Name == other.Name && Params == other.Params;
+        public bool Equals([AllowNull] IntersectionParams other) => Name == other.Name && Params == other.Params;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -90,12 +90,6 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = 361716329;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Params);
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Name, Params);
     }
 }

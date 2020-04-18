@@ -42,7 +42,7 @@ namespace Engine.Experimental
         {
             base.AddLocalMinPoly(e1, e2, pt);
 
-            var locMinOr = e1.outRec;
+            var locMinOr = e1?.outRec;
             (locMinOr.Points as LinkedPointTriangle).Outrec = locMinOr;
             locMinOr.UpdateHelper(locMinOr.Points);
             if (locMinOr.Flag == OutrecFlag.Outer)
@@ -54,7 +54,7 @@ namespace Engine.Experimental
             var e = e1.GetRightAdjacentHotEdge();
             if (e == e2)
             {
-                e = e2.GetRightAdjacentHotEdge();
+                e = e2?.GetRightAdjacentHotEdge();
             }
 
             if (e is null)
@@ -126,9 +126,9 @@ namespace Engine.Experimental
         /// <param name="Pt">The Pt.</param>
         protected override void AddLocalMaxPoly(Edge e1, Edge e2, Point2D Pt)
         {
-            var outrec = e1.outRec;
+            var outrec = e1?.outRec;
             //very occasionally IsStartSide(e1) is wrong so ...
-            var is_outer = e1.IsStartSide() || (e1.outRec == e2.outRec);
+            var is_outer = e1.IsStartSide() || (e1?.outRec == e2?.outRec);
             if (is_outer)
             {
                 var ort = (OutRecTri)e1.outRec;
@@ -137,7 +137,7 @@ namespace Engine.Experimental
                     outrec.UpdateHelper(null);
                 }
 
-                e2.outRec.UpdateHelper(null);
+                e2?.outRec.UpdateHelper(null);
             }
 
             base.AddLocalMaxPoly(e1, e2, Pt);
@@ -162,7 +162,7 @@ namespace Engine.Experimental
             }
             else
             {
-                var e = e2.GetRightAdjacentHotEdge();
+                var e = e2?.GetRightAdjacentHotEdge();
                 if (e != null)
                 {
                     e.outRec.UpdateHelper(lastOp);
@@ -201,7 +201,7 @@ namespace Engine.Experimental
         {
             var result = base.AddOutPoint(e, pt);
             var opt = (LinkedPointTriangle)result;
-            opt.Outrec = e.outRec;
+            opt.Outrec = e?.outRec;
             lastOp = result;
             Triangulate(e.outRec);
             //Triangulate() above may assign Result.OutRecRt so ...
@@ -221,7 +221,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="clipType">The clipType.</param>
         /// <param name="ft">The ft.</param>
-        /// <returns>The <see cref="Polygon"/>.</returns>
+        /// <returns>The <see cref="Polygon2D"/>.</returns>
         public override Polygon2D Execute(ClippingOperation clipType, WindingRule ft = WindingRule.EvenOdd)
         {
             var tris = new Polygon2D();
@@ -249,7 +249,7 @@ namespace Engine.Experimental
         /// <param name="clipType">The clipType.</param>
         /// <param name="Open">The Open.</param>
         /// <param name="ft">The ft.</param>
-        /// <returns>The <see cref="Polygon"/>.</returns>
+        /// <returns>The <see cref="Polygon2D"/>.</returns>
         public override Polygon2D Execute(ClippingOperation clipType, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd)
             => null; //unsupported
 
@@ -325,7 +325,7 @@ namespace Engine.Experimental
                 var cpval = 0d;
                 while (op.Prev != end_op)
                 {
-                    cpval = CrossProductVector(op.Pt.X, op.Pt.Y, op.Prev.Pt.X, op.Prev.Pt.Y, op.Prev.Prev.Pt.X, op.Prev.Prev.Pt.Y);
+                    cpval = CrossProductTriple(op.Pt.X, op.Pt.Y, op.Prev.Pt.X, op.Prev.Pt.Y, op.Prev.Prev.Pt.X, op.Prev.Prev.Pt.Y);
                     if (cpval >= 0)
                     {
                         break;
@@ -335,7 +335,7 @@ namespace Engine.Experimental
                     {
                         //Due to rounding, the clipping algorithm can occasionally produce
                         //tiny self-intersections and these need removing ...
-                        cpval = CrossProductVector(op2.Pt.X, op2.Pt.Y, op.Pt.X, op.Pt.Y, op.Prev.Prev.Pt.X, op.Prev.Prev.Pt.Y);
+                        cpval = CrossProductTriple(op2.Pt.X, op2.Pt.Y, op.Pt.X, op.Pt.Y, op.Prev.Prev.Pt.X, op.Prev.Prev.Pt.Y);
                         if (cpval > 0)
                         {
                             opt = (LinkedPointTriangle)op;

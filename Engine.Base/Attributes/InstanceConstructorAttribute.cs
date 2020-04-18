@@ -27,7 +27,7 @@ namespace Engine
         /// <param name="parameterNames">The parameterNames.</param>
         public InstanceConstructorAttribute(string parameterNames)
         {
-            ParameterNames = parameterNames.Split(',');
+            ParameterNames = parameterNames?.Split(',');
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Engine
         /// <returns>The <see cref="ConstructorInfo"/>.</returns>
         public static ConstructorInfo GetConstructor(Type t, out string[] paramNames)
         {
-            foreach (var method in t.GetConstructors())
+            foreach (var method in t?.GetConstructors())
             {
                 var atts = method.GetCustomAttributes(typeof(InstanceConstructorAttribute), true);
 

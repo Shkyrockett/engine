@@ -45,7 +45,11 @@ namespace Engine
         /// <param name="width">The width.</param>
         /// <returns>The <see cref="Size2D"/>.</returns>
         public Size2D MeasureString(string text, RenderFont font, TextFormat format, int width = int.MaxValue)
-            => graphics.MeasureString(text, font.ToFont(), width, format.ToStringFormat()).ToSize2D();
+        {
+            using var font1 = font.ToFont();
+            using StringFormat format1 = format.ToStringFormat();
+            return graphics.MeasureString(text, font1, width, format1).ToSize2D();
+        }
 
         /// <summary>
         /// The measure string.
@@ -58,7 +62,10 @@ namespace Engine
         /// <para>http://stackoverflow.com/questions/1003370/measure-a-string-without-using-a-graphics-object</para>
         /// </remarks>
         public Size2D MeasureString(string text, RenderFont font, int width = int.MaxValue)
-            => graphics.MeasureString(text, font.ToFont(), width, StringFormat.GenericDefault).ToSize2D();
+        {
+            using var font1 = font.ToFont();
+            return graphics.MeasureString(text, font1, width, StringFormat.GenericDefault).ToSize2D();
+        }
 
         /// <summary>
         /// The measure string close.
@@ -71,7 +78,10 @@ namespace Engine
         /// <para>http://stackoverflow.com/questions/1003370/measure-a-string-without-using-a-graphics-object</para>
         /// </remarks>
         public Size2D MeasureStringClose(string text, RenderFont font, int width = int.MaxValue)
-            => graphics.MeasureString(text, font.ToFont(), width, StringFormat.GenericTypographic).ToSize2D();
+        {
+            using var font1 = font.ToFont();
+            return graphics.MeasureString(text, font1, width, StringFormat.GenericTypographic).ToSize2D();
+        }
 
         #region IDisposable Support
         /// <summary>

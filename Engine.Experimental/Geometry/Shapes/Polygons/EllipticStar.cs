@@ -18,7 +18,6 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName("ElipticStar")]
     public class EllipticStar
         : PolygonContour2D
     {

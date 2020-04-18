@@ -49,8 +49,7 @@ namespace Engine
         /// <summary>
         /// The curves that make up the spline.
         /// </summary>
-        public ReadOnlyCollection<CubicBezier2D> Curves
-            => spline.Curves;
+        public ReadOnlyCollection<CubicBezier2D> Curves => spline.Curves;
         #endregion Properties
 
         #region Mutators
@@ -88,7 +87,7 @@ namespace Engine
             {
                 // last curve updated
                 Debug.Assert(res.FirstChangedIndex == curves.Count - 1);
-                spline.Update(spline.Curves.Count - 1, curves[curves.Count - 1]);
+                spline.Update(spline.Curves.Count - 1, curves[^1]);
             }
 
             return true;
@@ -111,8 +110,7 @@ namespace Engine
         /// </summary>
         /// <param name="u">How far along the spline to sample (for example, 0.5 will be halfway along the length of the spline). Should be between 0 and 1.</param>
         /// <returns>The position on the spline.</returns>
-        public Point2D Sample(double u)
-            => spline.Interpolate(u);
+        public Point2D Sample(double u) => spline.Interpolate(u);
 
         /// <summary>
         /// Gets the tangent of a point on the spline that's close to the desired point along the spline. For example, if u = 0.5, then the direction vector

@@ -9,7 +9,7 @@
 // <remarks></remarks>
 
 using System;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -128,7 +128,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(Rotation other) => radians == other.radians && EqualityComparer<double?>.Default.Equals(cos, other.cos) && EqualityComparer<double?>.Default.Equals(sin, other.sin);
+        public bool Equals([AllowNull] Rotation other) => radians == other.radians;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -136,13 +136,6 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -1422358610;
-            hashCode = hashCode * -1521134295 + radians.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<double?>.Default.GetHashCode(cos);
-            hashCode = hashCode * -1521134295 + EqualityComparer<double?>.Default.GetHashCode(sin);
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(radians);
     }
 }

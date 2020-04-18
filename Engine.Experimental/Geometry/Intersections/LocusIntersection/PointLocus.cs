@@ -62,8 +62,7 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Point2D(PointLocus locus)
-            => new Point2D(locus.X, locus.Y);
+        public static implicit operator Point2D(PointLocus locus) => new Point2D((locus?.X).Value, locus.Y);
 
         /// <summary>
         /// Converts to point2d.

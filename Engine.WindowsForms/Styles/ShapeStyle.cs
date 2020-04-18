@@ -147,12 +147,19 @@ namespace Engine.Imaging
         {
             get
             {
-                return ForePen.Brush switch
+                switch (ForePen.Brush)
                 {
-                    SolidBrush b => new Stroke(new SolidFill(b.Color.ToRGBA())),
-                    HatchBrush h => new Stroke(new SolidFill(h.ForegroundColor.ToRGBA())),
-                    _ => new Stroke(new SolidFill(Colors.Transparent)),
-                };
+                    case SolidBrush b:
+                        return new Stroke(new SolidFill(b.Color.ToRGBA()));
+                    case HatchBrush h:
+                        return new Stroke(new SolidFill(h.ForegroundColor.ToRGBA()));
+                    case LinearGradientBrush _:
+                    case PathGradientBrush _:
+                    case TextureBrush _:
+                    default:
+                        return new Stroke(new SolidFill(Colors.Transparent));
+                }
+
             }
         }
 

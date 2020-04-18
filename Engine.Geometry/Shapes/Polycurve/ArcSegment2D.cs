@@ -76,7 +76,7 @@ namespace Engine
         /// <param name="radius">The radius.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
         public ArcSegment2D(CurveSegment2D previous, double centerX, double centerY, double radius, double sweepAngle)
-            : this(previous, radius, radius, sweepAngle, false, sweepAngle <= 180, PolarToCartesian(centerX, centerY, radius, Atan2(previous.Tail.Value.Y, previous.Tail.Value.X) + sweepAngle))
+            : this(previous, radius, radius, sweepAngle, false, sweepAngle <= 180, PolarToCartesian(centerX, centerY, radius, Atan2((previous?.Tail).Value.Y, previous.Tail.Value.X) + sweepAngle))
         { }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Engine
         /// <param name="relitive">The relative.</param>
         /// <param name="args">The arguments.</param>
         public ArcSegment2D(CurveSegment2D previous, bool relitive, double[] args)
-            : this(previous, args[0], args[1], args[2], args[3] != 0, args[4] != 0, args.Length == 7 ? (Point2D?)new Point2D(args[5], args[6]) : null)
+            : this(previous, args is null ? double.NaN : args[0], args is null ? double.NaN : args[1], args is null ? double.NaN : args[2], args is null ? false : args[3] != 0, args is null ? false : args[4] != 0, args?.Length == 7 ? (Point2D?)new Point2D(args[5], args[6]) : null)
         {
             if (args is null)
             {
@@ -95,7 +95,7 @@ namespace Engine
 
             if (relitive)
             {
-                Tail = (Point2D)(Tail + previous.Tail);
+                Tail = (Point2D)(Tail + previous?.Tail);
             }
         }
 
@@ -129,7 +129,7 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="EllipticalArc"/> to a Tuple.
+        /// Deconstruct this <see cref="EllipticalArc2D"/> to a Tuple.
         /// </summary>
         /// <param name="rX">The rX.</param>
         /// <param name="rY">The rY.</param>
@@ -336,7 +336,7 @@ namespace Engine
             => (double)CachingProperty(() => ToEllipticalArc().StartAngle);
 
         /// <summary>
-        /// Gets the Polar corrected start angle of the <see cref="Ellipse"/>.
+        /// Gets the Polar corrected start angle of the <see cref="Ellipse2D"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
@@ -372,7 +372,7 @@ namespace Engine
             => (double)CachingProperty(() => StartAngle + SweepAngle);
 
         /// <summary>
-        /// Gets the Polar corrected end angle of the <see cref="Ellipse"/>.
+        /// Gets the Polar corrected end angle of the <see cref="Ellipse2D"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
@@ -481,7 +481,7 @@ namespace Engine
         /// <summary>
         /// The to elliptical arc.
         /// </summary>
-        /// <returns>The <see cref="EllipticalArc"/>.</returns>
+        /// <returns>The <see cref="EllipticalArc2D"/>.</returns>
         public EllipticalArc2D ToEllipticalArc()
             => (EllipticalArc2D)CachingProperty(() => new EllipticalArc2D(Head.Value.X, Head.Value.Y, RX, RY, Angle, LargeArc, Sweep, Tail.Value.X, Tail.Value.Y));
         #endregion Methods

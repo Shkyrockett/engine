@@ -22,7 +22,7 @@ namespace Engine
     /// <summary>
     /// Interpolators
     /// </summary>
-    public static class Interpolators
+    public static partial class Interpolators
     {
         /// <summary>
         /// Retrieves a list of points interpolated from a function.
@@ -85,10 +85,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Linear(double t, double aX, double aY, double aZ, double bX, double bY, double bZ)
-            => (((1d - t) * aX) + (t * bX),
-                ((1d - t) * aY) + (t * bY),
-                ((1d - t) * aZ) + (t * bZ));
+        public static (double X, double Y, double Z) Linear(double t, double aX, double aY, double aZ, double bX, double bY, double bZ) => (((1d - t) * aX) + (t * bX), ((1d - t) * aY) + (t * bY), ((1d - t) * aZ) + (t * bZ));
 
         /// <summary>
         /// Two control point 2D Linear interpolation for ranges from 0 to 1, start to end of curve.
@@ -101,8 +98,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Linear(double t, Point2D a, Point2D b)
-            => new Point2D(Linear(t, a.X, a.Y, b.X, b.Y));
+        public static Point2D Linear(double t, Point2D a, Point2D b) => new Point2D(Linear(t, a.X, a.Y, b.X, b.Y));
 
         /// <summary>
         /// Two control point 3D Linear interpolation for ranges from 0 to 1, start to end of curve.
@@ -113,8 +109,7 @@ namespace Engine
         /// <returns>Returns a <see cref="Point3D"/> representing a point on the linear curve at the t index.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D Linear(double t, Point3D a, Point3D b)
-            => new Point3D(Linear(t, a.X, a.Y, a.Z, b.X, b.Y, b.Z));
+        public static Point3D Linear(double t, Point3D a, Point3D b) => new Point3D(Linear(t, a.X, a.Y, a.Z, b.X, b.Y, b.Z));
         #endregion Linear Interpolation
 
         #region Normalized Linear Interpolation
@@ -130,8 +125,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Nlerp(double t, double aV, double bV)
-            => Normalize1D(Linear(t, aV, bV));
+        public static double Nlerp(double t, double aV, double bV) => Normalize(Linear(t, aV, bV));
 
         /// <summary>
         /// The nlerp.
@@ -150,7 +144,7 @@ namespace Engine
         public static (double X, double Y) Nlerp(double t, double aX, double aY, double bX, double bY)
         {
             var (X, Y) = Linear(t, aX, aY, bX, bY);
-            return Normalize2D(X, Y);
+            return Normalize(X, Y);
         }
 
         /// <summary>
@@ -172,7 +166,7 @@ namespace Engine
         public static (double X, double Y, double Z) Nlerp(double t, double aX, double aY, double aZ, double bX, double bY, double bZ)
         {
             var (X, Y, Z) = Linear(t, aX, aY, aZ, bX, bY, bZ);
-            return Normalize3D(X, Y, Z);
+            return Normalize(X, Y, Z);
         }
 
         /// <summary>
@@ -187,8 +181,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Nlerp(double t, Point2D a, Point2D b)
-            => (Point2D)((Vector2D)Linear(t, a, b)).Normalize();
+        public static Point2D Nlerp(double t, Point2D a, Point2D b) => Normalize(Linear(t, a, b));
 
         /// <summary>
         /// The nlerp.
@@ -202,8 +195,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D Nlerp(double t, Point3D a, Point3D b)
-            => (Point3D)((Vector3D)Linear(t, a, b)).Normalize();
+        public static Point3D Nlerp(double t, Point3D a, Point3D b) => Normalize(Linear(t, a, b));
         #endregion Normalized Linear Interpolation
 
         #region Quaternion S Linear Interpolation
@@ -225,7 +217,7 @@ namespace Engine
             // Clamp it to be in the range of Acos()
             // This may be unnecessary, but floating point
             // precision can be a fickle mistress.
-            var dot = Operations.Clamp(Operations.DotProduct(a, b), -1d, 1d);
+            var dot = Operations.Clamp(DotProduct(a.X, a.Y, b.X, b.Y), -1d, 1d);
 
             // Acos(dot) returns the angle between start and end,
             // And multiplying that by percent returns the angle between
@@ -234,7 +226,7 @@ namespace Engine
             var RelativeVec = b - (a * dot);
 
             // Orthonormal basis
-            RelativeVec.Normalize();
+            Normalize(RelativeVec);
 
             // The final result.
             return (a * Cos(theta)) + (RelativeVec * Sin(theta));
@@ -258,7 +250,7 @@ namespace Engine
             // Clamp it to be in the range of Acos()
             // This may be unnecessary, but floating point
             // precision can be a fickle mistress.
-            var dot = Operations.Clamp(DotProduct(a.X, a.Y, a.Y, b.X, b.Y, b.Z), -1d, 1d);
+            var dot = Operations.Clamp(Operations.DotProduct(a.X, a.Y, a.Y, b.X, b.Y, b.Z), -1d, 1d);
 
             // Acos(dot) returns the angle between start and end,
             // And multiplying that by percent returns the angle between
@@ -267,10 +259,10 @@ namespace Engine
             var RelativeVec = b - (a * dot);
 
             // Orthonormal basis
-            Normalize3D(RelativeVec.I, RelativeVec.J, RelativeVec.K);
+            Operations.Normalize(RelativeVec.I, RelativeVec.J, RelativeVec.K);
 
             // The final result.
-            return (Point3D)((a * Cos(theta)) + (RelativeVec * Sin(theta)));
+            return (a * Cos(theta)) + (RelativeVec * Sin(theta));
         }
         #endregion Quaternion S Linear Interpolation
 
@@ -642,6 +634,7 @@ namespace Engine
         }
         #endregion Cubic Bézier Interpolation
 
+        #region Quintic Bézier Interpolation
         /// <summary>
         /// Quintics the bezier.
         /// </summary>
@@ -659,6 +652,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) QuinticBezier(double t, double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y) => CubicBezierSpline(t, new List<Point2D> { (p0X, p0Y), (p1X, p1Y), (p2X, p2Y), (p3X, p3Y), (p4X, p4Y) });
+        #endregion
 
         #region N Bézier Interpolation
         /// <summary>
@@ -684,7 +678,7 @@ namespace Engine
             var muk = 1d;
             var munk = Pow(1d - t, n);
 
-            var b = (X: 0d, Y: 0d);
+            var b = Point2D.Empty;
 
             for (var k = 0; k <= n; k++)
             {
@@ -710,7 +704,7 @@ namespace Engine
                     }
                 }
 
-                b = (
+                b = new Point2D(
                     b.X + (points[k].X * blend),
                     b.Y + (points[k].Y * blend)
                 );
@@ -1009,8 +1003,7 @@ namespace Engine
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CircularArc(double t, double cX, double cY, double r, double startAngle, double sweepAngle)
-            => Circle(startAngle + (sweepAngle * t), cX, cY, r);
+        public static (double X, double Y) CircularArc(double t, double cX, double cY, double r, double startAngle, double sweepAngle) => Circle(startAngle + (sweepAngle * t), cX, cY, r);
 
         /// <summary>
         /// Interpolate a point on a circle, converting from unit iteration, to Pi radians.
@@ -1022,8 +1015,7 @@ namespace Engine
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) UnitCircle(double t, double cX, double cY, double r)
-            => Circle(Tau * t, cX, cY, r);
+        public static (double X, double Y) UnitCircle(double t, double cX, double cY, double r) => Circle(Tau * t, cX, cY, r);
 
         /// <summary>
         /// Interpolate a point on a circle, applying translation to equation of circle at origin.
@@ -1035,10 +1027,7 @@ namespace Engine
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Circle(double t, double cX, double cY, double r)
-            => (
-                cX + (Cos(t) * r),
-                cY + (Sin(t) * r));
+        public static (double X, double Y) Circle(double t, double cX, double cY, double r) => (cX + (Cos(t) * r), cY + (Sin(t) * r));
         #endregion Circle Interpolation
 
         #region Ellipse Interpolation
@@ -1085,8 +1074,7 @@ namespace Engine
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) EllipticalArc(double t, double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle)
-            => PolarEllipse(startAngle + (sweepAngle * t), cX, cY, r1, r2, angle);
+        public static (double X, double Y) EllipticalArc(double t, double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle) => PolarEllipse(startAngle + (sweepAngle * t), cX, cY, r1, r2, angle);
 
         /// <summary>
         /// Interpolates the Elliptical Arc, corrected for Polar coordinates.
@@ -1103,8 +1091,7 @@ namespace Engine
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) EllipticalArc(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle, double startAngle, double sweepAngle)
-            => PolarEllipse(startAngle + (sweepAngle * t), cX, cY, r1, r2, cosAngle, sinAngle);
+        public static (double X, double Y) EllipticalArc(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle, double startAngle, double sweepAngle) => PolarEllipse(startAngle + (sweepAngle * t), cX, cY, r1, r2, cosAngle, sinAngle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse with Polar correction using a range from 0 to 1 for unit interpolation.
@@ -1118,8 +1105,7 @@ namespace Engine
         /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) UnitPolarEllipse(double t, double cX, double cY, double r1, double r2, double angle)
-           => PolarEllipse(Tau * t, cX, cY, r1, r2, angle);
+        public static (double X, double Y) UnitPolarEllipse(double t, double cX, double cY, double r1, double r2, double angle) => PolarEllipse(Tau * t, cX, cY, r1, r2, angle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse with Polar correction using a range from 0 to 1 for unit interpolation.
@@ -1134,8 +1120,7 @@ namespace Engine
         /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) UnitPolarEllipse(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle)
-           => PolarEllipse(Tau * t, cX, cY, r1, r2, cosAngle, sinAngle);
+        public static (double X, double Y) UnitPolarEllipse(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle) => PolarEllipse(Tau * t, cX, cY, r1, r2, cosAngle, sinAngle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse with Polar correction.
@@ -1149,8 +1134,7 @@ namespace Engine
         /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) PolarEllipse(double t, double cX, double cY, double r1, double r2, double angle)
-           => Ellipse(EllipticalPolarAngle(t, r1, r2), cX, cY, r1, r2, angle);
+        public static (double X, double Y) PolarEllipse(double t, double cX, double cY, double r1, double r2, double angle) => Ellipse(Operations.EllipticalPolarAngle(t, r1, r2), cX, cY, r1, r2, angle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse with Polar correction.
@@ -1165,8 +1149,7 @@ namespace Engine
         /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) PolarEllipse(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle)
-            => Ellipse(EllipticalPolarAngle(t, r1, r2), cX, cY, r1, r2, cosAngle, sinAngle);
+        public static (double X, double Y) PolarEllipse(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle) => Ellipse(Operations.EllipticalPolarAngle(t, r1, r2), cX, cY, r1, r2, cosAngle, sinAngle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse.
@@ -1180,8 +1163,7 @@ namespace Engine
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Ellipse(double t, double cX, double cY, double r1, double r2, double angle)
-            => Ellipse(Cos(t), Sin(t), cX, cY, r1, r2, Cos(angle), Sin(angle));
+        public static (double X, double Y) Ellipse(double t, double cX, double cY, double r1, double r2, double angle) => Ellipse(Cos(t), Sin(t), cX, cY, r1, r2, Cos(angle), Sin(angle));
 
         /// <summary>
         /// Interpolate a point on an Ellipse.
@@ -1196,8 +1178,7 @@ namespace Engine
         /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Ellipse(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle)
-            => Ellipse(Cos(t), Sin(t), cX, cY, r1, r2, cosAngle, sinAngle);
+        public static (double X, double Y) Ellipse(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle) => Ellipse(Cos(t), Sin(t), cX, cY, r1, r2, cosAngle, sinAngle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse.
@@ -1488,7 +1469,7 @@ namespace Engine
         /// </returns>
         public static CubicBezier2D TweenCubic(double t, CubicBezier2D key1, CubicBezier2D key2)
             => new CubicBezier2D(
-                 a: key1.A + (t * (key2.A - key1.A)),
+                 (key1.A) + (t * ((key2.A) - key1.A)),
                  key1.B + (t * (key2.B - key1.B)),
                  key1.C + (t * (key2.C - key1.C)),
                  key1.D + (t * (key2.D - key1.D))

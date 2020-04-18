@@ -172,7 +172,10 @@ namespace Engine
             {
                 try
                 {
-                    return instanceCtor.Invoke(GetInstanceDescriptorObjects(propertyValues));
+                    if (!(propertyValues is null))
+                    {
+                        return instanceCtor.Invoke(GetInstanceDescriptorObjects(propertyValues));
+                    }
                 }
                 catch (TargetInvocationException)
                 {

@@ -21,7 +21,7 @@ namespace Engine
     /// <acknowledgment>
     /// https://msdn.microsoft.com/en-us/library/84c42s56(v=vs.110).aspx
     /// </acknowledgment>
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
     public class ElementNameAttribute
         : Attribute
     {

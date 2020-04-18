@@ -27,7 +27,15 @@ namespace Engine.Imaging
         /// <param name="flags">The flags.</param>
         /// <param name="format">The format.</param>
         /// <returns>The <see cref="DisposableImageData"/>.</returns>
-        public static DisposableImageData LockBitsDisposable(this Bitmap bitmap, Rectangle rect, ImageLockMode flags, PixelFormat format) => new DisposableImageData(bitmap, rect, flags, format);
+        public static DisposableImageData LockBitsDisposable(this Bitmap bitmap, Rectangle rect, ImageLockMode flags, PixelFormat format)
+        {
+            if (bitmap is null)
+            {
+                throw new ArgumentNullException(nameof(bitmap));
+            }
+
+            return new DisposableImageData(bitmap, rect, flags, format);
+        }
     }
 
     /// <summary>

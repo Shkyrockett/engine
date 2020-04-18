@@ -40,8 +40,8 @@ namespace Engine
         /// <param name="relative">The relative.</param>
         /// <param name="args">The args.</param>
         public QuadraticBezierSegment2D(CurveSegment2D previous, bool relative, double[] args)
-            : this(previous, relative, args.Length == 4 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]) }
-                : args.Length == 2 ? new Point2D[] { new Point2D(args[0], args[1]) } : null)
+            : this(previous, relative, args?.Length == 4 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]) }
+                : args?.Length == 2 ? new Point2D[] { new Point2D(args[0], args[1]) } : null)
         { }
 
         /// <summary>
@@ -51,12 +51,12 @@ namespace Engine
         /// <param name="relative">The relative.</param>
         /// <param name="args">The args.</param>
         public QuadraticBezierSegment2D(CurveSegment2D previous, bool relative, Point2D[] args)
-            : this(previous, args.Length == 2 ? (Point2D?)args[0] : null, args.Length == 2 ? args[0] : args[1])
+            : this(previous, args?.Length == 2 ? (Point2D?)args[0] : null, args.Length == 2 ? args[0] : args[1])
         {
             if (relative)
             {
-                Handle = (Point2D)(Handle + previous.Tail);
-                Tail = (Point2D)(Tail + previous.Tail);
+                Handle = (Point2D)(Handle + (previous?.Tail).Value);
+                Tail = (Point2D)(Tail + (previous?.Tail).Value);
             }
         }
 
@@ -82,7 +82,7 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="QuadraticBezier"/> to a Tuple.
+        /// Deconstruct this <see cref="QuadraticBezier2D"/> to a Tuple.
         /// </summary>
         /// <param name="ax">The ax.</param>
         /// <param name="ay">The ay.</param>
@@ -160,7 +160,7 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
-        /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the x-axis.
+        /// Gets the <see cref="QuadraticBezier2D"/> curve's polynomial representation along the x-axis.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveX
@@ -174,7 +174,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the y-axis.
+        /// Gets the <see cref="QuadraticBezier2D"/> curve's polynomial representation along the y-axis.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveY
@@ -207,7 +207,7 @@ namespace Engine
         /// <summary>
         /// The to quadtratic bezier.
         /// </summary>
-        /// <returns>The <see cref="QuadraticBezier"/>.</returns>
+        /// <returns>The <see cref="QuadraticBezier2D"/>.</returns>
         public QuadraticBezier2D ToQuadtraticBezier()
             => new QuadraticBezier2D(Head.Value, Handle.Value, Tail.Value);
         #endregion Methods

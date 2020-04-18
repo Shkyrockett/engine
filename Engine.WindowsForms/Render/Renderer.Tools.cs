@@ -34,26 +34,26 @@ namespace Engine.Imaging
             _ = style;
             const float pointRadius = 1f;
 
-            var results = shape.Interactions();
+            var results = (shape?.Interactions()).Value;
 
             var pointpen = new Stroke(new SolidFill(Colors.Magenta));
             foreach (var point in results.Item1)
             {
-                renderer.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
+                renderer?.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
                 renderer.DrawLine(pointpen, point.X - pointRadius, point.Y, point.X + pointRadius, point.Y);
             }
 
             pointpen = new Stroke(new SolidFill(Colors.Lime));
             foreach (var point in results.Item2)
             {
-                renderer.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
+                renderer?.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
                 renderer.DrawLine(pointpen, point.X - pointRadius, point.Y, point.X + pointRadius, point.Y);
             }
 
             pointpen = new Stroke(new SolidFill(Colors.Red));
             foreach (var point in results.Item3)
             {
-                renderer.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
+                renderer?.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
                 renderer.DrawLine(pointpen, point.X - pointRadius, point.Y, point.X + pointRadius, point.Y);
             }
         }
@@ -73,13 +73,13 @@ namespace Engine.Imaging
             _ = style;
             const float pointRadius = 1f;
 
-            var results = shape.Warp();
+            var results = shape?.Warp();
 
             var pointpen = new Stroke(new SolidFill(Colors.Gold));
             foreach (var point in results)
             {
-                renderer.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
-                renderer.DrawLine(pointpen, point.X - pointRadius, point.Y, point.X + pointRadius, point.Y);
+                renderer?.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
+                renderer?.DrawLine(pointpen, point.X - pointRadius, point.Y, point.X + pointRadius, point.Y);
             }
         }
 
@@ -137,7 +137,7 @@ namespace Engine.Imaging
             foreach (var point in shape?.Points)
             {
                 var rect = new Rectangle2D(new Point2D(point.X - shape.Radius, point.Y - shape.Radius), new Size2D(2 * shape.Radius, 2 * shape.Radius));
-                renderer.FillEllipse(itemStyle.Fill, rect.X, rect.Y, rect.Width, rect.Height);
+                renderer?.FillEllipse(itemStyle.Fill, rect.X, rect.Y, rect.Width, rect.Height);
                 renderer.DrawEllipse(itemStyle.Stroke, rect.X, rect.Y, rect.Width, rect.Height);
             }
         }

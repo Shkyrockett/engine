@@ -28,6 +28,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(LineSegment2D))]
     [XmlType(TypeName = "line-segment")]
+    [TypeConverter(typeof(StructConverter<LineSegment2D>))]
     [DebuggerDisplay("{ToString()}")]
     public class LineSegment2D
         : Shape2D
@@ -36,7 +37,7 @@ namespace Engine
         /// <summary>
         /// Represents a Engine.Geometry.Segment that is null.
         /// </summary>
-        public static readonly LineSegment2D Empty = new LineSegment2D();
+        public static readonly LineSegment2D Empty = new LineSegment2D(0d, 0d, 0d, 0d);
         #endregion Implementations
 
         #region Fields
@@ -63,14 +64,14 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment"/> class.
+        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
         /// </summary>
         public LineSegment2D()
             : this(Point2D.Empty, Point2D.Empty)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment"/> class.
+        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
         /// </summary>
         /// <param name="tuple"></param>
         public LineSegment2D((double x1, double y1, double x2, double y2) tuple)
@@ -78,7 +79,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment"/> class.
+        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
         /// </summary>
         /// <param name="x1">Horizontal component of starting point</param>
         /// <param name="y1">Vertical component of starting point</param>
@@ -89,7 +90,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment"/> class.
+        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
         /// </summary>
         /// <param name="Point">Starting Point</param>
         /// <param name="RadAngle">Ending Angle</param>
@@ -99,7 +100,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment"/> class.
+        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
         /// </summary>
         /// <param name="a">Starting Point</param>
         /// <param name="b">Ending Point</param>
@@ -348,7 +349,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.X).ToArray()));
+                var curveX = (Polynomial)CachingProperty(() => Polynomials.Bezier(Points.Select(p => p.X).ToArray()));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -362,7 +363,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => Polynomial.Bezier(Points.Select(p => p.Y).ToArray()));
+                var curveY = (Polynomial)CachingProperty(() => Polynomials.Bezier(Points.Select(p => p.Y).ToArray()));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -411,8 +412,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <param name="tuple"></param>
-        public static implicit operator LineSegment2D((double I, double J, double K, double L) tuple)
-            => new LineSegment2D(tuple);
+        public static implicit operator LineSegment2D((double I, double J, double K, double L) tuple) => new LineSegment2D(tuple);
         #endregion Operators
 
         #region Interpolators
@@ -421,8 +421,7 @@ namespace Engine
         /// </summary>
         /// <param name="t">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
-        public override Point2D Interpolate(double t)
-            => Interpolators.Linear(t, A, B);
+        public override Point2D Interpolate(double t) => Interpolators.Linear(t, A, B);
         #endregion Interpolators
 
         #region Mutators
@@ -444,18 +443,16 @@ namespace Engine
         /// The to array.
         /// </summary>
         /// <returns>The <see cref="Array"/>.</returns>
-        public Point2D[] ToArray()
-            => new Point2D[] { A, B };
+        public Point2D[] ToArray() => new Point2D[] { A, B };
 
         /// <summary>
         /// The to line.
         /// </summary>
         /// <returns>The <see cref="Line2D"/>.</returns>
-        public Line2D ToLine()
-            => new Line2D(aX, aY, aX - bX, aY - bY);
+        public Line2D ToLine() => new Line2D(aX, aY, aX - bX, aY - bY);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="LineSegment"/> struct based on the format string
+        /// Creates a string representation of this <see cref="LineSegment2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

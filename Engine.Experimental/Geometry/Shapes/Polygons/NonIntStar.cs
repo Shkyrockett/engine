@@ -18,7 +18,6 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(Star))]
     public class NonIntStar
         : PolygonContour2D
     {

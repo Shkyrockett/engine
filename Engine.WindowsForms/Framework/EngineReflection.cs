@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
@@ -67,9 +68,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// List all objects derived from the <see cref="Shape"/> class.
+        /// List all objects derived from the <see cref="Shape2D"/> class.
         /// </summary>
-        /// <returns>A list of types that are derived from the <see cref="Shape"/> class.</returns>
+        /// <returns>A list of types that are derived from the <see cref="Shape2D"/> class.</returns>
         public static List<Type> ListShapes()
         {
             var shapeType = typeof(Shape2D);
@@ -138,7 +139,7 @@ namespace Engine
         /// <returns>The attribute to look for.</returns>
         public static List<Type> ListTypesTaggedWithPropertyAttribute(Attribute attribute)
         {
-            var objectType = attribute.GetType();
+            var objectType = attribute?.GetType();
             var assembly = Assembly.GetAssembly(objectType);
             return GetAssemblyTypesTaggedWithPropertyAttribute(assembly, attribute);
         }
@@ -162,7 +163,7 @@ namespace Engine
         public static List<MethodInfo> ListStaticFactoryConstructors(Type type)
             => new List<MethodInfo>
             (
-                from method in type.GetMethods()
+                from method in type?.GetMethods()
                 where method.IsStatic
                 where method.ReturnType == type
                 select method
@@ -177,7 +178,7 @@ namespace Engine
         private static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
             => new List<Type>
             (
-                from type in assembly.GetTypes()
+                from type in assembly?.GetTypes()
                 where type.BaseType == classType
                 select type
             ).OrderBy(x => x.Name).ToList();
@@ -191,7 +192,7 @@ namespace Engine
         private static List<Type> GetAssemblyInterfaces(Assembly assembly, Type classType)
             => new List<Type>
             (
-                from type in assembly.GetTypes()
+                from type in assembly?.GetTypes()
                 where type.GetInterfaces().Contains(classType)
                 select type
             ).OrderBy(x => x.Name).ToList();
@@ -208,7 +209,7 @@ namespace Engine
         private static List<Type> GetAssemblyTypeAttributes(Assembly assembly, Type attributeType)
             => new List<Type>
             (
-                from type in assembly.GetTypes()
+                from type in assembly?.GetTypes()
                 where Attribute.IsDefined(type, attributeType)
                 select type
             ).OrderBy(x => x.Name).ToList();
@@ -222,9 +223,16 @@ namespace Engine
         public static List<Type> GetAssemblyTypesTaggedWithPropertyAttribute(Assembly assembly, Attribute attribute)
             => new List<Type>
             (
-                from type in assembly.GetTypes()
+                from type in assembly?.GetTypes()
                 where TypeDescriptor.GetProperties(type, new Attribute[] { attribute }) != null
                 select type
             );
+
+        /// <summary>
+        /// Gets the public key token from assembly.
+        /// </summary>
+        /// <param name="assemblyName">Name of the assembly.</param>
+        /// <returns></returns>
+        public static string GetPublicKeyTokenFromAssembly(this AssemblyName assemblyName) => string.Concat(assemblyName?.GetPublicKeyToken()?.Select(b => b.ToString("x2", CultureInfo.InvariantCulture))) ?? "None";
     }
 }

@@ -24,32 +24,28 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="tuple">The tuple.</param>
         /// <returns>The <see cref="Point"/>.</returns>
-        public static Point ToPoint(this (double X, double Y) tuple)
-            => new Point((int)tuple.X, (int)tuple.Y);
+        public static Point ToPoint(this (double X, double Y) tuple) => new Point((int)tuple.X, (int)tuple.Y);
 
         /// <summary>
         /// The to point f.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
         /// <returns>The <see cref="PointF"/>.</returns>
-        public static PointF ToPointF(this (double X, double Y) tuple)
-            => new PointF((float)tuple.X, (float)tuple.Y);
+        public static PointF ToPointF(this (double X, double Y) tuple) => new PointF((float)tuple.X, (float)tuple.Y);
 
         /// <summary>
         /// The to point array.
         /// </summary>
         /// <param name="list">The list.</param>
         /// <returns>The <see cref="Array"/>.</returns>
-        public static Point[] ToPointArray(this List<(double X, double Y)> list)
-            => list.ConvertAll(new Converter<(double X, double Y), Point>(ToPoint)).ToArray();
+        public static Point[] ToPointArray(this List<(double X, double Y)> list) => list?.ConvertAll(new Converter<(double X, double Y), Point>(ToPoint)).ToArray();
 
         /// <summary>
         /// The to point f array.
         /// </summary>
         /// <param name="list">The list.</param>
         /// <returns>The <see cref="Array"/>.</returns>
-        public static PointF[] ToPointFArray(this List<(double X, double Y)> list)
-            => list.ConvertAll(new Converter<(double X, double Y), PointF>(ToPointF)).ToArray();
+        public static PointF[] ToPointFArray(this List<(double X, double Y)> list) => list?.ConvertAll(new Converter<(double X, double Y), PointF>(ToPointF)).ToArray();
 
         /// <summary>
         /// Get a the value for a key. If the key does not exist, return null;
@@ -63,6 +59,13 @@ namespace MethodSpeedTester
         /// <para>http://blogs.windward.net/davidt/2012/01/12/c-dictionary-getvalueordefault/</para>
         /// </remarks>
         public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key)
-            => dic.TryGetValue(key, out var result) ? result : default;
+        {
+            if (dic is null)
+            {
+                throw new ArgumentNullException(nameof(dic));
+            }
+
+            return dic.TryGetValue(key, out var result) ? result : default;
+        }
     }
 }

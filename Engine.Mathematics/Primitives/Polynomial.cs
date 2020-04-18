@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
@@ -22,7 +23,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using static Engine.Mathematics;
 using static Engine.Operations;
-using static Engine.Polynomials;
 using static System.Math;
 
 namespace Engine
@@ -36,7 +36,7 @@ namespace Engine
     /// When accessed externally, the coefficients are generally in forward order.</para>
     /// </remarks>
     [DataContract, Serializable]
-    [TypeConverter(typeof(ExpandableObjectConverter))]
+    [TypeConverter(typeof(StructConverter<Polynomial>))]
     [DebuggerDisplay("{ToString()}")]
     public struct Polynomial
         : IEquatable<Polynomial>
@@ -46,12 +46,7 @@ namespace Engine
         /// The array form of the Identity <see cref="Polynomial" />.
         /// </summary>
         public static readonly double[] Identity = { 1, 0 };
-
-        /// <summary>
-        /// The Bisection accuracy.
-        /// </summary>
-        private const double accuracy = 6;
-        #endregion Constants
+        #endregion
 
         #region Implementations
         /// <summary>
@@ -68,7 +63,7 @@ namespace Engine
         /// One minus the T Identity polynomial.
         /// </summary>
         public static readonly Polynomial OneMinusT = 1d - T;
-        #endregion Implementations
+        #endregion
 
         #region Fields
         /// <summary>
@@ -85,7 +80,7 @@ namespace Engine
         /// Semaphore indicating whether the polynomial can be edited.
         /// </summary>
         private bool isReadonly;
-        #endregion Fields
+        #endregion
 
         #region Constructors
         /// <summary>
@@ -120,83 +115,102 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Polynomial"/> struct.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial((double a, double b) tuple)
-            : this(tuple.a, tuple.b)
+        public Polynomial((double A, double B) tuple)
+            : this(tuple.A, tuple.B)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polynomial"/> struct.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial((double a, double b, double c) tuple)
-            : this(tuple.a, tuple.b, tuple.c)
+        public Polynomial((double A, double B, double C) tuple)
+            : this(tuple.A, tuple.B, tuple.C)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polynomial"/> struct.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial((double a, double b, double c, double d) tuple)
-            : this(tuple.a, tuple.b, tuple.c, tuple.d)
+        public Polynomial((double A, double B, double C, double D) tuple)
+            : this(tuple.A, tuple.B, tuple.C, tuple.D)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polynomial"/> struct.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial((double a, double b, double c, double d, double e) tuple)
-            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e)
+        public Polynomial((double A, double B, double C, double D, double E) tuple)
+            : this(tuple.A, tuple.B, tuple.C, tuple.D, tuple.E)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polynomial"/> struct.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial((double a, double b, double c, double d, double e, double f) tuple)
-            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f)
+        public Polynomial((double A, double B, double C, double D, double E, double F) tuple)
+            : this(tuple.A, tuple.B, tuple.C, tuple.D, tuple.E, tuple.F)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polynomial"/> struct.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial((double a, double b, double c, double d, double e, double f, double g) tuple)
-            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g)
+        public Polynomial((double A, double B, double C, double D, double E, double F, double G) tuple)
+            : this(tuple.A, tuple.B, tuple.C, tuple.D, tuple.E, tuple.F, tuple.G)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polynomial"/> struct.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial((double a, double b, double c, double d, double e, double f, double g, double h) tuple)
-            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h)
+        public Polynomial((double A, double B, double C, double D, double E, double F, double G, double H) tuple)
+            : this(tuple.A, tuple.B, tuple.C, tuple.D, tuple.E, tuple.F, tuple.G, tuple.H)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polynomial"/> struct.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i) tuple)
-            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h, tuple.i)
+        public Polynomial((double A, double B, double C, double D, double E, double F, double G, double H, double I) tuple)
+            : this(tuple.A, tuple.B, tuple.C, tuple.D, tuple.E, tuple.F, tuple.G, tuple.H, tuple.I)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Polynomial"/> struct.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i, double j) tuple)
-            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h, tuple.i, tuple.j)
+        public Polynomial((double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) tuple)
+            : this(tuple.A, tuple.B, tuple.C, tuple.D, tuple.E, tuple.F, tuple.G, tuple.H, tuple.I, tuple.J)
         { }
-        #endregion Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) tuple)
+            : this(tuple.A, tuple.B, tuple.C, tuple.D, tuple.E, tuple.F, tuple.G, tuple.H, tuple.I, tuple.J, tuple.K)
+        { }
+        #endregion
 
         #region Indexers
         /// <summary>
@@ -332,7 +346,7 @@ namespace Engine
                 degree = null;
             }
         }
-        #endregion Indexers
+        #endregion
 
         #region Properties
         /// <summary>
@@ -341,9 +355,10 @@ namespace Engine
         /// <value>
         /// The degree.
         /// </value>
-        public PolynomialDegree Degree
-            // If degree uninitialized look up the real order then cache it and return.
-            => degree ??= RealOrder(Epsilon);
+        /// <remarks>
+        /// If degree uninitialized look up the real order then cache it and return.
+        /// </remarks>
+        public PolynomialDegree Degree => degree ??= RealOrder(double.Epsilon);
 
         /// <summary>
         /// Gets the raw number of coefficients found in the polynomial, including any leading zero coefficients.
@@ -351,9 +366,7 @@ namespace Engine
         /// <value>
         /// The count.
         /// </value>
-        public int Count
-            // Get the length of the coefficients array, but let's just say that an uninitialized coefficients array is just a zero constant.
-            => coefficients?.Length ?? 0;
+        public int Count => coefficients?.Length ?? 0;
 
         /// <summary>
         /// Gets a value indicating whether the real roots for the polynomial can be solved with available methods.
@@ -364,9 +377,7 @@ namespace Engine
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
-        public bool CanSolveRealRoots
-            // Set this to the highest degree currently solvable using the Roots() method.
-            => Degree <= PolynomialDegree.Quintic;
+        public bool CanSolveRealRoots => Degree <= PolynomialDegree.Quintic;
 
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="Polynomial" /> struct is read only.
@@ -396,7 +407,6 @@ namespace Engine
         }
 
 #if DEBUG
-
         /// <summary>
         /// Gets or sets the coefficients of the polynomial from highest degree to lowest degree order.
         /// </summary>
@@ -427,11 +437,9 @@ namespace Engine
         /// <value>
         /// The text.
         /// </value>
-        public string Text
-            => ToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
+        public string Text => ToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 #endif
-        #endregion Properties
+        #endregion
 
         #region Operators
         /// <summary>
@@ -446,13 +454,12 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator +(Polynomial value)
-            => value;
+        public static Polynomial operator +(Polynomial value) => Plus(value);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Polynomial" /> structs.
         /// </summary>
-        /// <param name="value">The original value.</param>
+        /// <param name="augend">The original value.</param>
         /// <param name="addend">The amount to add.</param>
         /// <returns>
         /// The <see cref="Polynomial" />.
@@ -462,13 +469,12 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator +(Polynomial value, double addend)
-            => addend + value;
+        public static Polynomial operator +(Polynomial augend, double addend) => Add(augend, addend);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Polynomial" /> structs.
         /// </summary>
-        /// <param name="value">The original value</param>
+        /// <param name="augend">The original value</param>
         /// <param name="addend">The amount to add.</param>
         /// <returns>
         /// The <see cref="Polynomial" />.
@@ -478,18 +484,12 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator +(double value, Polynomial addend)
-        {
-            var res = new double[addend.Count];
-            Array.Copy(addend.coefficients, res, addend.Count);
-            res[0] += value;
-            return new Polynomial { coefficients = res, isReadonly = addend.isReadonly };
-        }
+        public static Polynomial operator +(double augend, Polynomial addend) => Add(augend, addend);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Polynomial" /> structs.
         /// </summary>
-        /// <param name="value">The original value</param>
+        /// <param name="augend">The original value</param>
         /// <param name="addend">The amount to add.</param>
         /// <returns>
         /// The <see cref="Polynomial" />.
@@ -499,26 +499,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator +(Polynomial value, Polynomial addend)
-        {
-            var res = new double[Max(value.Count, addend.Count)];
-            for (var i = 0; i < res.Length; i++)
-            {
-                double p = 0;
-                if (i < value.Count)
-                {
-                    p += value.coefficients[i];
-                }
-
-                if (i < addend.Count)
-                {
-                    p += addend.coefficients[i];
-                }
-
-                res[i] = p;
-            }
-            return new Polynomial { coefficients = res, isReadonly = value.isReadonly | addend.isReadonly };
-        }
+        public static Polynomial operator +(Polynomial augend, Polynomial addend) => Add(augend, addend);
 
         /// <summary>
         /// Unary subtraction operator.
@@ -532,16 +513,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator -(Polynomial value)
-        {
-            var res = new double[value.Count];
-            for (var i = 0; i < res.Length; i++)
-            {
-                res[i] = -value.coefficients[i];
-            }
-
-            return new Polynomial { coefficients = res, isReadonly = value.isReadonly };
-        }
+        public static Polynomial operator -(Polynomial value) => Negate(value);
 
         /// <summary>
         /// Subtract a <see cref="Polynomial" /> from a <see cref="double" /> value.
@@ -556,13 +528,12 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator -(Polynomial value, double subend)
-            => value + (-subend);
+        public static Polynomial operator -(Polynomial value, double subend) => value + (-subend);
 
         /// <summary>
         /// Subtract a <see cref="double" /> from a <see cref="Polynomial" /> value.
         /// </summary>
-        /// <param name="value">The original value</param>
+        /// <param name="minuend">The original value</param>
         /// <param name="subend">The amount to subtract.</param>
         /// <returns>
         /// The <see cref="Polynomial" />.
@@ -572,7 +543,364 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator -(double value, Polynomial subend)
+        public static Polynomial operator -(double minuend, Polynomial subend) => Subtract(minuend, subend);
+
+        /// <summary>
+        /// Subtract a <see cref="Polynomial" /> from another <see cref="Polynomial" /> class.
+        /// </summary>
+        /// <param name="minuend">The original value</param>
+        /// <param name="subend">The amount to subtract.</param>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial operator -(Polynomial minuend, Polynomial subend) => Subtract(minuend, subend);
+
+        /// <summary>
+        /// Scale a <see cref="Polynomial" /> by a value.
+        /// </summary>
+        /// <param name="multiplicand">The original value</param>
+        /// <param name="multiplier">The factor value.</param>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial operator *(Polynomial multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Scale a <see cref="Polynomial" /> by a value.
+        /// </summary>
+        /// <param name="multiplicand">The original value</param>
+        /// <param name="multiplier">The factor value.</param>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial operator *(double multiplicand, Polynomial multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Multiply two <see cref="Polynomial" />s together.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The factor value.</param>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial operator *(Polynomial multiplicand, Polynomial multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Divide a <see cref="Polynomial" /> by a value.
+        /// </summary>
+        /// <param name="dividend">The divisor value</param>
+        /// <param name="divisor">The dividend to add.</param>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial operator /(Polynomial dividend, double divisor) => Divide(dividend, divisor);
+
+        /// <summary>
+        /// Divide a <see cref="Polynomial" /> by a value.
+        /// </summary>
+        /// <param name="dividend">The divisor value</param>
+        /// <param name="divisor">The dividend to add.</param>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial operator /(double dividend, Polynomial divisor) => Divide(dividend, divisor);
+
+        /// <summary>
+        /// Compares two <see cref="Polynomial"/> objects.
+        /// The result specifies whether the values of the x and x
+        /// values of the two <see cref="Polynomial"/> objects are equal.
+        /// </summary>
+        /// <param name="left">The left Polynomial.</param>
+        /// <param name="right">The right Polynomial.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(Polynomial left, Polynomial right) => left.Equals(right);
+
+        /// <summary>
+        /// Compares two <see cref="Polynomial" /> objects.
+        /// The result specifies whether the values of the x or y
+        /// values of the two <see cref="Polynomial" /> objects are unequal.
+        /// </summary>
+        /// <param name="left">The left Polynomial.</param>
+        /// <param name="right">The right Polynomial.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(Polynomial left, Polynomial right) => !(left == right);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.ValueTuple{T, T}"/> to <see cref="Polynomial"/>.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Polynomial((double A, double B) tuple) => new Polynomial(tuple);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.ValueTuple{T, T, T}"/> to <see cref="Polynomial"/>.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Polynomial((double A, double B, double C) tuple) => new Polynomial(tuple);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.ValueTuple{T, T, T, T}"/> to <see cref="Polynomial"/>.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Polynomial((double A, double B, double C, double D) tuple) => new Polynomial(tuple);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.ValueTuple{T, T, T, T, T}"/> to <see cref="Polynomial"/>.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Polynomial((double A, double B, double C, double D, double E) tuple) => new Polynomial(tuple);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.ValueTuple{T, T, T, T, T, T}"/> to <see cref="Polynomial"/>.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Polynomial((double A, double B, double C, double D, double E, double F) tuple) => new Polynomial(tuple);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.ValueTuple{T, T, T, T, T, T, T}"/> to <see cref="Polynomial"/>.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Polynomial((double A, double B, double C, double D, double E, double F, double G) tuple) => new Polynomial(tuple);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.ValueTuple{T, T, T, T, T, T, T, T}"/> to <see cref="Polynomial"/>.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Polynomial((double A, double B, double C, double D, double E, double F, double G, double H) tuple) => new Polynomial(tuple);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.ValueTuple{T, T, T, T, T, T, T, T}"/> to <see cref="Polynomial"/>.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Polynomial((double A, double B, double C, double D, double E, double F, double G, double H, double I) tuple) => new Polynomial(tuple);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.ValueTuple{T, T, T, T, T, T, T, T}"/> to <see cref="Polynomial"/>.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Polynomial((double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) tuple) => new Polynomial(tuple);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.ValueTuple{T, T, T, T, T, T, T, T}"/> to <see cref="Polynomial"/>.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Polynomial((double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) tuple) => new Polynomial(tuple);
+        #endregion
+
+        #region Operator Backing Methods
+        /// <summary>
+        /// Pluses the specified item.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Plus(Polynomial value)
+        {
+            var res = new double[value.Count];
+            for (var i = 0; i < res.Length; i++)
+            {
+                res[i] = +value.coefficients[i];
+            }
+
+            return new Polynomial { coefficients = res, isReadonly = value.isReadonly };
+        }
+
+        /// <summary>
+        /// Adds the specified left.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Add(Polynomial augend, double addend)
+        {
+            var res = new double[augend.Count];
+            Array.Copy(augend.coefficients, res, augend.Count);
+            res[0] += addend;
+            return new Polynomial { coefficients = res, isReadonly = augend.isReadonly };
+        }
+
+        /// <summary>
+        /// Adds the specified left.
+        /// </summary>
+        /// <param name="augend">The left.</param>
+        /// <param name="addend">The right.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Add(double augend, Polynomial addend)
+        {
+            var res = new double[addend.Count];
+            Array.Copy(addend.coefficients, res, addend.Count);
+            res[0] += augend;
+            return new Polynomial { coefficients = res, isReadonly = addend.isReadonly };
+        }
+
+        /// <summary>
+        /// Adds the specified left.
+        /// </summary>
+        /// <param name="augend">The left.</param>
+        /// <param name="addend">The right.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Add(Polynomial augend, Polynomial addend)
+        {
+            var res = new double[Max(augend.Count, addend.Count)];
+            for (var i = 0; i < res.Length; i++)
+            {
+                double p = 0;
+                if (i < augend.Count)
+                {
+                    p += augend.coefficients[i];
+                }
+
+                if (i < addend.Count)
+                {
+                    p += addend.coefficients[i];
+                }
+
+                res[i] = p;
+            }
+            return new Polynomial { coefficients = res, isReadonly = augend.isReadonly | addend.isReadonly };
+        }
+
+        /// <summary>
+        /// Negates the specified item.
+        /// </summary>
+        /// <param name="value">The item.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Negate(Polynomial value)
+        {
+            var res = new double[value.Count];
+            for (var i = 0; i < res.Length; i++)
+            {
+                res[i] = -value.coefficients[i];
+            }
+
+            return new Polynomial { coefficients = res, isReadonly = value.isReadonly };
+        }
+
+        /// <summary>
+        /// Subtracts the specified left.
+        /// </summary>
+        /// <param name="minuend">The left.</param>
+        /// <param name="subend">The right.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Subtract(Polynomial minuend, double subend)
+        {
+            var res = new double[minuend.Count];
+            for (var i = 0; i < res.Length; i++)
+            {
+                res[i] = -minuend.coefficients[i];
+            }
+
+            res[0] += subend;
+            return new Polynomial { coefficients = res, isReadonly = minuend.isReadonly };
+        }
+
+        /// <summary>
+        /// Subtracts the specified left.
+        /// </summary>
+        /// <param name="minuend">The left.</param>
+        /// <param name="subend">The right.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Subtract(double minuend, Polynomial subend)
         {
             var res = new double[subend.Count];
             for (var i = 0; i < res.Length; i++)
@@ -580,32 +908,27 @@ namespace Engine
                 res[i] = -subend.coefficients[i];
             }
 
-            res[0] += value;
+            res[0] += minuend;
             return new Polynomial { coefficients = res, isReadonly = subend.isReadonly };
         }
 
         /// <summary>
-        /// Subtract a <see cref="Polynomial" /> from another <see cref="Polynomial" /> class.
+        /// Subtracts the specified left.
         /// </summary>
-        /// <param name="value">The original value</param>
-        /// <param name="subend">The amount to subtract.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
+        /// <param name="minuend">The left.</param>
+        /// <param name="subend">The right.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator -(Polynomial value, Polynomial subend)
+        public static Polynomial Subtract(Polynomial minuend, Polynomial subend)
         {
-            var res = new double[Max(value.Count, subend.Count)];
+            var res = new double[Max(minuend.Count, subend.Count)];
             for (var i = 0; i < res.Length; i++)
             {
                 double p = 0;
-                if (i < value.Count)
+                if (i < minuend.Count)
                 {
-                    p += value.coefficients[i];
+                    p += minuend.coefficients[i];
                 }
 
                 if (i < subend.Count)
@@ -616,271 +939,239 @@ namespace Engine
                 res[i] = p;
             }
 
-            return new Polynomial { coefficients = res, isReadonly = value.isReadonly | subend.isReadonly };
+            return new Polynomial { coefficients = res, isReadonly = minuend.isReadonly | subend.isReadonly };
         }
 
         /// <summary>
-        /// Scale a <see cref="Polynomial" /> by a value.
+        /// Multiplies the specified left.
         /// </summary>
-        /// <param name="value">The original value</param>
-        /// <param name="factor">The factor value.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
+        /// <param name="multiplicand">The left.</param>
+        /// <param name="multiplier">The right.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator *(Polynomial value, double factor)
-            => factor * value;
-
-        /// <summary>
-        /// Scale a <see cref="Polynomial" /> by a value.
-        /// </summary>
-        /// <param name="value">The original value</param>
-        /// <param name="factor">The factor value.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator *(double value, Polynomial factor)
+        public static Polynomial Multiply(Polynomial multiplicand, double multiplier)
         {
-            var res = new double[factor.Count];
+            var res = new double[multiplicand.Count];
             for (var i = 0; i < res.Length; i++)
             {
-                res[i] = value * factor.coefficients[i];
+                res[i] = multiplicand.coefficients[i] * multiplier;
             }
 
-            return new Polynomial { coefficients = res, isReadonly = factor.isReadonly };
+            return new Polynomial { coefficients = res, isReadonly = multiplicand.isReadonly };
         }
 
         /// <summary>
-        /// Multiply two <see cref="Polynomial" />s together.
+        /// Multiplies the specified left.
         /// </summary>
-        /// <param name="value">The original value</param>
-        /// <param name="factor">The factor value.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
+        /// <param name="multiplicand">The left.</param>
+        /// <param name="multiplier">The right.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator *(Polynomial value, Polynomial factor)
+        public static Polynomial Multiply(double multiplicand, Polynomial multiplier)
         {
-            var res = new double[value.Count + factor.Count - 1];
-            for (var i = 0; i < value.Count; i++)
+            var res = new double[multiplier.Count];
+            for (var i = 0; i < res.Length; i++)
             {
-                for (var j = 0; j < factor.Count; j++)
+                res[i] = multiplicand * multiplier.coefficients[i];
+            }
+
+            return new Polynomial { coefficients = res, isReadonly = multiplier.isReadonly };
+        }
+
+        /// <summary>
+        /// Multiplies the specified left.
+        /// </summary>
+        /// <param name="multiplicand">The left.</param>
+        /// <param name="multiplier">The right.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Multiply(Polynomial multiplicand, Polynomial multiplier)
+        {
+            var res = new double[multiplicand.Count + multiplier.Count - 1];
+            for (var i = 0; i < multiplicand.Count; i++)
+            {
+                for (var j = 0; j < multiplier.Count; j++)
                 {
-                    var mul = value.coefficients[i] * factor.coefficients[j];
+                    var mul = multiplicand.coefficients[i] * multiplier.coefficients[j];
                     res[i + j] += mul;
                 }
             }
 
-            return new Polynomial { coefficients = res, isReadonly = value.isReadonly | factor.isReadonly };
+            return new Polynomial { coefficients = res, isReadonly = multiplicand.isReadonly | multiplier.isReadonly };
         }
 
         /// <summary>
-        /// Divide a <see cref="Polynomial" /> by a value.
+        /// Divides the specified left.
         /// </summary>
-        /// <param name="divisor">The divisor value</param>
-        /// <param name="dividend">The dividend to add.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
+        /// <param name="dividend">The left.</param>
+        /// <param name="divisor">The right.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator /(Polynomial divisor, double dividend)
-        {
-            var res = new double[divisor.Count];
-            for (var i = 0; i < res.Length; i++)
-            {
-                res[i] = divisor.coefficients[i] / dividend;
-            }
-
-            return new Polynomial { coefficients = res, isReadonly = divisor.isReadonly };
-        }
-
-        /// <summary>
-        /// Divide a <see cref="Polynomial" /> by a value.
-        /// </summary>
-        /// <param name="divisor">The divisor value</param>
-        /// <param name="dividend">The dividend to add.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial operator /(double divisor, Polynomial dividend)
+        public static Polynomial Divide(Polynomial dividend, double divisor)
         {
             var res = new double[dividend.Count];
             for (var i = 0; i < res.Length; i++)
             {
-                res[i] = divisor / dividend.coefficients[i];
+                res[i] = dividend.coefficients[i] / divisor;
             }
 
             return new Polynomial { coefficients = res, isReadonly = dividend.isReadonly };
         }
 
         /// <summary>
-        /// Compares two <see cref="Polynomial"/> objects.
-        /// The result specifies whether the values of the x and x
-        /// values of the two <see cref="Polynomial"/> objects are equal.
+        /// Divides the specified left.
         /// </summary>
-        /// <param name="left">The left Polynomial.</param>
-        /// <param name="right">The right Polynomial.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <param name="dividend">The left.</param>
+        /// <param name="divisor">The right.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Polynomial left, Polynomial right) => Equals(left, right);
+        public static Polynomial Divide(double dividend, Polynomial divisor)
+        {
+            var res = new double[divisor.Count];
+            for (var i = 0; i < res.Length; i++)
+            {
+                res[i] = dividend / divisor.coefficients[i];
+            }
+
+            return new Polynomial { coefficients = res, isReadonly = divisor.isReadonly };
+        }
 
         /// <summary>
-        /// Compares two <see cref="Polynomial" /> objects.
-        /// The result specifies whether the values of the x or y
-        /// values of the two <see cref="Polynomial" /> objects are unequal.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="left">The left Polynomial.</param>
-        /// <param name="right">The right Polynomial.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        /// The <see cref="bool" />.
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Polynomial left, Polynomial right) => !Equals(left, right);
+        public override bool Equals([AllowNull] object obj) => obj is Polynomial d && Equals(d);
 
         /// <summary>
-        /// Implicit conversion from a binomial tuple to a polynomial.
+        /// Indicates whether the current object is equal to another object of the same type.
         /// </summary>
-        /// <param name="tuple">A tuple form of the polynomial.</param>
+        /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// The <see cref="Polynomial" />.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Polynomial((double a, double b) tuple)
-            => new Polynomial(tuple.a, tuple.b);
+        public bool Equals([AllowNull] Polynomial other)
+        {
+            var t1 = Trim();
+            var t2 = other.Trim();
+
+            if (t1.Count != t2.Count)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < t1.Count; i++)
+            {
+                if (Abs(t1.coefficients[i] - t2.coefficients[i]) > Epsilon)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         /// <summary>
-        /// Implicit conversion from a trinomial tuple to a polynomial.
+        /// Froms the value tuple.
         /// </summary>
-        /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Polynomial((double a, double b, double c) tuple)
-            => new Polynomial(tuple.a, tuple.b, tuple.c);
+        public static Polynomial FromValueTuple((double A, double B) tuple) => new Polynomial(tuple);
 
         /// <summary>
-        /// Implicit conversion from a quadrinomial tuple to a polynomial.
+        /// Froms the value tuple.
         /// </summary>
-        /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Polynomial((double a, double b, double c, double d) tuple)
-            => new Polynomial(tuple.a, tuple.b, tuple.c, tuple.d);
+        public static Polynomial FromValueTuple((double A, double B, double C) tuple) => new Polynomial(tuple);
 
         /// <summary>
-        /// Implicit conversion from a quintinomial tuple to a polynomial.
+        /// Froms the value tuple.
         /// </summary>
-        /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Polynomial((double a, double b, double c, double d, double e) tuple)
-            => new Polynomial(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e);
+        public static Polynomial FromValueTuple((double A, double B, double C, double D) tuple) => new Polynomial(tuple);
 
         /// <summary>
-        /// Implicit conversion from a sextomial tuple to a polynomial.
+        /// Froms the value tuple.
         /// </summary>
-        /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f) tuple)
-            => new Polynomial(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f);
+        public static Polynomial FromValueTuple((double A, double B, double C, double D, double E) tuple) => new Polynomial(tuple);
 
         /// <summary>
-        /// Implicit conversion from a septomial tuple to a polynomial.
+        /// Froms the value tuple.
         /// </summary>
-        /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g) tuple)
-            => new Polynomial(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g);
+        public static Polynomial FromValueTuple((double A, double B, double C, double D, double E, double F) tuple) => new Polynomial(tuple);
 
         /// <summary>
-        /// Implicit conversion from a octomial tuple to a polynomial.
+        /// Froms the value tuple.
         /// </summary>
-        /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h) tuple)
-            => new Polynomial(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h);
+        public static Polynomial FromValueTuple((double A, double B, double C, double D, double E, double F, double G) tuple) => new Polynomial(tuple);
 
         /// <summary>
-        /// Implicit conversion from a nonomial tuple to a polynomial.
+        /// Froms the value tuple.
         /// </summary>
-        /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i) tuple)
-            => new Polynomial(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h, tuple.i);
+        public static Polynomial FromValueTuple((double A, double B, double C, double D, double E, double F, double G, double H) tuple) => new Polynomial(tuple);
 
         /// <summary>
-        /// Implicit conversion from a decomial tuple to a polynomial.
+        /// Froms the value tuple.
         /// </summary>
-        /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i, double j) tuple)
-            => new Polynomial(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h, tuple.i, tuple.j);
+        public static Polynomial FromValueTuple((double A, double B, double C, double D, double E, double F, double G, double H, double I) tuple) => new Polynomial(tuple);
 
         /// <summary>
-        /// Implicit conversion from a decomial tuple to a polynomial.
+        /// Froms the value tuple.
         /// </summary>
-        /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k) tuple)
-            => new Polynomial(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h, tuple.i, tuple.j, tuple.k);
-        #endregion Operators
+        public static Polynomial FromValueTuple((double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) tuple) => new Polynomial(tuple);
+
+        /// <summary>
+        /// Froms the value tuple.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial FromValueTuple((double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) tuple) => new Polynomial(tuple);
+        #endregion
 
         #region Operations
         /// <summary>
@@ -894,12 +1185,12 @@ namespace Engine
         /// A hodge-podge method based on Simplify from of: http://www.kevlindev.com/
         /// and Trim from: https://github.com/superlloyd/Poly
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial Trim(double epsilon = Epsilon)
+        public Polynomial Trim(double epsilon = double.Epsilon)
         {
             Contract.Ensures(Contract.Result<Polynomial>() != null);
-            //Contract.EndContractBlock();
+            Contract.EndContractBlock();
 
             // If there are no coefficients then this is a Monomial of 0.
             if (coefficients is null || coefficients.Length < 1)
@@ -930,7 +1221,7 @@ namespace Engine
         public Polynomial Derivate()
         {
             Contract.Ensures(Contract.Result<Polynomial>() != null);
-            //Contract.EndContractBlock();
+            Contract.EndContractBlock();
 
             var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
             var res = new double[Max(1, order)];
@@ -954,7 +1245,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial Normalize(double epsilon = Epsilon)
+        public Polynomial Normalize(double epsilon = double.Epsilon)
         {
             //Contract.Ensures(Contract.Result<Polynomial>().Coefficients != null);
             //Contract.EndContractBlock();
@@ -1204,7 +1495,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public PolynomialDegree RealOrder(double epsilon = Epsilon)
+        public PolynomialDegree RealOrder(double epsilon = double.Epsilon)
         {
             var pos = 1;
 
@@ -1354,57 +1645,6 @@ namespace Engine
             coeffs[d] = 1d;
             return new Polynomial { coefficients = coeffs };
         }
-
-        /// <summary>
-        /// Creates a Matrix transformed Bezier Polynomial from the Bezier parameters.
-        /// </summary>
-        /// <param name="values">The Bezier node parameters.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">At least 2 different points must be given</exception>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Bezier(params double[] values)
-        {
-            Contract.Ensures(Contract.Result<Polynomial>() != null);
-
-            return (values?.Length - 1 switch
-            {
-                var n when n < 1 => throw new ArgumentNullException(nameof(values), "At least 2 different points must be given"),
-                1 => LinearBezierBernsteinBasis(values[0], values[1]),
-                2 => QuadraticBezierBernsteinBasis(values[0], values[1], values[2]),
-                3 => CubicBezierBernsteinBasis(values[0], values[1], values[2], values[3]),
-                4 => QuarticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4]),
-                5 => QuinticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5]),
-                6 => SexticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6]),
-                7 => SepticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]),
-                8 => OcticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]),
-                9 => NonicBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]),
-                10 => DecicBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]),
-                // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
-                _ => Bezier(0, values.Length - 1, values),
-            }).Value;
-        }
-
-        /// <summary>
-        /// Internal Recursive method for calculating the Bezier Polynomial.
-        /// </summary>
-        /// <param name="from">The from.</param>
-        /// <param name="to">The to.</param>
-        /// <param name="values">The values.</param>
-        /// <returns>
-        /// The <see cref="Polynomial" />.
-        /// </returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Polynomial Bezier(int from, int to, double[] values)
-            => (from == to)
-            ? new Polynomial(values[from])
-            : (OneMinusT * Bezier(from, to - 1, values)) + (T * Bezier(from + 1, to, values));
         #endregion Factories
 
         #region Methods
@@ -1422,8 +1662,9 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double? Bisection(double min, double max, double epsilon = Epsilon)
+        public double? Bisection(double min, double max, double epsilon = double.Epsilon)
         {
+            const double accuracy = 6;
             var minValue = Evaluate(min);
             var maxValue = Evaluate(max);
             double? result = null;
@@ -1474,7 +1715,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public IEnumerable<double> RealOrComplexRoots(double epsilon = Epsilon)
+        public IEnumerable<double> RealOrComplexRoots(double epsilon = double.Epsilon)
         {
             if (CanSolveRealRoots)
             {
@@ -1499,7 +1740,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Complex[] ComplexRoots(double epsilon = Epsilon)
+        public Complex[] ComplexRoots(double epsilon = double.Epsilon)
         {
             var poly = Normalize();
             if (poly.Count == 1)
@@ -1582,9 +1823,9 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double[] RootsInInterval(double min = 0, double max = 1, double epsilon = Epsilon)
+        public double[] RootsInInterval(double min = 0, double max = 1, double epsilon = double.Epsilon)
         {
-            var roots = new List<double>();
+            var roots = new HashSet<double>();
             double? root;
             if (Degree == PolynomialDegree.Linear)
             {
@@ -1616,7 +1857,7 @@ namespace Engine
                         }
                     }
                     // Find root on [droots[count-1],xmax]
-                    root = Bisection(droots[droots.Length - 1], max, epsilon);
+                    root = Bisection(droots[^1], max, epsilon);
                     if (root != null)
                     {
                         roots.Add(root.Value);
@@ -1646,9 +1887,9 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double[] Roots(double epsilon = Epsilon)
+        public double[] Roots(double epsilon = double.Epsilon)
         {
             switch (Degree)
             {
@@ -1660,15 +1901,15 @@ namespace Engine
 
                     return new double[] { coefficients[0] };
                 case PolynomialDegree.Linear:
-                    return LinearRoots(coefficients[1], coefficients[0], epsilon).ToArray();
+                    return LinearRoots(ref coefficients[1], ref coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Quadratic:
-                    return QuadraticRoots(coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
+                    return QuadraticRoots(ref coefficients[2], ref coefficients[1], ref coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Cubic:
-                    return CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
+                    return CubicRoots(ref coefficients[3], ref coefficients[2], ref coefficients[1], ref coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Quartic:
-                    return QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
+                    return QuarticRoots(ref coefficients[4], ref coefficients[3], ref coefficients[2], ref coefficients[1], ref coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Quintic:
-                    return QuinticRoots(coefficients[5], coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
+                    return QuinticRoots(ref coefficients[5], ref coefficients[4], ref coefficients[3], ref coefficients[2], ref coefficients[1], ref coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Sextic:
                 // ToDo: Uncomment when Sextic roots are implemented.
                 //return poly.SexticRoots(epsilon);
@@ -1685,9 +1926,7 @@ namespace Engine
 
             // should try Newton's method and/or bisection
         }
-        #endregion Methods
 
-        #region Standard Methods
         /// <summary>
         /// Clears the coefficients of the polynomial.
         /// </summary>
@@ -1702,79 +1941,18 @@ namespace Engine
 
             degree = null;
         }
+        #endregion
 
+        #region Standard Methods
         /// <summary>
-        /// Serves as the default hash function.
+        /// Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
-        /// </returns>
-        public override int GetHashCode() => coefficients?.GetHashCode() ?? 0;
-
-        /// <summary>
-        /// Compares two Polynomials.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>
-        /// The <see cref="bool" />.
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Polynomial a, Polynomial b) => Equals(a, b);
-
-        /// <summary>
-        /// Compares two <see cref="Polynomial" /> objects to determine equality.
-        /// </summary>
-        /// <param name="a">Polynomial a.</param>
-        /// <param name="b">Polynomial b.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Polynomial a, Polynomial b)
-        {
-            var t1 = a.Trim();
-            var t2 = b.Trim();
-            //if (t2 is null)
-            //{
-            //    return false;
-            //}
-
-            if (t1.Count != t2.Count)
-            {
-                return false;
-            }
-
-            for (var i = 0; i < t1.Count; i++)
-            {
-                if (Abs(t1.coefficients[i] - t2.coefficients[i]) > Epsilon)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Compares an object this <see cref="Polynomial" /> to determine equality.
-        /// </summary>
-        /// <param name="obj">The object to compare.</param>
-        /// <returns>
-        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is Polynomial && Equals(this, (Polynomial)obj);
-
-        /// <summary>
-        /// Compares two <see cref="Polynomial" /> objects to determine equality.
-        /// </summary>
-        /// <param name="value">The <see cref="Polynomial" /> object to compare.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Polynomial value) => Equals(this, value);
+        public override int GetHashCode() => HashCode.Combine(Coefficients);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Polynomial" /> struct.
@@ -1784,7 +1962,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Polynomial" /> struct based on the IFormatProvider
@@ -1796,7 +1974,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider /* format provider */);
+        public string ToString(IFormatProvider provider) => ToString(string.Empty /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Polynomial" /> struct based on the IFormatProvider
@@ -1809,21 +1987,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Polynomial" /> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
-        /// <returns>
-        /// The <see cref="string" />.
-        /// </returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private string ConvertToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
         {
             // ¹²³⁴⁵⁶⁷⁸⁹⁰ ⁱ ₁₂₃₄₅₆₇₈₉₀ ⁻⁼⁺⁽⁾ⁿ‽ ₊₋₌₍₎ₓ
             var coefs = new List<string>();
@@ -1832,16 +1996,16 @@ namespace Engine
             {
                 var value = coefficients[i];
                 var powStr = i.ToString(format, provider);
-                powStr = powStr.Replace("1", "¹");
-                powStr = powStr.Replace("2", "²");
-                powStr = powStr.Replace("3", "³");
-                powStr = powStr.Replace("4", "⁴");
-                powStr = powStr.Replace("5", "⁵");
-                powStr = powStr.Replace("6", "⁶");
-                powStr = powStr.Replace("7", "⁷");
-                powStr = powStr.Replace("8", "⁸");
-                powStr = powStr.Replace("9", "⁹");
-                powStr = powStr.Replace("0", "⁰");
+                powStr = powStr.Replace("1", "¹", StringComparison.OrdinalIgnoreCase);
+                powStr = powStr.Replace("2", "²", StringComparison.OrdinalIgnoreCase);
+                powStr = powStr.Replace("3", "³", StringComparison.OrdinalIgnoreCase);
+                powStr = powStr.Replace("4", "⁴", StringComparison.OrdinalIgnoreCase);
+                powStr = powStr.Replace("5", "⁵", StringComparison.OrdinalIgnoreCase);
+                powStr = powStr.Replace("6", "⁶", StringComparison.OrdinalIgnoreCase);
+                powStr = powStr.Replace("7", "⁷", StringComparison.OrdinalIgnoreCase);
+                powStr = powStr.Replace("8", "⁸", StringComparison.OrdinalIgnoreCase);
+                powStr = powStr.Replace("9", "⁹", StringComparison.OrdinalIgnoreCase);
+                powStr = powStr.Replace("0", "⁰", StringComparison.OrdinalIgnoreCase);
                 if (value != 0)
                 {
                     var sign = (value < 0) ? " - " : " + ";
@@ -1881,100 +2045,6 @@ namespace Engine
 
             return result;
         }
-
-        /// <summary>
-        /// Pluses the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        public static Polynomial Plus(Polynomial item) => +item;
-
-        /// <summary>
-        /// Adds the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Polynomial Add(Polynomial left, Polynomial right) => left + right;
-
-        /// <summary>
-        /// Adds the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Polynomial Add(double left, Polynomial right) => left + right;
-
-        /// <summary>
-        /// Adds the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Polynomial Add(Polynomial left, double right) => left + right;
-
-        /// <summary>
-        /// Negates the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        public static Polynomial Negate(Polynomial item) => -item;
-
-        /// <summary>
-        /// Subtracts the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Polynomial Subtract(Polynomial left, Polynomial right) => left - right;
-
-        /// <summary>
-        /// Subtracts the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Polynomial Subtract(double left, Polynomial right) => left - right;
-
-        /// <summary>
-        /// Subtracts the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Polynomial Subtract(Polynomial left, double right) => left - right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Polynomial Multiply(double left, Polynomial right) => left * right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Polynomial Multiply(Polynomial left, double right) => left * right;
-
-        /// <summary>
-        /// Divides the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Polynomial Divide(double left, Polynomial right) => left / right;
-
-        /// <summary>
-        /// Divides the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Polynomial Divide(Polynomial left, double right) => left / right;
-        #endregion Standard Methods
+        #endregion
     }
 }

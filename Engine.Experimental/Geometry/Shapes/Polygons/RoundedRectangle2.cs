@@ -20,7 +20,6 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(RoundedRectangle2))]
     public abstract class RoundedRectangle2
         : Shape2D
     {

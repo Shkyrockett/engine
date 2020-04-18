@@ -8,6 +8,7 @@
 // <summary></summary>
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace Engine.Geometry
@@ -549,7 +550,7 @@ namespace Engine.Geometry
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(Complex other) => Real == other.Real && Imaginary == other.Imaginary;
+        public bool Equals([AllowNull] Complex other) => Real == other.Real && Imaginary == other.Imaginary;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -557,7 +558,7 @@ namespace Engine.Geometry
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode() => Real.GetHashCode() ^ Imaginary.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(Real, Imaginary);
 
         /// <summary>
         /// The to string.

@@ -49,12 +49,12 @@ namespace Engine
                 new Point(rectangle.Left, rectangle.Bottom)
             };
 
-        /// <summary>
-        /// Creates a <see cref="Rectangle"/> from a center point and it's size.
-        /// </summary>
-        /// <param name="center">The center point to create the <see cref="Rectangle"/> as a <see cref="Point"/>.</param>
-        /// <param name="size">The height and width of the new <see cref="Rectangle"/> as a <see cref="Size"/>.</param>
-        /// <returns>Returns a <see cref="Rectangle"/> based around a center point and it's size.</returns>
-        public static Rectangle RectangleFromCenter(Point center, Size size) => new Rectangle(Point.Subtract(center, size.Inflate(0.5f)), size);
+        ///// <summary>
+        ///// Creates a <see cref="Rectangle"/> from a center point and it's size.
+        ///// </summary>
+        ///// <param name="center">The center point to create the <see cref="Rectangle"/> as a <see cref="Point"/>.</param>
+        ///// <param name="size">The height and width of the new <see cref="Rectangle"/> as a <see cref="Size"/>.</param>
+        ///// <returns>Returns a <see cref="Rectangle"/> based around a center point and it's size.</returns>
+        //public static Rectangle RectangleFromCenter(Point center, Size size) => new Rectangle(Point.Subtract(center, size.Inflate(0.5f)), size);
     }
 }

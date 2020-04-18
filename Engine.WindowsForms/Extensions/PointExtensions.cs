@@ -409,7 +409,7 @@ namespace Engine
         /// <param name="angle">The angle to rotate the points in pi radians.</param>
         public static void RotatePoints(this Point[] points, double angle)
         {
-            for (var i = 0; i < points.Length; i++)
+            for (var i = 0; i < points?.Length; i++)
             {
                 points[i] = RotatePoint(points[i], angle);
             }
@@ -423,7 +423,7 @@ namespace Engine
         /// <param name="angle">The angle to rotate the points in pi radians.</param>
         public static void RotatePoints(this Point[] points, Point fulcrum, double angle)
         {
-            for (var i = 0; i < points.Length; i++)
+            for (var i = 0; i < points?.Length; i++)
             {
                 points[i] = RotatePoint(points[i], fulcrum, angle);
             }

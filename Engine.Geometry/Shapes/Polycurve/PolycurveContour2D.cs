@@ -254,7 +254,7 @@ namespace Engine
 
             if (t == 1)
             {
-                return Items[Items.Count - 1].Tail.Value;
+                return Items[^1].Tail.Value;
             }
 
             var weights = new (double length, double accumulated)[Items.Count];
@@ -328,11 +328,11 @@ namespace Engine
                     AddLineSegment(p.Point);
                     break;
                 case LineSegment2D p:
-                    if (p.A == Items[Items.Count - 1].Tail)
+                    if (p.A == Items[^1].Tail)
                     {
                         AddLineSegment(p.B);
                     }
-                    else if (p.B == Items[Items.Count - 1].Tail)
+                    else if (p.B == Items[^1].Tail)
                     {
                         AddLineSegment(p.A);
                     }
@@ -371,7 +371,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour2D AddLineSegment(Point2D end)
         {
-            var segment = new LineCurveSegment2D(Items[Items.Count - 1], end);
+            var segment = new LineCurveSegment2D(Items[^1], end);
             Items.Add(segment);
             return this;
         }
@@ -388,7 +388,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour2D AddArc(double centerX, double centerY, double radius, double sweepAngle)
         {
-            var arc = new ArcSegment2D(Items[Items.Count - 1], centerX, centerY, radius, sweepAngle);
+            var arc = new ArcSegment2D(Items[^1], centerX, centerY, radius, sweepAngle);
             Items.Add(arc);
             return this;
         }
@@ -407,7 +407,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour2D AddArc(double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
         {
-            var arc = new ArcSegment2D(Items[Items.Count - 1], r1, r2, angle, largeArc, sweep, end);
+            var arc = new ArcSegment2D(Items[^1], r1, r2, angle, largeArc, sweep, end);
             Items.Add(arc);
             return this;
         }
@@ -422,7 +422,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour2D AddQuadraticBezier(Point2D handle, Point2D end)
         {
-            var quad = new QuadraticBezierSegment2D(Items[Items.Count - 1], handle, end);
+            var quad = new QuadraticBezierSegment2D(Items[^1], handle, end);
             Items.Add(quad);
             return this;
         }
@@ -459,7 +459,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour2D AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
         {
-            var cubic = new CubicBezierSegment2D(items[items.Count - 1], handle1, handle2, end);
+            var cubic = new CubicBezierSegment2D(items[^1], handle1, handle2, end);
             items.Add(cubic);
             return this;
         }
@@ -492,9 +492,9 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal PolycurveContour2D AddCardinalCurve(List<Point2D> nodes)
+        internal PolycurveContour2D AddCardinalCurve(IList<Point2D> nodes)
         {
-            var cardinal = new CardinalSegment2D(Items[Items.Count - 1], nodes);
+            var cardinal = new CardinalSegment2D(Items[^1], nodes);
             Items.Add(cardinal);
             return this;
         }
@@ -505,7 +505,7 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour2D Close()
         {
-            if (Items[0].Head.Value != Items[Items.Count - 1].Tail.Value)
+            if (Items[0].Head.Value != Items[^1].Tail.Value)
             {
                 AddLineSegment(Items[0].Head.Value);
             }

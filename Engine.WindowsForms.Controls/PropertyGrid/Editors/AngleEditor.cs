@@ -52,7 +52,7 @@ namespace Engine
             IWindowsFormsEditorService useService;
 
             // ----- Prepare the interface to the drop-down control.
-            useService = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+            useService = (IWindowsFormsEditorService)provider?.GetService(typeof(IWindowsFormsEditorService));
             if (uiDisplay is null)
             {
                 uiDisplay = new AngleControl();

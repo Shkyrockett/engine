@@ -243,8 +243,7 @@ namespace Engine
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public static bool operator ==(Bezier left, Bezier right)
-            => left.Equals(right);
+        public static bool operator ==(Bezier left, Bezier right) => left.Equals(right);
 
         /// <summary>
         /// The operator !=.
@@ -252,8 +251,7 @@ namespace Engine
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public static bool operator !=(Bezier left, Bezier right)
-            => !left.Equals(right);
+        public static bool operator !=(Bezier left, Bezier right) => !left.Equals(right);
         #endregion Operators
 
         #region Factories
@@ -377,7 +375,7 @@ namespace Engine
             // One-time compute of derivative coordinates
             var derivitivePoints = new List<List<Point2D>>();
             var p = Points;
-            for (int d = p.Count, c = d - 1; d > 1; d--, c--)
+            for (int d = (p?.Count).Value, c = d - 1; d > 1; d--, c--)
             {
                 var list = new List<Point2D>();
                 for (var j = 0; j < c; j++)
@@ -388,10 +386,10 @@ namespace Engine
                     //,z: c * (p[j + 1].Z - p[j].Z)
                     );
 
-                    list.Add(dpt);
+                    list?.Add(dpt);
                 }
 
-                derivitivePoints.Add(list);
+                derivitivePoints?.Add(list);
                 p = list;
             }
 
@@ -399,7 +397,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// The computedirection.
+        /// The compute direction.
         /// </summary>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
@@ -408,7 +406,12 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RotationDirection ComputeDirection(List<Point2D> Points)
         {
-            var angle = BezierUtil.Angle(Points[0], Points[Points.Count - 1], Points[1]);
+            if (Points is null)
+            {
+                throw new ArgumentNullException(nameof(Points));
+            }
+
+            var angle = BezierUtil.Angle(Points[0], Points[^1], Points[1]);
             return angle > 0 ? RotationDirection.Clockwise : RotationDirection.CounterClockwise;
         }
 
@@ -475,7 +478,7 @@ namespace Engine
         /// <param name="ts">The ts.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        public double PB(double ts, double epsilon = Epsilon)
+        public double PB(double ts, double epsilon = double.Epsilon)
         {
             // The curve parameter interval[tmin , tmax].
             var tmin = 0d;
@@ -485,7 +488,10 @@ namespace Engine
             //double umin; // The curve parameter i n t e r va l [ umin , umax ] .
             //Point2D Y(double t) { return Interpolate_Ported(ts); };
             // The position Y( t ) , tmin <= t <= tmax. 
-            Point2D DY(double t) { return Derivativate_Ported(ts); };
+            Point2D DY(double t)
+            {
+                return Derivativate_Ported(ts);
+            };
             static double Length(Point2D u) { return double.NaN; }
             //double LengthDY(double u) { return Length(DY(u)); }
             // The derivative dY( t )/dt , tmin <= t <= tmax . 
@@ -1027,7 +1033,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Cut a <see cref="BezierSegment"/> into multiple fragments at the given t indices, using "De Casteljau" algorithm.
+        /// Cut a <see cref="BezierSegment2D"/> into multiple fragments at the given t indices, using "De Casteljau" algorithm.
         /// The value at which to split the curve. Should be strictly inside ]0,1[ interval.
         /// </summary>
         /// <param name="points">The points.</param>
@@ -1089,7 +1095,7 @@ namespace Engine
         {
             if (t < 0 || t > 1)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(t));
             }
 
             var bezier1 = new List<Point2D>();
@@ -1554,7 +1560,7 @@ namespace Engine
                 // console.log("[F] arc found", s, prev_e, prev_arc.x, prev_arc.y, prev_arc.s, prev_arc.e);
 
                 prev_arc ??= arc;
-                circles.Add(prev_arc);
+                circles?.Add(prev_arc);
                 s = prev_e;
             }
             while (e < 1);
@@ -1579,7 +1585,7 @@ namespace Engine
             var q = (e - s) / 4d;
             var c1 = Interpolate_Ported(s + q);
             var c2 = Interpolate_Ported(e - q);
-            var reff = Measurements.Distance(pc.Center, np1);
+            var reff = Measurements.Distance((pc?.Center).Value, np1);
             var d1 = Measurements.Distance(pc.Center, c1);
             var d2 = Measurements.Distance(pc.Center, c2);
             return Abs(d1 - reff) + Abs(d2 - reff);
@@ -1763,7 +1769,7 @@ namespace Engine
         public bool Overlaps(Bezier curve)
         {
             var lbbox = Bbox();
-            var tbbox = curve.Bbox();
+            var tbbox = curve?.Bbox();
             return BezierUtil.Bboxoverlap(lbbox, tbbox);
         }
 
@@ -1776,8 +1782,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<Pair> Intersects()
-            => Selfintersects();
+        public List<Pair> Intersects() => Selfintersects();
 
         /// <summary>
         /// The intersects.
@@ -1789,8 +1794,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<Pair> Intersects(Bezier curve)
-            => Curveintersects(Reduce(), curve.Reduce());
+        public List<Pair> Intersects(Bezier curve) => Curveintersects(Reduce(), curve?.Reduce());
 
         /// <summary>
         /// The intersects.
@@ -1802,8 +1806,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<bool> Intersects(Line2D line)
-            => LineIntersects(line);
+        public List<bool> Intersects(LineSegment2D line) => LineIntersects(line);
 
         /// <summary>
         /// The line intersects.
@@ -1815,12 +1818,12 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<bool> LineIntersects(Line2D line)
+        public List<bool> LineIntersects(LineSegment2D line)
         {
-            var mx = Min(line.P1.X, line.P2.X);
-            var my = Min(line.P1.Y, line.P2.Y);
-            var MX = Max(line.P1.X, line.P2.X);
-            var MY = Max(line.P1.Y, line.P2.Y);
+            var mx = Min(line.A.X, line.B.X);
+            var my = Min(line.A.Y, line.B.Y);
+            var MX = Max(line.A.X, line.B.X);
+            var MY = Max(line.A.Y, line.B.Y);
             var self = this;
 
             return new List<bool>(
@@ -1908,8 +1911,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<double> CubicBezierCardanoIntersection(Line2D line)
-            => CubicBezierCardanoIntersection(Points[0], Points[1], Points[2], Points[3], line);
+        public List<double> CubicBezierCardanoIntersection(LineSegment2D line) => CubicBezierCardanoIntersection(Points[0], Points[1], Points[2], Points[3], line);
 
         /// <summary>
         /// The cubic bezier cardano intersection.
@@ -1925,7 +1927,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static List<double> CubicBezierCardanoIntersection(Point2D p1, Point2D p2, Point2D p3, Point2D p4, Line2D line)
+        private static List<double> CubicBezierCardanoIntersection(Point2D p1, Point2D p2, Point2D p3, Point2D p4, LineSegment2D line)
         {
             // align curve with the intersecting line, translating/rotating
             // so that the first point becomes (0,0), and the last point
@@ -1963,7 +1965,7 @@ namespace Engine
                 // deal with IEEE rounding yielding <-1 or >1
                 var cosphi = t < -1 ? -1 : t > 1 ? 1 : t;
                 var phi = Acos(cosphi);
-                var crtr = Crt(r);
+                var crtr = CubeRoot(r);
                 var t1 = 2 * crtr;
                 x1 = (t1 * Cos(phi / 3)) - (a / 3);
                 x2 = (t1 * Cos((phi + Tau) / 3)) - (a / 3);
@@ -1972,7 +1974,7 @@ namespace Engine
             }
             else if (discriminant == 0)
             {
-                u1 = q2 < 0 ? Crt(-q2) : -Crt(q2);
+                u1 = q2 < 0 ? CubeRoot(-q2) : -CubeRoot(q2);
                 x1 = (2 * u1) - (a / 3);
                 x2 = -u1 - (a / 3);
                 return new List<double> { x1, x2 };
@@ -1982,8 +1984,8 @@ namespace Engine
                 // one real root, and two imaginary roots
                 var sd = Sqrt(discriminant);
                 var tt = -q2 + sd;
-                u1 = Crt(-q2 + sd);
-                v1 = Crt(q2 + sd);
+                u1 = CubeRoot(-q2 + sd);
+                v1 = CubeRoot(q2 + sd);
                 x1 = u1 - v1 - (a / 3);
                 return new List<double> { x1 };
             }
@@ -2019,7 +2021,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Bezier left, Bezier right)
         {
-            if (left.Points.Count != right.Points.Count)
+            if (left?.Points.Count != right?.Points.Count)
             {
                 return false;
             }
@@ -2046,8 +2048,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Bezier && Equals(this, (Bezier)obj);
+        public override bool Equals(object obj) => obj is Bezier && Equals(this, (Bezier)obj);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="GraphicsObject"/> inherited class.
@@ -2055,8 +2056,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the IFormatProvider
@@ -2068,8 +2068,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the format string
@@ -2084,8 +2083,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="CubicBezier2D"/> struct based on the format string

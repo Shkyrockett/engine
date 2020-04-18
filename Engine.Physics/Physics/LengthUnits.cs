@@ -23,7 +23,7 @@ namespace Engine
         /// <summary>
         /// The pixels per inch (const). Value: 96.
         /// </summary>
-        public const double PixelsPerInch = 96;
+        public const double PixelsPerInch = 96d;
 
         /// <summary>
         /// The points per pixel (const). Value: 72d / 96d.
@@ -31,9 +31,15 @@ namespace Engine
         public const double PointsPerPixel = PointsPerInch / PixelsPerInch;
 
         /// <summary>
-        /// The number of megaparsecs in a planck length.
+        /// The Planck length in mega-parsecs (const). Value: 1.90939E+57.
         /// </summary>
-        public const double MegaparsecsInPlanckLength = 1d / 1.90939E+57d;
+        public const double PlanckLengthInMegaparsec = 1.90939E+57d;
+
+        /// <summary>
+        /// The number of mega-parsecs in a Planck length.
+        /// </summary>
+        public const double MegaparsecsInPlanckLength = 1d / PlanckLengthInMegaparsec;
+
         #region Mil Conversions
         /// <summary>
         /// The number of mils in a mil.
@@ -594,7 +600,7 @@ namespace Engine
         public const double KilometersInSmoot = 1d / SmootsInKilometer;
 
         /// <summary>
-        /// The number of kilometersin a kilometer.
+        /// The number of kilometers in a kilometer.
         /// </summary>
         public const double KilometersinKilometer = 1d;
 
@@ -722,10 +728,5 @@ namespace Engine
         /// </summary>
         public const double NauticalMilesInNauticalMile = 1d;
         #endregion NauticalMile Conversions
-
-        /// <summary>
-        /// The planck length in megaparsec (const). Value: 1.90939E+57.
-        /// </summary>
-        public const double PlanckLengthInMegaparsec = 1.90939E+57;
     }
 }

@@ -24,7 +24,7 @@ namespace Engine
         /// <param name="c2">The c2.</param>
         public ClippingIntersection(ClippingVertex s1, ClippingVertex s2, ClippingVertex c1, ClippingVertex c2)
         {
-            var d = ((c2.Y - c1.Y) * (s2.X - s1.X)) - ((c2.X - c1.X) * (s2.Y - s1.Y));
+            var d = (((c2?.Y - c1?.Y) * (s2?.X - s1?.X)) - ((c2?.X - c1?.X) * (s2?.Y - s1?.Y))).Value;
 
             if (d == 0) { return; }
 

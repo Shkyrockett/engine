@@ -164,7 +164,7 @@ namespace Engine
                 }
             }
 
-            result = ProcessSegment(points[points.Length - 1], points[0]);
+            result = ProcessSegment(points[^1], points[0]);
 
             watch.Stop();
             //GCSettings.LatencyMode = oldMode;
@@ -190,7 +190,7 @@ namespace Engine
                 }
             }
 
-            result = ProcessSegment(points[points.Length - 1], points[0]);
+            result = ProcessSegment(points[^1], points[0]);
 
             watch.Stop();
             //GCSettings.LatencyMode = oldMode;

@@ -11,7 +11,7 @@
 namespace Engine.File
 {
     /// <summary>
-    /// The corel color model enum.
+    /// The Corel color model enum.
     /// </summary>
     public enum CorelColorModel
         : ushort
@@ -52,7 +52,7 @@ namespace Engine.File
         HLS = 7,
 
         /// <summary>
-        /// The Grayscale = 9.
+        /// The Gray scale = 9.
         /// </summary>
         Grayscale = 9,
 
@@ -72,7 +72,7 @@ namespace Engine.File
         Lab = 12,
 
         /// <summary>
-        /// The Hexachrome = 15.
+        /// The Hexa chrome = 15.
         /// </summary>
         Hexachrome = 15,
 

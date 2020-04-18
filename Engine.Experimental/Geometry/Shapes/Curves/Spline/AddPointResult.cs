@@ -9,6 +9,7 @@
 // <remarks>https://github.com/burningmime/curves</remarks>
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -116,7 +117,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(AddPointResult other) => data == other.data;
+        public bool Equals([AllowNull] AddPointResult other) => data == other.data;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -124,6 +125,6 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode() => 1768953197 + data.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(data);
     }
 }

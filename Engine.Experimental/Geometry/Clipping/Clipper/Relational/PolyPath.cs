@@ -130,7 +130,7 @@ namespace Engine.Experimental
         /// <summary>
         /// The PolyTree to paths.
         /// </summary>
-        /// <returns>The <see cref="Polygon"/>.</returns>
+        /// <returns>The <see cref="Polygon2D"/>.</returns>
         public Polygon2D PolyTreeToPaths()
         {
             var paths = new Polygon2D();

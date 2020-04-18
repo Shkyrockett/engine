@@ -207,7 +207,7 @@ namespace Engine
         /// <param name="path">The path.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        /// <returns>The <see cref="PolygonContour"/>.</returns>
+        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
         /// <remarks> <para>http://stackoverflow.com/a/9019432</para> </remarks>
         internal static PolygonContour2D Deform(PolygonContour2D path, int width, int height)
         {

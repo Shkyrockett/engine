@@ -143,11 +143,11 @@ namespace Engine
         /// <para>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
+        protected object CachingProperty(Func<object> property, [CallerMemberName] string name = "")
         {
             if (!propertyCache.ContainsKey(name))
             {
-                var value = property.Invoke();
+                var value = property?.Invoke();
                 propertyCache.Add(name, value);
                 return value;
             }

@@ -22,8 +22,8 @@ namespace Engine
         /// <summary>
         /// le1 and le2 are the left events of line segments (le1.point, le1.otherEvent.point) and (le2.point, le2.otherEvent.point)
         /// </summary>
-        /// <param name="le1"></param>
-        /// <param name="le2"></param>
+        /// <param name="le1">The le1.</param>
+        /// <param name="le2">The le2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -34,19 +34,19 @@ namespace Engine
                 return 0;
             }
 
-            if (SignedTriangleArea(le1.Point, le1.OtherEvent.Point, le2.Point) != 0 ||
-                SignedTriangleArea(le1.Point, le1.OtherEvent.Point, le2.OtherEvent.Point) != 0)
+            if (SignedTriangleArea(le1?.Point ?? Point2D.NaN, le1?.OtherEvent.Point ?? Point2D.NaN, le2?.Point ?? Point2D.NaN) != 0 ||
+                SignedTriangleArea(le1?.Point ?? Point2D.NaN, le1?.OtherEvent.Point ?? Point2D.NaN, le2?.OtherEvent?.Point ?? Point2D.NaN) != 0)
             {
                 // Segments are not collinear
                 // If they share their left endpoint use the right endpoint to sort
-                if (le1.Point == le2.Point)
+                if (le1?.Point == le2?.Point)
                 {
-                    return le1.IsBelow(le2.OtherEvent.Point) ? 1 : -1;
+                    return le1?.IsBelow(le2?.OtherEvent?.Point ?? Point2D.NaN) ?? false ? 1 : -1;
                 }
                 // Different left endpoint: use the left endpoint to sort
-                if (le1.Point.X == le2.Point.X)
+                if (le1?.Point.X == le2?.Point.X)
                 {
-                    return le1.Point.Y < le2.Point.Y ? 1 : -1;
+                    return le1?.Point.Y < le2?.Point.Y ? 1 : -1;
                 }
 
                 if (SweepEventComp(le1, le2) != 0)  // has the line segment associated to e1 been inserted into S after the line segment associated to e2 ?
@@ -74,8 +74,8 @@ namespace Engine
         /// Compare two sweep events
         /// Return true means that e1 is placed at the event queue after e2, i.e,, e1 is processed by the algorithm after e2
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -86,7 +86,7 @@ namespace Engine
                 return 0;
             }
 
-            if (e1.Point.X > e2.Point.X) // Different x-coordinate
+            if (e1?.Point.X > e2?.Point.X) // Different x-coordinate
             {
                 return 1;
             }
@@ -118,8 +118,8 @@ namespace Engine
         /// IMPORTANT NOTE: This is not the same as the function in Sweep elements.
         /// The ordering is reversed because push and pop are faster.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -130,7 +130,7 @@ namespace Engine
                 return 0;
             }
 
-            if (e1.Point.X > e2.Point.X) // Different x-coordinate
+            if (e1?.Point.X > e2?.Point.X) // Different x-coordinate
             {
                 return -1;
             }

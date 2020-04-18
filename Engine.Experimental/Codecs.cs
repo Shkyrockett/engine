@@ -157,6 +157,6 @@ namespace Engine.Experimental
         /// <returns>
         /// The <see cref="int" />.
         /// </returns>
-        public override int GetHashCode() => Name is null ? 0 : Name.GetHashCode();
+        public override int GetHashCode() => Name is null ? 0 : Name.GetHashCode(StringComparison.OrdinalIgnoreCase);
     }
 }

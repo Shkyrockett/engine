@@ -292,7 +292,7 @@ namespace Engine
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => X.GetHashCode() ^ Y.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(X, Y);
 
         /// <summary>
         /// The to point.

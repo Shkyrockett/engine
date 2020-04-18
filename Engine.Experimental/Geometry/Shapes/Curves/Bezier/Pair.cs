@@ -107,7 +107,7 @@ namespace Engine
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public static bool Equals(Pair left, Pair right) => left.Left == right.Left && right.Right == left.Right;
+        public static bool Equals(Pair left, Pair right) => left?.Left == right?.Left && right.Right == left.Right;
 
         /// <summary>
         /// The equals.

@@ -8,7 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using Engine.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -97,15 +96,15 @@ namespace Engine
         /// <summary>
         /// Gets or sets the tweener.
         /// </summary>
-        [XmlElement]
-        public Tweener Tweener { get; set; }
+        [XmlAnyElement]
+        public ITweener Tweener { get; set; }
 
         /// <summary>
         /// Gets or sets the items.
         /// </summary>
         [XmlArray]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public List<GraphicItem> Items { get; set; }
+        public List<GraphicItem> Items { get; private set; }
 
         /// <summary>
         /// Gets or sets the selected items.

@@ -6,9 +6,9 @@ This is a list of interesting subjects to study and possibly implement in the en
 
 ### Containers
 
-- Quadtrees <http://bluetoque.ca/products/quadtree/> <https://bitbucket.org/bluetoque/bluetoque.quadtree/overview> <https://www.codeproject.com/Articles/30535/A-Simple-QuadTree-Implementation-in-C> 
+- Quadtrees <http://bluetoque.ca/products/quadtree/> <https://bitbucket.org/bluetoque/bluetoque.quadtree/overview> <https://www.codeproject.com/Articles/30535/A-Simple-QuadTree-Implementation-in-C>  
 
-- More on QuadTrees <http://www.kyleschouviller.com/xna/quadtree-code-design/> <http://www.kyleschouviller.com/wsuxna/quadtree-source-included/>
+- More on QuadTrees <http://www.kyleschouviller.com/xna/quadtree-code-design/> <http://www.kyleschouviller.com/wsuxna/quadtree-source-included/>  
 
 ### Color
 

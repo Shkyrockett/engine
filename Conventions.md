@@ -16,7 +16,7 @@ Use comments as needed to clarify code for other coders.
 
 Please use triple slash XML comments for all methods, and objects. type out three slashes "\\\" and let Visual Studio build out the XML comments. Briefly describe what each does. These comments are used as the IntelliSense text in tool tips. They also act as valuable documentation.
 
-```
+```csharp
 namespace Engine
 {
     /// <summary>
@@ -56,8 +56,7 @@ namespace Engine
         /// </summary>
         /// <param name="myParameter">A parameter that gets fed into the method.</param>
         /// <returns>A double precision floating point value that is the result of this method.</returns>
-        public double MyMethod(double myParameter)
-            => return myParameter % 2;
+        public double MyMethod(double myParameter) => return myParameter % 2;
     }
 }
 ```
@@ -79,25 +78,25 @@ Code files should start with an XML copyright header like the following, to indi
 
 ### Attribution
 
-Methods found online should be attributed to their original source in an acknowledgment section of the method's XML header. This permits going back to the source while troubleshooting; to compare results with the original code, or to apply updates as needed. As well as to provide credit for the original author. 
+Methods found online should be attributed to their original source in an acknowledgment section of the method's XML header. This permits going back to the source while troubleshooting; to compare results with the original code, or to apply updates as needed. As well as to provide credit for the original author.  
 
 ```csharp
-        /// <summary>
-        /// The do something method.
-        /// </summary>
-        /// <param name="blah"></param>
-        /// <acknowledgment>
-        ///     This method was found at: https://example.com/blah/
-        /// </acknowledgment>
-        public static void DoSomething(bool blah)
-        {
-            Something done here...
-        }
+/// <summary>
+/// The do something method.
+/// </summary>
+/// <param name="blah"></param>
+/// <acknowledgment>
+///     This method was found at: https://example.com/blah/
+/// </acknowledgment>
+public static void DoSomething(bool blah)
+{
+    Something done here...
+}
 ```
 
 ### Sources
 
-When looking online for methods that might solve a particular issue, be aware of the license restrictions of any code found. Look for licenses that are compatible with the MIT License used for this project. 
+When looking online for methods that might solve a particular issue, be aware of the license restrictions of any code found. Look for licenses that are compatible with the MIT License used for this project.  
 
 ### Naming and Casing Guidelines
 
@@ -161,7 +160,7 @@ namespace Engine
 
 Use the Visual Studio default of 4 spaces, tabs interpreted as spaces. With the default Visual Studio install; `Ctrl` + `k` + `Ctrl` + `d` should auto correct indentation in most cases.
 
-### Bracing 
+### Bracing
 
 In general, use Allman style spacing with curly braces on their own lines.
 
@@ -180,7 +179,7 @@ public int Number
     get { return number; }
     set { number = value; }
 }
-``` 
+```
 
 ```csharp
 public double X { get; set; }
@@ -207,14 +206,14 @@ Method parameters should generally be on the same line, unless the number of par
 
 ## Exceptions
 
-Having a game crash at a pecarious point, causing the player to loose everything is a frustrating experience. Exceptions should be used with restraint. For the times they are needed and they need to be handled here are some best practices. Throw them only where nessisary, such as in situations that will corrupt the game state. In general follow [Microsot best practices](https://docs.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions)
+Having a game crash at a precarious point, causing the player to loose everything is a frustrating experience. Exceptions should be used with restraint. For the times they are needed and they need to be handled here are some best practices. Throw them only where necessary, such as in situations that will corrupt the game state. In general follow [Microsoft best practices](https://docs.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions)
 
-### Rethrowing an exception
+### Re-throwing an exception
 
 When you need to re-throw an exception after processing it, do so with the default throw without passing the exception object. This way the stack is preserved the rest of the way up the chain.
 
-```
-var response = strig.Empty;
+```csharp
+var response = string.Empty;
 try
 {
     response = GetFatalCrashThing();
@@ -224,19 +223,23 @@ catch (Exception)
     DoSomeThingHere();
     throw;
 }
+finally
+{
+
+}
 ```
 
 ### Adding Context to an exception
 
-When you need to ad aditional context to an exception, do so for the specific exception, then rethrow with the aditional detail passing the exception object. Then end the throw catch with a default throw without passing the exception object.
+When you need to add additional context to an exception, do so for the specific exception, then rethrow with the additional detail passing the exception object. Then end the throw catch with a default throw without passing the exception object.
 
-```
-var response = strig.Empty;
+```csharp
+var response = string.Empty;
 try
 {
     response = GetFatalCrashThing();
 }
-catch (SpcializedException e)
+catch (SpecializedException e)
 {
     throw new Exception($"There was a problem with the GetFatalCrashThing. The response was: \n\r{response}", e);
 }
@@ -244,36 +247,37 @@ catch (Exception)
 {
     throw;
 }
+finally
+{
+
+}
 ```
 
-## C# 6 Features
+## [C# 6 Features](https://docs.microsoft.com/dotnet/csharp/whats-new/csharp-6)
 
 ### Expression Body Methods/Properties
 
 For methods and read-only properties where they make sense, please feel free to use the expression body syntax. A little profiling indicates there may be some speed improvements with them.
-I am placing the 
 
 ```csharp
-public int Count
-   => Array.Length;
+public int Count => Array.Length;
 
-public ToString()
-   => base.ToString()
+public ToString() => base.ToString()
 ```
 
 ### Var declaration
 
-Use var where appropriate. Declaring a field in a method as var, you can let the compiler determine what the return type is. This can make long List or array declarations easier to read. 
+Use var where appropriate. Declaring a field in a method as var, you can let the compiler determine what the return type is. This can make long List or array declarations easier to read.  
 
 ```csharp
 var list = new List<double> {3, 1, 4, 1, 5, 9,  2, 6};
 ```
 
-## C# 7 Features
+## [C# 7 Features](https://docs.microsoft.com/dotnet/csharp/whats-new/csharp-7)
 
 ### Tuples
 
-Feel free to use the new Tuple syntax where ever it makes sense. Tuples work great where you need a single use struct that will only be used within a single method, or for generalizing the return struct for several structs that could potentially use the same method with different type returns.
+Feel free to use the new ValueTuple syntax where ever it makes sense. ValueTuples work great where you need a single use struct that will only be used within a single method, or for generalizing the return struct for several structs that could potentially use the same method with different similar type returns.
 
 ```csharp
 (double X, double Y) tempPoint = (x, y);
@@ -283,13 +287,157 @@ Feel free to use the new Tuple syntax where ever it makes sense. Tuples work gre
 (double X, double Y) = (x, y);
 ```
 
+```csharp
+private MyClass(double x, double y, double z)
+{
+    (X, Y, Z) = (x, y, z);
+}
+```
+
 ### Interpolated Strings
 
 Use interpolated strings in place of `String.Format(...)` or wherever you need a simple string concatenation. Interpolated strings tend to be more readable, unless the concatenation is for splaying out a line of text across multiple lines.
 
 ```csharp
-public string ConvertToString()
-    => $"Point:{x},{y}"
+public string ConvertToString() => $"Point:{x},{y}"
+```
+
+### Switch Pattern Matching
+
+Please do use switch pattern matching to use a pattern to select branch to take. For example to select what to do based on the type of an object.
+
+```csharp
+switch (type)
+{
+    case byte b:
+        return $"byte: {b}";
+    case int i:
+        return $"integer: {i}";
+    case float f:
+        return $"Float: {f}";
+    case double d:
+        return $"double: {d}";
+    case long l:
+        return $"long: {l}";
+    default:
+        return "Not Supported";
+};
+```
+
+## [C# 7.1 Features](https://docs.microsoft.com/dotnet/csharp/whats-new/csharp-7-1)
+
+## [C# 7.2 Features](https://docs.microsoft.com/dotnet/csharp/whats-new/csharp-7-2)
+
+## [C# 7.3 Features](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7-3)
+
+## [C# 8 Features](https://docs.microsoft.com/dotnet/csharp/whats-new/csharp-8)
+
+### Switch Expressions
+
+Use Switch expressions where they make sense, for example when you need to call one of various methods and return the results depending on an enum value, or string.
+
+```csharp
+return count switch
+{
+    ValueEnum.Empty => 0d,
+    ValueEnum.Const => CalculateConstant(x),
+    ValueEnum.Linear => CalculateLinear(x),
+    ValueEnum.Square => CalculateSquare(x),
+    _ => double.NaN;
+};
+```
+
+### Switch Property Patterns
+
+```csharp
+return radianText switch
+{
+    { Name: "PI" } => Math.PI,
+    { Name: "Tau" } => Math.Tau,
+    { Name: "Pau" } => Math.Pau,
+    _ => 0d
+};
+```
+
+### Switch Tuple Patterns
+
+```csharp
+return (first, second) switch
+{
+    ("a", "b") => "Polynomial",
+    ("i", "j") => "Vector",
+    ("x", "y") => "Point",
+    (_, _) => "unknown"
+};
+```
+
+### Switch Positional Patterns
+
+```csharp
+return point switch
+{
+    (0, 0) => Quadrant.Origin,
+    var (x, y) when x > 0 && y > 0 => Quadrant.One,
+    var (x, y) when x < 0 && y > 0 => Quadrant.Two,
+    var (x, y) when x < 0 && y < 0 => Quadrant.Three,
+    var (x, y) when x > 0 && y < 0 => Quadrant.Four,
+    var (_, _) => Quadrant.OnBorder,
+    _ => Quadrant.Unknown
+};
+```
+
+### Using Declarations
+
+Feel free to use the Using declarations when working with IDisposable types. Disposable variables declared with using will be scheduled for being recycled once they fall out of scope, without having to brace off your code.
+
+```csharp
+using var pen = new SolidPen(Color.Red);
+```
+
+### Indices and Ranges
+
+Feel free to use the Indices and ranges feature.
+
+```csharp
+var last = exampleArray[^1];
+```
+
+```csharp
+var lastCouple = exampleArray[^2..^0]
+```
+
+### Default Interface Methods
+
+If there is a good use for default interface methods, they might as well be used. I was hoping they might be more useful than they are. I'm trying to abuse them in some structs. But the boxing/unboxing might be an issue.
+
+```csharp
+public interface iInterface
+{
+    string Text() => ToString();
+    string Text => ToString();
+}
+```
+
+### Nullable Reference Types
+
+Use Nullable reference type notation where a type is expected to be null.
+
+```csharp
+public static int? Index(int? index)
+{
+    var test = index ?? 0;
+    return test == 0 ? (int?)null : test;
+}
+```
+
+Some thought will need to go into figuring what should or should not be nullable before `NullableContextOptions` gets turned on.
+
+### Null-coalescing assignment
+
+Use null-coalescing assignment in place of if statements to simplify null checks and assignment.
+
+```csharp
+var test = index ?? 0;
 ```
 
 ## Profiling
@@ -305,10 +453,10 @@ Here is the general format I am using.
 ```csharp
     public struct RegionObject
     {
-        #region Implementors
-        // Public static read only fields.
+        #region Implementations
+        // Public static read-only fields that implement the class/struct.
         #endregion
-        
+
         #region Constants
         #endregion
 
@@ -318,12 +466,15 @@ Here is the general format I am using.
         #region Constructors
         #endregion
 
+        #region Indexers
+        #endregion
+
         #region Properties
         // Read-write properties.
         #endregion
 
         #region Accessors
-        // Read only properties.
+        // Read-only properties.
         #endregion
 
         #region Operators

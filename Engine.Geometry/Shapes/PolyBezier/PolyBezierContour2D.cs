@@ -28,7 +28,7 @@ namespace Engine
     [DataContract, Serializable]
     [DisplayName(nameof(PolyBezier2D))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    [XmlType(TypeName = "polybeziercontour", Namespace = "http://www.w3.org/2000/svg")]
+    [XmlType(TypeName = "PolyBezierContour2D", Namespace = "http://www.w3.org/2000/svg")]
     [DebuggerDisplay("{ToString()}")]
     public class PolyBezierContour2D
         : Shape2D
@@ -201,7 +201,7 @@ namespace Engine
 
             if (t == 1)
             {
-                return Items[Items.Count - 1].End.Value;
+                return Items[^1].End.Value;
             }
 
             var weights = new (double length, double accumulated)[Items.Count];
@@ -258,7 +258,7 @@ namespace Engine
         /// <returns>The <see cref="PolyBezierContour"/>.</returns>
         public PolyBezierContour2D AddLineSegment(Point2D end)
         {
-            var segment = new BezierSegmentX2D(Items[Items.Count - 1], end);
+            var segment = new BezierSegmentX2D(Items[^1], end);
             Items.Add(segment);
             return this;
         }
@@ -275,7 +275,7 @@ namespace Engine
         ///// <returns></returns>
         //public PolyBezier2D AddArc(double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
         //{
-        //    var arc = new PathArc(Items[Items.Count - 1], r1, r2, angle, largeArc, sweep, end);
+        //    var arc = new PathArc(Items[^1], r1, r2, angle, largeArc, sweep, end);
         //    Items.Add(arc);
         //    return this;
         //}
@@ -288,7 +288,7 @@ namespace Engine
         /// <returns>The <see cref="PolyBezierContour"/>.</returns>
         public PolyBezierContour2D AddQuadraticBezier(Point2D handle, Point2D end)
         {
-            var quad = new BezierSegmentX2D(Items[Items.Count - 1], handle, end);
+            var quad = new BezierSegmentX2D(Items[^1], handle, end);
             Items.Add(quad);
             return this;
         }
@@ -302,7 +302,7 @@ namespace Engine
         /// <returns>The <see cref="PolyBezierContour"/>.</returns>
         public PolyBezierContour2D AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
         {
-            var cubic = new BezierSegmentX2D(Items[Items.Count - 1], handle1, handle2, end);
+            var cubic = new BezierSegmentX2D(Items[^1], handle1, handle2, end);
             Items.Add(cubic);
             return this;
         }
@@ -340,7 +340,7 @@ namespace Engine
                 var cmd = token.Take(1).Single();
 
                 // Retrieve the values.
-                var args = Regex.Split(token.Substring(1), argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => double.Parse(arg)).ToArray();
+                var args = Regex.Split(token.Substring(1), argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => double.Parse(arg, NumberStyles.Float, provider)).ToArray();
 
                 switch (cmd)
                 {

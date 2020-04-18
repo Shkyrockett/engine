@@ -16,7 +16,7 @@
 // </license>
 
 // <copyright company="angusj" >
-//     The Point in Polygon2D method is from the Clipper Library.
+//     The Point in Polygon method is from the Clipper Library.
 //     Copyright © 2010 - 2014 Angus Johnson. All rights reserved.
 // </copyright>
 // <author id="angusj">Angus Johnson</author>
@@ -43,7 +43,6 @@ using System.Runtime.CompilerServices;
 using static Engine.Mathematics;
 using static Engine.Measurements;
 using static Engine.Operations;
-using static Engine.Polynomials;
 using static System.Math;
 
 namespace Engine
@@ -57,16 +56,15 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a point.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="px"></param>
-        /// <param name="py"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns></returns>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="px">The px.</param>
+        /// <param name="py">The py.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamPoint(ref List<double> scanlist, double x, double y, double px, double py, double epsilon = Epsilon)
+        public static void ScanbeamPoint(ref List<double> scanlist, double x, double y, double px, double py, double epsilon = double.Epsilon)
         {
             _ = epsilon;
             if ((y - py) / (x - px) == 1d)
@@ -78,18 +76,17 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a line.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns></returns>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamLine(ref List<double> scanlist, double x, double y, double x0, double y0, double i, double j, double epsilon = Epsilon)
+        public static void ScanbeamLine(ref List<double> scanlist, double x, double y, double x0, double y0, double i, double j, double epsilon = double.Epsilon)
         {
             // Translate lines to origin.
             var u1 = 1d - x;
@@ -124,17 +121,17 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a line segment.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamLineSegment(ref List<double> scanlist, double x, double y, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
+        public static void ScanbeamLineSegment(ref List<double> scanlist, double x, double y, double x0, double y0, double x1, double y1, double epsilon = double.Epsilon)
         {
             // Translate lines to origin.
             var u2 = x1 - x0;
@@ -173,46 +170,36 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a quadratic Bézier curve segment.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="b0x"></param>
-        /// <param name="b0y"></param>
-        /// <param name="b1x"></param>
-        /// <param name="b1y"></param>
-        /// <param name="b2x"></param>
-        /// <param name="b2y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="b0x">The B0X.</param>
+        /// <param name="b0y">The b0y.</param>
+        /// <param name="b1x">The B1X.</param>
+        /// <param name="b1y">The b1y.</param>
+        /// <param name="b2x">The B2X.</param>
+        /// <param name="b2y">The b2y.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamQuadraticBezierSegment(
-            ref List<double> scanlist,
-            double x, double y,
-            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y,
-            double epsilon = Epsilon)
-            => ScanbeamQuadraticBezierSegment(
-                ref scanlist,
-                x, y,
-                QuadraticBezierBernsteinBasis(b0x, b1x, b2x),
-                QuadraticBezierBernsteinBasis(b0y, b1y, b2y),
-                epsilon);
+        public static void ScanbeamQuadraticBezierSegment(ref List<double> scanlist, double x, double y, double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double epsilon = double.Epsilon) => ScanbeamQuadraticBezierSegment(ref scanlist, x, y, Polynomials.QuadraticBezierBernsteinBasis(b0x, b1x, b2x), Polynomials.QuadraticBezierBernsteinBasis(b0y, b1y, b2y), epsilon);
 
         /// <summary>
         /// Find the scan-beam intersections of a quadratic Bézier curve segment.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="xCurve"></param>
-        /// <param name="yCurve"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="xCurve">The x curve.</param>
+        /// <param name="yCurve">The y curve.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamQuadraticBezierSegment(
             ref List<double> scanlist,
             double x, double y,
             Polynomial xCurve, Polynomial yCurve,
-            double epsilon = Epsilon)
+            double epsilon = double.Epsilon)
         {
             _ = epsilon;
             var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
@@ -230,48 +217,38 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a cubic Bézier curve segment.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="b0x"></param>
-        /// <param name="b0y"></param>
-        /// <param name="b1x"></param>
-        /// <param name="b1y"></param>
-        /// <param name="b2x"></param>
-        /// <param name="b2y"></param>
-        /// <param name="b3x"></param>
-        /// <param name="b3y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="b0x">The B0X.</param>
+        /// <param name="b0y">The b0y.</param>
+        /// <param name="b1x">The B1X.</param>
+        /// <param name="b1y">The b1y.</param>
+        /// <param name="b2x">The B2X.</param>
+        /// <param name="b2y">The b2y.</param>
+        /// <param name="b3x">The B3X.</param>
+        /// <param name="b3y">The b3y.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamCubicBezierSegment(
-            ref List<double> scanlist,
-            double x, double y,
-            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y,
-            double epsilon = Epsilon)
-            => ScanbeamCubicBezierSegment(
-                ref scanlist,
-                x, y,
-                CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x),
-                CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y),
-                epsilon);
+        public static void ScanbeamCubicBezierSegment(ref List<double> scanlist, double x, double y, double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y, double epsilon = double.Epsilon) => ScanbeamCubicBezierSegment(ref scanlist, x, y, Polynomials.CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x), Polynomials.CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y), epsilon);
 
         /// <summary>
         /// Find the scan-beam intersections of a cubic Bézier curve segment.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="xCurve"></param>
-        /// <param name="yCurve"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="xCurve">The x curve.</param>
+        /// <param name="yCurve">The y curve.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamCubicBezierSegment(
             ref List<double> scanlist,
             double x, double y,
             Polynomial xCurve, Polynomial yCurve,
-            double epsilon = Epsilon)
+            double epsilon = double.Epsilon)
         {
             _ = epsilon;
             // Translate the line to the origin.
@@ -290,16 +267,16 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a circle.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamCircle(ref List<double> scanlist, double x, double y, double cX, double cY, double r, double epsilon = Epsilon)
+        public static void ScanbeamCircle(ref List<double> scanlist, double x, double y, double cX, double cY, double r, double epsilon = double.Epsilon)
         {
             _ = epsilon;
             // If the circle or line segment are empty, return no intersections.
@@ -344,19 +321,19 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a circular arc.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
-        /// <param name="angle"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="angle">The angle.</param>
+        /// <param name="startAngle">The start angle.</param>
+        /// <param name="sweepAngle">The sweep angle.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamCircularArc(ref List<double> scanlist, double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        public static void ScanbeamCircularArc(ref List<double> scanlist, double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = double.Epsilon)
         {
             // If the circle or line segment are empty, return no intersections.
             if (r == 0d)
@@ -376,7 +353,7 @@ namespace Engine
             var discriminant = (b * b) - (4d * c);
 
             // Check for intersections.
-            if ((1d <= epsilon) || (discriminant < 0d))
+            if ((1d <= double.Epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return;
@@ -440,19 +417,19 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of an ellipse.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="cosA"></param>
-        /// <param name="sinA"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="cosA">The cos a.</param>
+        /// <param name="sinA">The sin a.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamEllipse(ref List<double> scanlist, double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = Epsilon)
+        public static void ScanbeamEllipse(ref List<double> scanlist, double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = double.Epsilon)
         {
             // If the ellipse is empty, return no intersections.
             if ((rx == 0d) || (ry == 0d))
@@ -481,7 +458,7 @@ namespace Engine
             var discriminant = (b * b) - (4d * a * c);
 
             // Find solutions.
-            if ((a <= epsilon) || (discriminant < 0d))
+            if ((a <= double.Epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return;
@@ -510,21 +487,21 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of an elliptical arc.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="cosA"></param>
-        /// <param name="sinA"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="cosA">The cos a.</param>
+        /// <param name="sinA">The sin a.</param>
+        /// <param name="startAngle">The start angle.</param>
+        /// <param name="sweepAngle">The sweep angle.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamEllipticalArc(ref List<double> scanlist, double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        public static void ScanbeamEllipticalArc(ref List<double> scanlist, double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double epsilon = double.Epsilon)
         {
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d))
@@ -553,7 +530,7 @@ namespace Engine
             var discriminant = (b * b) - (4d * a * c);
 
             // Check whether line segment is outside of the ellipse.
-            if ((a <= epsilon) || (discriminant < 0d))
+            if ((a <= double.Epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return;
@@ -632,17 +609,17 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a rectangle.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="r1X"></param>
-        /// <param name="r1Y"></param>
-        /// <param name="r2X"></param>
-        /// <param name="r2Y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="r1X">The r1 x.</param>
+        /// <param name="r1Y">The r1 y.</param>
+        /// <param name="r2X">The r2 x.</param>
+        /// <param name="r2Y">The r2 y.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamRectangle(ref List<double> scanlist, double x, double y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        public static void ScanbeamRectangle(ref List<double> scanlist, double x, double y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = double.Epsilon)
         {
             var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
             var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
@@ -653,17 +630,17 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a polygon contour.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="points"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="points">The points.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamPolygonContour(ref List<double> scanlist, double x, double y, List<Point2D> points, double epsilon = Epsilon)
+        public static void ScanbeamPolygonContour(ref List<double> scanlist, double x, double y, List<Point2D> points, double epsilon = double.Epsilon)
         {
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            var b1 = points[points.Count - 1];
+            var b1 = points[^1];
             for (var i = 0; i < points.Count; ++i)
             {
                 var b2 = points[i];
@@ -677,16 +654,16 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam intersections of a polycurve contour.
         /// </summary>
-        /// <param name="scanlist"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="curve"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="scanlist">The scanlist.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="curve">The curve.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamPolycurveContour(ref List<double> scanlist, double x, double y, PolycurveContour2D curve, double epsilon = Epsilon)
+        public static void ScanbeamPolycurveContour(ref List<double> scanlist, double x, double y, PolycurveContour2D curve, double epsilon = double.Epsilon)
         {
-            foreach (var segment in curve.Items)
+            foreach (var segment in curve?.Items)
             {
                 switch (segment)
                 {
@@ -716,15 +693,17 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the left of a point.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="px"></param>
-        /// <param name="py"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="px">The px.</param>
+        /// <param name="py">The py.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftPoint(double x, double y, double px, double py, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftPoint(double x, double y, double px, double py, double epsilon = double.Epsilon)
         {
             _ = epsilon;
             return (((y - py) / (x - px) == 1) && (px <= x)) ? 1 : 0;
@@ -733,17 +712,19 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the left of a line.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftLine(double x, double y, double x0, double y0, double i, double j, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftLine(double x, double y, double x0, double y0, double i, double j, double epsilon = double.Epsilon)
         {
             // Translate lines to origin.
             var u1 = 1d - x;
@@ -782,17 +763,19 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the left of a line segment.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftLineSegment(double x, double y, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftLineSegment(double x, double y, double x0, double y0, double x1, double y1, double epsilon = double.Epsilon)
         {
             // Translate lines to origin.
             var u2 = x1 - x0;
@@ -845,43 +828,39 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the left of a quadratic Bézier segment.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="p0x"></param>
-        /// <param name="p0y"></param>
-        /// <param name="p1x"></param>
-        /// <param name="p1y"></param>
-        /// <param name="p2x"></param>
-        /// <param name="p2y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="p0x">The P0X.</param>
+        /// <param name="p0y">The p0y.</param>
+        /// <param name="p1x">The P1X.</param>
+        /// <param name="p1y">The p1y.</param>
+        /// <param name="p2x">The P2X.</param>
+        /// <param name="p2y">The p2y.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftQuadraticBezierSegment(
-            double x, double y,
-            double p0x, double p0y, double p1x, double p1y, double p2x, double p2y,
-            double epsilon = Epsilon)
-            => ScanbeamPointsToLeftQuadraticBezierSegment(
-                x, y,
-                QuadraticBezierBernsteinBasis(p0x, p1x, p2x),
-                QuadraticBezierBernsteinBasis(p0y, p1y, p2y),
-                epsilon);
+        public static int ScanbeamPointsToLeftQuadraticBezierSegment(double x, double y, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double epsilon = double.Epsilon) => ScanbeamPointsToLeftQuadraticBezierSegment(x, y, Polynomials.QuadraticBezierBernsteinBasis(p0x, p1x, p2x), Polynomials.QuadraticBezierBernsteinBasis(p0y, p1y, p2y), epsilon);
 
         /// <summary>
         /// Find the scan-beam points to the left of a quadratic Bézier segment.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="xCurve"></param>
-        /// <param name="yCurve"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="xCurve">The x curve.</param>
+        /// <param name="yCurve">The y curve.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToLeftQuadraticBezierSegment(
             double x, double y,
             Polynomial xCurve, Polynomial yCurve,
-            double epsilon = Epsilon)
+            double epsilon = double.Epsilon)
         {
             _ = epsilon;
             var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
@@ -902,45 +881,41 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the left of a cubic Bézier segment.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="b0x"></param>
-        /// <param name="b0y"></param>
-        /// <param name="b1x"></param>
-        /// <param name="b1y"></param>
-        /// <param name="b2x"></param>
-        /// <param name="b2y"></param>
-        /// <param name="b3x"></param>
-        /// <param name="b3y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="b0x">The B0X.</param>
+        /// <param name="b0y">The b0y.</param>
+        /// <param name="b1x">The B1X.</param>
+        /// <param name="b1y">The b1y.</param>
+        /// <param name="b2x">The B2X.</param>
+        /// <param name="b2y">The b2y.</param>
+        /// <param name="b3x">The B3X.</param>
+        /// <param name="b3y">The b3y.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftCubicBezierSegment(
-            double x, double y,
-            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y,
-            double epsilon = Epsilon)
-            => ScanbeamPointsToLeftCubicBezierSegment(
-                x, y,
-                CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x),
-                CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y),
-                epsilon);
+        public static int ScanbeamPointsToLeftCubicBezierSegment(double x, double y, double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y, double epsilon = double.Epsilon) => ScanbeamPointsToLeftCubicBezierSegment(x, y, Polynomials.CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x), Polynomials.CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y), epsilon);
 
         /// <summary>
         /// Find the scan-beam points to the left of a cubic Bézier segment.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="xCurve"></param>
-        /// <param name="yCurve"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="xCurve">The x curve.</param>
+        /// <param name="yCurve">The y curve.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToLeftCubicBezierSegment(
             double x, double y,
             Polynomial xCurve, Polynomial yCurve,
-            double epsilon = Epsilon)
+            double epsilon = double.Epsilon)
         {
             _ = epsilon;
             // Translate the line to the origin.
@@ -962,19 +937,21 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the left of a circle.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
-        /// <param name="angle"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="angle">The angle.</param>
+        /// <param name="startAngle">The start angle.</param>
+        /// <param name="sweepAngle">The sweep angle.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftCircle(double x, double y, double cX, double cY, double r, double angle = 0, double startAngle = 0, double sweepAngle = 0, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftCircle(double x, double y, double cX, double cY, double r, double angle = 0, double startAngle = 0, double sweepAngle = 0, double epsilon = double.Epsilon)
         {
             _ = angle;
             _ = startAngle;
@@ -1035,19 +1012,21 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the left of a circular arc.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
-        /// <param name="angle"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="angle">The angle.</param>
+        /// <param name="startAngle">The start angle.</param>
+        /// <param name="sweepAngle">The sweep angle.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftCircularArc(double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftCircularArc(double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = double.Epsilon)
         {
             // If the circle or line segment are empty, return no intersections.
             if (r == 0d)
@@ -1069,7 +1048,7 @@ namespace Engine
             var results = 0;
 
             // Check for intersections.
-            if ((1 <= epsilon) || (discriminant < 0))
+            if ((1 <= double.Epsilon) || (discriminant < 0))
             {
                 // No real solutions.
                 return 0;
@@ -1135,19 +1114,21 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the left of an ellipse.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="cosA"></param>
-        /// <param name="sinA"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="cosA">The cos a.</param>
+        /// <param name="sinA">The sin a.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftEllipse(double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftEllipse(double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = double.Epsilon)
         {
             // If the ellipse is empty, return no intersections.
             if ((rx == 0d) || (ry == 0d))
@@ -1178,7 +1159,7 @@ namespace Engine
             var results = 0;
 
             // Find solutions.
-            if ((a <= epsilon) || (discriminant < 0d))
+            if ((a <= double.Epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return 0;
@@ -1223,21 +1204,23 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the left of an elliptical arc.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="cosA"></param>
-        /// <param name="sinA"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="cosA">The cos a.</param>
+        /// <param name="sinA">The sin a.</param>
+        /// <param name="startAngle">The start angle.</param>
+        /// <param name="sweepAngle">The sweep angle.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftEllipticalArc(double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftEllipticalArc(double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double epsilon = double.Epsilon)
         {
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d))
@@ -1266,7 +1249,7 @@ namespace Engine
             var discriminant = (b * b) - (4d * a * c);
 
             // Check whether line segment is outside of the ellipse.
-            if ((a <= epsilon) || (discriminant < 0d))
+            if ((a <= double.Epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return 0;
@@ -1348,17 +1331,19 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the left of a rectangle.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="r1X"></param>
-        /// <param name="r1Y"></param>
-        /// <param name="r2X"></param>
-        /// <param name="r2Y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="r1X">The r1 x.</param>
+        /// <param name="r1Y">The r1 y.</param>
+        /// <param name="r2X">The r2 x.</param>
+        /// <param name="r2Y">The r2 y.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftRectangle(double x, double y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftRectangle(double x, double y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = double.Epsilon)
         {
             var results = 0;
             var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
@@ -1371,19 +1356,21 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the left of a polygon contour.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="points"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="points">The points.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftPolygonContour(double x, double y, List<Point2D> points, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftPolygonContour(double x, double y, List<Point2D> points, double epsilon = double.Epsilon)
         {
             var result = 0;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            var b1 = points[points.Count - 1];
+            var b1 = points[^1];
             for (var i = 0; i < points.Count; ++i)
             {
                 var b2 = points[i];
@@ -1399,17 +1386,19 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the left of a polycurve contour.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="curve"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="curve">The curve.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftPolycurveContour(double x, double y, PolycurveContour2D curve, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftPolycurveContour(double x, double y, PolycurveContour2D curve, double epsilon = double.Epsilon)
         {
             var results = 0;
-            foreach (var segment in curve.Items)
+            foreach (var segment in curve?.Items)
             {
                 switch (segment)
                 {
@@ -1441,15 +1430,17 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the right of a point.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="px"></param>
-        /// <param name="py"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="px">The px.</param>
+        /// <param name="py">The py.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightPoint(double x, double y, double px, double py, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightPoint(double x, double y, double px, double py, double epsilon = double.Epsilon)
         {
             _ = epsilon;
             return (((y - py) / (x - px) == 1) && (px >= x)) ? 1 : 0;
@@ -1458,17 +1449,19 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the right of a line.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightLine(double x, double y, double x0, double y0, double i, double j, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightLine(double x, double y, double x0, double y0, double i, double j, double epsilon = double.Epsilon)
         {
             // Translate lines to origin.
             var u1 = 1d - x;
@@ -1507,17 +1500,19 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the right of a line segment.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightLineSegment(double x, double y, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightLineSegment(double x, double y, double x0, double y0, double x1, double y1, double epsilon = double.Epsilon)
         {
             // Translate lines to origin.
             var u2 = x1 - x0;
@@ -1565,43 +1560,39 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the right of a quadratic Bézier curve segment.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="b0x"></param>
-        /// <param name="b0y"></param>
-        /// <param name="b1x"></param>
-        /// <param name="b1y"></param>
-        /// <param name="b2x"></param>
-        /// <param name="b2y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="b0x">The B0X.</param>
+        /// <param name="b0y">The b0y.</param>
+        /// <param name="b1x">The B1X.</param>
+        /// <param name="b1y">The b1y.</param>
+        /// <param name="b2x">The B2X.</param>
+        /// <param name="b2y">The b2y.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightQuadraticBezierSegment(
-            double x, double y,
-            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y,
-            double epsilon = Epsilon)
-            => ScanbeamPointsToRightQuadraticBezierSegment(
-                x, y,
-                QuadraticBezierBernsteinBasis(b0x, b1x, b2x),
-                QuadraticBezierBernsteinBasis(b0y, b1y, b2y),
-                epsilon);
+        public static int ScanbeamPointsToRightQuadraticBezierSegment(double x, double y, double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double epsilon = double.Epsilon) => ScanbeamPointsToRightQuadraticBezierSegment(x, y, Polynomials.QuadraticBezierBernsteinBasis(b0x, b1x, b2x), Polynomials.QuadraticBezierBernsteinBasis(b0y, b1y, b2y), epsilon);
 
         /// <summary>
         /// Find the scan-beam points to the right of a quadratic Bézier curve segment.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="xCurve"></param>
-        /// <param name="yCurve"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="xCurve">The x curve.</param>
+        /// <param name="yCurve">The y curve.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToRightQuadraticBezierSegment(
             double x, double y,
             Polynomial xCurve, Polynomial yCurve,
-            double epsilon = Epsilon)
+            double epsilon = double.Epsilon)
         {
             _ = epsilon;
             var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
@@ -1622,45 +1613,41 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the right of a cubic Bézier curve segment.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="b0x"></param>
-        /// <param name="b0y"></param>
-        /// <param name="b1x"></param>
-        /// <param name="b1y"></param>
-        /// <param name="b2x"></param>
-        /// <param name="b2y"></param>
-        /// <param name="b3x"></param>
-        /// <param name="b3y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="b0x">The B0X.</param>
+        /// <param name="b0y">The b0y.</param>
+        /// <param name="b1x">The B1X.</param>
+        /// <param name="b1y">The b1y.</param>
+        /// <param name="b2x">The B2X.</param>
+        /// <param name="b2y">The b2y.</param>
+        /// <param name="b3x">The B3X.</param>
+        /// <param name="b3y">The b3y.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightCubicBezierSegment(
-            double x, double y,
-            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y,
-            double epsilon = Epsilon)
-            => ScanbeamPointsToRightCubicBezierSegment(
-                x, y,
-                CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x),
-                CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y),
-                epsilon);
+        public static int ScanbeamPointsToRightCubicBezierSegment(double x, double y, double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y, double epsilon = double.Epsilon) => ScanbeamPointsToRightCubicBezierSegment(x, y, Polynomials.CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x), Polynomials.CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y), epsilon);
 
         /// <summary>
         /// Find the scan-beam points to the right of a cubic Bézier curve segment.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="xCurve"></param>
-        /// <param name="yCurve"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="xCurve">The x curve.</param>
+        /// <param name="yCurve">The y curve.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToRightCubicBezierSegment(
             double x, double y,
             Polynomial xCurve, Polynomial yCurve,
-            double epsilon = Epsilon)
+            double epsilon = double.Epsilon)
         {
             _ = epsilon;
             // Translate the line to the origin.
@@ -1682,19 +1669,21 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the right of a circle.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
-        /// <param name="angle"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="angle">The angle.</param>
+        /// <param name="startAngle">The start angle.</param>
+        /// <param name="sweepAngle">The sweep angle.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightCircle(double x, double y, double cX, double cY, double r, double angle = 0, double startAngle = 0, double sweepAngle = 0, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightCircle(double x, double y, double cX, double cY, double r, double angle = 0, double startAngle = 0, double sweepAngle = 0, double epsilon = double.Epsilon)
         {
             _ = angle;
             _ = startAngle;
@@ -1755,19 +1744,21 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the right of a circular arc.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
-        /// <param name="angle"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="angle">The angle.</param>
+        /// <param name="startAngle">The start angle.</param>
+        /// <param name="sweepAngle">The sweep angle.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightCircularArc(double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightCircularArc(double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = double.Epsilon)
         {
             // If the circle or line segment are empty, return no intersections.
             if (r == 0d)
@@ -1789,7 +1780,7 @@ namespace Engine
             var results = 0;
 
             // Check for intersections.
-            if ((1d <= epsilon) || (discriminant < 0d))
+            if ((1d <= double.Epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return 0;
@@ -1855,19 +1846,21 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the right of an ellipse.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="cosA"></param>
-        /// <param name="sinA"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="cosA">The cos a.</param>
+        /// <param name="sinA">The sin a.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightEllipse(double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightEllipse(double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = double.Epsilon)
         {
             // If the ellipse is empty, return no intersections.
             if ((rx == 0d) || (ry == 0d))
@@ -1898,7 +1891,7 @@ namespace Engine
             var results = 0;
 
             // Find solutions.
-            if ((a <= epsilon) || (discriminant < 0d))
+            if ((a <= double.Epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return 0;
@@ -1941,21 +1934,23 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the right of an elliptical arc.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="cosA"></param>
-        /// <param name="sinA"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="cosA">The cos a.</param>
+        /// <param name="sinA">The sin a.</param>
+        /// <param name="startAngle">The start angle.</param>
+        /// <param name="sweepAngle">The sweep angle.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightEllipticalArc(double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightEllipticalArc(double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle, double epsilon = double.Epsilon)
         {
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d))
@@ -1984,7 +1979,7 @@ namespace Engine
             var discriminant = (b * b) - (4d * a * c);
 
             // Check whether line segment is outside of the ellipse.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= double.Epsilon) || (discriminant < 0))
             {
                 // No real solutions.
                 return 0;
@@ -2067,17 +2062,19 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the right of a rectangle.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="r1X"></param>
-        /// <param name="r1Y"></param>
-        /// <param name="r2X"></param>
-        /// <param name="r2Y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="r1X">The r1 x.</param>
+        /// <param name="r1Y">The r1 y.</param>
+        /// <param name="r2X">The r2 x.</param>
+        /// <param name="r2Y">The r2 y.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightRectangle(double x, double y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightRectangle(double x, double y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = double.Epsilon)
         {
             var results = 0;
             var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
@@ -2090,19 +2087,21 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the right of a polygon contour.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="points"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="points">The points.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightPolygonContour(double x, double y, List<Point2D> points, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightPolygonContour(double x, double y, List<Point2D> points, double epsilon = double.Epsilon)
         {
             var result = 0;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            var b1 = points[points.Count - 1];
+            var b1 = points[^1];
             for (var i = 0; i < points.Count; ++i)
             {
                 var b2 = points[i];
@@ -2118,17 +2117,19 @@ namespace Engine
         /// <summary>
         /// Find the scan-beam points to the right of a polycurve contour.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="curve"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="curve">The curve.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightPolycurveContour(double x, double y, PolycurveContour2D curve, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightPolycurveContour(double x, double y, PolycurveContour2D curve, double epsilon = double.Epsilon)
         {
             var results = 0;
-            foreach (var segment in curve.Items)
+            foreach (var segment in curve?.Items)
             {
                 switch (segment)
                 {

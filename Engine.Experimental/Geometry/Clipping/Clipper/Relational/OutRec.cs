@@ -88,8 +88,8 @@ namespace Engine.Experimental
         /// <param name="e2">The e2.</param>
         public void SetOrientation(Edge e1, Edge e2)
         {
-            StartEdge = e1;
-            EndEdge = e2;
+            StartEdge = e1 ?? throw new System.ArgumentNullException(nameof(e1));
+            EndEdge = e2 ?? throw new System.ArgumentNullException(nameof(e2));
             e1.outRec = this;
             e2.outRec = this;
         }

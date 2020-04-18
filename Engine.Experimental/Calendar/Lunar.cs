@@ -15,34 +15,23 @@ namespace Engine.Chrono
     /// <summary>
     /// The lunar class.
     /// </summary>
-    internal class Lunar
+    public static class Lunar
     {
-        //Variables for Moon program
-        /// <summary>
-        /// The ip.
-        /// </summary>
-        private double ip;
-
-        /// <summary>
-        /// The ag.
-        /// </summary>
-        private double ag;
-
         /// <summary>
         /// http://www.codeproject.com/Articles/100174/Calculate-and-Draw-Moon-Phase
         /// </summary>
-        /// <param name="d"></param>
-        /// <param name="m"></param>
-        /// <param name="y"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
         /// <returns></returns>
-        private static int JulianDate(int d, int m, int y)
+        private static int JulianDate(int year, int month, int day)
         {
             int mm, yy;
             int k1, k2, k3;
             int j;
 
-            yy = y - ((12 - m) / 10);
-            mm = m + 9;
+            yy = year - ((12 - month) / 10);
+            mm = month + 9;
             if (mm >= 12)
             {
                 mm -= 12;
@@ -52,7 +41,7 @@ namespace Engine.Chrono
             k2 = (int)((30.6001 * mm) + 0.5);
             k3 = (int)(((yy / 100) + 49) * 0.75) - 38;
             // 'j' for dates in Julian calendar:
-            j = k1 + k2 + d + 59;
+            j = k1 + k2 + day + 59;
             if (j > 2299160)
             {
                 // For Gregorian calendar:
@@ -64,19 +53,19 @@ namespace Engine.Chrono
         /// <summary>
         /// http://www.codeproject.com/Articles/100174/Calculate-and-Draw-Moon-Phase
         /// </summary>
-        /// <param name="d"></param>
-        /// <param name="m"></param>
-        /// <param name="y"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
         /// <returns></returns>
-        internal double MoonAge(int d, int m, int y)
+        public static double MoonAge(int year, int month, int day)
         {
-            var j = JulianDate(d, m, y);
-            //Calculate the approximate phase of the moon
-            ip = (j + 4.867) / 29.53059;
+            var j = JulianDate(year, month, day);
+            // Calculate the approximate phase of the moon
+            var ip = (j + 4.867) / 29.53059;
             ip -= Floor(ip);
-            //After several trials I've seen to add the following lines,
-            //which gave the result was not bad
-            ag = ip < 0.5 ? (ip * 29.53059) + (29.53059 / 2) : (ip * 29.53059) - (29.53059 / 2);
+            // After several trials I've seen to add the following lines,
+            // which gave the result was not bad
+            var ag = ip < 0.5 ? (ip * 29.53059) + (29.53059 / 2) : (ip * 29.53059) - (29.53059 / 2);
             // Moon's age in days
             ag = Floor(ag) + 1;
             return ag;
@@ -92,7 +81,7 @@ namespace Engine.Chrono
         /// <param name="month"></param>
         /// <param name="day"></param>
         /// <returns></returns>
-        internal static int Moon_phase(int year, int month, int day)
+        public static int Moon_phase(int year, int month, int day)
         {
             int c, e;
             double jd;

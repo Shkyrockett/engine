@@ -29,14 +29,14 @@ namespace Engine
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Triangle"/> class.
+        /// Initializes a new instance of the <see cref="Triangle2D"/> class.
         /// </summary>
         public Triangle2D()
             : this(Point2D.Empty, Point2D.Empty, Point2D.Empty)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Triangle"/> class.
+        /// Initializes a new instance of the <see cref="Triangle2D"/> class.
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
@@ -46,13 +46,13 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Triangle"/> class.
+        /// Initializes a new instance of the <see cref="Triangle2D"/> class.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
         /// <exception cref="IndexOutOfRangeException"></exception>
         /// <exception cref="IndexOutOfRangeException"></exception>
         public Triangle2D(PolygonContour2D polygon)
-            : base(polygon.Points)
+            : base(polygon?.Points)
         {
             if (polygon.Points.Count > 3)
             {
@@ -66,13 +66,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Triangle"/> class.
+        /// Initializes a new instance of the <see cref="Triangle2D"/> class.
         /// </summary>
         /// <param name="polyline">The polyline.</param>
         /// <exception cref="IndexOutOfRangeException"></exception>
         /// <exception cref="IndexOutOfRangeException"></exception>
         public Triangle2D(Polyline2D polyline)
-            : base(polyline.Points)
+            : base(polyline?.Points)
         {
             if (polyline.Points.Count > 3)
             {
@@ -86,7 +86,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Triangle"/> class.
+        /// Initializes a new instance of the <see cref="Triangle2D"/> class.
         /// </summary>
         /// <param name="points">The points.</param>
         /// <exception cref="IndexOutOfRangeException"></exception>
@@ -106,7 +106,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Triangle"/> class.
+        /// Initializes a new instance of the <see cref="Triangle2D"/> class.
         /// </summary>
         /// <param name="points">The points.</param>
         /// <exception cref="IndexOutOfRangeException"></exception>
@@ -208,7 +208,7 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// Creates a string representation of this <see cref="PolygonContour"/> struct based on the format string
+        /// Creates a string representation of this <see cref="PolygonContour2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

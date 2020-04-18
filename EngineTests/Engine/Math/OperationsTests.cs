@@ -1674,22 +1674,7 @@ namespace EngineTests
 
         #region Bézier Polynomial Coefficients Tests
         /// <summary>
-        /// Test the <see cref="LinearBezierBernsteinBasisRecursive(double, double)" /> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(Polynomial))]
-        [DeploymentItem("Engine.dll")]
-        public void LinearBezierCoefficientsStackTest()
-        {
-            var expected = new Polynomial(1, 1);
-            var result = LinearBezierBernsteinBasisRecursive(1, 2);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="LinearBezierBernsteinBasis(double, double)" /> method.
+        /// Test the <see cref="LinearBezierBernsteinBasis(double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1704,22 +1689,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="QuadraticBezierBernsteinBasisRecursive(double, double, double)" /> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(Polynomial))]
-        [DeploymentItem("Engine.dll")]
-        public void QuadraticBezierCoefficientsStackTest()
-        {
-            var expected = new Polynomial(0, 2, 1);
-            var result = QuadraticBezierBernsteinBasisRecursive(1, 2, 3);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="QuadraticBezierBernsteinBasis(double, double, double)" /> method.
+        /// Test the <see cref="QuadraticBezierBernsteinBasis(double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1734,22 +1704,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="CubicBezierBernsteinBasisRecursive(double, double, double, double)" /> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(Polynomial))]
-        [DeploymentItem("Engine.dll")]
-        public void CubicBezierCoefficientsStackTest()
-        {
-            var expected = new Polynomial(0, 0, 3, 1);
-            var result = CubicBezierBernsteinBasisRecursive(1, 2, 3, 4);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="CubicBezierBernsteinBasis(double, double, double, double)" /> method.
+        /// Test the <see cref="CubicBezierCoefficients(double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1764,22 +1719,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="QuarticBezierBernsteinBasisRecursive(double, double, double, double, double)" /> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(Polynomial))]
-        [DeploymentItem("Engine.dll")]
-        public void QuarticBezierCoefficientsStackTest()
-        {
-            var expected = new Polynomial(0, 0, 0, 4, 1);
-            var result = QuarticBezierBernsteinBasisRecursive(1, 2, 3, 4, 5);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="QuarticBezierBernsteinBasis(double, double, double, double, double)" /> method.
+        /// Test the <see cref="QuarticBezierBernsteinBasis(double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1794,22 +1734,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="QuinticBezierBernsteinBasisRecursive(double, double, double, double, double, double)" /> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(Polynomial))]
-        [DeploymentItem("Engine.dll")]
-        public void QuinticBezierCoefficientsStackTest()
-        {
-            var expected = new Polynomial(0, 0, 0, 0, 5, 1);
-            var result = QuinticBezierBernsteinBasisRecursive(1, 2, 3, 4, 5, 6);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="QuinticBezierBernsteinBasis(double, double, double, double, double, double)" /> method.
+        /// Test the <see cref="QuinticBezierBernsteinBasis(double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1820,81 +1745,6 @@ namespace EngineTests
         {
             var expected = new Polynomial(0, 0, 0, 0, 5, 1);
             var result = QuinticBezierBernsteinBasis(1, 2, 3, 4, 5, 6);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="SexticBezierBernsteinBasisRecursive(double, double, double, double, double, double, double)" /> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(Polynomial))]
-        [DeploymentItem("Engine.dll")]
-        public void SexticBezierCoefficientsStackTest()
-        {
-            var expected = new Polynomial(0, 0, 0, 0, 0, 6, 1);
-            var result = SexticBezierBernsteinBasisRecursive(1, 2, 3, 4, 5, 6, 7);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="SepticBezierBernsteinBasisRecursive(double, double, double, double, double, double, double, double)" /> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(Polynomial))]
-        [DeploymentItem("Engine.dll")]
-        public void SepticBezierCoefficientsStackTest()
-        {
-            var expected = new Polynomial(0, 0, 0, 0, 0, 0, 7, 1);
-            var result = SepticBezierBernsteinBasisRecursive(1, 2, 3, 4, 5, 6, 7, 8);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="OcticBezierBernsteinBasisRecursive(double, double, double, double, double, double, double, double, double)" /> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(Polynomial))]
-        [DeploymentItem("Engine.dll")]
-        public void OcticBezierCoefficientsStackTest()
-        {
-            var expected = new Polynomial(0, 0, 0, 0, 0, 0, 0, 8, 1);
-            var result = OcticBezierBernsteinBasisRecursive(1, 2, 3, 4, 5, 6, 7, 8, 9);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="NonicBezierBernsteinBasisRecursive(double, double, double, double, double, double, double, double, double, double)" /> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(Polynomial))]
-        [DeploymentItem("Engine.dll")]
-        public void NonicBezierCoefficientsStackTest()
-        {
-            var expected = new Polynomial(0, 0, 0, 0, 0, 0, 0, 0, 9, 1);
-            var result = NonicBezierBernsteinBasisRecursive(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="DecicBezierBernsteinBasisRecursive(double, double, double, double, double, double, double, double, double, double, double)" /> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty(nameof(Engine), nameof(Polynomial))]
-        [DeploymentItem("Engine.dll")]
-        public void DecicBezierCoefficientsStackTest()
-        {
-            var expected = new Polynomial(0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1);
-            var result = DecicBezierBernsteinBasisRecursive(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
             Assert.AreEqual(expected, result);
         }
         #endregion Bézier Polynomial Coefficients Tests

@@ -51,30 +51,30 @@ namespace Engine
         /// <summary>
         /// The enqueue.
         /// </summary>
-        /// <param name="obj">The obj.</param>
-        public void Enqueue(SweepEvent obj)
+        /// <param name="item">The obj.</param>
+        public void Enqueue(SweepEvent item)
         {
             if (sorted)
             {
                 var length = heap.Count;
                 if (length == 0)
                 {
-                    heap.Add(obj);
+                    heap.Add(item);
                 }
 
                 heap.Add(null); // Expand the Vector by one.
 
                 var i = length - 1;
-                while (i >= 0 && SegmentComparators.ReverseSweepEventComp(obj, heap[i]) == -1)
+                while (i >= 0 && SegmentComparators.ReverseSweepEventComp(item, heap[i]) == -1)
                 {
                     heap[i + 1] = heap[i];
                     i--;
                 }
-                heap[i + 1] = obj;
+                heap[i + 1] = item;
             }
             else
             {
-                heap.Add(obj);
+                heap.Add(item);
             }
         }
 
@@ -89,7 +89,7 @@ namespace Engine
                 sorted = true;
                 heap.Sort(SegmentComparators.ReverseSweepEventComp);
             }
-            var pop = heap[heap.Count - 1];
+            var pop = heap[^1];
             heap.RemoveAt(heap.Count - 1);
             return pop;
         }

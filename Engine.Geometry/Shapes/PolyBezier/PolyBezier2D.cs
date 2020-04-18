@@ -24,10 +24,9 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// A closed Polygon2D made up of sets of Bezier Contours.
+    /// A closed Polygon made up of sets of Bezier Contours.
     /// </summary>
     /// <structure>Engine.Geometry.PolyGon2D</structure>
-
     [DataContract, Serializable]
     //[GraphicsObject]
     [DisplayName(nameof(PolyBezier2D))]
@@ -38,9 +37,8 @@ namespace Engine
     {
         #region Fields
         /// <summary>
-        /// An array of Polygon2D Contours.
+        /// An array of Polygon Contours.
         /// </summary>
-
         [DataMember, XmlArray, SoapElement]
         private List<PolyBezierContour2D> contours;
         #endregion Fields
@@ -62,7 +60,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolyBezier"/> class with a single <see cref="PolygonContour"/> of a set of <see cref="Point2D"/>s from a parameter list.
+        /// Initializes a new instance of the <see cref="PolyBezier"/> class with a single <see cref="PolygonContour2D"/> of a set of <see cref="Point2D"/>s from a parameter list.
         /// </summary>
         /// <param name="points"></param>
         public PolyBezier2D(params Point2D[] points)
@@ -70,7 +68,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolyBezier"/> class with a single <see cref="PolygonContour"/> from a set of <see cref="Point2D"/>s.
+        /// Initializes a new instance of the <see cref="PolyBezier"/> class with a single <see cref="PolygonContour2D"/> from a set of <see cref="Point2D"/>s.
         /// </summary>
         /// <param name="points"></param>
         public PolyBezier2D(IEnumerable<Point2D> points)

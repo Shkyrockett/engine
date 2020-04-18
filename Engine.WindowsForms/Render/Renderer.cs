@@ -33,9 +33,9 @@ namespace Engine.Imaging
         {
             //g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds.ToRectangleF() });
 
-            var clipRect = g.VisibleClipBounds.ToRectangle2D();
+            var clipRect = g?.VisibleClipBounds.ToRectangle2D();
 
-            //if (clipRect.Intersects(item.Shape2D.Bounds))
+            //if (clipRect.Intersects(item.Shape.Bounds))
             switch (item?.Shape)
             {
                 case ParametricDelegateCurve2D t:
@@ -80,7 +80,7 @@ namespace Engine.Imaging
                 case Line2D t:
                     t.Render(g, renderer, item, clipRect, style as ShapeStyle);
                     break;
-                case LineSegment2D t: // Line segment needs to be in front of Polyline2D because LineSegment2D is a subset of Polyline2D.
+                case LineSegment2D t: // Line segment needs to be in front of Polyline because LineSegment is a subset of Polyline.
                     t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case Polyline2D t:
@@ -116,7 +116,7 @@ namespace Engine.Imaging
                 case Circle2D t:
                     t.Render(g, renderer, item, style as ShapeStyle);
                     break;
-                case Ellipse t:
+                case Ellipse2D t:
                     t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case BezierSegment2D t:
@@ -144,12 +144,12 @@ namespace Engine.Imaging
         /// <param name="style">The style.</param>
         public static void Render(this Text2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            var itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item?.Style;
             var layoutRectangle = shape?.Bounds?.ToRectangleF();
             if (!(layoutRectangle is null))
             {
                 using var font = shape.Font.ToFont();
-                g.DrawString(shape.Text, font, itemStyle.ForeBrush, layoutRectangle.Value);
+                g?.DrawString(shape.Text, font, itemStyle.ForeBrush, layoutRectangle.Value);
             }
         }
     }

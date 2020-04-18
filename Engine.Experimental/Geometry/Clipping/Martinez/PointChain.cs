@@ -29,8 +29,8 @@ namespace Engine
         {
             PointList = new List<Point2D>
             {
-                s.A,
-                s.B
+                (s?.A).Value,
+                (s?.B).Value
             };
             Closed = false;
         }
@@ -56,9 +56,9 @@ namespace Engine
         public bool LinkSegment(LineSegment2D s)
         {
             var front = PointList[0];
-            var back = PointList[PointList.Count - 1];
+            var back = PointList[^1];
 
-            if (s.A.Equals(front))
+            if ((s?.A).Equals(front))
             {
                 if (s.B.Equals(back))
                 {
@@ -122,14 +122,14 @@ namespace Engine
         public bool LinkPointChain(PointChain chain)
         {
             var firstPoint = PointList[0];
-            var lastPoint = PointList[PointList.Count - 1];
+            var lastPoint = PointList[^1];
 
-            var chainFront = chain.PointList[0];
-            var chainBack = chain.PointList[chain.PointList.Count - 1];
+            var chainFront = chain?.PointList[0];
+            var chainBack = chain.PointList[^1];
 
             if (chainFront.Equals(lastPoint))
             {
-                PointList.RemoveAt(PointList.Count - 1);//pop
+                PointList.RemoveAt((PointList?.Count).Value - 1);//pop
                 PointList = PointList.Concat(chain.PointList).ToList();
                 return true;
             }
@@ -152,7 +152,7 @@ namespace Engine
 
             if (chainBack.Equals(lastPoint))
             {
-                PointList.RemoveAt(PointList.Count - 1);//pop
+                PointList.RemoveAt((PointList?.Count).Value - 1);//pop
                 PointList.Reverse();
                 PointList = chain.PointList.Concat(PointList).ToList();
                 return true;

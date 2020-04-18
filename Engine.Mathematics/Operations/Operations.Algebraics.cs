@@ -36,7 +36,9 @@ namespace Engine
         /// The inverse sqrt.
         /// </summary>
         /// <param name="number">The number.</param>
-        /// <returns>The <see cref="double"/>.</returns>
+        /// <returns>
+        /// The <see cref="double" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseSqrt(double number) => 1d / Sqrt(number);
@@ -46,7 +48,9 @@ namespace Engine
         /// </summary>
         /// <param name="x">A double-precision floating-point number to find the specified root of.</param>
         /// <param name="y">A double-precision floating-point number that specifies a root.</param>
-        /// <returns>The y root of the number x.</returns>
+        /// <returns>
+        /// The y root of the number x.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Root(double x, double y) => (x < 0d && Math.Abs((y % 2d) - 1d) < double.Epsilon) ? -Pow(-x, 1d / y) : Pow(x, 1d / y);
@@ -62,40 +66,46 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Crt(double value) => value < 0 ? -Pow(-value, OneThird) : Pow(value, OneThird);
+        public static double CubeRoot(double value) => value < 0d ? -Cbrt(-value) : Cbrt(value);
 
         /// <summary>
         /// The inverse cube root.
         /// </summary>
         /// <param name="number">The number.</param>
-        /// <returns>The <see cref="double"/>.</returns>
+        /// <returns>
+        /// The <see cref="double" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double InverseCrt(double number) => 1d / Crt(number);
+        public static double InverseCubeRoot(double number) => 1d / CubeRoot(number);
 
         /// <summary>
         /// Calculates the real order or degree of the polynomial.
         /// </summary>
         /// <param name="coefficients">The coefficients.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns a <see cref="PolynomialDegree"/> value representing the order of degree of the polynomial.</returns>
-        /// <remarks><para>Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.</para></remarks>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns a <see cref="PolynomialDegree" /> value representing the order of degree of the polynomial.
+        /// </returns>
+        /// <remarks>
+        /// Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.
+        /// </remarks>
         /// <acknowledgment>
         /// A hodge-podge helper method based on Simplify from of: http://www.kevlindev.com/
         /// as well as Trim and RealOrder from: https://github.com/superlloyd/Poly
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PolynomialDegree DegreeRealOrder(IList<double> coefficients, double epsilon = double.Epsilon)
+        public static PolynomialDegree DegreeRealOrder(Span<double> coefficients, double epsilon = double.Epsilon)
         {
             var pos = 1;
-            var count = coefficients?.Count;
+            var count = coefficients.Length;
 
             // Monomial can be a zero constant, skip them and check the rest.
             if (count > 1)
             {
                 // Count the number of leading zeros. Because the coefficients array is reversed, start at the end because there should generally be fewer leading zeros than other coefficients.
-                for (var i = count.Value - 1; i >= 1 /* Monomials can be 0. */; i--)
+                for (var i = count - 1; i >= 1 /* Monomials can be 0. */; i--)
                 {
                     // Check if coefficient is a leading zero.
                     if (Math.Abs(coefficients[i]) <= epsilon)
@@ -111,51 +121,7 @@ namespace Engine
             }
 
             // If coefficients is empty return constant, otherwise return the calculated order of degree of the polynomial.
-            return (PolynomialDegree)(count - pos ?? 0);
-        }
-
-        /// <summary>
-        /// Align points to a line.
-        /// </summary>
-        /// <param name="points">The points to align.</param>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <returns>The <see cref="List{T}"/>.</returns>
-        /// <acknowledgment>
-        /// https://pomax.github.io/bezierinfo/#aligning
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<Point2D> AlignPoints(IList<Point2D> points, double x1, double y1, double x2, double y2)
-        {
-            //var angle = -Atan2(y2 - y1, x2 - x1);
-            //var sinA = Sin(angle);
-            //var cosA = Cos(angle);
-
-            // Atan2, Sin and Cos are kind of slow. In theory this should be faster.
-            var dx = x2 - x1;
-            var dy = y2 - y1;
-            var det = (dx * dx) + (dy * dy);
-
-            // I believe det should only be 0 if the line is a point. Not sure what the correct value should be for overlapping points.
-            var sinA = det == 0 ? 0 : -dy / det;
-            var cosA = det == 0 ? 1 : -dx / det;
-
-            var results = new List<Point2D>();
-            //if (!(points is null))
-            //{
-            foreach (var point in points)
-            {
-                results.Add(new Point2D(
-                    ((point.X - x1) * cosA) - ((point.Y - y1) * sinA),
-                    ((point.X - x1) * sinA) + ((point.Y - y1) * cosA))
-                    );
-            }
-            //}
-
-            return results;
+            return (PolynomialDegree)(count - pos);
         }
 
         #region D Root Finding
@@ -184,8 +150,10 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="IList{T}"/>.</returns>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// The <see cref="IList{T}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -204,8 +172,10 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="IList{T}"/>.</returns>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// The <see cref="IList{T}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -246,15 +216,15 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> Roots(IList<double> coefficients, double epsilon = double.Epsilon)
+        public static IList<double> Roots(Span<double> coefficients, double epsilon = double.Epsilon)
             => DegreeRealOrder(coefficients) switch
             {
-                PolynomialDegree.Constant => (coefficients is null) ? Array.Empty<double>() : new double[] { coefficients[0] },
-                PolynomialDegree.Linear => LinearRoots(coefficients[1], coefficients[0], epsilon),
-                PolynomialDegree.Quadratic => QuadraticRoots(coefficients[2], coefficients[1], coefficients[0], epsilon),
-                PolynomialDegree.Cubic => CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon),
-                PolynomialDegree.Quartic => QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon),
-                PolynomialDegree.Quintic => QuinticRoots(coefficients[5], coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon),
+                PolynomialDegree.Constant => new double[] { coefficients[0] },
+                PolynomialDegree.Linear => LinearRoots(ref coefficients[1], ref coefficients[0], epsilon),
+                PolynomialDegree.Quadratic => QuadraticRoots(ref coefficients[2], ref coefficients[1], ref coefficients[0], epsilon),
+                PolynomialDegree.Cubic => CubicRoots(ref coefficients[3], ref coefficients[2], ref coefficients[1], ref coefficients[0], epsilon),
+                PolynomialDegree.Quartic => QuarticRoots(ref coefficients[4], ref coefficients[3], ref coefficients[2], ref coefficients[1], ref coefficients[0], epsilon),
+                PolynomialDegree.Quintic => QuinticRoots(ref coefficients[5], ref coefficients[4], ref coefficients[3], ref coefficients[2], ref coefficients[1], ref coefficients[0], epsilon),
                 //PolynomialDegree.Sextic => Array.Empty<double>(), //SexticRoots(epsilon),
                 //PolynomialDegree.Septic => Array.Empty<double>(), //SepticRoots(epsilon),
                 //PolynomialDegree.Octic => Array.Empty<double>(), //OcticRoots(epsilon),
@@ -268,32 +238,33 @@ namespace Engine
         /// <param name="b">The b.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="List{T}"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IList<double> LinearRoots(double a, double b, double epsilon = double.Epsilon) => LinearRoots(ref a, ref b, epsilon);
+
+        /// <summary>
+        /// The linear roots.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> LinearRoots(double a, double b, double epsilon = double.Epsilon)
-        {
-            var result = new HashSet<double>();
-            if (Math.Abs(a) < epsilon)
-            {
-                if (!(Math.Abs(b) < epsilon))
-                {
-                    // Monomial. 
-                    result.Add(b);
-                }
-                else
-                {
-                    // Zero Monomial. No results.
-                    return result.ToList();
-                }
-            }
+        public static IList<double> LinearRoots(ref double a, ref double b, double epsilon = double.Epsilon) => Math.Abs(a) < epsilon ? Math.Abs(b) < epsilon ? Array.Empty<double>() : new double[] { b } : new double[] { -b / a };
 
-            result.Add(-b / a);
-
-            return result.ToList();
-        }
+        /// <summary>
+        /// The quadratic roots.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name = "epsilon"> The minimal value to represent a change.</param>
+        /// <returns>The <see cref="List{T}"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IList<double> QuadraticRoots(double a, double b, double c, double epsilon = double.Epsilon) => QuadraticRoots(ref a, ref b, ref c, epsilon);
 
         /// <summary>
         /// The quadratic roots.
@@ -308,13 +279,13 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> QuadraticRoots(double a, double b, double c, double epsilon = double.Epsilon)
+        public static IList<double> QuadraticRoots(ref double a, ref double b, ref double c, double epsilon = double.Epsilon)
         {
             // Is the coefficient of the highest term zero?
             if (Math.Abs(a) < epsilon)
             {
                 // If the highest term coefficient is 0, then it is a lower degree polynomial.
-                return LinearRoots(b, c, epsilon);
+                return LinearRoots(ref b, ref c, epsilon);
             }
 
             var ba = b / a;
@@ -323,36 +294,40 @@ namespace Engine
             // Polynomial discriminant
             var discriminant = (ba * ba) - (4d * ca);
 
-            // ToDo: May need to switch from a hash set to a list for scan-beams.
-            var results = new HashSet<double>();
-
             if (Math.Abs(discriminant) <= epsilon)
             {
                 discriminant = 0;
             }
 
-            if (discriminant > 0)
+            switch (discriminant)
             {
-                // Real Roots.
-                var e = Sqrt(discriminant);
-                results.Add(OneHalf * (-ba + e));
-                results.Add(OneHalf * (-ba - e));
+                case 0:
+                    return new double[] { OneHalf * -ba };
+                case double v when v > 0:
+                    {
+                        var e = Sqrt(discriminant);
+                        return new double[] { OneHalf * (-ba + e), OneHalf * (-ba - e) };
+                    }
+                default:
+                    {
+                        var e = -Sqrt(-discriminant);
+                        return new double[] { OneHalf * (-ba + e), OneHalf * (-ba - e) };
+                    }
             }
-            else if (discriminant == 0)
-            {
-                // Technically two roots with same value, but we only need the one.
-                results.Add(OneHalf * -ba);
-            }
-            else
-            {
-                // Imaginary roots? Technically incorrect, but it seems to fix the problem where ellipses intersections were broken... 
-                var e = -Sqrt(-discriminant);
-                results.Add(OneHalf * (-ba + e));
-                results.Add(OneHalf * (-ba - e));
-            }
-
-            return results.ToList();
         }
+
+        /// <summary>
+        /// Cubic Roots
+        /// </summary>
+        /// <param name="a">t^3</param>
+        /// <param name="b">t^2</param>
+        /// <param name="c">t</param>
+        /// <param name="d">1</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IList<double> CubicRoots(double a, double b, double c, double d, double epsilon = double.Epsilon) => CubicRoots(ref a, ref b, ref c, ref d, epsilon);
 
         /// <summary>
         /// Cubic Roots
@@ -368,13 +343,13 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> CubicRoots(double a, double b, double c, double d, double epsilon = double.Epsilon)
+        public static IList<double> CubicRoots(ref double a, ref double b, ref double c, ref double d, double epsilon = double.Epsilon)
         {
             // Is the coefficient of the highest term zero?
             if (Math.Abs(a) < epsilon)
             {
                 // If the highest term coefficient is 0, then it is a lower degree polynomial.
-                return QuadraticRoots(b, c, d, epsilon);
+                return QuadraticRoots(ref b, ref c, ref d, epsilon);
             }
 
             var ba = b / a;
@@ -389,52 +364,67 @@ namespace Engine
             // Polynomial discriminant
             var discriminant = (r * r) + (q * q * q);
 
-            // ToDo: May need to switch from a hash set to a list for scan-beams.
-            var results = new HashSet<double>();
-
             if (Math.Abs(discriminant) <= epsilon)
             {
                 discriminant = 0d;
             }
 
-            if (discriminant == 0d)
+            switch (discriminant)
             {
-                var t = Sign(r) * Pow(Math.Abs(r), OneThird);
-
-                // Real root.
-                results.Add(-offset + (t + t));
-
-                // Real part of complex root.
-                results.Add(-offset - ((t + t) * OneHalf));
+                case 0:
+                    {
+                        var t = Sign(r) * Cbrt(Math.Abs(r));
+                        return new double[] {
+                         -offset + (t + t),
+                          -offset - ((t + t) * OneHalf)
+                         };
+                    }
+                case double v when v > 0:
+                    {
+                        var e = Sqrt(discriminant);
+                        var s = Sign(r + e) * Cbrt(Math.Abs(r + e));
+                        var t = Sign(r - e) * Cbrt(Math.Abs(r - e));
+                        var im = Math.Abs(Sqrt(3d) * (s - t) * OneHalf);
+                        //return im == 0d ?
+                        //    new double[] { -offset + (s + t) } 
+                        //    : new double[] { -offset + (s + t), -offset - ((s + t) * OneHalf) };
+                        // Complex part of root pair.
+                        if (im == 0d)
+                        {
+                            // Real part of complex root.
+                            return new double[] {
+                            -offset + (s + t),
+                            -offset - ((s + t) * OneHalf)
+                            };
+                        }
+                        else
+                        {
+                            return new double[] { -offset + (s + t) };
+                        }
+                    }
+                default:
+                    {
+                        var th = Acos(r / Sqrt(-q * q * q));
+                        return new double[] {
+                            (2d * Sqrt(-q) * Cos(th * OneThird)) - offset,
+                            (2d * Sqrt(-q) * Cos((th + Tau) * OneThird)) - offset,
+                            (2d * Sqrt(-q) * Cos((th + (4d * PI)) * OneThird)) - offset };
+                    }
             }
-            if (discriminant > 0)
-            {
-                var s = Sign(r + Sqrt(discriminant)) * Pow(Math.Abs(r + Sqrt(discriminant)), OneThird);
-                var t = Sign(r - Sqrt(discriminant)) * Pow(Math.Abs(r - Sqrt(discriminant)), OneThird);
-
-                // Real root.
-                results.Add(-offset + (s + t));
-
-                // Complex part of root pair.
-                var Im = Math.Abs(Sqrt(3d) * (s - t) * OneHalf);
-                if (Im == 0d)
-                {
-                    // Real part of complex root.
-                    results.Add(-offset - ((s + t) * OneHalf));
-                }
-            }
-            else if (discriminant < 0)
-            {
-                // Distinct real roots.
-                var th = Acos(r / Sqrt(-q * q * q));
-
-                results.Add((2d * Sqrt(-q) * Cos(th * OneThird)) - offset);
-                results.Add((2d * Sqrt(-q) * Cos((th + Tau) * OneThird)) - offset);
-                results.Add((2d * Sqrt(-q) * Cos((th + (4d * PI)) * OneThird)) - offset);
-            }
-
-            return results.ToList();
         }
+
+        /// <summary>
+        /// The quartic roots.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name = "epsilon"> The minimal value to represent a change.</param>
+        /// <returns>The <see cref="List{T}"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IList<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = double.Epsilon) => QuarticRoots(ref a, ref b, ref c, ref d, ref e, epsilon);
 
         /// <summary>
         /// The quartic roots.
@@ -462,13 +452,13 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = double.Epsilon)
+        public static IList<double> QuarticRoots(ref double a, ref double b, ref double c, ref double d, ref double e, double epsilon = double.Epsilon)
         {
             // Is the coefficient of the highest term zero?
             if (Math.Abs(a) < epsilon)
             {
                 // If the highest term coefficient is 0, then it is a lower degree polynomial.
-                return CubicRoots(b, c, d, e, epsilon);
+                return CubicRoots(ref b, ref c, ref d, ref e, epsilon);
             }
 
             // ToDo: Translate code found at: https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html
@@ -496,71 +486,88 @@ namespace Engine
                 discriminant = 0d;
             }
 
-            if (discriminant > 0d)
+            switch (discriminant)
             {
-                // Real Roots.
-                var ee = Sqrt(discriminant);
-                var t1 = (3d * ba * ba * OneQuarter) - (ee * ee) - (2d * ca);
-                var t2 = ((4d * ba * ca) - (8d * da) - (ba * ba * ba)) / (4d * ee);
-                var plus = t1 + t2;
-                var minus = t1 - t2;
-                if (Math.Abs(plus) <= epsilon)
-                {
-                    plus = 0d;
-                }
-
-                if (Math.Abs(minus) <= epsilon)
-                {
-                    minus = 0d;
-                }
-
-                if (plus >= 0d)
-                {
-                    var f = Sqrt(plus);
-                    results.Add((-ba * OneQuarter) + ((ee + f) * OneHalf));
-                    results.Add((-ba * OneQuarter) + ((ee - f) * OneHalf));
-                }
-                if (minus >= 0d)
-                {
-                    var f = Sqrt(minus);
-                    results.Add((-ba * OneQuarter) + ((f - ee) * OneHalf));
-                    results.Add((-ba * OneQuarter) - ((f + ee) * OneHalf));
-                }
-            }
-            else if (discriminant == 0d)
-            {
-                // Origin Roots.
-                var t2 = (y * y) - (4d * ea);
-                if (t2 >= -epsilon)
-                {
-                    if (t2 < 0)
+                case 0:
                     {
-                        t2 = 0d;
-                    }
+                        var t2 = (y * y) - (4d * ea);
+                        if (t2 >= -epsilon)
+                        {
+                            if (t2 < 0)
+                            {
+                                t2 = 0d;
+                            }
 
-                    t2 = 2d * Sqrt(t2);
-                    var t1 = (3d * ba * ba * OneQuarter) - (2d * ca);
-                    if (t1 + t2 >= epsilon)
-                    {
-                        var d0 = Sqrt(t1 + t2);
-                        results.Add((-ba * OneQuarter) + (d0 * OneHalf));
-                        results.Add((-ba * OneQuarter) - (d0 * OneHalf));
+                            t2 = 2d * Sqrt(t2);
+                            var t1 = (3d * ba * ba * OneQuarter) - (2d * ca);
+                            if (t1 + t2 >= epsilon)
+                            {
+                                var d0 = Sqrt(t1 + t2);
+                                results.Add((-ba * OneQuarter) + (d0 * OneHalf));
+                                results.Add((-ba * OneQuarter) - (d0 * OneHalf));
+                            }
+                            if (t1 - t2 >= epsilon)
+                            {
+                                var d1 = Sqrt(t1 - t2);
+                                results.Add((-ba * OneQuarter) + (d1 * OneHalf));
+                                results.Add((-ba * OneQuarter) - (d1 * OneHalf));
+                            }
+                        }
+                        return results.ToArray();
                     }
-                    if (t1 - t2 >= epsilon)
+                case double v when v > 0:
                     {
-                        var d1 = Sqrt(t1 - t2);
-                        results.Add((-ba * OneQuarter) + (d1 * OneHalf));
-                        results.Add((-ba * OneQuarter) - (d1 * OneHalf));
-                    }
-                }
-            }
-            else if (discriminant < 0d)
-            {
-                // Imaginary roots?
-            }
+                        var ee = Sqrt(discriminant);
+                        var t1 = (3d * ba * ba * OneQuarter) - (ee * ee) - (2d * ca);
+                        var t2 = ((4d * ba * ca) - (8d * da) - (ba * ba * ba)) / (4d * ee);
+                        var plus = t1 + t2;
+                        var minus = t1 - t2;
 
-            return results.ToList();
+                        if (Math.Abs(plus) <= epsilon)
+                        {
+                            plus = 0d;
+                        }
+
+                        if (Math.Abs(minus) <= epsilon)
+                        {
+                            minus = 0d;
+                        }
+
+                        if (plus >= 0d)
+                        {
+                            var f = Sqrt(plus);
+                            results.Add((-ba * OneQuarter) + ((ee + f) * OneHalf));
+                            results.Add((-ba * OneQuarter) + ((ee - f) * OneHalf));
+                        }
+                        if (minus >= 0d)
+                        {
+                            var f = Sqrt(minus);
+                            results.Add((-ba * OneQuarter) + ((f - ee) * OneHalf));
+                            results.Add((-ba * OneQuarter) - ((f + ee) * OneHalf));
+                        }
+                        return results.ToArray();
+                    }
+                default:
+                    {
+                        // Imaginary roots?
+                        return results.ToArray();
+                    }
+            }
         }
+
+        /// <summary>
+        /// The quintic roots.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name = "epsilon"> The minimal value to represent a change.</param>
+        /// <returns>The <see cref="List{T}"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IList<double> QuinticRoots(double a, double b, double c, double d, double e, double f, double epsilon = double.Epsilon) => QuinticRoots(ref a, ref b, ref c, ref d, ref e, ref f, epsilon);
 
         /// <summary>
         /// The quintic roots.
@@ -581,13 +588,13 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> QuinticRoots(double a, double b, double c, double d, double e, double f, double epsilon = double.Epsilon)
+        public static IList<double> QuinticRoots(ref double a, ref double b, ref double c, ref double d, ref double e, ref double f, double epsilon = double.Epsilon)
         {
             // Is the coefficient of the highest term zero?
             if (Math.Abs(a) < epsilon)
             {
                 // If the highest term coefficient is 0, then it is a lower degree polynomial.
-                return QuarticRoots(b, c, d, e, f, epsilon);
+                return QuarticRoots(ref b, ref c, ref d, ref e, ref f, epsilon);
             }
 
             //var coeff = new List<double> { a, b, c, d, e, f };
@@ -739,7 +746,9 @@ namespace Engine
         /// <param name="maxIterations">Maximum number of algorithm iterations</param>
         /// <param name="min">Left bound value</param>
         /// <param name="max">Right bound value</param>
-        /// <returns>root</returns>
+        /// <returns>
+        /// root
+        /// </returns>
         /// <remarks>
         /// <para>https://github.com/thelonious/kld-polynomial
         /// http://en.wikipedia.org/wiki/Newton%27s_method

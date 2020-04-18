@@ -14,9 +14,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static Engine.Mathematics;
@@ -29,7 +29,6 @@ namespace Engine
     /// The matrix4x4d struct.
     /// </summary>
     /// <seealso cref="IMatrix{M, V}" />
-    [ComVisible(true)]
     [DataContract, Serializable]
     //[TypeConverter(typeof(Matrix4x4DConverter))]
     [TypeConverter(typeof(StructConverter<Matrix4x4D>))]
@@ -195,7 +194,7 @@ namespace Engine
         /// <value>
         /// The M0X0.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M0x0)), XmlAttribute(nameof(M0x0)), SoapAttribute(nameof(M0x0))]
         public double M0x0 { get; set; }
 
         /// <summary>
@@ -204,7 +203,7 @@ namespace Engine
         /// <value>
         /// The M0X1.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M0x1)), XmlAttribute(nameof(M0x1)), SoapAttribute(nameof(M0x1))]
         public double M0x1 { get; set; }
 
         /// <summary>
@@ -213,7 +212,7 @@ namespace Engine
         /// <value>
         /// The M0X2.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M0x2)), XmlAttribute(nameof(M0x2)), SoapAttribute(nameof(M0x2))]
         public double M0x2 { get; set; }
 
         /// <summary>
@@ -222,7 +221,7 @@ namespace Engine
         /// <value>
         /// The M0X3.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M0x3)), XmlAttribute(nameof(M0x3)), SoapAttribute(nameof(M0x3))]
         public double M0x3 { get; set; }
 
         /// <summary>
@@ -231,7 +230,7 @@ namespace Engine
         /// <value>
         /// The M1X0.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M1x0)), XmlAttribute(nameof(M1x0)), SoapAttribute(nameof(M1x0))]
         public double M1x0 { get; set; }
 
         /// <summary>
@@ -240,7 +239,7 @@ namespace Engine
         /// <value>
         /// The M1X1.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M1x1)), XmlAttribute(nameof(M1x1)), SoapAttribute(nameof(M1x1))]
         public double M1x1 { get; set; }
 
         /// <summary>
@@ -249,7 +248,7 @@ namespace Engine
         /// <value>
         /// The M1X2.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M1x2)), XmlAttribute(nameof(M1x2)), SoapAttribute(nameof(M1x2))]
         public double M1x2 { get; set; }
 
         /// <summary>
@@ -258,7 +257,7 @@ namespace Engine
         /// <value>
         /// The M1X3.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M1x3)), XmlAttribute(nameof(M1x3)), SoapAttribute(nameof(M1x3))]
         public double M1x3 { get; set; }
 
         /// <summary>
@@ -267,7 +266,7 @@ namespace Engine
         /// <value>
         /// The M2X0.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M2x0)), XmlAttribute(nameof(M2x0)), SoapAttribute(nameof(M2x0))]
         public double M2x0 { get; set; }
 
         /// <summary>
@@ -276,7 +275,7 @@ namespace Engine
         /// <value>
         /// The M2X1.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M2x1)), XmlAttribute(nameof(M2x1)), SoapAttribute(nameof(M2x1))]
         public double M2x1 { get; set; }
 
         /// <summary>
@@ -285,7 +284,7 @@ namespace Engine
         /// <value>
         /// The M2X2.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M2x2)), XmlAttribute(nameof(M2x2)), SoapAttribute(nameof(M2x2))]
         public double M2x2 { get; set; }
 
         /// <summary>
@@ -294,7 +293,7 @@ namespace Engine
         /// <value>
         /// The M2X3.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M2x3)), XmlAttribute(nameof(M2x3)), SoapAttribute(nameof(M2x3))]
         public double M2x3 { get; set; }
 
         /// <summary>
@@ -303,7 +302,7 @@ namespace Engine
         /// <value>
         /// The M3X0.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M3x0)), XmlAttribute(nameof(M3x0)), SoapAttribute(nameof(M3x0))]
         public double M3x0 { get; set; }
 
         /// <summary>
@@ -312,7 +311,7 @@ namespace Engine
         /// <value>
         /// The M3X1.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M3x1)), XmlAttribute(nameof(M3x1)), SoapAttribute(nameof(M3x1))]
         public double M3x1 { get; set; }
 
         /// <summary>
@@ -321,7 +320,7 @@ namespace Engine
         /// <value>
         /// The M3X2.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M3x2)), XmlAttribute(nameof(M3x2)), SoapAttribute(nameof(M3x2))]
         public double M3x2 { get; set; }
 
         /// <summary>
@@ -330,7 +329,7 @@ namespace Engine
         /// <value>
         /// The M3X3.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(M3x3)), XmlAttribute(nameof(M3x3)), SoapAttribute(nameof(M3x3))]
         public double M3x3 { get; set; }
 
         /// <summary>
@@ -420,7 +419,7 @@ namespace Engine
         /// The determinant.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Determinant => Determinant(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+        public double Determinant => MatrixDeterminant(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
 
         /// <summary>
         /// Gets the transposed matrix where the rows of the matrix are swapped with the columns.
@@ -429,7 +428,7 @@ namespace Engine
         /// The transposed.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix4x4D Transposed => Transpose(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+        public Matrix4x4D Transposed => TransposeMatrix(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
 
         /// <summary>
         /// Gets the adjoint.
@@ -438,7 +437,7 @@ namespace Engine
         /// The adjoint.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix4x4D Adjoint => Adjoint(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+        public Matrix4x4D Adjoint => AdjointMatrix(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
 
         /// <summary>
         /// Gets the cofactor.
@@ -447,7 +446,7 @@ namespace Engine
         /// The cofactor.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix4x4D Cofactor => Cofactor(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+        public Matrix4x4D Cofactor => CofactorMatrix(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
 
         /// <summary>
         /// Gets the inverted.
@@ -456,7 +455,7 @@ namespace Engine
         /// The inverted.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix4x4D Inverted => Invert(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+        public Matrix4x4D Inverted => InvertMatrix(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
 
         /// <summary>
         /// Gets a value indicating whether or not a given transform is an identity transform matrix.
@@ -486,123 +485,134 @@ namespace Engine
 
         #region Operators
         /// <summary>
-        /// Used to add two matrices together.
+        /// Implements the operator +.
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
+        /// <param name="value">The value.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D operator +(Matrix4x4D left, Matrix4x4D right) => Add4x4x4x4(left.M0x0, left.M0x1, left.M0x2, left.M0x3, left.M1x0, left.M1x1, left.M1x2, left.M1x3, left.M2x0, left.M2x1, left.M2x2, left.M2x3, left.M3x0, left.M3x1, left.M3x2, left.M3x3, right.M0x0, right.M0x1, right.M0x2, right.M0x3, right.M1x0, right.M1x1, right.M1x2, right.M1x3, right.M2x0, right.M2x1, right.M2x2, right.M2x3, right.M3x0, right.M3x1, right.M3x2, right.M3x3);
+        public static Matrix4x4D operator +(Matrix4x4D value) => Plus(value);
+
+        /// <summary>
+        /// Used to add two matrices together.
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D operator +(Matrix4x4D augend, Matrix4x4D addend) => Add(augend, addend);
 
         /// <summary>
         /// Negates all the items in the Matrix.
         /// </summary>
-        /// <param name="matrix">The matrix.</param>
+        /// <param name="value"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D operator -(Matrix4x4D matrix) => UnaryNegate(matrix.M0x0, matrix.M0x1, matrix.M0x2, matrix.M0x3, matrix.M1x0, matrix.M1x1, matrix.M1x2, matrix.M1x3, matrix.M2x0, matrix.M2x1, matrix.M2x2, matrix.M2x3, matrix.M3x0, matrix.M3x1, matrix.M3x2, matrix.M3x3);
+        public static Matrix4x4D operator -(Matrix4x4D value) => Negate(value);
 
         /// <summary>
         /// Used to subtract two matrices.
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
+        /// <param name="minuend"></param>
+        /// <param name="subend"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D operator -(Matrix4x4D left, Matrix4x4D right) => Subtract4x4x4x4(left.M0x0, left.M0x1, left.M0x2, left.M0x3, left.M1x0, left.M1x1, left.M1x2, left.M1x3, left.M2x0, left.M2x1, left.M2x2, left.M2x3, left.M3x0, left.M3x1, left.M3x2, left.M3x3, right.M0x0, right.M0x1, right.M0x2, right.M0x3, right.M1x0, right.M1x1, right.M1x2, right.M1x3, right.M2x0, right.M2x1, right.M2x2, right.M2x3, right.M3x0, right.M3x1, right.M3x2, right.M3x3);
+        public static Matrix4x4D operator -(Matrix4x4D minuend, Matrix4x4D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Multiplies all the items in the Matrix3 by a scalar value.
         /// </summary>
-        /// <param name="matrix">The matrix.</param>
-        /// <param name="scalar">The scalar.</param>
+        /// <param name="multiplicand"></param>
+        /// <param name="multiplier"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D operator *(Matrix4x4D matrix, double scalar) => Scale4x4(matrix.M0x0, matrix.M0x1, matrix.M0x2, matrix.M0x3, matrix.M1x0, matrix.M1x1, matrix.M1x2, matrix.M1x3, matrix.M2x0, matrix.M2x1, matrix.M2x2, matrix.M2x3, matrix.M3x0, matrix.M3x1, matrix.M3x2, matrix.M3x3, scalar);
+        public static Matrix4x4D operator *(Matrix4x4D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Multiplies all the items in the Matrix3 by a scalar value.
         /// </summary>
-        /// <param name="scalar">The scalar.</param>
-        /// <param name="matrix">The matrix.</param>
+        /// <param name="multiplicand"></param>
+        /// <param name="multiplier"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D operator *(double scalar, Matrix4x4D matrix) => Scale4x4(matrix.M0x0, matrix.M0x1, matrix.M0x2, matrix.M0x3, matrix.M1x0, matrix.M1x1, matrix.M1x2, matrix.M1x3, matrix.M2x0, matrix.M2x1, matrix.M2x2, matrix.M2x3, matrix.M3x0, matrix.M3x1, matrix.M3x2, matrix.M3x3, scalar);
+        public static Matrix4x4D operator *(double multiplicand, Matrix4x4D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
+        /// <param name="multiplicand"></param>
+        /// <param name="multiplier"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D operator *(Matrix2x2D left, Matrix4x4D right) => Multiply2x2x4x4(left.M0x0, left.M0x1, left.M1x0, left.M1x1, right.M0x0, right.M0x1, right.M0x2, right.M0x3, right.M1x0, right.M1x1, right.M1x2, right.M1x3, right.M2x0, right.M2x1, right.M2x2, right.M2x3, right.M3x0, right.M3x1, right.M3x2, right.M3x3);
+        public static Matrix4x4D operator *(Matrix4x4D multiplicand, Matrix4x4D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
+        /// <param name="multiplicand"></param>
+        /// <param name="multiplier"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D operator *(Matrix3x3D left, Matrix4x4D right) => Multiply3x3x4x4(left.M0x0, left.M0x1, left.M0x2, left.M1x0, left.M1x1, left.M1x2, left.M2x0, left.M2x1, left.M2x2, right.M0x0, right.M0x1, right.M0x2, right.M0x3, right.M1x0, right.M1x1, right.M1x2, right.M1x3, right.M2x0, right.M2x1, right.M2x2, right.M2x3, right.M3x0, right.M3x1, right.M3x2, right.M3x3);
+        public static Matrix4x4D operator *(Matrix4x4D multiplicand, Matrix3x3D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
+        /// <param name="multiplicand"></param>
+        /// <param name="multiplier"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D operator *(Matrix4x4D left, Matrix2x2D right) => Multiply4x4x2x2(left.M0x0, left.M0x1, left.M0x2, left.M0x3, left.M1x0, left.M1x1, left.M1x2, left.M1x3, left.M2x0, left.M2x1, left.M2x2, left.M2x3, left.M3x0, left.M3x1, left.M3x2, left.M3x3, right.M0x0, right.M0x1, right.M1x0, right.M1x1);
+        public static Matrix4x4D operator *(Matrix3x3D multiplicand, Matrix4x4D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
+        /// <param name="multiplicand"></param>
+        /// <param name="multiplier"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D operator *(Matrix4x4D left, Matrix3x3D right) => Multiply4x4x3x3(left.M0x0, left.M0x1, left.M0x2, left.M0x3, left.M1x0, left.M1x1, left.M1x2, left.M1x3, left.M2x0, left.M2x1, left.M2x2, left.M2x3, left.M3x0, left.M3x1, left.M3x2, left.M3x3, right.M0x0, right.M0x1, right.M0x2, right.M1x0, right.M1x1, right.M1x2, right.M2x0, right.M2x1, right.M2x2);
+        public static Matrix4x4D operator *(Matrix4x4D multiplicand, Matrix2x2D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
+        /// <param name="multiplicand"></param>
+        /// <param name="multiplier"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D operator *(Matrix4x4D left, Matrix4x4D right) => Multiply4x4x4x4(left.M0x0, left.M0x1, left.M0x2, left.M0x3, left.M1x0, left.M1x1, left.M1x2, left.M1x3, left.M2x0, left.M2x1, left.M2x2, left.M2x3, left.M3x0, left.M3x1, left.M3x2, left.M3x3, right.M0x0, right.M0x1, right.M0x2, right.M0x3, right.M1x0, right.M1x1, right.M1x2, right.M1x3, right.M2x0, right.M2x1, right.M2x2, right.M2x3, right.M3x0, right.M3x1, right.M3x2, right.M3x3);
+        public static Matrix4x4D operator *(Matrix2x2D multiplicand, Matrix4x4D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Compares two Matrix instances for exact equality.
@@ -645,10 +655,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Matrix4x4D(Matrix3x3D source)
             => new Matrix4x4D(
-                source.M0x0, source.M0x1, source.M0x2, 0,
-                source.M1x0, source.M1x1, source.M1x2, 0,
-                source.M2x0, source.M2x1, source.M2x2, 0,
-                0, 0, 0, 1);
+                source.M0x0, source.M0x1, source.M0x2, 0d,
+                source.M1x0, source.M1x1, source.M1x2, 0d,
+                source.M2x0, source.M2x1, source.M2x2, 0d,
+                0d, 0d, 0d, 1);
 
         /// <summary>
         /// Performs an explicit conversion from <see cref="Matrix2x2D" /> to <see cref="Matrix4x4D" />.
@@ -661,10 +671,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Matrix4x4D(Matrix2x2D source)
             => new Matrix4x4D(
-                source.M0x0, source.M0x1, 0, 0,
-                source.M1x0, source.M1x1, 0, 0,
-                0, 0, 1, 0,
-                0, 0, 0, 1);
+                source.M0x0, source.M0x1, 0d, 0d,
+                source.M1x0, source.M1x1, 0d, 0d,
+                0d, 0d, 1, 0d,
+                0d, 0d, 0d, 1);
 
         /// <summary>
         /// Tuple to <see cref="Matrix4x4D" />.
@@ -675,8 +685,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double)(Matrix4x4D matrix)
-            => (matrix.M0x0, matrix.M0x1, matrix.M0x2, matrix.M0x3, matrix.M1x0, matrix.M1x1, matrix.M1x2, matrix.M1x3, matrix.M2x0, matrix.M2x1, matrix.M2x2, matrix.M2x3, matrix.M3x0, matrix.M3x1, matrix.M3x2, matrix.M3x3);
+        public static implicit operator (double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double)(Matrix4x4D matrix) => (matrix.M0x0, matrix.M0x1, matrix.M0x2, matrix.M0x3, matrix.M1x0, matrix.M1x1, matrix.M1x2, matrix.M1x3, matrix.M2x0, matrix.M2x1, matrix.M2x2, matrix.M2x3, matrix.M3x0, matrix.M3x1, matrix.M3x2, matrix.M3x3);
 
         /// <summary>
         /// Tuple to <see cref="Matrix4x4D" />.
@@ -687,9 +696,170 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Matrix4x4D((double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) tuple)
-            => new Matrix4x4D(tuple);
+        public static implicit operator Matrix4x4D((double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) tuple) => new Matrix4x4D(tuple);
         #endregion Operators
+
+        #region Operator Backing Methods
+        /// <summary>
+        /// Pluses the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Plus(Matrix4x4D value) => Operations.Plus(value.M0x0, value.M0x1, value.M0x2, value.M0x3, value.M1x0, value.M1x1, value.M1x2, value.M1x3, value.M2x0, value.M2x1, value.M2x2, value.M2x3, value.M3x0, value.M3x1, value.M3x2, value.M3x3);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Add(Matrix4x4D augend, Matrix4x4D addend) => AddMatrix(augend.M0x0, augend.M0x1, augend.M0x2, augend.M0x3, augend.M1x0, augend.M1x1, augend.M1x2, augend.M1x3, augend.M2x0, augend.M2x1, augend.M2x2, augend.M2x3, augend.M3x0, augend.M3x1, augend.M3x2, augend.M3x3, addend.M0x0, addend.M0x1, addend.M0x2, addend.M0x3, addend.M1x0, addend.M1x1, addend.M1x2, addend.M1x3, addend.M2x0, addend.M2x1, addend.M2x2, addend.M2x3, addend.M3x0, addend.M3x1, addend.M3x2, addend.M3x3);
+
+        /// <summary>
+        /// Negates the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Negate(Matrix4x4D value) => Operations.Negate(value.M0x0, value.M0x1, value.M0x2, value.M0x3, value.M1x0, value.M1x1, value.M1x2, value.M1x3, value.M2x0, value.M2x1, value.M2x2, value.M2x3, value.M3x0, value.M3x1, value.M3x2, value.M3x3);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Subtract(Matrix4x4D minuend, Matrix4x4D subend) => Subtract4x4x4x4(minuend.M0x0, minuend.M0x1, minuend.M0x2, minuend.M0x3, minuend.M1x0, minuend.M1x1, minuend.M1x2, minuend.M1x3, minuend.M2x0, minuend.M2x1, minuend.M2x2, minuend.M2x3, minuend.M3x0, minuend.M3x1, minuend.M3x2, minuend.M3x3, subend.M0x0, subend.M0x1, subend.M0x2, subend.M0x3, subend.M1x0, subend.M1x1, subend.M1x2, subend.M1x3, subend.M2x0, subend.M2x1, subend.M2x2, subend.M2x3, subend.M3x0, subend.M3x1, subend.M3x2, subend.M3x3);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(Matrix4x4D multiplicand, double multiplier) => Scale4x4(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3, multiplier);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(double multiplicand, Matrix4x4D multiplier) => Scale4x4(multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3, multiplicand);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(Matrix4x4D multiplicand, Matrix4x4D multiplier) => Multiply4x4x4x4(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(Matrix4x4D multiplicand, Matrix3x3D multiplier) => Multiply4x4x3x3(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(Matrix3x3D multiplicand, Matrix4x4D multiplier) => Multiply3x3x4x4(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(Matrix4x4D multiplicand, Matrix2x2D multiplier) => Multiply4x4x2x2(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3, multiplier.M0x0, multiplier.M0x1, multiplier.M1x0, multiplier.M1x1);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Multiply(Matrix2x2D multiplicand, Matrix4x4D multiplier) => Multiply2x2x4x4(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M1x0, multiplicand.M1x1, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3);
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals([AllowNull] object obj) => obj is Matrix4x4D d && Equals(d);
+
+        /// <summary>
+        /// Compares two <see cref="Matrix4x4D"/> instances for object equality.  In this equality
+        /// Double.NaN is equal to itself, unlike in numeric equality.
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which
+        /// are logically equal may fail.
+        /// </summary>
+        /// <returns>
+        /// bool - true if the two Matrix instances are exactly equal, false otherwise
+        /// </returns>
+        /// <param name='matrix1'>The first Matrix to compare</param>
+        /// <param name='matrix2'>The second Matrix to compare</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Matrix4x4D matrix2) => M0x0 == matrix2.M0x0 && M0x1 == matrix2.M0x1 && M0x2 == matrix2.M0x2 && M0x3 == matrix2.M0x3 && M1x0 == matrix2.M1x0 && M1x1 == matrix2.M1x1 && M1x2 == matrix2.M1x2 && M1x3 == matrix2.M1x3 && M2x0 == matrix2.M2x0 && M2x1 == matrix2.M2x1 && M2x2 == matrix2.M2x2 && M2x3 == matrix2.M2x3 && M3x0 == matrix2.M3x0 && M3x1 == matrix2.M3x1 && M3x2 == matrix2.M3x2 && M3x3 == matrix2.M3x3;
+
+        /// <summary>
+        /// Converts to valuetuple.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) ToValueTuple() => (M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+
+        /// <summary>
+        /// Froms the value tuple.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D FromValueTuple((double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) tuple) => new Matrix4x4D(tuple);
+
+        /// <summary>
+        /// Converts to matrix4x4d.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Matrix4x4D ToMatrix4x4D() => new Matrix4x4D(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+        #endregion
 
         #region Factories
         /// <summary>
@@ -701,10 +871,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D FromScale(Vector2D scale)
             => new Matrix4x4D(
-                scale.I, 0, 0, 0,
-                0, scale.J, 0, 0,
-                0, 0, 1, 0,
-                0, 0, 0, 1);
+                scale.I, 0d, 0d, 0d,
+                0d, scale.J, 0d, 0d,
+                0d, 0d, 1d, 0d,
+                0d, 0d, 0d, 1d);
 
         /// <summary>
         /// Creates a scaling transform around the origin
@@ -715,10 +885,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D FromScale(Vector3D scale)
             => new Matrix4x4D(
-                scale.I, 0, 0, 0,
-                0, scale.J, 0, 0,
-                0, 0, scale.K, 0,
-                0, 0, 0, 0);
+                scale.I, 0d, 0d, 0d,
+                0d, scale.J, 0d, 0d,
+                0d, 0d, scale.K, 0d,
+                0d, 0d, 0d, 1d);
 
         /// <summary>
         /// Creates a scaling transform around the origin
@@ -729,10 +899,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D FromScale(Vector4D scale)
             => new Matrix4x4D(
-                scale.I, 0, 0, 0,
-                0, scale.J, 0, 0,
-                0, 0, scale.K, 0,
-                0, 0, 0, scale.L);
+                scale.I, 0d, 0d, 0d,
+                0d, scale.J, 0d, 0d,
+                0d, 0d, scale.K, 0d,
+                0d, 0d, 0d, scale.L);
 
         /// <summary>
         /// Creates a scaling transform around the origin
@@ -744,10 +914,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D FromScale(double scaleX, double scaleY)
             => new Matrix4x4D(
-                scaleX, 0, 0, 0,
-                0, scaleY, 0, 0,
-                0, 0, 1, 0,
-                0, 0, 0, 1);
+                scaleX, 0d, 0d, 0d,
+                0d, scaleY, 0d, 0d,
+                0d, 0d, 1d, 0d,
+                0d, 0d, 0d, 1d);
 
         /// <summary>
         /// Creates a scaling transform around the origin
@@ -760,10 +930,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D FromScale(double scaleX, double scaleY, double scaleZ)
             => new Matrix4x4D(
-                scaleX, 0, 0, 0,
-                0, scaleY, 0, 0,
-                0, 0, scaleZ, 0,
-                0, 0, 0, 0);
+                scaleX, 0d, 0d, 0d,
+                0d, scaleY, 0d, 0d,
+                0d, 0d, scaleZ, 0d,
+                0d, 0d, 0d, 1d);
 
         /// <summary>
         /// Creates a scaling transform around the origin
@@ -777,10 +947,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D FromScale(double scaleX, double scaleY, double scaleZ, double scaleW)
             => new Matrix4x4D(
-                scaleX, 0, 0, 0,
-                0, scaleY, 0, 0,
-                0, 0, scaleZ, 0,
-                0, 0, 0, scaleW);
+                scaleX, 0d, 0d, 0d,
+                0d, scaleY, 0d, 0d,
+                0d, 0d, scaleZ, 0d,
+                0d, 0d, 0d, scaleW);
 
         /// <summary>
         /// Parse a string for a <see cref="Matrix4x4D" /> value.
@@ -837,41 +1007,11 @@ namespace Engine
         }
         #endregion Factories
 
-        #region Methods
-        /// <summary>
-        /// Returns the HashCode for this Matrix
-        /// </summary>
-        /// <returns>
-        /// int - the HashCode for this Matrix
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => new
-        {
-            M0x0,
-            M0x1,
-            M0x2,
-            M0x3,
-            M1x0,
-            M1x1,
-            M1x2,
-            M1x3,
-            M2x0,
-            M2x1,
-            M2x2,
-            M2x3,
-            M3x0,
-            M3x1,
-            M3x2,
-            M3x3
-        }.GetHashCode();
-
+        #region Standard Methods
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>
-        /// An enumerator that can be used to iterate through the collection.
-        /// </returns>
+        /// <returns>The <see cref="IEnumerator{IEnumerable{double}}"/>.</returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {
@@ -890,66 +1030,34 @@ namespace Engine
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
-        /// Compares two <see cref="Matrix4x4D" /> instances for object equality.  In this equality
-        /// Double.NaN is equal to itself, unlike in numeric equality.
-        /// Note that double values can acquire error when operated upon, such that
-        /// an exact comparison between two values which
-        /// are logically equal may fail.
+        /// Returns the HashCode for this Matrix
         /// </summary>
-        /// <param name="matrix1">The first Matrix to compare</param>
-        /// <param name="matrix2">The second Matrix to compare</param>
         /// <returns>
-        /// bool - true if the two Matrix instances are exactly equal, false otherwise
+        /// int - the HashCode for this Matrix
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Matrix4x4D matrix1, Matrix4x4D matrix2)
-            => matrix1.M0x0.Equals(matrix2.M0x0)
-                && matrix1.M0x1.Equals(matrix2.M0x1)
-                && matrix1.M0x2.Equals(matrix2.M0x2)
-                && matrix1.M0x3.Equals(matrix2.M0x3)
-                && matrix1.M1x0.Equals(matrix2.M1x0)
-                && matrix1.M1x1.Equals(matrix2.M1x1)
-                && matrix1.M1x2.Equals(matrix2.M1x2)
-                && matrix1.M1x3.Equals(matrix2.M1x3)
-                && matrix1.M2x0.Equals(matrix2.M2x0)
-                && matrix1.M2x1.Equals(matrix2.M2x1)
-                && matrix1.M2x2.Equals(matrix2.M2x2)
-                && matrix1.M2x3.Equals(matrix2.M2x3)
-                && matrix1.M3x0.Equals(matrix2.M3x0)
-                && matrix1.M3x1.Equals(matrix2.M3x1)
-                && matrix1.M3x2.Equals(matrix2.M3x2)
-                && matrix1.M3x3.Equals(matrix2.M3x3);
-
-        /// <summary>
-        /// Equals - compares this <see cref="Matrix4x4D" /> with the passed in object.  In this equality
-        /// Double.NaN is equal to itself, unlike in numeric equality.
-        /// Note that double values can acquire error when operated upon, such that
-        /// an exact comparison between two values which
-        /// are logically equal may fail.
-        /// </summary>
-        /// <param name="obj">The object to compare to "this"</param>
-        /// <returns>
-        /// bool - true if the object is an instance of <see cref="Matrix4x4D" /> and if it's equal to "this".
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is Matrix4x4D && Equals(this, (Matrix4x4D)obj);
-
-        /// <summary>
-        /// Equals - compares this <see cref="Matrix4x4D" /> with the passed in object.  In this equality
-        /// Double.NaN is equal to itself, unlike in numeric equality.
-        /// Note that double values can acquire error when operated upon, such that
-        /// an exact comparison between two values which
-        /// are logically equal may fail.
-        /// </summary>
-        /// <param name="value">The <see cref="Matrix4x4D" /> to compare to "this"</param>
-        /// <returns>
-        /// bool - true if "value" is equal to "this".
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Matrix4x4D value) => Equals(this, value);
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            hash.Add(M0x0);
+            hash.Add(M0x1);
+            hash.Add(M0x2);
+            hash.Add(M0x3);
+            hash.Add(M1x0);
+            hash.Add(M1x1);
+            hash.Add(M1x2);
+            hash.Add(M1x3);
+            hash.Add(M2x0);
+            hash.Add(M2x1);
+            hash.Add(M2x2);
+            hash.Add(M2x3);
+            hash.Add(M3x0);
+            hash.Add(M3x1);
+            hash.Add(M3x2);
+            hash.Add(M3x3);
+            return hash.ToHashCode();
+        }
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D" /> struct based on the current culture.
@@ -993,92 +1101,6 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Matrix4x4D)}({nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, provider)}{s} {nameof(M0x3)}:{M0x3.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, provider)}{s} {nameof(M1x3)}:{M1x3.ToString(format, provider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, provider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, provider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, provider)}{s} {nameof(M2x3)}:{M2x3.ToString(format, provider)}{s} {nameof(M3x0)}:{M3x0.ToString(format, provider)}{s} {nameof(M3x1)}:{M3x1.ToString(format, provider)}{s} {nameof(M3x2)}:{M3x2.ToString(format, provider)}{s} {nameof(M3x3)}:{M3x3.ToString(format, provider)})";
         }
-
-        /// <summary>
-        /// Adds the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Matrix4x4D Add(Matrix4x4D left, Matrix4x4D right) => left + right;
-
-        /// <summary>
-        /// Negates the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        public static Matrix4x4D Negate(Matrix4x4D item) => -item;
-
-        /// <summary>
-        /// Subtracts the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Matrix4x4D Subtract(Matrix4x4D left, Matrix4x4D right) => left - right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Matrix4x4D Multiply(Matrix4x4D left, Matrix4x4D right) => left * right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Matrix4x4D Multiply(double left, Matrix4x4D right) => left * right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Matrix4x4D Multiply(Matrix4x4D left, double right) => left * right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Matrix4x4D Multiply(Matrix3x3D left, Matrix4x4D right) => left * right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Matrix4x4D Multiply(Matrix4x4D left, Matrix3x3D right) => left * right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Matrix4x4D Multiply(Matrix2x2D left, Matrix4x4D right) => left * right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Matrix4x4D Multiply(Matrix4x4D left, Matrix2x2D right) => left * right;
-
-        /// <summary>
-        /// To this instance.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public (double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) To() => throw new NotImplementedException();
-        #endregion Methods
+        #endregion
     }
 }

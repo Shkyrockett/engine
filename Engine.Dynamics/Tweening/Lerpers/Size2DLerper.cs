@@ -17,7 +17,7 @@ namespace Engine.Tweening
     /// The size2d lerper class.
     /// </summary>
     public class Size2DLerper
-        : MemberLerper
+        : IMemberLerper
     {
         /// <summary>
         /// The from.
@@ -40,7 +40,7 @@ namespace Engine.Tweening
         /// <param name="fromValue">The fromValue.</param>
         /// <param name="toValue">The toValue.</param>
         /// <param name="behavior">The behavior.</param>
-        public override void Initialize(object fromValue, object toValue, LerpBehaviors behavior)
+        public void Initialize(object fromValue, object toValue, LerpBehaviors behavior)
         {
             from = (Size2D)fromValue;
             to = (Size2D)toValue;
@@ -56,7 +56,7 @@ namespace Engine.Tweening
         /// <param name="currentValue">The currentValue.</param>
         /// <param name="behavior">The behavior.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object Interpolate(double t, object currentValue, LerpBehaviors behavior)
+        public object Interpolate(double t, object currentValue, LerpBehaviors behavior)
         {
             var width = from.Width + (range.Width * t);
             var height = from.Height + (range.Height * t);

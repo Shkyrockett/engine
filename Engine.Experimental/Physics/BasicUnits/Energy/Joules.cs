@@ -10,6 +10,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -45,8 +46,7 @@ namespace Engine
         /// The name.
         /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static string Name
-            => nameof(Joules);
+        public static string Name => nameof(Joules);
 
         /// <summary>
         /// Gets the abbreviation.
@@ -55,8 +55,7 @@ namespace Engine
         /// The abbreviation.
         /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static string Abbreviation
-            => "J";
+        public static string Abbreviation => "J";
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="double"/> to <see cref="Joules"/>.
@@ -65,8 +64,7 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Joules(double value)
-            => new Joules(value);
+        public static implicit operator Joules(double value) => new Joules(value);
 
         /// <summary>
         /// Implements the operator ==.
@@ -104,7 +102,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(Joules other) => Value == other.Value;
+        public bool Equals([AllowNull] Joules other) => Value == other.Value;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -112,7 +110,7 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode() => -1937169414 + Value.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(Value);
 
         /// <summary>
         /// The to string.
@@ -120,7 +118,6 @@ namespace Engine
         /// <returns>
         /// The <see cref="string" />.
         /// </returns>
-        public override string ToString()
-            => $"{Value} J";
+        public override string ToString() => $"{Value} J";
     }
 }

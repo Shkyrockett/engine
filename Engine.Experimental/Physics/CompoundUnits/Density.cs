@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -93,7 +94,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(Density other) => EqualityComparer<IMass>.Default.Equals(Mass, other.Mass) && EqualityComparer<IVolume>.Default.Equals(Volume, other.Volume) && Value == other.Value && Abbreviation == other.Abbreviation;
+        public bool Equals([AllowNull] Density other) => EqualityComparer<IMass>.Default.Equals(Mass, other.Mass) && EqualityComparer<IVolume>.Default.Equals(Volume, other.Volume);
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -101,15 +102,7 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -2108761471;
-            hashCode = hashCode * -1521134295 + EqualityComparer<IMass>.Default.GetHashCode(Mass);
-            hashCode = hashCode * -1521134295 + EqualityComparer<IVolume>.Default.GetHashCode(Volume);
-            hashCode = hashCode * -1521134295 + Value.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Abbreviation);
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Mass, Volume);
 
         /// <summary>
         /// The to string.

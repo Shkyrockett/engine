@@ -18,6 +18,7 @@ namespace Engine.Tweening
     /// The member accessors class.
     /// </summary>
     public class MemberAccessor
+        : IMemberAccessor
     {
         #region Constants
         /// <summary>

@@ -362,5 +362,29 @@ namespace Engine
             return (2d * Acos(w), x * unit, y * unit, z * unit);
         }
         #endregion Conversion
+
+        /// <summary>
+        /// Calculates the length or magnitude of a Quaternion.
+        /// </summary>
+        /// <param name="x">The x component of the Quaternion.</param>
+        /// <param name="y">The y component of the Quaternion.</param>
+        /// <param name="z">The z component of the Quaternion.</param>
+        /// <param name="w">The w component of the Quaternion.</param>
+        /// <returns>Returns the magnitude of the Quaternion.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double QuaternionMagnitude(double x, double y, double z, double w) => Sqrt((x * x) + (y * y) + (z * z) + (w * w));
+
+        /// <summary>
+        /// Calculates the normal or squared length of a Quaternion.
+        /// </summary>
+        /// <param name="x">The x component of the Quaternion.</param>
+        /// <param name="y">The y component of the Quaternion.</param>
+        /// <param name="z">The z component of the Quaternion.</param>
+        /// <param name="w">The w component of the Quaternion.</param>
+        /// <returns>Returns the normal of the Quaternion.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double QuaternionNormal(double x, double y, double z, double w) => (x * x) + (y * y) + (z * z) + (w * w);
     }
 }

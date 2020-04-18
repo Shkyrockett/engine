@@ -120,8 +120,7 @@ namespace Engine
         /// </summary>
         /// <param name="v">The v.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public bool Equals(ClippingVertex v)
-            => X == v.X && Y == v.Y;
+        public bool Equals(ClippingVertex v) => X == v?.X && Y == v?.Y;
 
         /// <summary>
         /// Check if vertex is inside a polygon by odd-even rule:
@@ -133,7 +132,7 @@ namespace Engine
         public bool IsInside(ClippingPolygon poly)
         {
             var oddNodes = false;
-            var vertex = poly.First;
+            var vertex = poly?.First;
             var next = vertex.Next;
             var x = X;
             var y = Y;

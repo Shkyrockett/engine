@@ -288,7 +288,7 @@ namespace EngineTests
         {
             var values = new double[] { 1, 2, 3, 4 };
             var expected = new Polynomial(0, 0, 3, 1);
-            var result = Polynomial.Bezier(values);
+            var result = Polynomials.Bezier(values);
             Assert.AreEqual(expected, result);
         }
 

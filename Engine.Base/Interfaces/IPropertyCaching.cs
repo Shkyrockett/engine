@@ -49,7 +49,7 @@ namespace Engine
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
+        public object CachingProperty(Func<object> property, [CallerMemberName] string name = "")
         {
             if (!PropertyCache.ContainsKey(name))
             {

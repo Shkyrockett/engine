@@ -54,8 +54,7 @@ namespace Engine
         /// returns a newly created graphics path with points distorted
         /// </summary>
         /// <returns>The distorted Graphics Path</returns>
-        public static PolycurveContour2D ApplyDistortion()
-        {
+        public static PolycurveContour2D ApplyDistortion() =>
             //var it = new GraphicsPathIterator(source);
             //it.Rewind();
             //var Gp = new GeometryPath(FillMode.Winding);
@@ -74,8 +73,7 @@ namespace Engine
             //it.Dispose();
             //Gp.Dispose();
 
-            return null;// ReturnPath;
-        }
+            null;// ReturnPath;
 
         /// <summary>
         /// The inject precision points.

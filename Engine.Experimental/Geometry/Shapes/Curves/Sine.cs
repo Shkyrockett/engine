@@ -18,7 +18,6 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(Sine))]
     public class Sine
         : Shape2D
     {
@@ -56,8 +55,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
 
-        public override Point2D Interpolate(double t)
-            => new Point2D(Interpolators.Sine(t, A.X, A.Y, B.X, B.Y));
+        public override Point2D Interpolate(double t) => new Point2D(Interpolators.Sine(t, A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// The to string.

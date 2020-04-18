@@ -62,14 +62,14 @@ namespace Engine.Tools
         /// <exception cref="Exception">Values must be "Yes" or "No"</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
         {
-            if (value is string text)
+            if (value is string str)
             {
-                if (string.Equals(text, "yes", StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(str, "yes", StringComparison.OrdinalIgnoreCase))
                 {
                     return true;
                 }
 
-                if (string.Equals(text, "no", StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(str, "no", StringComparison.OrdinalIgnoreCase))
                 {
                     return false;
                 }

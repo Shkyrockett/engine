@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Imaging
 {
@@ -94,7 +95,7 @@ namespace Engine.Imaging
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(GradientFill other) => EqualityComparer<IColor>.Default.Equals(Color, other.Color) && EqualityComparer<Dictionary<double, IColor>>.Default.Equals(ColorStops, other.ColorStops) && FillMode == other.FillMode;
+        public bool Equals([AllowNull] GradientFill other) => EqualityComparer<IColor>.Default.Equals(Color, other.Color) && EqualityComparer<Dictionary<double, IColor>>.Default.Equals(ColorStops, other.ColorStops) && FillMode == other.FillMode;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -102,13 +103,6 @@ namespace Engine.Imaging
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = 985776420;
-            hashCode = hashCode * -1521134295 + EqualityComparer<IColor>.Default.GetHashCode(Color);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Dictionary<double, IColor>>.Default.GetHashCode(ColorStops);
-            hashCode = hashCode * -1521134295 + FillMode.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Color, ColorStops, FillMode);
     }
 }

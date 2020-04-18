@@ -18,7 +18,6 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(NGonStar))]
     public class NGonStar
         : PolygonContour2D
     {

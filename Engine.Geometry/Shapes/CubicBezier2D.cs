@@ -90,7 +90,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CubicBezier2D"/> class from a <see cref="QuadraticBezier"/>.
+        /// Initializes a new instance of the <see cref="CubicBezier2D"/> class from a <see cref="QuadraticBezier2D"/>.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -102,7 +102,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CubicBezier2D"/> class from a <see cref="QuadraticBezier"/>.
+        /// Initializes a new instance of the <see cref="CubicBezier2D"/> class from a <see cref="QuadraticBezier2D"/>.
         /// </summary>
         /// <param name="tuple"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -111,7 +111,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CubicBezier2D"/> class from a <see cref="QuadraticBezier"/>.
+        /// Initializes a new instance of the <see cref="CubicBezier2D"/> class from a <see cref="QuadraticBezier2D"/>.
         /// </summary>
         /// <param name="ax"></param>
         /// <param name="ay"></param>
@@ -662,7 +662,7 @@ namespace Engine
                 return (IList<double>)CachingProperty(() => Inflections(Points));
                 static IList<double> Inflections(IList<Point2D> points)
                 {
-                    var p = AlignPoints(points, points[0].X, points[0].Y, points[3].X, points[3].Y);
+                    var p = Conversions.AlignPoints(points.ToArray(), points[0].X, points[0].Y, points[3].X, points[3].Y);
                     var a = p[2].X * p[1].Y;
                     var b = p[3].X * p[1].Y;
                     var c = p[1].X * p[2].Y;
@@ -819,8 +819,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(CubicBezier2D left, CubicBezier2D right)
-            => left.Equals(right);
+        public static bool operator ==(CubicBezier2D left, CubicBezier2D right) => (left?.Equals(right)).Value;
 
         /// <summary>
         /// The operator !=.
@@ -830,8 +829,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(CubicBezier2D left, CubicBezier2D right)
-            => !left.Equals(right);
+        public static bool operator !=(CubicBezier2D left, CubicBezier2D right) => !(left?.Equals(right)).Value;
 
         /// <summary>
         /// Implicit conversion from tuple.
@@ -840,8 +838,7 @@ namespace Engine
         /// <param name="tuple"></param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator CubicBezier2D((double aX, double aY, double bX, double bY, double cX, double cY) tuple)
-            => new CubicBezier2D(tuple);
+        public static implicit operator CubicBezier2D((double aX, double aY, double bX, double bY, double cX, double cY) tuple) => new CubicBezier2D(tuple);
 
         /// <summary>
         /// Implicit conversion from tuple.
@@ -850,8 +847,7 @@ namespace Engine
         /// <param name="tuple"></param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator CubicBezier2D((double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) tuple)
-            => new CubicBezier2D(tuple);
+        public static implicit operator CubicBezier2D((double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) tuple) => new CubicBezier2D(tuple);
         #endregion Operators
 
         /// <summary>
@@ -1010,18 +1006,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
-        {
-            var hash = new JenkinsHash();
-            hash.Mixin(ax.GetHashCode());
-            hash.Mixin(ay.GetHashCode());
-            hash.Mixin(bx.GetHashCode());
-            hash.Mixin(by.GetHashCode());
-            hash.Mixin(cx.GetHashCode());
-            hash.Mixin(cy.GetHashCode());
-            hash.Mixin(dx.GetHashCode());
-            hash.Mixin(dy.GetHashCode());
-            return hash.GetValue();
-        }
+            => HashCode.Combine(ax, ay, bx, by, cx, cy, dx, dy);
 
         /// <summary>
         /// Creates a string representation of this <see cref="CubicBezier2D"/> struct based on the format string

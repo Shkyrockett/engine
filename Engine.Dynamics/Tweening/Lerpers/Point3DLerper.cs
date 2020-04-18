@@ -17,7 +17,7 @@ namespace Engine.Tweening
     /// The point3d lerper class.
     /// </summary>
     public class Point3DLerper
-        : MemberLerper
+        : IMemberLerper
     {
         /// <summary>
         /// The from.
@@ -40,7 +40,7 @@ namespace Engine.Tweening
         /// <param name="fromValue">The fromValue.</param>
         /// <param name="toValue">The toValue.</param>
         /// <param name="behavior">The behavior.</param>
-        public override void Initialize(object fromValue, object toValue, LerpBehaviors behavior)
+        public void Initialize(object fromValue, object toValue, LerpBehaviors behavior)
         {
             from = (Point3D)fromValue;
             to = (Point3D)toValue;
@@ -57,7 +57,7 @@ namespace Engine.Tweening
         /// <param name="currentValue">The currentValue.</param>
         /// <param name="behavior">The behavior.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object Interpolate(double t, object currentValue, LerpBehaviors behavior)
+        public object Interpolate(double t, object currentValue, LerpBehaviors behavior)
         {
             var x = from.X + (range.X * t);
             var y = from.Y + (range.Y * t);

@@ -75,7 +75,7 @@ namespace Engine
                     break;
             }
 
-            // Shape2D not supported.
+            // Shape not supported.
             return shape as T;
         }
 
@@ -86,7 +86,7 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour2D Process(LineSegment2D line)
         {
-            var result = new PolycurveContour2D(Process(line.Points[0]));
+            var result = new PolycurveContour2D(Process((line?.Points[0]).Value));
 
             var side = new List<Point2D>();
             for (double j = 0; j < 1; j += 1d / (line.Length * SampleDistance))
@@ -111,7 +111,7 @@ namespace Engine
         public Line2D Process(Line2D line)
         {
             // ToDo: Figure out how to handle the infiniteness of lines.
-            var location = Process(line.Location);
+            var location = Process((line?.Location).Value);
             var result = new Line2D(location, Process(line.Location + line.Direction) - location);
             return result;
         }
@@ -163,12 +163,12 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour2D Process(PolygonContour2D contour)
         {
-            var result = new PolycurveContour2D(Process(contour.Points[0]));
+            var result = new PolycurveContour2D(Process((contour?.Points[0]).Value));
 
             for (var i = 1; i < contour.Count; i++)
             {
                 var side = new List<Point2D>();
-                for (double j = 0; j < 1; j += 1d / (contour[contour.Count - 1].Distance(contour[0]) * SampleDistance))
+                for (double j = 0; j < 1; j += 1d / (contour[^1].Distance(contour[0]) * SampleDistance))
                 {
                     side.Add(Process(Interpolators.Linear(j, contour[i - 1], contour[i])));
                 }
@@ -178,9 +178,9 @@ namespace Engine
                 }
             }
             var vertex = new List<Point2D>();
-            for (double j = 0; j < 1; j += 1d / (contour[contour.Count - 1].Distance(contour[0]) * SampleDistance))
+            for (double j = 0; j < 1; j += 1d / (contour[^1].Distance(contour[0]) * SampleDistance))
             {
-                vertex.Add(Process(Interpolators.Linear(j, contour[contour.Count - 1], contour[0])));
+                vertex.Add(Process(Interpolators.Linear(j, contour[^1], contour[0])));
             }
             foreach (var curve in new List<CubicBezier2D>(CurveFit.Fit(vertex, Tolerence)))
             {
@@ -217,11 +217,11 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour2D Process(Polyline2D contour)
         {
-            var result = new PolycurveContour2D(Process(contour.Points[0]));
+            var result = new PolycurveContour2D(Process((contour?.Points[0]).Value));
             for (var i = 1; i < contour.Count; i++)
             {
                 var side = new List<Point2D>();
-                for (double j = 0; j < 1; j += 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * SampleDistance))
+                for (double j = 0; j < 1; j += 1d / (Measurements.Distance(contour[^1], contour[0]) * SampleDistance))
                 {
                     side.Add(Process(Interpolators.Linear(j, contour[i - 1], contour[i])));
                 }
@@ -242,7 +242,7 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour2D Process(PolycurveContour2D contour)
         {
-            var result = new PolycurveContour2D(Process(contour.Items[0].Head.Value));
+            var result = new PolycurveContour2D(Process((contour?.Items[0]).Head.Value));
             if (contour.Count > 1)
             {
                 for (var i = 1; i < contour.Count; i++)
@@ -270,7 +270,7 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour2D Process(Rectangle2D rect)
         {
-            var result = new PolycurveContour2D(Process(rect.Location));
+            var result = new PolycurveContour2D(Process((rect?.Location).Value));
 
             var side = new List<Point2D>();
             for (double j = 0; j < 1; j += 1d / (Measurements.Distance(rect.TopLeft, rect.TopRight) * SampleDistance))

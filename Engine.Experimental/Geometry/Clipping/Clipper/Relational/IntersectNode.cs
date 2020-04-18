@@ -9,7 +9,6 @@
 *******************************************************************************/
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace Engine.Experimental
@@ -64,8 +63,7 @@ namespace Engine.Experimental
         /// an exact comparison between two values which are logically equal may fail.
         /// Furthermore, using this equality operator, Double.NaN is not equal to itself.</para>
         /// </remarks>
-        public static bool operator ==(IntersectNode left, IntersectNode right)
-            => left.Equals(right);
+        public static bool operator ==(IntersectNode left, IntersectNode right) => left.Equals(right);
 
         /// <summary>
         /// The != operator compares two <see cref="IntersectNode" /> instances for exact inequality.
@@ -81,8 +79,7 @@ namespace Engine.Experimental
         /// an exact comparison between two values which are logically equal may fail.
         /// Furthermore, using this equality operator, Double.NaN is not equal to itself.</para>
         /// </remarks>
-        public static bool operator !=(IntersectNode left, IntersectNode right)
-            => !left.Equals(right);
+        public static bool operator !=(IntersectNode left, IntersectNode right) => !left.Equals(right);
 
         /// <summary>
         /// The operator &lt; returns a value that indicates whether a specified <see cref="IntersectNode" /> value
@@ -93,8 +90,7 @@ namespace Engine.Experimental
         /// <returns>
         /// Returns a boolean value indicating true if left is less than right; otherwise, false.
         /// </returns>
-        public static bool operator <(IntersectNode left, IntersectNode right)
-            => left.CompareTo(right) < 0;
+        public static bool operator <(IntersectNode left, IntersectNode right) => left.CompareTo(right) < 0;
 
         /// <summary>
         /// The operator &gt; returns a value that indicates whether a specified <see cref="IntersectNode" /> value
@@ -105,8 +101,7 @@ namespace Engine.Experimental
         /// <returns>
         /// Returns a boolean value indicating true if left is greater than right; otherwise, false.
         /// </returns>
-        public static bool operator >(IntersectNode left, IntersectNode right)
-            => left.CompareTo(right) > 0;
+        public static bool operator >(IntersectNode left, IntersectNode right) => left.CompareTo(right) > 0;
 
         /// <summary>
         /// The &lt;= operator returns a value that indicates whether a specified <see cref="IntersectNode" /> value
@@ -117,8 +112,7 @@ namespace Engine.Experimental
         /// <returns>
         /// Returns a boolean value indicating true if left is less than or equal to right; otherwise, false.
         /// </returns>
-        public static bool operator <=(IntersectNode left, IntersectNode right)
-            => left.CompareTo(right) <= 0;
+        public static bool operator <=(IntersectNode left, IntersectNode right) => left.CompareTo(right) <= 0;
 
         /// <summary>
         /// The &gt;= operator returns a value that indicates whether a specified <see cref="IntersectNode" /> value
@@ -129,8 +123,7 @@ namespace Engine.Experimental
         /// <returns>
         /// Returns a boolean value indicating true if left is greater than or equal to right; otherwise, false.
         /// </returns>
-        public static bool operator >=(IntersectNode left, IntersectNode right)
-            => left.CompareTo(right) >= 0;
+        public static bool operator >=(IntersectNode left, IntersectNode right) => left.CompareTo(right) >= 0;
         #endregion Operators
 
         #region Methods
@@ -140,8 +133,7 @@ namespace Engine.Experimental
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
-        public bool EdgesAdjacentInSEL()
-            => (EdgeA.nextInSEL == EdgeB) || (EdgeA.prevInSEL == EdgeB);
+        public bool EdgesAdjacentInSEL() => (EdgeA.nextInSEL == EdgeB) || (EdgeA.prevInSEL == EdgeB);
 
         /// <summary>
         /// Returns the hash code for this instance.
@@ -149,14 +141,7 @@ namespace Engine.Experimental
         /// <returns>
         /// Returns a 32-bit signed integer hash code.
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -624120134;
-            hashCode = hashCode * -1521134295 + EqualityComparer<Point2D>.Default.GetHashCode(Point);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Edge>.Default.GetHashCode(EdgeA);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Edge>.Default.GetHashCode(EdgeB);
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Point, EdgeA, EdgeB);
 
         /// <summary>
         /// Compares this <see cref="IntersectNode" /> with the passed in object.

@@ -89,7 +89,7 @@ namespace Engine
         /// </summary>
         /// <param name="rectangle">The rectangle to clone.</param>
         public RotatedRectangle2D(RotatedRectangle2D rectangle)
-            : this(rectangle.X, rectangle.Y, rectangle.Width, rectangle.height, rectangle.angle)
+            : this((rectangle?.X).Value, rectangle.Y, rectangle.Width, rectangle.height, rectangle.angle)
         { }
 
         /// <summary>
@@ -760,10 +760,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
         public override int GetHashCode()
-            => unchecked((int)((uint)X
-            ^ (((uint)Y << 13) | ((uint)Y >> 19))
-            ^ (((uint)Width << 26) | ((uint)Width >> 6))
-            ^ (((uint)Height << 7) | ((uint)Height >> 25))));
+            => HashCode.Combine(X, Y, Width, Height, Angle);
 
         /// <summary>
         /// Convert a rectangle to a polygon containing an array of the rectangle's corner points.

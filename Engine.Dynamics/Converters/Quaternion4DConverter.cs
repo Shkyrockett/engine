@@ -79,7 +79,7 @@ namespace Engine
 
             if (value is string source)
             {
-                return Quaternion4D.Parse(source);
+                return Quaternion4D.Parse(source, culture);
             }
 
             return base.ConvertFrom(context, culture, value);

@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -22,6 +23,7 @@ namespace Engine
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Ray2D))]
+    [TypeConverter(typeof(StructConverter<Ray2D>))]
     [DebuggerDisplay("{ToString()}")]
     public class Ray2D
         : Shape2D
@@ -40,14 +42,14 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ray"/> class.
+        /// Initializes a new instance of the <see cref="Ray2D"/> class.
         /// </summary>
         public Ray2D()
             : this(Point2D.Empty, Vector2D.Empty)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ray"/> class.
+        /// Initializes a new instance of the <see cref="Ray2D"/> class.
         /// </summary>
         /// <param name="location">The location.</param>
         /// <param name="direction">The direction.</param>
@@ -58,7 +60,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ray"/> class.
+        /// Initializes a new instance of the <see cref="Ray2D"/> class.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -133,18 +135,16 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public override Point2D Interpolate(double t)
-            => Interpolators.Linear(t, location, location + direction);
+        public override Point2D Interpolate(double t) => Interpolators.Linear(t, location, location + direction);
 
         /// <summary>
         /// The to line.
         /// </summary>
         /// <returns>The <see cref="Line2D"/>.</returns>
-        public Line2D ToLine()
-            => new Line2D(location, direction);
+        public Line2D ToLine() => new Line2D(location, direction);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Ray"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Ray2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.

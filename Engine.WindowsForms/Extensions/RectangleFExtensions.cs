@@ -71,6 +71,11 @@ namespace Engine
         /// <returns>A rectangle that bounds all of the points in the array.</returns>
         public static RectangleF GetBoundsF(this PointF[] points)
         {
+            if (points is null)
+            {
+                throw new System.ArgumentNullException(nameof(points));
+            }
+
             var left = points[0].X;
             var right = points[0].X;
             var top = points[0].Y;

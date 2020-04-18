@@ -10,7 +10,7 @@
 
 using System;
 
-namespace Engine.Tweening
+namespace Engine
 {
     /// <summary>
     /// Lerp behavior 

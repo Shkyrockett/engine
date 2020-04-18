@@ -109,11 +109,11 @@ namespace Engine.Experimental
         {
             var outRec = CreateOutRec();
             outRec.IDx = OutRecList.Count;
-            OutRecList.Add(outRec);
-            outRec.Owner = e1.GetOwner();
+            OutRecList?.Add(outRec);
+            outRec.Owner = e1?.GetOwner();
             outRec.PolyPath = null;
 
-            if (e1.IsOpen())
+            if ((e1?.IsOpen()).Value)
             {
                 outRec.Owner = null;
                 outRec.Flag = OutrecFlag.Open;
@@ -133,7 +133,7 @@ namespace Engine.Experimental
             {
                 swapSideNeeded |= e1.top.X > e1.bot.X;
             }
-            else if (e2.IsHorizontal())
+            else if ((e2?.IsHorizontal()).Value)
             {
                 swapSideNeeded |= e2.top.X < e2.bot.X;
             }
@@ -167,13 +167,13 @@ namespace Engine.Experimental
         /// <exception cref="EngineException">Error in AddLocalMaxPoly().</exception>
         protected virtual void AddLocalMaxPoly(Edge e1, Edge e2, Point2D Pt)
         {
-            if (!e2.IsHotEdge())
+            if (!(e2?.IsHotEdge()).Value)
             {
                 throw new EngineException("Error in AddLocalMaxPoly().");
             }
 
             AddOutPoint(e1, Pt);
-            if (e1.outRec == e2.outRec)
+            if (e1?.outRec == e2?.outRec)
             {
                 e1.outRec.EndOutRec();
             }
@@ -211,9 +211,9 @@ namespace Engine.Experimental
         protected virtual LinkedPoint AddOutPoint(Edge e, Point2D pt)
         {
             //Outrec.Pts: a circular double-linked-list of POutPt.
-            var toStart = e.IsStartSide();
-            var opStart = e.outRec.Points;
-            var opEnd = opStart.Next;
+            var toStart = (e?.IsStartSide()).Value;
+            var opStart = e?.outRec?.Points;
+            var opEnd = opStart?.Next;
             if (toStart)
             {
                 if (pt == opStart.Pt)
@@ -288,7 +288,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="clipType">The clipType.</param>
         /// <param name="ft">The ft.</param>
-        /// <returns>The <see cref="Polygon"/>.</returns>
+        /// <returns>The <see cref="Polygon2D"/>.</returns>
         public virtual Polygon2D Execute(ClippingOperation clipType, WindingRule ft = WindingRule.EvenOdd)
         {
             try
@@ -308,7 +308,7 @@ namespace Engine.Experimental
         /// <param name="clipType">The clipType.</param>
         /// <param name="Open">The Open.</param>
         /// <param name="ft">The ft.</param>
-        /// <returns>The <see cref="Polygon"/>.</returns>
+        /// <returns>The <see cref="Polygon2D"/>.</returns>
         public virtual Polygon2D Execute(ClippingOperation clipType, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd)
         {
             try
@@ -333,6 +333,11 @@ namespace Engine.Experimental
         /// <returns>The <see cref="bool"/>.</returns>
         public virtual bool Execute(ClippingOperation clipType, PolyTree polytree, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd)
         {
+            if (Open is null)
+            {
+                throw new System.ArgumentNullException(nameof(Open));
+            }
+
             try
             {
                 if (polytree is null)
@@ -655,6 +660,11 @@ namespace Engine.Experimental
         /// <exception cref="EngineException"></exception>
         public void AddPath(PolygonContour2D path, ClippingRelation relation, bool isOpen = false)
         {
+            if (path is null)
+            {
+                throw new System.ArgumentNullException(nameof(path));
+            }
+
             if (isOpen)
             {
                 if (relation == ClippingRelation.Clipping)
@@ -676,6 +686,11 @@ namespace Engine.Experimental
         /// <param name="isOpen">The isOpen.</param>
         public void AddPaths(Polygon2D paths, ClippingRelation pt, bool isOpen = false)
         {
+            if (paths is null)
+            {
+                throw new System.ArgumentNullException(nameof(paths));
+            }
+
             foreach (var path in paths)
             {
                 AddPath(path, pt, isOpen);
@@ -785,14 +800,20 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsContributingOpen(ClippingOperation clipType, Edge e)
         {
-            return clipType switch
+            switch (clipType)
             {
-                ClippingOperation.Intersection => e.windCnt2 != 0,
-                ClippingOperation.Union => e.windCnt == 0 && e.windCnt2 == 0,
-                ClippingOperation.Difference => e.windCnt2 == 0,
-                ClippingOperation.Xor => e.windCnt != 0 != (e.windCnt2 != 0),
-                _ => false,
-            };
+                case ClippingOperation.Intersection:
+                    return e.windCnt2 != 0;
+                case ClippingOperation.Union:
+                    return e.windCnt == 0 && e.windCnt2 == 0;
+                case ClippingOperation.Difference:
+                    return e.windCnt2 == 0;
+                case ClippingOperation.Xor:
+                    return e.windCnt != 0 != (e.windCnt2 != 0);
+                case ClippingOperation.None:
+                default:
+                    return false;
+            }
         }
 
         /// <summary>
@@ -2145,7 +2166,7 @@ namespace Engine.Experimental
         /// Build the result.
         /// </summary>
         /// <param name="openPaths">The openPaths.</param>
-        /// <returns>The <see cref="Polygon"/>.</returns>
+        /// <returns>The <see cref="Polygon2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private Polygon2D BuildResult(Polygon2D openPaths)
         {

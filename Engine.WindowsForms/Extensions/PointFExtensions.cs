@@ -341,8 +341,7 @@ namespace Engine
         /// <returns>Returns a <see cref="PointF"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PointF Inflate(this PointF point, Vector2D factors)
-            => new PointF((float)(point.X * factors.I), (float)(point.Y * factors.J));
+        public static PointF Inflate(this PointF point, Vector2D factors) => new PointF((float)(point.X * factors.I), (float)(point.Y * factors.J));
 
         /// <summary>
         /// Normalize Two Points
@@ -350,8 +349,7 @@ namespace Engine
         /// <param name="point">First Point</param>
         /// <param name="value">Second Point</param>
         /// <returns>The Normal of two Points</returns>
-        public static PointF Normalize(this PointF point, SizeF value)
-            => new Point2D(Operations.Normalize2D(point.X, point.Y, value.Width, value.Height)).ToPointF();
+        public static PointF Normalize(this PointF point, SizeF value) => new Point2D(Operations.NormalizeVectors(point.X, point.Y, value.Width, value.Height)).ToPointF();
 
         /// <summary>
         /// Calculates the reflection of a point off a line segment
@@ -382,7 +380,7 @@ namespace Engine
         /// <returns></returns>
         public static PointF Reflect(this LineSegment2D segment, PointF axis)
         {
-            var SegmentVectorDelta = segment.A.Delta(segment.B);
+            var SegmentVectorDelta = (segment?.A).Value.Delta(segment.B);
             var QC12 = new Vector2D(
                 segment.B.CrossProduct(segment.A),
                 axis.DotProduct(SegmentVectorDelta)
@@ -448,7 +446,7 @@ namespace Engine
         /// <param name="angle">The angle to rotate the points in pi radians.</param>
         public static void RotatePoints(this PointF[] points, double angle)
         {
-            for (var i = 0; i < points.Length; i++)
+            for (var i = 0; i < points?.Length; i++)
             {
                 points[i] = RotatePoint(points[i], angle);
             }
@@ -462,7 +460,7 @@ namespace Engine
         /// <param name="angle">The angle to rotate the points in pi radians.</param>
         public static void RotatePoints(this PointF[] points, PointF fulcrum, double angle)
         {
-            for (var i = 0; i < points.Length; i++)
+            for (var i = 0; i < points?.Length; i++)
             {
                 points[i] = RotatePoint(points[i], fulcrum, angle);
             }

@@ -24,6 +24,6 @@ namespace Engine
         /// <param name="pointA">The pointA.</param>
         /// <param name="pointB">The pointB.</param>
         /// <param name="pointC">The pointC.</param>
-        public static void AddArc(this List<Shape2D> path, Point2D pointA, Point2D pointB, Point2D pointC) => path.Add(new CircularArc2D(pointA, pointB, pointC));
+        public static void AddArc(this List<Shape2D> path, Point2D pointA, Point2D pointB, Point2D pointC) => path?.Add(new CircularArc2D(pointA, pointB, pointC));
     }
 }

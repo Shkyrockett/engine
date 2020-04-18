@@ -10,6 +10,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -104,7 +105,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(DegreesCelsius other) => Value == other.Value;
+        public bool Equals([AllowNull] DegreesCelsius other) => Value == other.Value;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -112,7 +113,7 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode() => -1937169414 + Value.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(Value);
 
         /// <summary>
         /// The to string.

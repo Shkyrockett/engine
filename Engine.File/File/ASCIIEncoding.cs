@@ -12,6 +12,7 @@
 // http://stackoverflow.com/questions/4022281/asciiencoding-in-windows-phone-7
 // </references>
 
+using System;
 using System.Text;
 
 namespace Engine.File
@@ -28,16 +29,14 @@ namespace Engine.File
         /// </summary>
         /// <param name="charCount">The charCount.</param>
         /// <returns>The <see cref="int"/>.</returns>
-        public override int GetMaxByteCount(int charCount)
-            => charCount;
+        public override int GetMaxByteCount(int charCount) => charCount;
 
         /// <summary>
         /// Get the max char count.
         /// </summary>
         /// <param name="byteCount">The byteCount.</param>
         /// <returns>The <see cref="int"/>.</returns>
-        public override int GetMaxCharCount(int byteCount)
-            => byteCount;
+        public override int GetMaxCharCount(int byteCount) => byteCount;
 
         /// <summary>
         /// Get the byte count.
@@ -46,24 +45,21 @@ namespace Engine.File
         /// <param name="index">The index.</param>
         /// <param name="count">The count.</param>
         /// <returns>The <see cref="int"/>.</returns>
-        public override int GetByteCount(char[] chars, int index, int count)
-            => count;
+        public override int GetByteCount(char[] chars, int index, int count) => count;
 
         /// <summary>
         /// Get the bytes.
         /// </summary>
         /// <param name="chars">The chars.</param>
         /// <returns>The <see cref="Array"/>.</returns>
-        public override byte[] GetBytes(char[] chars)
-            => base.GetBytes(chars);
+        public override byte[] GetBytes(char[] chars) => base.GetBytes(chars);
 
         /// <summary>
         /// Get the char count.
         /// </summary>
         /// <param name="bytes">The bytes.</param>
         /// <returns>The <see cref="int"/>.</returns>
-        public override int GetCharCount(byte[] bytes)
-            => bytes.Length;
+        public override int GetCharCount(byte[] bytes) => (bytes?.Length).Value;
 
         /// <summary>
         /// Get the bytes.
@@ -73,9 +69,26 @@ namespace Engine.File
         /// <param name="charCount">The charCount.</param>
         /// <param name="bytes">The bytes.</param>
         /// <param name="byteIndex">The byteIndex.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// chars
+        /// or
+        /// bytes
+        /// </exception>
         public override int GetBytes(char[] chars, int charIndex, int charCount, byte[] bytes, int byteIndex)
         {
+            if (chars is null)
+            {
+                throw new ArgumentNullException(nameof(chars));
+            }
+
+            if (bytes is null)
+            {
+                throw new ArgumentNullException(nameof(bytes));
+            }
+
             for (var i = 0; i < charCount; i++)
             {
                 bytes[byteIndex + i] = (byte)chars[charIndex + i];
@@ -105,6 +118,16 @@ namespace Engine.File
         /// <returns>The <see cref="int"/>.</returns>
         public override int GetChars(byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex)
         {
+            if (bytes is null)
+            {
+                throw new ArgumentNullException(nameof(bytes));
+            }
+
+            if (chars is null)
+            {
+                throw new ArgumentNullException(nameof(chars));
+            }
+
             for (var i = 0; i < byteCount; i++)
             {
                 chars[charIndex + i] = (char)bytes[byteIndex + i];

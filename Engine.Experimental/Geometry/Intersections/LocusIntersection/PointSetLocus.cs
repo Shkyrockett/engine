@@ -53,6 +53,11 @@ namespace Engine
         /// <param name="polys">The polys.</param>
         public PointSetLocus(List<List<Point2D>> polys)
         {
+            if (polys is null)
+            {
+                throw new System.ArgumentNullException(nameof(polys));
+            }
+
             Points = new List<Point2D>();
             foreach (var set in polys)
             {
@@ -75,8 +80,7 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator PointSet2D(PointSetLocus locus)
-            => new PointSet2D(locus.Points);
+        public static implicit operator PointSet2D(PointSetLocus locus) => new PointSet2D(locus?.Points);
 
         /// <summary>
         /// Performs an explicit conversion from <see cref="PolylineLocus"/> to <see cref="PointSetLocus"/>.
@@ -85,8 +89,7 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static explicit operator PointSetLocus(PolylineLocus locus)
-            => new PointSetLocus(locus.Points);
+        public static explicit operator PointSetLocus(PolylineLocus locus) => new PointSetLocus(locus?.Points);
 
         /// <summary>
         /// Performs an explicit conversion from <see cref="PolygonLocus"/> to <see cref="PointSetLocus"/>.
@@ -95,8 +98,7 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static explicit operator PointSetLocus(PolygonLocus locus)
-            => new PointSetLocus(locus.Points);
+        public static explicit operator PointSetLocus(PolygonLocus locus) => new PointSetLocus(locus?.Points);
 
         /// <summary>
         /// Performs an explicit conversion from <see cref="PolylineSetLocus"/> to <see cref="PointSetLocus"/>.
@@ -105,8 +107,7 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static explicit operator PointSetLocus(PolylineSetLocus locus)
-            => new PointSetLocus(locus.Polylines);
+        public static explicit operator PointSetLocus(PolylineSetLocus locus) => new PointSetLocus(locus?.Polylines);
 
         /// <summary>
         /// Performs an explicit conversion from <see cref="PolygonSetLocus"/> to <see cref="PointSetLocus"/>.
@@ -115,8 +116,7 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static explicit operator PointSetLocus(PolygonSetLocus locus)
-            => new PointSetLocus(locus.Polygons);
+        public static explicit operator PointSetLocus(PolygonSetLocus locus) => new PointSetLocus(locus?.Polygons);
 
         /// <summary>
         /// Add.

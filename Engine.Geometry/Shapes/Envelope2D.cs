@@ -132,8 +132,7 @@ namespace Engine
         /// Get the hash code.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
-        public override int GetHashCode()
-            => ControlPointTopLeft.GetHashCode() | ControlPointTopRight.GetHashCode() | ControlPointBottomLeft.GetHashCode() | ControlPointBottomRight.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(ControlPointTopLeft, ControlPointTopRight, ControlPointBottomLeft, ControlPointBottomRight);
 
         /// <summary>
         /// The equals.

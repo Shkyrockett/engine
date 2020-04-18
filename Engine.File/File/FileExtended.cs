@@ -52,7 +52,7 @@ namespace Engine.File
         /// <returns>A string as read from the file stream.</returns>
         public static string ReadString(this Stream stream, int length)
         {
-            var reader = new StreamReader(stream);
+            using var reader = new StreamReader(stream);
             var buffer = new char[length];
             reader.Read(buffer, 0, length);
             return new string(buffer);
@@ -67,7 +67,7 @@ namespace Engine.File
         public static string ReadString(this StreamReader reader, int length)
         {
             var buffer = new char[length];
-            reader.Read(buffer, 0, length);
+            reader?.Read(buffer, 0, length);
             return new string(buffer);
         }
 
@@ -80,7 +80,7 @@ namespace Engine.File
         public static string ReadString(this BinaryReader reader, int length)
         {
             var buffer = new char[length];
-            reader.Read(buffer, 0, length);
+            reader?.Read(buffer, 0, length);
             return new string(buffer);
         }
 
@@ -93,7 +93,7 @@ namespace Engine.File
         public static string ReadString16(this BinaryReader reader, int length)
         {
             var buffer = new byte[length];
-            reader.Read(buffer, 0, length);
+            reader?.Read(buffer, 0, length);
             return Encoding.Unicode.GetString(buffer);
         }
 
@@ -102,7 +102,6 @@ namespace Engine.File
         /// </summary>
         /// <param name="bw">The bw.</param>
         /// <param name="value">The value.</param>
-        public static void WriteString(this BinaryWriter bw, string value)
-            => bw.Write(Encoding.ASCII.GetBytes(value));
+        public static void WriteString(this BinaryWriter bw, string value) => bw?.Write(Encoding.ASCII.GetBytes(value));
     }
 }

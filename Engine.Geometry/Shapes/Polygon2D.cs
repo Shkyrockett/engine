@@ -24,7 +24,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// A closed Polygon2D made up of sets of Contours.
+    /// A closed Polygon made up of sets of Contours.
     /// </summary>
     /// <structure>Engine.Geometry.PolyGon2D</structure>
     [DataContract, Serializable]
@@ -37,7 +37,7 @@ namespace Engine
     {
         #region Private Fields
         /// <summary>
-        /// An array of Polygon2D Contours.
+        /// An array of Polygon Contours.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         private List<PolygonContour2D> contours;
@@ -45,14 +45,14 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a default instance of the <see cref="Polygon"/> class.
+        /// Initializes a default instance of the <see cref="Polygon2D"/> class.
         /// </summary>
         public Polygon2D()
             : this(new List<PolygonContour2D>())
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polygon"/> class with a single <see cref="PolygonContour"/> of a set of <see cref="Point2D"/>s from a parameter list.
+        /// Initializes a new instance of the <see cref="Polygon2D"/> class with a single <see cref="PolygonContour2D"/> of a set of <see cref="Point2D"/>s from a parameter list.
         /// </summary>
         /// <param name="points"></param>
         public Polygon2D(params Point2D[] points)
@@ -60,7 +60,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polygon"/> class with a single <see cref="PolygonContour"/> from a set of <see cref="Point2D"/>s.
+        /// Initializes a new instance of the <see cref="Polygon2D"/> class with a single <see cref="PolygonContour2D"/> from a set of <see cref="Point2D"/>s.
         /// </summary>
         /// <param name="points"></param>
         public Polygon2D(IEnumerable<Point2D> points)
@@ -68,7 +68,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polygon"/> class.
+        /// Initializes a new instance of the <see cref="Polygon2D"/> class.
         /// </summary>
         public Polygon2D(IEnumerable<PolygonContour2D> contours)
         {
@@ -76,7 +76,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polygon"/> class from a parameter list.
+        /// Initializes a new instance of the <see cref="Polygon2D"/> class from a parameter list.
         /// </summary>
         /// <param name="contours">The contours.</param>
         public Polygon2D(params IEnumerable<Point2D>[] contours)
@@ -90,7 +90,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polygon"/> class.
+        /// Initializes a new instance of the <see cref="Polygon2D"/> class.
         /// </summary>
         /// <param name="contours">The contours.</param>
         public Polygon2D(IEnumerable<List<Point2D>> contours)
@@ -114,7 +114,7 @@ namespace Engine
         /// The Indexer.
         /// </summary>
         /// <param name="index">The index index.</param>
-        /// <returns>One element of type PolygonContour2D.</returns>
+        /// <returns>One element of type PolygonContour.</returns>
         public PolygonContour2D this[int index]
         {
             get
@@ -371,31 +371,27 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Contains(Point2D point)
-            => Intersections.Contains(this, point) != Inclusions.Outside;
+        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != Inclusions.Outside;
 
         /// <summary>
         /// Clone.
         /// </summary>
-        /// <returns>The <see cref="Polygon"/>.</returns>
+        /// <returns>The <see cref="Polygon2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polygon2D Clone()
-            => new Polygon2D(Contours.ToArray() as IEnumerable<PolygonContour2D>);
+        public Polygon2D Clone() => new Polygon2D(Contours.ToArray() as IEnumerable<PolygonContour2D>);
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
-        public IEnumerator<PolygonContour2D> GetEnumerator()
-            => contours.GetEnumerator();
+        public IEnumerator<PolygonContour2D> GetEnumerator() => contours.GetEnumerator();
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator"/>.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-            => contours.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => contours.GetEnumerator();
 
         /// <summary>
         /// Convert the to string.

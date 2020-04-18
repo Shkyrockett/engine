@@ -17,7 +17,7 @@ namespace Engine.Tweening
     /// The vector2d lerper class.
     /// </summary>
     public class Vector2DLerper
-        : MemberLerper
+        : IMemberLerper
     {
         /// <summary>
         /// The from.
@@ -40,7 +40,7 @@ namespace Engine.Tweening
         /// <param name="fromValue">The fromValue.</param>
         /// <param name="toValue">The toValue.</param>
         /// <param name="behavior">The behavior.</param>
-        public override void Initialize(object fromValue, object toValue, LerpBehaviors behavior)
+        public void Initialize(object fromValue, object toValue, LerpBehaviors behavior)
         {
             from = (Vector2D)fromValue;
             to = (Vector2D)toValue;
@@ -56,7 +56,7 @@ namespace Engine.Tweening
         /// <param name="currentValue">The currentValue.</param>
         /// <param name="behavior">The behavior.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object Interpolate(double t, object currentValue, LerpBehaviors behavior)
+        public object Interpolate(double t, object currentValue, LerpBehaviors behavior)
         {
             var i = from.I + (range.I * t);
             var j = from.J + (range.J * t);

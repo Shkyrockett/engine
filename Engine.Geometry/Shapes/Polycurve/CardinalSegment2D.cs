@@ -98,7 +98,7 @@ namespace Engine
         /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd { get { return Nodes[Nodes.Count - 1]; } set { Nodes[Nodes.Count - 1] = value.Value; } }
+        public override Point2D? NextToEnd { get { return Nodes[^1]; } set { Nodes[^1] = value.Value; } }
 
         /// <summary>
         /// Gets or sets the end.
@@ -106,7 +106,7 @@ namespace Engine
         [DataMember, XmlElement, SoapElement]
         public override Point2D? Tail
         {
-            get { return CentralPoints?[CentralPoints.Count - 1]; }
+            get { return CentralPoints?[^1]; }
             set
             {
                 if (CentralPoints is null)
@@ -115,7 +115,7 @@ namespace Engine
                 }
                 else
                 {
-                    CentralPoints[CentralPoints.Count - 1] = value.Value;
+                    CentralPoints[^1] = value.Value;
                 }
             }
         }

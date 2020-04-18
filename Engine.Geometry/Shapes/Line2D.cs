@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -24,6 +25,7 @@ namespace Engine
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Line2D))]
+    [TypeConverter(typeof(StructConverter<Line2D>))]
     [XmlType(TypeName = "line", Namespace = "http://www.w3.org/2000/svg")]
     [DebuggerDisplay("{ToString()}")]
     public class Line2D
@@ -34,7 +36,7 @@ namespace Engine
         /// Represents a Engine.Geometry.Segment that is null.
         /// </summary>
 
-        public static readonly Line2D Empty = new Line2D();
+        public static readonly Line2D Empty = new Line2D(0d, 0d, 0d, 0d);
         #endregion Implementations
 
         #region Fields
@@ -77,7 +79,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment"/> class.
+        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
         /// </summary>
         /// <param name="Point">Starting Point</param>
         /// <param name="RadAngle">Ending Angle</param>
@@ -97,7 +99,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment"/> class.
+        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
         /// </summary>
         /// <param name="a">Starting Point</param>
         /// <param name="b">Ending Point</param>
@@ -170,8 +172,7 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public override Point2D Interpolate(double t)
-            => Interpolators.Linear(t, location, location + direction);
+        public override Point2D Interpolate(double t) => Interpolators.Linear(t, location, location + direction);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Line2D"/> struct based on the format string

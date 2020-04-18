@@ -16,7 +16,7 @@ namespace Engine
     public class Geometry_
     {
         /// <summary>
-        /// Gets or sets the origional.
+        /// Gets or sets the original.
         /// </summary>
         public Shape2D[] Origional { get; set; }
 

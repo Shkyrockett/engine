@@ -44,7 +44,7 @@ namespace Engine
         {
             if (relitive)
             {
-                Tail = (Point2D)(Tail + previous.Tail);
+                Tail = (Point2D)(Tail + previous?.Tail);
             }
         }
 
@@ -135,7 +135,7 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(Head.Value.X, Head.Value.Y, Tail.Value.X, Tail.Value.Y));
 
         /// <summary>
-        /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the x-axis.
+        /// Gets the <see cref="QuadraticBezier2D"/> curve's polynomial representation along the x-axis.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveX
@@ -149,7 +149,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the y-axis.
+        /// Gets the <see cref="QuadraticBezier2D"/> curve's polynomial representation along the y-axis.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveY
@@ -182,7 +182,7 @@ namespace Engine
         /// <summary>
         /// The to line segment.
         /// </summary>
-        /// <returns>The <see cref="LineSegment"/>.</returns>
+        /// <returns>The <see cref="LineSegment2D"/>.</returns>
         public LineSegment2D ToLineSegment()
             => new LineSegment2D(Head.Value, Tail.Value);
         #endregion Methods

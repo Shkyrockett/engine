@@ -231,7 +231,7 @@ namespace Engine.Colorspace
         public bool Equals(IColor other)
         {
             var (redA, greenA, blueA, alphaA) = ToRGBATuple();
-            var (redB, greenB, blueB, alphaB) = other.ToRGBATuple();
+            var (redB, greenB, blueB, alphaB) = (other?.ToRGBATuple()).Value;
             return alphaA == alphaB && redA == redB && greenA == greenB && blueA == blueB;
         }
 

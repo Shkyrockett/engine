@@ -19,7 +19,6 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(DoubleLine))]
     public class DoubleLine
         : Shape2D
     {
@@ -54,14 +53,12 @@ namespace Engine
         /// <summary>
         /// Gets the border points.
         /// </summary>
-        public List<Point2D> BorderPoints
-            => borderPoints;
+        public List<Point2D> BorderPoints => borderPoints;
 
         /// <summary>
         /// The to string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString()
-            => nameof(DoubleLine);
+        public override string ToString() => nameof(DoubleLine);
     }
 }

@@ -17,6 +17,11 @@ namespace Engine
         /// <returns></returns>
         public static bool PointInPolySpline(double[] poly, double X, double Y)
         {
+            if (poly is null)
+            {
+                throw new System.ArgumentNullException(nameof(poly));
+            }
+
             var SPLINE = 2d;
             var NEW_LOOP = 3d;
             var END = -2d;

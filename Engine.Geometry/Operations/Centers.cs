@@ -1,4 +1,14 @@
-﻿using System;
+﻿// <copyright file="Centers.cs" company="Shkyrockett" >
+//     Copyright © 2018 - 2020 Shkyrockett. All rights reserved.
+// </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <summary></summary>
+// <remarks></remarks>
+
+using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static Engine.Mathematics;
@@ -84,10 +94,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x, double y) TriangleCenter(
-            double ax, double ay,
-            double bx, double by,
-            double cx, double cy)
+        public static (double x, double y) TriangleCenter(double ax, double ay, double bx, double by, double cx, double cy)
         {
             var a = Measurements.Distance(bx, by, cx, cy);
             var b = Measurements.Distance(ax, ay, cx, cy);
@@ -116,23 +123,16 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CircleCenterFromThreePoints(
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y)
+        public static (double X, double Y) CircleCenterFromThreePoints(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)
         {
             var offset = (p2X * p2X) + (p2Y * p2Y);
             var bc = ((p1X * p1X) + (p1Y * p1Y) - offset) * 0.5d;
             var cd = (offset - (p3X * p3X) - (p3Y * p3Y)) * 0.5d;
             var determinant = ((p1X - p2X) * (p2Y - p3Y)) - ((p2X - p3X) * (p1Y - p2Y));
 
-            if (Abs(determinant) < DoubleEpsilon)
-            {
-                return (0d, 0d);
-            }
-
-            return (
-                ((bc * (p2Y - p3Y)) - (cd * (p1Y - p2Y))) / determinant,
+            return Abs(determinant) < DoubleEpsilon
+                ? (0d, 0d)
+                : (((bc * (p2Y - p3Y)) - (cd * (p1Y - p2Y))) / determinant,
                 ((cd * (p1X - p2X)) - (bc * (p2X - p3X))) / determinant);
         }
 
@@ -143,22 +143,10 @@ namespace Engine
         /// <returns>
         /// A <see cref="Point2D" /> representing the center point of the <see cref="Rectangle2D" />.
         /// </returns>
-        /// <exception cref="ArgumentNullException">rectangle</exception>
         /// <acknowledgment>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) RectangleCenter(Rectangle2D rectangle)
-        {
-            if (rectangle is null)
-            {
-                throw new ArgumentNullException(nameof(rectangle));
-            }
-
-            return (
-                rectangle.Left + (rectangle.Right - rectangle.Left) * 0.5d,
-                rectangle.Top + (rectangle.Bottom - rectangle.Top) * 0.5d
-                );
-        }
+        public static (double X, double Y) RectangleCenter(Rectangle2D rectangle) => (rectangle.Left + ((rectangle.Right - rectangle.Left) * 0.5d), rectangle.Top + ((rectangle.Bottom - rectangle.Top) * 0.5d));
     }
 }

@@ -17,6 +17,7 @@ namespace Engine.Tweening
     /// The tween class.
     /// </summary>
     public class Tween
+        : ITween
     {
         #region Callbacks
         /// <summary>
@@ -91,12 +92,12 @@ namespace Engine.Tweening
         /// <summary>
         /// The vars.
         /// </summary>
-        private readonly List<MemberAccessor> vars;
+        private readonly List<IMemberAccessor> vars;
 
         /// <summary>
         /// The lerpers.
         /// </summary>
-        private readonly List<MemberLerper> lerpers;
+        private readonly List<IMemberLerper> lerpers;
 
         /// <summary>
         /// The start.
@@ -143,8 +144,8 @@ namespace Engine.Tweening
             firstUpdate = true;
 
             varHash = new Dictionary<string, int>();
-            vars = new List<MemberAccessor>();
-            lerpers = new List<MemberLerper>();
+            vars = new List<IMemberAccessor>();
+            lerpers = new List<IMemberLerper>();
             start = new List<object>();
             end = new List<object>();
             behavior = LerpBehaviors.None;
@@ -155,8 +156,7 @@ namespace Engine.Tweening
         /// <summary>
         /// The time remaining before the tween ends or repeats.
         /// </summary>
-        public double TimeRemaining
-            => duration - time;
+        public double TimeRemaining => duration - time;
 
         /// <summary>
         /// A value between 0 and 1, where 0 means the tween has not been started and 1 means that it has completed.
@@ -173,8 +173,7 @@ namespace Engine.Tweening
         /// <summary>
         /// Whether the tween is currently looping.
         /// </summary>
-        public bool Looping
-            => repeatCount != 0;
+        public bool Looping => repeatCount != 0;
 
         /// <summary>
         /// The object this tween targets. Will be null if the tween represents a timer.
@@ -189,7 +188,7 @@ namespace Engine.Tweening
         /// <param name="info">The info.</param>
         /// <param name="from">The from.</param>
         /// <param name="to">The to.</param>
-        internal void AddLerp(MemberLerper lerper, MemberAccessor info, object from, object to)
+        public void AddLerp(IMemberLerper lerper, IMemberAccessor info, object from, object to)
         {
             varHash.Add(info.MemberName, vars.Count);
             vars.Add(info);
@@ -204,7 +203,7 @@ namespace Engine.Tweening
         /// Update.
         /// </summary>
         /// <param name="elapsed">The elapsed.</param>
-        internal void Update(double elapsed)
+        public void Update(double elapsed)
         {
             if (firstUpdate)
             {
@@ -304,9 +303,9 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="values">The values to apply, in an anonymous type ( new { prop1 = 100, prop2 = 0} ).</param>
         /// <returns>A reference to this.</returns>
-        public Tween From(object values)
+        public ITween From(object values)
         {
-            var props = values.GetType().GetProperties();
+            var props = values?.GetType().GetProperties();
             for (var i = 0; i < props.Length; ++i)
             {
                 var property = props[i];
@@ -333,7 +332,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="ease">The Easer to use.</param>
         /// <returns>A reference to this.</returns>
-        public Tween Ease(Func<double, double> ease)
+        public ITween Ease(Func<double, double> ease)
         {
             this.ease = ease;
             return this;
@@ -344,7 +343,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="callback">The function that will be called when the tween starts, after the delay.</param>
         /// <returns>A reference to this.</returns>
-        public Tween OnBegin(Action callback)
+        public ITween OnBegin(Action callback)
         {
             switch (begin)
             {
@@ -360,31 +359,11 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// Set a function to call when the tween finishes. Can be called multiple times for compound callbacks.
-        /// If the tween repeats infinitely, this will be called each time; otherwise it will only run when the tween is finished repeating.
-        /// </summary>
-        /// <param name="callback">The function that will be called on tween completion.</param>
-        /// <returns>A reference to this.</returns>
-        public Tween OnComplete(Action callback)
-        {
-            switch (complete)
-            {
-                case null:
-                    complete = callback;
-                    break;
-                default:
-                    complete += callback;
-                    break;
-            }
-            return this;
-        }
-
-        /// <summary>
         /// Set a function to call as the tween updates. Can be called multiple times for compound callbacks.
         /// </summary>
         /// <param name="callback">The function to use.</param>
         /// <returns>A reference to this.</returns>
-        public Tween OnUpdate(Action callback)
+        public ITween OnUpdate(Action callback)
         {
             switch (update)
             {
@@ -399,11 +378,31 @@ namespace Engine.Tweening
         }
 
         /// <summary>
+        /// Set a function to call when the tween finishes. Can be called multiple times for compound callbacks.
+        /// If the tween repeats infinitely, this will be called each time; otherwise it will only run when the tween is finished repeating.
+        /// </summary>
+        /// <param name="callback">The function that will be called on tween completion.</param>
+        /// <returns>A reference to this.</returns>
+        public ITween OnComplete(Action callback)
+        {
+            switch (complete)
+            {
+                case null:
+                    complete = callback;
+                    break;
+                default:
+                    complete += callback;
+                    break;
+            }
+            return this;
+        }
+
+        /// <summary>
         /// Enable repeating.
         /// </summary>
         /// <param name="times">Number of times to repeat. Leave blank or pass a negative number to repeat infinitely.</param>
         /// <returns>A reference to this.</returns>
-        public Tween Repeat(int times = -1)
+        public ITween Repeat(int times = -1)
         {
             repeatCount = times;
             return this;
@@ -414,7 +413,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="delay">How long to wait before repeating.</param>
         /// <returns>A reference to this.</returns>
-        public Tween RepeatDelay(double delay)
+        public ITween RepeatDelay(double delay)
         {
             repeatDelay = delay;
             return this;
@@ -424,7 +423,7 @@ namespace Engine.Tweening
         /// Sets the tween to reverse every other time it repeats. Repeating must be enabled for this to have any effect.
         /// </summary>
         /// <returns>A reference to this.</returns>
-        public Tween Reflect()
+        public ITween Reflect()
         {
             behavior |= LerpBehaviors.Reflect;
             return this;
@@ -434,7 +433,7 @@ namespace Engine.Tweening
         /// Swaps the start and end values of the tween.
         /// </summary>
         /// <returns>A reference to this.</returns>
-        public Tween Reverse()
+        public ITween Reverse()
         {
             var i = vars.Count;
             while (i-- > 0)
@@ -456,7 +455,7 @@ namespace Engine.Tweening
         /// Whether this tween handles rotation.
         /// </summary>
         /// <returns>A reference to this.</returns>
-        public Tween Rotation(RotationUnit unit = RotationUnit.Degrees)
+        public ITween Rotation(RotationUnit unit = RotationUnit.Degrees)
         {
             behavior |= LerpBehaviors.Rotation;
             behavior |= (unit == RotationUnit.Degrees) ? LerpBehaviors.RotationDegrees : LerpBehaviors.RotationRadians;
@@ -468,7 +467,7 @@ namespace Engine.Tweening
         /// Whether tweened values should be rounded to integer values.
         /// </summary>
         /// <returns>A reference to this.</returns>
-        public Tween Round()
+        public ITween Round()
         {
             behavior |= LerpBehaviors.Round;
             return this;
@@ -476,6 +475,11 @@ namespace Engine.Tweening
         #endregion Behavior
 
         #region Control
+        /// <summary>
+        /// Remove tweens from the tweener without calling their complete functions.
+        /// </summary>
+        public void Cancel() => Remover.Remove(this);
+
         /// <summary>
         /// Cancel tweening given properties.
         /// </summary>
@@ -506,12 +510,6 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// Remove tweens from the tweener without calling their complete functions.
-        /// </summary>
-        public void Cancel()
-            => Remover.Remove(this);
-
-        /// <summary>
         /// Assign tweens their final value and remove them from the tweener.
         /// </summary>
         public void CancelAndComplete()
@@ -524,20 +522,17 @@ namespace Engine.Tweening
         /// <summary>
         /// Set tweens to pause. They won't update and their delays won't tick down.
         /// </summary>
-        public void Pause()
-            => Paused = true;
+        public void Pause() => Paused = true;
 
         /// <summary>
         /// Toggle tweens' paused value.
         /// </summary>
-        public void PauseToggle()
-            => Paused = !Paused;
+        public void PauseToggle() => Paused = !Paused;
 
         /// <summary>
         /// Resumes tweens from a paused state.
         /// </summary>
-        public void Resume()
-            => Paused = false;
+        public void Resume() => Paused = false;
         #endregion Control
     }
 }

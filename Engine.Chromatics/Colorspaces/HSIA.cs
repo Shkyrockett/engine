@@ -10,6 +10,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Colorspace
 {
@@ -130,7 +131,7 @@ namespace Engine.Colorspace
         public bool Equals(IColor other)
         {
             var (r0, g0, b0, a0) = ToRGBATuple();
-            var (r1, g1, b1, a1) = other.ToRGBATuple();
+            var (r1, g1, b1, a1) = (other?.ToRGBATuple()).Value;
             return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
         }
 
@@ -150,7 +151,7 @@ namespace Engine.Colorspace
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(HSIA other) => Hue == other.Hue && Saturation == other.Saturation && Intensity == other.Intensity && Alpha == other.Alpha;
+        public bool Equals([AllowNull] HSIA other) => Hue == other.Hue && Saturation == other.Saturation && Intensity == other.Intensity && Alpha == other.Alpha;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -158,15 +159,7 @@ namespace Engine.Colorspace
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = 230637231;
-            hashCode = hashCode * -1521134295 + Hue.GetHashCode();
-            hashCode = hashCode * -1521134295 + Saturation.GetHashCode();
-            hashCode = hashCode * -1521134295 + Intensity.GetHashCode();
-            hashCode = hashCode * -1521134295 + Alpha.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Hue, Saturation, Intensity, Alpha);
 
         /// <summary>
         /// The to color.
@@ -174,8 +167,7 @@ namespace Engine.Colorspace
         /// <returns>
         /// The <see cref="RGBA" />.
         /// </returns>
-        public RGBA ToColor()
-            => new RGBA(ToRGBATuple());
+        public RGBA ToColor() => new RGBA(ToRGBATuple());
 
         /// <summary>
         /// Converts the <see cref="HSIA" /> class to a <see cref="RGBA" /> class.
@@ -187,8 +179,7 @@ namespace Engine.Colorspace
         /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
         /// https://github.com/dystopiancode/colorspace-conversions
         /// </acknowledgment>
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
-            => Colorspaces.HSIAColorToRGBAColor(Hue, Saturation, Intensity, Alpha);
+        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple() => Colorspaces.HSIAColorToRGBAColor(Hue, Saturation, Intensity, Alpha);
 
         /// <summary>
         /// The to string.
@@ -199,8 +190,7 @@ namespace Engine.Colorspace
         /// The <see cref="string" />.
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
-        public string ToString(string format, IFormatProvider formatProvider)
-            => throw new NotImplementedException();
+        public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
         #endregion Methods
     }
 }

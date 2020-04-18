@@ -61,38 +61,32 @@ namespace Engine
         /// <summary>
         /// Gets the name.
         /// </summary>
-        public override string Name
-            => index.ToString(CultureInfo.InvariantCulture);
+        public override string Name => index.ToString(CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        public override bool IsReadOnly
-            => false;
+        public override bool IsReadOnly => false;
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        public override bool SupportsChangeEvents
-            => true;
+        public override bool SupportsChangeEvents => true;
 
         /// <summary>
         /// Gets the component type.
         /// </summary>
-        public override Type ComponentType
-            => collection.GetType();
+        public override Type ComponentType => collection?.GetType();
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
-        public override Type PropertyType
-            => collection[index].GetType();
+        public override Type PropertyType => collection[index]?.GetType();
 
         ///// <summary>
         ///// 
         ///// </summary>
-        //public override AttributeCollection Attributes
-        //    => new AttributeCollection(null);
+        //public override AttributeCollection Attributes => new AttributeCollection(null);
         #endregion Properties
 
         #region Methods
@@ -150,7 +144,6 @@ namespace Engine
             //return $"{CSharpName(list[index].GetType())} [{index,4}]";
             return $"[{index}]";
         }
-
 
         ///// <summary>
         ///// 

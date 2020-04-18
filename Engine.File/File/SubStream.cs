@@ -57,26 +57,26 @@ namespace Engine.File
         /// <param name="length">The count of the sub-chunk</param>
         public SubStream(Stream source, long start, long length)
         {
-            baseStream = source ?? throw new ArgumentNullException("The source stream can not be null");
+            baseStream = source ?? throw new ArgumentNullException(nameof(source), "The source stream can not be null");
 
             if (!source.CanRead)
             {
-                throw new ArgumentException("Can't read base stream");
+                throw new ArgumentException("Can't read base stream", nameof(source));
             }
 
             if (start < 0)
             {
-                throw new ArgumentOutOfRangeException("The start position of a SubStream can not be negative");
+                throw new ArgumentOutOfRangeException(nameof(start), "The start position of a SubStream can not be negative");
             }
 
             if (length < 0)
             {
-                throw new ArgumentOutOfRangeException("The count of a SubStream can not be negative");
+                throw new ArgumentOutOfRangeException(nameof(length), "The count of a SubStream can not be negative");
             }
 
             if (start + length > source.Length)
             {
-                throw new ArgumentOutOfRangeException("The sub-chunk exceeds beyond the end of the source stream");
+                throw new ArgumentOutOfRangeException(nameof(source), "The sub-chunk exceeds beyond the end of the source stream");
             }
 
             startPosition = start;
@@ -87,23 +87,27 @@ namespace Engine.File
 
         #region Properties
         /// <summary>
+        /// Gets the base stream.
+        /// </summary>
+        /// <value>
+        /// The base stream.
+        /// </value>
+        public Stream BaseStream => baseStream;
+
+        /// <summary>
         /// Gets a value indicating whether the current stream supports reading. 
         /// </summary>
-        public override bool CanRead
-            => baseStream?.CanRead ?? throw new ObjectDisposedException(GetType().Name);
+        public override bool CanRead => baseStream?.CanRead ?? throw new ObjectDisposedException(GetType().Name);
 
         /// <summary>
         /// Gets a value indicating whether the current stream supports seeking. 
         /// </summary>
-        public override bool CanSeek
-            => baseStream?.CanSeek ?? throw new ObjectDisposedException(GetType().Name);
+        public override bool CanSeek => baseStream?.CanSeek ?? throw new ObjectDisposedException(GetType().Name);
 
         /// <summary>
         /// Gets a value indicating whether the current stream supports writing - always returns <see langword="false"/>
         /// </summary>
-        public override bool CanWrite
-                //CheckDisposed();
-                => false;
+        public override bool CanWrite => /*CheckDisposed();*/false;
 
         /// <summary>
         /// Gets the count in bytes of the <see cref="SubStream"/>
@@ -166,22 +170,22 @@ namespace Engine.File
         {
             if (buffer is null)
             {
-                throw new ArgumentNullException("The read buffer is null");
+                throw new ArgumentNullException(nameof(buffer), "The read buffer is null");
             }
 
             if (offset < 0)
             {
-                throw new ArgumentOutOfRangeException("The offset is negative");
+                throw new ArgumentOutOfRangeException(nameof(offset), "The offset is negative");
             }
 
             if (count < 0)
             {
-                throw new ArgumentOutOfRangeException("The count is negative");
+                throw new ArgumentOutOfRangeException(nameof(count), "The count is negative");
             }
 
             if (offset + count > buffer.Length)
             {
-                throw new ArgumentException("The buffer is too small");
+                throw new ArgumentException("The buffer is too small", nameof(buffer));
             }
 
             CheckDisposed();

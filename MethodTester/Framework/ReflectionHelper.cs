@@ -28,7 +28,7 @@ namespace MethodSpeedTester
         public static List<MethodInfo> ListStaticFactoryConstructors(Type type)
             => new List<MethodInfo>
             (
-                from method in type.GetMethods()
+                from method in type?.GetMethods()
                 where method.IsStatic
                 where method.ReturnType == type
                 select method
@@ -43,7 +43,7 @@ namespace MethodSpeedTester
         public static List<MethodInfo> ListStaticFactoryConstructorsList(Type type, Type type2)
             => new List<MethodInfo>
             (
-                from method in type.GetMethods()
+                from method in type?.GetMethods()
                 where method.IsStatic
                 where method.ReturnType == type2
                 select method

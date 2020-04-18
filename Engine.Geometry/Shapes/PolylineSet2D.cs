@@ -21,9 +21,8 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// Set of a open Polyline2D structures
+    /// Set of a open Polyline structures
     /// </summary>
-
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(PolylineSet2D))]
@@ -35,20 +34,19 @@ namespace Engine
         /// <summary>
         /// An array of Polygons representing a set.
         /// </summary>
-
         private List<Polyline2D> polylines;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        /// Initializes a default instance of the <see cref="PolylineSet"/> class.
+        /// Initializes a default instance of the <see cref="PolylineSet2D"/> class.
         /// </summary>
         public PolylineSet2D()
             : this(new List<Polyline2D>())
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolylineSet"/> class from a parameter list.
+        /// Initializes a new instance of the <see cref="PolylineSet2D"/> class from a parameter list.
         /// </summary>
         /// <param name="polylines"></param>
         public PolylineSet2D(params IEnumerable<Point2D>[] polylines)
@@ -56,7 +54,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolylineSet"/> class.
+        /// Initializes a new instance of the <see cref="PolylineSet2D"/> class.
         /// </summary>
         public PolylineSet2D(IEnumerable<Polyline2D> polylines)
         {
@@ -64,7 +62,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolylineSet"/> class.
+        /// Initializes a new instance of the <see cref="PolylineSet2D"/> class.
         /// </summary>
         /// <param name="polylines"></param>
         public PolylineSet2D(IEnumerable<List<Point2D>> polylines)

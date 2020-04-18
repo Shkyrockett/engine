@@ -35,6 +35,7 @@ namespace Engine.File
         /// The stream does not support reading, the stream is null, or the stream is
         /// already closed.
         /// </exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public BinaryReaderExtended(Stream input)
             : base(input)
         { }
@@ -50,8 +51,20 @@ namespace Engine.File
         /// already closed.
         /// </exception>
         /// <exception cref="ArgumentNullException">encoding is null.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public BinaryReaderExtended(Stream input, Encoding encoding)
             : base(input, encoding)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BinaryReaderExtended"/> class.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <param name="leaveOpen">if set to <c>true</c> [leave open].</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public BinaryReaderExtended(Stream input, Encoding encoding, bool leaveOpen)
+            : base(input, encoding, leaveOpen)
         { }
         #endregion Constructors
 
@@ -73,8 +86,7 @@ namespace Engine.File
         /// </summary>
         /// <exception cref="NotSupportedException">A class derived from Stream does not support seeking.</exception>
         /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed.</exception>
-        public long Length
-            => BaseStream.Length;
+        public long Length => BaseStream.Length;
         #endregion Properties
 
         #region Methods
@@ -88,8 +100,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public short ReadNetworkInt14()
-            => (short)((ReadByte() << 7) | ReadByte());
+        public short ReadNetworkInt14() => (short)((ReadByte() << 7) | ReadByte());
 
         /// <summary>
         /// Reads a 2-byte unsigned 14-bit integer from the current stream using Big-endian
@@ -101,8 +112,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ushort ReadNetworkUInt14()
-            => (ushort)((ReadByte() << 7) | ReadByte());
+        public ushort ReadNetworkUInt14() => (ushort)((ReadByte() << 7) | ReadByte());
 
         /// <summary>
         /// Reads a 2-byte signed integer from the current stream using Big-endian
@@ -114,8 +124,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public short ReadNetworkInt16()
-            => (short)((ReadByte() << 8) | ReadByte());
+        public short ReadNetworkInt16() => (short)((ReadByte() << 8) | ReadByte());
 
         /// <summary>
         /// Reads a 2-byte unsigned integer from the current stream using big-endian
@@ -127,8 +136,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ushort ReadNetworkUInt16()
-            => (ushort)((ReadByte() << 8) | ReadByte());
+        public ushort ReadNetworkUInt16() => (ushort)((ReadByte() << 8) | ReadByte());
 
         /// <summary>
         /// Reads a 3-byte signed integer from the current stream using big-endian
@@ -140,8 +148,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public uint ReadNetworkUInt24()
-            => ((((uint)ReadByte() << 16) | ((uint)ReadByte() << 8) | (uint)ReadByte()) << 12) >> 12;
+        public uint ReadNetworkUInt24() => ((((uint)ReadByte() << 16) | ((uint)ReadByte() << 8) | (uint)ReadByte()) << 12) >> 12;
 
         /// <summary>
         /// Reads a 3-byte signed integer from the current stream using big-endian
@@ -153,8 +160,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int ReadNetworkInt24()
-            => (((ReadByte() << 16) | (ReadByte() << 8) | ReadByte()) << 12) >> 12;
+        public int ReadNetworkInt24() => (((ReadByte() << 16) | (ReadByte() << 8) | ReadByte()) << 12) >> 12;
 
         /// <summary>
         /// Reads a 4-byte unsigned integer from the current stream using big-endian
@@ -166,8 +172,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public uint ReadNetworkUInt32()
-            => ((uint)ReadByte() << 24) | ((uint)ReadByte() << 16) | ((uint)ReadByte() << 8) | (uint)ReadByte();
+        public uint ReadNetworkUInt32() => ((uint)ReadByte() << 24) | ((uint)ReadByte() << 16) | ((uint)ReadByte() << 8) | (uint)ReadByte();
 
         /// <summary>
         /// Reads a 4-byte signed integer from the current stream using big-endian
@@ -179,8 +184,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int ReadNetworkInt32()
-            => (ReadByte() << 24) | (ReadByte() << 16) | (ReadByte() << 8) | ReadByte();
+        public int ReadNetworkInt32() => (ReadByte() << 24) | (ReadByte() << 16) | (ReadByte() << 8) | ReadByte();
 
         /// <summary>
         /// Reads an 8-byte signed integer from the current stream using big-endian
@@ -192,8 +196,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public long ReadNetworkInt64()
-            => ((long)ReadByte() << 56) | ((long)ReadByte() << 48) | ((long)ReadByte() << 40) | ((long)ReadByte() << 32) | ((long)ReadByte() << 24) | ((long)ReadByte() << 16) | ((long)ReadByte() << 8) | (long)ReadByte();
+        public long ReadNetworkInt64() => ((long)ReadByte() << 56) | ((long)ReadByte() << 48) | ((long)ReadByte() << 40) | ((long)ReadByte() << 32) | ((long)ReadByte() << 24) | ((long)ReadByte() << 16) | ((long)ReadByte() << 8) | (long)ReadByte();
 
         /// <summary>
         /// Reads an 8-byte unsigned integer from the current stream using big-endian
@@ -205,8 +208,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ulong ReadNetworkUInt64()
-            => ((ulong)ReadByte() << 56) | ((ulong)ReadByte() << 48) | ((ulong)ReadByte() << 40) | ((ulong)ReadByte() << 32) | ((ulong)ReadByte() << 24) | ((ulong)ReadByte() << 16) | ((ulong)ReadByte() << 8) | (ulong)ReadByte();
+        public ulong ReadNetworkUInt64() => ((ulong)ReadByte() << 56) | ((ulong)ReadByte() << 48) | ((ulong)ReadByte() << 40) | ((ulong)ReadByte() << 32) | ((ulong)ReadByte() << 24) | ((ulong)ReadByte() << 16) | ((ulong)ReadByte() << 8) | (ulong)ReadByte();
 
         /// <summary>
         /// Reads in a 32-bit integer in compressed format.
@@ -218,8 +220,7 @@ namespace Engine.File
         /// <exception cref="FormatException">The stream is corrupted.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public new int Read7BitEncodedInt()
-            => base.Read7BitEncodedInt();
+        public new int Read7BitEncodedInt() => base.Read7BitEncodedInt();
 
         /// <returns></returns>
         /// <summary>

@@ -36,27 +36,27 @@ namespace Engine
     {
         #region Fields
         /// <summary>
-        /// The center x-coordinate point of the <see cref="EllipticalArc"/>.
+        /// The center x-coordinate point of the <see cref="EllipticalArc2D"/>.
         /// </summary>
         private double cx;
 
         /// <summary>
-        /// The center y-coordinate point of the <see cref="EllipticalArc"/>.
+        /// The center y-coordinate point of the <see cref="EllipticalArc2D"/>.
         /// </summary>
         private double cy;
 
         /// <summary>
-        /// Major Radius of <see cref="Ellipse"/>.
+        /// Major Radius of <see cref="Ellipse2D"/>.
         /// </summary>
-        private double rX;
+        private double radiusA;
 
         /// <summary>
-        /// Minor Radius of <see cref="Ellipse"/>.
+        /// Minor Radius of <see cref="Ellipse2D"/>.
         /// </summary>
-        private double rY;
+        private double radiusB;
 
         /// <summary>
-        /// Angle of <see cref="Ellipse"/>.
+        /// Angle of <see cref="Ellipse2D"/>.
         /// </summary>
         private double angle;
 
@@ -73,19 +73,19 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
+        /// Initializes a new instance of the <see cref="EllipticalArc2D"/> class.
         /// </summary>
         public EllipticalArc2D()
             : this(0, 0, 0, 0, 0, 0, 0)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
+        /// Initializes a new instance of the <see cref="EllipticalArc2D"/> class.
         /// </summary>
-        /// <param name="center">Center Point of <see cref="EllipticalArc"/>.</param>
-        /// <param name="rX">Major radius of <see cref="EllipticalArc"/>.</param>
-        /// <param name="rY">Minor radius of <see cref="EllipticalArc"/>.</param>
-        /// <param name="angle">Angle of <see cref="EllipticalArc"/>.</param>
+        /// <param name="center">Center Point of <see cref="EllipticalArc2D"/>.</param>
+        /// <param name="rX">Major radius of <see cref="EllipticalArc2D"/>.</param>
+        /// <param name="rY">Minor radius of <see cref="EllipticalArc2D"/>.</param>
+        /// <param name="angle">Angle of <see cref="EllipticalArc2D"/>.</param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         public EllipticalArc2D(Point2D center, double rX, double rY, double angle, double startAngle, double sweepAngle)
@@ -93,11 +93,11 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
+        /// Initializes a new instance of the <see cref="EllipticalArc2D"/> class.
         /// </summary>
-        /// <param name="center">Center Point of <see cref="EllipticalArc"/>.</param>
-        /// <param name="size">Major and Minor radii of <see cref="EllipticalArc"/>.</param>
-        /// <param name="angle">Angle of <see cref="EllipticalArc"/>.</param>
+        /// <param name="center">Center Point of <see cref="EllipticalArc2D"/>.</param>
+        /// <param name="size">Major and Minor radii of <see cref="EllipticalArc2D"/>.</param>
+        /// <param name="angle">Angle of <see cref="EllipticalArc2D"/>.</param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         public EllipticalArc2D(Point2D center, Size2D size, double angle, double startAngle, double sweepAngle)
@@ -105,7 +105,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
+        /// Initializes a new instance of the <see cref="EllipticalArc2D"/> class.
         /// </summary>
         /// <param name="rectangle">The boundaries of the ellipse</param>
         /// <param name="angle"></param>
@@ -116,17 +116,17 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Creates a new Instance of Ellipse2D
+        /// Creates a new Instance of Ellipse
         /// </summary>
-        /// <param name="ellipse">The Ellipse2D</param>
+        /// <param name="ellipse">The Ellipse</param>
         /// <param name="startAngle"></param>
         /// <param name="endAngle"></param>
         public EllipticalArc2D(Ellipse2D ellipse, double startAngle, double endAngle)
-            : this(ellipse.Center, ellipse.MajorRadius, ellipse.MinorRadius, ellipse.Angle, startAngle, endAngle)
+            : this((ellipse?.Center).Value, ellipse.MajorRadius, ellipse.MinorRadius, ellipse.Angle, startAngle, endAngle)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
+        /// Initializes a new instance of the <see cref="EllipticalArc2D"/> class.
         /// </summary>
         /// <param name="tuple"></param>
         public EllipticalArc2D((double X, double Y, double RX, double RY, double Angle, double StartAngle, double SweepAngle) tuple)
@@ -134,28 +134,28 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
+        /// Initializes a new instance of the <see cref="EllipticalArc2D"/> class.
         /// </summary>
-        /// <param name="x">Center Point x coordinate of <see cref="EllipticalArc"/>.</param>
-        /// <param name="y">Center Point x coordinate of <see cref="EllipticalArc"/>.</param>
-        /// <param name="rX">Major radius of <see cref="EllipticalArc"/>.</param>
-        /// <param name="rY">Minor radius of <see cref="EllipticalArc"/>.</param>
-        /// <param name="angle">Angle of <see cref="EllipticalArc"/>.</param>
+        /// <param name="x">Center Point x coordinate of <see cref="EllipticalArc2D"/>.</param>
+        /// <param name="y">Center Point x coordinate of <see cref="EllipticalArc2D"/>.</param>
+        /// <param name="rX">Major radius of <see cref="EllipticalArc2D"/>.</param>
+        /// <param name="rY">Minor radius of <see cref="EllipticalArc2D"/>.</param>
+        /// <param name="angle">Angle of <see cref="EllipticalArc2D"/>.</param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         public EllipticalArc2D(double x, double y, double rX, double rY, double angle, double startAngle, double sweepAngle)
         {
             cx = x;
             cy = y;
-            this.rX = rX;
-            this.rY = rY;
+            radiusA = rX;
+            radiusB = rY;
             this.angle = angle;
             this.startAngle = startAngle;
             this.sweepAngle = sweepAngle;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
+        /// Initializes a new instance of the <see cref="EllipticalArc2D"/> class.
         /// </summary>
         /// <param name="startX">The starting X-coordinate.</param>
         /// <param name="startY">The starting Y-coordinate.</param>
@@ -185,14 +185,14 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
+        /// Initializes a new instance of the <see cref="EllipticalArc2D"/> class.
         /// </summary>
         /// <param name="startX">The starting X-coordinate.</param>
         /// <param name="startY">The starting Y-coordinate.</param>
         /// <param name="rx">The first radius.</param>
         /// <param name="ry">The second Radius.</param>
-        /// <param name="cosAngle">Horizontal rotation transform of the Ellipse2D.</param>
-        /// <param name="sinAngle">Vertical rotation transform of the Ellipse2D.</param>
+        /// <param name="cosAngle">Horizontal rotation transform of the Ellipse.</param>
+        /// <param name="sinAngle">Vertical rotation transform of the Ellipse.</param>
         /// <param name="largeArcFlag">Flag used to toggle whether to choose the largest matching ellipse.</param>
         /// <param name="sweepFlag">Flag used to toggle whether to choose the upper or lower elliptical solution. </param>
         /// <param name="endX"></param>
@@ -225,10 +225,10 @@ namespace Engine
             var y1 = (-sinAngle * dx2) + (cosAngle * dy2);
 
             // Ensure radii are positive.
-            rX = Abs(rx);
-            rY = Abs(ry);
-            var Prx = rX * rX;
-            var Pry = rY * rY;
+            radiusA = Abs(rx);
+            radiusB = Abs(ry);
+            var Prx = radiusA * radiusA;
+            var Pry = radiusB * radiusB;
             var Px1 = x1 * x1;
             var Py1 = y1 * y1;
 
@@ -236,10 +236,10 @@ namespace Engine
             var radiiCheck = (Px1 / Prx) + (Py1 / Pry);
             if (radiiCheck > 1)
             {
-                rX = Sqrt(radiiCheck) * rX;
-                rY = Sqrt(radiiCheck) * rY;
-                Prx = rX * rX;
-                Pry = rY * rY;
+                radiusA = Sqrt(radiiCheck) * radiusA;
+                radiusB = Sqrt(radiiCheck) * radiusB;
+                Prx = radiusA * radiusA;
+                Pry = radiusB * radiusB;
             }
 
             // Step 2 : Compute (cx1, cy1).
@@ -247,20 +247,20 @@ namespace Engine
             var sq = ((Prx * Pry) - (Prx * Py1) - (Pry * Px1)) / ((Prx * Py1) + (Pry * Px1));
             sq = (sq < 0) ? 0 : sq;
             var coef = sign * Sqrt(sq);
-            var cx1 = coef * (rX * y1 / rY);
-            var cy1 = coef * -(rY * x1 / rX);
+            var cx1 = coef * (radiusA * y1 / radiusB);
+            var cy1 = coef * -(radiusB * x1 / radiusA);
 
-            // Find the center point of the Ellipse2D.
+            // Find the center point of the Ellipse.
             var sx2 = (startX + endX) * OneHalf;
             var sy2 = (startY + endY) * OneHalf;
             cx = sx2 + ((cosAngle * cx1) - (sinAngle * cy1));
             cy = sy2 + ((sinAngle * cx1) + (cosAngle * cy1));
 
             // Compute the start angle and sweep angle vectors.
-            var ux = (x1 - cx1) / rX;
-            var uy = (y1 - cy1) / rY;
-            var vx = (-x1 - cx1) / rX;
-            var vy = (-y1 - cy1) / rY;
+            var ux = (x1 - cx1) / radiusA;
+            var uy = (y1 - cy1) / radiusB;
+            var vx = (-x1 - cx1) / radiusA;
+            var vy = (-y1 - cy1) / radiusB;
 
             // Compute the start angle.
             var n = Sqrt((ux * ux) + (uy * uy));
@@ -290,7 +290,7 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="EllipticalArc"/> to a Tuple.
+        /// Deconstruct this <see cref="EllipticalArc2D"/> to a Tuple.
         /// </summary>
         /// <param name="cx"></param>
         /// <param name="cy"></param>
@@ -303,8 +303,8 @@ namespace Engine
         {
             cx = this.cx;
             cy = this.cy;
-            rX = this.rX;
-            rY = this.rY;
+            rX = radiusA;
+            rY = radiusB;
             angle = this.angle;
             startAngle = this.startAngle;
             sweepAngle = this.sweepAngle;
@@ -367,9 +367,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the starting angle.")]
-        public Point2D StartPoint
-            //=> (Point2D)CachingProperty(() => (Point2D)Interpolators.EllipticalArc2D(x, y, rX, rY, angle, startAngle, sweepAngle, 0));
-            => (Point2D)CachingProperty(() => (Point2D)Interpolators.Ellipse(PolarStartAngle, cx, cy, rX, rY, CosAngle, SinAngle));
+        public Point2D StartPoint => (Point2D)CachingProperty(() => (Point2D)Interpolators.Ellipse(PolarStartAngle, cx, cy, radiusA, radiusB, CosAngle, SinAngle));
 
         /// <summary>
         /// Gets the point on the Elliptical arc circumference coincident to the ending angle.
@@ -378,9 +376,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the ending angle.")]
-        public Point2D EndPoint
-            //=> (Point2D)CachingProperty(() => (Point2D)Interpolators.EllipticalArc2D(x, y, rX, rY, angle, startAngle, sweepAngle, 1));
-            => (Point2D)CachingProperty(() => (Point2D)Interpolators.Ellipse(PolarEndAngle, cx, cy, rX, rY, CosAngle, SinAngle));
+        public Point2D EndPoint => (Point2D)CachingProperty(() => (Point2D)Interpolators.Ellipse(PolarEndAngle, cx, cy, radiusA, radiusB, CosAngle, SinAngle));
 
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the elliptical arc.
@@ -436,14 +432,14 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double RX
+        public double RadiusA
         {
-            get { return rX; }
+            get { return radiusA; }
             set
             {
-                rX = value;
+                radiusA = value;
                 ClearCache();
-                OnPropertyChanged(nameof(RX));
+                OnPropertyChanged(nameof(RadiusA));
                 update?.Invoke();
             }
         }
@@ -458,14 +454,14 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double RY
+        public double RadiusB
         {
-            get { return rY; }
+            get { return radiusB; }
             set
             {
-                rY = value;
+                radiusB = value;
                 ClearCache();
-                OnPropertyChanged(nameof(RY));
+                OnPropertyChanged(nameof(RadiusB));
                 update?.Invoke();
             }
         }
@@ -477,7 +473,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Elements")]
         [Description("The larger radius of the elliptical arc.")]
-        public double MajorRadius => rX >= rY ? rX : rY;
+        public double MajorRadius => radiusA >= radiusB ? radiusA : radiusB;
 
         /// <summary>
         /// Gets the Minor radius of the elliptical arc.
@@ -487,7 +483,7 @@ namespace Engine
         [Category("Elements")]
         [Description("The smaller radius of the elliptical arc.")]
         [RefreshProperties(RefreshProperties.All)]
-        public double MinorRadius => rX <= rY ? rX : rY;
+        public double MinorRadius => radiusA <= radiusB ? radiusA : radiusB;
 
         /// <summary>
         /// Gets or sets the Aspect ratio of the elliptical arc.
@@ -499,11 +495,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Aspect
         {
-            get { return rY / rX; }
+            get { return radiusB / radiusA; }
             set
             {
-                rY = rX * value;
-                rX = rY / value;
+                radiusB = radiusA * value;
+                radiusA = radiusB / value;
                 ClearCache();
                 OnPropertyChanged(nameof(Aspect));
                 update?.Invoke();
@@ -630,11 +626,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets the Polar corrected start angle of the <see cref="Ellipse"/>.
+        /// Gets the Polar corrected start angle of the <see cref="Ellipse2D"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
-        public double PolarStartAngle => (double)CachingProperty(() => EllipticalPolarAngle(startAngle, rX, rY));
+        public double PolarStartAngle => (double)CachingProperty(() => EllipticalPolarAngle(startAngle, radiusA, radiusB));
 
         /// <summary>
         /// Gets or sets the Cosine of the start angle of the elliptical arc.
@@ -647,7 +643,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double StartAngleCos => (double)CachingProperty(() => Cos(startAngle));
+        public double CosStartAngle => (double)CachingProperty(() => Cos(startAngle));
 
         /// <summary>
         /// Gets or sets the Sine of the start angle of the elliptical arc.
@@ -660,7 +656,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double StartAngleSin => (double)CachingProperty(() => Sin(startAngle));
+        public double SinStartAngle => (double)CachingProperty(() => Sin(startAngle));
 
         /// <summary>
         /// Gets or sets the sweep angle of the elliptical arc.
@@ -719,7 +715,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double SweepAngleCos => (double)CachingProperty(() => Cos(sweepAngle));
+        public double CosSweepAngle => (double)CachingProperty(() => Cos(sweepAngle));
 
         /// <summary>
         /// Gets or sets the Sine of the sweep angle of the elliptical arc.
@@ -732,7 +728,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double SweepAngleSin => (double)CachingProperty(() => Sin(sweepAngle));
+        public double SinSweepAngle => (double)CachingProperty(() => Sin(sweepAngle));
 
         /// <summary>
         /// Gets or sets the end angle of the elliptical arc.
@@ -790,8 +786,7 @@ namespace Engine
         [Description("The Cosine of the end angle of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [RefreshProperties(RefreshProperties.All)]
-        public double EndAngleCos => (double)CachingProperty(() => Cos(EndAngle));
+        public double CosEndAngle => (double)CachingProperty(() => Cos(EndAngle));
 
         /// <summary>
         /// Gets or sets the Sine of the end angle of the elliptical arc.
@@ -803,15 +798,14 @@ namespace Engine
         [Description("The Sine of the end angle of the elliptical arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [RefreshProperties(RefreshProperties.All)]
-        public double EndAngleSin => (double)CachingProperty(() => Sin(EndAngle));
+        public double SinEndAngle => (double)CachingProperty(() => Sin(EndAngle));
 
         /// <summary>
-        /// Gets the Polar corrected end angle of the <see cref="Ellipse"/>.
+        /// Gets the Polar corrected end angle of the <see cref="Ellipse2D"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
-        public double PolarEndAngle => (double)CachingProperty(() => EllipticalPolarAngle(startAngle + sweepAngle, rX, rY));
+        public double PolarEndAngle => (double)CachingProperty(() => EllipticalPolarAngle(startAngle + sweepAngle, radiusA, radiusB));
 
         /// <summary>
         /// Gets the Focus Radius of the elliptical arc.
@@ -820,7 +814,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The focus radius of the elliptical arc.")]
-        public double FocusRadius => (double)CachingProperty(() => Measurements.EllipseFocusRadius(rX, rY));
+        public double FocusRadius => (double)CachingProperty(() => Measurements.EllipseFocusRadius(radiusA, radiusB));
 
         /// <summary>
         /// Gets the <see cref="Eccentricity"/> of the elliptical arc.
@@ -829,7 +823,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Eccentricity) + " of the elliptical arc.")]
-        public double Eccentricity => (double)CachingProperty(() => Measurements.Eccentricity(rX, rY));
+        public double Eccentricity => (double)CachingProperty(() => Measurements.Eccentricity(radiusA, radiusB));
 
         /// <summary>
         /// Gets the arc length of the elliptical arc.
@@ -857,7 +851,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The " + nameof(Area) + " of the elliptical arc.")]
-        public override double Area => (double)CachingProperty(() => Measurements.EllipticalArcSectorArea(rX, rY, startAngle, sweepAngle));
+        public override double Area => (double)CachingProperty(() => Measurements.EllipticalArcSectorArea(radiusA, radiusB, startAngle, sweepAngle));
 
         /// <summary>
         /// Gets the angles of the extreme points of the rotated ellipse.
@@ -868,7 +862,7 @@ namespace Engine
         [Description("The angles of the extreme points of the " + nameof(Ellipse2D) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public List<double> ExtremeAngles => (List<double>)CachingProperty(() => Measurements.EllipseExtremeAngles(rX, rY, angle));
+        public List<double> ExtremeAngles => (List<double>)CachingProperty(() => Measurements.EllipseExtremeAngles(radiusA, radiusB, angle));
 
         /// <summary>
         /// Get the points of the Cartesian extremes of a rotated ellipse.
@@ -879,7 +873,7 @@ namespace Engine
         [Description("The locations of the extreme points of the " + nameof(Ellipse2D) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public List<Point2D> ExtremePoints => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(cx, cy, rX, rY, angle));
+        public List<Point2D> ExtremePoints => (List<Point2D>)CachingProperty(() => Measurements.EllipseExtremePoints(cx, cy, radiusA, radiusB, angle));
 
         /// <summary>
         /// Gets the Bounding box of the elliptical arc.
@@ -891,7 +885,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Measurements.EllipticalArcBounds(cx, cy, rX, rY, angle, startAngle, sweepAngle));
+        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Measurements.EllipticalArcBounds(cx, cy, radiusA, radiusB, angle, startAngle, sweepAngle));
 
         /// <summary>
         /// Gets the size and location of the elliptical arc, in double-point pixels, relative to the parent canvas.
@@ -904,7 +898,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public Rectangle2D OrthogonalBounds => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(cx, cy, rX, rY));
+        public Rectangle2D OrthogonalBounds => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(cx, cy, radiusA, radiusB));
         #endregion Properties
 
         #region Operators
@@ -924,7 +918,7 @@ namespace Engine
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
-            => Interpolators.EllipticalArc(t, cx, cy, rX, rY, CosAngle, SinAngle, startAngle, sweepAngle);
+            => Interpolators.EllipticalArc(t, cx, cy, radiusA, radiusB, CosAngle, SinAngle, startAngle, sweepAngle);
         #endregion Interpolators
 
         #region Methods
@@ -955,7 +949,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(EllipticalArc2D)}{{{nameof(Center)}={Center}{sep}{nameof(RX)}={rX}{sep}{nameof(RY)}={rY}{sep}{nameof(Angle)}={angle}{sep}{nameof(StartAngle)}={startAngle}{sep}{SweepAngle}={sweepAngle}}}";
+            IFormattable formatable = $"{nameof(EllipticalArc2D)}{{{nameof(Center)}={Center}{sep}{nameof(RadiusA)}={radiusA}{sep}{nameof(RadiusB)}={radiusB}{sep}{nameof(Angle)}={angle}{sep}{nameof(StartAngle)}={startAngle}{sep}{SweepAngle}={sweepAngle}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

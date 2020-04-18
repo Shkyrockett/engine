@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Colorspace
 {
@@ -94,7 +95,7 @@ namespace Engine.Colorspace
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(CIEXYZTriple other) => EqualityComparer<CIEXYZ>.Default.Equals(Red, other.Red) && EqualityComparer<CIEXYZ>.Default.Equals(Green, other.Green) && EqualityComparer<CIEXYZ>.Default.Equals(Blue, other.Blue);
+        public bool Equals([AllowNull] CIEXYZTriple other) => EqualityComparer<CIEXYZ>.Default.Equals(Red, other.Red) && EqualityComparer<CIEXYZ>.Default.Equals(Green, other.Green) && EqualityComparer<CIEXYZ>.Default.Equals(Blue, other.Blue);
 
         /// <summary>
         /// The equals.
@@ -106,7 +107,7 @@ namespace Engine.Colorspace
         public bool Equals(IColor other)
         {
             var (r0, g0, b0, a0) = ToRGBATuple();
-            var (r1, g1, b1, a1) = other.ToRGBATuple();
+            var (r1, g1, b1, a1) = (other?.ToRGBATuple()).Value;
             return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
         }
 
@@ -116,14 +117,7 @@ namespace Engine.Colorspace
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -1058441243;
-            hashCode = hashCode * -1521134295 + EqualityComparer<CIEXYZ>.Default.GetHashCode(Red);
-            hashCode = hashCode * -1521134295 + EqualityComparer<CIEXYZ>.Default.GetHashCode(Green);
-            hashCode = hashCode * -1521134295 + EqualityComparer<CIEXYZ>.Default.GetHashCode(Blue);
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Red, Green, Blue);
 
         /// <summary>
         /// The to RGBA tuple.

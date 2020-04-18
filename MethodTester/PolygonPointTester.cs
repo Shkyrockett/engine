@@ -146,7 +146,7 @@ namespace MethodSpeedTester
             if (!(polygon is null) && !(points is null) && !(method is null))
             {
                 var poly = polygon.ToArray();
-                g.DrawString(text, font, Brushes.Black, new Point());
+                g?.DrawString(text, font, Brushes.Black, new Point());
                 g.FillPolygon(Brushes.White, poly);
                 g.DrawPolygon(Pens.Black, poly);
                 foreach (var point in points)
@@ -176,7 +176,7 @@ namespace MethodSpeedTester
                     break;
             }
 
-            g.DrawLine(pointpen, new PointF(point.X, point.Y - pointRadius), new PointF(point.X, point.Y + pointRadius));
+            g?.DrawLine(pointpen, new PointF(point.X, point.Y - pointRadius), new PointF(point.X, point.Y + pointRadius));
             g.DrawLine(pointpen, new PointF(point.X - pointRadius, point.Y), new PointF(point.X + pointRadius, point.Y));
         }
 

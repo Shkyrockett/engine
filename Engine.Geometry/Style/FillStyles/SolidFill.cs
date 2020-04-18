@@ -8,8 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System.Collections.Generic;
-
 namespace Engine.Imaging
 {
     /// <summary>
@@ -96,11 +94,6 @@ namespace Engine.Imaging
         /// The <see cref="int" />.
         /// </returns>
         public override int GetHashCode()
-        {
-            var hashCode = -404629357;
-            hashCode = hashCode * -1521134295 + EqualityComparer<IColor>.Default.GetHashCode(Color);
-            hashCode = hashCode * -1521134295 + FillMode.GetHashCode();
-            return hashCode;
-        }
+            => Color.GetHashCode();
     }
 }

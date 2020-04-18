@@ -11,6 +11,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.BobLyonCommon;
@@ -90,7 +91,7 @@ namespace Engine
         public static bool EllipseEllipseIntersects(
             double cx0, double cy0, double rx0, double ry0, double cosA0, double sinA0,
             double cx1, double cy1, double rx1, double ry1, double cosA1, double sinA1,
-            double epsilon = Epsilon)
+            double epsilon = double.Epsilon)
         {
             _ = epsilon;
 
@@ -138,7 +139,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PolygonContainsPoint(
             double x, double y,
-            (double x, double y)[] poly)
+            Span<(double x, double y)> poly)
         {
             var isIn = false;
             for (int i = 0, j = poly.Length - 1; i < poly.Length; j = i++)
@@ -195,7 +196,7 @@ namespace Engine
                 rx -= w / 2;
                 ry -= h / 2;
             }
-            return Intersections.Between(x, rx, rx + w) && Intersections.Between(y, ry, ry + h);
+            return Operations.Between(x, rx, rx + w) && Operations.Between(y, ry, ry + h);
         }
 
         /// <summary>
@@ -271,28 +272,28 @@ namespace Engine
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <param name="ex">The ex.</param>
-        /// <param name="ey">The ey.</param>
-        /// <param name="w">The w.</param>
-        /// <param name="h">The h.</param>
-        /// <param name="cosine">The cosine.</param>
-        /// <param name="sine">The sine.</param>
+        /// <param name="h">The ex.</param>
+        /// <param name="k">The ey.</param>
+        /// <param name="a">The w.</param>
+        /// <param name="b">The h.</param>
+        /// <param name="cos">The cosine.</param>
+        /// <param name="sin">The sine.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool EllipseContainsPoint(
             double x, double y,
-            double ex, double ey, double w, double h, double cosine, double sine)
+            double h, double k, double a, double b, double cos, double sin)
         {
-            /* Normalize wrt the ellipse center */
-            x -= ex;
-            y -= ey;
-            if (cosine != 1 | sine != 0)
+            // Normalize to the ellipse center
+            x -= h;
+            y -= k;
+            if (cos != 1 | sin != 0)
             {
-                (x, y) = RotatePoint2D(x, y, cosine, sine);
+                (x, y) = RotatePoint2D(x, y, cos, sin);
             }
-            var termX = 2 * x / w;  /* sqrt of first term */
-            var termY = 2 * y / h;  /* sqrt of second term */
+            var termX = 2d * x / a;  /* sqrt of first term */
+            var termY = 2d * y / b;  /* sqrt of second term */
             return ((termX * termX) + (termY * termY)) <= 1;
         }
 
@@ -317,7 +318,7 @@ namespace Engine
             double ex, double ey, double w, double h, double start, double stop)
         {
             var heading = Atan2(y - ey, x - ex);
-            heading += SubtendedToParametric(w / 2, h / 2, heading);
+            heading += SubtendedToParametric(heading, w / 2, h / 2);
             return Intersections.AngleBetween(heading, start, stop) && EllipseContainsPoint(x, y, ex, ey, w, h);
         }
 
@@ -369,8 +370,8 @@ namespace Engine
             var nb = (bx1 * by2) - (by1 * bx2);
             var x = ROUND(((na * (bx1 - bx2)) - ((ax1 - ax2) * nb)) / denom);
             var y = ROUND(((na * (by1 - by2)) - ((ay1 - ay2) * nb)) / denom);
-            return Intersections.Between(x, ROUND(ax1), ROUND(ax2)) && Intersections.Between(x, ROUND(bx1), ROUND(bx2)) &&
-                Intersections.Between(y, ROUND(ay1), ROUND(ay2)) && Intersections.Between(y, ROUND(by1), ROUND(by2));
+            return Operations.Between(x, ROUND(ax1), ROUND(ax2)) && Operations.Between(x, ROUND(bx1), ROUND(bx2)) &&
+                Operations.Between(y, ROUND(ay1), ROUND(ay2)) && Operations.Between(y, ROUND(by1), ROUND(by2));
         }
 
         /// <summary>
@@ -388,13 +389,14 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LinePolygonCollide(
             double x1, double y1, double x2, double y2,
-            (double x, double y)[] poly)
+            Span<(double x, double y)> poly)
         {
             var collide = PolygonContainsPoint(x1, y1, poly);
             for (int j = poly.Length - 1, i = 0; (!collide) && (i < poly.Length); j = i, i++)
             {
                 collide = LineLineCollide(x1, y1, x2, y2, poly[j].x, poly[j].y, poly[i].x, poly[i].y);
             }
+
             return collide;
         }
 
@@ -526,8 +528,7 @@ namespace Engine
             }
             discrim = Sqrt(discrim);
             a *= 2;
-            return Intersections.Between((-b - discrim) / a, x1, x2) ||
-                Intersections.Between((-b + discrim) / a, x1, x2);
+            return Operations.Between((-b - discrim) / a, x1, x2) || Operations.Between((-b + discrim) / a, x1, x2);
         }
 
         /// <summary>
@@ -598,8 +599,7 @@ namespace Engine
             }
             discrim = Sqrt(discrim);
             a *= 2;
-            return Intersections.Between((-b - discrim) / a, r1x, r2x) ||
-                Intersections.Between((-b + discrim) / a, r1x, r2x);
+            return Operations.Between((-b - discrim) / a, r1x, r2x) || Operations.Between((-b + discrim) / a, r1x, r2x);
         }
 
         /// <summary>
@@ -644,7 +644,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PolygonEllipseCollide(
-            (double x, double y)[] poly,
+            Span<(double x, double y)> poly,
             double ex, double ey, double w, double h, double theta)
         {
             var collide = PolygonContainsPoint(ex, ey, poly);
@@ -697,7 +697,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PolygonCircleCollide(
-            (double x, double y)[] poly,
+            Span<(double x, double y)> poly,
             double cx, double cy, double diam)
         {
             var collide = PolygonContainsPoint(cx, cy, poly);
@@ -764,10 +764,10 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PolygonPolygonCollide(
-            (double x, double y)[] poly1,
-            (double x, double y)[] poly2)
+            Span<(double x, double y)> poly1,
+            Span<(double x, double y)> poly2)
         {
-            var polys = poly1.Concat(poly2).ToArray();
+            var polys = poly1.ToArray().Concat(poly2.ToArray()).ToArray();
 
             /*
              * Project polygon onto axis.  Simply
@@ -775,16 +775,17 @@ namespace Engine
              * polygon's vertices and the axis, and
              * keep track of the min and max values.
              */
-            static (double min, double max) project((double x, double y)[] poly, (double x, double y) axis)
+            static (double min, double max) project(Span<(double x, double y)> poly, (double x, double y) axis)
             {
                 var mn = double.PositiveInfinity;
                 var mx = double.NegativeInfinity;
-                for (var i = 0; i < poly?.Length; i++)
+                for (var i = 0; i < poly.Length; i++)
                 {
                     var dot = (poly[i].x * axis.x) + (poly[i].y * axis.y);
                     mx = Max(mx, dot);
                     mn = Min(mn, dot);
                 }
+
                 return (min: mn, max: mx);
             };
 
@@ -805,6 +806,7 @@ namespace Engine
                         x: -(poly[i].y - poly[n].y)
                     );
                 }
+
                 return axes;
             };
 
@@ -824,6 +826,7 @@ namespace Engine
                     }
                 }
             }
+
             return true;  /* they do overlap */
         }
 

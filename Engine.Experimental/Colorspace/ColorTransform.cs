@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -155,7 +156,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(ColorTransform other) => AlphaMultiplier == other.AlphaMultiplier && RedMultiplier == other.RedMultiplier && GreenMultiplier == other.GreenMultiplier && BlueMultiplier == other.BlueMultiplier && AlphaOffset == other.AlphaOffset && RedOffset == other.RedOffset && GreenOffset == other.GreenOffset && BlueOffset == other.BlueOffset;
+        public bool Equals([AllowNull] ColorTransform other) => AlphaMultiplier == other.AlphaMultiplier && RedMultiplier == other.RedMultiplier && GreenMultiplier == other.GreenMultiplier && BlueMultiplier == other.BlueMultiplier && AlphaOffset == other.AlphaOffset && RedOffset == other.RedOffset && GreenOffset == other.GreenOffset && BlueOffset == other.BlueOffset;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -163,19 +164,7 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -1295000004;
-            hashCode = hashCode * -1521134295 + AlphaMultiplier.GetHashCode();
-            hashCode = hashCode * -1521134295 + RedMultiplier.GetHashCode();
-            hashCode = hashCode * -1521134295 + GreenMultiplier.GetHashCode();
-            hashCode = hashCode * -1521134295 + BlueMultiplier.GetHashCode();
-            hashCode = hashCode * -1521134295 + AlphaOffset.GetHashCode();
-            hashCode = hashCode * -1521134295 + RedOffset.GetHashCode();
-            hashCode = hashCode * -1521134295 + GreenOffset.GetHashCode();
-            hashCode = hashCode * -1521134295 + BlueOffset.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(AlphaMultiplier, RedMultiplier, GreenMultiplier, BlueMultiplier, AlphaOffset, RedOffset, GreenOffset, BlueOffset);
         #endregion Methods
     }
 }

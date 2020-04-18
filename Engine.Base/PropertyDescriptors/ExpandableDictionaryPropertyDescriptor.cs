@@ -49,7 +49,7 @@ namespace Engine
         /// <param name="d">The d.</param>
         /// <param name="key">The key.</param>
         public ExpandableDictionaryPropertyDescriptor(IDictionary d, object key)
-            : base(key.ToString(), null)
+            : base(key?.ToString(), null)
         {
             dictionary = d;
             this.key = key;
@@ -60,38 +60,34 @@ namespace Engine
         /// <summary>
         /// Gets the name.
         /// </summary>
-        public override string Name
-            => key.ToString();
+        public override string Name => key.ToString();
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        public override bool IsReadOnly
-            => false;
+        public override bool IsReadOnly => false;
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        public override bool SupportsChangeEvents
-            => true;
+        public override bool SupportsChangeEvents => true;
 
         /// <summary>
         /// Gets the component type.
         /// </summary>
-        public override Type ComponentType
-            => dictionary.GetType();
+        public override Type ComponentType => dictionary.GetType();
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
-        public override Type PropertyType
-            => dictionary[key].GetType();
+        public override Type PropertyType => dictionary[key].GetType();
 
         /// <summary>
         /// Gets the attributes.
         /// </summary>
-        public override AttributeCollection Attributes
-            => new AttributeCollection(null);
+        public override AttributeCollection Attributes => new AttributeCollection(null);
+
+        //public override string DisplayName => $"[{key}]";
         #endregion Properties
 
         #region Methods
@@ -100,8 +96,7 @@ namespace Engine
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool CanResetValue(object component)
-            => false;
+        public override bool CanResetValue(object component) => false;
 
         /// <summary>
         /// Reset the value.
@@ -115,24 +110,21 @@ namespace Engine
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object GetValue(object component)
-            => dictionary[key];
+        public override object GetValue(object component) => dictionary[key];
 
         /// <summary>
         /// Set the value.
         /// </summary>
         /// <param name="component">The component.</param>
         /// <param name="value">The value.</param>
-        public override void SetValue(object component, object value)
-            => dictionary[key] = value;
+        public override void SetValue(object component, object value) => dictionary[key] = value;
 
         /// <summary>
         /// The should serialize value.
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool ShouldSerializeValue(object component)
-            => false;
+        public override bool ShouldSerializeValue(object component) => false;
 
         /// <summary>
         /// Get the display name.

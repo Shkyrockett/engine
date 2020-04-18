@@ -7,7 +7,7 @@
 */
 
 using System;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -80,7 +80,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(Line3D other) => P1.Equals(other.P1) && P2.Equals(other.P2);
+        public bool Equals([AllowNull] Line3D other) => P1.Equals(other.P1) && P2.Equals(other.P2);
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -88,12 +88,6 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = 162377905;
-            hashCode = hashCode * -1521134295 + EqualityComparer<Point3D>.Default.GetHashCode(P1);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Point3D>.Default.GetHashCode(P2);
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(P1, P2);
     }
 }

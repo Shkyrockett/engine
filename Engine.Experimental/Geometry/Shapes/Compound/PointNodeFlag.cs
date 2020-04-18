@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Experimental
 {
@@ -54,7 +55,7 @@ namespace Engine.Experimental
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(PointNodeFlag other) => Elements == other.Elements;
+        public bool Equals([AllowNull] PointNodeFlag other) => Elements == other.Elements;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -62,14 +63,16 @@ namespace Engine.Experimental
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode() => 1573927372 + Elements.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(Elements);
 
         /// <summary>
         /// The to string.
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The formatProvider.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         public string ToString(string format, IFormatProvider formatProvider) => $"{nameof(PointNodeFlag)}";
     }
 }

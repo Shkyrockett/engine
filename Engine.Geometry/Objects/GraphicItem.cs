@@ -150,16 +150,14 @@ namespace Engine
         /// </summary>
         /// <param name="bounds">The bounds.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public bool VisibleTest(Rectangle2D bounds)
-        {
+        public bool VisibleTest(Rectangle2D bounds) =>
             // Unbounded shapes have to be cropped to the visible bounds.
-            return Shape switch
+            Shape switch
             {
-                Ray2D r => Intersections.RayRectangleIntersects(r.Location.X, r.Location.Y, r.Location.X + r.Direction.I, r.Location.Y + r.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom),
-                Line2D l => Intersections.LineRectangleIntersects(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom),
+                Ray2D r => Intersections.RayRectangleIntersects(r.Location.X, r.Location.Y, r.Location.X + r.Direction.I, r.Location.Y + r.Direction.J, (bounds?.X).Value, bounds.Y, bounds.Right, bounds.Bottom),
+                Line2D l => Intersections.LineRectangleIntersects(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, (bounds?.X).Value, bounds.Y, bounds.Right, bounds.Bottom),
                 _ => Shape.Bounds.IntersectsWith(bounds) || Shape.Bounds.Contains(bounds),
             };
-        }
 
         /// <summary>
         /// The to string.

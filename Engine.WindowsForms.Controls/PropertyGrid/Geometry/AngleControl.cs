@@ -22,27 +22,6 @@ namespace Engine
         : UserControl
     {
         /// <summary>
-        /// The value changed event args class.
-        /// </summary>
-        public class ValueChangedEventArgs
-            : EventArgs
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="ValueChangedEventArgs"/> class.
-            /// </summary>
-            /// <param name="value">The value.</param>
-            public ValueChangedEventArgs(double value)
-            {
-                Value = value;
-            }
-
-            /// <summary>
-            /// Gets or sets the value.
-            /// </summary>
-            public double Value { get; set; }
-        }
-
-        /// <summary>
         /// The value changed delegate.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -131,7 +110,7 @@ namespace Engine
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The value changed event arguments.</param>
-        private void NeedleControl1_ValueChanged(object sender, NeedleControl.ValueChangedEventArgs e)
+        private void NeedleControl1_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             switch (method)
             {
@@ -151,7 +130,7 @@ namespace Engine
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The value changed event arguments.</param>
-        private void NeedleControl1_ValueCommitted(object sender, NeedleControl.ValueChangedEventArgs e)
+        private void NeedleControl1_ValueCommitted(object sender, ValueChangedEventArgs e)
             => EditorService?.CloseDropDown();
 
         /// <summary>

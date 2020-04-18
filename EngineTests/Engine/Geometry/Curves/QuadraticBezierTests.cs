@@ -69,7 +69,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void QuadraticBezierLengthTest()
         {
-            var bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
+            var bezier = new QuadraticBezier2D(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
             var value = bezier.Length;
             Assert.AreEqual(161.735239810224d.ToString(CultureInfo.InvariantCulture), value.ToString(CultureInfo.InvariantCulture));
         }
@@ -142,7 +142,7 @@ namespace EngineTests
         [Ignore]
         public void QuadraticBezierInterpolateTest()
         {
-            var bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
+            var bezier = new QuadraticBezier2D(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
             var value = bezier.Interpolate(0.5);
             Assert.AreEqual(new Point2D(53, 225), value);
         }

@@ -20,7 +20,6 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(Star))]
     public class Star
         : PolygonContour2D
     {

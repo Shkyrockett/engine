@@ -10,12 +10,15 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
     /// <summary>
     /// The years struct.
     /// </summary>
+    /// <seealso cref="ITime" />
+    /// <seealso cref="IEquatable{T}" />
     public struct Years
         : ITime, IEquatable<Years>
     {
@@ -45,7 +48,7 @@ namespace Engine
         public const double Year = 1d;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Years"/> class.
+        /// Initializes a new instance of the <see cref="Years" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
         public Years(double value)
@@ -56,11 +59,17 @@ namespace Engine
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value { get; set; }
 
         /// <summary>
         /// Gets or sets the seconds.
         /// </summary>
+        /// <value>
+        /// The seconds.
+        /// </value>
         public double Seconds
         {
             get { return Value * Second; }
@@ -70,6 +79,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the minutes.
         /// </summary>
+        /// <value>
+        /// The minutes.
+        /// </value>
         public double Minutes
         {
             get { return Value * Minute; }
@@ -79,6 +91,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the hours.
         /// </summary>
+        /// <value>
+        /// The hours.
+        /// </value>
         public double Hours
         {
             get { return Value * Hour; }
@@ -88,6 +103,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the days.
         /// </summary>
+        /// <value>
+        /// The days.
+        /// </value>
         public double Days
         {
             get { return Value * Day; }
@@ -95,21 +113,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets the name.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static string Name
-            => nameof(Years);
-
-        /// <summary>
-        /// Gets the abbreviation.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abbreviation
-            => "years";
-
-        /// <summary>
-        /// Performs an implicit conversion from <see cref="System.Double"/> to <see cref="Years"/>.
+        /// Performs an implicit conversion from <see cref="double"/> to <see cref="Years"/>.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>
@@ -139,11 +143,31 @@ namespace Engine
         public static bool operator !=(Years left, Years right) => !(left == right);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Gets the name.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <value>
+        /// The name.
+        /// </value>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static string Name
+            => nameof(Years);
+
+        /// <summary>
+        /// Gets the abbreviation.
+        /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public string Abbreviation
+            => "years";
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
         public override bool Equals(object obj) => obj is Years years && Equals(years);
 
@@ -152,9 +176,9 @@ namespace Engine
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(Years other) => Value == other.Value;
+        public bool Equals([AllowNull] Years other) => Value == other.Value;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -162,13 +186,14 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode() => -1937169414 + Value.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(Value);
 
-        /// <returns></returns>
         /// <summary>
         /// The to string.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
         public override string ToString()
             => $"{Value} years";
     }

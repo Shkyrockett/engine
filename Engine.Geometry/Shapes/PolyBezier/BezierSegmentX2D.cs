@@ -164,7 +164,7 @@ namespace Engine
             get { return handles.Slice(0, handles.Length - 2); }
             set
             {
-                var temp = new[] { handles[handles.Length - 1] };
+                var temp = new[] { handles[^1] };
                 handles = value.Concat(temp).ToArray();
                 ClearCache();
                 OnPropertyChanged(nameof(Handles));
@@ -182,7 +182,7 @@ namespace Engine
             get { return handles.Slice(0, handles.Length - 2); }
             set
             {
-                var temp = new[] { handles[handles.Length - 1] };
+                var temp = new[] { handles[^1] };
                 handles = value.Concat(temp).ToArray();
                 ClearCache();
                 OnPropertyChanged(nameof(Handles));
@@ -195,12 +195,12 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Point2D? NextToEnd
         {
-            get { return (handles.Length >= 2) ? handles[handles.Length - 2] : Start; }
+            get { return (handles.Length >= 2) ? handles[^2] : Start; }
             set
             {
                 if (handles.Length >= 2)
                 {
-                    handles[handles.Length - 2] = value.Value;
+                    handles[^2] = value.Value;
                 }
                 else
                 {
@@ -215,8 +215,8 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Point2D? End
         {
-            get { return handles[handles.Length - 1]; }
-            set { handles[handles.Length - 1] = value.Value; }
+            get { return handles[^1]; }
+            set { handles[^1] = value.Value; }
         }
 
         /// <summary>
@@ -226,15 +226,13 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
+        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
         /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Length
-            => (double)CachingProperty(() => this.Length());
+        public double Length => (double)CachingProperty(() => this.Length());
 
         /// <summary>
         /// Gets the curve x.
@@ -244,7 +242,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => Polynomial.Bezier(handles.Concat(new[] { Start.Value }).Select(p => p.X).ToArray()));
+                var curveX = (Polynomial)CachingProperty(() => Polynomials.Bezier(handles.Concat(new[] { Start.Value }).Select(p => p.X).ToArray()));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -258,7 +256,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => Polynomial.Bezier(handles.Concat(new[] { Start.Value }).Select(p => p.Y).ToArray()));
+                var curveY = (Polynomial)CachingProperty(() => Polynomials.Bezier(handles.Concat(new[] { Start.Value }).Select(p => p.Y).ToArray()));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -274,7 +272,7 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// Creates a string representation of this <see cref="PolygonContour"/> struct based on the format string
+        /// Creates a string representation of this <see cref="PolygonContour2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -294,7 +292,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(BezierSegmentX2D)}{{{string.Join(sep.ToString(), handles)}}}";
+            IFormattable formatable = $"{nameof(BezierSegmentX2D)}{{{string.Join(sep, handles)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

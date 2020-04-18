@@ -22,7 +22,7 @@ namespace Engine
     /// <summary>
     /// Conversion methods to convert from one shape to another.
     /// </summary>
-    public static class Conversions
+    public static partial class Conversions
     {
         #region Conversion Extension Methods
         /// <summary>
@@ -62,7 +62,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<CubicBezier2D> ToCubicBeziers(this EllipticalArc2D ellipse) => EllipticalArcToCubicBeziers(ellipse.X, ellipse.Y, ellipse.RX, ellipse.RY, ellipse.StartAngle, ellipse.SweepAngle);
+        public static List<CubicBezier2D> ToCubicBeziers(this EllipticalArc2D ellipse) => EllipticalArcToCubicBeziers(ellipse.X, ellipse.Y, ellipse.RadiusA, ellipse.RadiusB, ellipse.StartAngle, ellipse.SweepAngle);
 
         /// <summary>
         /// Converts a line segment to a quadratic Bézier curve.
@@ -73,7 +73,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static QuadraticBezier2D ToQuadraticBezier(this LineSegment2D segment) => LineSegmentToQuadraticBezier(segment.AX, segment.AY, segment.BX, segment.BY);
+        public static QuadraticBezier2D ToQuadraticBezier(this LineSegment2D segment) => LineSegmentToQuadraticBezier(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
 
         /// <summary>
         /// Converts a line segment to a Cubic Bézier.
@@ -84,7 +84,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CubicBezier2D ToCubicBezier(this LineSegment2D segment) => LineSegmentToCubicBezier(segment.AX, segment.AY, segment.BX, segment.BY);
+        public static CubicBezier2D ToCubicBezier(this LineSegment2D segment) => LineSegmentToCubicBezier(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
 
         /// <summary>
         /// Converts a Quadratic Bézier curve to a Cubic Bézier curve.
@@ -98,6 +98,50 @@ namespace Engine
         public static CubicBezier2D ToCubicBezier(this QuadraticBezier2D curve) => QuadraticBezierToCubicBezier(curve.A, curve.B, curve.C);
         #endregion Conversion Extension Methods
 
+        /// <summary>
+        /// Align points to a line.
+        /// </summary>
+        /// <param name="points">The points to align.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <returns>
+        /// The <see cref="List{Point2D}" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://pomax.github.io/bezierinfo/#aligning
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IList<Point2D> AlignPoints(Span<Point2D> points, double x1, double y1, double x2, double y2)
+        {
+            //var angle = -Atan2(y2 - y1, x2 - x1);
+            //var sinA = Sin(angle);
+            //var cosA = Cos(angle);
+
+            // Atan2, Sin and Cos are kind of slow. In theory this should be faster.
+            var dx = x2 - x1;
+            var dy = y2 - y1;
+            var det = (dx * dx) + (dy * dy);
+
+            // I believe det should only be 0 if the line is a point. Not sure what the correct value should be for overlapping points.
+            var sinA = det == 0 ? 0 : -dy / det;
+            var cosA = det == 0 ? 1 : -dx / det;
+
+            var results = new List<Point2D>();
+
+            foreach (var point in points)
+            {
+                results.Add(new Point2D(
+                    ((point.X - x1) * cosA) - ((point.Y - y1) * sinA),
+                    ((point.X - x1) * sinA) + ((point.Y - y1) * cosA))
+                    );
+            }
+
+            return results;
+        }
+
         #region Conversion Implementations
         /// <summary>
         /// Converts a Circle to a Circular arc.
@@ -110,10 +154,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CircularArc2D CircleToCircularArc(
-            double x, double y,
-            double r)
-            => new CircularArc2D(x, y, r, 0, Tau);
+        public static CircularArc2D CircleToCircularArc(double x, double y, double r) => new CircularArc2D(x, y, r, 0, Tau);
 
         /// <summary>
         /// Converts a Circle to an ellipse.
@@ -126,10 +167,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Ellipse2D CircleToEllipse(
-            double x, double y,
-            double r)
-            => new Ellipse2D(x, y, r, r, 0);
+        public static Ellipse2D CircleToEllipse(double x, double y, double r) => new Ellipse2D(x, y, r, r, 0);
 
         /// <summary>
         /// Generate an array of CubicBeziers, representing an elliptical arc centered at (x, y)
@@ -158,8 +196,8 @@ namespace Engine
         {
             /* Definition of ellipse: x²/a² + y²/b² = 1 */
             var stop = startAngle + sweepAngle;
-            startAngle += SubtendedToParametric(startAngle, rx, ry);
-            sweepAngle = stop + SubtendedToParametric(stop, rx, ry) - startAngle;
+            startAngle += Operations.SubtendedToParametric(startAngle, rx, ry);
+            sweepAngle = stop + Operations.SubtendedToParametric(stop, rx, ry) - startAngle;
             var segs = Ceiling(Abs(sweepAngle) / HalfPi);
             var theta = sweepAngle / segs;  /* arc size of each segment */
             var tanT2 = Tan(theta * OneHalf);
@@ -204,10 +242,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static QuadraticBezier2D LineSegmentToQuadraticBezier(
-            Point2D a,
-            Point2D b)
-            => LineSegmentToQuadraticBezier(a.X, a.Y, b.X, b.Y);
+        public static QuadraticBezier2D LineSegmentToQuadraticBezier(Point2D a, Point2D b) => LineSegmentToQuadraticBezier(a.X, a.Y, b.X, b.Y);
 
         /// <summary>
         /// Converts a line segment to a Quadratic Bézier curve.
@@ -221,10 +256,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static QuadraticBezier2D LineSegmentToQuadraticBezier(
-            double x0, double y0,
-            double x1, double y1)
-            => new QuadraticBezier2D(new Point2D(x0, y0), Lerp(x0, y0, x1, y1, OneHalf), new Point2D(x1, y1));
+        public static QuadraticBezier2D LineSegmentToQuadraticBezier(double x0, double y0, double x1, double y1) => new QuadraticBezier2D(new Point2D(x0, y0), Operations.Lerp(x0, y0, x1, y1, OneHalf), new Point2D(x1, y1));
 
         /// <summary>
         /// Converts a Line segment to a Cubic Bézier curve.
@@ -236,10 +268,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CubicBezier2D LineSegmentToCubicBezier(
-            Point2D a,
-            Point2D b)
-            => LineSegmentToCubicBezier(a.X, a.Y, b.X, b.Y);
+        public static CubicBezier2D LineSegmentToCubicBezier(Point2D a, Point2D b) => LineSegmentToCubicBezier(a.X, a.Y, b.X, b.Y);
 
         /// <summary>
         /// Converts a Line segment to a Cubic Bézier curve.
@@ -253,10 +282,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CubicBezier2D LineSegmentToCubicBezier(
-            double x0, double y0,
-            double x1, double y1)
-            => new CubicBezier2D(new Point2D(x0, y0), Lerp(x0, y0, x1, y1, OneThird), Lerp(x0, y0, x1, y1, TwoThirds), new Point2D(x1, y1));
+        public static CubicBezier2D LineSegmentToCubicBezier(double x0, double y0, double x1, double y1) => new CubicBezier2D(new Point2D(x0, y0), Operations.Lerp(x0, y0, x1, y1, OneThird), Operations.Lerp(x0, y0, x1, y1, TwoThirds), new Point2D(x1, y1));
 
         /// <summary>
         /// Converts a Quadratic Bezier to a Cubic Bezier.
@@ -270,10 +296,7 @@ namespace Engine
         /// <acknowledgment></acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D[] QuadraticBezierToCubicBezierArray(
-            Point2D a,
-            Point2D b,
-            Point2D c)
+        public static Point2D[] QuadraticBezierToCubicBezierArray(Point2D a, Point2D b, Point2D c)
             => new Point2D[]
             {
                 a,
@@ -283,7 +306,7 @@ namespace Engine
             };
 
         /// <summary>
-        /// Raises a <see cref="QuadraticBezier" /> to a <see cref="CubicBezier2D" />.
+        /// Raises a <see cref="QuadraticBezier2D" /> to a <see cref="CubicBezier2D" />.
         /// </summary>
         /// <param name="a">The starting point of the Quadratic Bézier curve.</param>
         /// <param name="b">The handle of the Quadratic Bézier curve.</param>
@@ -293,10 +316,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CubicBezier2D QuadraticBezierToCubicBezier(
-            Point2D a,
-            Point2D b,
-            Point2D c)
+        public static CubicBezier2D QuadraticBezierToCubicBezier(Point2D a, Point2D b, Point2D c)
             => new CubicBezier2D(
                 a.X, a.Y,
                 a.X + (TwoThirds * (b.X - a.X)), a.Y + (TwoThirds * (b.Y - a.Y)),
@@ -318,10 +338,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<(double X, double Y)> QuadraticBezierToCubicBezier(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY)
+        public static List<(double X, double Y)> QuadraticBezierToCubicBezier(double aX, double aY, double bX, double bY, double cX, double cY)
             => new List<(double X, double Y)>
             {
                 (aX, aY),
@@ -344,10 +361,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) QuadraticBezierToCubicBezierTuple(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY)
+        public static (double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) QuadraticBezierToCubicBezierTuple(double aX, double aY, double bX, double bY, double cX, double cY)
             => (aX, aY,
                 aX + (TwoThirds * (bX - aX)), aY + (TwoThirds * (bY - aY)),
                 cX + (TwoThirds * (bX - cX)), cY + (TwoThirds * (bY - cY)),
@@ -472,11 +486,12 @@ namespace Engine
         public static (double ax, double ay, double bx, double by, double cx, double cy) VertexParabolaToQuadraticBezier(double a, double h, double k, double x1, double x2)
         {
             // Get the vertical components of the end points.
-            var y1 = a * ((h * h) + (-2d * h * x1) + (x1 * x1)) + k;
-            var y2 = a * ((h * h) + (-2d * h * x2) + (x2 * x2)) + k;
+            var y1 = (a * ((h * h) + (-2d * h * x1) + (x1 * x1))) + k;
+            var y2 = (a * ((h * h) + (-2d * h * x2) + (x2 * x2))) + k;
+
             // Find the intersection of the tangents at the end nodes to find the center node.
             var cx = (x2 + x1) * 0.5;
-            var cy = a * ((h * x1) + (x1 * x2) - (h * x2) - (x1 * x1)) + y1;
+            var cy = (a * ((h * x1) + (x1 * x2) - (h * x2) - (x1 * x1))) + y1;
             return (x1, y1, cx, cy, x2, y2);
         }
 
@@ -571,11 +586,12 @@ namespace Engine
         {
             var u = y1 - k;
             var v = y2 - k;
+
             // Take care of possible divide by 0 cases.
             if (u == 0d && v == 0d)
             {
                 // If y1, y2 and k are all the same, the parabola myst be a straight line.
-                return (x2 + (x2 - x1) * OneHalf, double.NaN);
+                return (x2 + ((x2 - x1) * OneHalf), double.NaN);
             }
             else if (u == 0d)
             {
@@ -588,7 +604,7 @@ namespace Engine
                 return (x2, x2);
             }
 
-            var a = 1d - v / u;
+            var a = 1d - (v / u);
             var b = (-2d * x2) + (2d * x1 * (v / u));
             var c = (x2 * x2​) - (x1 * x1 * (v / u));
 
@@ -644,7 +660,7 @@ namespace Engine
         public static double FindParabolaAFromAPointAndVertex(double x, double y, double h, double k) => x - h == 0d ? 0d : (y - k) / ((x - h) * (x - h));
         #endregion
 
-        #region Rectangle
+        #region Rotated Rectangle
         /// <summary>
         /// Rotates the points of the corners of a rectangle about the fulcrum point.
         /// </summary>
@@ -708,6 +724,28 @@ namespace Engine
 
             return points;
         }
-        #endregion Rectangle
+        #endregion
+
+        /// <summary>
+        /// Changes the unit to base.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <param name="base">The @base.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        public static double ChangeUnitToBase(double value, double multiplier, double @base = 1, double addend = 0) => Pow((value - addend) / multiplier, 1d / @base);
+
+        /// <summary>
+        /// Changes the unit from base.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <param name="base">The @base.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        public static double ChangeUnitFromBase(double value, double multiplier, double @base = 1, double addend = 0) => (Pow(value, @base) * multiplier) + addend;
     }
 }

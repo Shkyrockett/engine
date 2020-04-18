@@ -51,7 +51,6 @@ namespace Engine
         /// <param name="h">The h.</param>
         /// <param name="k">The k.</param>
         /// <param name="r">a.</param>
-        /// <param name="rY">The b.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/calculate-the-formula-for-an-ellipse-selected-by-the-user-in-c/
@@ -642,8 +641,6 @@ namespace Engine
         /// </summary>
         /// <param name="x0">The x0.</param>
         /// <param name="deltaX">The delta x.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
         /// <param name="a1">The a1.</param>
         /// <param name="b1">The b1.</param>
         /// <param name="c1">The c1.</param>

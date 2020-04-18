@@ -12,12 +12,13 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static Engine.Mathematics;
+using static Engine.Operations;
 using static System.Math;
 
 namespace Engine
@@ -27,13 +28,12 @@ namespace Engine
     /// </summary>
     /// <seealso cref="IVector{T}" />
     [DataContract, Serializable]
-    [ComVisible(true)]
-    [TypeConverter(typeof(StructConverter<Quaternion4D>))]
+    [TypeConverter(typeof(Quaternion4DConverter))]
     [DebuggerDisplay("{ToString()}")]
     public struct Quaternion4D
         : IVector<Quaternion4D>
     {
-        #region Static Fields
+        #region Implementations
         /// <summary>
         /// Represents a <see cref="Quaternion4D" /> that has <see cref="X" />, <see cref="Y" />, <see cref="Z" />, and <see cref="W" /> values set to zero.
         /// </summary>
@@ -53,7 +53,7 @@ namespace Engine
         /// Represents a <see cref="Quaternion4D" /> that has <see cref="X" /> set to 0, <see cref="Y" /> set to 0, <see cref="Z" /> set to 0, and <see cref="W" /> set to 1.
         /// </summary>
         public static readonly Quaternion4D Identity = new Quaternion4D(0d, 0d, 0d, 1d);
-        #endregion Static Fields
+        #endregion
 
         #region Constructors
         /// <summary>
@@ -162,8 +162,7 @@ namespace Engine
         /// The normal.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Normal
-            => Measurements.QuaternionNormal(X, Y, Z, W);
+        public double Normal => Measurements.QuaternionNormal(X, Y, Z, W);
 
         /// <summary>
         /// Gets the squared 'length' of this quaternion.
@@ -172,8 +171,7 @@ namespace Engine
         /// The length squared.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double LengthSquared
-            => Measurements.QuaternionNormal(X, Y, Z, W);
+        public double LengthSquared => Measurements.QuaternionNormal(X, Y, Z, W);
 
         /// <summary>
         /// Gets the 'length' of this quaternion.
@@ -182,8 +180,7 @@ namespace Engine
         /// The length.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Length
-            => Measurements.QuaternionMagnitude(X, Y, Z, W);
+        public double Length => Measurements.QuaternionMagnitude(X, Y, Z, W);
 
         /// <summary>
         /// Gets or sets the pitch.
@@ -196,7 +193,7 @@ namespace Engine
         {
             set
             {
-                var euler = this.ToEulerAngles();
+                var euler = QuaternionToEulerAngles(X, Y, Z, W);
                 FromEulerAngles(euler.Roll, value, euler.Yaw);
             }
             get
@@ -222,7 +219,7 @@ namespace Engine
         {
             set
             {
-                var euler = this.ToEulerAngles();
+                var euler = QuaternionToEulerAngles(X, Y, Z, W);
                 FromEulerAngles(euler.Roll, euler.Pitch, value);
             }
             get
@@ -248,7 +245,7 @@ namespace Engine
         {
             set
             {
-                var euler = this.ToEulerAngles();
+                var euler = QuaternionToEulerAngles(X, Y, Z, W);
                 FromEulerAngles(value, euler.Pitch, euler.Yaw);
             }
             get
@@ -274,16 +271,16 @@ namespace Engine
         {
             get
             {
-                //var fTX = 2.0f * X;
-                var fTY = 2.0f * Y;
-                var fTZ = 2.0f * Z;
+                //var fTX = 2d * X;
+                var fTY = 2d * Y;
+                var fTZ = 2d * Z;
                 var fTWY = fTY * W;
                 var fTWZ = fTZ * W;
                 var fTXY = fTY * X;
                 var fTXZ = fTZ * X;
                 var fTYY = fTY * Y;
                 var fTZZ = fTZ * Z;
-                return new Vector3D(1.0d - (fTYY + fTZZ), fTXY + fTWZ, fTXZ - fTWY);
+                return new Vector3D(1d - (fTYY + fTZZ), fTXY + fTWZ, fTXZ - fTWY);
             }
         }
 
@@ -298,9 +295,9 @@ namespace Engine
         {
             get
             {
-                var fTX = 2.0f * X;
-                var fTY = 2.0f * Y;
-                var fTZ = 2.0f * Z;
+                var fTX = 2d * X;
+                var fTY = 2d * Y;
+                var fTZ = 2d * Z;
                 var fTWX = fTX * W;
                 var fTWZ = fTZ * W;
                 var fTXX = fTX * X;
@@ -322,9 +319,9 @@ namespace Engine
         {
             get
             {
-                var fTX = 2.0f * X;
-                var fTY = 2.0f * Y;
-                var fTZ = 2.0f * Z;
+                var fTX = 2d * X;
+                var fTY = 2d * Y;
+                var fTZ = 2d * Z;
                 var fTWX = fTX * W;
                 var fTWY = fTY * W;
                 var fTXX = fTX * X;
@@ -344,30 +341,41 @@ namespace Engine
         /// <returns>
         /// The <see cref="Quaternion4D" />.
         /// </returns>
-        public static Quaternion4D operator +(Quaternion4D value)
-            => new Quaternion4D(+value.X, +value.Y, +value.Z, +value.W);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator +(Quaternion4D value) => Plus(value);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="addend">The addend.</param>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static Quaternion4D operator +(Quaternion4D value, double addend)
-            => value.Add(addend);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator +(Quaternion4D augend, double addend) => Add(augend, addend);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="addend">The addend.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static Quaternion4D operator +(Quaternion4D value, Quaternion4D addend)
-            => value.Add(addend);
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator +(double augend, Quaternion4D addend) => Add(augend, addend);
+
+        /// <summary>
+        /// Add Points
+        /// </summary>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator +(Quaternion4D augend, Quaternion4D addend) => Add(augend, addend);
 
         /// <summary>
         /// The operator -.
@@ -376,74 +384,113 @@ namespace Engine
         /// <returns>
         /// The <see cref="Quaternion4D" />.
         /// </returns>
-        public static Quaternion4D operator -(Quaternion4D value)
-            => new Quaternion4D(-value.X, -value.Y, -value.Z, -value.W);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator -(Quaternion4D value) => Negate(value);
 
         /// <summary>
         /// Subtract
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="subend">The subend.</param>
+        /// <param name="minuend"></param>
+        /// <param name="subend"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static Quaternion4D operator -(Quaternion4D value, double subend)
-            => value.Subtract(subend);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator -(Quaternion4D minuend, double subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="subend">The subend.</param>
+        /// <param name="minuend"></param>
+        /// <param name="subend"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static Quaternion4D operator -(Quaternion4D value, Quaternion4D subend)
-            => value.Subtract(subend);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator -(double minuend, Quaternion4D subend) => Subtract(minuend, subend);
+
+        /// <summary>
+        /// Subtract
+        /// </summary>
+        /// <param name="minuend"></param>
+        /// <param name="subend"></param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator -(Quaternion4D minuend, Quaternion4D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Scale
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="scalar">The Multiplier</param>
+        /// <param name="multiplicand">The Point</param>
+        /// <param name="multiplier">The Multiplier</param>
         /// <returns>
         /// A Point Multiplied by the Multiplier
         /// </returns>
-        public static Quaternion4D operator *(Quaternion4D value, double scalar)
-            => value.Scale(scalar);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator *(Quaternion4D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale
         /// </summary>
-        /// <param name="scalar">The Multiplier</param>
-        /// <param name="value">The Point</param>
+        /// <param name="multiplicand">The Multiplier</param>
+        /// <param name="multiplier">The Point</param>
         /// <returns>
         /// A Point Multiplied by the Multiplier
         /// </returns>
-        public static Quaternion4D operator *(double scalar, Quaternion4D value)
-            => value.Scale(scalar);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator *(double multiplicand, Quaternion4D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Multiply
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="scalar">The scalar.</param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
-        /// A Point Multiplied by the Multiplier
+        /// A Quaternion Multiplied by the Multiplier
         /// </returns>
-        public static Quaternion4D operator *(Quaternion4D value, Quaternion4D scalar)
-            => value.Multiply(scalar);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator *(Quaternion4D multiplicand, Quaternion4D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Divide
         /// </summary>
-        /// <param name="divisor">The divisor.</param>
-        /// <param name="dividend">The dividend.</param>
+        /// <param name="dividend">The divisor</param>
+        /// <param name="divisor">The dividend</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator /(Quaternion4D dividend, double divisor) => Divide(dividend, divisor);
+
+        /// <summary>
+        /// Divide
+        /// </summary>
+        /// <param name="dividend">The divisor</param>
+        /// <param name="divisor">The dividend</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator /(double dividend, Quaternion4D divisor) => Divide(dividend, divisor);
+
+        /// <summary>
+        /// Divide
+        /// </summary>
+        /// <param name="dividend"></param>
+        /// <param name="divisor"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static Quaternion4D operator /(Quaternion4D divisor, Quaternion4D dividend)
-            => divisor.Divide(dividend);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D operator /(Quaternion4D dividend, Quaternion4D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Compares two <see cref="Quaternion4D" /> instances for exact equality.
@@ -463,7 +510,7 @@ namespace Engine
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Quaternion4D left, Quaternion4D right) => Equals(left, right);
+        public static bool operator ==(Quaternion4D left, Quaternion4D right) => left.Equals(right);
 
         /// <summary>
         /// Compares two <see cref="Quaternion4D" /> instances for exact inequality.
@@ -483,7 +530,7 @@ namespace Engine
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Quaternion4D left, Quaternion4D right) => !Equals(left, right);
+        public static bool operator !=(Quaternion4D left, Quaternion4D right) => !left.Equals(right);
 
         /// <summary>
         /// Converts the specified <see cref="Quaternion4D" /> structure to a <see cref="ValueTuple{T1, T2, T3, T4}" /> structure.
@@ -508,202 +555,144 @@ namespace Engine
         public static implicit operator Quaternion4D((double X, double Y, double Z, double W) tuple) => new Quaternion4D(tuple);
         #endregion Operators
 
-        #region Factories
+        #region Operator Backing Methods
         /// <summary>
-        /// set this quaternion's values from the rotation matrix built from the Axi.
+        /// Pluses the specified value.
         /// </summary>
-        /// <param name="XAxis">The x axis.</param>
-        /// <param name="YAxis">The y axis.</param>
-        /// <param name="ZAxis">The z axis.</param>
+        /// <param name="value">The value.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Quaternion4D FromAxis(Vector3D XAxis, Vector3D YAxis, Vector3D ZAxis)
-            => FromRotationMatrix(new Matrix3x3D(
-                XAxis.I, YAxis.I, ZAxis.I,
-                XAxis.J, YAxis.J, ZAxis.J,
-                XAxis.K, YAxis.K, ZAxis.K));
+        public static Quaternion4D Plus(Quaternion4D value) => Operations.Plus(value.X, value.Y, value.Z, value.W);
 
         /// <summary>
-        /// The from axis angle.
+        /// Adds the specified augend.
         /// </summary>
-        /// <param name="axis">The axis.</param>
-        /// <param name="angle">The angle.</param>
-        /// <returns>
-        /// The <see cref="Quaternion4D" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Quaternion4D FromAxisAngle(Vector3D axis, double angle)
-        {
-            var halfAngle = angle * 0.5d;
-            var sin = Sin(halfAngle);
-            var cos = Cos(halfAngle);
-            return new Quaternion4D(axis.I * sin, axis.J * sin, axis.K * sin, cos);
-
-        }
-
-        /// <summary>
-        /// The from rotation matrix.
-        /// </summary>
-        /// <param name="matrix">The matrix.</param>
-        /// <returns>
-        /// The <see cref="Quaternion4D" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Quaternion4D FromRotationMatrix(Matrix3x3D matrix)
-        {
-            var trace = matrix.M0x0 + matrix.M1x1 + matrix.M2x2;
-            var quaternion = new Quaternion4D();
-            if (trace > 0d)
-            {
-                var root = Sqrt(trace + 1d);
-                quaternion.W = root * 0.5d;
-                root = 0.5d / root;
-                quaternion.X = (matrix.M1x2 - matrix.M2x1) * root;
-                quaternion.Y = (matrix.M2x0 - matrix.M0x2) * root;
-                quaternion.Z = (matrix.M0x1 - matrix.M1x0) * root;
-                return quaternion;
-            }
-            if ((matrix.M0x0 >= matrix.M1x1) && (matrix.M0x0 >= matrix.M2x2))
-            {
-                var root = Sqrt(1f + matrix.M0x0 - matrix.M1x1 - matrix.M2x2);
-                var w = 0.5d / root;
-                quaternion.X = 0.5d * root;
-                quaternion.Y = (matrix.M0x1 + matrix.M1x0) * w;
-                quaternion.Z = (matrix.M0x2 + matrix.M2x0) * w;
-                quaternion.W = (matrix.M1x2 - matrix.M2x1) * w;
-                return quaternion;
-            }
-            if (matrix.M1x1 > matrix.M2x2)
-            {
-                var root = Sqrt(1f + matrix.M1x1 - matrix.M0x0 - matrix.M2x2);
-                var w = 0.5d / root;
-                quaternion.X = (matrix.M1x0 + matrix.M0x1) * w;
-                quaternion.Y = 0.5d * root;
-                quaternion.Z = (matrix.M2x1 + matrix.M1x2) * w;
-                quaternion.W = (matrix.M2x0 - matrix.M0x2) * w;
-                return quaternion;
-            }
-            var sqrt = Sqrt(1f + matrix.M2x2 - matrix.M0x0 - matrix.M1x1);
-            var ww = 0.5d / sqrt;
-            quaternion.X = (matrix.M2x0 + matrix.M0x2) * ww;
-            quaternion.Y = (matrix.M2x1 + matrix.M1x2) * ww;
-            quaternion.Z = 0.5d * sqrt;
-            quaternion.W = (matrix.M0x1 - matrix.M1x0) * ww;
-            return quaternion;
-        }
-
-        /// <summary>
-        /// The from Euler angles.
-        /// </summary>
-        /// <param name="roll">The roll.</param>
-        /// <param name="pitch">The pitch.</param>
-        /// <param name="yaw">The yaw.</param>
-        /// <returns>
-        /// The <see cref="Quaternion4D" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Quaternion4D FromEulerAngles(double roll, double pitch, double yaw)
-        {
-            var halfRoll = roll * 0.5d;
-            var rollSin = Sin(halfRoll);
-            var rollCos = Cos(halfRoll);
-            var halfPitch = pitch * 0.5d;
-            var pitchSin = Sin(halfPitch);
-            var pitchCos = Cos(halfPitch);
-            var halfYaw = yaw * 0.5d;
-            var yawSin = Sin(halfYaw);
-            var yawCos = Cos(halfYaw);
-            return new Quaternion4D(
-                (yawCos * pitchSin * rollCos) + (yawSin * pitchCos * rollSin),
-                (yawSin * pitchCos * rollCos) - (yawCos * pitchSin * rollSin),
-                (yawCos * pitchCos * rollSin) - (yawSin * pitchSin * rollCos),
-                (yawCos * pitchCos * rollCos) + (yawSin * pitchSin * rollSin));
-        }
-
-        /// <summary>
-        /// Parse.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <returns>
-        /// The <see cref="Quaternion4D" />.
-        /// </returns>
-        [ParseMethod]
-        public static Quaternion4D Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
-
-        /// <summary>
-        /// Parse.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="provider">The provider.</param>
-        /// <returns>
-        /// The <see cref="Quaternion4D" />.
-        /// </returns>
-        /// <exception cref="FormatException">
-        /// Cannot parse the text '{source}' because it does not have 4 parts separated by commas in the form (x,y,z,w) with optional parenthesis.
-        /// or
-        /// The parts of the vectors must be decimal numbers
-        /// </exception>
-        /// <exception cref="FormatException"></exception>
-        public static Quaternion4D Parse(string source, IFormatProvider provider)
-        {
-            var sep = Tokenizer.GetNumericListSeparator(provider);
-            var vals = source.Replace("Quaternion", string.Empty).Trim(' ', '{', '(', '[', '<', '}', ')', ']', '>').Split(sep);
-
-            if (vals.Length != 4)
-            {
-                throw new FormatException($"Cannot parse the text '{source}' because it does not have 4 parts separated by commas in the form (x,y,z,w) with optional parenthesis.");
-            }
-            else
-            {
-                try
-                {
-                    return new Quaternion4D(
-                        double.Parse(vals[0].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture),
-                        double.Parse(vals[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture),
-                        double.Parse(vals[2].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture),
-                        double.Parse(vals[3].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture));
-                }
-                catch (Exception ex)
-                {
-                    throw new FormatException("The parts of the vectors must be decimal numbers", ex);
-                }
-            }
-        }
-        #endregion Factories
-
-        #region Methods
-        /// <summary>
-        /// Compares two <see cref="Quaternion4D" /> structs.
-        /// </summary>
-        /// <param name="a">The object to compare.</param>
-        /// <param name="b">The object to compare against.</param>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Quaternion4D a, Quaternion4D b) => Equals(a, b);
+        public static Quaternion4D Add(Quaternion4D augend, double addend) => AddVectorUniform(augend.X, augend.Y, augend.Z, augend.W, addend);
 
         /// <summary>
-        /// Compares two <see cref="Quaternion4D"/> instances for exact equality.
+        /// Adds the specified augend.
         /// </summary>
-        /// <param name="a">The first <see cref="Quaternion4D"/> to compare.</param>
-        /// <param name="b">The second <see cref="Quaternion4D"/> to compare.</param>
-        /// <returns>
-        /// A boolean value indicating whether the two <see cref="Quaternion4D"/> instances are exactly unequal.
-        /// The return value is true if they are unequal, false otherwise.
-        /// </returns>
-        /// <remarks>
-        /// <para>Note that double values can acquire error when operated upon, such that
-        /// an exact comparison between two values which are logically equal may fail.
-        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.</para>
-        /// </remarks>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Quaternion4D a, Quaternion4D b) => (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z) && (a.W == b.W);
+        public static Quaternion4D Add(double augend, Quaternion4D addend) => AddVectorUniform(addend.X, addend.Y, addend.Z, addend.W, augend);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D Add(Quaternion4D augend, Quaternion4D addend) => AddVectors(augend.X, augend.Y, augend.Z, augend.W, addend.X, addend.Y, addend.Z, addend.W);
+
+        /// <summary>
+        /// Negates the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D Negate(Quaternion4D value) => Operations.Negate(value.X, value.Y, value.Z, value.W);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D Subtract(Quaternion4D minuend, double subend) => SubtractVectorUniform(minuend.X, minuend.Y, minuend.Z, minuend.W, subend);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D Subtract(double minuend, Quaternion4D subend) => SubtractFromMinuend(minuend, subend.X, subend.Y, subend.Z, subend.W);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D Subtract(Quaternion4D minuend, Quaternion4D subend) => SubtractVector(minuend.X, minuend.Y, minuend.Z, minuend.W, subend.X, subend.Y, subend.Z, subend.W);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D Multiply(Quaternion4D multiplicand, double multiplier) => ScaleVector(multiplicand.X, multiplicand.Y, multiplicand.Z, multiplicand.W, multiplier);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D Multiply(double multiplicand, Quaternion4D multiplier) => ScaleVector(multiplier.X, multiplier.Y, multiplier.Z, multiplier.W, multiplicand);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D Multiply(Quaternion4D multiplicand, Quaternion4D multiplier) => MultiplyQuaternions(multiplicand.X, multiplicand.Y, multiplicand.Z, multiplicand.W, multiplier.X, multiplier.Y, multiplier.Z, multiplier.W);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D Divide(Quaternion4D dividend, double divisor) => DivideVectorUniform(dividend.X, dividend.Y, dividend.Z, dividend.W, divisor);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D Divide(double dividend, Quaternion4D divisor) => DivideByVectorUniform(dividend, divisor.X, divisor.Y, divisor.Z, divisor.W);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D Divide(Quaternion4D dividend, Quaternion4D divisor) => DivideQuaternions(dividend.X, dividend.Y, dividend.Z, dividend.W, divisor.X, divisor.Y, divisor.Z, divisor.W);
 
         /// <summary>
         /// Compares this <see cref="Quaternion4D" /> with the passed in object.
@@ -720,7 +709,7 @@ namespace Engine
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is Quaternion4D && Equals(this, (Quaternion4D)obj);
+        public override bool Equals([AllowNull] object obj) => obj is Quaternion4D o && Equals(o);
 
         /// <summary>
         /// Compares this <see cref="Quaternion4D" /> with the passed in <see cref="Quaternion4D" />.
@@ -737,8 +726,124 @@ namespace Engine
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Quaternion4D value) => Equals(this, value);
+        public bool Equals(Quaternion4D value) => (X == value.X) && (Y == value.Y) && (Z == value.Z) && (W == value.W);
 
+        /// <summary>
+        /// Converts to valuetuple.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double X, double Y, double Z, double W) ToValueTuple() => (X, Y, Z, W);
+
+        /// <summary>
+        /// Froms the value tuple.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D FromValueTuple((double X, double Y, double Z, double W) tuple) => new Quaternion4D(tuple);
+
+        /// <summary>
+        /// Converts to quaternion4d.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Quaternion4D ToQuaternion4D() => new Quaternion4D(X, Y, Z, W);
+        #endregion
+
+        #region Factories
+        /// <summary>
+        /// set this quaternion's values from the rotation matrix built from the Axi.
+        /// </summary>
+        /// <param name="XAxis">The x axis.</param>
+        /// <param name="YAxis">The y axis.</param>
+        /// <param name="ZAxis">The z axis.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D FromAxis(Vector3D XAxis, Vector3D YAxis, Vector3D ZAxis) => QuaternionFromRotationMatrix(XAxis.I, YAxis.I, ZAxis.I, XAxis.J, YAxis.J, ZAxis.J, XAxis.K, YAxis.K, ZAxis.K);
+
+        /// <summary>
+        /// The from axis angle.
+        /// </summary>
+        /// <param name="axis">The axis.</param>
+        /// <param name="angle">The angle.</param>
+        /// <returns>
+        /// The <see cref="Quaternion4D" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D FromAxisAngle(Vector3D axis, double angle) => QuaternionFromAxisAngle(axis.I, axis.J, axis.K, angle);
+
+        /// <summary>
+        /// The from Euler angles.
+        /// </summary>
+        /// <param name="roll">The roll.</param>
+        /// <param name="pitch">The pitch.</param>
+        /// <param name="yaw">The yaw.</param>
+        /// <returns>
+        /// The <see cref="Quaternion4D" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Quaternion4D FromEulerAngles(double roll, double pitch, double yaw) => QuaternionFromEulerAngles(roll, pitch, yaw);
+        #endregion
+
+        #region Factories
+        /// <summary>
+        /// Parse.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns>
+        /// The <see cref="Quaternion4D" />.
+        /// </returns>
+        [ParseMethod]
+        public static Quaternion4D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>
+        /// The <see cref="Quaternion4D" />.
+        /// </returns>
+        /// <exception cref="FormatException">
+        /// Cannot parse the text '{source}' because it does not have 4 parts separated by commas in the form (x,y,z,w) with optional parenthesis.
+        /// or
+        /// The parts of the vectors must be decimal numbers
+        /// </exception>
+        public static Quaternion4D Parse(string source, IFormatProvider provider)
+        {
+            var sep = Tokenizer.GetNumericListSeparator(provider);
+            var values = source?.Replace("Quaternion", string.Empty, StringComparison.OrdinalIgnoreCase).Trim(' ', '{', '(', '[', '<', '}', ')', ']', '>').Split(sep);
+
+            if (values.Length != 4)
+            {
+                throw new FormatException($"Cannot parse the text '{source}' because it does not have 4 parts separated by commas in the form (x,y,z,w) with optional parenthesis.");
+            }
+            else
+            {
+                try
+                {
+                    return new Quaternion4D(
+                        double.Parse(values[0].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture),
+                        double.Parse(values[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture),
+                        double.Parse(values[2].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture),
+                        double.Parse(values[3].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture));
+                }
+                catch (Exception ex)
+                {
+                    throw new FormatException("The parts of the vectors must be decimal numbers", ex);
+                }
+            }
+        }
+        #endregion
+
+        #region Standard Methods
         /// <summary>
         /// Get the hash code.
         /// </summary>
@@ -747,7 +852,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode() ^ W.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(X, Y, Z, W);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Quaternion4D" /> struct.
@@ -790,58 +895,6 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Quaternion4D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Z)}:{Z.ToString(format, provider)}{s} {nameof(W)}:{W.ToString(format, provider)}]";
         }
-
-        /// <summary>
-        /// Pluses the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        public static Quaternion4D Plus(Quaternion4D item) => +item;
-
-        /// <summary>
-        /// Adds the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Quaternion4D Add(Quaternion4D left, Quaternion4D right) => left + right;
-
-        /// <summary>
-        /// Negates the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        public static Quaternion4D Negate(Quaternion4D item) => -item;
-
-        /// <summary>
-        /// Subtracts the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Quaternion4D Subtract(Quaternion4D left, Quaternion4D right) => left - right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Quaternion4D Multiply(Quaternion4D left, Quaternion4D right) => left * right;
-
-        /// <summary>
-        /// Divides the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Quaternion4D Divide(Quaternion4D left, Quaternion4D right) => left / right;
-
-        /// <summary>
-        /// To this instance.
-        /// </summary>
-        /// <returns></returns>
-        public (double X, double Y, double Z, double W) To() => (X, Y, Z, W);
-        #endregion Methods
+        #endregion
     }
 }

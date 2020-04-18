@@ -99,7 +99,7 @@ namespace Engine.Experimental
         /// <param name="op">The op.</param>
         public static void DisposeOutPt(LinkedPoint op)
         {
-            if (op.Prev != null)
+            if (op?.Prev != null)
             {
                 op.Prev.Next = op.Next;
             }

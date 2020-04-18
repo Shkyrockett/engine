@@ -82,16 +82,16 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void CircleContainsPointTest()
         {
-            var testCases = new Dictionary<(Circle circle, Point2D point), Inclusions>
+            var testCases = new Dictionary<(Circle2D circle, Point2D point), Inclusions>
             {
-                { (new Circle(0, 0, 5), new Point2D(1, 1)), Inclusions.Inside },
-                { (new Circle(0, 0, 5), new Point2D(0, 0)), Inclusions.Inside },
-                { (new Circle(0, 0, 5), new Point2D(5, 5)), Inclusions.Outside },
-                { (new Circle(0, 0, 5), new Point2D(5, -5)), Inclusions.Outside },
-                { (new Circle(0, 0, 5), new Point2D(-5, -5)), Inclusions.Outside },
-                { (new Circle(0, 0, 5), new Point2D(-5, 5)), Inclusions.Outside },
-                { (new Circle(0, 0, 5), new Point2D(0, 5)), Inclusions.Boundary },
-                { (new Circle(0, 0, 5), new Point2D(0, -5)), Inclusions.Boundary },
+                { (new Circle2D(0, 0, 5), new Point2D(1, 1)), Inclusions.Inside },
+                { (new Circle2D(0, 0, 5), new Point2D(0, 0)), Inclusions.Inside },
+                { (new Circle2D(0, 0, 5), new Point2D(5, 5)), Inclusions.Outside },
+                { (new Circle2D(0, 0, 5), new Point2D(5, -5)), Inclusions.Outside },
+                { (new Circle2D(0, 0, 5), new Point2D(-5, -5)), Inclusions.Outside },
+                { (new Circle2D(0, 0, 5), new Point2D(-5, 5)), Inclusions.Outside },
+                { (new Circle2D(0, 0, 5), new Point2D(0, 5)), Inclusions.Boundary },
+                { (new Circle2D(0, 0, 5), new Point2D(0, -5)), Inclusions.Boundary },
             };
 
             foreach (var test in testCases.Keys)
@@ -113,21 +113,21 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void EllipseContainsPointTest()
         {
-            var testCases = new Dictionary<(Ellipse ellipse, Point2D point), Inclusions>
+            var testCases = new Dictionary<(Ellipse2D ellipse, Point2D point), Inclusions>
             {
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(1, 1)), Inclusions.Inside },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(0, 0)), Inclusions.Inside },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(5, 5)), Inclusions.Outside },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(5, -5)), Inclusions.Outside },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(-5, -5)), Inclusions.Outside },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(-5, 5)), Inclusions.Outside },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(0, 5)), Inclusions.Boundary },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(0, -5)), Inclusions.Boundary },
+                { (new Ellipse2D(0, 0, 4, 5, 0), new Point2D(1, 1)), Inclusions.Inside },
+                { (new Ellipse2D(0, 0, 4, 5, 0), new Point2D(0, 0)), Inclusions.Inside },
+                { (new Ellipse2D(0, 0, 4, 5, 0), new Point2D(5, 5)), Inclusions.Outside },
+                { (new Ellipse2D(0, 0, 4, 5, 0), new Point2D(5, -5)), Inclusions.Outside },
+                { (new Ellipse2D(0, 0, 4, 5, 0), new Point2D(-5, -5)), Inclusions.Outside },
+                { (new Ellipse2D(0, 0, 4, 5, 0), new Point2D(-5, 5)), Inclusions.Outside },
+                { (new Ellipse2D(0, 0, 4, 5, 0), new Point2D(0, 5)), Inclusions.Boundary },
+                { (new Ellipse2D(0, 0, 4, 5, 0), new Point2D(0, -5)), Inclusions.Boundary },
             };
 
             foreach (var test in testCases.Keys)
             {
-                var result = Intersections.EllipseContainsPoint(test.ellipse.X, test.ellipse.Y, test.ellipse.RX, test.ellipse.RY, test.ellipse.Angle, test.point.X, test.point.Y);
+                var result = Intersections.EllipseContainsPoint(test.ellipse.X, test.ellipse.Y, test.ellipse.RadiusA, test.ellipse.RadiusB, test.ellipse.Angle, test.point.X, test.point.Y);
                 var expected = testCases[test];
 
                 Assert.AreEqual(expected, result, $"Test case: {test}, Expected: {result}, Actual: {result}");
@@ -206,7 +206,7 @@ namespace EngineTests
             foreach (var test in testCases.Keys)
             {
                 var expected = testCases[test];
-                var result = Intersections.Intersection(new Line(test.A.A1X, test.A.A1Y, test.A.B1X, test.A.B1Y), new Line(test.B.A2X, test.B.A2Y, test.B.B2X, test.B.B2Y));
+                var result = Intersections.Intersection(new Line2D(test.A.A1X, test.A.A1Y, test.A.B1X, test.A.B1Y), new Line2D(test.B.A2X, test.B.A2Y, test.B.B2X, test.B.B2Y));
                 Assert.AreEqual(testCases[test].State, result.State, $"Test case: {test}, Expected: {expected}, Actual: {result}");
 
                 for (var i = 0; i < result.Count; i++)
@@ -259,7 +259,7 @@ namespace EngineTests
             foreach (var test in testCases.Keys)
             {
                 var expected = testCases[test];
-                var result = Intersections.Intersection(new LineSegment(test.A.A1X, test.A.A1Y, test.A.B1X, test.A.B1Y), new LineSegment(test.B.A2X, test.B.A2Y, test.B.B2X, test.B.B2Y));
+                var result = Intersections.Intersection(new LineSegment2D(test.A.A1X, test.A.A1Y, test.A.B1X, test.A.B1Y), new LineSegment2D(test.B.A2X, test.B.A2Y, test.B.B2X, test.B.B2Y));
                 Assert.AreEqual(testCases[test].State, result.State, $"Test case: {test}, Expected: {expected}, Actual: {result}");
 
                 for (var i = 0; i < result.Count; i++)

@@ -88,7 +88,7 @@ namespace Engine
             /// <param name="gameElement">The gameElement.</param>
             /// <param name="index">The index.</param>
             public GameElementDescriptor(IGameElement gameElement, int index)
-                : base(gameElement.GetType(), index.ToString(), typeof(string))
+                : base(gameElement.GetType(), index.ToString(CultureInfo.InvariantCulture), typeof(string))
             {
                 GameElement = gameElement;
             }

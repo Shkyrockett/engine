@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Colorspace
 {
@@ -87,7 +88,7 @@ namespace Engine.Colorspace
         public bool Equals(IColor other)
         {
             var (r0, g0, b0, a0) = ToRGBATuple();
-            var (r1, g1, b1, a1) = other.ToRGBATuple();
+            var (r1, g1, b1, a1) = (other?.ToRGBATuple()).Value;
             return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
         }
 
@@ -107,7 +108,7 @@ namespace Engine.Colorspace
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(CIExyY other) => X == other.X && Y1 == other.Y1 && Y2 == other.Y2;
+        public bool Equals([AllowNull] CIExyY other) => X == other.X && Y1 == other.Y1 && Y2 == other.Y2;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -115,14 +116,7 @@ namespace Engine.Colorspace
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -1876679168;
-            hashCode = hashCode * -1521134295 + X.GetHashCode();
-            hashCode = hashCode * -1521134295 + Y1.GetHashCode();
-            hashCode = hashCode * -1521134295 + Y2.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(X, Y1, Y2);
 
         /// <summary>
         /// The to RGBA tuple.

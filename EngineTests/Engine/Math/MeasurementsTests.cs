@@ -165,7 +165,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void DistanceLineSegmentPointTest()
         {
-            var cases = new Dictionary<(LineSegment s, Point2D p), double>
+            var cases = new Dictionary<(LineSegment2D s, Point2D p), double>
             {
                 { ((0d, 0d, 0d, 0d), (0d, 0d)), 0d },
                 { ((0d, 0d, 2d, 2d), (1d, 1d)), 0d },
@@ -192,7 +192,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void ConstrainedDistanceLineSegmentPointTest()
         {
-            var cases = new Dictionary<(LineSegment s, Point2D p), double?>
+            var cases = new Dictionary<(LineSegment2D s, Point2D p), double?>
             {
                 { ((0d, 0d, 0d, 0d), (0d, 0d)), null },
                 { ((0d, 0d, 2d, 2d), (1d, 1d)), 0d },
@@ -219,7 +219,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void SquareDistanceLineSegmentPointTest()
         {
-            var cases = new Dictionary<(LineSegment s, Point2D p), double>
+            var cases = new Dictionary<(LineSegment2D s, Point2D p), double>
             {
                 { ((0d, 0d, 0d, 0d), (0d, 0d)), 0d },
                 { ((0d, 0d, 2d, 2d), (1d, 1d)), 0d },
@@ -259,7 +259,7 @@ namespace EngineTests
 
             foreach (var k in cases.Keys)
             {
-                var distance = Measurements.VectorMagnitude(k.I, k.J);
+                var distance = Operations.VectorMagnitude(k.I, k.J);
                 Assert.AreEqual(cases[k], distance, testEpsilon, $"Vector: {k.ToString(CultureInfo.InvariantCulture)}, Expected: {cases[k]}, Actual: {distance}");
             }
         }
@@ -285,7 +285,7 @@ namespace EngineTests
 
             foreach (var k in cases.Keys)
             {
-                var distance = Measurements.VectorMagnitudeSquared(k.I, k.J);
+                var distance = Operations.VectorMagnitudeSquared(k.I, k.J);
                 Assert.AreEqual(cases[k], distance, testEpsilon, $"Vector: {k.ToString(CultureInfo.InvariantCulture)}, Expected: {cases[k]}, Actual: {distance}");
             }
         }
@@ -702,7 +702,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void LineSegmentBoundsTest()
         {
-            var cases = new Dictionary<LineSegment, Rectangle2D>
+            var cases = new Dictionary<LineSegment2D, Rectangle2D>
             {
                 { (0d, 0d, 0d, 0d), (0, 0, 0, 0) },
                 { (0d, 0d, 2d, 2d), (0, 0, 2, 2) },
@@ -730,7 +730,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void CircleBoundsTest()
         {
-            var cases = new Dictionary<Circle, Rectangle2D>
+            var cases = new Dictionary<Circle2D, Rectangle2D>
             {
                 { (0d, 0d, 0d), (0d, 0d, 0d, 0d) },
                 { (0d, 0d, 2d), (-2d, -2d, 4d, 4d) },
@@ -757,7 +757,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void CircularArcBoundsTest()
         {
-            var cases = new Dictionary<CircularArc, Rectangle2D>
+            var cases = new Dictionary<CircularArc2D, Rectangle2D>
             {
                 { (0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
                 { (0d, 0d, 2d, 0d, 0d), (-2d, -2d, 4d, 4d) },
@@ -786,7 +786,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void EllipseBoundsTest()
         {
-            var cases = new Dictionary<Ellipse, Rectangle2D>
+            var cases = new Dictionary<Ellipse2D, Rectangle2D>
             {
                 { (0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
                 { (0d, 0d, 2d, 2d, 0d), (-2d, -2d, 4d, 4d) },
@@ -795,7 +795,7 @@ namespace EngineTests
 
             foreach (var k in cases.Keys)
             {
-                var bounds = Measurements.EllipseBounds(k.X, k.Y, k.RX, k.RY);
+                var bounds = Measurements.EllipseBounds(k.X, k.Y, k.RadiusA, k.RadiusB);
                 Assert.AreEqual(cases[k].Left, bounds.Left, testEpsilon, $"Ellipse: {k.ToString(CultureInfo.InvariantCulture)}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
                 Assert.AreEqual(cases[k].Top, bounds.Top, testEpsilon, $"Ellipse: {k.ToString(CultureInfo.InvariantCulture)}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
                 Assert.AreEqual(cases[k].Width, bounds.Width, testEpsilon, $"Ellipse: {k.ToString(CultureInfo.InvariantCulture)}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
@@ -813,7 +813,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void EllipticalArcBoundsTest()
         {
-            var cases = new Dictionary<EllipticalArc, Rectangle2D>
+            var cases = new Dictionary<EllipticalArc2D, Rectangle2D>
             {
                 { (0d, 0d, 0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
                 { (0d, 0d, 2d, 2d, 0d, 0d, 270d.DegreesToRadians()), (-2d, -2d, 4d, 4d) },
@@ -822,7 +822,7 @@ namespace EngineTests
 
             foreach (var k in cases.Keys)
             {
-                var bounds = Measurements.EllipticalArcBounds(k.X, k.Y, k.RX, k.RY, k.Angle, k.StartAngle, k.SweepAngle);
+                var bounds = Measurements.EllipticalArcBounds(k.X, k.Y, k.RadiusA, k.RadiusB, k.Angle, k.StartAngle, k.SweepAngle);
                 Assert.AreEqual(cases[k].Left, bounds.Left, testEpsilon, $"Arc: {k.ToString(CultureInfo.InvariantCulture)}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
                 Assert.AreEqual(cases[k].Top, bounds.Top, testEpsilon, $"Arc: {k.ToString(CultureInfo.InvariantCulture)}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
                 Assert.AreEqual(cases[k].Width, bounds.Width, testEpsilon, $"Arc: {k.ToString(CultureInfo.InvariantCulture)}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString(CultureInfo.InvariantCulture)}, Actual: {bounds.ToString(CultureInfo.InvariantCulture)}");
@@ -924,7 +924,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void QuadraticBezierBoundsTest()
         {
-            var cases = new Dictionary<QuadraticBezier, Rectangle2D>
+            var cases = new Dictionary<QuadraticBezier2D, Rectangle2D>
             {
                 { (0d, 0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
                 { (0d, 0d, 10d, 10d, 20d, 0d), (0d, 0d, 20d, 5d) },
@@ -955,15 +955,15 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void CubicBezierBoundsTest()
         {
-            var cases = new Dictionary<CubicBezier, Rectangle2D>
+            var cases = new Dictionary<CubicBezier2D, Rectangle2D>
             {
                 { (0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
-                { new QuadraticBezier(0d, 10d, 10d, 0d, 20d, 10d).ToCubicBezier(), (0d, 5d, 20d, 5d) },
-                { new QuadraticBezier(0d, 0d, 10d, 10d, 20d, 0d).ToCubicBezier(), (0d, 0d, 20d, 5d) },
-                { new QuadraticBezier(5d, 0d, 10d, 10d, 20d, 0d).ToCubicBezier(), (5d, 0d, 15d, 5d) },
-                { new QuadraticBezier(83d, 214d, 335d, 173d, 91d, 137d).ToCubicBezier(), (83d, 137d, 128.0322580645161d, 77d) }, // KLD Quadratic test
-                { new QuadraticBezier(92d, 233d, 152d, 30d, 198d, 227d).ToCubicBezier(), (92d, 129.9775d, 106d, 103.0225d) }, // KLD Quadratic test
-                { new QuadraticBezier(123d, 47d, 146d, 255d, 188d, 47d).ToCubicBezier(), (123d, 47d, 65d, 104d) }, // KLD Quadratic test
+                { new QuadraticBezier2D(0d, 10d, 10d, 0d, 20d, 10d).ToCubicBezier(), (0d, 5d, 20d, 5d) },
+                { new QuadraticBezier2D(0d, 0d, 10d, 10d, 20d, 0d).ToCubicBezier(), (0d, 0d, 20d, 5d) },
+                { new QuadraticBezier2D(5d, 0d, 10d, 10d, 20d, 0d).ToCubicBezier(), (5d, 0d, 15d, 5d) },
+                { new QuadraticBezier2D(83d, 214d, 335d, 173d, 91d, 137d).ToCubicBezier(), (83d, 137d, 128.0322580645161d, 77d) }, // KLD Quadratic test
+                { new QuadraticBezier2D(92d, 233d, 152d, 30d, 198d, 227d).ToCubicBezier(), (92d, 129.9775d, 106d, 103.0225d) }, // KLD Quadratic test
+                { new QuadraticBezier2D(123d, 47d, 146d, 255d, 188d, 47d).ToCubicBezier(), (123d, 47d, 65d, 104d) }, // KLD Quadratic test
                 { (203d, 140d, 206d, 359d, 245d, 6d, 248d, 212d), (203d, 140d, 45d, 74.7074310714899d) }, // KLD Cubic test
                 { (177d, 204d, 441d, 204d, 8d, 149d, 265d, 154d), (177d, 153.67863894139887d, 88.9946642212202d, 50.321361058601127d) }, // KLD Cubic test
                 { (171d, 143d, 22d, 132d, 330d, 64d, 107d, 65d), (107d, 64.9890820086819d, 84.1459246542469d, 78.0109179913181d) }, // KLD Cubic test

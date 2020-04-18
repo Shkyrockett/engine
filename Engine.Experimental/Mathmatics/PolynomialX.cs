@@ -684,7 +684,7 @@ namespace Engine.Geometry
         {
             var z = Complex.One;
 
-            for (var i = 0; i < p.Factor.Length; i++)
+            for (var i = 0; i < p?.Factor.Length; i++)
             {
                 z *= Complex.Pow(p.Factor[i].Evaluate(x), p.Power[i]);
             }
@@ -845,11 +845,11 @@ namespace Engine.Geometry
         {
             double buf = 0;
 
-            for (var i = 0; i < z.Length; i++)
+            for (var i = 0; i < z?.Length; i++)
             {
-                if (Complex.Abs(p.Evaluate(z[i])) > buf)
+                if (Complex.Abs((p?.Evaluate(z[i])).Value) > buf)
                 {
-                    buf = Complex.Abs(p.Evaluate(z[i]));
+                    buf = Complex.Abs((p?.Evaluate(z[i])).Value);
                 }
             }
 
@@ -1232,7 +1232,7 @@ namespace Engine.Geometry
                     if (value.Real * minValue.Real < 0)
                     {
                         max = result;
-                        maxValue = value;
+                        //maxValue = value;
                     }
                     else
                     {
@@ -1416,14 +1416,32 @@ namespace Engine.Geometry
         /// <returns>The <see cref="Array"/>.</returns>
         public Complex[] GetRoots()
         {
+            Complex[] result;
+
             Simplify();
-            Complex[] result = (GetDegree()) switch
+            switch (GetDegree())
             {
-                0 => Array.Empty<Complex>(),
-                1 => GetLinearRoot(),
-                2 => GetQuadraticRoots(),
-                _ => Array.Empty<Complex>(),
-            };
+                case 0:
+                    result = Array.Empty<Complex>();
+                    break;
+                case 1:
+                    result = GetLinearRoot();
+                    break;
+                case 2:
+                    result = GetQuadraticRoots();
+                    break;
+                case 3:
+                //    result = GetCubicRoots();
+                //    break;
+                //case 4:
+                //    result = GetQuarticRoots();
+                //    break;
+                default:
+                    result = Array.Empty<Complex>();
+                    break;
+                    // should try Newton's method and/or bisection
+            }
+
             return result;
         }
 
@@ -1472,7 +1490,7 @@ namespace Engine.Geometry
                     }
 
                     // find root on [droots[count-1],xmax]
-                    root = Bisection(droots[droots.Length - 1].Real, max);
+                    root = Bisection(droots[^1].Real, max);
                     if (root != null)
                     {
                         roots.Add(root);
@@ -1575,15 +1593,15 @@ namespace Engine.Geometry
         //            double root;
         //            var tmp = -halfB + e;
         //            if (tmp.Real >= 0)
-        //                root = Math.Pow(tmp.Real, 1d / 3d);
+        //                root = Math.Cbrt(tmp.Real);
         //            else
-        //                root = -Math.Pow(-tmp.Real, 1d / 3d);
+        //                root = -Math.Cbrt(-tmp.Real);
 
         //            tmp = -halfB - e;
         //            if (tmp.Real >= 0)
-        //                root += Math.Pow(tmp.Real, 1d / 3d);
+        //                root += Math.Cbrt(tmp.Real);
         //            else
-        //                root -= Math.Pow(-tmp.Real, 1d / 3d);
+        //                root -= Math.Cbrt(-tmp.Real);
 
         //            results.Add(root - offset);
         //        }
@@ -1604,9 +1622,9 @@ namespace Engine.Geometry
         //            double tmp;
 
         //            if (halfB.Real >= 0)
-        //                tmp = -Math.Pow(halfB.Real, 1 / 3);
+        //                tmp = -Math.Cbrt(halfB.Real);
         //            else
-        //                tmp = Math.Pow(-halfB.Real, 1 / 3);
+        //                tmp = Math.Cbrt(-halfB.Real);
 
         //            results.Add(2 * tmp - offset);
         //            // really should return next root twice, but we return only one

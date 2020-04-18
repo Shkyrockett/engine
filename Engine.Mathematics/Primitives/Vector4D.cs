@@ -11,12 +11,11 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using static Engine.Mathematics;
 using static Engine.Operations;
 using static System.Math;
 
@@ -26,7 +25,6 @@ namespace Engine
     /// The <see cref="Vector4D" /> struct. Represents a vector in 4D coordinate space (double precision floating-point coordinates).
     /// </summary>
     /// <seealso cref="IVector{T}" />
-    [ComVisible(true)]
     [DataContract, Serializable]
     //[TypeConverter(typeof(Vector4DConverter))]
     [TypeConverter(typeof(StructConverter<Vector4D>))]
@@ -94,10 +92,7 @@ namespace Engine
         public Vector4D(double i, double j, double k, double l)
             : this()
         {
-            I = i;
-            J = j;
-            K = k;
-            L = l;
+            (I, J, K, L) = (i, j, k, l);
         }
 
         /// <summary>
@@ -159,7 +154,7 @@ namespace Engine
             var d = Sqrt((i * i) + (j * j) + (k * k) + (l * l));
 
             // Calculate the normalized vector.
-            (I, J, K, L) = d == 0 ? (i, j, k, l) : (i * 1d / d, j * 1d / d, k * 1d / d, l * 1d / d);
+            (I, J, K, L) = d == 0d ? (i, j, k, l) : (i * 1d / d, j * 1d / d, k * 1d / d, l * 1d / d);
         }
         #endregion Constructors
 
@@ -174,13 +169,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out double i, out double j, out double k, out double l)
-        {
-            i = I;
-            j = J;
-            k = K;
-            l = L;
-        }
+        public void Deconstruct(out double i, out double j, out double k, out double l) => (i, j, k, l) = (I, J, K, L);
         #endregion Deconstructors
 
         #region Properties
@@ -190,7 +179,7 @@ namespace Engine
         /// <value>
         /// The i.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(I)), XmlAttribute(nameof(I)), SoapAttribute(nameof(I))]
         public double I { get; set; }
 
         /// <summary>
@@ -199,7 +188,7 @@ namespace Engine
         /// <value>
         /// The j.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(J)), XmlAttribute(nameof(J)), SoapAttribute(nameof(J))]
         public double J { get; set; }
 
         /// <summary>
@@ -208,7 +197,7 @@ namespace Engine
         /// <value>
         /// The k.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(K)), XmlAttribute(nameof(K)), SoapAttribute(nameof(K))]
         public double K { get; set; }
 
         /// <summary>
@@ -217,7 +206,7 @@ namespace Engine
         /// <value>
         /// The l.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(L)), XmlAttribute(nameof(L)), SoapAttribute(nameof(L))]
         public double L { get; set; }
 
         /// <summary>
@@ -228,11 +217,7 @@ namespace Engine
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        public bool IsEmpty
-            => Abs(I) < Epsilon
-            && Abs(J) < Epsilon
-            && Abs(K) < Epsilon
-            && Abs(L) < Epsilon;
+        public bool IsEmpty => IsEmptyVector(I, J, K, L);
 
         /// <summary>
         /// Gets the magnitude.
@@ -242,8 +227,7 @@ namespace Engine
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        public double Magnitude
-            => Measurements.VectorMagnitude(I, J, K, L);
+        public double Magnitude => VectorMagnitude(I, J, K, L);
 
         /// <summary>
         /// Gets the length.
@@ -253,8 +237,7 @@ namespace Engine
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        public double Length
-            => Measurements.VectorMagnitude(I, J, K, L);
+        public double Length => VectorMagnitude(I, J, K, L);
 
         /// <summary>
         /// Gets the length squared.
@@ -264,8 +247,7 @@ namespace Engine
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        public double LengthSquared
-            => Measurements.VectorMagnitudeSquared(I, J, K, L);
+        public double LengthSquared => VectorMagnitudeSquared(I, J, K, L);
         #endregion Properties
 
         #region Operators
@@ -278,43 +260,43 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator +(Vector4D value) => UnaryAdd(value.I, value.J, value.K, value.L);
+        public static Vector4D operator +(Vector4D value) => Plus(value);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="addend">The addend.</param>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator +(Vector4D value, double addend) => Add4D(value.I, value.J, value.K, value.L, addend);
+        public static Vector4D operator +(Vector4D augend, double addend) => Add(augend, addend);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="addend">The addend.</param>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator +(double value, Vector4D addend) => Add4D(addend.I, addend.J, addend.K, addend.L, value);
+        public static Vector4D operator +(double augend, Vector4D addend) => Add(augend, addend);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="addend">The addend.</param>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator +(Vector4D value, Vector4D addend) => Add4D(value.I, value.J, value.K, value.L, addend.I, addend.J, addend.K, addend.L);
+        public static Vector4D operator +(Vector4D augend, Vector4D addend) => Add(augend, addend);
 
         /// <summary>
         /// The operator -.
@@ -325,91 +307,115 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator -(Vector4D value) => UnaryNegate4D(value.I, value.J, value.K, value.L);
+        public static Vector4D operator -(Vector4D value) => Negate(value);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="subend">The subend.</param>
+        /// <param name="minuend"></param>
+        /// <param name="subend"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator -(Vector4D value, double subend) => SubtractSubtrahend4D(value.I, value.J, value.K, value.L, subend);
+        public static Vector4D operator -(Vector4D minuend, double subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="subend">The subend.</param>
+        /// <param name="minuend"></param>
+        /// <param name="subend"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator -(double value, Vector4D subend) => SubtractFromMinuend4D(value, subend.I, subend.J, subend.K, subend.L);
+        public static Vector4D operator -(double minuend, Vector4D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Subtract Vectors
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="subend">The subend.</param>
+        /// <param name="minuend"></param>
+        /// <param name="subend"></param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator -(Vector4D value, Vector4D subend) => Subtract4D(value.I, value.J, value.K, value.L, subend.I, subend.J, subend.K, subend.L);
+        public static Vector4D operator -(Vector4D minuend, Vector4D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Scale a Vector
         /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
+        /// <param name="multiplicand">The Point</param>
+        /// <param name="multiplier">The Multiplier</param>
         /// <returns>
         /// A Vector Multiplied by the Multiplier
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator *(Vector4D value, double factor) => Scale4D(value.I, value.J, value.K, value.L, factor);
+        public static Vector4D operator *(Vector4D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Scale a Vector
         /// </summary>
-        /// <param name="factor">The Multiplier</param>
-        /// <param name="value">The Point</param>
+        /// <param name="multiplicand">The Multiplier</param>
+        /// <param name="multiplier">The Point</param>
         /// <returns>
         /// A Vector Multiplied by the Multiplier
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator *(double factor, Vector4D value) => Scale4D(value.I, value.J, value.K, value.L, factor);
+        public static Vector4D operator *(double multiplicand, Vector4D multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D operator *(Vector4D multiplicand, Matrix4x4D multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D operator *(Matrix4x4D multiplicand, Vector4D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Divide a <see cref="Vector4D" />
         /// </summary>
-        /// <param name="divisor">The <see cref="Vector4D" /></param>
-        /// <param name="dividend">The dividend.</param>
+        /// <param name="dividend">The <see cref="Vector4D"/></param>
+        /// <param name="divedend">The divisor</param>
         /// <returns>
         /// A <see cref="Vector4D" /> divided by the divisor
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator /(Vector4D divisor, double dividend) => DivideByDividend4D(divisor.I, divisor.J, divisor.K, divisor.L, dividend);
+        public static Vector4D operator /(Vector4D dividend, double divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// Divide a <see cref="Vector4D" />
         /// </summary>
-        /// <param name="divisor">The <see cref="Vector4D" /></param>
-        /// <param name="dividend">The divisor</param>
+        /// <param name="dividend">The <see cref="Vector4D"/></param>
+        /// <param name="divisor">The divisor</param>
         /// <returns>
         /// A <see cref="Vector4D" /> divided by the divisor
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator /(double divisor, Vector4D dividend) => DivideDivisor4D(divisor, dividend.I, dividend.I, dividend.K, dividend.L);
+        public static Vector4D operator /(double dividend, Vector4D divisor) => Divide(dividend, divisor);
 
         /// <summary>
         /// The operator ==.
@@ -449,14 +455,291 @@ namespace Engine
         /// <summary>
         /// Tuple to Vector4D
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="tuple"></param>
         /// <returns>
         /// The result of the conversion.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Vector4D((double X, double Y, double Z, double W) value) => new Vector4D(value);
+        public static implicit operator Vector4D((double X, double Y, double Z, double W) tuple) => new Vector4D(tuple);
         #endregion Operators
+
+        #region Operator Backing Methods
+        /// <summary>
+        /// Pluses the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4D Plus() => Operations.Plus(I, J, K, L);
+
+        /// <summary>
+        /// Pluses the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Plus(Vector4D value) => Operations.Plus(value.I, value.J, value.K, value.L);
+
+        /// <summary>
+        /// Adds the specified addend.
+        /// </summary>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4D Add(double addend) => Operations.AddVectorUniform(I, J, K, L, addend);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Add(Vector4D augend, double addend) => Operations.AddVectorUniform(augend.I, augend.J, augend.K, augend.L, addend);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Add(double augend, Vector4D addend) => Operations.AddVectorUniform(addend.I, addend.J, addend.K, addend.L, augend);
+
+        /// <summary>
+        /// Adds the specified addend.
+        /// </summary>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4D Add(Vector4D addend) => Operations.AddVectors(I, J, K, L, addend.I, addend.J, addend.K, addend.L);
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Add(Vector4D augend, Vector4D addend) => Operations.AddVectors(augend.I, augend.J, augend.K, augend.L, addend.I, addend.J, addend.K, addend.L);
+
+        /// <summary>
+        /// Negates this instance.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4D Negate() => Operations.Negate(I, J, K, L);
+
+        /// <summary>
+        /// Negates the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Negate(Vector4D value) => Operations.Negate(value.I, value.J, value.K, value.L);
+
+        /// <summary>
+        /// Subtracts the specified subend.
+        /// </summary>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4D Subtract(double subend) => Operations.SubtractVectorUniform(I, J, K, L, subend);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Subtract(Vector4D minuend, double subend) => Operations.SubtractVectorUniform(minuend.I, minuend.J, minuend.K, minuend.L, subend);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Subtract(double minuend, Vector4D subend) => Operations.SubtractFromMinuend(minuend, subend.I, subend.J, subend.K, subend.L);
+
+        /// <summary>
+        /// Subtracts the specified subend.
+        /// </summary>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4D Subtract(Vector4D subend) => Operations.SubtractVector(I, J, K, L, subend.I, subend.J, subend.K, subend.L);
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Subtract(Vector4D minuend, Vector4D subend) => Operations.SubtractVector(minuend.I, minuend.J, minuend.K, minuend.L, subend.I, subend.J, subend.K, subend.L);
+
+        /// <summary>
+        /// Multiplies the specified multiplier.
+        /// </summary>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4D Multiply(double multiplier) => Operations.ScaleVector(I, J, K, L, multiplier);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Multiply(Vector4D multiplicand, double multiplier) => Operations.ScaleVector(multiplicand.I, multiplicand.J, multiplicand.K, multiplicand.L, multiplier);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Multiply(double multiplicand, Vector4D multiplier) => Operations.ScaleVector(multiplier.I, multiplier.J, multiplier.K, multiplier.L, multiplicand);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Multiply(Vector4D multiplicand, Matrix4x4D multiplier) => Operations.MultiplyVector4DMatrix4x4(multiplicand.I, multiplicand.J, multiplicand.K, multiplicand.L, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Multiply(Matrix4x4D multiplicand, Vector4D multiplier) => Operations.MultiplyVector4DMatrix4x4(multiplier.I, multiplier.J, multiplier.K, multiplier.L, multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3);
+
+        /// <summary>
+        /// Divides the specified divisor.
+        /// </summary>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4D Divide(double divisor) => Operations.DivideVectorUniform(I, J, K, L, divisor);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Divide(Vector4D dividend, double divisor) => Operations.DivideVectorUniform(dividend.I, dividend.J, dividend.K, dividend.L, divisor);
+
+        /// <summary>
+        /// Divides the specified dividend.
+        /// </summary>
+        /// <param name="dividend">The dividend.</param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Divide(double dividend, Vector4D divisor) => Operations.DivideByVectorUniform(dividend, divisor.I, divisor.I, divisor.K, divisor.L);
+
+        /// <summary>
+        /// Dots the product.
+        /// </summary>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public double DotProduct(Vector4D right) => Operations.DotProduct(I, J, K, L, right.I, right.J, right.K, right.L);
+
+        /// <summary>
+        /// Dots the product.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double DotProduct(Vector4D left, Vector4D right) => Operations.DotProduct(left.I, left.J, left.K, left.L, right.I, right.J, right.K, right.L);
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals([AllowNull] object obj) => obj is Vector4D d && Equals(d);
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals([AllowNull] Vector4D other) => I == other.I && J == other.J && K == other.K && L == other.L;
+
+        /// <summary>
+        /// Converts to valuetuple.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double I, double J, double K, double L) ToValueTuple() => (I, J, K, L);
+
+        /// <summary>
+        /// Froms the value tuple.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D FromValueTuple((double X, double Y, double Z, double W) tuple) => new Vector4D(tuple);
+
+        /// <summary>
+        /// Converts to vector4d.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4D ToVector4D() => new Vector4D(I, J, K, L);
+        #endregion
 
         #region Factories
         /// <summary>
@@ -468,8 +751,7 @@ namespace Engine
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         [ParseMethod]
-        public static Vector4D Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
+        public static Vector4D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Parse a string for a <see cref="Vector4D" /> value.
@@ -498,50 +780,16 @@ namespace Engine
         }
         #endregion Factories
 
-        #region Public Methods
+        #region Standard Methods
         /// <summary>
-        /// Get the hash code.
+        /// Returns the hash code for this instance.
         /// </summary>
         /// <returns>
         /// The <see cref="int" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => I.GetHashCode() ^ J.GetHashCode() ^ K.GetHashCode() ^ L.GetHashCode();
-
-        /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="obj">The obj.</param>
-        /// <returns>
-        /// The <see cref="bool" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is Vector4D && Equals(this, (Vector4D)obj);
-
-        /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>
-        /// The <see cref="bool" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Vector4D a, Vector4D b) => (a.I == b.I) & (a.J == b.J) & (a.K == b.K) & (a.L == b.L);
-
-        /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="other">The other.</param>
-        /// <returns>
-        /// The <see cref="bool" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Vector4D other) => Equals(this, other);
+        public override int GetHashCode() => HashCode.Combine(I, J, K, L);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Vector4D" /> struct.
@@ -572,118 +820,16 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
-        /// <returns>
-        /// A string representation of this <see cref="Vector4D" />.
-        /// </returns>
+        /// <param name="formatProvider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Vector4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             if (this == null) return nameof(Vector4D);
-            var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Vector4D)}({nameof(I)}: {I.ToString(format, provider)}{s} {nameof(J)}: {J.ToString(format, provider)}{s} {nameof(K)}: {K.ToString(format, provider)}{s} {nameof(L)}: {L.ToString(format, provider)})";
+            var s = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(Vector4D)}({nameof(I)}: {I.ToString(format, formatProvider)}{s} {nameof(J)}: {J.ToString(format, formatProvider)}{s} {nameof(K)}: {K.ToString(format, formatProvider)}{s} {nameof(L)}: {L.ToString(format, formatProvider)})";
         }
-
-        /// <summary>
-        /// Pluses the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        public static Vector4D Plus(Vector4D item) => +item;
-
-        /// <summary>
-        /// Adds the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Vector4D Add(Vector4D left, Vector4D right) => left + right;
-
-        /// <summary>
-        /// Adds the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Vector4D Add(double left, Vector4D right) => left + right;
-
-        /// <summary>
-        /// Adds the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Vector4D Add(Vector4D left, double right) => left + right;
-
-        /// <summary>
-        /// Negates the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        public static Vector4D Negate(Vector4D item) => -item;
-
-        /// <summary>
-        /// Subtracts the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Vector4D Subtract(Vector4D left, Vector4D right) => left - right;
-
-        /// <summary>
-        /// Subtracts the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Vector4D Subtract(double left, Vector4D right) => left - right;
-
-        /// <summary>
-        /// Subtracts the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Vector4D Subtract(Vector4D left, double right) => left - right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Vector4D Multiply(double left, Vector4D right) => left * right;
-
-        /// <summary>
-        /// Multiplies the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Vector4D Multiply(Vector4D left, double right) => left * right;
-
-        /// <summary>
-        /// Divides the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Vector4D Divide(double left, Vector4D right) => left / right;
-
-        /// <summary>
-        /// Divides the specified left.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        public static Vector4D Divide(Vector4D left, double right) => left / right;
-
-        /// <summary>
-        /// To this instance.
-        /// </summary>
-        /// <returns></returns>
-        public (double I, double J, double K, double L) To() => (I, J, K, L);
-        #endregion Public Methods
+        #endregion 
     }
 }

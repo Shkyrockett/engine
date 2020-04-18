@@ -155,7 +155,7 @@ namespace Engine
             // 
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
-            var (normalX, normalY) = ((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
+            var (normalX, normalY) = ((point.X - (bounds?.X).Value) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
             var (leftAnchorX, leftAnchorY) = Interpolators.Linear(normalY, topLeft.X, topLeft.Y, bottomLeft.X, bottomLeft.Y);
             var (rightAnchorX, rightAnchorY) = Interpolators.Linear(normalY, topRight.X, topRight.Y, bottomRight.X, bottomRight.Y);
             return Interpolators.Linear(normalX, leftAnchorX, leftAnchorY, rightAnchorX, rightAnchorY);
@@ -204,7 +204,7 @@ namespace Engine
             // 
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
-            var (normalX, normalY) = ((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
+            var (normalX, normalY) = ((point.X - (bounds?.X).Value) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
             var (leftAnchorX, leftAnchorY) = Interpolators.QuadraticBezier(normalY, topLeft.X, topLeft.Y, leftHandle.X, leftHandle.Y, bottomLeft.X, bottomLeft.Y);
             var (handleX, handleY) = Interpolators.Linear(normalY, topHandle.X, topHandle.Y, bottomHandle.X, bottomHandle.Y);
             var (rightAnchorX, rightAnchorY) = Interpolators.QuadraticBezier(normalY, topRight.X, topRight.Y, rightHandle.X, rightHandle.Y, bottomRight.X, bottomRight.Y);
@@ -261,7 +261,7 @@ namespace Engine
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
             var (normalX, normalY) = (
-                (point.X - bounds.X) / bounds.Width,
+                (point.X - (bounds?.X).Value) / bounds.Width,
                 (point.Y - bounds.Top) / bounds.Height
                 );
             var (normalSquaredX, normalSquaredY) = (normalX * normalX, normalY * normalY);
@@ -461,8 +461,7 @@ namespace Engine
         /// <returns>The returned point in normalized percentage form.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D NormalizePoint(Rectangle2D bounds, Point2D point)
-            => new Point2D((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
+        public static Point2D NormalizePoint(Rectangle2D bounds, Point2D point) => new Point2D((point.X - (bounds?.X).Value) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
 
         /// <summary>
         /// Creates a list of equally spaced points that lie on the path described by straight line segments between
@@ -476,7 +475,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<Point2D> Linearize(List<Point2D> source, double distance, double epsilon = Epsilon)
+        public static List<Point2D> Linearize(List<Point2D> source, double distance, double epsilon = double.Epsilon)
         {
             if (source is null)
             {
@@ -511,7 +510,7 @@ namespace Engine
                     {
                         rd -= distance;
                         var np = p0.Lerp(p1, (td - rd) / td);
-                        if (!Operations.EqualsOrClose(np, pp))
+                        if (!GeometryOperations.EqualsOrClose(np, pp))
                         {
                             dest.Add(np);
                             pp = np;
@@ -526,8 +525,8 @@ namespace Engine
             }
 
             // last point
-            var lp = source[source.Count - 1];
-            if (!Operations.EqualsOrClose(pp, lp))
+            var lp = source[^1];
+            if (!GeometryOperations.EqualsOrClose(pp, lp))
             {
                 dest.Add(lp);
             }
@@ -630,7 +629,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> RemoveDuplicates(List<Point2D> points)
         {
-            if (points.Count < 2)
+            if (points?.Count < 2)
             {
                 return points;
             }
@@ -642,7 +641,7 @@ namespace Engine
             for (var i = 1; i < len; i++)
             {
                 var cur = points[i];
-                if (Operations.EqualsOrClose(prev, cur))
+                if (GeometryOperations.EqualsOrClose(prev, cur))
                 {
                     nDup++;
                 }
@@ -665,7 +664,7 @@ namespace Engine
                 for (var i = 1; i < len; i++)
                 {
                     var cur = points[i];
-                    if (!Operations.EqualsOrClose(prev, cur))
+                    if (!GeometryOperations.EqualsOrClose(prev, cur))
                     {
                         dst.Add(cur);
                         prev = cur;
@@ -679,7 +678,7 @@ namespace Engine
         /// Add the points to sides.
         /// </summary>
         /// <param name="contour">The contour.</param>
-        /// <returns>The <see cref="PolygonContour"/>.</returns>
+        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour2D AddPointsToSides(PolygonContour2D contour)
@@ -690,16 +689,16 @@ namespace Engine
             }
 
             var result = new PolygonContour2D();
-            for (var i = 1; i < contour.Count; i++)
+            for (var i = 1; i < contour?.Count; i++)
             {
-                for (double j = 0; j < 1; j += 1d / (contour[contour.Count - 1].Distance(contour[0]) * 8))
+                for (double j = 0; j < 1; j += 1d / (contour[^1].Distance(contour[0]) * 8))
                 {
                     result.Add(Interpolators.Linear(j, contour[i - 1], contour[i]));
                 }
             }
-            for (double j = 0; j < 1; j += 1d / (contour[contour.Count - 1].Distance(contour[0]) * 8))
+            for (double j = 0; j < 1; j += 1d / (contour[^1].Distance(contour[0]) * 8))
             {
-                result.Add(Interpolators.Linear(j, contour[contour.Count - 1], contour[0]));
+                result.Add(Interpolators.Linear(j, contour[^1], contour[0]));
             }
 
             return result;

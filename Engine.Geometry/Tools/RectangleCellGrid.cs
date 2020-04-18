@@ -24,7 +24,6 @@ namespace Engine
     /// </remarks>
     [DataContract, Serializable]
     [GraphicsObject]
-    [DisplayName(nameof(RectangleCellGrid))]
     [DebuggerDisplay("{ToString()}")]
     public class RectangleCellGrid
         : Shape2D
@@ -70,7 +69,7 @@ namespace Engine
         /// <param name="bounds">The exterior bounding rectangle to contain the grid.</param>
         /// <param name="count">The number of cells the grid is to contain.</param>
         public RectangleCellGrid(Rectangle2D bounds, int count)
-            : this((int)bounds.X, (int)bounds.Y, (int)bounds.Width, (int)bounds.Height, count)
+            : this((int)bounds?.X, (int)bounds.Y, (int)bounds.Width, (int)bounds.Height, count)
         { }
 
         /// <summary>
@@ -302,7 +301,7 @@ namespace Engine
             set
             {
                 OnPropertyChanging(nameof(Bounds));
-                x = (int)value.X;
+                x = (int)value?.X;
                 y = (int)value.Y;
                 width = (int)value.Width;
                 height = (int)value.Height;

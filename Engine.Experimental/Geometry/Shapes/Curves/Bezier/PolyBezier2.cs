@@ -83,7 +83,11 @@ namespace Engine
         /// <param name="bbox">The bbox.</param>
         /// <param name="bBox">The bBox.</param>
         private static void Expandbox(BBox bbox, BBox bBox)
-            => throw new NotImplementedException();
+        {
+            _ = bbox;
+            _ = bBox;
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// The offset.

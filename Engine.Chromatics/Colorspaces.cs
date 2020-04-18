@@ -19,8 +19,8 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using static Engine.Intersections;
 using static Engine.Mathematics;
+using static Engine.Operations;
 using static System.Math;
 
 namespace Engine.Colorspace
@@ -741,8 +741,7 @@ namespace Engine.Colorspace
         /// <param name="alpha">The alpha component.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double red, double green, double blue, double alpha) RGBAColorToRGBAFColor2(byte red, byte green, byte blue, byte alpha)
-            => (red: red / 255d, green: green / 255d, blue: blue / 255d, alpha: alpha / 255d);
+        public static (double red, double green, double blue, double alpha) RGBAColorToRGBAFColor2(byte red, byte green, byte blue, byte alpha) => (red: red / 255d, green: green / 255d, blue: blue / 255d, alpha: alpha / 255d);
 
         /// <summary>
         /// Convert an red green blue alpha color from double floating point format to byte.

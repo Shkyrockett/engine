@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
@@ -111,7 +112,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(PotentialEnergy other) => EqualityComparer<ILength>.Default.Equals(Height, other.Height) && EqualityComparer<IMass>.Default.Equals(Weight, other.Weight);
+        public bool Equals([AllowNull] PotentialEnergy other) => EqualityComparer<ILength>.Default.Equals(Height, other.Height) && EqualityComparer<IMass>.Default.Equals(Weight, other.Weight);
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -119,13 +120,7 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = 1744120715;
-            hashCode = hashCode * -1521134295 + EqualityComparer<ILength>.Default.GetHashCode(Height);
-            hashCode = hashCode * -1521134295 + EqualityComparer<IMass>.Default.GetHashCode(Weight);
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Height, Weight);
 
         /// <summary>
         /// The to string.

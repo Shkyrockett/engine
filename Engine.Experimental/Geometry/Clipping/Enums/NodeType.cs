@@ -14,7 +14,7 @@
 //    Springer; 1 edition (January 4, 2005)
 // </attribution>
 // <seealso href="http://www.me.berkeley.edu/~mcmains/pubs/DAC05OffsetPolygon.pdf">
-//     "Polygon2D Offsetting by Computing Winding Numbers"
+//     "Polygon Offsetting by Computing Winding Numbers"
 //     Paper no. DETC2005-85513 pp. 565-575
 //     ASME 2005 International Design Engineering Technical Conferences
 //     and Computers and Information in Engineering Conference (IDETC/CIE2005)

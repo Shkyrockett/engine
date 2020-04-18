@@ -11,6 +11,9 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace Engine
 {
@@ -22,5 +25,16 @@ namespace Engine
     public interface IVector<V>
         : IPrimitive, //IComparable<V>, //IConvertible,
         IEquatable<V> where V : struct, IVector<V>
-    { }
+    {
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="vector">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals([AllowNull] object vector) => vector is V d && Equals(d);
+    }
 }

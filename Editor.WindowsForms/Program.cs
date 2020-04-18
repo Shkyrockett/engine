@@ -26,7 +26,7 @@ namespace Editor
         private static void Main()
         {
             WinformsReflection.Tickle();
-
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             using var editorForm = new EditorForm();

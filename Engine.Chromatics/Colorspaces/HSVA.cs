@@ -10,6 +10,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using static System.Math;
 
 namespace Engine.Colorspace
@@ -181,7 +182,7 @@ namespace Engine.Colorspace
         public bool Equals(IColor other)
         {
             var (r0, g0, b0, a0) = ToRGBATuple();
-            var (r1, g1, b1, a1) = other.ToRGBATuple();
+            var (r1, g1, b1, a1) = (other?.ToRGBATuple()).Value;
             return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
         }
 
@@ -201,7 +202,7 @@ namespace Engine.Colorspace
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(HSVA other) => Alpha == other.Alpha && Hue == other.Hue && Saturation == other.Saturation && Value == other.Value;
+        public bool Equals([AllowNull] HSVA other) => Alpha == other.Alpha && Hue == other.Hue && Saturation == other.Saturation && Value == other.Value;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -209,15 +210,7 @@ namespace Engine.Colorspace
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = -1269385161;
-            hashCode = hashCode * -1521134295 + Alpha.GetHashCode();
-            hashCode = hashCode * -1521134295 + Hue.GetHashCode();
-            hashCode = hashCode * -1521134295 + Saturation.GetHashCode();
-            hashCode = hashCode * -1521134295 + Value.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Alpha, Hue, Saturation, Value);
 
         /// <summary>
         /// The to color.

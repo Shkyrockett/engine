@@ -157,7 +157,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => Point.GetHashCode() ^ AnchorA.GetHashCode() ^ AnchorB.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(Point, AnchorA, AnchorB);
 
         /// <summary>
         /// The compare.

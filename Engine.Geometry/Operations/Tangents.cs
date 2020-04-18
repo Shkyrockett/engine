@@ -34,8 +34,8 @@ namespace Engine
             var By = by - ay;
             var Ax = ax - (bx * 2d) + cx;
             var Ay = ay - (by * 2d) + cy;
-            var tanx = Ax * t + Bx;
-            var tany = Ay * t + By;
+            var tanx = (Ax * t) + Bx;
+            var tany = (Ay * t) + By;
             return (tanx, tany);
         }
 

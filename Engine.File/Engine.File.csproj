@@ -1,50 +1,49 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
     <Platforms>AnyCPU;x64;x86</Platforms>
-    <Copyright>Copyright © 2013 - 2020 Shkyrockett</Copyright>
     <Version>0.0.0.1</Version>
     <Authors>Shkyrockett</Authors>
-    <Company>Shkyrockett</Company>
-    <AssemblyVersion>0.0.0.1</AssemblyVersion>
-    <FileVersion>0.0.0.1</FileVersion>
-    <LangVersion>7.3</LangVersion>
     <Description>A File Library for Engine.</Description>
+    <Copyright>Copyright © 2013 - 2020 Shkyrockett</Copyright>
+    <RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <LangVersion>latest</LangVersion>
-    <OutputPath>bin\Any CPU\Release\netstandard2.0\</OutputPath>
-    <DocumentationFile>bin\Any CPU\Release\netstandard2.0\Engine.File.xml</DocumentationFile>
-    <CodeAnalysisRuleSet>Engine.File.ruleset</CodeAnalysisRuleSet>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <LangVersion>preview</LangVersion>
-    <DocumentationFile>bin\Any CPU\Debug\netstandard2.0\Engine.File.xml</DocumentationFile>
-    <OutputPath>bin\Any CPU\Debug\netstandard2.0\</OutputPath>
-    <CodeAnalysisRuleSet>Engine.File.ruleset</CodeAnalysisRuleSet>
+    <OutputPath>bin\AnyCPU\Debug\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\AnyCPU\Debug\netcoreapp5.0\Engine.File.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <DocumentationFile>bin\x64\Debug\netstandard2.0\Engine.File.xml</DocumentationFile>
-    <CodeAnalysisRuleSet>Engine.File.ruleset</CodeAnalysisRuleSet>
+    <OutputPath>bin\x64\Debug\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\x64\Debug\netcoreapp5.0\Engine.File.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <DocumentationFile>bin\x86\Debug\netstandard2.0\Engine.File.xml</DocumentationFile>
-    <CodeAnalysisRuleSet>Engine.File.ruleset</CodeAnalysisRuleSet>
+    <OutputPath>bin\x86\Debug\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\x86\Debug\netcoreapp5.0\Engine.File.xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <DocumentationFile>bin\x64\Release\netstandard2.0\Engine.File.xml</DocumentationFile>
-    <CodeAnalysisRuleSet>Engine.File.ruleset</CodeAnalysisRuleSet>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\AnyCPU\Release\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\AnyCPU\Release\netcoreapp5.0\Engine.File.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <DocumentationFile>bin\x86\Release\netstandard2.0\Engine.File.xml</DocumentationFile>
-    <CodeAnalysisRuleSet>Engine.File.ruleset</CodeAnalysisRuleSet>
+    <OutputPath>bin\x86\Release\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\x86\Release\netcoreapp5.0\Engine.File.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutputPath>bin\x64\Release\netcoreapp5.0\</OutputPath>
+    <DocumentationFile>bin\x64\Release\netcoreapp5.0\Engine.File.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -52,23 +51,16 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0-beta3.final">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha" />
-    <PackageReference Include="System.Memory" Version="4.5.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />
+    <ProjectReference Include="..\Engine.Chromatics\Engine.Chromatics.csproj" />
     <ProjectReference Include="..\Engine.Mathematics\Engine.Mathematics.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="NETStandard.Library">
-      <Version>2.0.1</Version>
-    </PackageReference>
   </ItemGroup>
 
 </Project>

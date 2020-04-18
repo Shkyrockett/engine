@@ -31,6 +31,7 @@ namespace Engine.File
         /// supplied stream and using UTF-8 as the encoding for strings.
         /// </summary>
         /// <param name="output">The output stream.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public BinaryWriterExtended(Stream output)
             : base(output)
         { }
@@ -41,8 +42,20 @@ namespace Engine.File
         /// </summary>
         /// <param name="output">The supplied stream.</param>
         /// <param name="encoding">The character encoding.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public BinaryWriterExtended(Stream output, Encoding encoding)
             : base(output, encoding)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BinaryWriterExtended" /> class.
+        /// </summary>
+        /// <param name="output">The output.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <param name="leaveOpen">if set to <c>true</c> [leave open].</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public BinaryWriterExtended(Stream output, Encoding encoding, bool leaveOpen)
+            : base(output, encoding, leaveOpen)
         { }
         #endregion Constructors
 

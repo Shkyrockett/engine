@@ -55,14 +55,13 @@ namespace Engine
         public List<Point2D> Points { get; set; }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="PolygonLocus"/> to <see cref="PolygonContour"/>.
+        /// Performs an implicit conversion from <see cref="PolygonLocus"/> to <see cref="PolygonContour2D"/>.
         /// </summary>
         /// <param name="locus">The locus.</param>
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator PolygonContour2D(PolygonLocus locus)
-            => new PolygonContour2D(locus.Points);
+        public static implicit operator PolygonContour2D(PolygonLocus locus) => new PolygonContour2D(locus?.Points);
 
         /// <summary>
         /// Add.

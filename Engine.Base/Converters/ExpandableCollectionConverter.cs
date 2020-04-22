@@ -51,6 +51,13 @@ namespace Engine
         }
 
         /// <summary>
+        /// Get the properties supported.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public override bool GetPropertiesSupported(ITypeDescriptorContext context) => true;
+
+        /// <summary>
         /// Get the properties.
         /// </summary>
         /// <param name="context">The context.</param>
@@ -80,14 +87,6 @@ namespace Engine
             // return the property descriptor Collection
             return propertyDescriptors;
         }
-
-        /// <summary>
-        /// Get the properties supported.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        public override bool GetPropertiesSupported(ITypeDescriptorContext context)
-            => true;
         #endregion Methods
     }
 }

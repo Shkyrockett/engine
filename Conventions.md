@@ -506,8 +506,7 @@ If a struct/class can be generalized by a numeric tuple; please use a tuple cons
         /// </summary>
         /// <param name="tuple">A Tuple containing the values for this <see cref="NumericObject"/>.</param>
         [DebuggerStepThrough]
-        public NumericObject((double A, double B, double C) tuple)
-            => (A, B, C) = tuple;
+        public NumericObject((double A, double B, double C) tuple) => (A, B, C) = tuple;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NumericObject"/> struct from a tuple.
@@ -611,8 +610,7 @@ If the Structs/Classes are also relational merge with the Relational Comparisons
         /// an exact comparison between two values which are logically equal may fail.
         /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
         /// </remarks>
-        public static bool operator ==(ComparableObject left, ComparableObject right)
-            => left.Equals(right);
+        public static bool operator ==(ComparableObject left, ComparableObject right) => left.Equals(right);
 
         /// <summary>
         /// The != operator compares two <see cref="ComparableObject"/> instances for exact inequality.
@@ -628,8 +626,7 @@ If the Structs/Classes are also relational merge with the Relational Comparisons
         /// an exact comparison between two values which are logically equal may fail.
         /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
         /// </remarks>
-        public static bool operator !=(ComparableObject left, ComparableObject right)
-            => !left.Equals(right);
+        public static bool operator !=(ComparableObject left, ComparableObject right) => !left.Equals(right);
 
         #endregion
 
@@ -652,8 +649,7 @@ If the Structs/Classes are also relational merge with the Relational Comparisons
         /// <param name="right">The object to compare against.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(ComparableObject left, ComparableObject right)
-            => Equals(left, right);
+        public static bool Compare(ComparableObject left, ComparableObject right) => Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="ComparableObject"/> instances for exact equality.
@@ -706,8 +702,7 @@ If the Structs/Classes are also relational merge with the Relational Comparisons
         /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(ComparableObject value)
-            => Equals(this, value);
+        public bool Equals(ComparableObject value) => Equals(this, value);
 
         #endregion
     }

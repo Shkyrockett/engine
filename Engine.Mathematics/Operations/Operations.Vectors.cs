@@ -1486,7 +1486,7 @@ namespace Engine
         /// The Dot Product.
         /// </returns>
         /// <remarks>
-        /// The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2
+        /// <para>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1583,7 +1583,7 @@ namespace Engine
         /// Return the dot product AB · BC.
         /// </returns>
         /// <remarks>
-        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
+        /// <para>Note that AB · BC = |AB| * |BC| * Cos(theta).</para>
         /// </remarks>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
@@ -1608,7 +1608,7 @@ namespace Engine
         /// Return the dot product AB · BC.
         /// </returns>
         /// <remarks>
-        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
+        /// <para>Note that AB · BC = |AB| * |BC| * Cos(theta).</para>
         /// </remarks>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
@@ -1636,7 +1636,7 @@ namespace Engine
         /// Return the dot product AB · BC.
         /// </returns>
         /// <remarks>
-        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
+        /// <para>Note that AB · BC = |AB| * |BC| * Cos(theta).</para>
         /// </remarks>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
@@ -1667,7 +1667,7 @@ namespace Engine
         /// Return the dot product AB · BC.
         /// </returns>
         /// <remarks>
-        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
+        /// <para>Note that AB · BC = |AB| * |BC| * Cos(theta).</para>
         /// </remarks>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
@@ -1701,7 +1701,7 @@ namespace Engine
         /// Return the dot product AB · BC.
         /// </returns>
         /// <remarks>
-        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
+        /// <para>Note that AB · BC = |AB| * |BC| * Cos(theta).</para>
         /// </remarks>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
@@ -1721,7 +1721,7 @@ namespace Engine
         /// the cross product AB · BC.
         /// </returns>
         /// <remarks>
-        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
+        /// <para>Note that AB · BC = |AB| * |BC| * Cos(theta).</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

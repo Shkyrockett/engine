@@ -10,11 +10,14 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
     /// Channel After-touch Pressure Status.
     /// </summary>
+    /// <seealso cref="Engine.File.EventStatus" />
     /// <remarks>
     /// <para>nD 0vvvvvvv
     /// This message is most often sent by pressing down on the key after it "bottoms out".
@@ -26,12 +29,13 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ChannelPressure"/> class.
+        /// Initializes a new instance of the <see cref="ChannelPressure" /> class.
         /// </summary>
-        /// <param name="pressure">The pressure.</param>
         /// <param name="status">The status.</param>
-        public ChannelPressure(byte pressure, EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        /// <param name="pressure">The pressure.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ChannelPressure(IEventStatus status, byte pressure)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
             Pressure = pressure;
         }
@@ -39,6 +43,9 @@ namespace Engine.File
         /// <summary>
         /// Gets or sets the pressure.
         /// </summary>
+        /// <value>
+        /// The pressure.
+        /// </value>
         public byte Pressure { get; set; }
 
         /// <summary>
@@ -46,8 +53,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="ChannelPressure"/>.</returns>
-        internal static ChannelPressure Read(BinaryReaderExtended reader, EventStatus status) => new ChannelPressure(reader.ReadByte(), status);
+        /// <returns>
+        /// The <see cref="ChannelPressure" />.
+        /// </returns>
+        internal static new ChannelPressure Read(BinaryReaderExtended reader, IEventStatus status) => new ChannelPressure(status, reader.ReadByte());
 
         /// <summary>
         /// Converts to string.

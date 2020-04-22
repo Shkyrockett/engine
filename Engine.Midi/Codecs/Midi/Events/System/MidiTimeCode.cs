@@ -10,6 +10,8 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
@@ -24,19 +26,42 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MidiTimeCode"/> class.
+        /// Initializes a new instance of the <see cref="MidiTimeCode" /> class.
         /// </summary>
-        /// <param name="timeCode">The timeCode.</param>
         /// <param name="status">The status.</param>
-        public MidiTimeCode(byte timeCode, EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        /// <param name="timeCode">The time code.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public MidiTimeCode(IEventStatus status, byte timeCode)
+            : this(status, 1, timeCode)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MidiTimeCode" /> class.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <param name="length">The length.</param>
+        /// <param name="timeCode">The timeCode.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal MidiTimeCode(IEventStatus status, int length, byte timeCode)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
-            TimeCode = timeCode;
+            (Length, TimeCode) = (length, timeCode);
         }
+
+        /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
+        public int Length { get; }
 
         /// <summary>
         /// Gets or sets the time code.
         /// </summary>
+        /// <value>
+        /// The time code.
+        /// </value>
         public byte TimeCode { get; set; }
 
         /// <summary>
@@ -44,8 +69,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="MidiTimeCode"/>.</returns>
-        internal static MidiTimeCode Read(BinaryReaderExtended reader, EventStatus status) => new MidiTimeCode(reader.ReadByte(), status);
+        /// <returns>
+        /// The <see cref="MidiTimeCode" />.
+        /// </returns>
+        internal static new MidiTimeCode Read(BinaryReaderExtended reader, IEventStatus status) => new MidiTimeCode(status, reader.ReadVariableLengthInt(), reader.ReadByte());
 
         /// <summary>
         /// Converts to string.

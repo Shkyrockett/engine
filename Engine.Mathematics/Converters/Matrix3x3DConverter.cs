@@ -18,7 +18,7 @@ namespace Engine
     /// The matrix3x3D converter class.
     /// </summary>
     /// <remarks>
-    /// http://referencesource.microsoft.com
+    /// <para>http://referencesource.microsoft.com</para>
     /// </remarks>
     public sealed class Matrix3x3DConverter
         : TypeConverter

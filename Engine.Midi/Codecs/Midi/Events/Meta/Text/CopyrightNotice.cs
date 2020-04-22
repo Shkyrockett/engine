@@ -15,6 +15,7 @@ namespace Engine.File
     /// <summary>
     /// Copyright Notice.
     /// </summary>
+    /// <seealso cref="Engine.File.BaseTextEvent" />
     /// <remarks>
     /// <para>FF 02 len text</para>
     /// </remarks>
@@ -23,12 +24,12 @@ namespace Engine.File
         : BaseTextEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CopyrightNotice"/> class.
+        /// Initializes a new instance of the <see cref="CopyrightNotice" /> class.
         /// </summary>
-        /// <param name="text">The text.</param>
         /// <param name="status">The status.</param>
-        public CopyrightNotice(string text, EventStatus status)
-            : base(text, status)
+        /// <param name="text">The text.</param>
+        public CopyrightNotice(IEventStatus status, string text)
+            : base(status, text)
         { }
 
         /// <summary>
@@ -36,8 +37,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="CopyrightNotice"/>.</returns>
-        internal static CopyrightNotice Read(BinaryReaderExtended reader, EventStatus status) => new CopyrightNotice(reader.ReadASCIIString(), status);
+        /// <returns>
+        /// The <see cref="CopyrightNotice" />.
+        /// </returns>
+        internal static new CopyrightNotice Read(BinaryReaderExtended reader, IEventStatus status) => new CopyrightNotice(status, reader.ReadASCIIString());
 
         /// <summary>
         /// Converts to string.

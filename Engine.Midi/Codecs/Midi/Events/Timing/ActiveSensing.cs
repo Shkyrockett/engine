@@ -10,25 +10,29 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
-    /// Active Sensing. This message is intended to be sent repeatedly to tell the receiver that a connection is alive. Use of this message is optional. When initially received, the receiver will expect to receive another Active Sensing message each 300ms (max), and if it does not then it will assume that the connection has been terminated. At termination, the receiver will turn off all voices and return to normal (non- active sensing) operation. 
+    /// Active Sensing. This message is intended to be sent repeatedly to tell the receiver that a connection is alive. Use of this message is optional. When initially received, the receiver will expect to receive another Active Sensing message each 300ms (max), and if it does not then it will assume that the connection has been terminated. At termination, the receiver will turn off all voices and return to normal (non- active sensing) operation.
     /// </summary>
+    /// <seealso cref="Engine.File.EventStatus" />
     /// <remarks>
-    /// <para>nF 0E 
-    /// This message is intended to be sent repeatedly to tell the receiver that a connection is alive. Use of this message is optional. When initially received, the receiver will expect to receive another Active Sensing message each 300ms (max), and if it does not then it will assume that the connection has been terminated. At termination, the receiver will turn off all voices and return to normal (non- active sensing) operation.</para> 
+    /// <para>nF 0E
+    /// This message is intended to be sent repeatedly to tell the receiver that a connection is alive. Use of this message is optional. When initially received, the receiver will expect to receive another Active Sensing message each 300ms (max), and if it does not then it will assume that the connection has been terminated. At termination, the receiver will turn off all voices and return to normal (non- active sensing) operation.</para>
     /// </remarks>
     [ElementName(nameof(ActiveSensing))]
     public class ActiveSensing
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ActiveSensing"/> class.
+        /// Initializes a new instance of the <see cref="ActiveSensing" /> class.
         /// </summary>
         /// <param name="status">The status.</param>
-        public ActiveSensing(EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ActiveSensing(IEventStatus status)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         { }
 
         /// <summary>
@@ -36,8 +40,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="ActiveSensing"/>.</returns>
-        internal static ActiveSensing Read(BinaryReaderExtended reader, EventStatus status)
+        /// <returns>
+        /// The <see cref="ActiveSensing" />.
+        /// </returns>
+        internal static new ActiveSensing Read(BinaryReaderExtended reader, IEventStatus status)
         {
             _ = reader;
             return new ActiveSensing(status);

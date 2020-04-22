@@ -25,10 +25,10 @@ namespace Engine.File
         /// <summary>
         /// Initializes a new instance of the <see cref="DeviceName"/> class.
         /// </summary>
-        /// <param name="text">The text.</param>
         /// <param name="status">The status.</param>
-        public DeviceName(string text, EventStatus status)
-            : base(text, status)
+        /// <param name="text">The text.</param>
+        public DeviceName(IEventStatus status, string text)
+            : base(status, text)
         { }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="DeviceName"/>.</returns>
-        internal static DeviceName Read(BinaryReaderExtended reader, EventStatus status) => new DeviceName(reader.ReadASCIIString(), status);
+        internal static new DeviceName Read(BinaryReaderExtended reader, IEventStatus status) => new DeviceName(status, reader.ReadASCIIString());
 
         /// <summary>
         /// Converts to string.

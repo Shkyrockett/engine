@@ -10,6 +10,8 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
@@ -18,16 +20,17 @@ namespace Engine.File
     /// <remarks>
     /// <para>FF 01 len text</para>
     /// </remarks>
-    public abstract class BaseTextEvent
+    public class BaseTextEvent
         : EventStatus
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTextEvent"/> class.
         /// </summary>
-        /// <param name="text">The text.</param>
         /// <param name="status">The status.</param>
-        public BaseTextEvent(string text, EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        /// <param name="text">The text.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public BaseTextEvent(IEventStatus status, string text)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
             Text = text;
         }
@@ -36,6 +39,14 @@ namespace Engine.File
         /// Gets or sets the text.
         /// </summary>
         public string Text { get; set; }
+
+        /// <summary>
+        /// Read.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="BaseTextEvent"/>.</returns>
+        internal static new BaseTextEvent Read(BinaryReaderExtended reader, IEventStatus status) => new BaseTextEvent(status, reader.ReadASCIIString());
 
         /// <summary>
         /// Converts to string.

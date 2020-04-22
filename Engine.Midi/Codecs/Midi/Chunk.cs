@@ -91,7 +91,7 @@ namespace Engine.File
         /// <returns></returns>
         internal static Chunk Read(BinaryReaderExtended reader)
         {
-            var chunk = new Chunk(reader.ReadASCIIBytes(4), reader.ReadNetworkInt32());
+            var chunk = new Chunk(reader.ReadASCIIString(4), reader.ReadNetworkInt32());
             Validate(chunk);
             if (chunk.Length > reader.BaseStream.Length - reader.BaseStream.Position)
             {

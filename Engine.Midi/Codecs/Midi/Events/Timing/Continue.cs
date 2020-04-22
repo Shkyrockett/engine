@@ -10,13 +10,16 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
     /// Continue. Continue at the point the sequence was Stopped.
     /// </summary>
+    /// <seealso cref="Engine.File.EventStatus" />
     /// <remarks>
-    /// <para>nF 0B 
+    /// <para>nF 0B
     /// Continue at the point the sequence was Stopped.</para>
     /// </remarks>
     [ElementName(nameof(Continue))]
@@ -24,11 +27,12 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Continue"/> class.
+        /// Initializes a new instance of the <see cref="Continue" /> class.
         /// </summary>
         /// <param name="status">The status.</param>
-        public Continue(EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Continue(IEventStatus status)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         { }
 
         /// <summary>
@@ -36,8 +40,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="Continue"/>.</returns>
-        internal static Continue Read(BinaryReaderExtended reader, EventStatus status)
+        /// <returns>
+        /// The <see cref="Continue" />.
+        /// </returns>
+        internal static new Continue Read(BinaryReaderExtended reader, IEventStatus status)
         {
             _ = reader;
             return new Continue(status);

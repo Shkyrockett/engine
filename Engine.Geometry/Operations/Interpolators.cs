@@ -1469,7 +1469,7 @@ namespace Engine
         /// </returns>
         public static CubicBezier2D TweenCubic(double t, CubicBezier2D key1, CubicBezier2D key2)
             => new CubicBezier2D(
-                 (key1.A) + (t * ((key2.A) - key1.A)),
+                 key1.A + (t * (key2.A - key1.A)),
                  key1.B + (t * (key2.B - key1.B)),
                  key1.C + (t * (key2.C - key1.C)),
                  key1.D + (t * (key2.D - key1.D))

@@ -200,7 +200,7 @@ namespace Engine
         {
             var polygon = new Polyline2D();
 
-            var offsetLine = OffsetSegment((polyline.Points[0]), polyline.Points[1], offset).ToLine();
+            var offsetLine = OffsetSegment(polyline.Points[0], polyline.Points[1], offset).ToLine();
             polygon.Add(offsetLine.Location);
 
             for (var i = 2; i < polyline.Points.Count; i++)

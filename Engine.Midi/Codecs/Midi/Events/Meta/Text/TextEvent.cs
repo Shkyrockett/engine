@@ -25,10 +25,10 @@ namespace Engine.File
         /// <summary>
         /// Initializes a new instance of the <see cref="TextEvent"/> class.
         /// </summary>
-        /// <param name="text">The text.</param>
         /// <param name="status">The status.</param>
-        public TextEvent(string text, EventStatus status)
-            : base(text, status)
+        /// <param name="text">The text.</param>
+        public TextEvent(IEventStatus status, string text)
+            : base(status, text)
         { }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="TextEvent"/>.</returns>
-        internal static TextEvent Read(BinaryReaderExtended reader, EventStatus status) => new TextEvent(reader.ReadASCIIString(), status);
+        internal static new TextEvent Read(BinaryReaderExtended reader, IEventStatus status) => new TextEvent(status, reader.ReadASCIIString());
 
         /// <summary>
         /// Converts to string.

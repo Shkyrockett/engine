@@ -10,6 +10,9 @@
 // <references>
 // </references>
 
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
@@ -24,23 +27,46 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EndOfExclusive"/> class.
+        /// Initializes a new instance of the <see cref="EndOfExclusive" /> class.
         /// </summary>
         /// <param name="status">The status.</param>
-        public EndOfExclusive(EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
-        { }
+        /// <param name="exclusive">The exclusive.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public EndOfExclusive(IEventStatus status, byte[] exclusive)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
+        {
+            Exclusive = exclusive;
+        }
+
+        /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
+        public int Length => Exclusive.Length;
+
+        /// <summary>
+        /// Gets or sets the exclusive.
+        /// </summary>
+        /// <value>
+        /// The exclusive.
+        /// </value>
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
+        public byte[] Exclusive { get; set; }
 
         /// <summary>
         /// Read.
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="EndOfExclusive"/>.</returns>
-        internal static EndOfExclusive Read(BinaryReaderExtended reader, EventStatus status)
+        /// <returns>
+        /// The <see cref="EndOfExclusive" />.
+        /// </returns>
+        internal static new EndOfExclusive Read(BinaryReaderExtended reader, IEventStatus status)
         {
-            _ = reader;
-            return new EndOfExclusive(status);
+            var buffer = reader.ReadVariableLengthBytes();
+            return new EndOfExclusive(status, buffer);
         }
 
         /// <summary>

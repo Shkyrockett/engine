@@ -10,13 +10,16 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
     /// Start. Start the current sequence playing. (This message will be followed with Timing Clocks).
     /// </summary>
+    /// <seealso cref="Engine.File.EventStatus" />
     /// <remarks>
-    /// <para>nF 0A 
+    /// <para>nF 0A
     /// Start the current sequence playing. (This message will be followed with Timing Clocks).</para>
     /// </remarks>
     [ElementName(nameof(Start))]
@@ -24,11 +27,12 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Start"/> class.
+        /// Initializes a new instance of the <see cref="Start" /> class.
         /// </summary>
         /// <param name="status">The status.</param>
-        public Start(EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Start(IEventStatus status)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         { }
 
         /// <summary>
@@ -36,8 +40,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="Start"/>.</returns>
-        internal static Start Read(BinaryReaderExtended reader, EventStatus status)
+        /// <returns>
+        /// The <see cref="Start" />.
+        /// </returns>
+        internal static new Start Read(BinaryReaderExtended reader, IEventStatus status)
         {
             _ = reader;
             return new Start(status);

@@ -10,6 +10,8 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
@@ -28,17 +30,40 @@ namespace Engine.File
         /// <summary>
         /// Initializes a new instance of the <see cref="SongPosition"/> class.
         /// </summary>
-        /// <param name="beats">The beats.</param>
         /// <param name="status">The status.</param>
-        public SongPosition(short beats, EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        /// <param name="beats">The beats.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public SongPosition(IEventStatus status, short beats)
+            : this(status, 2, beats)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SongPosition" /> class.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <param name="length">The length.</param>
+        /// <param name="beats">The beats.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal SongPosition(IEventStatus status, int length, short beats)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
-            Beats = beats;
+            (Length, Beats) = (length, beats);
         }
+
+        /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
+        public object Length { get; }
 
         /// <summary>
         /// Gets or sets the beats.
         /// </summary>
+        /// <value>
+        /// The beats.
+        /// </value>
         public short Beats { get; set; }
 
         /// <summary>
@@ -46,8 +71,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="SongPosition"/>.</returns>
-        internal static SongPosition Read(BinaryReaderExtended reader, EventStatus status) => new SongPosition(reader.ReadNetworkInt14(), status);
+        /// <returns>
+        /// The <see cref="SongPosition" />.
+        /// </returns>
+        internal static new SongPosition Read(BinaryReaderExtended reader, IEventStatus status) => new SongPosition(status, reader.ReadVariableLengthInt(), reader.ReadNetworkInt14());
 
         /// <summary>
         /// Converts to string.

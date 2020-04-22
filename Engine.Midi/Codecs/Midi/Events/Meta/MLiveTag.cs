@@ -1,5 +1,5 @@
-﻿// <copyright file="Tempo.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
+﻿// <copyright file="MLiveTag.cs" company="Shkyrockett">
+//     Copyright © 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -15,37 +15,40 @@ using System.Runtime.CompilerServices;
 namespace Engine.File
 {
     /// <summary>
-    /// Set tempo.
+    /// M-Live Tag.
     /// </summary>
     /// <seealso cref="Engine.File.EventStatus" />
     /// <remarks>
-    /// <para>FF 51 03  TT TT TT</para>
+    /// <para>FF 4B len tt text</para>
+    /// <para>https://www.mixagesoftware.com/en/midikit/help/HTML/meta_events.html</para>
     /// </remarks>
-    [ElementName(nameof(Tempo))]
-    public class Tempo
+    [ElementName(nameof(MLiveTag))]
+    public class MLiveTag
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Tempo" /> class.
+        /// Initializes a new instance of the <see cref="MLiveTag"/> class.
         /// </summary>
         /// <param name="status">The status.</param>
-        /// <param name="value">The value.</param>
+        /// <param name="tag">The tag.</param>
+        /// <param name="text">The text.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Tempo(IEventStatus status, int value)
-            : this(status, 3, value)
+        public MLiveTag(IEventStatus status, MusicLiveTag tag, string text)
+            : this(status, (text?.Length ?? 0) + 1, tag, text)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Tempo" /> class.
+        /// Initializes a new instance of the <see cref="MLiveTag"/> class.
         /// </summary>
         /// <param name="status">The status.</param>
         /// <param name="length">The length.</param>
-        /// <param name="value">The value.</param>
+        /// <param name="tag">The tag.</param>
+        /// <param name="text">The text.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal Tempo(IEventStatus status, int length, int value)
+        public MLiveTag(IEventStatus status, int length, MusicLiveTag tag, string text)
             : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
-            (Value, Length) = (value, length);
+            (Length, Tag, Text) = (length, tag, text);
         }
 
         /// <summary>
@@ -57,12 +60,20 @@ namespace Engine.File
         public int Length { get; }
 
         /// <summary>
-        /// Gets or sets the value.
+        /// Gets or sets the tag.
         /// </summary>
         /// <value>
-        /// The value.
+        /// The tag.
         /// </value>
-        public int Value { get; set; }
+        public MusicLiveTag Tag { get; set; }
+
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
+        public string Text { get; set; }
 
         /// <summary>
         /// Read.
@@ -70,9 +81,13 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>
-        /// The <see cref="Tempo" />.
+        /// The <see cref="TimeSignature" />.
         /// </returns>
-        internal static new Tempo Read(BinaryReaderExtended reader, IEventStatus status) => new Tempo(status, reader.ReadVariableLengthInt(), reader.ReadNetworkInt24());
+        internal static new MLiveTag Read(BinaryReaderExtended reader, IEventStatus status)
+        {
+            int length = reader.ReadVariableLengthInt();
+            return new MLiveTag(status, length, (MusicLiveTag)reader.ReadByte(), reader.ReadUTF8String(length - 1));
+        }
 
         /// <summary>
         /// Converts to string.
@@ -80,6 +95,6 @@ namespace Engine.File
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString() => "Tempo";
+        public override string ToString() => "M-Live Tag";
     }
 }

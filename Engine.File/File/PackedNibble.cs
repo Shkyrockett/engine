@@ -18,6 +18,7 @@ namespace Engine.File
     /// <summary>
     /// The packed nibble struct.
     /// </summary>
+    /// <seealso cref="System.IEquatable{Engine.File.PackedNibble}" />
     /// <!-- This class is based on several solutions found at: http://stackoverflow.com/questions/11607848/working-with-nibbles-in-c-sharp -->
     public struct PackedNibble
         : IEquatable<PackedNibble>
@@ -28,7 +29,7 @@ namespace Engine.File
         private byte packedValue;// = 0;
 
         /// <summary>
-        /// Creates an instance of the <see cref="PackedNibble"/> class.
+        /// Creates an instance of the <see cref="PackedNibble" /> class.
         /// </summary>
         /// <param name="highNibble">Initial value for the y component.</param>
         /// <param name="lowNibble">Initial value for the x component.</param>
@@ -41,7 +42,7 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PackedNibble"/> class.
+        /// Initializes a new instance of the <see cref="PackedNibble" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
         public PackedNibble(byte value)
@@ -60,6 +61,9 @@ namespace Engine.File
         /// <summary>
         /// Gets or sets the high nibble.
         /// </summary>
+        /// <value>
+        /// The high nibble.
+        /// </value>
         public byte HighNibble
         {
             get { return (byte)(packedValue >> 4); }
@@ -69,6 +73,9 @@ namespace Engine.File
         /// <summary>
         /// Gets or sets the low nibble.
         /// </summary>
+        /// <value>
+        /// The low nibble.
+        /// </value>
         public byte LowNibble
         {
             get { return (byte)(packedValue & 0x0F); }
@@ -76,10 +83,10 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Packs the nibbles.
         /// </summary>
-        /// <param name="lowNibble"></param>
-        /// <param name="highNibble"></param>
+        /// <param name="lowNibble">The low nibble.</param>
+        /// <param name="highNibble">The high nibble.</param>
         /// <returns></returns>
         public static byte PackNibbles(byte lowNibble, byte highNibble)
         {
@@ -90,41 +97,44 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Unpacks the nibbles.
         /// </summary>
-        /// <param name="packedValue"></param>
+        /// <param name="packedValue">The packed value.</param>
         /// <returns></returns>
-        public static (byte LowNibble, byte HighNibble) UnpackNibbles(byte packedValue)
-            => ((byte)(packedValue & 0x0F), (byte)(packedValue >> 0x04));
+        public static (byte LowNibble, byte HighNibble) UnpackNibbles(byte packedValue) => ((byte)(packedValue & 0x0F), (byte)(packedValue >> 0x04));
 
         /// <summary>
         /// The operator ==.
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        public static bool operator ==(PackedNibble a, PackedNibble b)
-            => a.packedValue == b.packedValue;
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        public static bool operator ==(PackedNibble a, PackedNibble b) => a.packedValue == b.packedValue;
 
         /// <summary>
         /// The operator !=.
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        public static bool operator !=(PackedNibble a, PackedNibble b)
-            => a.packedValue != b.packedValue;
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        public static bool operator !=(PackedNibble a, PackedNibble b) => a.packedValue != b.packedValue;
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public override bool Equals(object obj)
         {
-            if (obj is PackedNibble)
+            if (obj is PackedNibble nibble)
             {
-                return Equals((PackedNibble)obj);
+                return Equals(nibble);
             }
 
             return false;
@@ -134,22 +144,25 @@ namespace Engine.File
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        public bool Equals(PackedNibble other)
-            => packedValue == other.packedValue;
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        public bool Equals(PackedNibble other) => packedValue == other.packedValue;
 
         /// <summary>
         /// The to string.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString()
-            => $"HighNibble: {HighNibble.ToString(CultureInfo.InvariantCulture)} LowNibble: {LowNibble.ToString(CultureInfo.InvariantCulture)}";
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
+        public override string ToString() => $"HighNibble: {HighNibble.ToString(CultureInfo.InvariantCulture)} LowNibble: {LowNibble.ToString(CultureInfo.InvariantCulture)}";
 
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
-        public override int GetHashCode()
-            => packedValue;
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
+        public override int GetHashCode() => packedValue;
     }
 }

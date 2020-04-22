@@ -10,11 +10,14 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
     /// Program Change Status.
     /// </summary>
+    /// <seealso cref="Engine.File.EventStatus" />
     /// <remarks>
     /// <para>nC 0ppppppp
     /// This message sent when the patch number changes. (ppppppp) is the new program number.</para>
@@ -24,12 +27,13 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProgramChange"/> class.
+        /// Initializes a new instance of the <see cref="ProgramChange" /> class.
         /// </summary>
-        /// <param name="program">The program.</param>
         /// <param name="status">The status.</param>
-        public ProgramChange(byte program, EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        /// <param name="program">The program.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ProgramChange(IEventStatus status, GeneralMidiInstrument program)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
             Program = program;
         }
@@ -37,15 +41,20 @@ namespace Engine.File
         /// <summary>
         /// Gets or sets the program.
         /// </summary>
-        public byte Program { get; set; }
+        /// <value>
+        /// The program.
+        /// </value>
+        public GeneralMidiInstrument Program { get; set; }
 
         /// <summary>
         /// Read.
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="ProgramChange"/>.</returns>
-        internal static ProgramChange Read(BinaryReaderExtended reader, EventStatus status) => new ProgramChange(reader.ReadByte(), status);
+        /// <returns>
+        /// The <see cref="ProgramChange" />.
+        /// </returns>
+        internal static new ProgramChange Read(BinaryReaderExtended reader, IEventStatus status) => new ProgramChange(status, (GeneralMidiInstrument)reader.ReadByte());
 
         /// <summary>
         /// Converts to string.
@@ -53,6 +62,6 @@ namespace Engine.File
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString() => "Program Change";
+        public override string ToString() => $"Program Change: {Program}";
     }
 }

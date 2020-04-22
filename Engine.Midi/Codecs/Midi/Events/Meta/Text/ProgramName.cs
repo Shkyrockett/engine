@@ -25,10 +25,10 @@ namespace Engine.File
         /// <summary>
         /// Initializes a new instance of the <see cref="ProgramName"/> class.
         /// </summary>
-        /// <param name="text">The text.</param>
         /// <param name="status">The status.</param>
-        public ProgramName(string text, EventStatus status)
-            : base(text, status)
+        /// <param name="text">The text.</param>
+        public ProgramName(IEventStatus status, string text)
+            : base(status, text)
         { }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="ProgramName"/>.</returns>
-        internal static ProgramName Read(BinaryReaderExtended reader, EventStatus status) => new ProgramName(reader.ReadASCIIString(), status);
+        internal static new ProgramName Read(BinaryReaderExtended reader, IEventStatus status) => new ProgramName(status, reader.ReadASCIIString());
 
         /// <summary>
         /// Converts to string.

@@ -12,6 +12,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Engine.File
 {
@@ -20,7 +21,7 @@ namespace Engine.File
     /// </summary>
     /// <remarks>
     /// <para>nF 00 0iiiiiii [0iiiiiii 0iiiiiii] 0ddddddd --- --- 0ddddddd 11110111
-    /// This message type allows manufacturers to create their own messages 
+    /// This message type allows manufacturers to create their own messages
     /// (such as bulk dumps, patch parameters, and other non-spec data)
     /// and provides a mechanism for creating additional MIDI Specification messages.
     /// The Manufacturer's ID code (assigned by MMA or AMEI) is either 1 byte (0iiiiiii)
@@ -30,25 +31,38 @@ namespace Engine.File
     /// it will listen to the rest of the message (0ddddddd). Otherwise, the message will be ignored.
     /// (Note: Only Real-Time messages may be interleaved with a System Exclusive.)</para>
     /// </remarks>
+    /// <seealso cref="Engine.File.EventStatus" />
     [ElementName(nameof(SystemExclusive))]
     [DisplayName("System Exclusive")]
     public class SystemExclusive
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SystemExclusive"/> class.
+        /// Initializes a new instance of the <see cref="SystemExclusive" /> class.
         /// </summary>
-        /// <param name="exclusive">The exclusive.</param>
         /// <param name="status">The status.</param>
-        public SystemExclusive(byte[] exclusive, EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        /// <param name="exclusive">The exclusive.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public SystemExclusive(IEventStatus status, byte[] exclusive)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
             Exclusive = exclusive;
         }
 
         /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
+        public int Length => Exclusive.Length;
+
+        /// <summary>
         /// Gets or sets the exclusive.
         /// </summary>
+        /// <value>
+        /// The exclusive.
+        /// </value>
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public byte[] Exclusive { get; set; }
 
@@ -59,8 +73,10 @@ namespace Engine.File
         /// <param name="status">The status.</param>
         /// <param name="sysExContinue">A flag indicating whether we're in a multi-segment system exclusive message.</param>
         /// <param name="sysExData">system exclusive data up to this point from a multi-segment message.</param>
-        /// <returns>The <see cref="SystemExclusive"/>.</returns>
-        internal static SystemExclusive Read(BinaryReaderExtended reader, EventStatus status, ref bool sysExContinue, ref byte[] sysExData)
+        /// <returns>
+        /// The <see cref="SystemExclusive" />.
+        /// </returns>
+        internal static SystemExclusive Read(BinaryReaderExtended reader, IEventStatus status, ref bool sysExContinue, ref byte[] sysExData)
         {
             var buffer = reader.ReadVariableLengthBytes();
             if (sysExData is null)
@@ -77,7 +93,7 @@ namespace Engine.File
             {
                 // If this is single-segment message, process the whole thing
                 sysExData = buffer;
-                return new SystemExclusive(sysExData, status);
+                return new SystemExclusive(status, sysExData);
             }
             else
             {
@@ -92,8 +108,16 @@ namespace Engine.File
                 Array.Copy(buffer, 0, newSysExData, sysExData.Length, buffer.Length);
                 sysExData = newSysExData;
                 sysExContinue = true;
-                return new SystemExclusive(sysExData, status);
+                return new SystemExclusive(status, sysExData);
             }
         }
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "System Exclusive";
     }
 }

@@ -83,8 +83,15 @@ namespace Engine.File
         /// </summary>
         EffectControl2Coarse = 0x0D,
 
-        // Undefined 0x0E.
-        // Undefined 0x0F.
+        ///// <summary>
+        ///// The MSB for control14. Undefined.
+        ///// </summary>
+        //MSBForControl14 = 0x0E,
+
+        ///// <summary>
+        ///// The MSB for control15. Undefined.
+        ///// </summary>
+        //MSBForControl15 = 0x0F,
 
         /// <summary>
         /// General Purpose Controller 1.
@@ -106,18 +113,65 @@ namespace Engine.File
         /// </summary>
         GeneralPurposeSliderController4 = 0x13,
 
-        // Undefined 0x14.
-        // Undefined 0x15.
-        // Undefined 0x16.
-        // Undefined 0x17.
-        // Undefined 0x18.
-        // Undefined 0x19.
-        // Undefined 0x1A.
-        // Undefined 0x1B.
-        // Undefined 0x1C.
-        // Undefined 0x1D.
-        // Undefined 0x1E.
-        // Undefined 0x1F.
+        ///// <summary>
+        ///// The MSB for control20. Undefined.
+        ///// </summary>
+        //MSBForControl20 = 0x14,
+
+        ///// <summary>
+        ///// The MSB for control21. Undefined.
+        ///// </summary>
+        //MSBForControl21 = 0x15,
+
+        ///// <summary>
+        ///// The MSB for control22. Undefined.
+        ///// </summary>
+        //MSBForControl22 = 0x16,
+
+        ///// <summary>
+        ///// The MSB for control23. Undefined.
+        ///// </summary>
+        //MSBForControl23 = 0x17,
+
+        ///// <summary>
+        ///// The MSB for control24. Undefined.
+        ///// </summary>
+        //MSBForControl24 = 0x18,
+
+        ///// <summary>
+        ///// The MSB for control25. Undefined.
+        ///// </summary>
+        //MSBForControl25 = 0x19,
+
+        ///// <summary>
+        ///// The MSB for control26. Undefined.
+        ///// </summary>
+        //MSBForControl26 = 0x1A,
+
+        ///// <summary>
+        ///// The MSB for control27. Undefined.
+        ///// </summary>
+        //MSBForControl27 = 0x1B,
+
+        ///// <summary>
+        ///// The MSB for control28. Undefined.
+        ///// </summary>
+        //MSBForControl28 = 0x1C,
+
+        ///// <summary>
+        ///// The MSB for control29. Undefined.
+        ///// </summary>
+        //MSBForControl29 = 0x1D,
+
+        ///// <summary>
+        ///// The MSB for control30. Undefined.
+        ///// </summary>
+        //MSBForControl30 = 0x1E,
+
+        ///// <summary>
+        ///// The MSB for control31. Undefined.
+        ///// </summary>
+        //MSBForControl31 = 0x1F,
 
         /// <summary>
         /// LSB For Control 0 Bank Select.
@@ -164,10 +218,10 @@ namespace Engine.File
         /// </summary>
         BalanceFine = 0x28,
 
-        /// <summary>
-        /// LSB For Control 9 Undefined.
-        /// </summary>
-        LSBForControl9 = 0x29,
+        ///// <summary>
+        ///// LSB For Control 9 Undefined.
+        ///// </summary>
+        //LSBForControl9 = 0x29,
 
         /// <summary>
         /// LSB For Control 10 Pan.
@@ -189,15 +243,15 @@ namespace Engine.File
         /// </summary>
         EffectControl2Fine = 0x2D,
 
-        /// <summary>
-        /// LSB For Control 14 Undefined.
-        /// </summary>
-        LSBForControl14 = 0x2E,
+        ///// <summary>
+        ///// LSB For Control 14 Undefined.
+        ///// </summary>
+        //LSBForControl14 = 0x2E,
 
-        /// <summary>
-        /// LSB For Control 15 Undefined.
-        /// </summary>
-        LSBForControl15 = 0x2F,
+        ///// <summary>
+        ///// LSB For Control 15 Undefined.
+        ///// </summary>
+        //LSBForControl15 = 0x2F,
 
         /// <summary>
         /// LSB For Control 16 General Purpose Controller 1.
@@ -219,65 +273,65 @@ namespace Engine.File
         /// </summary>
         LSBForControl19 = 0x33,
 
-        /// <summary>
-        /// LSB For Control 20 Undefined.
-        /// </summary>
-        LSBForControl20 = 0x34,
+        ///// <summary>
+        ///// LSB For Control 20 Undefined.
+        ///// </summary>
+        //LSBForControl20 = 0x34,
 
-        /// <summary>
-        /// LSB For Control 21 Undefined.
-        /// </summary>
-        LSBForControl21 = 0x35,
+        ///// <summary>
+        ///// LSB For Control 21 Undefined.
+        ///// </summary>
+        //LSBForControl21 = 0x35,
 
-        /// <summary>
-        /// LSB For Control 22 Undefined.
-        /// </summary>
-        LSBForControl22 = 0x36,
+        ///// <summary>
+        ///// LSB For Control 22 Undefined.
+        ///// </summary>
+        //LSBForControl22 = 0x36,
 
-        /// <summary>
-        /// LSB For Control 23 Undefined.
-        /// </summary>
-        LSBForControl23 = 0x37,
+        ///// <summary>
+        ///// LSB For Control 23 Undefined.
+        ///// </summary>
+        //LSBForControl23 = 0x37,
 
-        /// <summary>
-        /// LSB For Control 24 Undefined.
-        /// </summary>
-        LSBForControl24 = 0x38,
+        ///// <summary>
+        ///// LSB For Control 24 Undefined.
+        ///// </summary>
+        //LSBForControl24 = 0x38,
 
-        /// <summary>
-        /// LSB For Control 25 Undefined.
-        /// </summary>
-        LSBForControl25 = 0x39,
+        ///// <summary>
+        ///// LSB For Control 25 Undefined.
+        ///// </summary>
+        //LSBForControl25 = 0x39,
 
-        /// <summary>
-        /// LSB For Control 26 Undefined.
-        /// </summary>
-        LSBForControl26 = 0x3A,
+        ///// <summary>
+        ///// LSB For Control 26 Undefined.
+        ///// </summary>
+        //LSBForControl26 = 0x3A,
 
-        /// <summary>
-        /// LSB For Control 27 Undefined.
-        /// </summary>
-        LSBForControl27 = 0x3B,
+        ///// <summary>
+        ///// LSB For Control 27 Undefined.
+        ///// </summary>
+        //LSBForControl27 = 0x3B,
 
-        /// <summary>
-        /// LSB For Control 28 Undefined.
-        /// </summary>
-        LSBForControl28 = 0x3C,
+        ///// <summary>
+        ///// LSB For Control 28 Undefined.
+        ///// </summary>
+        //LSBForControl28 = 0x3C,
 
-        /// <summary>
-        /// LSB For Control 29 Undefined.
-        /// </summary>
-        LSBForControl29 = 0x3D,
+        ///// <summary>
+        ///// LSB For Control 29 Undefined.
+        ///// </summary>
+        //LSBForControl29 = 0x3D,
 
-        /// <summary>
-        /// LSB For Control 30 Undefined.
-        /// </summary>
-        LSBForControl30 = 0x3E,
+        ///// <summary>
+        ///// LSB For Control 30 Undefined.
+        ///// </summary>
+        //LSBForControl30 = 0x3E,
 
-        /// <summary>
-        /// LSBFor Control 31 Undefined.
-        /// </summary>
-        LSBForControl31 = 0x3F,
+        ///// <summary>
+        ///// LSBFor Control 31 Undefined.
+        ///// </summary>
+        //LSBForControl31 = 0x3F,
 
         /// <summary>
         /// Sustain Damper-Pedal.
@@ -419,7 +473,7 @@ namespace Engine.File
         /// <summary>
         /// Effects Depth 5 formerly Phaser Depth.
         /// </summary>
-        PhaseLevel = 0x5F,
+        PhaserLevel = 0x5F,
 
         /// <summary>
         /// Data Entry +1 see MMA RP-018.
@@ -451,7 +505,37 @@ namespace Engine.File
         /// </summary>
         RegisteredParameterCourse = 0x65,
 
+        /// <summary>
+        /// The set marker byte. Unofficial.
+        /// </summary>
+        SetMarkerByte = 0x66,
+
+        /// <summary>
+        /// The rhythm mode change. Unofficial.
+        /// </summary>
+        RhythmModeChange = 0x67,
+
+        /// <summary>
+        /// The transpose up. Unofficial.
+        /// </summary>
+        TransposeUp = 0x68,
+
+        /// <summary>
+        /// The transpose down. Unofficial.
+        /// </summary>
+        TransposeDown = 0x69,
+
         // Undefined 0x66 - 0x77.
+
+        /// <summary>
+        /// Extended Midi loop start.
+        /// </summary>
+        LoopStart = 0x74,
+
+        /// <summary>
+        /// Extended Midi loop end.
+        /// </summary>
+        LoopEnd = 0x75,
 
         // 0x78-0x7F Mode Messages.
 

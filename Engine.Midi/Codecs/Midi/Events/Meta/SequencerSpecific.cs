@@ -11,36 +11,49 @@
 // </references>
 
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Engine.File
 {
     /// <summary>
     /// Sequencer specific proprietary event.
     /// </summary>
+    /// <seealso cref="Engine.File.EventStatus" />
     /// <remarks>
     /// <para>FF 7F len data
     /// System exclusive events and meta events cancel any running status which was in effect.
     /// Running status does not apply to and may not be used for these messages.</para>
     /// </remarks>
     [ElementName(nameof(SequencerSpecific))]
-    [DisplayName("Sequencer Specific")]
     public class SequencerSpecific
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SequencerSpecific"/> class.
+        /// Initializes a new instance of the <see cref="SequencerSpecific" /> class.
         /// </summary>
-        /// <param name="data">The data.</param>
         /// <param name="status">The status.</param>
-        public SequencerSpecific(byte[] data, EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        /// <param name="data">The data.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public SequencerSpecific(IEventStatus status, byte[] data)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
             Data = data;
         }
 
         /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
+        public int Length => Data.Length;
+
+        /// <summary>
         /// Gets or sets the data.
         /// </summary>
+        /// <value>
+        /// The data.
+        /// </value>
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public byte[] Data { get; set; }
 
@@ -49,8 +62,17 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="SequencerSpecific"/>.</returns>
-        internal static SequencerSpecific Read(BinaryReaderExtended reader, EventStatus status)
-            => new SequencerSpecific(reader.ReadVariableLengthBytes(), status);
+        /// <returns>
+        /// The <see cref="SequencerSpecific" />.
+        /// </returns>
+        internal static new SequencerSpecific Read(BinaryReaderExtended reader, IEventStatus status) => new SequencerSpecific(status, reader.ReadVariableLengthBytes());
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => "Sequencer Specific";
     }
 }

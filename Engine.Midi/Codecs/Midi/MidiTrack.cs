@@ -13,6 +13,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Engine.File
 {
@@ -25,35 +26,39 @@ namespace Engine.File
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="MidiTrack"/> class.
+        /// Initializes a new instance of the <see cref="MidiTrack" /> class.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public MidiTrack()
-            : this(new List<EventStatus>())
+            : this(new List<IEventStatus>())
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MidiTrack"/> class.
+        /// Initializes a new instance of the <see cref="MidiTrack" /> class.
         /// </summary>
         /// <param name="events">The events.</param>
-        public MidiTrack(params EventStatus[] events)
-            : this(new List<EventStatus>(events))
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public MidiTrack(params IEventStatus[] events)
+            : this(new List<IEventStatus>(events))
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MidiTrack"/> class.
+        /// Initializes a new instance of the <see cref="MidiTrack" /> class.
         /// </summary>
         /// <param name="events">The events.</param>
-        public MidiTrack(List<EventStatus> events)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public MidiTrack(List<IEventStatus> events)
             : this("MTrk", 6, events)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MidiTrack"/> class.
+        /// Initializes a new instance of the <see cref="MidiTrack" /> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="trackHeaderLength">Length of the track header.</param>
         /// <param name="events">The events.</param>
-        public MidiTrack(string id, int trackHeaderLength, List<EventStatus> events)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public MidiTrack(string id, int trackHeaderLength, List<IEventStatus> events)
         {
             (ID, TrackHeaderLength, Events) = (id, trackHeaderLength, events);
         }
@@ -61,14 +66,14 @@ namespace Engine.File
 
         #region Indexers
         /// <summary>
-        /// Gets or sets the <see cref="EventStatus"/> at the specified index.
+        /// Gets or sets the <see cref="EventStatus" /> at the specified index.
         /// </summary>
         /// <value>
-        /// The <see cref="EventStatus"/>.
+        /// The <see cref="EventStatus" />.
         /// </value>
         /// <param name="index">The index.</param>
         /// <returns></returns>
-        public EventStatus this[int index]
+        public IEventStatus this[int index]
         {
             get { return Events[index]; }
             set { Events[index] = value; }
@@ -79,18 +84,27 @@ namespace Engine.File
         /// <summary>
         /// Gets the ID.
         /// </summary>
-        public string ID { get; } // = "MTrk"; // new byte[] { 0x4D, 0x54, 0x72, 0x6B };
+        /// <value>
+        /// The identifier. Should always be "MTrk" or { 0x4D, 0x54, 0x72, 0x6B };
+        /// </value>
+        public string ID { get; }
 
         /// <summary>
         /// Gets or sets the track header length.
         /// </summary>
-        public int TrackHeaderLength { get; set; } // = 6;
+        /// <value>
+        /// The length of the track header. Should always be 6.
+        /// </value>
+        public int TrackHeaderLength { get; set; }
 
         /// <summary>
         /// Gets the items.
         /// </summary>
+        /// <value>
+        /// The events.
+        /// </value>
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public List<EventStatus> Events { get; }
+        public List<IEventStatus> Events { get; }
         #endregion
 
         #region Methods
@@ -102,150 +116,70 @@ namespace Engine.File
         /// <returns>The <see cref="MidiTrack"/>.</returns>
         internal static MidiTrack Read(BinaryReaderExtended reader, Chunk chunk)
         {
-            var events = new List<EventStatus>();
-            var status = new EventStatus();
+            var events = new List<IEventStatus>();
             var sysExContinue = false;
             byte[] sysExData = null;
 
-            var ps = MidiStatusMessage.Unknown;
-
-            var st = (reader.BaseStream as SubStream).BaseStream; // For debug reference.
-
+            var status = EventStatus.Empty as IEventStatus;
             while (reader.BaseStream.Position < reader.Length)
             {
-                var deltaTime = (uint)reader.Read7BitEncodedInt();
-                var test = reader.PeekByte();
-                if (test == 0)
-                {
-                    break; // throw new System.Exception("Invalid file.");
-                }
+                status = EventStatus.Read(reader, status);
 
-                if ((test & 0x80) != 0)
+                status = status.Message switch
                 {
-                    status = EventStatus.Read(reader, deltaTime);
-                }
-                else
-                {
-                    reader.ReadByte();
-                }
-
-                switch (status.Status)
-                {
-                    case MidiStatusMessage.NoteOff:
-                        events.Add(NoteOff.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.NoteOn:
-                        events.Add(NoteOn.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.PolyphonicPressure:
-                        events.Add(PolyphonicPressure.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.ControllerChange:
-                        events.Add(ControllerChange.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.ProgramChange:
-                        events.Add(ProgramChange.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.ChannelPressure:
-                        events.Add(ChannelPressure.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.PitchBend:
-                        events.Add(PitchBend.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.SystemExclusive:
-                        events.Add(SystemExclusive.Read(reader, status, ref sysExContinue, ref sysExData));
-                        break;
-                    case MidiStatusMessage.MidiTimeCode:
-                        events.Add(MidiTimeCode.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.SongPosition:
-                        events.Add(SongPosition.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.SongSelect:
-                        events.Add(SongSelect.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.TuneRequest:
-                        events.Add(TuneRequest.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.EndOfExclusive:
-                        events.Add(EndOfExclusive.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.TimingClock:
-                        events.Add(TimingClock.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.Start:
-                        events.Add(Start.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.Continue:
-                        events.Add(Continue.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.Stop:
-                        events.Add(Stop.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.ActiveSensing:
-                        events.Add(ActiveSensing.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.SequenceNumber:
-                        events.Add(SequenceNumber.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.TextEvent:
-                        events.Add(TextEvent.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.CopyrightNotice:
-                        events.Add(CopyrightNotice.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.TrackName:
-                        events.Add(TrackName.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.Instrument:
-                        events.Add(Instrument.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.LyricText:
-                        events.Add(LyricText.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.MarkerText:
-                        events.Add(MarkerText.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.CuePoint:
-                        events.Add(CuePoint.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.ProgramName:
-                        events.Add(ProgramName.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.DeviceName:
-                        events.Add(DeviceName.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.ChannelPrefix:
-                        events.Add(ChannelPrefix.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.PortPrefix:
-                        events.Add(PortPrefix.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.EndOfTrack:
-                        events.Add(EndOfTrack.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.Tempo:
-                        events.Add(Tempo.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.SMPTEOffset:
-                        events.Add(SMPTEOffset.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.TimeSignature:
-                        events.Add(TimeSignature.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.KeySignature:
-                        events.Add(KeySignature.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.SequencerSpecific:
-                        events.Add(SequencerSpecific.Read(reader, status));
-                        break;
-                    case MidiStatusMessage.Unknown:
-                    default: break;
-                }
-
-                ps = status.Status;
+                    MidiStatusMessage.Unknown => status,
+                    MidiStatusMessage.NoteOff => NoteOff.Read(reader, status),
+                    MidiStatusMessage.NoteOn => NoteOn.Read(reader, status),
+                    MidiStatusMessage.PolyphonicPressure => PolyphonicPressure.Read(reader, status),
+                    MidiStatusMessage.ControllerChange => ControllerChange.Read(reader, status),
+                    MidiStatusMessage.ProgramChange => ProgramChange.Read(reader, status),
+                    MidiStatusMessage.ChannelPressure => ChannelPressure.Read(reader, status),
+                    MidiStatusMessage.PitchBend => PitchBend.Read(reader, status),
+                    MidiStatusMessage.SystemExclusive => SystemExclusive.Read(reader, status, ref sysExContinue, ref sysExData),
+                    MidiStatusMessage.MidiTimeCode => MidiTimeCode.Read(reader, status),
+                    MidiStatusMessage.SongPosition => SongPosition.Read(reader, status),
+                    MidiStatusMessage.SongSelect => SongSelect.Read(reader, status),
+                    MidiStatusMessage.TuneRequest => TuneRequest.Read(reader, status),
+                    MidiStatusMessage.EndOfExclusive => EndOfExclusive.Read(reader, status),
+                    MidiStatusMessage.TimingClock => TimingClock.Read(reader, status),
+                    MidiStatusMessage.Start => Start.Read(reader, status),
+                    MidiStatusMessage.Continue => Continue.Read(reader, status),
+                    MidiStatusMessage.Stop => Stop.Read(reader, status),
+                    MidiStatusMessage.ActiveSensing => ActiveSensing.Read(reader, status),
+                    MidiStatusMessage.SequenceNumber => SequenceNumber.Read(reader, status),
+                    MidiStatusMessage.TextEvent => TextEvent.Read(reader, status),
+                    MidiStatusMessage.CopyrightNotice => CopyrightNotice.Read(reader, status),
+                    MidiStatusMessage.TrackName => TrackName.Read(reader, status),
+                    MidiStatusMessage.Instrument => Instrument.Read(reader, status),
+                    MidiStatusMessage.LyricText => LyricText.Read(reader, status),
+                    MidiStatusMessage.MarkerText => MarkerText.Read(reader, status),
+                    MidiStatusMessage.CuePoint => CuePoint.Read(reader, status),
+                    MidiStatusMessage.ProgramName => ProgramName.Read(reader, status),
+                    MidiStatusMessage.DeviceName => DeviceName.Read(reader, status),
+                    MidiStatusMessage.Author => Author.Read(reader, status),
+                    MidiStatusMessage.TrackComment => TrackComment.Read(reader, status),
+                    MidiStatusMessage.Title => Title.Read(reader, status),
+                    MidiStatusMessage.Subtitle => Subtitle.Read(reader, status),
+                    MidiStatusMessage.Composer => Composer.Read(reader, status),
+                    MidiStatusMessage.Translator => Translator.Read(reader, status),
+                    MidiStatusMessage.Poet => Poet.Read(reader, status),
+                    MidiStatusMessage.ChannelPrefix => ChannelPrefix.Read(reader, status),
+                    MidiStatusMessage.PortPrefix => PortPrefix.Read(reader, status),
+                    MidiStatusMessage.EndOfTrack => EndOfTrack.Read(reader, status),
+                    MidiStatusMessage.MLiveTag => MLiveTag.Read(reader, status),
+                    MidiStatusMessage.Tempo => Tempo.Read(reader, status),
+                    MidiStatusMessage.SMPTEOffset => SMPTEOffset.Read(reader, status),
+                    MidiStatusMessage.TimeSignature => TimeSignature.Read(reader, status),
+                    MidiStatusMessage.KeySignature => KeySignature.Read(reader, status),
+                    MidiStatusMessage.SequencerSpecific => SequencerSpecific.Read(reader, status),
+                    var m when ((int)m & 0xFFFF) == 0xFF => BaseTextEvent.Read(reader, status),
+                    _ => status,
+                };
+                events.Add(status);
             }
 
+            // Finish up reading the track by setting the position to the end of the sub stream just in case everything hasn't been read.
+            reader.Position = reader.Length;
             return new MidiTrack(chunk.Id, chunk.Length, events);
         }
 

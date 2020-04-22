@@ -11,6 +11,7 @@
 // </references>
 
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Engine.File
 {
@@ -20,32 +21,54 @@ namespace Engine.File
     /// <remarks>
     /// <para>FF 2F 00</para>
     /// </remarks>
+    /// <seealso cref="Engine.File.EventStatus" />
     [ElementName(nameof(EndOfTrack))]
     public class EndOfTrack
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EndOfTrack"/> class.
+        /// Initializes a new instance of the <see cref="EndOfTrack" /> class.
         /// </summary>
-        /// <param name="len">The len.</param>
         /// <param name="status">The status.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public EndOfTrack(IEventStatus status)
+            : this(status, 0)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EndOfTrack" /> class.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <param name="length">The len.</param>
         /// <exception cref="FormatException"></exception>
-        public EndOfTrack(byte len, EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal EndOfTrack(IEventStatus status, int length)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
-            if (len != 0)
+            Length = length;
+            if (length != 0)
             {
                 throw new FormatException($"{nameof(EndOfTrack)} Malformed");
             }
         }
 
         /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
+        public int Length { get; }
+
+        /// <summary>
         /// Read.
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="EndOfTrack"/>.</returns>
-        internal static EndOfTrack Read(BinaryReaderExtended reader, EventStatus status) => new EndOfTrack(reader.Position == reader.Length ? (byte)0 : reader.ReadByte(), status);
+        /// <returns>
+        /// The <see cref="EndOfTrack" />.
+        /// </returns>
+        internal static new EndOfTrack Read(BinaryReaderExtended reader, IEventStatus status) => new EndOfTrack(status, reader.Position == reader.Length ? 0 : reader.ReadVariableLengthInt());
 
         /// <summary>
         /// Converts to string.

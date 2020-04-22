@@ -25,10 +25,10 @@ namespace Engine.File
         /// <summary>
         /// Initializes a new instance of the <see cref="MarkerText"/> class.
         /// </summary>
-        /// <param name="text">The text.</param>
         /// <param name="status">The status.</param>
-        public MarkerText(string text, EventStatus status)
-            : base(text, status)
+        /// <param name="text">The text.</param>
+        public MarkerText(IEventStatus status, string text)
+            : base(status, text)
         { }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="MarkerText"/>.</returns>
-        internal static MarkerText Read(BinaryReaderExtended reader, EventStatus status) => new MarkerText(reader.ReadASCIIString(), status);
+        internal static new MarkerText Read(BinaryReaderExtended reader, IEventStatus status) => new MarkerText(status, reader.ReadASCIIString());
 
         /// <summary>
         /// Converts to string.

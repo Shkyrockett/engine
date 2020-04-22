@@ -123,8 +123,7 @@ namespace Engine.File
         /// <exception cref="IOException">The stream is closed.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void WriteNetwork(ushort value)
-            => WriteNetworkUInt16(value);
+        public void WriteNetwork(ushort value) => WriteNetworkUInt16(value);
 
         /// <summary>
         /// Writes a two-byte signed integer to the current stream and advances the stream
@@ -154,8 +153,7 @@ namespace Engine.File
         /// <exception cref="IOException">The stream is closed.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void WriteNetwork(short value)
-            => WriteNetworkInt16(value);
+        public void WriteNetwork(short value) => WriteNetworkInt16(value);
 
         /// <summary>
         /// Writes a two-byte signed integer to the current stream and advances the stream
@@ -221,8 +219,7 @@ namespace Engine.File
         /// <exception cref="IOException">The stream is closed.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void WriteNetwork(uint value)
-            => WriteNetworkUInt32(value);
+        public void WriteNetwork(uint value) => WriteNetworkUInt32(value);
 
         /// <summary>
         /// Writes a four-byte signed integer to the current stream and advances the
@@ -254,8 +251,7 @@ namespace Engine.File
         /// <exception cref="IOException">The stream is closed.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void WriteNetwork(int value)
-            => WriteNetworkInt32(value);
+        public void WriteNetwork(int value) => WriteNetworkInt32(value);
 
         /// <summary>
         /// Writes a four-byte signed integer to the current stream and advances the
@@ -287,8 +283,7 @@ namespace Engine.File
         /// <exception cref="IOException">The stream is closed.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void WriteNetwork(ulong value)
-            => WriteNetworkUInt64(value);
+        public void WriteNetwork(ulong value) => WriteNetworkUInt64(value);
 
         /// <summary>
         /// Writes an eight-byte signed integer to the current stream and advances the
@@ -324,8 +319,7 @@ namespace Engine.File
         /// <exception cref="IOException">The stream is closed.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void WriteNetwork(long value)
-            => WriteNetworkInt64(value);
+        public void WriteNetwork(long value) => WriteNetworkInt64(value);
 
         /// <summary>
         /// Writes an eight-byte signed integer to the current stream and advances the
@@ -360,8 +354,7 @@ namespace Engine.File
         /// <exception cref="IOException">The stream is closed.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Write7BitEncodedUInt(uint value)
-            => base.Write7BitEncodedInt((int)value);
+        public void Write7BitEncodedUInt(uint value) => base.Write7BitEncodedInt((int)value);
 
         /// <summary>
         ///  Writes a 32-bit integer in a compressed format.
@@ -372,8 +365,7 @@ namespace Engine.File
         /// <exception cref="IOException">The stream is closed.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public new void Write7BitEncodedInt(int value)
-            => base.Write7BitEncodedInt(value);
+        public new void Write7BitEncodedInt(int value) => base.Write7BitEncodedInt(value);
 
         /// <summary>
         /// Writes a UTF8 character array to the current stream and advances the current position
@@ -407,8 +399,7 @@ namespace Engine.File
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void WriteASCIIString(string chars)
         {
-            Encoding encoding = new ASCIIEncoding();
-            var buffer = encoding.GetBytes(chars);
+            var buffer = Encoding.ASCII.GetBytes(chars);
             Write7BitEncodedInt(buffer.Length);
             Write(buffer);
         }

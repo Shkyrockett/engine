@@ -10,13 +10,16 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
     /// Stop. Stop the current sequence.
     /// </summary>
+    /// <seealso cref="Engine.File.EventStatus" />
     /// <remarks>
-    /// <para>nF 0C 
+    /// <para>nF 0C
     /// Stop the current sequence.</para>
     /// </remarks>
     [ElementName(nameof(Stop))]
@@ -24,11 +27,12 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Stop"/> class.
+        /// Initializes a new instance of the <see cref="Stop" /> class.
         /// </summary>
         /// <param name="status">The status.</param>
-        public Stop(EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Stop(IEventStatus status)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         { }
 
         /// <summary>
@@ -36,8 +40,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="Stop"/>.</returns>
-        internal static Stop Read(BinaryReaderExtended reader, EventStatus status)
+        /// <returns>
+        /// The <see cref="Stop" />.
+        /// </returns>
+        internal static new Stop Read(BinaryReaderExtended reader, IEventStatus status)
         {
             _ = reader;
             return new Stop(status);

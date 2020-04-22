@@ -10,6 +10,8 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
@@ -25,17 +27,41 @@ namespace Engine.File
         /// <summary>
         /// Initializes a new instance of the <see cref="ChannelPrefix"/> class.
         /// </summary>
-        /// <param name="channel">The channel.</param>
         /// <param name="status">The status.</param>
-        public ChannelPrefix(byte channel, EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        /// <param name="midiChannel">The midi channel.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ChannelPrefix(IEventStatus status, byte midiChannel)
+            : this(status, 1, midiChannel)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChannelPrefix" /> class.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <param name="length">The length.</param>
+        /// <param name="channel">The channel.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal ChannelPrefix(IEventStatus status, int length, byte channel)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
+            Length = length;
             MidiChannel = channel;
         }
 
         /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
+        public int Length { get; }
+
+        /// <summary>
         /// Gets or sets the midi channel.
         /// </summary>
+        /// <value>
+        /// The midi channel.
+        /// </value>
         public byte MidiChannel { get; set; }
 
         /// <summary>
@@ -43,8 +69,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="ChannelPrefix"/>.</returns>
-        internal static ChannelPrefix Read(BinaryReaderExtended reader, EventStatus status) => new ChannelPrefix(reader.ReadByte(), status);
+        /// <returns>
+        /// The <see cref="ChannelPrefix" />.
+        /// </returns>
+        internal static new ChannelPrefix Read(BinaryReaderExtended reader, IEventStatus status) => new ChannelPrefix(status, reader.ReadVariableLengthInt(), reader.ReadByte());
 
         /// <summary>
         /// Converts to string.

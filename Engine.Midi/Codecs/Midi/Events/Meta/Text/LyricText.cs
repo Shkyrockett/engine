@@ -25,10 +25,10 @@ namespace Engine.File
         /// <summary>
         /// Initializes a new instance of the <see cref="LyricText"/> class.
         /// </summary>
-        /// <param name="text">The text.</param>
         /// <param name="status">The status.</param>
-        public LyricText(string text, EventStatus status)
-            : base(text, status)
+        /// <param name="text">The text.</param>
+        public LyricText(IEventStatus status, string text)
+            : base(status, text)
         { }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="LyricText"/>.</returns>
-        internal static LyricText Read(BinaryReaderExtended reader, EventStatus status) => new LyricText(reader.ReadASCIIString(), status);
+        internal static new LyricText Read(BinaryReaderExtended reader, IEventStatus status) => new LyricText(status, reader.ReadASCIIString());
 
         /// <summary>
         /// Converts to string.

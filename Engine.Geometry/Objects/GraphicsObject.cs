@@ -175,7 +175,7 @@ namespace Engine
         /// <param name="name">The name.</param>
         /// <returns></returns>
         /// <remarks>
-        /// http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html
+        /// <para>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected object CachingProperty(Func<object> property, [CallerMemberName] string name = "")

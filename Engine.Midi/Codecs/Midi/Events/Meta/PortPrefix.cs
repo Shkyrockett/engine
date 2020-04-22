@@ -10,11 +10,14 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
     /// MIDI Port (not official?).
     /// </summary>
+    /// <seealso cref="Engine.File.EventStatus" />
     /// <remarks>
     /// <para>FF 21 01  pp</para>
     /// </remarks>
@@ -23,19 +26,42 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PortPrefix"/> class.
+        /// Initializes a new instance of the <see cref="PortPrefix" /> class.
         /// </summary>
-        /// <param name="port">The port.</param>
         /// <param name="status">The status.</param>
-        public PortPrefix(byte port, EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        /// <param name="port">The port.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public PortPrefix(IEventStatus status, byte port)
+            : this(status, 1, port)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PortPrefix" /> class.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <param name="length">The length.</param>
+        /// <param name="port">The port.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal PortPrefix(IEventStatus status, int length, byte port)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
-            Port = port;
+            (Length, Port) = (length, port);
         }
+
+        /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
+        public int Length { get; }
 
         /// <summary>
         /// Gets or sets the port.
         /// </summary>
+        /// <value>
+        /// The port.
+        /// </value>
         public byte Port { get; set; }
 
         /// <summary>
@@ -43,8 +69,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="PortPrefix"/>.</returns>
-        internal static PortPrefix Read(BinaryReaderExtended reader, EventStatus status) => new PortPrefix(reader.ReadByte(), status);
+        /// <returns>
+        /// The <see cref="PortPrefix" />.
+        /// </returns>
+        internal static new PortPrefix Read(BinaryReaderExtended reader, IEventStatus status) => new PortPrefix(status, reader.ReadVariableLengthInt(), reader.ReadByte());
 
         /// <summary>
         /// Converts to string.

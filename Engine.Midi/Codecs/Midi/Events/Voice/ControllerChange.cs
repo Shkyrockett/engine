@@ -10,17 +10,20 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
     /// Controller/Mode Change Status.
     /// </summary>
+    /// <seealso cref="Engine.File.EventStatus" />
     /// <remarks>
     /// <para>nB 0ccccccc 0vvvvvvv
-    /// This message is sent when a controller value changes. 
-    /// Controllers include devices such as pedals and levers. 
-    /// Controller numbers 120-127 are reserved as "Channel Mode Messages" 
-    /// (below). (ccccccc) is the controller number (0-119). 
+    /// This message is sent when a controller value changes.
+    /// Controllers include devices such as pedals and levers.
+    /// Controller numbers 120-127 are reserved as "Channel Mode Messages"
+    /// (below). (ccccccc) is the controller number (0-119).
     /// (vvvvvvv) is the controller value (0-127).</para>
     /// </remarks>
     [ElementName(nameof(ControllerChange))]
@@ -28,13 +31,14 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ControllerChange"/> class.
+        /// Initializes a new instance of the <see cref="ControllerChange" /> class.
         /// </summary>
+        /// <param name="status">The status.</param>
         /// <param name="controller">The controller.</param>
         /// <param name="value">The value.</param>
-        /// <param name="status">The status.</param>
-        public ControllerChange(byte controller, byte value, EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ControllerChange(IEventStatus status, MidiControlChange controller, byte value)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
             (Controller, Value) = (controller, value);
         }
@@ -42,11 +46,17 @@ namespace Engine.File
         /// <summary>
         /// Gets or sets the controller.
         /// </summary>
-        public byte Controller { get; set; }
+        /// <value>
+        /// The controller.
+        /// </value>
+        public MidiControlChange Controller { get; set; }
 
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public byte Value { get; set; }
 
         /// <summary>
@@ -54,8 +64,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="ControllerChange"/>.</returns>
-        internal static ControllerChange Read(BinaryReaderExtended reader, EventStatus status) => new ControllerChange(reader.ReadByte(), reader.ReadByte(), status);
+        /// <returns>
+        /// The <see cref="ControllerChange" />.
+        /// </returns>
+        internal static new ControllerChange Read(BinaryReaderExtended reader, IEventStatus status) => new ControllerChange(status, (MidiControlChange)reader.ReadByte(), reader.ReadByte());
 
         /// <summary>
         /// Converts to string.
@@ -63,6 +75,6 @@ namespace Engine.File
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString() => "Controller Change";
+        public override string ToString() => $"Controller Change: {Controller} = {Value}";
     }
 }

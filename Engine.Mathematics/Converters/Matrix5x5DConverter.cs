@@ -18,7 +18,7 @@ namespace Engine
     /// The Matrix5x5D converter class.
     /// </summary>
     /// <remarks>
-    /// http://referencesource.microsoft.com
+    /// <para>http://referencesource.microsoft.com</para>
     /// </remarks>
     public sealed class Matrix5x5DConverter
         : TypeConverter

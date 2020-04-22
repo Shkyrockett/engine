@@ -1,5 +1,5 @@
-﻿// <copyright file="Instrument.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
+﻿// <copyright file="Translator.cs" company="Shkyrockett">
+//     Copyright © 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -13,21 +13,22 @@
 namespace Engine.File
 {
     /// <summary>
-    /// Track instrument name.
+    /// Sequence translator.
     /// </summary>
     /// <remarks>
-    /// <para>FF 04 len text</para>
+    /// <para>FF 13 len text</para>
+    /// <para>https://github.com/musescore/MuseScore/blob/master/miditools/midievent.h</para>
     /// </remarks>
-    [ElementName(nameof(Instrument))]
-    public class Instrument
+    [ElementName(nameof(Translator))]
+    public class Translator
         : BaseTextEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Instrument"/> class.
+        /// Initializes a new instance of the <see cref="Translator"/> class.
         /// </summary>
         /// <param name="status">The status.</param>
         /// <param name="text">The text.</param>
-        public Instrument(IEventStatus status, string text)
+        public Translator(IEventStatus status, string text)
             : base(status, text)
         { }
 
@@ -36,8 +37,8 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="Instrument"/>.</returns>
-        internal static new Instrument Read(BinaryReaderExtended reader, IEventStatus status) => new Instrument(status, reader.ReadASCIIString());
+        /// <returns>The <see cref="Translator"/>.</returns>
+        internal static new Translator Read(BinaryReaderExtended reader, IEventStatus status) => new Translator(status, reader.ReadASCIIString());
 
         /// <summary>
         /// Converts to string.
@@ -45,6 +46,6 @@ namespace Engine.File
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString() => (Text is string t) && !string.IsNullOrWhiteSpace(t) ? $"Instrument: {t}" : "Instrument";
+        public override string ToString() => (Text is string t) && !string.IsNullOrWhiteSpace(t) ? $"Translator: {t}" : "Translator";
     }
 }

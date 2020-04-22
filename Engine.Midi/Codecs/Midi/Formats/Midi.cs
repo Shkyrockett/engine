@@ -138,7 +138,6 @@ namespace Engine.File
             var header = MidiHeader.Read(headerReader, headerChunk);
 
             var tracks = new List<MidiTrack>(header.TrackCount);
-
             for (var i = 0; i < header.TrackCount; i++)
             {
                 var trackChunk = Chunk.Read(reader);

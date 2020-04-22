@@ -1522,7 +1522,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle2D c, Ellipse2D e, double epsilon = double.Epsilon) => ObliqueEllipseObliqueEllipseIntersection((c.Center).X, c.Center.Y, c.Radius, c.Radius, 0d, (e.Center).X, e.Center.Y, e.RadiusA, e.RadiusB, e.Angle, epsilon);
+        public static Intersection Intersection(this Circle2D c, Ellipse2D e, double epsilon = double.Epsilon) => ObliqueEllipseObliqueEllipseIntersection(c.Center.X, c.Center.Y, c.Radius, c.Radius, 0d, e.Center.X, e.Center.Y, e.RadiusA, e.RadiusB, e.Angle, epsilon);
 
         /// <summary>
         /// Find the intersection of an circular arc and a line segment.
@@ -1574,7 +1574,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse2D e, LineSegment2D s, double epsilon = double.Epsilon) => LineSegmentObliqueEllipseIntersection((s?.A).Value.X, s.A.Y, s.B.X, s.B.Y, (e.X), e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this Ellipse2D e, LineSegment2D s, double epsilon = double.Epsilon) => LineSegmentObliqueEllipseIntersection((s?.A).Value.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an ellipse and a ray.
@@ -1587,7 +1587,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse2D e, Ray2D r, double epsilon = double.Epsilon) => RayObliqueEllipseIntersection((r.Location).X, r.Location.Y, r.Direction.I, r.Direction.J, (e.X), e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this Ellipse2D e, Ray2D r, double epsilon = double.Epsilon) => RayObliqueEllipseIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an ellipse and a line segment.
@@ -1665,7 +1665,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse2D e, PolygonContour2D p, double epsilon = double.Epsilon) => ObliqueEllipsePolygonContourIntersection((e.X), e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, p.Points.ToArray(), epsilon);
+        public static Intersection Intersection(this Ellipse2D e, PolygonContour2D p, double epsilon = double.Epsilon) => ObliqueEllipsePolygonContourIntersection(e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, p.Points.ToArray(), epsilon);
 
         /// <summary>
         /// Find the intersection of an orthogonal Ellipse and a Circle.

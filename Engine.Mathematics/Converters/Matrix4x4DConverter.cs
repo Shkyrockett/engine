@@ -18,7 +18,7 @@ namespace Engine
     /// The Matrix4x4D converter class.
     /// </summary>
     /// <remarks>
-    /// http://referencesource.microsoft.com
+    /// <para>http://referencesource.microsoft.com</para>
     /// </remarks>
     public sealed class Matrix4x4DConverter
         : TypeConverter

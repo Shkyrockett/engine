@@ -135,8 +135,8 @@ namespace Engine
         protected static string GetDisplayName(IDictionary dictionary, object key)
         {
             _ = dictionary;
-            //return $"{CSharpName(dictionary[key].GetType())} [{key,4}]";
             return $"[{key}]";
+            //return $"{CSharpName(dictionary[key].GetType())} [{key,4}]";
         }
 
         ///// <summary>

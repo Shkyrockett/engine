@@ -95,8 +95,7 @@ namespace Engine
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool CanResetValue(object component)
-            => true;
+        public override bool CanResetValue(object component) => true;
 
         /// <summary>
         /// Reset the value.
@@ -121,16 +120,14 @@ namespace Engine
         /// </summary>
         /// <param name="component">The component.</param>
         /// <param name="value">The value.</param>
-        public override void SetValue(object component, object value)
-            => collection[index] = value;
+        public override void SetValue(object component, object value) => collection[index] = value;
 
         /// <summary>
         /// The should serialize value.
         /// </summary>
         /// <param name="component">The component.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool ShouldSerializeValue(object component)
-            => true;
+        public override bool ShouldSerializeValue(object component) => true;
 
         /// <summary>
         /// Get the display name.
@@ -140,9 +137,10 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         private static string GetDisplayName(IList list, int index)
         {
-            _ = list;
+            int n = list.Count;
+            var digits = n == 0 ? 1 : (int)Math.Floor(Math.Log10(Math.Abs(n)) + 1);
+            return $"[{index.ToString(CultureInfo.InvariantCulture).PadLeft(digits, '0')}]";
             //return $"{CSharpName(list[index].GetType())} [{index,4}]";
-            return $"[{index}]";
         }
 
         ///// <summary>

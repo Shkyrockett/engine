@@ -89,7 +89,7 @@ namespace Engine.File
         public long Length => BaseStream.Length;
         #endregion Properties
 
-        #region Methods
+        #region Read
         /// <summary>
         /// Reads a 2-byte unsigned 14-bit integer from the current stream using Big-endian
         /// encoding, and advances the current position of the stream by two bytes.
@@ -262,41 +262,7 @@ namespace Engine.File
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] ReadVariableLengthBytes()
         {
-            var length = ReadVariableLengthInt();
-            return ReadBytes(length);
-        }
-
-        /// <summary>
-        /// Reads an UTF8 string of variable byte integer length from the current stream.
-        /// </summary>
-        /// <returns>The string being read.</returns>
-        /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
-        /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
-        /// <exception cref="IOException">An I/O error has occurred.</exception>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ReadUTF8String()
-        {
-            var length = ReadVariableLengthInt();
-            return ReadUTF8Bytes(length);
-        }
-
-        /// <summary>
-        /// Reads an UTF8 string of known byte length from the current stream.
-        /// </summary>
-        /// <param name="length">The length of the string in bytes.</param>
-        /// <returns>The string being read.</returns>
-        /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
-        /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
-        /// <exception cref="IOException">An I/O error has occurred.</exception>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ReadUTF8Bytes(int length)
-        {
-            var encoding = Encoding.UTF8;
-            var buffer = new byte[length];
-            Read(buffer, 0, length);
-            return encoding.GetString(buffer, 0, length);
+            return base.ReadBytes(ReadVariableLengthInt());
         }
 
         /// <summary>
@@ -308,30 +274,45 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ReadASCIIString()
-        {
-            var length = ReadVariableLengthInt();
-            return ReadASCIIBytes(length);
-        }
+        public string ReadASCIIString() => ReadASCIIString(ReadVariableLengthInt());
 
         /// <summary>
         /// Reads an ASCII string of known byte length from the current stream.
         /// </summary>
-        /// <param name="Bytes">The length of the string in bytes.</param>
+        /// <param name="length">The length of the string in bytes.</param>
         /// <returns>The string being read.</returns>
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ReadASCIIBytes(int Bytes)
-        {
-            var encoding = new ASCIIEncoding();
-            var BBuffer = new byte[Bytes];
-            Read(BBuffer, 0, Bytes);
-            return encoding.GetString(BBuffer, 0, Bytes);
-        }
+        public string ReadASCIIString(int length) => Encoding.ASCII.GetString(base.ReadBytes(length));
 
+        /// <summary>
+        /// Reads an UTF8 string of variable byte integer length from the current stream.
+        /// </summary>
+        /// <returns>The string being read.</returns>
+        /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
+        /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
+        /// <exception cref="IOException">An I/O error has occurred.</exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ReadUTF8String() => ReadUTF8String(ReadVariableLengthInt());
+
+        /// <summary>
+        /// Reads an UTF8 string of known byte length from the current stream.
+        /// </summary>
+        /// <param name="length">The length of the string in bytes.</param>
+        /// <returns>The string being read.</returns>
+        /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
+        /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
+        /// <exception cref="IOException">An I/O error has occurred.</exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ReadUTF8String(int length) => Encoding.UTF8.GetString(base.ReadBytes(length));
+        #endregion Methods
+
+        #region Peek
         /// <summary>
         /// Returns the next available byte and does not advance the byte or character
         /// position.
@@ -346,7 +327,7 @@ namespace Engine.File
         {
             if (!BaseStream.CanSeek)
             {
-                return 0; // -1;
+                throw new NotSupportedException($"{nameof(PeekByte)} not supported on this stream.");
             }
 
             var temp = ReadByte();
@@ -368,7 +349,7 @@ namespace Engine.File
         {
             if (!BaseStream.CanSeek)
             {
-                return -1;
+                throw new NotSupportedException($"{nameof(PeekInt16)} not supported on this stream.");
             }
 
             var temp = ReadInt16();
@@ -390,7 +371,7 @@ namespace Engine.File
         {
             if (!BaseStream.CanSeek)
             {
-                return -1;
+                throw new NotSupportedException($"{nameof(PeekNetworkInt16)} not supported on this stream.");
             }
 
             var temp = ReadNetworkInt16();
@@ -412,7 +393,7 @@ namespace Engine.File
         {
             if (!BaseStream.CanSeek)
             {
-                return -1;
+                throw new NotSupportedException($"{nameof(PeekInt32)} not supported on this stream.");
             }
 
             var temp = ReadInt32();
@@ -434,7 +415,7 @@ namespace Engine.File
         {
             if (!BaseStream.CanSeek)
             {
-                return -1;
+                throw new NotSupportedException($"{nameof(PeekNetworkInt32)} not supported on this stream.");
             }
 
             var temp = ReadNetworkInt32();
@@ -456,7 +437,7 @@ namespace Engine.File
         {
             if (!BaseStream.CanSeek)
             {
-                return -1;
+                throw new NotSupportedException($"{nameof(PeekInt64)} not supported on this stream.");
             }
 
             var temp = ReadInt64();
@@ -478,13 +459,13 @@ namespace Engine.File
         {
             if (!BaseStream.CanSeek)
             {
-                return -1;
+                throw new NotSupportedException($"{nameof(PeekNetworkInt64)} not supported on this stream.");
             }
 
             var temp = ReadNetworkInt64();
             BaseStream.Position -= sizeof(long);
             return temp;
         }
-        #endregion Methods
+        #endregion
     }
 }

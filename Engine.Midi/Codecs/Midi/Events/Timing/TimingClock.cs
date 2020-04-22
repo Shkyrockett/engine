@@ -10,13 +10,16 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
     /// Timing Clock. Sent 24 times per quarter note when synchronization is required (see text).
     /// </summary>
+    /// <seealso cref="Engine.File.EventStatus" />
     /// <remarks>
-    /// <para>nF 08 
+    /// <para>nF 08
     /// Sent 24 times per quarter note when synchronization is required (see text).</para>
     /// </remarks>
     [ElementName(nameof(TimingClock))]
@@ -24,11 +27,12 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TimingClock"/> class.
+        /// Initializes a new instance of the <see cref="TimingClock" /> class.
         /// </summary>
         /// <param name="status">The status.</param>
-        public TimingClock(EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public TimingClock(IEventStatus status)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         { }
 
         /// <summary>
@@ -36,8 +40,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="TimingClock"/>.</returns>
-        internal static TimingClock Read(BinaryReaderExtended reader, EventStatus status)
+        /// <returns>
+        /// The <see cref="TimingClock" />.
+        /// </returns>
+        internal static new TimingClock Read(BinaryReaderExtended reader, IEventStatus status)
         {
             _ = reader;
             return new TimingClock(status);

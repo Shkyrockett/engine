@@ -356,7 +356,7 @@ namespace Engine
         /// The degree.
         /// </value>
         /// <remarks>
-        /// If degree uninitialized look up the real order then cache it and return.
+        /// <para>If degree uninitialized look up the real order then cache it and return.</para>
         /// </remarks>
         public PolynomialDegree Degree => degree ??= RealOrder(double.Epsilon);
 

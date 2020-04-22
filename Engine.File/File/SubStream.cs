@@ -238,8 +238,7 @@ namespace Engine.File
         /// calling this method will throw an <see cref="NotSupportedException"/>
         /// </summary>
         /// <param name="value">The new <see cref="Length"/> </param>
-        public override void SetLength(long value)
-            => throw new NotSupportedException("A SubStream is read-only so it's count can not be set");
+        public override void SetLength(long value) => throw new NotSupportedException("A SubStream is read-only so it's count can not be set");
 
         /// <summary>
         /// Since a <see cref="SubStream"/> is read only, 
@@ -254,8 +253,7 @@ namespace Engine.File
         /// to the current stream.
         /// </param>
         /// <param name="count">The number of <see cref="byte"/>s to be written to the current stream.</param>
-        public override void Write(byte[] buffer, int offset, int count)
-            => throw new NotSupportedException("A SubStream is read-only so it can not be written to");
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException("A SubStream is read-only so it can not be written to");
 
         /// <summary>
         /// Closes the <see cref="SubStream"/> and it's underlying source <see cref="Stream"/>

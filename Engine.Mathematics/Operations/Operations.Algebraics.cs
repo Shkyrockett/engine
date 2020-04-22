@@ -88,7 +88,7 @@ namespace Engine
         /// Returns a <see cref="PolynomialDegree" /> value representing the order of degree of the polynomial.
         /// </returns>
         /// <remarks>
-        /// Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.
+        /// <para>Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.</para>
         /// </remarks>
         /// <acknowledgment>
         /// A hodge-podge helper method based on Simplify from of: http://www.kevlindev.com/

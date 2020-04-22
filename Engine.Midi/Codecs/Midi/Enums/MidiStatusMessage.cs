@@ -103,7 +103,7 @@ namespace Engine.File
         /// <para>nF 00 0iiiiiii [0iiiiiii 0iiiiiii] 0ddddddd --- --- 0ddddddd 11110111
         /// This message type allows manufacturers to create their own messages (such as bulk dumps, patch parameters, and other non-spec data) and provides a mechanism for creating additional MIDI Specification messages. The Manufacturer's ID code (assigned by MMA or AMEI) is either 1 byte (0iiiiiii) or 3 bytes (0iiiiiii 0iiiiiii 0iiiiiii). Two of the 1 Byte IDs are reserved for extensions called Universal Exclusive Messages, which are not manufacturer-specific. If a device recognizes the ID code as its own (or as a supported Universal message) it will listen to the rest of the message (0ddddddd). Otherwise, the message will be ignored. (Note: Only Real-Time messages may be interleaved with a System Exclusive.)</para>
         /// </remarks>
-        SystemExclusive = MidiStatus.System | (MidiSystemMessage.SystemExclusive << 8),
+        SystemExclusive = MidiStatus.System << 4 | (MidiSystemMessage.SystemExclusive),
 
         /// <summary>
         /// MIDI Time Code Quarter Frame.
@@ -112,7 +112,7 @@ namespace Engine.File
         /// <para>nF 01 0nnndddd
         /// nnn = Message Type dddd = Values</para>
         /// </remarks>
-        MidiTimeCode = MidiStatus.System | (MidiSystemMessage.MidiTimeCode << 8),
+        MidiTimeCode = MidiStatus.System << 4 | (MidiSystemMessage.MidiTimeCode),
 
         /// <summary>
         /// Song Position Pointer.
@@ -121,7 +121,7 @@ namespace Engine.File
         /// <para>nF 02 0lllllll 0mmmmmmm
         /// This is an internal 14 bit register that holds the number of MIDI beats (1 beat= six MIDI clocks) since the start of the song. l is the LSB, m the MSB.</para>
         /// </remarks>
-        SongPosition = MidiStatus.System | (MidiSystemMessage.SongPosition << 8),
+        SongPosition = MidiStatus.System << 4 | (MidiSystemMessage.SongPosition),
 
         /// <summary>
         /// Song Select. 
@@ -130,7 +130,7 @@ namespace Engine.File
         /// <para>nF 03 0sssssss
         /// The Song Select specifies which sequence or song is to be played.</para>
         /// </remarks>
-        SongSelect = MidiStatus.System | (MidiSystemMessage.SongSelect << 8),
+        SongSelect = MidiStatus.System << 4 | (MidiSystemMessage.SongSelect),
 
         /// <summary>
         /// Tune Request.
@@ -139,7 +139,7 @@ namespace Engine.File
         /// <para>nF 06 
         /// Upon receiving a Tune Request, all analog synthesizers should tune their oscillators.</para>
         /// </remarks>
-        TuneRequest = MidiStatus.System | (MidiSystemMessage.TuneRequest << 8),
+        TuneRequest = MidiStatus.System << 4 | (MidiSystemMessage.TuneRequest),
 
         /// <summary>
         /// End of Exclusive.
@@ -148,7 +148,7 @@ namespace Engine.File
         /// <para>nF 07 
         /// Used to terminate a System Exclusive dump (see above).</para>
         /// </remarks>
-        EndOfExclusive = MidiStatus.System | (MidiSystemMessage.EndOfExclusive << 8),
+        EndOfExclusive = MidiStatus.System << 4 | (MidiSystemMessage.EndOfExclusive),
         #endregion System Common Messages
 
         #region Real-time Messages
@@ -159,7 +159,7 @@ namespace Engine.File
         /// <para>nF 08 
         /// Sent 24 times per quarter note when synchronization is required (see text).</para>
         /// </remarks>
-        TimingClock = MidiStatus.System | (MidiSystemMessage.TimingClock << 8),
+        TimingClock = MidiStatus.System << 4 | (MidiSystemMessage.TimingClock),
 
         /// <summary>
         /// Start.
@@ -168,7 +168,7 @@ namespace Engine.File
         /// <para>nF 0A 
         /// Start the current sequence playing. (This message will be followed with Timing Clocks).</para>
         /// </remarks>
-        Start = MidiStatus.System | (MidiSystemMessage.Start << 8),
+        Start = MidiStatus.System << 4 | (MidiSystemMessage.Start),
 
         /// <summary>
         /// Continue.
@@ -177,7 +177,7 @@ namespace Engine.File
         /// <para>nF 0B 
         /// Continue at the point the sequence was Stopped.</para>
         /// </remarks>
-        Continue = MidiStatus.System | (MidiSystemMessage.Continue << 8),
+        Continue = MidiStatus.System << 4 | (MidiSystemMessage.Continue),
 
         /// <summary>
         /// Stop.
@@ -186,7 +186,7 @@ namespace Engine.File
         /// <para>nF 0C 
         /// Stop the current sequence.</para>
         /// </remarks>
-        Stop = MidiStatus.System | (MidiSystemMessage.Stop << 8),
+        Stop = MidiStatus.System << 4 | (MidiSystemMessage.Stop),
 
         /// <summary>
         /// Active Sensing.
@@ -195,7 +195,7 @@ namespace Engine.File
         /// <para>nF 0E 
         /// This message is intended to be sent repeatedly to tell the receiver that a connection is alive. Use of this message is optional. When initially received, the receiver will expect to receive another Active Sensing message each 300ms (max), and if it does not then it will assume that the connection has been terminated. At termination, the receiver will turn off all voices and return to normal (non- active sensing) operation.</para> 
         /// </remarks>
-        ActiveSensing = MidiStatus.System | (MidiSystemMessage.ActiveSensing << 8),
+        ActiveSensing = MidiStatus.System << 4 | (MidiSystemMessage.ActiveSensing),
         #endregion Real-time Messages
 
         #region Meta Messages
@@ -280,12 +280,68 @@ namespace Engine.File
         DeviceName = MidiStatus.Meta | (MidiMetaEvent.DeviceName << 8),
 
         /// <summary>
+        /// The author. Extension.
+        /// </summary>
+        /// <remarks>
+        /// <para>FF 0A len text</para>
+        /// </remarks>
+        Author = MidiStatus.Meta | (MidiMetaEvent.Author << 8),
+
+        /// <summary>
+        /// The track comment. MuseScore extension
+        /// </summary>
+        /// <remarks>
+        /// <para>FF 0F len text</para>
+        /// </remarks>
+        TrackComment = MidiStatus.Meta | (MidiMetaEvent.TrackComment << 8),
+
+        /// <summary>
+        /// The title. MuseScore extension
+        /// </summary>
+        /// <remarks>
+        /// <para>FF 10 len text</para>
+        /// </remarks>
+        Title = MidiStatus.Meta | (MidiMetaEvent.Title << 8),
+
+        /// <summary>
+        /// The subtitle. MuseScore extension
+        /// </summary>
+        /// <remarks>
+        /// <para>FF 11 len text</para>
+        /// </remarks>
+        Subtitle = MidiStatus.Meta | (MidiMetaEvent.Subtitle << 8),
+
+        /// <summary>
+        /// The composer. MuseScore extension
+        /// </summary>
+        /// <remarks>
+        /// <para>FF 12 len text</para>
+        /// </remarks>
+        Composer = MidiStatus.Meta | (MidiMetaEvent.Composer << 8),
+
+        /// <summary>
+        /// The translator. MuseScore extension
+        /// </summary>
+        /// <remarks>
+        /// <para>FF 13 len text</para>
+        /// </remarks>
+        Translator = MidiStatus.Meta | (MidiMetaEvent.Translator << 8),
+
+        /// <summary>
+        /// The poet. MuseScore extension
+        /// </summary>
+        /// <remarks>
+        /// <para>FF 14 len text</para>
+        /// </remarks>
+        Poet = MidiStatus.Meta | (MidiMetaEvent.Poet << 8),
+
+        /// <summary>
         /// MIDI Channel Prefix (not official?).
         /// </summary>
         /// <remarks>
         /// <para>FF 20 01  cc</para>
         /// </remarks>
-        ChannelPrefix = MidiStatus.Meta | (MidiMetaEvent.ChannelPrefix << 8),// | 0x01 << 16,
+        ChannelPrefix = MidiStatus.Meta | (MidiMetaEvent.ChannelPrefix << 8),
 
         /// <summary>
         /// MIDI Port Prefix (not official?).
@@ -293,7 +349,7 @@ namespace Engine.File
         /// <remarks>
         /// <para>FF 21 01  pp</para>
         /// </remarks>
-        PortPrefix = MidiStatus.Meta | (MidiMetaEvent.PortPrefix << 8),// | 0x01 << 16,
+        PortPrefix = MidiStatus.Meta | (MidiMetaEvent.PortPrefix << 8),
 
         /// <summary>
         /// End of track.
@@ -304,12 +360,20 @@ namespace Engine.File
         EndOfTrack = MidiStatus.Meta | (MidiMetaEvent.EndOfTrack << 8),
 
         /// <summary>
+        /// The m live tag
+        /// </summary>
+        /// <remarks>
+        /// <para>FF 4B len tt text</para>
+        /// </remarks>
+        MLiveTag = MidiStatus.Meta | (MidiMetaEvent.MLiveTag << 8),
+
+        /// <summary>
         /// Set tempo.
         /// </summary>
         /// <remarks>
         /// <para>FF 51 03  TT TT TT</para>
         /// </remarks>
-        Tempo = MidiStatus.Meta | (MidiMetaEvent.Tempo << 8), // | 0x03 << 16,
+        Tempo = MidiStatus.Meta | (MidiMetaEvent.Tempo << 8),
 
         /// <summary>
         /// SMPTE offset.
@@ -317,7 +381,7 @@ namespace Engine.File
         /// <remarks>
         /// <para>FF 54 05  HR MN SE FR FF</para>
         /// </remarks>
-        SMPTEOffset = MidiStatus.Meta | (MidiMetaEvent.SMPTEOffset << 8), // | 0x05 << 16,
+        SMPTEOffset = MidiStatus.Meta | (MidiMetaEvent.SMPTEOffset << 8),
 
         /// <summary>
         /// Time signature.
@@ -325,7 +389,7 @@ namespace Engine.File
         /// <remarks>
         /// <para>FF 58 04  NN DD CC BB</para>
         /// </remarks>
-        TimeSignature = MidiStatus.Meta | (MidiMetaEvent.TimeSignature << 8), // | 0x04 << 16,
+        TimeSignature = MidiStatus.Meta | (MidiMetaEvent.TimeSignature << 8),
 
         /// <summary>
         /// Key signature.
@@ -343,7 +407,7 @@ namespace Engine.File
         ///   sf is <see cref="MidiKeySignature"/>
         ///   mi is <see cref="MidiTonality"/></para>
         /// </remarks>
-        KeySignature = MidiStatus.Meta | (MidiMetaEvent.KeySignature << 8), // | 0x02 << 16,
+        KeySignature = MidiStatus.Meta | (MidiMetaEvent.KeySignature << 8),
 
         /// <summary>
         /// Sequencer specific proprietary event.

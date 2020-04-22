@@ -25,10 +25,10 @@ namespace Engine.File
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackName"/> class.
         /// </summary>
-        /// <param name="text">The text.</param>
         /// <param name="status">The status.</param>
-        public TrackName(string text, EventStatus status)
-            : base(text, status)
+        /// <param name="text">The text.</param>
+        public TrackName(IEventStatus status, string text)
+            : base(status, text)
         { }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Engine.File
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="TrackName"/>.</returns>
-        internal static TrackName Read(BinaryReaderExtended reader, EventStatus status) => new TrackName(reader.ReadASCIIString(), status);
+        internal static new TrackName Read(BinaryReaderExtended reader, IEventStatus status) => new TrackName(status, reader.ReadASCIIString());
 
         /// <summary>
         /// Converts to string.

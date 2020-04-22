@@ -10,11 +10,14 @@
 // <references>
 // </references>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine.File
 {
     /// <summary>
     /// Pitch Wheel Bend Status.
     /// </summary>
+    /// <seealso cref="Engine.File.EventStatus" />
     /// <remarks>
     /// <para>nE 0lllllll 0mmmmmmm
     /// 0mmmmmmm This message is sent to indicate a change in the pitch bender (wheel or lever, typically).
@@ -28,12 +31,13 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PitchBend"/> class.
+        /// Initializes a new instance of the <see cref="PitchBend" /> class.
         /// </summary>
-        /// <param name="bend">The bend.</param>
         /// <param name="status">The status.</param>
-        public PitchBend(short bend, EventStatus status)
-            : base((status?.DeltaTime).Value, status.Status, status.Channel)
+        /// <param name="bend">The bend.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public PitchBend(IEventStatus status, short bend)
+            : base((status?.DeltaTime).Value, status.Message, status.Channel)
         {
             Bend = bend;
         }
@@ -41,6 +45,9 @@ namespace Engine.File
         /// <summary>
         /// Gets or sets the bend.
         /// </summary>
+        /// <value>
+        /// The bend.
+        /// </value>
         public short Bend { get; set; }
 
         /// <summary>
@@ -48,8 +55,10 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="status">The status.</param>
-        /// <returns>The <see cref="PitchBend"/>.</returns>
-        internal static PitchBend Read(BinaryReaderExtended reader, EventStatus status) => new PitchBend(reader.ReadNetworkInt14(), status);
+        /// <returns>
+        /// The <see cref="PitchBend" />.
+        /// </returns>
+        internal static new PitchBend Read(BinaryReaderExtended reader, IEventStatus status) => new PitchBend(status, reader.ReadNetworkInt14());
 
         /// <summary>
         /// Converts to string.

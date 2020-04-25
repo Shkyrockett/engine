@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Interop.WimMM.MidiInMessage.cs" />
+    <Compile Remove="Interop.Winmm.MidiInAddBuffer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Interop\Winmm\Methods\Interop.Winmm.MidiInAddBuffer.cs" />
+    <None Include="Interop\Winmm\Enums\Interop.Winmm.MidiInMessage.cs" />
+  </ItemGroup>
+
+</Project>

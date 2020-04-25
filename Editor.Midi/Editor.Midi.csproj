@@ -65,6 +65,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Engine.File\Engine.File.csproj" />
     <ProjectReference Include="..\Engine.Midi\Engine.Midi.csproj" />
+    <ProjectReference Include="..\Engine.Windows.Multimedia\Engine.Windows.Multimedia.csproj" />
     <ProjectReference Include="..\Engine.WindowsForms\Engine.WindowsForms.csproj" />
   </ItemGroup>
 

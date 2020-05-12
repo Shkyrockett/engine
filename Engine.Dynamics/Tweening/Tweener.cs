@@ -152,7 +152,7 @@ namespace Engine.Tweening
                 {
                     for (var j = 0; j < library.Count; j++)
                     {
-                        library[j].Cancel(props[i].Name);
+                        library[j].CancelTween(props[i].Name);
                     }
                 }
 
@@ -194,7 +194,7 @@ namespace Engine.Tweening
         {
             foreach (var tween in allTweens)
             {
-                tween.CancelAndComplete();
+                tween.CancelTweenAndComplete();
             }
         }
 
@@ -205,7 +205,7 @@ namespace Engine.Tweening
         {
             foreach (var tween in allTweens)
             {
-                tween.Pause();
+                tween.PauseTween();
             }
         }
 
@@ -216,7 +216,7 @@ namespace Engine.Tweening
         {
             foreach (var tween in allTweens)
             {
-                tween.PauseToggle();
+                tween.PauseTweenToggle();
             }
         }
 
@@ -227,7 +227,7 @@ namespace Engine.Tweening
         {
             foreach (var tween in allTweens)
             {
-                tween.Resume();
+                tween.ResumeTween();
             }
         }
 
@@ -239,7 +239,7 @@ namespace Engine.Tweening
         {
             foreach (var tween in allTweens)
             {
-                tween.Update(ticksElapsed);
+                tween.UpdateTween(ticksElapsed);
             }
 
             AddAndRemove();
@@ -249,8 +249,10 @@ namespace Engine.Tweening
         /// Create the lerper.
         /// </summary>
         /// <param name="propertyType">The propertyType.</param>
-        /// <returns>The <see cref="MemberLerper"/>.</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>
+        /// The <see cref="IMemberLerper" />.
+        /// </returns>
+        /// <exception cref="Exception">No {nameof(IMemberLerper)} found for type {propertyType.FullName}.</exception>
         private static IMemberLerper CreateLerper(Type propertyType)
         {
             if (!RegisteredLerpers.TryGetValue(propertyType, out var lerper))
@@ -327,7 +329,7 @@ namespace Engine.Tweening
             {
                 foreach (var tween in list)
                 {
-                    tween.Cancel();
+                    tween.CancelTween();
                 }
             }
         }
@@ -343,7 +345,7 @@ namespace Engine.Tweening
             {
                 foreach (var tween in list)
                 {
-                    tween.Cancel(properties);
+                    tween.CancelTween(properties);
                 }
             }
         }
@@ -358,7 +360,7 @@ namespace Engine.Tweening
             {
                 foreach (var tween in list)
                 {
-                    tween.CancelAndComplete();
+                    tween.CancelTweenAndComplete();
                 }
             }
         }
@@ -373,7 +375,7 @@ namespace Engine.Tweening
             {
                 foreach (var tween in list)
                 {
-                    tween.Pause();
+                    tween.PauseTween();
                 }
             }
         }
@@ -388,7 +390,7 @@ namespace Engine.Tweening
             {
                 foreach (var tween in list)
                 {
-                    tween.PauseToggle();
+                    tween.PauseTweenToggle();
                 }
             }
         }
@@ -403,7 +405,7 @@ namespace Engine.Tweening
             {
                 foreach (var tween in list)
                 {
-                    tween.Resume();
+                    tween.ResumeTween();
                 }
             }
         }

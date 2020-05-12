@@ -28,13 +28,13 @@ namespace Engine
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineCurveSegment"/> class.
+        /// Initializes a new instance of the <see cref="LineCurveSegment2D"/> class.
         /// </summary>
         public LineCurveSegment2D()
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineCurveSegment"/> class.
+        /// Initializes a new instance of the <see cref="LineCurveSegment2D"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
         /// <param name="relitive">The relitive.</param>
@@ -76,10 +76,10 @@ namespace Engine
         /// <param name="by">The by.</param>
         public void Deconstruct(out double ax, out double ay, out double bx, out double by)
         {
-            ax = Head.Value.X;
-            ay = Head.Value.Y;
-            bx = Tail.Value.X;
-            by = Tail.Value.Y;
+            ax = Head.X;
+            ay = Head.Y;
+            bx = Tail.X;
+            by = Tail.Y;
         }
         #endregion Deconstructors
 
@@ -88,7 +88,7 @@ namespace Engine
         /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? Head
+        public override Point2D Head
         {
             get { return Previous?.Tail; }
             set
@@ -108,21 +108,20 @@ namespace Engine
         /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd { get { return Head; } set { Head = value; } }
+        public override Point2D NextToEnd { get { return Head; } set { Head = value; } }
 
         /// <summary>
         /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public override Point2D? Tail { get; set; }
+        public override Point2D Tail { get; set; }
 
         /// <summary>
         /// Gets the grips.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public override List<Point2D> Grips
-            => new List<Point2D> { Head.Value, Tail.Value };
+        public override List<Point2D> Grips => new List<Point2D> { Head, Tail };
 
         /// <summary>
         /// Gets the bounds.
@@ -131,8 +130,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(Head.Value.X, Head.Value.Y, Tail.Value.X, Tail.Value.Y));
+        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(Head.X, Head.Y, Tail.X, Tail.Y));
 
         /// <summary>
         /// Gets the <see cref="QuadraticBezier2D"/> curve's polynomial representation along the x-axis.
@@ -142,7 +140,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)LinearBezierBernsteinBasis(Head.Value.X, Tail.Value.X));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)LinearBezierBernsteinBasis(Head.X, Tail.X));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -156,7 +154,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)LinearBezierBernsteinBasis(Head.Value.Y, Tail.Value.Y));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)LinearBezierBernsteinBasis(Head.Y, Tail.Y));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -166,8 +164,7 @@ namespace Engine
         /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override double Length
-            => (double)CachingProperty(() => ToLineSegment().Length);
+        public override double Length => (double)CachingProperty(() => ToLineSegment().Length);
         #endregion Properties
 
         /// <summary>
@@ -175,16 +172,14 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public override Point2D Interpolate(double t)
-            => ToLineSegment().Interpolate(t);
+        public override Point2D Interpolate(double t) => ToLineSegment().Interpolate(t);
 
         #region Methods
         /// <summary>
         /// The to line segment.
         /// </summary>
         /// <returns>The <see cref="LineSegment2D"/>.</returns>
-        public LineSegment2D ToLineSegment()
-            => new LineSegment2D(Head.Value, Tail.Value);
+        public LineSegment2D ToLineSegment() => new LineSegment2D(Head, Tail);
         #endregion Methods
     }
 }

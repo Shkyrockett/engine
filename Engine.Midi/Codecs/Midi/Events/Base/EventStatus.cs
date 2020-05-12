@@ -88,7 +88,7 @@ namespace Engine.File
         internal static IEventStatus Read(BinaryReaderExtended reader, IEventStatus prevEvent)
         {
             var deltaTime = (uint)reader.ReadVariableLengthInt();
-            int channel = 1;
+            var channel = 1;
             var cursor = reader.ReadByte();
             int message;
             if ((cursor & 0x80) == 0)

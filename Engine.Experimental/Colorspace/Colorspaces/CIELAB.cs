@@ -110,8 +110,7 @@ namespace Engine.Colorspace
         /// The to RGBA tuple.
         /// </summary>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
-            => throw new NotImplementedException();
+        public (byte Red, byte Green, byte Blue, byte Alpha) ToRGBATuple() => throw new NotImplementedException();
 
         /// <summary>
         /// The to string.

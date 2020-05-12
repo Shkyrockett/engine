@@ -557,7 +557,7 @@ namespace Engine.Experimental
             for (int i = 0, len = list.Count; i < len; i++)
             {
                 t = list[i];
-                c = curve.Interpolate_Ported(t);
+                c = curve.Interpolate(t);
                 switch (d)
                 {
                     case 0:
@@ -633,11 +633,11 @@ namespace Engine.Experimental
             var my2n = my2 + dy2p;
             // intersection of these lines:
             var arcCenter = Lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
-            var r = Measurements.Distance(arcCenter.Value, p1);
+            var r = Measurements.Distance(arcCenter, p1);
             // arc start/end values, over mid point:
-            var s = Atan2(p1.Y - arcCenter.Value.Y, p1.X - arcCenter.Value.X);
-            var m = Atan2(p2.Y - arcCenter.Value.Y, p2.X - arcCenter.Value.X);
-            var e = Atan2(p3.Y - arcCenter.Value.Y, p3.X - arcCenter.Value.X);
+            var s = Atan2(p1.Y - arcCenter.Y, p1.X - arcCenter.X);
+            var m = Atan2(p2.Y - arcCenter.Y, p2.X - arcCenter.X);
+            var e = Atan2(p3.Y - arcCenter.Y, p3.X - arcCenter.X);
             double _;
             // determine arc direction (cw/ccw correction)
             if (s < e)
@@ -666,7 +666,7 @@ namespace Engine.Experimental
             // assign and done.
             var arc = new Arc2D
             {
-                Center = arcCenter.Value,
+                Center = arcCenter,
                 Start = s,
                 End = e,
                 Radius = r
@@ -1089,6 +1089,10 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D? Lli8(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double x4, double y4, double z4)
         {
+            _ = z1;
+            _ = z2;
+            _ = z3;
+            _ = z4;
             var nx = (((x1 * y2) - (y1 * x2)) * (x3 - x4)) - ((x1 - x2) * ((x3 * y4) - (y3 * x4)));
             var ny = (((x1 * y2) - (y1 * x2)) * (y3 - y4)) - ((y1 - y2) * ((x3 * y4) - (y3 * x4)));
             var d = ((x1 - x2) * (y3 - y4)) - ((y1 - y2) * (x3 - x4));

@@ -1527,14 +1527,14 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             if (this == null) return nameof(Matrix3x2D);
             if (IsIdentity) return nameof(Identity);
             // Helper to get the numeric list separator for a given culture.
-            var sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(formatProvider);
             IFormattable formatable = $"{nameof(Matrix3x2D)}{{{nameof(M11)}={m0x0}{sep}{nameof(M12)}={m0x1}{sep}{nameof(M21)}={m1x0}{sep}{nameof(M22)}={m1x1}{sep}{nameof(OffsetX)}={offsetX}{sep}{nameof(OffsetY)}={offsetY}}}";
-            return formatable.ToString(format, provider);
+            return formatable.ToString(format, formatProvider);
         }
         #endregion Methods
     }

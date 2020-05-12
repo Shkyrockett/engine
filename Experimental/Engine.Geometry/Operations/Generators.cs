@@ -30,7 +30,9 @@ namespace Engine
         /// <param name="radius">The radius.</param>
         /// <param name="count">The count.</param>
         /// <param name="angle">The angle.</param>
-        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="PolygonContour2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour2D RegularConvexPolygon(double x, double y, double radius, int count, double angle = -HalfPi)
         {
@@ -71,7 +73,9 @@ namespace Engine
         /// <param name="radius">The radius.</param>
         /// <param name="alpha">The alpha.</param>
         /// <param name="beta">The beta.</param>
-        /// <returns>The <see cref="List{T}"/>.</returns>
+        /// <returns>
+        /// The <see cref="List{T}" />.
+        /// </returns>
         public static List<Point2D> HeartCurve(double x, double y, double radius, double alpha, double beta)
         {
             // its increment [radian] of a Cardioid before the conversion plotting interval of the phase angle "t" before conversion
@@ -121,14 +125,16 @@ namespace Engine
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="radius">The radius.</param>
-        /// <returns>The <see cref="PolycurveContour"/>.</returns>
-        public static PolycurveContour HeartCurve(double x, double y, double radius)
+        /// <returns>
+        /// The <see cref="PolycurveContour2D" />.
+        /// </returns>
+        public static PolycurveContour2D HeartCurve(double x, double y, double radius)
         {
             // ToDo: Optimize algorithm to calculate minimum points for minimum curves.
             var heart = HeartCurve(x, y, radius, 0.9d, OneThird);
             var first = CurveFit.Fit(heart.Take(heart.Count / 2).ToList(), OneHalf);
             var last = CurveFit.Fit(heart.Skip(heart.Count / 2).ToList(), OneHalf);
-            var heartCurve = new PolycurveContour(first);
+            var heartCurve = new PolycurveContour2D(first);
             heartCurve.AddCubicBeziers(last);
             return heartCurve;
         }

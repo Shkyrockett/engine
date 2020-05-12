@@ -128,8 +128,7 @@ namespace Engine
         /// Gets the count.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public int Count
-            => contours.Count;
+        public int Count => contours.Count;
 
         /// <summary>
         /// Gets the vertices count.
@@ -155,8 +154,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public override double Perimeter
-            => contours.Sum(p => p.Perimeter);
+        public override double Perimeter => contours.Sum(p => p.Perimeter);
 
         /// <summary>
         /// Gets the bounds.
@@ -190,8 +188,7 @@ namespace Engine
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        public static List<PolycurveContour2D> ParsePathDefString(string pathDefinition)
-            => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
+        public static List<PolycurveContour2D> ParsePathDefString(string pathDefinition) => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Parse the path def string.

@@ -66,8 +66,7 @@ namespace Engine
         /// <value>
         /// The points.
         /// </value>
-        public List<Point2D> Points
-            => new List<Point2D> { A, B };
+        public List<Point2D> Points => new List<Point2D> { A, B };
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="LineSegmentLocus"/> to <see cref="LineSegment2D"/>.
@@ -76,8 +75,7 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator LineSegment2D(LineSegmentLocus locus)
-            => new LineSegment2D((locus?.A).Value, (locus?.B).Value);
+        public static implicit operator LineSegment2D(LineSegmentLocus locus) => new LineSegment2D(locus.A, locus.B);
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="LineSegmentLocus"/> to <see cref="Polyline2D"/>.
@@ -86,19 +84,18 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Polyline2D(LineSegmentLocus locus)
-            => new Polyline2D((locus?.A).Value, (locus?.B).Value);
+        public static implicit operator Polyline2D(LineSegmentLocus locus) => new Polyline2D(locus.A, locus.B);
 
         /// <summary>
         /// Converts to line segment.
         /// </summary>
         /// <returns></returns>
-        public LineSegment2D ToLineSegment() => new LineSegment2D(A, B);
+        public LineSegment2D ToLineSegment2D() => new LineSegment2D(A, B);
 
         /// <summary>
         /// Converts to polyline.
         /// </summary>
         /// <returns></returns>
-        public Polyline2D ToPolyline() => new Polyline2D(A, B);
+        public Polyline2D ToPolyline2D() => new Polyline2D(A, B);
     }
 }

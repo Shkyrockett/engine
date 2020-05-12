@@ -27,27 +27,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiInGetDevCaps", ExactSpelling = true, CharSet = CharSet.Auto)]
-        internal static extern MmResult MidiInGetDevCaps(IntPtr deviceId, out MidiInCapabilities capabilities, int size);
-
-        /// <summary>
-        /// Midis the in get dev caps.
-        /// </summary>
-        /// <param name="midiInDeviceNumber">The midi in device number.</param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static MidiInCapabilities MidiInGetDevCaps(int midiInDeviceNumber)
-        {
-            var capabilities = new MidiInCapabilities();
-            var structSize = Marshal.SizeOf(capabilities);
-            return (MidiInGetDevCaps((IntPtr)midiInDeviceNumber, out capabilities, structSize)) switch
-            {
-                MmResult.NoError => capabilities,
-				MmResult.BadDeviceId => throw new Exception("The specified device identifier is out of range."),
-				MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-				MmResult.NoDriver => throw new Exception("The driver is not installed."),
-				MmResult.MemoryAllocationError => throw new Exception("The system is unable to allocate or lock memory."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiInGetDevCaps(IntPtr deviceId, out MidiInCapabilities capabilities, int size);
     }
 }

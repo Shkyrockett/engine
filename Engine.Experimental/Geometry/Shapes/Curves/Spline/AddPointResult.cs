@@ -18,7 +18,8 @@ namespace Engine
     /// This seems like a prime candidate for an F#-style discriminated union/algebraic data type.
     /// </summary>
     /// <seealso cref="IEquatable{T}" />
-    public struct AddPointResult : IEquatable<AddPointResult>
+    public struct AddPointResult
+        : IEquatable<AddPointResult>
     {
         #region Fields
         /// <summary>
@@ -29,7 +30,7 @@ namespace Engine
         /// <summary>
         /// No changes were made.
         /// </summary>
-        public static readonly AddPointResult NO_CHANGE = default;
+        public static readonly AddPointResult NoChange = default;
         #endregion Fields
 
         #region Constructors
@@ -59,8 +60,7 @@ namespace Engine
         /// <value>
         /// The first index of the changed.
         /// </value>
-        public int FirstChangedIndex
-            => Math.Abs(data) - 1;
+        public int FirstChangedIndex => Math.Abs(data) - 1;
 
         /// <summary>
         /// Were any curves added?
@@ -68,8 +68,7 @@ namespace Engine
         /// <value>
         ///   <see langword="true"/> if [was added]; otherwise, <see langword="false"/>.
         /// </value>
-        public bool WasAdded
-            => data < 0;
+        public bool WasAdded => data < 0;
 
         /// <summary>
         /// Were any curves changed or added?
@@ -77,8 +76,7 @@ namespace Engine
         /// <value>
         ///   <see langword="true"/> if [was changed]; otherwise, <see langword="false"/>.
         /// </value>
-        public bool WasChanged
-            => data != 0;
+        public bool WasChanged => data != 0;
         #endregion Properties
 
         /// <summary>

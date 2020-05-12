@@ -81,6 +81,6 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public Polygon2D ToPolygon() => new Polygon2D(Polygons);
+        public Polygon2D ToPolygon2D() => new Polygon2D(Polygons);
     }
 }

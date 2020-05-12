@@ -1574,7 +1574,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse2D e, LineSegment2D s, double epsilon = double.Epsilon) => LineSegmentObliqueEllipseIntersection((s?.A).Value.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this Ellipse2D e, LineSegment2D s, double epsilon = double.Epsilon) => LineSegmentObliqueEllipseIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an ellipse and a ray.
@@ -2231,7 +2231,7 @@ namespace Engine
             double x1, double y1, double x2, double y2,
             double b0x, double b0y, double b1x, double b1y, double b2x, double b2y,
             double epsilon = double.Epsilon)
-            => LineQuadraticBezierIntersection(x1, y1, x2, y2, Polynomials.QuadraticBezierBernsteinBasis(b0x, b1x, b2x), Polynomials.QuadraticBezierBernsteinBasis(b0y, b1y, b2y), epsilon);
+            => LineQuadraticBezierIntersection(x1, y1, x2, y2, QuadraticBezierBernsteinBasis(b0x, b1x, b2x), QuadraticBezierBernsteinBasis(b0y, b1y, b2y), epsilon);
 
         /// <summary>
         /// Find the intersection between a line and a quadratic Bézier.
@@ -2265,7 +2265,7 @@ namespace Engine
             var c = (lx * (ly - lj)) + (ly * (li - lx));
 
             // Find the polynomial that represents the intersections.
-            var roots = ((lj * xCurve) - (li * yCurve) + c).Trim().Roots();
+            var roots = ((lj * xCurve) - (li * yCurve) + c).Trim().Roots().ToArray();
 
             Array.Sort(roots);
 
@@ -2316,8 +2316,8 @@ namespace Engine
             double epsilon = double.Epsilon)
             => LineCubicBezierIntersection(
                 x1, y1, x2, y2,
-                Polynomials.CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x),
-                Polynomials.CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y),
+                CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x),
+                CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y),
                 epsilon);
 
         /// <summary>
@@ -2352,7 +2352,7 @@ namespace Engine
             var c = (lx * (ly - lj)) + (ly * (li - lx));
 
             // Find the polynomial that represents the intersections.
-            var roots = ((lj * xCurve) - (li * yCurve) + c).Trim().Roots();
+            var roots = ((lj * xCurve) - (li * yCurve) + c).Trim().Roots().ToArray();
 
             Array.Sort(roots);
 
@@ -3203,7 +3203,7 @@ namespace Engine
             var c = (x1 * j1) + (y1 * i1);
 
             // Find the polynomial that represents the intersections.
-            var roots = ((j1 * xCurve) - (i1 * yCurve) + c).Trim().Roots();
+            var roots = ((j1 * xCurve) - (i1 * yCurve) + c).Trim().Roots().ToArray();
 
             Array.Sort(roots);
 
@@ -3266,7 +3266,7 @@ namespace Engine
             var c = (x1 * -j1) + (y1 * i1);
 
             // Find the polynomial that represents the intersections.
-            var roots = ((j1 * xCurve) + (-i1 * yCurve) + c).Trim().Roots();
+            var roots = ((j1 * xCurve) + (-i1 * yCurve) + c).Trim().Roots().ToArray();
 
             Array.Sort(roots);
 
@@ -4034,8 +4034,8 @@ namespace Engine
             double epsilon = double.Epsilon)
             => LineSegmentQuadraticBezierSegmentIntersection(
                 x1, y1, x2, y2,
-                Polynomials.QuadraticBezierBernsteinBasis(b0x, b1x, b2x),
-                Polynomials.QuadraticBezierBernsteinBasis(b0y, b1y, b2y),
+                QuadraticBezierBernsteinBasis(b0x, b1x, b2x),
+                QuadraticBezierBernsteinBasis(b0y, b1y, b2y),
                 epsilon);
 
         /// <summary>
@@ -4074,7 +4074,7 @@ namespace Engine
             var c = (x1 * (y1 - y2)) + (y1 * (x2 - x1));
 
             // Find the roots of the polynomial that represents the intersections.
-            var roots = ((a * xCurve) + (b * yCurve) + c).Trim().Roots();
+            var roots = ((a * xCurve) + (b * yCurve) + c).Trim().Roots().ToArray();
 
             Array.Sort(roots);
 
@@ -4133,8 +4133,8 @@ namespace Engine
             double epsilon = double.Epsilon)
             => LineSegmentCubicBezierSegmentIntersection(
                 x1, y1, x2, y2,
-                Polynomials.CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x),
-                Polynomials.CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y),
+                CubicBezierBernsteinBasis(b0x, b1x, b2x, b3x),
+                CubicBezierBernsteinBasis(b0y, b1y, b2y, b3y),
                 epsilon);
 
         /// <summary>
@@ -4173,7 +4173,7 @@ namespace Engine
             var c = (x1 * (y1 - y2)) + (y1 * (x2 - x1));
 
             // Find the roots of the polynomial that represents the intersections.
-            var roots = ((a * xCurve) + (b * yCurve) + c).Trim().Roots();
+            var roots = ((a * xCurve) + (b * yCurve) + c).Trim().Roots().ToArray();
 
             Array.Sort(roots);
 
@@ -4931,10 +4931,10 @@ namespace Engine
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
             double epsilon = double.Epsilon)
             => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(
-                Polynomials.QuadraticBezierBernsteinBasis(a1X, a2X, a3X),
-                Polynomials.QuadraticBezierBernsteinBasis(a1Y, a2Y, a3Y),
-                Polynomials.QuadraticBezierBernsteinBasis(b1X, b2X, b3X),
-                Polynomials.QuadraticBezierBernsteinBasis(b1Y, b2Y, b3Y),
+                QuadraticBezierBernsteinBasis(a1X, a2X, a3X),
+                QuadraticBezierBernsteinBasis(a1Y, a2Y, a3Y),
+                QuadraticBezierBernsteinBasis(b1X, b2X, b3X),
+                QuadraticBezierBernsteinBasis(b1Y, b2Y, b3Y),
                 epsilon);
 
         /// <summary>
@@ -4993,7 +4993,7 @@ namespace Engine
                 /* x² */ ((-yCurveB[0] * v6) + (yCurveA[0] * f * f) + (yCurveA[0] * e * v4) + (e * v5)) / yCurveA[0],
                 /* x¹ */ ((-yCurveB[1] * v6) + (yCurveA[0] * f * v4) + (f * v5)) / yCurveA[0],
                 /* c  */ ((v3 * v6) + (v4 * v5)) / yCurveA[0]
-            ).Trim().Roots();
+            ).Trim().Roots().ToArray();
 
             Array.Sort(roots);
 
@@ -5007,9 +5007,9 @@ namespace Engine
                 if (s >= 0d && s <= 1d)
                 {
                     // Look for intersections on curve a at the same location.
-                    var xRoots = (xCurveA - point.X).Trim().Roots();
+                    var xRoots = (xCurveA - point.X).Trim().Roots().ToArray();
                     Array.Sort(xRoots);
-                    var yRoots = (yCurveA - point.Y).Trim().Roots();
+                    var yRoots = (yCurveA - point.Y).Trim().Roots().ToArray();
                     Array.Sort(yRoots);
 
                     if (xRoots.Length > 0 && yRoots.Length > 0)
@@ -5030,7 +5030,7 @@ namespace Engine
                                 }
                             }
                         }
-                    checkRoots:;
+                        checkRoots:;
                     }
                 }
             }
@@ -5071,10 +5071,10 @@ namespace Engine
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = double.Epsilon)
             => QuadraticBezierSegmentCubicBezierSegmentIntersection(
-                Polynomials.QuadraticBezierBernsteinBasis(a1X, a2X, a3X),
-                Polynomials.QuadraticBezierBernsteinBasis(a1Y, a2Y, a3Y),
-                Polynomials.CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
-                Polynomials.CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
+                QuadraticBezierBernsteinBasis(a1X, a2X, a3X),
+                QuadraticBezierBernsteinBasis(a1Y, a2Y, a3Y),
+                CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
                 epsilon);
 
         /// <summary>
@@ -5135,7 +5135,7 @@ namespace Engine
                 /* x² */ (2d * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[1]) + (2d * yCurveA[2] * xCurveA[0] * yCurveA[0] * xCurveB[1]) + (xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[1]) + (xCurveA[1] * yCurveA[1] * yCurveA[0] * xCurveB[1]) - (2d * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[1]) - (2d * xCurveA[0] * yCurveB[3] * yCurveA[0] * xCurveB[1]) - (2d * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[2]) - (2d * xCurveA[2] * cAAy2 * xCurveB[1]) - (2d * yCurveA[2] * cAAx2 * yCurveB[1]) + (2d * xCurveB[3] * cAAy2 * xCurveB[1]) - (cABy2 * xCurveA[0] * xCurveB[1]) - (cABx2 * yCurveA[0] * yCurveB[1]) + (cBCx2 * cAAy2) + (cAAx2 * ((2d * yCurveB[3] * yCurveB[1]) + cBCy2)),
                 /* x¹ */ (2d * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[2]) + (2d * yCurveA[2] * xCurveA[0] * xCurveB[2] * yCurveA[0]) + (xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[2]) + (xCurveA[1] * yCurveA[1] * xCurveB[2] * yCurveA[0]) - (2d * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[2]) - (2d * xCurveA[0] * yCurveB[3] * xCurveB[2] * yCurveA[0]) - (2d * xCurveA[2] * xCurveB[2] * cAAy2) - (2 * yCurveA[2] * cAAx2 * yCurveB[2]) + (2d * xCurveB[3] * xCurveB[2] * cAAy2) - (cABy2 * xCurveA[0] * xCurveB[2]) - (cABx2 * yCurveA[0] * yCurveB[2]) + (2d * cAAx2 * yCurveB[3] * yCurveB[2]),
                 /* c  */ (-2d * xCurveA[2] * yCurveA[2] * xCurveA[0] * yCurveA[0]) - (xCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0]) - (yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0]) + (2d * xCurveA[2] * xCurveA[0] * yCurveB[3] * yCurveA[0]) + (2d * yCurveA[2] * xCurveB[3] * xCurveA[0] * yCurveA[0]) + (xCurveA[1] * xCurveB[3] * yCurveA[1] * yCurveA[0]) + (xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[3]) - (2d * xCurveB[3] * xCurveA[0] * yCurveB[3] * yCurveA[0]) - (2d * xCurveA[2] * xCurveB[3] * cAAy2) + (xCurveA[2] * cABy2 * xCurveA[0]) + (yCurveA[2] * cABx2 * yCurveA[0]) - (2d * yCurveA[2] * cAAx2 * yCurveB[3]) - (xCurveB[3] * cABy2 * xCurveA[0]) - (cABx2 * yCurveB[3] * yCurveA[0]) + (cACx2 * cAAy2) + (cACy2 * cAAx2) + (cBDx2 * cAAy2) + (cAAx2 * cBDy2)
-            ).Trim().RootsInInterval();
+            ).Trim().RootsInInterval().ToArray();
 
             Array.Sort(roots);
 
@@ -5145,9 +5145,9 @@ namespace Engine
                    (xCurveB[0] * s * s * s) + (xCurveB[1] * s * s) + (xCurveB[2] * s) + xCurveB[3],
                    (yCurveB[0] * s * s * s) + (yCurveB[1] * s * s) + (yCurveB[2] * s) + yCurveB[3]);
 
-                var xRoots = (xCurveA - point.X).Trim().Roots(epsilon);
+                var xRoots = (xCurveA - point.X).Trim().Roots(epsilon).ToArray();
                 Array.Sort(xRoots);
-                var yRoots = (yCurveA - point.Y).Trim().Roots();
+                var yRoots = (yCurveA - point.Y).Trim().Roots().ToArray();
                 Array.Sort(yRoots);
 
                 if (xRoots.Length > 0 && yRoots.Length > 0)
@@ -5166,7 +5166,7 @@ namespace Engine
                             }
                         }
                     }
-                checkRoots:;
+                    checkRoots:;
                 }
             }
 
@@ -5270,8 +5270,8 @@ namespace Engine
             Span<Point2D> points,
             double epsilon = double.Epsilon)
             => QuadraticBezierSegmentPolygonContourIntersection(
-                Polynomials.QuadraticBezierBernsteinBasis(b1X, b2X, b3X),
-                Polynomials.QuadraticBezierBernsteinBasis(b1Y, b2Y, b3Y),
+                QuadraticBezierBernsteinBasis(b1X, b2X, b3X),
+                QuadraticBezierBernsteinBasis(b1Y, b2Y, b3Y),
                 points,
                 epsilon);
 
@@ -5348,8 +5348,8 @@ namespace Engine
             double t1X, double t1Y, double t2X, double t2Y, double t3X, double t3Y,
             double epsilon = double.Epsilon)
             => QuadraticBezierSegmentTriangleIntersection(
-                Polynomials.QuadraticBezierBernsteinBasis(p1X, p2X, p3X),
-                Polynomials.QuadraticBezierBernsteinBasis(p1Y, p2Y, p3Y),
+                QuadraticBezierBernsteinBasis(p1X, p2X, p3X),
+                QuadraticBezierBernsteinBasis(p1Y, p2Y, p3Y),
                 t1X, t1Y, t2X, t2Y, t3X, t3Y,
                 epsilon);
 
@@ -5421,8 +5421,8 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = double.Epsilon)
             => QuadraticBezierSegmentRectangleIntersection(
-                Polynomials.QuadraticBezierBernsteinBasis(p1X, p2X, p3X),
-                Polynomials.QuadraticBezierBernsteinBasis(p1Y, p2Y, p3Y),
+                QuadraticBezierBernsteinBasis(p1X, p2X, p3X),
+                QuadraticBezierBernsteinBasis(p1Y, p2Y, p3Y),
                 r1X, r1Y, r2X, r2Y,
                 epsilon);
 
@@ -5491,8 +5491,8 @@ namespace Engine
             double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3,
             double epsilon = double.Epsilon)
             => CubicBezierSegmentSelfIntersection(
-                Polynomials.CubicBezierBernsteinBasis(x0, x1, x2, x3),
-                Polynomials.CubicBezierBernsteinBasis(y0, y1, y2, y3),
+                CubicBezierBernsteinBasis(x0, x1, x2, x3),
+                CubicBezierBernsteinBasis(y0, y1, y2, y3),
                 epsilon);
 
         /// <summary>
@@ -5535,7 +5535,7 @@ namespace Engine
                 -3d * k,
                 (3d * k * k) + (2d * k * a) + (2d * b),
                 (-k * k * k) - (a * k * k) - (b * k)
-                ).Trim().Roots();
+                ).Trim().Roots().ToArray();
 
             Array.Sort(roots);
 
@@ -5610,10 +5610,10 @@ namespace Engine
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = double.Epsilon)
             => CubicBezierSegmentCubicBezierSegmentIntersection(
-                Polynomials.CubicBezierBernsteinBasis(a1X, a2X, a3X, a4X),
-                Polynomials.CubicBezierBernsteinBasis(a1Y, a2Y, a3Y, a4Y),
-                Polynomials.CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
-                Polynomials.CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierBernsteinBasis(a1X, a2X, a3X, a4X),
+                CubicBezierBernsteinBasis(a1Y, a2Y, a3Y, a4Y),
+                CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
                 epsilon);
 
         /// <summary>
@@ -5702,9 +5702,9 @@ namespace Engine
                     (xCurveB[0] * s * s * s) + (xCurveB[1] * s * s) + (xCurveB[2] * s) + xCurveB[3],
                     (yCurveB[0] * s * s * s) + (yCurveB[1] * s * s) + (yCurveB[2] * s) + yCurveB[3]);
 
-                var xRoots = (xCurveA - point.X).Trim().Roots();
+                var xRoots = (xCurveA - point.X).Trim().Roots().ToArray();
                 Array.Sort(xRoots);
-                var yRoots = (yCurveA - point.Y).Trim().Roots();
+                var yRoots = (yCurveA - point.Y).Trim().Roots().ToArray();
                 Array.Sort(yRoots);
 
                 // ToDo: Figure out why the xRoots can be larger than 1 or smaller than 0 and still work...
@@ -5726,7 +5726,7 @@ namespace Engine
                             }
                         }
                     }
-                checkRoots:;
+                    checkRoots:;
                 }
             }
 
@@ -5764,8 +5764,8 @@ namespace Engine
             Span<Point2D> points,
             double epsilon = double.Epsilon)
             => CubicBezierSegmentPolylineIntersection(
-                Polynomials.CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
-                Polynomials.CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
                 points,
                 epsilon);
 
@@ -5841,8 +5841,8 @@ namespace Engine
             Span<Point2D> points,
             double epsilon = double.Epsilon)
             => CubicBezierSegmentPolygonIntersection(
-                Polynomials.CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
-                Polynomials.CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
                 points,
                 epsilon);
 
@@ -5923,8 +5923,8 @@ namespace Engine
             double t1X, double t1Y, double t2X, double t2Y, double t3X, double t3Y,
             double epsilon = double.Epsilon)
             => CubicBezierSegmentTriangleIntersection(
-                Polynomials.CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
-                Polynomials.CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
                 t1X, t1Y, t2X, t2Y, t3X, t3Y,
                 epsilon);
 
@@ -6000,8 +6000,8 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = double.Epsilon)
             => CubicBezierSegmentRectangleIntersection(
-                Polynomials.CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
-                Polynomials.CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
                 r1X, r1Y, r2X, r2Y,
                 epsilon);
 
@@ -7076,7 +7076,7 @@ namespace Engine
                 c: (bb * ((2d * ax * cx) + (bx * bx))) + (aa * ((2d * ay * cy) + (by * by))) - (2d * ((bb * h * ax) + (aa * k * ay))),
                 d: 2d * ((bb * bx * (cx - h)) + (aa * by * (cy - k))),
                 e: (bb * ((cx * cx) + (h * h))) + (aa * ((cy * cy) + (k * k))) - (2d * ((bb * h * cx) + (aa * k * cy))) - (aa * bb)
-            )).Trim().RootsInInterval();
+            )).Trim().RootsInInterval().ToArray();
 
             Array.Sort(roots);
 
@@ -7160,7 +7160,7 @@ namespace Engine
                 c: (bb * ((2d * ax * cx) + (bx * bx))) - (2d * ((bb * h * ax) + (aa * k * ay))) + (aa * ((2d * ay * cy) + (by * by))),
                 d: 2d * ((bb * bx * cxh) + (aa * by * cyk)),
                 e: (bb * ((cx * cx) + (k * k))) - (2d * ((bb * h * cx) + (aa * k * cy))) + (aa * ((cy * cy) + (k * k))) - (aa * bb)
-                )).Trim().Roots();
+                )).Trim().Roots().ToArray();
 
             Array.Sort(roots);
 
@@ -7296,7 +7296,7 @@ namespace Engine
                 e: (2d * bx * (b * b) * (dx - h)) + (2d * by * (a * a) * (dy - k)) + (cx * cx * (b * b)) + (cy * cy * (a * a)),
                 f: (2d * cx * (b * b) * (dx - h)) + (2d * cy * (a * a) * (dy - k)),
                 g: (dx * dx * (b * b)) - (2d * dy * k * (a * a)) - (2d * dx * h * (b * b)) + (dy * dy * (a * a)) + (h * h * (b * b)) + (k * k * (a * a)) - (a * a * (b * b))
-                )).Trim().RootsInInterval();
+                )).Trim().RootsInInterval().ToArray();
 
             Array.Sort(roots);
 
@@ -7396,7 +7396,7 @@ namespace Engine
             var a = OrthogonalEllipseConicSectionPolynomial(h1, k1, a1, b1);
             var b = OrthogonalEllipseConicSectionPolynomial(h2, k2, a2, b2);
 
-            var yRoots = new Polynomial(ConicSectionBezout(a, b)).Trim().Roots();
+            var yRoots = new Polynomial(ConicSectionBezout(a, b)).Trim().Roots().ToArray();
             Array.Sort(yRoots);
 
             // Double epsilon is too small for here.
@@ -7411,7 +7411,7 @@ namespace Engine
                      a.a,
                      a.d + (yRoots[y] * a.b),
                      a.f + (yRoots[y] * (a.e + (yRoots[y] * a.c))),
-                     epsilon).Trim().Roots();
+                     epsilon).Trim().Roots().ToArray();
                 Array.Sort(xRoots);
                 for (var x = 0; x < xRoots.Length; x++)
                 {
@@ -7510,7 +7510,7 @@ namespace Engine
             if (incidence == Incidence.Perpendicular && a1 == b2 && a2 == b1)
             {
                 // Rotate the center point of the second ellipse in the reverse angle about the center of the first ellipse to align with it.
-                (h2, k2) = Operations.RotatePoint2D(h2, k2, cos1, -sin1, h1, k1);
+                (h2, k2) = RotatePoint2D(h2, k2, cos1, -sin1, h1, k1);
 
                 // Rotate second ellipse Orthogonally.
                 Swap(ref a2, ref b2);
@@ -7522,7 +7522,7 @@ namespace Engine
                 for (var i = 0; i < intersection.Points.Count; i++)
                 {
                     // Rotate point.
-                    intersection.Points[i] = Operations.RotatePoint2D(intersection.Points[i].X, intersection.Points[i].Y, cos1, sin1, h1, k1);
+                    intersection.Points[i] = RotatePoint2D(intersection.Points[i].X, intersection.Points[i].Y, cos1, sin1, h1, k1);
                 }
 
                 // Return result.
@@ -7532,7 +7532,7 @@ namespace Engine
             else if (incidence == Incidence.Parallel && a1 == a2 && b1 == b2)
             {
                 // Rotate the center point of the second ellipse in the reverse angle about the center of the first ellipse to align with it.
-                (h2, k2) = Operations.RotatePoint2D(h2, k2, cos1, -sin1, h1, k1);
+                (h2, k2) = RotatePoint2D(h2, k2, cos1, -sin1, h1, k1);
 
                 // Find the points of intersection.
                 var intersection = OrthogonalEllipseOrthogonalEllipseIntersection(h1, k1, a1, b1, h2, k2, a2, b2, epsilon);
@@ -7541,7 +7541,7 @@ namespace Engine
                 for (var i = 0; i < intersection.Points.Count; i++)
                 {
                     // Rotate point.
-                    intersection.Points[i] = Operations.RotatePoint2D(intersection.Points[i].X, intersection.Points[i].Y, cos1, sin1, h1, k1);
+                    intersection.Points[i] = RotatePoint2D(intersection.Points[i].X, intersection.Points[i].Y, cos1, sin1, h1, k1);
                 }
 
                 // Return result.
@@ -7552,7 +7552,7 @@ namespace Engine
             var e1 = EllipseConicSectionPolynomial(h1, k1, a1, b1, cos1, sin1);
             var e2 = EllipseConicSectionPolynomial(h2, k2, a2, b2, cos2, sin2);
 
-            var yRoots = new Polynomial(ConicSectionBezout(e1, e2)).Trim().Roots();
+            var yRoots = new Polynomial(ConicSectionBezout(e1, e2)).Trim().Roots().ToArray();
             Array.Sort(yRoots);
 
             // Double epsilon is too small for here.
@@ -7564,10 +7564,10 @@ namespace Engine
             foreach (var s in yRoots)
             {
                 var xRoots = new Polynomial((
-                    a: e1.a,
+                       e1.a,
                     b: e1.d + s * e1.b,
                     c: e1.f + s * (e1.e + s * e1.c)
-                )).Trim().Roots();
+                )).Trim().Roots().ToArray();
                 Array.Sort(xRoots);
                 foreach (var t in xRoots)
                 {

@@ -31,34 +31,6 @@ internal static partial class Interop
 		/// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiInPrepareHeader", ExactSpelling = true)]
-        internal static extern MmResult MidiInPrepareHeader(IntPtr hMidiIn, [MarshalAs(UnmanagedType.Struct)] ref MIDIHDR lpMidiInHdr, int uSize);
-
-        /// <summary>
-        /// Midis the in prepare header.
-        /// </summary>
-        /// <param name="midiInputHandle">The midi input handle.</param>
-        /// <param name="midiInHeader">The midi in header.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">The Midi buffer is still in the queue.
-        /// or
-        /// The Midi buffer has not been prepared.
-        /// or
-        /// The specified device handle is invalid.
-        /// or
-        /// The specified pointer or structure is invalid.
-        /// or
-        /// The system is unable to allocate or lock memory.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static MIDIHDR MidiInPrepareHeader(IntPtr midiInputHandle, MIDIHDR midiInHeader)
-        {
-			return (MidiInPrepareHeader(midiInputHandle, ref midiInHeader, Marshal.SizeOf(midiInHeader))) switch
-			{
-				MmResult.NoError => midiInHeader,
-				MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-				MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-				MmResult.MemoryAllocationError => throw new Exception("The system is unable to allocate or lock memory."),
-				_ => throw new Exception("Unspecified Error"),
-			};
-		}
-	}
+        private static extern MmResult MidiInPrepareHeader(IntPtr hMidiIn, [MarshalAs(UnmanagedType.Struct)] ref MIDIHDR lpMidiInHdr, int uSize);
+    }
 }

@@ -23,29 +23,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutGetErrorText", ExactSpelling = true)]
-        internal static extern MmResult MidiOutGetErrorText(IntPtr err, StringBuilder lpText, int uSize);
-
-        /// <summary>
-        /// Retrieves a textual description for an error identified by the specified error code.
-        /// </summary>
-        /// <param name="error">The error.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">
-        /// The specified error number is out of range.
-        /// or
-        /// The specified pointer or structure is invalid.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string MidiOutGetErrorText(IntPtr error)
-        {
-            var sb = new StringBuilder(MaxErrorLength);
-            return MidiOutGetErrorText(error, sb, MaxErrorLength) switch
-            {
-                MmResult.NoError => sb.ToString().Trim(),
-                MmResult.BadErrorNumber => throw new Exception("The specified error number is out of range."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutGetErrorText(IntPtr err, StringBuilder lpText, int uSize);
     }
 }

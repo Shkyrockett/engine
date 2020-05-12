@@ -122,7 +122,7 @@ namespace Engine
         /// <param name="startAngle"></param>
         /// <param name="endAngle"></param>
         public EllipticalArc2D(Ellipse2D ellipse, double startAngle, double endAngle)
-            : this((ellipse?.Center).Value, ellipse.MajorRadius, ellipse.MinorRadius, ellipse.Angle, startAngle, endAngle)
+            : this(ellipse.Center, ellipse.MajorRadius, ellipse.MinorRadius, ellipse.Angle, startAngle, endAngle)
         { }
 
         /// <summary>

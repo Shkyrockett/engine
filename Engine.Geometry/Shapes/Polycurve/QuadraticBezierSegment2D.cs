@@ -28,13 +28,13 @@ namespace Engine
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuadraticBezierSegment"/> class.
+        /// Initializes a new instance of the <see cref="QuadraticBezierSegment2D"/> class.
         /// </summary>
         public QuadraticBezierSegment2D()
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuadraticBezierSegment"/> class.
+        /// Initializes a new instance of the <see cref="QuadraticBezierSegment2D"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
         /// <param name="relative">The relative.</param>
@@ -45,7 +45,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuadraticBezierSegment"/> class.
+        /// Initializes a new instance of the <see cref="QuadraticBezierSegment2D"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
         /// <param name="relative">The relative.</param>
@@ -55,13 +55,13 @@ namespace Engine
         {
             if (relative)
             {
-                Handle = (Point2D)(Handle + (previous?.Tail).Value);
-                Tail = (Point2D)(Tail + (previous?.Tail).Value);
+                Handle = (Point2D)(Handle + (previous?.Tail));
+                Tail = (Point2D)(Tail + (previous?.Tail));
             }
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuadraticBezierSegment"/> class.
+        /// Initializes a new instance of the <see cref="QuadraticBezierSegment2D"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
         /// <param name="handle">The handle.</param>
@@ -92,12 +92,12 @@ namespace Engine
         /// <param name="cy">The cy.</param>
         public void Deconstruct(out double ax, out double ay, out double bx, out double by, out double cx, out double cy)
         {
-            ax = Head.Value.X;
-            ay = Head.Value.Y;
-            bx = Handle.Value.X;
-            by = Handle.Value.Y;
-            cx = Tail.Value.X;
-            cy = Tail.Value.Y;
+            ax = Head.X;
+            ay = Head.Y;
+            bx = Handle.X;
+            by = Handle.Y;
+            cx = Tail.X;
+            cy = Tail.Y;
         }
         #endregion Deconstructors
 
@@ -106,7 +106,7 @@ namespace Engine
         /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? Head
+        public override Point2D Head
         {
             get { return Previous.Tail; }
             set
@@ -126,27 +126,26 @@ namespace Engine
         /// Gets or sets the handle.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public Point2D? Handle { get; set; }
+        public Point2D Handle { get; set; }
 
         /// <summary>
         /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd { get { return Handle; } set { Handle = value; } }
+        public override Point2D NextToEnd { get { return Handle; } set { Handle = value; } }
 
         /// <summary>
         /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public override Point2D? Tail { get; set; }
+        public override Point2D Tail { get; set; }
 
         /// <summary>
         /// Gets the grips.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public override List<Point2D> Grips
-            => new List<Point2D> { Head.Value, Handle.Value, Tail.Value };
+        public override List<Point2D> Grips => new List<Point2D> { Head, Handle, Tail };
 
         /// <summary>
         /// Gets the bounds.
@@ -167,7 +166,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierBernsteinBasis(Head.Value.X, Handle.Value.X, Tail.Value.X));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierBernsteinBasis(Head.X, Handle.X, Tail.X));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -181,7 +180,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierBernsteinBasis(Head.Value.Y, Handle.Value.Y, Tail.Value.Y));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierBernsteinBasis(Head.Y, Handle.Y, Tail.Y));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -191,8 +190,7 @@ namespace Engine
         /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override double Length
-            => (double)CachingProperty(() => Measurements.QuadraticBezierArcLengthByIntegral(Head.Value.X, Head.Value.Y, Handle.Value.X, Handle.Value.Y, Tail.Value.X, Tail.Value.Y));
+        public override double Length => (double)CachingProperty(() => Measurements.QuadraticBezierArcLengthByIntegral(Head.X, Head.Y, Handle.X, Handle.Y, Tail.X, Tail.Y));
         #endregion Properties
 
         /// <summary>
@@ -200,16 +198,14 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public override Point2D Interpolate(double t)
-            => ToQuadtraticBezier().Interpolate(t);
+        public override Point2D Interpolate(double t) => ToQuadtraticBezier().Interpolate(t);
 
         #region Methods
         /// <summary>
-        /// The to quadtratic bezier.
+        /// The to quadratic bezier.
         /// </summary>
         /// <returns>The <see cref="QuadraticBezier2D"/>.</returns>
-        public QuadraticBezier2D ToQuadtraticBezier()
-            => new QuadraticBezier2D(Head.Value, Handle.Value, Tail.Value);
+        public QuadraticBezier2D ToQuadtraticBezier() => new QuadraticBezier2D(Head, Handle, Tail);
         #endregion Methods
     }
 }

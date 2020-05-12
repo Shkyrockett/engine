@@ -23,6 +23,8 @@ namespace Engine
     /// <summary>
     /// 2D Line Segment Structure
     /// </summary>
+    /// <seealso cref="Engine.Shape2D" />
+    /// <seealso cref="Engine.IShapeSegment" />
     /// <structure>Engine.Geometry.Segment2D</structure>
     [DataContract, Serializable]
     [GraphicsObject]
@@ -31,7 +33,7 @@ namespace Engine
     [TypeConverter(typeof(StructConverter<LineSegment2D>))]
     [DebuggerDisplay("{ToString()}")]
     public class LineSegment2D
-        : Shape2D
+        : Shape2D, IShapeSegment
     {
         #region Implementations
         /// <summary>
@@ -64,22 +66,22 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
+        /// Initializes a new instance of the <see cref="LineSegment2D" /> class.
         /// </summary>
         public LineSegment2D()
             : this(Point2D.Empty, Point2D.Empty)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
+        /// Initializes a new instance of the <see cref="LineSegment2D" /> class.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">The tuple.</param>
         public LineSegment2D((double x1, double y1, double x2, double y2) tuple)
             : this(tuple.x1, tuple.y1, tuple.x2, tuple.y2)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
+        /// Initializes a new instance of the <see cref="LineSegment2D" /> class.
         /// </summary>
         /// <param name="x1">Horizontal component of starting point</param>
         /// <param name="y1">Vertical component of starting point</param>
@@ -90,7 +92,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
+        /// Initializes a new instance of the <see cref="LineSegment2D" /> class.
         /// </summary>
         /// <param name="Point">Starting Point</param>
         /// <param name="RadAngle">Ending Angle</param>
@@ -100,7 +102,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
+        /// Initializes a new instance of the <see cref="LineSegment2D" /> class.
         /// </summary>
         /// <param name="a">Starting Point</param>
         /// <param name="b">Ending Point</param>
@@ -132,8 +134,13 @@ namespace Engine
         /// <summary>
         /// The Indexer.
         /// </summary>
+        /// <value>
+        /// The <see cref="Point2D"/>.
+        /// </value>
         /// <param name="index">The index index.</param>
-        /// <returns>One element of type Point2D.</returns>
+        /// <returns>
+        /// One element of type Point2D.
+        /// </returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -153,6 +160,9 @@ namespace Engine
         /// <summary>
         /// Get or sets an array of points representing a line segment.
         /// </summary>
+        /// <value>
+        /// The points.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Points
@@ -173,6 +183,9 @@ namespace Engine
         /// <summary>
         /// First Point of a line segment
         /// </summary>
+        /// <value>
+        /// a.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The first Point of a line segment")]
@@ -194,6 +207,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate of the first Point of a line segment.
         /// </summary>
+        /// <value>
+        /// The ax.
+        /// </value>
         [XmlAttribute("ax")]
         [Browsable(true)]
         [Category("Elements")]
@@ -216,6 +232,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate of the first Point of a line segment.
         /// </summary>
+        /// <value>
+        /// The ay.
+        /// </value>
         [XmlAttribute("ay")]
         [Browsable(true)]
         [Category("Elements")]
@@ -238,6 +257,9 @@ namespace Engine
         /// <summary>
         /// Ending Point of a Line Segment
         /// </summary>
+        /// <value>
+        /// The b.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The ending Point of a Line Segment")]
@@ -260,6 +282,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate of the second Point of a line segment.
         /// </summary>
+        /// <value>
+        /// The bx.
+        /// </value>
         [XmlAttribute("bx")]
         [Browsable(true)]
         [Category("Elements")]
@@ -282,6 +307,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate of the second Point of a line segment.
         /// </summary>
+        /// <value>
+        /// The by.
+        /// </value>
         [XmlAttribute("by")]
         [Browsable(true)]
         [Category("Elements")]
@@ -304,7 +332,9 @@ namespace Engine
         /// <summary>
         /// Gets or the size and location of the segment, in floating-point pixels, relative to the parent canvas.
         /// </summary>
-        /// <returns>A System.Drawing.RectangleF in floating-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
+        /// <value>
+        /// The bounds.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -314,36 +344,54 @@ namespace Engine
         /// <summary>
         /// Gets the length.
         /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Length => (double)CachingProperty(() => Measurements.Distance(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// Gets the length squared.
         /// </summary>
+        /// <value>
+        /// The length squared.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double LengthSquared => (double)CachingProperty(() => Measurements.SquareDistance(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// Gets the dot product.
         /// </summary>
+        /// <value>
+        /// The dot product.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double DotProduct => (double)CachingProperty(() => DotProduct(aX, aY, bX, bY));
 
         /// <summary>
         /// "a.X * b.Y - b.X * a.Y" This would be the Z-component of (⟪a.X, a.Y, 0⟫ ⨯ ⟪b.X, b.Y, 0⟫) in 3-space.
         /// </summary>
+        /// <value>
+        /// The cross product.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double CrossProduct => (double)CachingProperty(() => CrossProduct(aX, aY, bX, bY));
 
         /// <summary>
         /// Gets the complex product.
         /// </summary>
+        /// <value>
+        /// The complex product.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public (double x, double y) ComplexProduct => ((double x, double y))CachingProperty(() => ComplexProduct(aX, aY, bX, bY));
 
         /// <summary>
         /// Gets the curve x.
         /// </summary>
+        /// <value>
+        /// The curve x.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveX
         {
@@ -358,6 +406,9 @@ namespace Engine
         /// <summary>
         /// Gets the curve y.
         /// </summary>
+        /// <value>
+        /// The curve y.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveY
         {
@@ -372,38 +423,119 @@ namespace Engine
         /// <summary>
         /// Return the point of the segment with lexicographically smallest coordinate.
         /// </summary>
+        /// <value>
+        /// The minimum.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Point2D Min => (aX < bX) || (aX == bX && aY < bY) ? new Point2D(aX, aY) : new Point2D(bX, bY);
 
         /// <summary>
         /// Return the point of the segment with lexicographically largest coordinate.
         /// </summary>
+        /// <value>
+        /// The maximum.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Point2D Max => (aX > bX) || (aX == bX && aY > bY) ? new Point2D(aX, aY) : new Point2D(bX, bY);
 
         /// <summary>
         /// Gets the degree.
         /// </summary>
+        /// <value>
+        /// The degree.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree => PolynomialDegree.Linear;
 
         /// <summary>
-        /// Gets a value indicating whether 
+        /// Gets a value indicating whether
         /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if degenerate; otherwise, <see langword="false"/>.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool Degenerate => aX == bX && aY == bY;
 
         /// <summary>
-        /// Gets a value indicating whether 
+        /// Gets a value indicating whether
         /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if this instance is horizontal; otherwise, <see langword="false"/>.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsHorizontal => aY == bY;
 
         /// <summary>
-        /// Gets a value indicating whether 
+        /// Gets a value indicating whether
         /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if this instance is vertical; otherwise, <see langword="false"/>.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsVertical => aX == bX;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="IShapeSegment" /> position should be calculated relative to the last item, or from Origin.
+        /// </summary>
+        /// <value>
+        ///   <see langword="true" /> if relative; otherwise, <see langword="false" />.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public bool Relative { get; set; }
+
+        /// <summary>
+        /// Gets or sets a reference to the segment after this segment.
+        /// </summary>
+        /// <value>
+        /// The before.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public IShapeSegment Before { get; set; }
+
+        /// <summary>
+        /// Gets or sets a reference to the segment before this segment.
+        /// </summary>
+        /// <value>
+        /// The after.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public IShapeSegment After { get; set; }
+
+        /// <summary>
+        /// Gets or sets the head point.
+        /// </summary>
+        /// <value>
+        /// The head.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Point2D Head { get; set; }
+
+        /// <summary>
+        /// Gets or sets the next to first point from the head point.
+        /// </summary>
+        /// <value>
+        /// The next to head point.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Point2D NextToHead { get; set; }
+
+        /// <summary>
+        /// Gets or sets the next to last point to the tail point.
+        /// </summary>
+        /// <value>
+        /// The next to tail point.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Point2D NextToTail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tail point.
+        /// </summary>
+        /// <value>
+        /// The tail.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Point2D Tail { get; set; }
         #endregion Properties
 
         #region Operators

@@ -61,7 +61,7 @@ namespace Engine
         /// <returns>The absolute angle of a line in radians.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double AbsoluteAngle(this LineSegment2D segment) => Operations.AbsoluteAngle((segment?.A).Value.X, segment.A.Y, segment.B.X, segment.B.Y);
+        public static double AbsoluteAngle(this LineSegment2D segment) => Operations.AbsoluteAngle(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
         #endregion Absolute Angle
 
         #region Add
@@ -306,7 +306,7 @@ namespace Engine
         /// <returns>The <see cref="LineSegment2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment2D Add(this LineSegment2D augend, double addend) => AddVectorUniform((augend?.AX).Value, augend.AY, augend.BX, augend.BY, addend);
+        public static LineSegment2D Add(this LineSegment2D augend, double addend) => AddVectorUniform(augend.AX, augend.AY, augend.BX, augend.BY, addend);
 
         /// <summary>
         /// Used to add two matrices together.
@@ -367,8 +367,7 @@ namespace Engine
         /// <returns>The <see cref="LineSegment2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment2D Add(this LineSegment2D augend, LineSegment2D addend)
-            => AddVectors((augend?.AX).Value, augend.AY, augend.BX, augend.BY, (addend?.AX).Value, addend.AY, addend.BX, addend.BY);
+        public static LineSegment2D Add(this LineSegment2D augend, LineSegment2D addend) => AddVectors(augend.AX, augend.AY, augend.BX, augend.BY, addend.AX, addend.AY, addend.BX, addend.BY);
 
         ///// <summary>
         ///// Add.
@@ -378,8 +377,7 @@ namespace Engine
         ///// <returns>The <see cref="Transform2D"/>.</returns>
         //[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Transform2D Add(this Transform2D augend, Transform2D addend)
-        //    => new Transform2D(augend.X + addend.X, augend.Y + addend.Y, augend.SkewX + addend.SkewX, augend.SkewY + addend.SkewY, augend.ScaleX * addend.ScaleX, augend.ScaleY * addend.ScaleY);
+        //public static Transform2D Add(this Transform2D augend, Transform2D addend) => new Transform2D(augend.X + addend.X, augend.Y + addend.Y, augend.SkewX + addend.SkewX, augend.SkewY + addend.SkewY, augend.ScaleX * addend.ScaleX, augend.ScaleY * addend.ScaleY);
         #endregion Add
 
         #region Adjoint
@@ -486,7 +484,7 @@ namespace Engine
         /// <returns>Returns the Angle of a line.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Angle(this LineSegment2D segment) => Operations.Angle((segment?.A).Value.X, segment.A.Y, segment.B.X, segment.B.Y);
+        public static double Angle(this LineSegment2D segment) => Operations.Angle(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
         #endregion Angle
 
         #region Append
@@ -598,7 +596,7 @@ namespace Engine
         /// <remarks><para>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Center(this Rectangle2D rectangle) => new Point2D((0.5d * (rectangle?.Width).Value) + rectangle.X, (0.5d * rectangle.Height) + rectangle.Y);
+        public static Point2D Center(this Rectangle2D rectangle) => new Point2D((0.5d * rectangle.Width) + rectangle.X, (0.5d * rectangle.Height) + rectangle.Y);
         #endregion Center
 
         #region Cofactor
@@ -1844,7 +1842,7 @@ namespace Engine
             //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
             //        );
             //}
-            => Operations.Reflect((segment?.AX).Value, segment.AY, segment.BX, segment.BY, axis.X, axis.Y);
+            => Operations.Reflect(segment.AX, segment.AY, segment.BX, segment.BY, axis.X, axis.Y);
         #endregion Reflect
 
         #region Remove At
@@ -1926,8 +1924,7 @@ namespace Engine
         /// <param name="segment">The segment.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Reverse(this LineSegment2D segment)
-            => segment?.Points.Reverse();
+        public static void Reverse(this LineSegment2D segment) => segment.Points.Reverse();
         #endregion Reverse
 
         #region Rotate Point
@@ -2371,7 +2368,7 @@ namespace Engine
         /// <returns>The <see cref="LineSegment2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment2D Subtract(this LineSegment2D minuend, double subtrahend) => SubtractVectorUniform((minuend?.AX).Value, minuend.AY, minuend.BX, minuend.BY, subtrahend);
+        public static LineSegment2D Subtract(this LineSegment2D minuend, double subtrahend) => SubtractVectorUniform(minuend.AX, minuend.AY, minuend.BX, minuend.BY, subtrahend);
 
         /// <summary>
         /// The subtract.
@@ -2381,7 +2378,7 @@ namespace Engine
         /// <returns>The <see cref="LineSegment2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment2D Subtract(this LineSegment2D minuend, LineSegment2D subtrahend) => SubtractVector((minuend?.AX).Value, minuend.AY, minuend.BX, minuend.BY, (subtrahend?.AX).Value, subtrahend.AY, subtrahend.BX, subtrahend.BY);
+        public static LineSegment2D Subtract(this LineSegment2D minuend, LineSegment2D subtrahend) => SubtractVector(minuend.AX, minuend.AY, minuend.BX, minuend.BY, subtrahend.AX, subtrahend.AY, subtrahend.BX, subtrahend.BY);
         #endregion Subtract
 
         #region Transpose

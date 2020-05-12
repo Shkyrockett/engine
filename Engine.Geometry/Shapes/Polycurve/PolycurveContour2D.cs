@@ -184,8 +184,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public List<Point2D> Nodes
-            => Items.Select(item => item.Tail.Value).ToList();
+        public List<Point2D> Nodes => Items.Select(item => item.Tail).ToList();
 
         /// <summary>
         /// Gets a listing of all end grips from the Figure.
@@ -220,8 +219,7 @@ namespace Engine
         /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.PolycurveContourBounds(this));
+        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Measurements.PolycurveContourBounds(this));
 
         /// <summary>
         /// Gets the perimeter.
@@ -229,15 +227,13 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override double Perimeter
-            => (double)CachingProperty(() => Items.Sum(p => p.Length));
+        public override double Perimeter => (double)CachingProperty(() => Items.Sum(p => p.Length));
 
         /// <summary>
         /// Gets the count.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public int Count
-            => items.Count;
+        public int Count => items.Count;
         #endregion Properties
 
         /// <summary>
@@ -249,16 +245,16 @@ namespace Engine
         {
             if (t == 0)
             {
-                return Items[0].Head.Value;
+                return Items[0].Head;
             }
 
             if (t == 1)
             {
-                return Items[^1].Tail.Value;
+                return Items[^1].Tail;
             }
 
             var weights = new (double length, double accumulated)[Items.Count];
-            var cursor = Items[0].Tail.Value;
+            var cursor = Items[0].Tail;
             double accumulatedLength = 0;
 
             // Build up the weights map.
@@ -294,22 +290,19 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Contains(Point2D point)
-            => Intersections.Contains(this, point) != Inclusions.Outside;
+        public override bool Contains(Point2D point) => Intersections.Contains(this, point) != Inclusions.Outside;
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
-        public IEnumerator<CurveSegment2D> GetEnumerator()
-            => items.GetEnumerator();
+        public IEnumerator<CurveSegment2D> GetEnumerator() => items.GetEnumerator();
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator"/>.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-            => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Add.
@@ -343,16 +336,16 @@ namespace Engine
                     }
                     break;
                 case LineCurveSegment2D p:
-                    AddLineSegment(p.Tail.Value);
+                    AddLineSegment(p.Tail);
                     break;
                 case ArcSegment2D p:
-                    AddArc(p.RX, p.RY, p.Angle, p.LargeArc, p.Sweep, p.Tail.Value);
+                    AddArc(p.RX, p.RY, p.Angle, p.LargeArc, p.Sweep, p.Tail);
                     break;
                 case QuadraticBezierSegment2D p:
-                    AddQuadraticBezier(p.Handle.Value, p.Tail.Value);
+                    AddQuadraticBezier(p.Handle, p.Tail);
                     break;
                 case CubicBezierSegment2D p:
-                    AddCubicBezier(p.Handle1, p.Handle2.Value, p.Tail.Value);
+                    AddCubicBezier(p.Handle1, p.Handle2, p.Tail);
                     break;
                 case CardinalSegment2D p:
                     AddCardinalCurve(p.Nodes);
@@ -489,7 +482,7 @@ namespace Engine
         /// Add the cardinal curve.
         /// </summary>
         /// <param name="nodes">The nodes.</param>
-        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        /// <returns>The <see cref="PolycurveContour2D"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal PolycurveContour2D AddCardinalCurve(IList<Point2D> nodes)
@@ -502,12 +495,12 @@ namespace Engine
         /// <summary>
         /// Close.
         /// </summary>
-        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        /// <returns>The <see cref="PolycurveContour2D"/>.</returns>
         public PolycurveContour2D Close()
         {
-            if (Items[0].Head.Value != Items[^1].Tail.Value)
+            if (Items[0].Head != Items[^1].Tail)
             {
-                AddLineSegment(Items[0].Head.Value);
+                AddLineSegment(Items[0].Head);
             }
 
             closed = true;
@@ -522,8 +515,7 @@ namespace Engine
         /// <remarks>
         /// <para>http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t</para>
         /// </remarks>
-        public static (List<CurveSegment2D>, bool) ParsePathDefString(string pathDefinition)
-            => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
+        public static (List<CurveSegment2D>, bool) ParsePathDefString(string pathDefinition) => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Parse the path def string.
@@ -576,7 +568,7 @@ namespace Engine
                         relitive = true;
                         goto case 'Z';
                     case 'Z': // Svg closepath
-                        item = new PointSegment2D(item, relitive, startPoint.Value);
+                        item = new PointSegment2D(item, relitive, startPoint);
                         closed = true;
                         item.Relitive = relitive;
                         relitive = false;
@@ -594,7 +586,7 @@ namespace Engine
                         relitive = true;
                         goto case 'H';
                     case 'H': // Svg horizontal-lineto
-                        item = new LineCurveSegment2D(item, relitive, item.Tail.Value.X, args[0]);
+                        item = new LineCurveSegment2D(item, relitive, item.Tail.X, args[0]);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -603,7 +595,7 @@ namespace Engine
                         relitive = true;
                         goto case 'V';
                     case 'V': // Svg vertical-lineto
-                        item = new LineCurveSegment2D(item, relitive, args[0], item.Tail.Value.Y);
+                        item = new LineCurveSegment2D(item, relitive, args[0], item.Tail.Y);
                         figure.Add(item);
                         item.Relitive = relitive;
                         relitive = false;
@@ -666,8 +658,7 @@ namespace Engine
         /// The to path def string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        private string ToPathDefString()
-            => ToPathDefString(string.Empty, CultureInfo.InvariantCulture);
+        private string ToPathDefString() => ToPathDefString(string.Empty, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// The to path def string.
@@ -687,42 +678,42 @@ namespace Engine
                 {
                     case PointSegment2D t when t.Previous is null:
                         // ToDo: Figure out how to separate M from Z.
-                        output.Append(t.Relitive ? $"m{t.Head.Value.X.ToString(format, provider)}{sep}{t.Head.Value.Y.ToString(format, provider)} " : $"M{t.Head.Value.X.ToString(format, provider)}{sep}{t.Head.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"m{t.Head.X.ToString(format, provider)}{sep}{t.Head.Y.ToString(format, provider)} " : $"M{t.Head.X.ToString(format, provider)}{sep}{t.Head.Y.ToString(format, provider)} ");
                         break;
                     case PointSegment2D t:
-                        output.Append(t.Relitive ? $"z{t.Head.Value.X.ToString(format, provider)}{sep}{t.Head.Value.Y.ToString(format, provider)} " : $"Z{t.Head.Value.X.ToString(format, provider)}{sep}{t.Head.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"z{t.Head.X.ToString(format, provider)}{sep}{t.Head.Y.ToString(format, provider)} " : $"Z{t.Head.X.ToString(format, provider)}{sep}{t.Head.Y.ToString(format, provider)} ");
                         break;
                     case LineCurveSegment2D t:
                         // L is a general line.
                         var l = t.Relitive ? 'l' : 'L';
-                        var coords = $"{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)}";
-                        if (t.Head.Value.X == t.Tail.Value.X)
+                        var coords = $"{t.Tail.X.ToString(format, provider)}{sep}{t.Tail.Y.ToString(format, provider)}";
+                        if (t.Head.X == t.Tail.X)
                         {
                             // H is a horizontal line, so the x-coordinate can be omitted.
-                            coords = $"{t.Tail.Value.Y.ToString(format, provider)}";
+                            coords = $"{t.Tail.Y.ToString(format, provider)}";
                             l = t.Relitive ? 'h' : 'H';
                         }
-                        else if (t.Head.Value.Y == t.Tail.Value.Y)
+                        else if (t.Head.Y == t.Tail.Y)
                         {
                             // V is a horizontal line, so the y-coordinate can be omitted.
-                            coords = $"{t.Tail.Value.X.ToString(format, provider)}";
+                            coords = $"{t.Tail.X.ToString(format, provider)}";
                             l = t.Relitive ? 'v' : 'V';
                         }
                         output.Append($"{l}{coords} ");
                         break;
                     case CubicBezierSegment2D t:
                         // ToDo: Figure out how to tell if a point can be omitted for the smooth version.
-                        output.Append(t.Relitive ? $"c{t.Handle1.X.ToString(format, provider)}{sep}{t.Handle1.Y.ToString(format, provider)}{sep}{t.Handle2.Value.X.ToString(format, provider)}{sep}{t.Handle2.Value.Y.ToString(format, provider)}{sep}{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)} " : $"C{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)}v{t.Handle2.Value.X.ToString(format, provider)}{sep}{t.Handle2.Value.Y.ToString(format, provider)}{sep}{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"c{t.Handle1.X.ToString(format, provider)}{sep}{t.Handle1.Y.ToString(format, provider)}{sep}{t.Handle2.X.ToString(format, provider)}{sep}{t.Handle2.Y.ToString(format, provider)}{sep}{t.Tail.X.ToString(format, provider)}{sep}{t.Tail.Y.ToString(format, provider)} " : $"C{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)}v{t.Handle2.X.ToString(format, provider)}{sep}{t.Handle2.Y.ToString(format, provider)}{sep}{t.Tail.X.ToString(format, provider)}{sep}{t.Tail.Y.ToString(format, provider)} ");
                         break;
                     case QuadraticBezierSegment2D t:
                         // ToDo: Figure out how to tell if a point can be omitted for the smooth version.
-                        output.Append(t.Relitive ? $"q{t.Handle.Value.X.ToString(format, provider)}{sep}{t.Handle.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)} " : $"Q{t.Handle.Value.X.ToString(format, provider)}{sep}{t.Handle.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"q{t.Handle.X.ToString(format, provider)}{sep}{t.Handle.X.ToString(format, provider)}{sep}{t.Tail.X.ToString(format, provider)}{sep}{t.Tail.Y.ToString(format, provider)} " : $"Q{t.Handle.X.ToString(format, provider)}{sep}{t.Handle.X.ToString(format, provider)}{sep}{t.Tail.X.ToString(format, provider)}{sep}{t.Tail.Y.ToString(format, provider)} ");
                         break;
                     case ArcSegment2D t:
                         // Arc definition.
                         var largearc = t.LargeArc ? 1 : 0;
                         var sweep = t.Sweep ? 1 : 0;
-                        output.Append(t.Relitive ? $"a{t.RX.ToString(format, provider)}{sep}{t.RY.ToString(format, provider)}{sep}{t.Angle.ToString(format, provider)}{sep}{largearc}{sep}{sweep}{sep}{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)} " : $"A{t.RX.ToString(format, provider)}{sep}{t.RY.ToString(format, provider)}{sep}{t.Angle.ToString(format, provider)}{sep}{largearc}{sep}{sweep}{sep}{t.Tail.Value.X.ToString(format, provider)}{sep}{t.Tail.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"a{t.RX.ToString(format, provider)}{sep}{t.RY.ToString(format, provider)}{sep}{t.Angle.ToString(format, provider)}{sep}{largearc}{sep}{sweep}{sep}{t.Tail.X.ToString(format, provider)}{sep}{t.Tail.Y.ToString(format, provider)} " : $"A{t.RX.ToString(format, provider)}{sep}{t.RY.ToString(format, provider)}{sep}{t.Angle.ToString(format, provider)}{sep}{largearc}{sep}{sweep}{sep}{t.Tail.X.ToString(format, provider)}{sep}{t.Tail.Y.ToString(format, provider)} ");
                         break;
                     default:
                         break;
@@ -746,8 +737,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public override string ConvertToString(string format, IFormatProvider provider)
-            => (this is null) ? nameof(PolycurveContour2D) : $"{nameof(PolycurveContour2D)}{{{ToPathDefString(format, provider)}}}";
+        public override string ConvertToString(string format, IFormatProvider provider) => (this is null) ? nameof(PolycurveContour2D) : $"{nameof(PolycurveContour2D)}{{{ToPathDefString(format, provider)}}}";
         #endregion Methods
     }
 }

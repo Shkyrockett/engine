@@ -17,10 +17,10 @@ namespace Engine.Imaging
     /// <summary>
     /// The gradient fill struct.
     /// </summary>
-    /// <seealso cref="IFill" />
+    /// <seealso cref="IFillable" />
     /// <seealso cref="IEquatable{T}" />
     public struct GradientFill
-        : IFill, IEquatable<GradientFill>
+        : IFillable, IEquatable<GradientFill>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GradientFill" /> class.

@@ -47,12 +47,14 @@ namespace Engine
         /// <summary>
         /// The make star points.
         /// </summary>
-        /// <param name="start_theta">The start_theta.</param>
-        /// <param name="num_points">The num_points.</param>
+        /// <param name="startTheta">The start_theta.</param>
+        /// <param name="pointCount">The point count.</param>
         /// <param name="skip">The skip.</param>
         /// <param name="rect">The rect.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
-        public static PointF[] MakeStarPoints(double start_theta, int num_points, int skip, Rectangle rect)
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
+        public static PointF[] MakeStarPoints(double startTheta, int pointCount, int skip, Rectangle rect)
         {
             double theta, dtheta;
             PointF[] result;
@@ -62,10 +64,10 @@ namespace Engine
             // If this is a polygon, don't bother with concave points.
             if (skip == 1)
             {
-                result = new PointF[num_points];
-                theta = start_theta;
-                dtheta = 2 * PI / num_points;
-                for (var i = 0; i < num_points; i++)
+                result = new PointF[pointCount];
+                theta = startTheta;
+                dtheta = 2 * PI / pointCount;
+                for (var i = 0; i < pointCount; i++)
                 {
                     result[i] = new PointF(
                         (float)(cx + (cx * Cos(theta))),
@@ -76,13 +78,13 @@ namespace Engine
             }
 
             // Find the radius for the concave vertices.
-            var concave_radius = CalculateConcaveRadius(num_points, skip);
+            var concave_radius = CalculateConcaveRadius(pointCount, skip);
 
             // Make the points.
-            result = new PointF[2 * num_points];
-            theta = start_theta;
-            dtheta = PI / num_points;
-            for (var i = 0; i < num_points; i++)
+            result = new PointF[2 * pointCount];
+            theta = startTheta;
+            dtheta = PI / pointCount;
+            for (var i = 0; i < pointCount; i++)
             {
                 result[2 * i] = new PointF(
                     (float)(cx + (cx * Cos(theta))),

@@ -124,8 +124,7 @@ namespace Engine.Tools
         /// Update Tool on Mouse scroll signal.
         /// </summary>
         /// <param name="tools"></param>
-        public override void MouseScrollUpdate(ToolStack tools)
-            => tools.Surface.Zoom += 120d / tools.MouseScrollDelta;
+        public override void MouseScrollUpdate(ToolStack tools) => tools.Surface.Zoom += 120d / tools.MouseScrollDelta;
 
         /// <summary>
         /// Reset the command if canceled mid command.
@@ -143,8 +142,7 @@ namespace Engine.Tools
         /// The to string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString()
-            => $"{nameof(SelectTop)}{{{Index}}}";
+        public override string ToString() => $"{nameof(SelectTop)}{{{Index}}}";
 
         /// <returns></returns>
         /// <summary>

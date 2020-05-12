@@ -335,6 +335,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamCircularArc(ref List<double> scanlist, double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             // If the circle or line segment are empty, return no intersections.
             if (r == 0d)
             {
@@ -431,6 +432,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamEllipse(ref List<double> scanlist, double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             // If the ellipse is empty, return no intersections.
             if ((rx == 0d) || (ry == 0d))
             {
@@ -661,7 +663,7 @@ namespace Engine
         ///// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         ////[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static void ScanbeamPolycurveContour(ref List<double> scanlist, double x, double y, PolycurveContour curve, double epsilon = double.Epsilon)
+        //public static void ScanbeamPolycurveContour(ref List<double> scanlist, double x, double y, PolycurveContour2D curve, double epsilon = double.Epsilon)
         //{
         //    foreach (var segment in curve.Items)
         //    {
@@ -1028,6 +1030,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToLeftCircularArc(double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             // If the circle or line segment are empty, return no intersections.
             if (r == 0d)
             {
@@ -1130,6 +1133,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToLeftEllipse(double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             // If the ellipse is empty, return no intersections.
             if ((rx == 0d) || (ry == 0d))
             {
@@ -1393,7 +1397,7 @@ namespace Engine
         ///// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
         ////[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static int ScanbeamPointsToLeftPolycurveContour(double x, double y, PolycurveContour curve, double epsilon = double.Epsilon)
+        //public static int ScanbeamPointsToLeftPolycurveContour(double x, double y, PolycurveContour2D curve, double epsilon = double.Epsilon)
         //{
         //    var results = 0;
         //    foreach (var segment in curve.Items)
@@ -1758,6 +1762,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToRightCircularArc(double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             // If the circle or line segment are empty, return no intersections.
             if (r == 0d)
             {
@@ -1860,6 +1865,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToRightEllipse(double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             // If the ellipse is empty, return no intersections.
             if ((rx == 0d) || (ry == 0d))
             {
@@ -2122,7 +2128,7 @@ namespace Engine
         ///// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
         ////[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static int ScanbeamPointsToRightPolycurveContour(double x, double y, PolycurveContour curve, double epsilon = double.Epsilon)
+        //public static int ScanbeamPointsToRightPolycurveContour(double x, double y, PolycurveContour2D curve, double epsilon = double.Epsilon)
         //{
         //    var results = 0;
         //    foreach (var segment in curve.Items)

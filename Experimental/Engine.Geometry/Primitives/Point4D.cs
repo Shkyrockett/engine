@@ -23,7 +23,7 @@ namespace Engine
     /// <summary>
     /// The <see cref="Point4D" /> struct.
     /// </summary>
-    /// <seealso cref="Engine.IVector{Engine.Point4D}" />
+    /// <seealso cref="Engine.IVector{T}" />
     /// <seealso cref="IVector{Point4D}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Point4DConverter))]
@@ -117,7 +117,7 @@ namespace Engine
         /// <value>
         /// The x.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
         public double X { get; set; }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Engine
         /// <value>
         /// The y.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
         public double Y { get; set; }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Engine
         /// <value>
         /// The z.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Z)), XmlAttribute(nameof(Z)), SoapAttribute(nameof(Z))]
         public double Z { get; set; }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace Engine
         /// <value>
         /// The w.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(W)), XmlAttribute(nameof(W)), SoapAttribute(nameof(W))]
         public double W { get; set; }
         #endregion Properties
 
@@ -576,7 +576,7 @@ namespace Engine
         /// </summary>
         /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

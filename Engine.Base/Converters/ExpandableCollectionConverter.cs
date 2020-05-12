@@ -18,6 +18,7 @@ namespace Engine
     /// <summary>
     /// The expandable collection converter class.
     /// </summary>
+    /// <seealso cref="System.ComponentModel.CollectionConverter" />
     /// <acknowledgment>
     /// http://stackoverflow.com/questions/32582504/propertygrid-expandable-collection
     /// https://stackoverflow.com/q/32582504/7004229
@@ -33,8 +34,10 @@ namespace Engine
         /// <param name="culture">The culture.</param>
         /// <param name="value">The value.</param>
         /// <param name="destinationType">The destinationType.</param>
-        /// <returns>The <see cref="object"/>.</returns>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns>
+        /// The <see cref="object" />.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">destinationType</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType is null)
@@ -54,7 +57,9 @@ namespace Engine
         /// Get the properties supported.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public override bool GetPropertiesSupported(ITypeDescriptorContext context) => true;
 
         /// <summary>
@@ -63,7 +68,9 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="value">The value.</param>
         /// <param name="attributes">The attributes.</param>
-        /// <returns>The <see cref="PropertyDescriptorCollection"/>.</returns>
+        /// <returns>
+        /// The <see cref="PropertyDescriptorCollection" />.
+        /// </returns>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             if (!(value is IList list) || list.Count == 0)

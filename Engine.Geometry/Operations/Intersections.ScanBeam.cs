@@ -335,6 +335,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamCircularArc(ref List<double> scanlist, double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             // If the circle or line segment are empty, return no intersections.
             if (r == 0d)
             {
@@ -353,7 +354,7 @@ namespace Engine
             var discriminant = (b * b) - (4d * c);
 
             // Check for intersections.
-            if ((1d <= double.Epsilon) || (discriminant < 0d))
+            if ((1d <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return;
@@ -431,6 +432,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamEllipse(ref List<double> scanlist, double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             // If the ellipse is empty, return no intersections.
             if ((rx == 0d) || (ry == 0d))
             {
@@ -458,7 +460,7 @@ namespace Engine
             var discriminant = (b * b) - (4d * a * c);
 
             // Find solutions.
-            if ((a <= double.Epsilon) || (discriminant < 0d))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return;
@@ -530,7 +532,7 @@ namespace Engine
             var discriminant = (b * b) - (4d * a * c);
 
             // Check whether line segment is outside of the ellipse.
-            if ((a <= double.Epsilon) || (discriminant < 0d))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return;
@@ -668,16 +670,16 @@ namespace Engine
                 switch (segment)
                 {
                     case PointSegment2D t:
-                        ScanbeamPoint(ref scanlist, x, y, t.Head.Value.X, t.Head.Value.Y, epsilon);
+                        ScanbeamPoint(ref scanlist, x, y, t.Head.X, t.Head.Y, epsilon);
                         break;
                     case LineCurveSegment2D t:
-                        ScanbeamLineSegment(ref scanlist, x, y, t.Head.Value.X, t.Head.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
+                        ScanbeamLineSegment(ref scanlist, x, y, t.Head.X, t.Head.Y, t.Tail.X, t.Tail.Y, epsilon);
                         break;
                     case QuadraticBezierSegment2D t:
-                        ScanbeamQuadraticBezierSegment(ref scanlist, x, y, t.Head.Value.X, t.Head.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
+                        ScanbeamQuadraticBezierSegment(ref scanlist, x, y, t.Head.X, t.Head.Y, t.Handle.X, t.Handle.Y, t.Tail.X, t.Tail.Y, epsilon);
                         break;
                     case CubicBezierSegment2D t:
-                        ScanbeamCubicBezierSegment(ref scanlist, x, y, t.Head.Value.X, t.Head.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
+                        ScanbeamCubicBezierSegment(ref scanlist, x, y, t.Head.X, t.Head.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.X, t.Handle2.Y, t.Tail.X, t.Tail.Y, epsilon);
                         break;
                     case ArcSegment2D t:
                         ScanbeamEllipticalArc(ref scanlist, x, y, t.Center.X, t.Center.Y, t.RX, t.RY, t.CosAngle, t.SinAngle, t.StartAngle, t.SweepAngle, epsilon);
@@ -1028,6 +1030,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToLeftCircularArc(double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             // If the circle or line segment are empty, return no intersections.
             if (r == 0d)
             {
@@ -1048,7 +1051,7 @@ namespace Engine
             var results = 0;
 
             // Check for intersections.
-            if ((1 <= double.Epsilon) || (discriminant < 0))
+            if ((1 <= epsilon) || (discriminant < 0))
             {
                 // No real solutions.
                 return 0;
@@ -1130,6 +1133,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToLeftEllipse(double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             // If the ellipse is empty, return no intersections.
             if ((rx == 0d) || (ry == 0d))
             {
@@ -1159,7 +1163,7 @@ namespace Engine
             var results = 0;
 
             // Find solutions.
-            if ((a <= double.Epsilon) || (discriminant < 0d))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return 0;
@@ -1249,7 +1253,7 @@ namespace Engine
             var discriminant = (b * b) - (4d * a * c);
 
             // Check whether line segment is outside of the ellipse.
-            if ((a <= double.Epsilon) || (discriminant < 0d))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return 0;
@@ -1403,16 +1407,16 @@ namespace Engine
                 switch (segment)
                 {
                     case PointSegment2D t:
-                        results += ScanbeamPointsToLeftPoint(x, y, t.Head.Value.X, t.Head.Value.Y, epsilon);
+                        results += ScanbeamPointsToLeftPoint(x, y, t.Head.X, t.Head.Y, epsilon);
                         break;
                     case LineCurveSegment2D t:
-                        results += ScanbeamPointsToLeftLineSegment(x, y, t.Head.Value.X, t.Head.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
+                        results += ScanbeamPointsToLeftLineSegment(x, y, t.Head.X, t.Head.Y, t.Tail.X, t.Tail.Y, epsilon);
                         break;
                     case QuadraticBezierSegment2D t:
-                        results += ScanbeamPointsToLeftQuadraticBezierSegment(x, y, t.Head.Value.X, t.Head.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
+                        results += ScanbeamPointsToLeftQuadraticBezierSegment(x, y, t.Head.X, t.Head.Y, t.Handle.X, t.Handle.Y, t.Tail.X, t.Tail.Y, epsilon);
                         break;
                     case CubicBezierSegment2D t:
-                        results += ScanbeamPointsToLeftCubicBezierSegment(x, y, t.Head.Value.X, t.Head.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
+                        results += ScanbeamPointsToLeftCubicBezierSegment(x, y, t.Head.X, t.Head.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.X, t.Handle2.Y, t.Tail.X, t.Tail.Y, epsilon);
                         break;
                     case ArcSegment2D t:
                         results += ScanbeamPointsToLeftEllipticalArc(x, y, t.Center.X, t.Center.Y, t.RX, t.RY, t.CosAngle, t.SinAngle, t.StartAngle, t.SweepAngle, epsilon);
@@ -1760,6 +1764,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToRightCircularArc(double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             // If the circle or line segment are empty, return no intersections.
             if (r == 0d)
             {
@@ -1780,7 +1785,7 @@ namespace Engine
             var results = 0;
 
             // Check for intersections.
-            if ((1d <= double.Epsilon) || (discriminant < 0d))
+            if ((1d <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return 0;
@@ -1862,6 +1867,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToRightEllipse(double x, double y, double cx, double cy, double rx, double ry, double cosA, double sinA, double epsilon = double.Epsilon)
         {
+            _ = epsilon;
             // If the ellipse is empty, return no intersections.
             if ((rx == 0d) || (ry == 0d))
             {
@@ -1891,7 +1897,7 @@ namespace Engine
             var results = 0;
 
             // Find solutions.
-            if ((a <= double.Epsilon) || (discriminant < 0d))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return 0;
@@ -1979,7 +1985,7 @@ namespace Engine
             var discriminant = (b * b) - (4d * a * c);
 
             // Check whether line segment is outside of the ellipse.
-            if ((a <= double.Epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0))
             {
                 // No real solutions.
                 return 0;
@@ -2134,16 +2140,16 @@ namespace Engine
                 switch (segment)
                 {
                     case PointSegment2D t:
-                        results += ScanbeamPointsToRightPoint(x, y, t.Head.Value.X, t.Head.Value.Y, epsilon);
+                        results += ScanbeamPointsToRightPoint(x, y, t.Head.X, t.Head.Y, epsilon);
                         break;
                     case LineCurveSegment2D t:
-                        results += ScanbeamPointsToRightLineSegment(x, y, t.Head.Value.X, t.Head.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
+                        results += ScanbeamPointsToRightLineSegment(x, y, t.Head.X, t.Head.Y, t.Tail.X, t.Tail.Y, epsilon);
                         break;
                     case QuadraticBezierSegment2D t:
-                        results += ScanbeamPointsToRightQuadraticBezierSegment(x, y, t.Head.Value.X, t.Head.Value.Y, t.Handle.Value.X, t.Handle.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
+                        results += ScanbeamPointsToRightQuadraticBezierSegment(x, y, t.Head.X, t.Head.Y, t.Handle.X, t.Handle.Y, t.Tail.X, t.Tail.Y, epsilon);
                         break;
                     case CubicBezierSegment2D t:
-                        results += ScanbeamPointsToRightCubicBezierSegment(x, y, t.Head.Value.X, t.Head.Value.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.Value.X, t.Handle2.Value.Y, t.Tail.Value.X, t.Tail.Value.Y, epsilon);
+                        results += ScanbeamPointsToRightCubicBezierSegment(x, y, t.Head.X, t.Head.Y, t.Handle1.X, t.Handle1.Y, t.Handle2.X, t.Handle2.Y, t.Tail.X, t.Tail.Y, epsilon);
                         break;
                     case ArcSegment2D t:
                         results += ScanbeamPointsToRightEllipticalArc(x, y, t.Center.X, t.Center.Y, t.RX, t.RY, t.CosAngle, t.SinAngle, t.StartAngle, t.SweepAngle, epsilon);

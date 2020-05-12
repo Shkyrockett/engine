@@ -13,10 +13,10 @@ namespace Engine.Imaging
     /// <summary>
     /// The solid fill struct.
     /// </summary>
-    /// <seealso cref="IFill" />
+    /// <seealso cref="IFillable" />
     /// <seealso cref="System.IEquatable{T}" />
     public struct SolidFill
-        : IFill, System.IEquatable<SolidFill>
+        : IFillable, System.IEquatable<SolidFill>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SolidFill" /> class.

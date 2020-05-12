@@ -18,14 +18,15 @@ namespace Engine
     /// <summary>
     /// Attribute used to attach a display string to the meta-data of a class.
     /// </summary>
+    /// <seealso cref="System.Attribute" />
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, Inherited = false)]
     public class DisplayNameAttribute
         : Attribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DisplayNameAttribute"/> class.
+        /// Initializes a new instance of the <see cref="DisplayNameAttribute" /> class.
         /// </summary>
-        /// <param name="displayName"></param>
+        /// <param name="displayName">The display name.</param>
         public DisplayNameAttribute(string displayName)
         {
             DisplayName = displayName;
@@ -34,6 +35,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the string used as a display name.
         /// </summary>
+        /// <value>
+        /// The display name.
+        /// </value>
         public string DisplayName { get; set; }
     }
 }

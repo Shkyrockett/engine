@@ -1,4 +1,4 @@
-﻿// <copyright file="IntersectionState.cs" >
+﻿// <copyright file="IntersectionStates.cs" >
 //     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>

@@ -96,7 +96,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CubicBezier2D ToCubicBezier(this QuadraticBezier2D curve) => QuadraticBezierToCubicBezier(curve.A, curve.B, curve.C);
-        #endregion Conversion Extension Methods
+        #endregion
 
         /// <summary>
         /// Align points to a line.
@@ -196,8 +196,8 @@ namespace Engine
         {
             /* Definition of ellipse: x²/a² + y²/b² = 1 */
             var stop = startAngle + sweepAngle;
-            startAngle += Operations.SubtendedToParametric(startAngle, rx, ry);
-            sweepAngle = stop + Operations.SubtendedToParametric(stop, rx, ry) - startAngle;
+            startAngle += SubtendedToParametric(startAngle, rx, ry);
+            sweepAngle = stop + SubtendedToParametric(stop, rx, ry) - startAngle;
             var segs = Ceiling(Abs(sweepAngle) / HalfPi);
             var theta = sweepAngle / segs;  /* arc size of each segment */
             var tanT2 = Tan(theta * OneHalf);
@@ -256,7 +256,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static QuadraticBezier2D LineSegmentToQuadraticBezier(double x0, double y0, double x1, double y1) => new QuadraticBezier2D(new Point2D(x0, y0), Operations.Lerp(x0, y0, x1, y1, OneHalf), new Point2D(x1, y1));
+        public static QuadraticBezier2D LineSegmentToQuadraticBezier(double x0, double y0, double x1, double y1) => new QuadraticBezier2D(new Point2D(x0, y0), Lerp(x0, y0, x1, y1, OneHalf), new Point2D(x1, y1));
 
         /// <summary>
         /// Converts a Line segment to a Cubic Bézier curve.
@@ -282,7 +282,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CubicBezier2D LineSegmentToCubicBezier(double x0, double y0, double x1, double y1) => new CubicBezier2D(new Point2D(x0, y0), Operations.Lerp(x0, y0, x1, y1, OneThird), Operations.Lerp(x0, y0, x1, y1, TwoThirds), new Point2D(x1, y1));
+        public static CubicBezier2D LineSegmentToCubicBezier(double x0, double y0, double x1, double y1) => new CubicBezier2D(new Point2D(x0, y0), Lerp(x0, y0, x1, y1, OneThird), Lerp(x0, y0, x1, y1, TwoThirds), new Point2D(x1, y1));
 
         /// <summary>
         /// Converts a Quadratic Bezier to a Cubic Bezier.
@@ -407,7 +407,7 @@ namespace Engine
             var (ray, rby, rcy, rdy) = MultiplyVector4DMatrix4x4(dy, cy, by, ay, m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4);
             return (rax, ray, rbx, rby, rcx, rcy, rdx, rdy);
         }
-        #endregion Conversion Implementations
+        #endregion
 
         #region Parabola Conversion
         /// <summary>
@@ -676,7 +676,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<Point2D> RotatedRectangle(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle) => RotatedRectangle(x, y, width, height, fulcrumX, fulcrumY, Cos(angle), Sin(angle));
+        public static Point2D[] RotatedRectangle(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle) => RotatedRectangle(x, y, width, height, fulcrumX, fulcrumY, Cos(angle), Sin(angle));
 
         /// <summary>
         /// Rotates the points of the corners of a rectangle about the fulcrum point.
@@ -694,33 +694,34 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<Point2D> RotatedRectangle(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double cosAngle, double sinAngle)
+        public static Point2D[] RotatedRectangle(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double cosAngle, double sinAngle)
         {
             _ = x;
             _ = y;
-            // ToDo: Figure out how to properly include the location point.
-            var points = new List<Point2D>();
-
             var xaxis = new Point2D(cosAngle, sinAngle);
             var yaxis = new Point2D(-sinAngle, cosAngle);
 
-            // Apply the rotation transformation and translate to new center.
-            points.Add(new Point2D(
+            // ToDo: Figure out how to properly include the location point.
+            var points = new Point2D[]
+            {
+                // Apply the rotation transformation and translate to new center.
+                new Point2D(
                 fulcrumX + ((-width * 0.5d * xaxis.X) + (-height * 0.5d * xaxis.Y)),
                 fulcrumY + ((-width * 0.5d * yaxis.X) + (-height * 0.5d * yaxis.Y))
-                ));
-            points.Add(new Point2D(
+                ),
+                new Point2D(
                 fulcrumX + ((width * 0.5d * xaxis.X) + (-height * 0.5d * xaxis.Y)),
                 fulcrumY + ((width * 0.5d * yaxis.X) + (-height * 0.5d * yaxis.Y))
-                ));
-            points.Add(new Point2D(
+                ),
+                new Point2D(
                 fulcrumX + ((width * 0.5d * xaxis.X) + (height * 0.5d * xaxis.Y)),
                 fulcrumY + ((width * 0.5d * yaxis.X) + (height * 0.5d * yaxis.Y))
-                ));
-            points.Add(new Point2D(
+                ),
+                new Point2D(
                 fulcrumX + ((-width * 0.5d * xaxis.X) + (height * 0.5d * xaxis.Y)),
                 fulcrumY + ((-width * 0.5d * yaxis.X) + (height * 0.5d * yaxis.Y))
-                ));
+                )
+            };
 
             return points;
         }

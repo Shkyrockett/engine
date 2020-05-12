@@ -24,23 +24,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiInStart", ExactSpelling = true)]
-        internal static extern MmResult MidiInStart_(IntPtr hMidiIn);
-
-        /// <summary>
-        /// Midis the in start.
-        /// </summary>
-        /// <param name="midiInputHandle">The midi input handle.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">The specified device handle is invalid.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiInStart(IntPtr midiInputHandle)
-        {
-            return (MidiInStart_(midiInputHandle)) switch
-            {
-                MmResult.NoError => true,
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiInStart_(IntPtr hMidiIn);
     }
 }

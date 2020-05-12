@@ -369,53 +369,44 @@ namespace Engine.Chrono
         /// <para>http://en.wikipedia.org/wiki/Thanksgiving
         /// http://en.wikipedia.org/wiki/Thanksgiving_(Canada)</para>
         /// </remarks>
-        public static Occasion ThanksgivingDay(int year, Culture culture)
+        public static Occasion ThanksgivingDay(int year, Culture culture) => (culture?.Country) switch
         {
-            switch (culture?.Country)
-            {
-                case Country.AU:
-                    return new Occasion(
-                        "Thanksgiving Day (Norfolk Island Australia)",
-                        culture,
-                        OccasionDateType.DynamicAnnualDate,
-                        EventType.Holiday,
-                        new DateTime(year, (int)Month.November, 1).LastInstanceWeekdayOfMonth(1, DayOfWeek.Wednesday),
-                        "The Last Wednesday in November.");
-                case Country.CA:
-                    return new Occasion(
-                        "Thanksgiving Day (Canada)",
-                        culture,
-                        OccasionDateType.DynamicAnnualDate,
-                        EventType.Holiday,
-                        new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Thursday),
-                        "The Second Monday in October.");
-                case Country.GD:
-                    return new Occasion(
-                        "Thanksgiving Day (Grenada)",
-                        culture,
-                        OccasionDateType.AnnualDate,
-                        EventType.Holiday,
-                        new DateTime(year, (int)Month.October, 25),
-                        "October Twenty Fifth.");
-                case Country.LR:
-                    return new Occasion(
-                        "Thanksgiving Day (Liberia)",
-                        culture,
-                        OccasionDateType.DynamicAnnualDate,
-                        EventType.Holiday,
-                        new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Thursday),
-                        "The First Thursday in November.");
-                case Country.US:
-                default:
-                    return new Occasion(
-                       "Thanksgiving Day (USA)",
-                       culture,
-                       OccasionDateType.DynamicAnnualDate,
-                       EventType.Holiday,
-                       new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfWeek.Thursday),
-                       "The Fourth Thursday in November.");
-            }
-        }
+            Country.AU => new Occasion(
+                                   "Thanksgiving Day (Norfolk Island Australia)",
+                                   culture,
+                                   OccasionDateType.DynamicAnnualDate,
+                                   EventType.Holiday,
+                                   new DateTime(year, (int)Month.November, 1).LastInstanceWeekdayOfMonth(1, DayOfWeek.Wednesday),
+                                   "The Last Wednesday in November."),
+            Country.CA => new Occasion(
+"Thanksgiving Day (Canada)",
+culture,
+OccasionDateType.DynamicAnnualDate,
+EventType.Holiday,
+new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Thursday),
+"The Second Monday in October."),
+            Country.GD => new Occasion(
+"Thanksgiving Day (Grenada)",
+culture,
+OccasionDateType.AnnualDate,
+EventType.Holiday,
+new DateTime(year, (int)Month.October, 25),
+"October Twenty Fifth."),
+            Country.LR => new Occasion(
+"Thanksgiving Day (Liberia)",
+culture,
+OccasionDateType.DynamicAnnualDate,
+EventType.Holiday,
+new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Thursday),
+"The First Thursday in November."),
+            _ => new Occasion(
+"Thanksgiving Day (USA)",
+culture,
+OccasionDateType.DynamicAnnualDate,
+EventType.Holiday,
+new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfWeek.Thursday),
+"The Fourth Thursday in November."),
+        };
 
         // - Christian Floating holidays -
 

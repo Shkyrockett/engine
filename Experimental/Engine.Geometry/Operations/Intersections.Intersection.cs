@@ -302,7 +302,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment2D s, QuadraticBezier2D q, double epsilon = double.Epsilon) => LineSegmentQuadraticBezierSegmentIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, q.CurveX, q.CurveY, epsilon);
+        public static Intersection Intersection(this LineSegment2D s, QuadraticBezierSegment2D q, double epsilon = double.Epsilon) => LineSegmentQuadraticBezierSegmentIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, q.CurveX, q.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Cubic Bézier.
@@ -315,7 +315,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment2D s, CubicBezier2D c, double epsilon = double.Epsilon) => LineSegmentCubicBezierSegmentIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this LineSegment2D s, CubicBezierSegment2D c, double epsilon = double.Epsilon) => LineSegmentCubicBezierSegmentIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a triangle.
@@ -380,7 +380,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment2D s, CircularArc2D c, double epsilon = double.Epsilon) => LineSegmentCircularArcIntersection(s.A.X, s.A.Y, c.X, s.B.X, s.B.Y, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+        public static Intersection Intersection(this LineSegment2D s, CircularArcSegment2D c, double epsilon = double.Epsilon) => LineSegmentCircularArcIntersection(s.A.X, s.A.Y, c.X, s.B.X, s.B.Y, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a line segment and an ellipse.
@@ -406,7 +406,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment2D s, EllipticalArc2D e, double epsilon = double.Epsilon) => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this LineSegment2D s, EllipticalArcSegment2D e, double epsilon = double.Epsilon) => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a Ray and a Point.
@@ -471,7 +471,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray2D r, QuadraticBezier2D q, double epsilon = double.Epsilon) => RayQuadraticBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, q.CurveX, q.CurveY, epsilon);
+        public static Intersection Intersection(this Ray2D r, QuadraticBezierSegment2D q, double epsilon = double.Epsilon) => RayQuadraticBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, q.CurveX, q.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Ray and a Cubic Bézier.
@@ -484,7 +484,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray2D r, CubicBezier2D c, double epsilon = double.Epsilon) => RayCubicBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this Ray2D r, CubicBezierSegment2D c, double epsilon = double.Epsilon) => RayCubicBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Ray and a triangle.
@@ -549,7 +549,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray2D r, CircularArc2D c, double epsilon = double.Epsilon) => RayCircularArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+        public static Intersection Intersection(this Ray2D r, CircularArcSegment2D c, double epsilon = double.Epsilon) => RayCircularArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a ray ellipse and an ellipse.
@@ -575,7 +575,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray2D r, EllipticalArc2D e, double epsilon = double.Epsilon) => LineEllipticalArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this Ray2D r, EllipticalArcSegment2D e, double epsilon = double.Epsilon) => LineEllipticalArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a line and a point.
@@ -640,7 +640,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line2D l, QuadraticBezier2D q, double epsilon = double.Epsilon) => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, q.CurveX, q.CurveY, epsilon);
+        public static Intersection Intersection(this Line2D l, QuadraticBezierSegment2D q, double epsilon = double.Epsilon) => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, q.CurveX, q.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Cubic Bézier.
@@ -653,7 +653,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line2D l, CubicBezier2D c, double epsilon = double.Epsilon) => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this Line2D l, CubicBezierSegment2D c, double epsilon = double.Epsilon) => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line and a triangle.
@@ -718,7 +718,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line2D l, CircularArc2D c, double epsilon = double.Epsilon) => LineCircularArcIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+        public static Intersection Intersection(this Line2D l, CircularArcSegment2D c, double epsilon = double.Epsilon) => LineCircularArcIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a line and an ellipse.
@@ -744,7 +744,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line2D l, EllipticalArc2D e, double epsilon = double.Epsilon) => LineEllipticalArcIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this Line2D l, EllipticalArcSegment2D e, double epsilon = double.Epsilon) => LineEllipticalArcIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         ///// <summary>
         ///// Find the intersection of a Quadratic Bézier and a Bézier segment.
@@ -768,7 +768,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier2D q, LineSegment2D l, double epsilon = double.Epsilon) => LineSegmentQuadraticBezierSegmentIntersection(l.A.X, l.A.Y, l.B.X, l.B.Y, q.CurveX, q.CurveY, epsilon);
+        public static Intersection Intersection(this QuadraticBezierSegment2D q, LineSegment2D l, double epsilon = double.Epsilon) => LineSegmentQuadraticBezierSegmentIntersection(l.A.X, l.A.Y, l.B.X, l.B.Y, q.CurveX, q.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a ray and a Quadratic Bézier.
@@ -781,7 +781,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier2D q, Ray2D r, double epsilon = double.Epsilon) => RayQuadraticBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, q.CurveX, q.CurveY, epsilon);
+        public static Intersection Intersection(this QuadraticBezierSegment2D q, Ray2D r, double epsilon = double.Epsilon) => RayQuadraticBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, q.CurveX, q.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a Line segment.
@@ -794,7 +794,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier2D q, Line2D l, double epsilon = double.Epsilon) => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, q.CurveX, q.CurveY, epsilon);
+        public static Intersection Intersection(this QuadraticBezierSegment2D q, Line2D l, double epsilon = double.Epsilon) => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, q.CurveX, q.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of two Quadratic Bézier curves.
@@ -807,7 +807,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier2D a, QuadraticBezier2D b, double epsilon = double.Epsilon) => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
+        public static Intersection Intersection(this QuadraticBezierSegment2D a, QuadraticBezierSegment2D b, double epsilon = double.Epsilon) => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a Cubic Bézier.
@@ -820,7 +820,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier2D q, CubicBezier2D c, double epsilon = double.Epsilon) => QuadraticBezierSegmentCubicBezierSegmentIntersection(q.CurveX, q.CurveY, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this QuadraticBezierSegment2D q, CubicBezierSegment2D c, double epsilon = double.Epsilon) => QuadraticBezierSegmentCubicBezierSegmentIntersection(q.CurveX, q.CurveY, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a triangle.
@@ -833,7 +833,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier2D q, Triangle2D t, double epsilon = double.Epsilon) => QuadraticBezierSegmentTriangleIntersection(q.CurveX, q.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this QuadraticBezierSegment2D q, Triangle2D t, double epsilon = double.Epsilon) => QuadraticBezierSegmentTriangleIntersection(q.CurveX, q.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a Rectangle.
@@ -846,7 +846,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier2D q, Rectangle2D a, double epsilon = double.Epsilon) => QuadraticBezierSegmentRectangleIntersection(q.CurveX, q.CurveY, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this QuadraticBezierSegment2D q, Rectangle2D a, double epsilon = double.Epsilon) => QuadraticBezierSegmentRectangleIntersection(q.CurveX, q.CurveY, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a Polygon Contour.
@@ -859,7 +859,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier2D q, PolygonContour2D p, double epsilon = double.Epsilon) => QuadraticBezierSegmentPolygonContourIntersection(q.CurveX, q.CurveY, p.Points.ToArray(), epsilon);
+        public static Intersection Intersection(this QuadraticBezierSegment2D q, PolygonContour2D p, double epsilon = double.Epsilon) => QuadraticBezierSegmentPolygonContourIntersection(q.CurveX, q.CurveY, p.Points.ToArray(), epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and a Circle.
@@ -872,7 +872,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier2D q, Circle2D c, double epsilon = double.Epsilon) => QuadraticBezierSegmentObliqueEllipseIntersection(q.CurveX, q.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
+        public static Intersection Intersection(this QuadraticBezierSegment2D q, Circle2D c, double epsilon = double.Epsilon) => QuadraticBezierSegmentObliqueEllipseIntersection(q.CurveX, q.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bézier and an orthogonal Ellipse.
@@ -885,7 +885,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier2D q, Ellipse2D e, double epsilon = double.Epsilon) => QuadraticBezierSegmentObliqueEllipseIntersection(q.CurveX, q.CurveY, e.X, e.Y, e.RadiusA, e.RadiusB, epsilon);
+        public static Intersection Intersection(this QuadraticBezierSegment2D q, Ellipse2D e, double epsilon = double.Epsilon) => QuadraticBezierSegmentObliqueEllipseIntersection(q.CurveX, q.CurveY, e.X, e.Y, e.RadiusA, e.RadiusB, epsilon);
 
         ///// <summary>
         ///// Find the intersection of a Cubic Bézier and a Bézier segment.
@@ -909,7 +909,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier2D c, LineSegment2D l, double epsilon = double.Epsilon) => LineSegmentCubicBezierSegmentIntersection(l.A.X, l.A.Y, l.B.X, l.B.Y, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this CubicBezierSegment2D c, LineSegment2D l, double epsilon = double.Epsilon) => LineSegmentCubicBezierSegmentIntersection(l.A.X, l.A.Y, l.B.X, l.B.Y, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Ray and a Cubic Bézier.
@@ -922,7 +922,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier2D c, Ray2D r, double epsilon = double.Epsilon) => RayCubicBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this CubicBezierSegment2D c, Ray2D r, double epsilon = double.Epsilon) => RayCubicBezierSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Line segment.
@@ -935,7 +935,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier2D c, Line2D l, double epsilon = double.Epsilon) => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this CubicBezierSegment2D c, Line2D l, double epsilon = double.Epsilon) => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Quadratic Bézier.
@@ -948,7 +948,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier2D c, QuadraticBezier2D q, double epsilon = double.Epsilon) => QuadraticBezierSegmentCubicBezierSegmentIntersection(q.CurveX, q.CurveY, c.CurveX, c.CurveY, epsilon);
+        public static Intersection Intersection(this CubicBezierSegment2D c, QuadraticBezierSegment2D q, double epsilon = double.Epsilon) => QuadraticBezierSegmentCubicBezierSegmentIntersection(q.CurveX, q.CurveY, c.CurveX, c.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of two Cubic Bézier curves.
@@ -961,7 +961,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier2D a, CubicBezier2D b, double epsilon = double.Epsilon) => CubicBezierSegmentCubicBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
+        public static Intersection Intersection(this CubicBezierSegment2D a, CubicBezierSegment2D b, double epsilon = double.Epsilon) => CubicBezierSegmentCubicBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Triangle.
@@ -974,7 +974,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier2D c, Triangle2D t, double epsilon = double.Epsilon) => CubicBezierSegmentTriangleIntersection(c.CurveX, c.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this CubicBezierSegment2D c, Triangle2D t, double epsilon = double.Epsilon) => CubicBezierSegmentTriangleIntersection(c.CurveX, c.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Rectangle.
@@ -987,7 +987,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier2D c, Rectangle2D r, double epsilon = double.Epsilon) => CubicBezierSegmentRectangleIntersection(c.CurveX, c.CurveY, r.X, r.Y, r.Right, r.Bottom, epsilon);
+        public static Intersection Intersection(this CubicBezierSegment2D c, Rectangle2D r, double epsilon = double.Epsilon) => CubicBezierSegmentRectangleIntersection(c.CurveX, c.CurveY, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Polygon Contour.
@@ -1000,7 +1000,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier2D c, PolygonContour2D p, double epsilon = double.Epsilon) => CubicBezierSegmentPolygonIntersection(c.CurveX, c.CurveY, p.Points.ToArray(), epsilon);
+        public static Intersection Intersection(this CubicBezierSegment2D c, PolygonContour2D p, double epsilon = double.Epsilon) => CubicBezierSegmentPolygonIntersection(c.CurveX, c.CurveY, p.Points.ToArray(), epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Circle.
@@ -1013,7 +1013,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier2D b, Circle2D c, double epsilon = double.Epsilon) => CubicBezierSegmentObliqueEllipseIntersection(b.A.X, b.A.Y, b.B.X, b.B.Y, b.C.X, b.C.Y, b.D.X, b.D.Y, c.X, c.Y, c.Radius, c.Radius, Cos(0), Sin(0), epsilon);
+        public static Intersection Intersection(this CubicBezierSegment2D b, Circle2D c, double epsilon = double.Epsilon) => CubicBezierSegmentObliqueEllipseIntersection(b.A.X, b.A.Y, b.B.X, b.B.Y, b.C.X, b.C.Y, b.D.X, b.D.Y, c.X, c.Y, c.Radius, c.Radius, Cos(0), Sin(0), epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and an orthogonal Ellipse.
@@ -1026,7 +1026,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier2D c, Ellipse2D e, double epsilon = double.Epsilon) => CubicBezierSegmentObliqueEllipseIntersection(c.A.X, c.A.Y, c.B.X, c.B.Y, c.C.X, c.C.Y, c.D.X, c.D.Y, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this CubicBezierSegment2D c, Ellipse2D e, double epsilon = double.Epsilon) => CubicBezierSegmentObliqueEllipseIntersection(c.A.X, c.A.Y, c.B.X, c.B.Y, c.C.X, c.C.Y, c.D.X, c.D.Y, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a triangle and a Line segment.
@@ -1078,7 +1078,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Triangle2D t, QuadraticBezier2D q, double epsilon = double.Epsilon) => QuadraticBezierSegmentTriangleIntersection(q.CurveX, q.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this Triangle2D t, QuadraticBezierSegment2D q, double epsilon = double.Epsilon) => QuadraticBezierSegmentTriangleIntersection(q.CurveX, q.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bézier and a Triangle.
@@ -1091,7 +1091,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Triangle2D t, CubicBezier2D c, double epsilon = double.Epsilon) => CubicBezierSegmentTriangleIntersection(c.CurveX, c.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
+        public static Intersection Intersection(this Triangle2D t, CubicBezierSegment2D c, double epsilon = double.Epsilon) => CubicBezierSegmentTriangleIntersection(c.CurveX, c.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of two triangles.
@@ -1208,7 +1208,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D a, QuadraticBezier2D q, double epsilon = double.Epsilon) => QuadraticBezierSegmentRectangleIntersection(q.CurveX, q.CurveY, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Rectangle2D a, QuadraticBezierSegment2D q, double epsilon = double.Epsilon) => QuadraticBezierSegmentRectangleIntersection(q.CurveX, q.CurveY, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a Cubic Bézier.
@@ -1221,7 +1221,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D a, CubicBezier2D c, double epsilon = double.Epsilon) => CubicBezierSegmentRectangleIntersection(c.CurveX, c.CurveY, a.X, a.Y, a.Right, a.Bottom, epsilon);
+        public static Intersection Intersection(this Rectangle2D a, CubicBezierSegment2D c, double epsilon = double.Epsilon) => CubicBezierSegmentRectangleIntersection(c.CurveX, c.CurveY, a.X, a.Y, a.Right, a.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a triangle.
@@ -1338,7 +1338,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour2D p, QuadraticBezier2D q, double epsilon = double.Epsilon) => QuadraticBezierSegmentPolygonContourIntersection(q.CurveX, q.CurveY, p.Points.ToArray(), epsilon);
+        public static Intersection Intersection(this PolygonContour2D p, QuadraticBezierSegment2D q, double epsilon = double.Epsilon) => QuadraticBezierSegmentPolygonContourIntersection(q.CurveX, q.CurveY, p.Points.ToArray(), epsilon);
 
         /// <summary>
         /// Find the intersection of a Polygon Contour and a Cubic Bézier.
@@ -1351,7 +1351,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour2D p, CubicBezier2D c, double epsilon = double.Epsilon) => CubicBezierSegmentPolygonIntersection(c.CurveX, c.CurveY, p.Points.ToArray(), epsilon);
+        public static Intersection Intersection(this PolygonContour2D p, CubicBezierSegment2D c, double epsilon = double.Epsilon) => CubicBezierSegmentPolygonIntersection(c.CurveX, c.CurveY, p.Points.ToArray(), epsilon);
 
         /// <summary>
         /// Find the intersection of a Polygon contour and a Rectangle.
@@ -1468,7 +1468,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle2D c, QuadraticBezier2D q, double epsilon = double.Epsilon) => QuadraticBezierSegmentObliqueEllipseIntersection(q.A.X, q.A.Y, q.B.X, q.B.Y, q.C.X, q.C.Y, c.X, c.Y, c.Radius, c.Radius, Cos(0), Sin(0), epsilon);
+        public static Intersection Intersection(this Circle2D c, QuadraticBezierSegment2D q, double epsilon = double.Epsilon) => QuadraticBezierSegmentObliqueEllipseIntersection(q.A.X, q.A.Y, q.B.X, q.B.Y, q.C.X, q.C.Y, c.X, c.Y, c.Radius, c.Radius, Cos(0), Sin(0), epsilon);
 
         /// <summary>
         /// Find the intersection of a Circle and a Cubic Bézier.
@@ -1481,7 +1481,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle2D c, CubicBezier2D b, double epsilon = double.Epsilon) => CubicBezierSegmentObliqueEllipseIntersection(b.A.X, b.A.Y, b.B.X, b.B.Y, b.C.X, b.C.Y, b.D.X, b.D.Y, c.X, c.Y, c.Radius, c.Radius, Cos(0), Sin(0), epsilon);
+        public static Intersection Intersection(this Circle2D c, CubicBezierSegment2D b, double epsilon = double.Epsilon) => CubicBezierSegmentObliqueEllipseIntersection(b.A.X, b.A.Y, b.B.X, b.B.Y, b.C.X, b.C.Y, b.D.X, b.D.Y, c.X, c.Y, c.Radius, c.Radius, Cos(0), Sin(0), epsilon);
 
         /// <summary>
         /// Find the intersection of a Circle and a triangle.
@@ -1546,7 +1546,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle2D c, Ellipse2D e, double epsilon = double.Epsilon) => ObliqueEllipseObliqueEllipseIntersection((c.Center).X, c.Center.Y, c.Radius, c.Radius, 0d, (e.Center).X, e.Center.Y, e.RadiusA, e.RadiusB, e.Angle, epsilon);
+        public static Intersection Intersection(this Circle2D c, Ellipse2D e, double epsilon = double.Epsilon) => ObliqueEllipseObliqueEllipseIntersection(c.Center.X, c.Center.Y, c.Radius, c.Radius, 0d, e.Center.X, e.Center.Y, e.RadiusA, e.RadiusB, e.Angle, epsilon);
 
         /// <summary>
         /// Find the intersection of an circular arc and a line segment.
@@ -1559,7 +1559,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CircularArc2D c, LineSegment2D s, double epsilon = double.Epsilon) => LineSegmentCircularArcIntersection(s.A.X, s.A.Y, c.X, s.B.X, s.B.Y, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+        public static Intersection Intersection(this CircularArcSegment2D c, LineSegment2D s, double epsilon = double.Epsilon) => LineSegmentCircularArcIntersection(s.A.X, s.A.Y, c.X, s.B.X, s.B.Y, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a ray.
@@ -1572,7 +1572,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CircularArc2D c, Ray2D r, double epsilon = double.Epsilon) => RayCircularArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+        public static Intersection Intersection(this CircularArcSegment2D c, Ray2D r, double epsilon = double.Epsilon) => RayCircularArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a line.
@@ -1585,7 +1585,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CircularArc2D c, Line2D s, double epsilon = double.Epsilon) => LineCircularArcIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+        public static Intersection Intersection(this CircularArcSegment2D c, Line2D s, double epsilon = double.Epsilon) => LineCircularArcIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an ellipse and a line segment.
@@ -1598,7 +1598,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse2D e, LineSegment2D s, double epsilon = double.Epsilon) => LineSegmentObliqueEllipseIntersection((s?.A).Value.X, s.A.Y, s.B.X, s.B.Y, (e.X), e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this Ellipse2D e, LineSegment2D s, double epsilon = double.Epsilon) => LineSegmentObliqueEllipseIntersection((s.A).X, s.A.Y, s.B.X, s.B.Y, (e.X), e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an ellipse and a ray.
@@ -1611,7 +1611,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse2D e, Ray2D r, double epsilon = double.Epsilon) => RayObliqueEllipseIntersection((r.Location).X, r.Location.Y, r.Direction.I, r.Direction.J, (e.X), e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this Ellipse2D e, Ray2D r, double epsilon = double.Epsilon) => RayObliqueEllipseIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an ellipse and a line segment.
@@ -1637,7 +1637,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse2D e, QuadraticBezier2D q, double epsilon = double.Epsilon) => QuadraticBezierSegmentObliqueEllipseIntersection(q.A.X, q.A.Y, q.B.X, q.B.Y, q.C.X, q.C.Y, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
+        public static Intersection Intersection(this Ellipse2D e, QuadraticBezierSegment2D q, double epsilon = double.Epsilon) => QuadraticBezierSegmentObliqueEllipseIntersection(q.A.X, q.A.Y, q.B.X, q.B.Y, q.C.X, q.C.Y, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an orthogonal ellipse and a Cubic Bézier.
@@ -1650,7 +1650,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse2D e, CubicBezier2D c, double epsilon = double.Epsilon) => CubicBezierSegmentObliqueEllipseIntersection(c.A.X, c.A.Y, c.B.X, c.B.Y, c.C.X, c.C.Y, c.D.X, c.D.Y, e.X, e.Y, e.RadiusA, e.RadiusB, Cos(e.Angle), Sin(e.Angle), epsilon); //CubicBezierSegmentObliqueEllipseIntersection((c?.CurveX).Value, c.CurveY, (e?.X).Value, e.Y, e.RX, e.RY, Cos(e.Angle), Sin(e.Angle), epsilon);
+        public static Intersection Intersection(this Ellipse2D e, CubicBezierSegment2D c, double epsilon = double.Epsilon) => CubicBezierSegmentObliqueEllipseIntersection(c.A.X, c.A.Y, c.B.X, c.B.Y, c.C.X, c.C.Y, c.D.X, c.D.Y, e.X, e.Y, e.RadiusA, e.RadiusB, Cos(e.Angle), Sin(e.Angle), epsilon); //CubicBezierSegmentObliqueEllipseIntersection((c?.CurveX).Value, c.CurveY, (e?.X).Value, e.Y, e.RX, e.RY, Cos(e.Angle), Sin(e.Angle), epsilon);
 
         /// <summary>
         /// Find the points of the intersection of an ellipse and a triangle.
@@ -1689,7 +1689,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse2D e, PolygonContour2D p, double epsilon = double.Epsilon) => ObliqueEllipsePolygonContourIntersection((e.X), e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, p.Points.ToArray(), epsilon);
+        public static Intersection Intersection(this Ellipse2D e, PolygonContour2D p, double epsilon = double.Epsilon) => ObliqueEllipsePolygonContourIntersection(e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, p.Points.ToArray(), epsilon);
 
         /// <summary>
         /// Find the intersection of an orthogonal Ellipse and a Circle.
@@ -1728,7 +1728,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this EllipticalArc2D e, LineSegment2D s, double epsilon = double.Epsilon) => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this EllipticalArcSegment2D e, LineSegment2D s, double epsilon = double.Epsilon) => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an elliptical arc and a ray.
@@ -1741,7 +1741,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this EllipticalArc2D e, Ray2D r, double epsilon = double.Epsilon) => LineEllipticalArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this EllipticalArcSegment2D e, Ray2D r, double epsilon = double.Epsilon) => LineEllipticalArcIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an elliptical arc and a line segment.
@@ -1754,7 +1754,7 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this EllipticalArc2D e, Line2D l, double epsilon = double.Epsilon) => LineEllipticalArcIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this EllipticalArcSegment2D e, Line2D l, double epsilon = double.Epsilon) => LineEllipticalArcIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, e.X, e.Y, e.RadiusA, e.RadiusB, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
         #endregion Intersection Extension Method Overloads
 
         #region Intersection Methods
@@ -7588,7 +7588,7 @@ namespace Engine
             foreach (var s in yRoots)
             {
                 var xRoots = new Polynomial((
-                    a: e1.a,
+                        e1.a,
                     b: e1.d + s * e1.b,
                     c: e1.f + s * (e1.e + s * e1.c)
                 )).Trim().Roots();

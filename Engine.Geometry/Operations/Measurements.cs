@@ -1226,8 +1226,8 @@ namespace Engine
         /// <summary>
         /// Finds the nearest point on a Cubic Bézier curve.
         /// </summary>
-        /// <param name="p0Y">The y-component of the starting point of the curve.</param>
         /// <param name="p0X">The x-component of the starting point of the curve.</param>
+        /// <param name="p0Y">The y-component of the starting point of the curve.</param>
         /// <param name="p1X">The x-component of the handle of the curve.</param>
         /// <param name="p1Y">The y-component of the handle of the curve.</param>
         /// <param name="p2X">The x-component of the ending point of the curve.</param>
@@ -1243,7 +1243,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y)? NearestPointOnQuadraticBezier(
-            double p0Y, double p0X,
+            double p0X, double p0Y,
             double p1X, double p1Y,
             double p2X, double p2Y,
             double pX, double pY)
@@ -1263,23 +1263,23 @@ namespace Engine
             //).Select(
             //    root => root.Real
             //).ToList();
-            var candidates = new List<double>(roots)
+            var candidates = new List<double>(roots.ToArray())
             {
                 // add t=0 and t=1 ... the edge cases.
-                0.0,
-                1.0
+                0d,
+                1d
             };
             var output = (double.NaN, double.NaN);
             var minDistance = double.MaxValue;
             foreach (var candidate in candidates)
             {
-                var ptAtCandidate = Interpolators.QuadraticBezier(candidate, p0X, p0Y, p1X, p1Y, p2X, p2Y);
+                var ptAtCandidate = QuadraticBezier(candidate, p0X, p0Y, p1X, p1Y, p2X, p2Y);
                 var distance = SquareDistance(ptAtCandidate, (pX, pY));
                 if (distance < minDistance)
                 {
                     minDistance = distance;
                     // find the candidate that yields the closest point on the bezier to the given point.
-                    double t = candidate;
+                    var t = candidate;
                     output = ptAtCandidate;
                 }
             }
@@ -1331,23 +1331,23 @@ namespace Engine
             //).Select(
             //    root => root.Real
             //).ToList();
-            var candidates = new List<double>(roots)
+            var candidates = new List<double>(roots.ToArray())
             {
                 // add t=0 and t=1 ... the edge cases.
-                0.0,
-                1.0
+                0d,
+                1d
             };
             var output = (double.NaN, double.NaN);
             var minDistance = double.MaxValue;
             foreach (var candidate in candidates)
             {
-                var ptAtCandidate = Interpolators.CubicBezier(candidate, p0X, p0Y, p1X, p1Y, p2X, p2Y, p3X, p3Y);
+                var ptAtCandidate = CubicBezier(candidate, p0X, p0Y, p1X, p1Y, p2X, p2Y, p3X, p3Y);
                 var distance = SquareDistance(ptAtCandidate, (pX, pY));
                 if (distance < minDistance)
                 {
                     minDistance = distance;
                     // find the candidate that yields the closest point on the bezier to the given point.
-                    double t = candidate;
+                    var t = candidate;
                     output = ptAtCandidate;
                 }
             }
@@ -1403,11 +1403,11 @@ namespace Engine
             //).Select(
             //    root => root.Real
             //).ToList();
-            var candidates = new List<double>(roots)
+            var candidates = new List<double>(roots.ToArray())
             {
                 // add t=0 and t=1 ... the edge cases.
-                0.0,
-                1.0
+                0d,
+                1d
             };
             var output = (double.NaN, double.NaN);
             var minDistance = double.MaxValue;
@@ -1419,7 +1419,7 @@ namespace Engine
                 {
                     minDistance = distance;
                     // find the candidate that yields the closest point on the bezier to the given point.
-                    double t = candidate;
+                    var t = candidate;
                     output = ptAtCandidate;
                 }
             }
@@ -1504,12 +1504,12 @@ namespace Engine
         /// <summary>
         /// Calculates the closed-form solution to elliptic integral for arc length.
         /// </summary>
-        /// <param name="ax">The starting x-coordinate for the <see cref="QuadraticBezier" /> curve.</param>
-        /// <param name="ay">The starting y-coordinate for the <see cref="QuadraticBezier" /> curve.</param>
-        /// <param name="bx">The middle x-coordinate for the tangent control node for the <see cref="QuadraticBezier" /> curve.</param>
-        /// <param name="by">The middle y-coordinate for the tangent control node for the <see cref="QuadraticBezier" /> curve.</param>
-        /// <param name="cx">The closing x-coordinate for the <see cref="QuadraticBezier" /> curve.</param>
-        /// <param name="cy">The closing y-coordinate for the <see cref="QuadraticBezier" /> curve.</param>
+        /// <param name="ax">The starting x-coordinate for the <see cref="QuadraticBezier2D"/> curve.</param>
+        /// <param name="ay">The starting y-coordinate for the <see cref="QuadraticBezier2D"/> curve.</param>
+        /// <param name="bx">The middle x-coordinate for the tangent control node for the <see cref="QuadraticBezier2D"/> curve.</param>
+        /// <param name="by">The middle y-coordinate for the tangent control node for the <see cref="QuadraticBezier2D"/> curve.</param>
+        /// <param name="cx">The closing x-coordinate for the <see cref="QuadraticBezier2D"/> curve.</param>
+        /// <param name="cy">The closing y-coordinate for the <see cref="QuadraticBezier2D"/> curve.</param>
         /// <returns>
         /// Returns the arc length of the Quadratic Bézier curve.
         /// </returns>
@@ -1550,8 +1550,8 @@ namespace Engine
         /// <param name="by">The first y-coordinate for the tangent control node for the <see cref="CubicBezier2D" /> curve.</param>
         /// <param name="cx">The second x-coordinate for the tangent control node for the <see cref="CubicBezier2D" /> curve.</param>
         /// <param name="cy">The second y-coordinate for the tangent control node for the <see cref="CubicBezier2D" /> curve.</param>
-        /// <param name="dx">The closing x-coordinate for the <see cref="QuadraticBezier" /> curve.</param>
-        /// <param name="dy">The closing y-coordinate for the <see cref="QuadraticBezier" /> curve.</param>
+        /// <param name="dx">The closing x-coordinate for the <see cref="QuadraticBezier2D"/> curve.</param>
+        /// <param name="dy">The closing y-coordinate for the <see cref="QuadraticBezier2D"/> curve.</param>
         /// <returns>
         /// Returns the arc length of the Cubic Bézier curve.
         /// </returns>
@@ -1706,7 +1706,7 @@ namespace Engine
         /// <returns>Returns the slope angle of a line.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Slope(this LineSegment2D Line) => Operations.Slope((Line?.A).Value.X, Line.A.Y, Line.B.X, Line.B.Y);
+        public static double Slope(this LineSegment2D Line) => Operations.Slope(Line.A.X, Line.A.Y, Line.B.X, Line.B.Y);
         #endregion Slope
 
         #region BoundsMethods
@@ -2053,7 +2053,7 @@ namespace Engine
         /// </returns>
         public static Rectangle2D PolylineBounds(List<Point2D> points)
         {
-            if (points?.Count < 1) { return null; }
+            if (points is null || points?.Count < 1) { return Rectangle2D.Empty; }
 
             var left = points[0].X;
             var top = points[0].Y;
@@ -2101,7 +2101,7 @@ namespace Engine
         public static Rectangle2D PolycurveContourBounds(PolycurveContour2D contour)
         {
             var start = contour?.Items[0] as PointSegment2D;
-            var result = new Rectangle2D(start.Head.Value, start.Tail.Value);
+            var result = new Rectangle2D(start.Head, start.Tail);
 
             foreach (var member in contour.Items)
             {
@@ -2360,7 +2360,7 @@ namespace Engine
         public static double Eccentricity(double rX, double rY) => Sqrt(1 - (rX / rY * (rX / rY)));
 
         /// <summary>
-        /// Finds the Focus Radius of an <see cref="Ellipse" />.
+        /// Finds the Focus Radius of an <see cref="Ellipse2D" />.
         /// </summary>
         /// <param name="rX">The x radius.</param>
         /// <param name="rY">The y radius.</param>
@@ -2389,7 +2389,7 @@ namespace Engine
             var dsquare = ParameterizedSquareDistance(curveX, curveY, point);
             var deriv = dsquare.Derivate().Normalize();
             var derivRoots = deriv.Roots();
-            return 1 - derivRoots
+            return 1 - derivRoots.ToArray()
                 .Where(t => t > 0 && t < 1)
                 .Concat(Polynomial.Identity)
                 .OrderBy(dsquare.Evaluate)
@@ -2431,7 +2431,7 @@ namespace Engine
             var dsquare = ParameterizedSquareDistance(curveX, curveY, point);
             var deriv = dsquare.Derivate().Normalize();
             var derivRoots = deriv.Roots();
-            return derivRoots
+            return derivRoots.ToArray()
                 .Where(t => t > 0 && t < 1)
                 .Concat(Polynomial.Identity)
                 .Select(x => Sqrt(dsquare.Evaluate(1 - x)))
@@ -2622,10 +2622,10 @@ namespace Engine
         public static List<Point2D> CircleExtremePoints(double x, double y, double radius)
             => new List<Point2D>
             {
-                Interpolators.Circle(0, x, y, radius),
-                Interpolators.Circle(HalfPi, x, y, radius),
-                Interpolators.Circle(PI, x, y, radius),
-                Interpolators.Circle(Pau, x, y, radius)
+                Circle(0, x, y, radius),
+                Circle(HalfPi, x, y, radius),
+                Circle(PI, x, y, radius),
+                Circle(Pau, x, y, radius)
             };
 
         /// <summary>
@@ -2711,10 +2711,10 @@ namespace Engine
             // Return the points of Cartesian extreme of the rotated ellipse.
             return new List<Point2D>
             {
-                Interpolators.Ellipse(a1, x, y, rX, rY, cosAngle, sinAngle),
-                Interpolators.Ellipse(a3, x, y, rX, rY, cosAngle, sinAngle),
-                Interpolators.Ellipse(a2, x, y, rX, rY, cosAngle, sinAngle),
-                Interpolators.Ellipse(a4, x, y, rX, rY, cosAngle, sinAngle)
+                Ellipse(a1, x, y, rX, rY, cosAngle, sinAngle),
+                Ellipse(a3, x, y, rX, rY, cosAngle, sinAngle),
+                Ellipse(a2, x, y, rX, rY, cosAngle, sinAngle),
+                Ellipse(a4, x, y, rX, rY, cosAngle, sinAngle)
             };
 
             //// ToDo: Replace the previous two sections with this return and profile to see if there is a performance improvement, and check for accuracy.

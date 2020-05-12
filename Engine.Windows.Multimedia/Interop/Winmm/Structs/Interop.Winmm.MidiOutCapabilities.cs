@@ -15,43 +15,43 @@ internal static partial class Interop
             /// <summary>
             /// The manufacturer identifier
             /// </summary>
-            private short manufacturerId;
+            private readonly short manufacturerId;
 
             /// <summary>
             /// The driver version
             /// </summary>
-            private int driverVersion;
+            private readonly int driverVersion;
 
             /// <summary>
             /// The product name
             /// </summary>
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MaxProductNameLength)]
-            private string productName;
+            private readonly string productName;
 
             /// <summary>
             /// The w technology
             /// </summary>
-            private short wTechnology;
+            private readonly short wTechnology;
 
             /// <summary>
             /// The w voices
             /// </summary>
-            private short wVoices;
+            private readonly short wVoices;
 
             /// <summary>
             /// The w notes
             /// </summary>
-            private short wNotes;
+            private readonly short wNotes;
 
             /// <summary>
             /// The w channel mask
             /// </summary>
-            private ushort wChannelMask;
+            private readonly ushort wChannelMask;
 
             /// <summary>
             /// The dw support
             /// </summary>
-            private MidiOutCapabilityFlags dwSupport;
+            private readonly MidiOutCapabilityFlags dwSupport;
 
             /// <summary>
             /// The maximum product name length

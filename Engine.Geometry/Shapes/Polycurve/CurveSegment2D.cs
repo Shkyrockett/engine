@@ -64,19 +64,19 @@ namespace Engine
         /// Gets or sets the starting coordinates for the item.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public abstract Point2D? Head { get; set; }
+        public abstract Point2D Head { get; set; }
 
         /// <summary>
         /// Gets or sets the next to last point of the item.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public abstract Point2D? NextToEnd { get; set; }
+        public abstract Point2D NextToEnd { get; set; }
 
         /// <summary>
         /// Gets or sets the ending coordinates for the item.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public abstract Point2D? Tail { get; set; }
+        public abstract Point2D Tail { get; set; }
 
         /// <summary>
         /// Gets or sets the grips used for this path segment.
@@ -112,8 +112,7 @@ namespace Engine
         /// <summary>
         /// This should be run anytime a property of the item is modified.
         /// </summary>
-        public void ClearCache()
-            => propertyCache.Clear();
+        public void ClearCache() => propertyCache.Clear();
 
         /// <summary>
         /// Private method for caching computationally and memory intensive properties of child objects

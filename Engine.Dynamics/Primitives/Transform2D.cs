@@ -297,7 +297,7 @@ namespace Engine
         /// <summary>
         /// Add two <see cref="Transform2D" /> structs together.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="augend">The augend.</param>
         /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
@@ -513,13 +513,13 @@ namespace Engine
         /// Creates a string representation of this <see cref="Transform2D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <param name="formatProvider">The <see cref="CultureInfo" /> provider.</param>
         /// <returns>
         /// A string representation of this <see cref="Transform2D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ToString("R" /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Transform2D" /> struct based on the format string
@@ -528,17 +528,17 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="formatProvider">The format provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A <see cref="string" /> that represents this instance.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             if (this == null) return nameof(Point2D);
-            var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Transform2D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(SkewX)}:{SkewX.ToString(format, provider)}{s} {nameof(SkewY)}:{SkewY.ToString(format, provider)}{s} {nameof(ScaleX)}:{ScaleX.ToString(format, provider)}{s} {nameof(ScaleY)}:{ScaleY.ToString(format, provider)})";
+            var s = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(Transform2D)}({nameof(X)}:{X.ToString(format, formatProvider)}{s} {nameof(Y)}:{Y.ToString(format, formatProvider)}{s} {nameof(SkewX)}:{SkewX.ToString(format, formatProvider)}{s} {nameof(SkewY)}:{SkewY.ToString(format, formatProvider)}{s} {nameof(ScaleX)}:{ScaleX.ToString(format, formatProvider)}{s} {nameof(ScaleY)}:{ScaleY.ToString(format, formatProvider)})";
         }
         #endregion
     }

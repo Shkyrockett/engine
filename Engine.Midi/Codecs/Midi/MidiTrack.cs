@@ -142,9 +142,9 @@ namespace Engine.File
                     MidiStatusMessage.TuneRequest => TuneRequest.Read(reader, status),
                     MidiStatusMessage.EndOfExclusive => EndOfExclusive.Read(reader, status),
                     MidiStatusMessage.TimingClock => TimingClock.Read(reader, status),
-                    MidiStatusMessage.Start => Start.Read(reader, status),
-                    MidiStatusMessage.Continue => Continue.Read(reader, status),
-                    MidiStatusMessage.Stop => Stop.Read(reader, status),
+                    MidiStatusMessage.Start => MidiStart.Read(reader, status),
+                    MidiStatusMessage.Continue => MidiContinue.Read(reader, status),
+                    MidiStatusMessage.Stop => MidiStop.Read(reader, status),
                     MidiStatusMessage.ActiveSensing => ActiveSensing.Read(reader, status),
                     MidiStatusMessage.SequenceNumber => SequenceNumber.Read(reader, status),
                     MidiStatusMessage.TextEvent => TextEvent.Read(reader, status),
@@ -187,7 +187,7 @@ namespace Engine.File
         /// Converts to string.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         public override string ToString() => $"{(Events?.FirstOrDefault(t => t is TrackName) is TrackName m ? $"Midi Track: {m.Text}" : "Midi Track")}";
         #endregion

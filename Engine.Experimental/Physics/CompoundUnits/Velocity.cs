@@ -105,13 +105,7 @@ namespace Engine
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
-        public override int GetHashCode()
-        {
-            var hashCode = 2120939087;
-            hashCode = hashCode * -1521134295 + EqualityComparer<ISpeed>.Default.GetHashCode(Acceleration);
-            hashCode = hashCode * -1521134295 + EqualityComparer<IDirection>.Default.GetHashCode(Direction);
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Acceleration, Direction);
 
         /// <summary>
         /// The to string.

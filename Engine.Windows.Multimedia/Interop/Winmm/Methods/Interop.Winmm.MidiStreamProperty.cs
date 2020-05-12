@@ -25,30 +25,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiStreamProperty", ExactSpelling = true)]
-        internal static extern MmResult MidiStreamProperty_(IntPtr hMidiStream, IntPtr lppropdata, StreamPropertFlags dwProperty);
-
-        /// <summary>
-        /// Midis the stream property.
-        /// </summary>
-        /// <param name="midiStream">The midi stream.</param>
-        /// <param name="propData">The property data.</param>
-        /// <param name="propertyFlags">The property flags.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">
-        /// The specified device handle is invalid.
-        /// or
-        /// The specified pointer or structure is invalid.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiStreamProperty(IntPtr midiStream, IntPtr propData, StreamPropertFlags propertyFlags)
-        {
-            return MidiStreamProperty_(midiStream, propData, propertyFlags) switch
-            {
-                MmResult.NoError => true,
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiStreamProperty_(IntPtr hMidiStream, IntPtr lppropdata, StreamPropertFlags dwProperty);
     }
 }

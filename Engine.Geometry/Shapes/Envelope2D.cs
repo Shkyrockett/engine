@@ -117,7 +117,7 @@ namespace Engine
         /// <summary>
         /// The to polycurve.
         /// </summary>
-        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        /// <returns>The <see cref="PolycurveContour2D"/>.</returns>
         public PolycurveContour2D ToPolycurve()
         {
             var curve = new PolycurveContour2D(ControlPointTopLeft.Point);
@@ -141,8 +141,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Envelope2D && Equals((Envelope2D)obj);
+        public override bool Equals(object obj) => obj is Envelope2D d && Equals(d);
 
         /// <summary>
         /// The equals.
@@ -151,8 +150,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Envelope2D envelope)
-            => ControlPointTopLeft == envelope.ControlPointTopLeft
+        public bool Equals(Envelope2D envelope) => ControlPointTopLeft == envelope.ControlPointTopLeft
                 && ControlPointTopRight == envelope.ControlPointTopRight
                 && ControlPointBottomLeft == envelope.ControlPointBottomLeft
                 && ControlPointBottomRight == envelope.ControlPointBottomRight;
@@ -163,8 +161,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Envelope2D"/> struct based on the IFormatProvider
@@ -175,8 +172,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Envelope2D"/> class based on the format string
@@ -191,8 +187,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Envelope2D"/> class based on the format string

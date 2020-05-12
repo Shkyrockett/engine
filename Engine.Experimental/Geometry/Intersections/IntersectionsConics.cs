@@ -554,7 +554,7 @@ namespace Engine
             for (var i = 0; i < Roots.Count; i++)
             {
                 var y1 = InterpolateConicY(Roots[i].X, a1, b1, c1, d1, e1, f1, RootSign1[i]);
-                var y2 = InterpolateConicY(Roots[i].X, a2, b2, c2, d2, e2, f2, RootSign2[i]);
+                //var y2 = InterpolateConicY(Roots[i].X, a2, b2, c2, d2, e2, f2, RootSign2[i]);
                 // Validation.
                 //Debug.Assert(Math.Abs(y1 - y2) < small);
                 pointsOfIntersection.Add(new Point2D(Roots[i].X, y1));

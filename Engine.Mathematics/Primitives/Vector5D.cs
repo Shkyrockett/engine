@@ -25,8 +25,7 @@ namespace Engine
     /// The <see cref="Vector5D"/> struct. Represents a vector in 5D coordinate space (double precision floating-point coordinates).
     /// </summary>
     [DataContract, Serializable]
-    //[TypeConverter(typeof(Vector5DConverter))]
-    [TypeConverter(typeof(StructConverter<Vector5D>))]
+    [TypeConverter(typeof(Vector5DConverter))]
     [DebuggerDisplay("{ToString()}")]
     public struct Vector5D
         : IVector<Vector5D>
@@ -405,21 +404,25 @@ namespace Engine
         public static Vector5D operator *(Matrix5x5D multiplicand, Vector5D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
-        /// Divide a <see cref="Vector5D"/>
+        /// Divide a <see cref="Vector5D" />
         /// </summary>
-        /// <param name="dividend">The <see cref="Vector5D"/></param>
-        /// <param name="divedend">The divisor</param>
-        /// <returns>A <see cref="Vector5D"/> divided by the divisor</returns>
+        /// <param name="dividend">The <see cref="Vector5D" /></param>
+        /// <param name="divisor">The divisor.</param>
+        /// <returns>
+        /// A <see cref="Vector5D" /> divided by the divisor
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector5D operator /(Vector5D dividend, double divisor) => Divide(dividend, divisor);
 
         /// <summary>
-        /// Divide a <see cref="Vector5D"/>
+        /// Divide a <see cref="Vector5D" />
         /// </summary>
-        /// <param name="dividend">The <see cref="Vector5D"/></param>
+        /// <param name="dividend">The <see cref="Vector5D" /></param>
         /// <param name="divisor">The divisor</param>
-        /// <returns>A <see cref="Vector5D"/> divided by the divisor</returns>
+        /// <returns>
+        /// A <see cref="Vector5D" /> divided by the divisor
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector5D operator /(double dividend, Vector5D divisor) => Divide(dividend, divisor);
@@ -496,7 +499,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector5D Add(double addend) => Operations.AddVectorUniform(I, J, K, L, M, addend);
+        public Vector5D Add(double addend) => AddVectorUniform(I, J, K, L, M, addend);
 
         /// <summary>
         /// Adds the specified augend.
@@ -506,7 +509,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Add(Vector5D augend, double addend) => Operations.AddVectorUniform(augend.I, augend.J, augend.K, augend.L, augend.M, addend);
+        public static Vector5D Add(Vector5D augend, double addend) => AddVectorUniform(augend.I, augend.J, augend.K, augend.L, augend.M, addend);
 
         /// <summary>
         /// Adds the specified augend.
@@ -516,7 +519,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Add(double augend, Vector5D addend) => Operations.AddVectorUniform(addend.I, addend.J, addend.K, addend.L, addend.M, augend);
+        public static Vector5D Add(double augend, Vector5D addend) => AddVectorUniform(addend.I, addend.J, addend.K, addend.L, addend.M, augend);
 
         /// <summary>
         /// Adds the specified addend.
@@ -525,7 +528,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector5D Add(Vector5D addend) => Operations.AddVectors(I, J, K, L, M, addend.I, addend.J, addend.K, addend.L, addend.M);
+        public Vector5D Add(Vector5D addend) => AddVectors(I, J, K, L, M, addend.I, addend.J, addend.K, addend.L, addend.M);
 
         /// <summary>
         /// Adds the specified augend.
@@ -535,7 +538,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Add(Vector5D augend, Vector5D addend) => Operations.AddVectors(augend.I, augend.J, augend.K, augend.L, augend.M, addend.I, addend.J, addend.K, addend.L, addend.M);
+        public static Vector5D Add(Vector5D augend, Vector5D addend) => AddVectors(augend.I, augend.J, augend.K, augend.L, augend.M, addend.I, addend.J, addend.K, addend.L, addend.M);
 
         /// <summary>
         /// Negates this instance.
@@ -561,7 +564,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector5D Subtract(double subend) => Operations.SubtractVectorUniform(I, J, K, L, M, subend);
+        public Vector5D Subtract(double subend) => SubtractVectorUniform(I, J, K, L, M, subend);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -571,7 +574,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Subtract(Vector5D minuend, double subend) => Operations.SubtractVectorUniform(minuend.I, minuend.J, minuend.K, minuend.L, minuend.M, subend);
+        public static Vector5D Subtract(Vector5D minuend, double subend) => SubtractVectorUniform(minuend.I, minuend.J, minuend.K, minuend.L, minuend.M, subend);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -581,7 +584,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Subtract(double minuend, Vector5D subend) => Operations.SubtractFromMinuend(minuend, subend.I, subend.J, subend.K, subend.L, subend.M);
+        public static Vector5D Subtract(double minuend, Vector5D subend) => SubtractFromMinuend(minuend, subend.I, subend.J, subend.K, subend.L, subend.M);
 
         /// <summary>
         /// Subtracts the specified subend.
@@ -590,7 +593,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector5D Subtract(Vector5D subend) => Operations.SubtractVector(I, J, K, L, M, subend.I, subend.J, subend.K, subend.L, subend.M);
+        public Vector5D Subtract(Vector5D subend) => SubtractVector(I, J, K, L, M, subend.I, subend.J, subend.K, subend.L, subend.M);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -600,7 +603,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Subtract(Vector5D minuend, Vector5D subend) => Operations.SubtractVector(minuend.I, minuend.J, minuend.K, minuend.L, minuend.M, subend.I, subend.J, subend.K, subend.L, subend.M);
+        public static Vector5D Subtract(Vector5D minuend, Vector5D subend) => SubtractVector(minuend.I, minuend.J, minuend.K, minuend.L, minuend.M, subend.I, subend.J, subend.K, subend.L, subend.M);
 
         /// <summary>
         /// Multiplies the specified multiplier.
@@ -609,7 +612,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector5D Multiply(double multiplier) => Operations.ScaleVector(I, J, K, L, M, multiplier);
+        public Vector5D Multiply(double multiplier) => ScaleVector(I, J, K, L, M, multiplier);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -619,7 +622,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Multiply(Vector5D multiplicand, double multiplier) => Operations.ScaleVector(multiplicand.I, multiplicand.J, multiplicand.K, multiplicand.L, multiplicand.M, multiplier);
+        public static Vector5D Multiply(Vector5D multiplicand, double multiplier) => ScaleVector(multiplicand.I, multiplicand.J, multiplicand.K, multiplicand.L, multiplicand.M, multiplier);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -629,7 +632,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Multiply(double multiplicand, Vector5D multiplier) => Operations.ScaleVector(multiplier.I, multiplier.J, multiplier.K, multiplier.L, multiplier.M, multiplicand);
+        public static Vector5D Multiply(double multiplicand, Vector5D multiplier) => ScaleVector(multiplier.I, multiplier.J, multiplier.K, multiplier.L, multiplier.M, multiplicand);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -639,7 +642,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Multiply(Vector5D multiplicand, Matrix5x5D multiplier) => Operations.MultiplyVector5DMatrix5x5(multiplicand.I, multiplicand.J, multiplicand.K, multiplicand.L, multiplicand.M, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M0x4, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M1x4, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M2x4, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3, multiplier.M3x4, multiplier.M4x0, multiplier.M4x1, multiplier.M4x2, multiplier.M4x3, multiplier.M4x4);
+        public static Vector5D Multiply(Vector5D multiplicand, Matrix5x5D multiplier) => MultiplyVector5DMatrix5x5(multiplicand.I, multiplicand.J, multiplicand.K, multiplicand.L, multiplicand.M, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M0x4, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M1x4, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M2x4, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3, multiplier.M3x4, multiplier.M4x0, multiplier.M4x1, multiplier.M4x2, multiplier.M4x3, multiplier.M4x4);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -649,7 +652,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Multiply(Matrix5x5D multiplicand, Vector5D multiplier) => Operations.MultiplyVector5DMatrix5x5(multiplier.I, multiplier.J, multiplier.K, multiplier.L, multiplier.M, multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M0x4, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M1x4, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M2x4, multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3, multiplicand.M3x4, multiplicand.M4x0, multiplicand.M4x1, multiplicand.M4x2, multiplicand.M4x3, multiplicand.M4x4);
+        public static Vector5D Multiply(Matrix5x5D multiplicand, Vector5D multiplier) => MultiplyVector5DMatrix5x5(multiplier.I, multiplier.J, multiplier.K, multiplier.L, multiplier.M, multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M0x4, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M1x4, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M2x4, multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3, multiplicand.M3x4, multiplicand.M4x0, multiplicand.M4x1, multiplicand.M4x2, multiplicand.M4x3, multiplicand.M4x4);
 
         /// <summary>
         /// Divides the specified divisor.
@@ -658,7 +661,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector5D Divide(double divisor) => Operations.DivideVectorUniform(I, J, K, L, M, divisor);
+        public Vector5D Divide(double divisor) => DivideVectorUniform(I, J, K, L, M, divisor);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -668,7 +671,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Divide(Vector5D dividend, double divisor) => Operations.DivideVectorUniform(dividend.I, dividend.J, dividend.K, dividend.L, dividend.M, divisor);
+        public static Vector5D Divide(Vector5D dividend, double divisor) => DivideVectorUniform(dividend.I, dividend.J, dividend.K, dividend.L, dividend.M, divisor);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -678,7 +681,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector5D Divide(double dividend, Vector5D divisor) => Operations.DivideByVectorUniform(dividend, divisor.I, divisor.I, divisor.K, divisor.L, divisor.M);
+        public static Vector5D Divide(double dividend, Vector5D divisor) => DivideByVectorUniform(dividend, divisor.I, divisor.I, divisor.K, divisor.L, divisor.M);
 
         /// <summary>
         /// Dots the product.
@@ -763,22 +766,22 @@ namespace Engine
         /// Parse a string for a <see cref="Vector5D"/> value.
         /// </summary>
         /// <param name="source"><see cref="string"/> with <see cref="Vector5D"/> data </param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// Returns an instance of the <see cref="Vector5D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
         /// </returns>
-        public static Vector5D Parse(string source, IFormatProvider provider)
+        public static Vector5D Parse(string source, IFormatProvider formatProvider)
         {
-            var tokenizer = new Tokenizer(source, provider);
+            var tokenizer = new Tokenizer(source, formatProvider);
             var firstToken = tokenizer.NextTokenRequired();
 
             var value = new Vector5D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                Convert.ToDouble(firstToken, formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider)
                 );
 
             // There should be no more tokens in this string.
@@ -812,13 +815,13 @@ namespace Engine
         /// Creates a string representation of this <see cref="Vector5D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <param name="formatProvider">The <see cref="CultureInfo" /> provider.</param>
         /// <returns>
         /// A string representation of this <see cref="Vector5D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ToString("R" /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector5D"/> struct based on the format string

@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Version>0.0.0.1</Version>
+    <Authors>Shkyrockett</Authors>
+    <Description>Multimedia PInvoke API library for Engine.</Description>
+    <Copyright>Copyright © 2020 Shkyrockett</Copyright>
+    <RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
+    <NeutralLanguage>English (United States)</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -29,6 +29,6 @@ namespace Engine.MathNotation
         /// <summary>
         /// Gets or sets the variables.
         /// </summary>
-        private new List<Variable> Variables { get; set; }
+        public new List<Variable> Variables { get; set; }
     }
 }

@@ -21,6 +21,7 @@ namespace Engine
     /// <summary>
     /// Attribute used to tag a class as a file object.
     /// </summary>
+    /// <seealso cref="System.Attribute" />
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class FileObjectAttribute
         : Attribute

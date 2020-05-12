@@ -84,8 +84,8 @@ namespace Engine
         /// <param name="y">The y.</param>
         public void Deconstruct(out double x, out double y)
         {
-            x = Head.Value.X;
-            y = Head.Value.Y;
+            x = Head.X;
+            y = Head.Y;
         }
         #endregion Deconstructors
 
@@ -94,26 +94,25 @@ namespace Engine
         /// Gets or sets the start.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public override Point2D? Head { get; set; }
+        public override Point2D Head { get; set; }
 
         /// <summary>
         /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd { get { return Head; } set { Head = value; } }
+        public override Point2D NextToEnd { get { return Head; } set { Head = value; } }
 
         /// <summary>
         /// Gets or sets the end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? Tail { get { return Head; } set { Head = value; } }
+        public override Point2D Tail { get { return Head; } set { Head = value; } }
 
         /// <summary>
         /// Gets the grips.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override List<Point2D> Grips
-            => new List<Point2D> { Head.Value };
+        public override List<Point2D> Grips => new List<Point2D> { Head };
 
         /// <summary>
         /// Gets the bounds.
@@ -122,15 +121,13 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(Head.Value, Tail.Value));
+        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(Head, Tail));
 
         /// <summary>
         /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override double Length
-            => 0;
+        public override double Length => 0;
         #endregion Properties
 
         /// <summary>
@@ -138,16 +135,14 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public override Point2D Interpolate(double t)
-            => Head.Value;
+        public override Point2D Interpolate(double t) => Head;
 
         #region Methods
         /// <summary>
         /// The to point2d.
         /// </summary>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public Point2D ToPoint2D()
-            => Head.Value;
+        public Point2D ToPoint2D() => Head;
         #endregion Methods
     }
 }

@@ -56,7 +56,7 @@ namespace Engine
         /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? Head
+        public override Point2D Head
         {
             get { return Previous?.Tail; }
             set
@@ -88,7 +88,7 @@ namespace Engine
         {
             get
             {
-                var nodes = new List<Point2D> { Head.Value };
+                var nodes = new List<Point2D> { Head };
                 nodes.AddRange(CentralPoints);
                 return nodes;
             }
@@ -98,24 +98,24 @@ namespace Engine
         /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd { get { return Nodes[^1]; } set { Nodes[^1] = value.Value; } }
+        public override Point2D NextToEnd { get { return Nodes[^1]; } set { Nodes[^1] = value; } }
 
         /// <summary>
         /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public override Point2D? Tail
+        public override Point2D Tail
         {
             get { return CentralPoints?[^1]; }
             set
             {
                 if (CentralPoints is null)
                 {
-                    CentralPoints = new List<Point2D> { value.Value };
+                    CentralPoints = new List<Point2D> { value };
                 }
                 else
                 {
-                    CentralPoints[^1] = value.Value;
+                    CentralPoints[^1] = value;
                 }
             }
         }
@@ -129,9 +129,9 @@ namespace Engine
         {
             get
             {
-                var result = new List<Point2D> { Head.Value };
+                var result = new List<Point2D> { Head };
                 result.AddRange(CentralPoints);
-                result.Add(Tail.Value);
+                result.Add(Tail);
                 return result;
             }
         }
@@ -143,8 +143,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
-        public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(Nodes));
+        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(Nodes));
 
         /// <summary>
         /// ToDo: Add length calculation for Cardinal curves.
@@ -157,7 +156,6 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public override Point2D Interpolate(double t)
-            => throw new NotImplementedException();
+        public override Point2D Interpolate(double t) => throw new NotImplementedException();
     }
 }

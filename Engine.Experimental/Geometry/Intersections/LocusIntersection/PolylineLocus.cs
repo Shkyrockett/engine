@@ -81,6 +81,6 @@ namespace Engine
         /// Converts to polyline.
         /// </summary>
         /// <returns></returns>
-        public Polyline2D ToPolyline() => new Polyline2D(Points);
+        public Polyline2D ToPolyline2D() => new Polyline2D(Points);
     }
 }

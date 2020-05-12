@@ -52,7 +52,7 @@ namespace Engine.File
         /// </summary>
         /// <param name="output">The output.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <param name="leaveOpen">if set to <c>true</c> [leave open].</param>
+        /// <param name="leaveOpen">if set to <see langword="true"/> [leave open].</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public BinaryWriterExtended(Stream output, Encoding encoding, bool leaveOpen)
             : base(output, encoding, leaveOpen)

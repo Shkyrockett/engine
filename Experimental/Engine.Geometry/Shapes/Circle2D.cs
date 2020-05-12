@@ -27,7 +27,7 @@ namespace Engine
     /// </summary>
     /// <seealso cref="Engine.IClosedShape" />
     /// <seealso cref="Engine.IPropertyCaching" />
-    /// <seealso cref="System.IEquatable{Engine.Circle2D}" />
+    /// <seealso cref="System.IEquatable{T}" />
     [GraphicsObject]
     [DataContract, Serializable]
     [XmlType(TypeName = "circle", Namespace = "shape")]
@@ -40,8 +40,20 @@ namespace Engine
         /// <summary>
         /// The empty.
         /// </summary>
-        public static Circle2D Empty = new Circle2D(0d, 0d, 0d);
+        public static readonly Circle2D Empty = new Circle2D(0d, 0d, 0d);
         #endregion
+
+        #region Fields
+        /// <summary>
+        /// The center coordinate point of the circle.
+        /// </summary>
+        private Point2D center;
+
+        /// <summary>
+        /// The radius of the circle.
+        /// </summary>
+        private double radius;
+        #endregion Private Fields
 
         #region Event Delegates
         /// <summary>
@@ -55,23 +67,6 @@ namespace Engine
         public event PropertyChangingEventHandler PropertyChanging;
         #endregion
 
-        #region Private Fields
-        /// <summary>
-        /// The center x coordinate point of the circle.
-        /// </summary>
-        private double x;
-
-        /// <summary>
-        /// The center y coordinate point of the circle.
-        /// </summary>
-        private double y;
-
-        /// <summary>
-        /// The radius of the circle.
-        /// </summary>
-        private double radius;
-        #endregion Private Fields
-
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle2D"/> class.
@@ -81,7 +76,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Circle2D((double X, double Y, double Radius) tuple)
-            : this(tuple.X, tuple.Y, tuple.Radius)
+            : this(new Point2D(tuple.X, tuple.Y), tuple.Radius)
         { }
 
         /// <summary>
@@ -92,7 +87,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Circle2D(Circle2D circle)
-            : this(circle.X, circle.Y, circle.Radius)
+            : this(circle.center, circle.radius)
         { }
 
         /// <summary>
@@ -105,12 +100,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Circle2D(double x, double y, double radius)
-            : this()
-        {
-            this.x = x;
-            this.y = y;
-            this.radius = radius;
-        }
+            : this(new Point2D(x, y), radius)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle2D"/> class.
@@ -120,9 +111,7 @@ namespace Engine
         public Circle2D(Point2D center, double radius)
             : this()
         {
-            x = center.X;
-            y = center.Y;
-            this.radius = radius;
+            (this.center, this.radius) = (center, radius);
         }
 
         /// <summary>
@@ -130,12 +119,8 @@ namespace Engine
         /// </summary>
         /// <param name="bounds">The bounding box of the circle.</param>
         public Circle2D(Rectangle2D bounds)
-            : this()
-        {
-            x = bounds.Center.X;
-            y = bounds.Center.Y;
-            radius = bounds.Height <= bounds.Width ? bounds.Height * 0.25d : bounds.Width * 0.25d;
-        }
+            : this(bounds.Center, bounds.Height <= bounds.Width ? bounds.Height * 0.25d : bounds.Width * 0.25d)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle2D"/> class.
@@ -161,30 +146,34 @@ namespace Engine
                 (((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X)));
 
             // Find the center.
-            x = f.I - (slopeB * ((f.I - f.J) / (slopeB - slopeA)));
-            y = (f.I - f.J) / (slopeB - slopeA);
+            center = (f.I - (slopeB * ((f.I - f.J) / (slopeB - slopeA))), (f.I - f.J) / (slopeB - slopeA));
 
             // Get the radius.
-            radius = Measurements.Distance(x, y, PointA.X, PointA.Y);
+            radius = Measurements.Distance(center, PointA);
         }
         #endregion
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="Circle2D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
+        /// Deconstruct this <see cref="Circle2D" /> to a <see cref="ValueTuple{T1, T2}" />.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="radius"></param>
+        /// <param name="center">The center.</param>
+        /// <param name="radius">The radius.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out double x, out double y, out double radius)
-        {
-            x = this.x;
-            y = this.y;
-            radius = this.radius;
-        }
+        public void Deconstruct(out (double x, double y) center, out double radius) => (center, radius) = (this.center, this.radius);
+
+        /// <summary>
+        /// Deconstruct this <see cref="Circle2D" /> to a <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius">The radius.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out double x, out double y, out double radius) => (x, y, radius) = (center.X, center.Y, this.radius);
         #endregion Deconstructors
 
         #region Properties
@@ -204,13 +193,38 @@ namespace Engine
         [NotifyParentProperty(true)]
         public Point2D Center
         {
-            get { return new Point2D(x, y); }
+            get { return center; }
             set
             {
                 OnPropertyChanging();
                 (this as IPropertyCaching).ClearCache();
-                x = value.X;
-                y = value.Y;
+                center = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the location of the center point of the circle.
+        /// </summary>
+        /// <value>
+        /// The location.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The location of the center point of the circle.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        [RefreshProperties(RefreshProperties.All)]
+        public Point2D Location
+        {
+            get { return center; }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                center = value;
                 OnPropertyChanged();
             }
         }
@@ -218,6 +232,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the circle.
         /// </summary>
+        /// <value>
+        /// The x.
+        /// </value>
         [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
         [Browsable(false)]
         [Category("Elements")]
@@ -228,12 +245,12 @@ namespace Engine
         [NotifyParentProperty(true)]
         public double X
         {
-            get { return x; }
+            get { return center.X; }
             set
             {
                 OnPropertyChanging();
                 (this as IPropertyCaching).ClearCache();
-                x = value;
+                center.X = value;
                 OnPropertyChanged();
             }
         }
@@ -241,6 +258,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate location of the center of the circle.
         /// </summary>
+        /// <value>
+        /// The y.
+        /// </value>
         [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
         [Browsable(false)]
         [Category("Elements")]
@@ -251,12 +271,12 @@ namespace Engine
         [NotifyParentProperty(true)]
         public double Y
         {
-            get { return y; }
+            get { return center.Y; }
             set
             {
                 OnPropertyChanging();
                 (this as IPropertyCaching).ClearCache();
-                y = value;
+                center.Y = value;
                 OnPropertyChanged();
             }
         }
@@ -264,6 +284,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the radius of the circle.
         /// </summary>
+        /// <value>
+        /// The radius.
+        /// </value>
         [DataMember(Name = nameof(Radius)), XmlAttribute(nameof(Radius)), SoapAttribute(nameof(Radius))]
         [Category("Elements")]
         [Description("The radius of the circle.")]
@@ -286,6 +309,9 @@ namespace Engine
         /// <summary>
         /// Gets the circumference.
         /// </summary>
+        /// <value>
+        /// The circumference.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The distance around the circle.")]
@@ -301,6 +327,9 @@ namespace Engine
         /// <summary>
         /// Gets the perimeter.
         /// </summary>
+        /// <value>
+        /// The perimeter.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The distance around the circle.")]
@@ -309,6 +338,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the area.
         /// </summary>
+        /// <value>
+        /// The area.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The area of the circle.")]
@@ -329,6 +361,9 @@ namespace Engine
         /// <summary>
         /// Gets the angles of the extreme points of the circle.
         /// </summary>
+        /// <value>
+        /// The extreme angles.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
@@ -336,18 +371,14 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public List<double> ExtremeAngles
-        {
-            get
-            {
-                var r = radius;
-                return (List<double>)(this as IPropertyCaching).CachingProperty(() => Measurements.CircleExtremeAngles());
-            }
-        }
+        public List<double> ExtremeAngles => (List<double>)(this as IPropertyCaching).CachingProperty(() => Measurements.CircleExtremeAngles());
 
         /// <summary>
         /// Get the points of the Cartesian extremes of the circle.
         /// </summary>
+        /// <value>
+        /// The extreme points.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
@@ -359,9 +390,7 @@ namespace Engine
         {
             get
             {
-                var x = this.x;
-                var y = this.y;
-                var r = radius;
+                (var x, var y, var r) = (center.X, center.Y, radius);
                 return (List<Point2D>)(this as IPropertyCaching).CachingProperty(() => Measurements.CircleExtremePoints(x, y, r));
             }
         }
@@ -369,6 +398,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the rectangular boundaries of the circle.
         /// </summary>
+        /// <value>
+        /// The bounds.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [ReadOnly(true)]
         [Category("Properties")]
@@ -380,28 +412,29 @@ namespace Engine
         [NotifyParentProperty(true)]
         public Rectangle2D Bounds
         {
-            get { return Measurements.CircleBounds(x, y, radius); }
+            get { return Measurements.CircleBounds(center.X, center.Y, radius); }
             set
             {
                 OnPropertyChanging();
                 (this as IPropertyCaching).ClearCache();
-                Center = value.Center;
+                this.center = value.Center;
                 radius = value.Width <= value.Height ? value.Width : value.Height;
                 OnPropertyChanged();
             }
         }
 
         /// <summary>
-        /// Gets the <see cref="Circle2D"/> curve's conic polynomial representation.
+        /// Gets the <see cref="Circle2D" /> curve's conic polynomial representation.
         /// </summary>
+        /// <value>
+        /// The conic section curve.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial ConicSectionCurve
         {
             get
             {
-                var x = this.x;
-                var y = this.y;
-                var r = radius;
+                (var x, var y, var r) = (center.X, center.Y, radius);
                 var curveY = (Polynomial)(this as IPropertyCaching).CachingProperty(() => (Polynomial)CircleConicSectionPolynomial(x, y, r));
                 curveY.IsReadonly = true;
                 return curveY;
@@ -447,6 +480,8 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <param name="tuple"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Circle2D((double X, double Y, double Radius) tuple) => new Circle2D(tuple);
         #endregion
 
@@ -458,7 +493,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals([AllowNull] object obj) => obj is Circle2D && Equals(this, (Circle2D)obj);
+        public override bool Equals([AllowNull] object obj) => obj is Circle2D d && Equals(this, d);
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
@@ -477,9 +512,11 @@ namespace Engine
         /// Interpolates the circle.
         /// </summary>
         /// <param name="t">Index of the point to interpolate.</param>
-        /// <returns>Returns the interpolated point of the index value.</returns>
+        /// <returns>
+        /// Returns the interpolated point of the index value.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Interpolate(double t) => Interpolators.UnitCircle(t, x, y, radius);
+        public Point2D Interpolate(double t) => Interpolators.UnitCircle(t, center.X, center.Y, radius);
         #endregion Interpolators
 
         #region Static Creation Methods
@@ -535,27 +572,31 @@ namespace Engine
         /// <summary>
         /// Get the hash code.
         /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => HashCode.Combine(x, y, radius);
+        public override int GetHashCode() => HashCode.Combine(center.X, center.Y, radius);
 
         /// <summary>
-        /// Creates a <see cref="string"/> representation of this <see cref="IShape"/> interface based on the current culture.
+        /// Creates a <see cref="string" /> representation of this <see cref="IShape" /> interface based on the current culture.
         /// </summary>
-        /// <returns>A <see cref="string"/> representation of this instance of the <see cref="IShape"/> object.</returns>
+        /// <returns>
+        /// A <see cref="string" /> representation of this instance of the <see cref="IShape" /> object.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Circle2D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Circle2D" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The format provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -563,11 +604,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            if (this == null)
-            {
-                return nameof(Circle2D);
-            }
-
+            if (this == null) { return nameof(Circle2D); }
             var sep = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Circle2D)}({nameof(X)}: {X.ToString(format, formatProvider)}{sep} {nameof(Y)}: {Y.ToString(format, formatProvider)}{sep} {nameof(Radius)}: {Radius.ToString(format, formatProvider)})";
         }

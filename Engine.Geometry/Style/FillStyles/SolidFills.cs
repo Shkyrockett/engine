@@ -11,706 +11,706 @@ namespace Engine
         /// <summary>
         /// Transparent
         /// </summary>
-        public static readonly IFill Transparent = new SolidFill(Colors.Transparent);
+        public static readonly IFillable Transparent = new SolidFill(Colors.Transparent);
 
         /// <summary>
         /// Alice Blue
         /// </summary>
-        public static readonly IFill AliceBlue = new SolidFill(Colors.AliceBlue);
+        public static readonly IFillable AliceBlue = new SolidFill(Colors.AliceBlue);
 
         /// <summary>
         /// Antique White
         /// </summary>
-        public static readonly IFill AntiqueWhite = new SolidFill(Colors.AntiqueWhite);
+        public static readonly IFillable AntiqueWhite = new SolidFill(Colors.AntiqueWhite);
 
         /// <summary>
         /// Aqua
         /// </summary>
-        public static readonly IFill Aqua = new SolidFill(Colors.Aqua);
+        public static readonly IFillable Aqua = new SolidFill(Colors.Aqua);
 
         /// <summary>
         /// Aquamarine
         /// </summary>
-        public static readonly IFill Aquamarine = new SolidFill(Colors.Aquamarine);
+        public static readonly IFillable Aquamarine = new SolidFill(Colors.Aquamarine);
 
         /// <summary>
         /// Azure
         /// </summary>
-        public static readonly IFill Azure = new SolidFill(Colors.Azure);
+        public static readonly IFillable Azure = new SolidFill(Colors.Azure);
 
         /// <summary>
         /// Beige
         /// </summary>
-        public static readonly IFill Beige = new SolidFill(Colors.Beige);
+        public static readonly IFillable Beige = new SolidFill(Colors.Beige);
 
         /// <summary>
         /// Bisque
         /// </summary>
-        public static readonly IFill Bisque = new SolidFill(Colors.Bisque);
+        public static readonly IFillable Bisque = new SolidFill(Colors.Bisque);
 
         /// <summary>
         /// Black
         /// </summary>
-        public static readonly IFill Black = new SolidFill(Colors.Black);
+        public static readonly IFillable Black = new SolidFill(Colors.Black);
 
         /// <summary>
         /// Blanched Almond
         /// </summary>
-        public static readonly IFill BlanchedAlmond = new SolidFill(Colors.BlanchedAlmond);
+        public static readonly IFillable BlanchedAlmond = new SolidFill(Colors.BlanchedAlmond);
 
         /// <summary>
         /// Blue
         /// </summary>
-        public static readonly IFill Blue = new SolidFill(Colors.Blue);
+        public static readonly IFillable Blue = new SolidFill(Colors.Blue);
 
         /// <summary>
         /// Blue Violet
         /// </summary>
-        public static readonly IFill BlueViolet = new SolidFill(Colors.BlueViolet);
+        public static readonly IFillable BlueViolet = new SolidFill(Colors.BlueViolet);
 
         /// <summary>
         /// Brown
         /// </summary>
-        public static readonly IFill Brown = new SolidFill(Colors.Brown);
+        public static readonly IFillable Brown = new SolidFill(Colors.Brown);
 
         /// <summary>
         /// Burly Wood
         /// </summary>
-        public static readonly IFill BurlyWood = new SolidFill(Colors.BurlyWood);
+        public static readonly IFillable BurlyWood = new SolidFill(Colors.BurlyWood);
 
         /// <summary>
         /// Cadet Blue
         /// </summary>
-        public static readonly IFill CadetBlue = new SolidFill(Colors.CadetBlue);
+        public static readonly IFillable CadetBlue = new SolidFill(Colors.CadetBlue);
 
         /// <summary>
         /// Chartreuse
         /// </summary>
-        public static readonly IFill Chartreuse = new SolidFill(Colors.Chartreuse);
+        public static readonly IFillable Chartreuse = new SolidFill(Colors.Chartreuse);
 
         /// <summary>
         /// Chocolate
         /// </summary>
-        public static readonly IFill Chocolate = new SolidFill(Colors.Chocolate);
+        public static readonly IFillable Chocolate = new SolidFill(Colors.Chocolate);
 
         /// <summary>
         /// Coral
         /// </summary>
-        public static readonly IFill Coral = new SolidFill(Colors.Coral);
+        public static readonly IFillable Coral = new SolidFill(Colors.Coral);
 
         /// <summary>
         /// Cornflower Blue
         /// </summary>
-        public static readonly IFill CornflowerBlue = new SolidFill(Colors.CornflowerBlue);
+        public static readonly IFillable CornflowerBlue = new SolidFill(Colors.CornflowerBlue);
 
         /// <summary>
         /// Corn-silk
         /// </summary>
-        public static readonly IFill Cornsilk = new SolidFill(Colors.Cornsilk);
+        public static readonly IFillable Cornsilk = new SolidFill(Colors.Cornsilk);
 
         /// <summary>
         /// Crimson
         /// </summary>
-        public static readonly IFill Crimson = new SolidFill(Colors.Crimson);
+        public static readonly IFillable Crimson = new SolidFill(Colors.Crimson);
 
         /// <summary>
         /// Cyan
         /// </summary>
-        public static readonly IFill Cyan = new SolidFill(Colors.Cyan);
+        public static readonly IFillable Cyan = new SolidFill(Colors.Cyan);
 
         /// <summary>
         /// Dark Blue
         /// </summary>
-        public static readonly IFill DarkBlue = new SolidFill(Colors.DarkBlue);
+        public static readonly IFillable DarkBlue = new SolidFill(Colors.DarkBlue);
 
         /// <summary>
         /// Dark Cyan
         /// </summary>
-        public static readonly IFill DarkCyan = new SolidFill(Colors.DarkCyan);
+        public static readonly IFillable DarkCyan = new SolidFill(Colors.DarkCyan);
 
         /// <summary>
         /// Dark Goldenrod
         /// </summary>
-        public static readonly IFill DarkGoldenrod = new SolidFill(Colors.DarkGoldenrod);
+        public static readonly IFillable DarkGoldenrod = new SolidFill(Colors.DarkGoldenrod);
 
         /// <summary>
         /// Dark Gray
         /// </summary>
-        public static readonly IFill DarkGray = new SolidFill(Colors.DarkGray);
+        public static readonly IFillable DarkGray = new SolidFill(Colors.DarkGray);
 
         /// <summary>
         /// Dark Green
         /// </summary>
-        public static readonly IFill DarkGreen = new SolidFill(Colors.DarkGreen);
+        public static readonly IFillable DarkGreen = new SolidFill(Colors.DarkGreen);
 
         /// <summary>
         /// Dark Khaki
         /// </summary>
-        public static readonly IFill DarkKhaki = new SolidFill(Colors.DarkKhaki);
+        public static readonly IFillable DarkKhaki = new SolidFill(Colors.DarkKhaki);
 
         /// <summary>
         /// Dark Magenta
         /// </summary>
-        public static readonly IFill DarkMagenta = new SolidFill(Colors.DarkMagenta);
+        public static readonly IFillable DarkMagenta = new SolidFill(Colors.DarkMagenta);
 
         /// <summary>
         /// Dark Olive Green
         /// </summary>
-        public static readonly IFill DarkOliveGreen = new SolidFill(Colors.DarkOliveGreen);
+        public static readonly IFillable DarkOliveGreen = new SolidFill(Colors.DarkOliveGreen);
 
         /// <summary>
         /// Dark Orange
         /// </summary>
-        public static readonly IFill DarkOrange = new SolidFill(Colors.DarkOrange);
+        public static readonly IFillable DarkOrange = new SolidFill(Colors.DarkOrange);
 
         /// <summary>
         /// Dark Orchid
         /// </summary>
-        public static readonly IFill DarkOrchid = new SolidFill(Colors.DarkOrchid);
+        public static readonly IFillable DarkOrchid = new SolidFill(Colors.DarkOrchid);
 
         /// <summary>
         /// Dark Red
         /// </summary>
-        public static readonly IFill DarkRed = new SolidFill(Colors.DarkRed);
+        public static readonly IFillable DarkRed = new SolidFill(Colors.DarkRed);
 
         /// <summary>
         /// Dark Salmon
         /// </summary>
-        public static readonly IFill DarkSalmon = new SolidFill(Colors.DarkSalmon);
+        public static readonly IFillable DarkSalmon = new SolidFill(Colors.DarkSalmon);
 
         /// <summary>
         /// Dark Sea Green
         /// </summary>
-        public static readonly IFill DarkSeaGreen = new SolidFill(Colors.DarkSeaGreen);
+        public static readonly IFillable DarkSeaGreen = new SolidFill(Colors.DarkSeaGreen);
 
         /// <summary>
         /// Dark Slate Blue
         /// </summary>
-        public static readonly IFill DarkSlateBlue = new SolidFill(Colors.DarkSlateBlue);
+        public static readonly IFillable DarkSlateBlue = new SolidFill(Colors.DarkSlateBlue);
 
         /// <summary>
         /// Dark Slate Gray
         /// </summary>
-        public static readonly IFill DarkSlateGray = new SolidFill(Colors.DarkSlateGray);
+        public static readonly IFillable DarkSlateGray = new SolidFill(Colors.DarkSlateGray);
 
         /// <summary>
         /// Dark Turquoise
         /// </summary>
-        public static readonly IFill DarkTurquoise = new SolidFill(Colors.DarkTurquoise);
+        public static readonly IFillable DarkTurquoise = new SolidFill(Colors.DarkTurquoise);
 
         /// <summary>
         /// Dark Violet
         /// </summary>
-        public static readonly IFill DarkViolet = new SolidFill(Colors.DarkViolet);
+        public static readonly IFillable DarkViolet = new SolidFill(Colors.DarkViolet);
 
         /// <summary>
         /// Deep Pink
         /// </summary>
-        public static readonly IFill DeepPink = new SolidFill(Colors.DeepPink);
+        public static readonly IFillable DeepPink = new SolidFill(Colors.DeepPink);
 
         /// <summary>
         /// Deep Sky Blue
         /// </summary>
-        public static readonly IFill DeepSkyBlue = new SolidFill(Colors.DeepSkyBlue);
+        public static readonly IFillable DeepSkyBlue = new SolidFill(Colors.DeepSkyBlue);
 
         /// <summary>
         /// Dim Gray
         /// </summary>
-        public static readonly IFill DimGray = new SolidFill(Colors.DimGray);
+        public static readonly IFillable DimGray = new SolidFill(Colors.DimGray);
 
         /// <summary>
         /// Dodger Blue
         /// </summary>
-        public static readonly IFill DodgerBlue = new SolidFill(Colors.DodgerBlue);
+        public static readonly IFillable DodgerBlue = new SolidFill(Colors.DodgerBlue);
 
         /// <summary>
         /// Firebrick
         /// </summary>
-        public static readonly IFill Firebrick = new SolidFill(Colors.Firebrick);
+        public static readonly IFillable Firebrick = new SolidFill(Colors.Firebrick);
 
         /// <summary>
         /// Floral White
         /// </summary>
-        public static readonly IFill FloralWhite = new SolidFill(Colors.FloralWhite);
+        public static readonly IFillable FloralWhite = new SolidFill(Colors.FloralWhite);
 
         /// <summary>
         /// Forest Green
         /// </summary>
-        public static readonly IFill ForestGreen = new SolidFill(Colors.ForestGreen);
+        public static readonly IFillable ForestGreen = new SolidFill(Colors.ForestGreen);
 
         /// <summary>
         /// Fuchsia
         /// </summary>
-        public static readonly IFill Fuchsia = new SolidFill(Colors.Fuchsia);
+        public static readonly IFillable Fuchsia = new SolidFill(Colors.Fuchsia);
 
         /// <summary>
         /// Gainsboro
         /// </summary>
-        public static readonly IFill Gainsboro = new SolidFill(Colors.Gainsboro);
+        public static readonly IFillable Gainsboro = new SolidFill(Colors.Gainsboro);
 
         /// <summary>
         /// Ghost White
         /// </summary>
-        public static readonly IFill GhostWhite = new SolidFill(Colors.GhostWhite);
+        public static readonly IFillable GhostWhite = new SolidFill(Colors.GhostWhite);
 
         /// <summary>
         /// Gold
         /// </summary>
-        public static readonly IFill Gold = new SolidFill(Colors.Gold);
+        public static readonly IFillable Gold = new SolidFill(Colors.Gold);
 
         /// <summary>
         /// Goldenrod
         /// </summary>
-        public static readonly IFill Goldenrod = new SolidFill(Colors.Goldenrod);
+        public static readonly IFillable Goldenrod = new SolidFill(Colors.Goldenrod);
 
         /// <summary>
         /// Gray
         /// </summary>
-        public static readonly IFill Gray = new SolidFill(Colors.Gray);
+        public static readonly IFillable Gray = new SolidFill(Colors.Gray);
 
         /// <summary>
         /// Green
         /// </summary>
-        public static readonly IFill Green = new SolidFill(Colors.Green);
+        public static readonly IFillable Green = new SolidFill(Colors.Green);
 
         /// <summary>
         /// Green Yellow
         /// </summary>
-        public static readonly IFill GreenYellow = new SolidFill(Colors.GreenYellow);
+        public static readonly IFillable GreenYellow = new SolidFill(Colors.GreenYellow);
 
         /// <summary>
         /// Honeydew
         /// </summary>
-        public static readonly IFill Honeydew = new SolidFill(Colors.Honeydew);
+        public static readonly IFillable Honeydew = new SolidFill(Colors.Honeydew);
 
         /// <summary>
         /// Hot Pink
         /// </summary>
-        public static readonly IFill HotPink = new SolidFill(Colors.HotPink);
+        public static readonly IFillable HotPink = new SolidFill(Colors.HotPink);
 
         /// <summary>
         /// Indian Red
         /// </summary>
-        public static readonly IFill IndianRed = new SolidFill(Colors.IndianRed);
+        public static readonly IFillable IndianRed = new SolidFill(Colors.IndianRed);
 
         /// <summary>
         /// Indigo
         /// </summary>
-        public static readonly IFill Indigo = new SolidFill(Colors.Indigo);
+        public static readonly IFillable Indigo = new SolidFill(Colors.Indigo);
 
         /// <summary>
         /// Ivory
         /// </summary>
-        public static readonly IFill Ivory = new SolidFill(Colors.Ivory);
+        public static readonly IFillable Ivory = new SolidFill(Colors.Ivory);
 
         /// <summary>
         /// Khaki
         /// </summary>
-        public static readonly IFill Khaki = new SolidFill(Colors.Khaki);
+        public static readonly IFillable Khaki = new SolidFill(Colors.Khaki);
 
         /// <summary>
         /// Lavender
         /// </summary>
-        public static readonly IFill Lavender = new SolidFill(Colors.Lavender);
+        public static readonly IFillable Lavender = new SolidFill(Colors.Lavender);
 
         /// <summary>
         /// Lavender Blush
         /// </summary>
-        public static readonly IFill LavenderBlush = new SolidFill(Colors.LavenderBlush);
+        public static readonly IFillable LavenderBlush = new SolidFill(Colors.LavenderBlush);
 
         /// <summary>
         /// Lawn Green
         /// </summary>
-        public static readonly IFill LawnGreen = new SolidFill(Colors.LawnGreen);
+        public static readonly IFillable LawnGreen = new SolidFill(Colors.LawnGreen);
 
         /// <summary>
         /// Lemon Chiffon
         /// </summary>
-        public static readonly IFill LemonChiffon = new SolidFill(Colors.LemonChiffon);
+        public static readonly IFillable LemonChiffon = new SolidFill(Colors.LemonChiffon);
 
         /// <summary>
         /// Light Blue
         /// </summary>
-        public static readonly IFill LightBlue = new SolidFill(Colors.LightBlue);
+        public static readonly IFillable LightBlue = new SolidFill(Colors.LightBlue);
 
         /// <summary>
         /// Light Coral
         /// </summary>
-        public static readonly IFill LightCoral = new SolidFill(Colors.LightCoral);
+        public static readonly IFillable LightCoral = new SolidFill(Colors.LightCoral);
 
         /// <summary>
         /// Light Cyan
         /// </summary>
-        public static readonly IFill LightCyan = new SolidFill(Colors.LightCyan);
+        public static readonly IFillable LightCyan = new SolidFill(Colors.LightCyan);
 
         /// <summary>
         /// Light Goldenrod Yellow
         /// </summary>
-        public static readonly IFill LightGoldenrodYellow = new SolidFill(Colors.LightGoldenrodYellow);
+        public static readonly IFillable LightGoldenrodYellow = new SolidFill(Colors.LightGoldenrodYellow);
 
         /// <summary>
         /// Light Green
         /// </summary>
-        public static readonly IFill LightGreen = new SolidFill(Colors.LightGreen);
+        public static readonly IFillable LightGreen = new SolidFill(Colors.LightGreen);
 
         /// <summary>
         /// Light Gray
         /// </summary>
-        public static readonly IFill LightGray = new SolidFill(Colors.LightGray);
+        public static readonly IFillable LightGray = new SolidFill(Colors.LightGray);
 
         /// <summary>
         /// Light Pink
         /// </summary>
-        public static readonly IFill LightPink = new SolidFill(Colors.LightPink);
+        public static readonly IFillable LightPink = new SolidFill(Colors.LightPink);
 
         /// <summary>
         /// Light Salmon
         /// </summary>
-        public static readonly IFill LightSalmon = new SolidFill(Colors.LightSalmon);
+        public static readonly IFillable LightSalmon = new SolidFill(Colors.LightSalmon);
 
         /// <summary>
         /// Light Sea Green
         /// </summary>
-        public static readonly IFill LightSeaGreen = new SolidFill(Colors.LightSeaGreen);
+        public static readonly IFillable LightSeaGreen = new SolidFill(Colors.LightSeaGreen);
 
         /// <summary>
         /// Light Sky Blue
         /// </summary>
-        public static readonly IFill LightSkyBlue = new SolidFill(Colors.LightSkyBlue);
+        public static readonly IFillable LightSkyBlue = new SolidFill(Colors.LightSkyBlue);
 
         /// <summary>
         /// Light Slate Gray
         /// </summary>
-        public static readonly IFill LightSlateGray = new SolidFill(Colors.LightSlateGray);
+        public static readonly IFillable LightSlateGray = new SolidFill(Colors.LightSlateGray);
 
         /// <summary>
         /// Light Steel Blue
         /// </summary>
-        public static readonly IFill LightSteelBlue = new SolidFill(Colors.LightSteelBlue);
+        public static readonly IFillable LightSteelBlue = new SolidFill(Colors.LightSteelBlue);
 
         /// <summary>
         /// Light Yellow
         /// </summary>
-        public static readonly IFill LightYellow = new SolidFill(Colors.LightYellow);
+        public static readonly IFillable LightYellow = new SolidFill(Colors.LightYellow);
 
         /// <summary>
         /// Lime
         /// </summary>
-        public static readonly IFill Lime = new SolidFill(Colors.Lime);
+        public static readonly IFillable Lime = new SolidFill(Colors.Lime);
 
         /// <summary>
         /// Lime Green
         /// </summary>
-        public static readonly IFill LimeGreen = new SolidFill(Colors.LimeGreen);
+        public static readonly IFillable LimeGreen = new SolidFill(Colors.LimeGreen);
 
         /// <summary>
         /// Linen
         /// </summary>
-        public static readonly IFill Linen = new SolidFill(Colors.Linen);
+        public static readonly IFillable Linen = new SolidFill(Colors.Linen);
 
         /// <summary>
         /// Magenta
         /// </summary>
-        public static readonly IFill Magenta = new SolidFill(Colors.Magenta);
+        public static readonly IFillable Magenta = new SolidFill(Colors.Magenta);
 
         /// <summary>
         /// Maroon
         /// </summary>
-        public static readonly IFill Maroon = new SolidFill(Colors.Maroon);
+        public static readonly IFillable Maroon = new SolidFill(Colors.Maroon);
 
         /// <summary>
         /// Medium Aquamarine
         /// </summary>
-        public static readonly IFill MediumAquamarine = new SolidFill(Colors.MediumAquamarine);
+        public static readonly IFillable MediumAquamarine = new SolidFill(Colors.MediumAquamarine);
 
         /// <summary>
         /// Medium Blue
         /// </summary>
-        public static readonly IFill MediumBlue = new SolidFill(Colors.MediumBlue);
+        public static readonly IFillable MediumBlue = new SolidFill(Colors.MediumBlue);
 
         /// <summary>
         /// Medium Orchid
         /// </summary>
-        public static readonly IFill MediumOrchid = new SolidFill(Colors.MediumOrchid);
+        public static readonly IFillable MediumOrchid = new SolidFill(Colors.MediumOrchid);
 
         /// <summary>
         /// Medium Purple
         /// </summary>
-        public static readonly IFill MediumPurple = new SolidFill(Colors.MediumPurple);
+        public static readonly IFillable MediumPurple = new SolidFill(Colors.MediumPurple);
 
         /// <summary>
         /// Medium Sea Green
         /// </summary>
-        public static readonly IFill MediumSeaGreen = new SolidFill(Colors.MediumSeaGreen);
+        public static readonly IFillable MediumSeaGreen = new SolidFill(Colors.MediumSeaGreen);
 
         /// <summary>
         /// Medium Slate Blue
         /// </summary>
-        public static readonly IFill MediumSlateBlue = new SolidFill(Colors.MediumSlateBlue);
+        public static readonly IFillable MediumSlateBlue = new SolidFill(Colors.MediumSlateBlue);
 
         /// <summary>
         /// Medium Spring Green
         /// </summary>
-        public static readonly IFill MediumSpringGreen = new SolidFill(Colors.MediumSpringGreen);
+        public static readonly IFillable MediumSpringGreen = new SolidFill(Colors.MediumSpringGreen);
 
         /// <summary>
         /// Medium Turquoise
         /// </summary>
-        public static readonly IFill MediumTurquoise = new SolidFill(Colors.MediumTurquoise);
+        public static readonly IFillable MediumTurquoise = new SolidFill(Colors.MediumTurquoise);
 
         /// <summary>
         /// Medium Violet Red
         /// </summary>
-        public static readonly IFill MediumVioletRed = new SolidFill(Colors.MediumVioletRed);
+        public static readonly IFillable MediumVioletRed = new SolidFill(Colors.MediumVioletRed);
 
         /// <summary>
         /// Midnight Blue
         /// </summary>
-        public static readonly IFill MidnightBlue = new SolidFill(Colors.MidnightBlue);
+        public static readonly IFillable MidnightBlue = new SolidFill(Colors.MidnightBlue);
 
         /// <summary>
         /// Mint Cream
         /// </summary>
-        public static readonly IFill MintCream = new SolidFill(Colors.MintCream);
+        public static readonly IFillable MintCream = new SolidFill(Colors.MintCream);
 
         /// <summary>
         /// Misty Rose
         /// </summary>
-        public static readonly IFill MistyRose = new SolidFill(Colors.MistyRose);
+        public static readonly IFillable MistyRose = new SolidFill(Colors.MistyRose);
 
         /// <summary>
         /// Moccasin
         /// </summary>
-        public static readonly IFill Moccasin = new SolidFill(Colors.Moccasin);
+        public static readonly IFillable Moccasin = new SolidFill(Colors.Moccasin);
 
         /// <summary>
         /// Navajo White
         /// </summary>
-        public static readonly IFill NavajoWhite = new SolidFill(Colors.NavajoWhite);
+        public static readonly IFillable NavajoWhite = new SolidFill(Colors.NavajoWhite);
 
         /// <summary>
         /// Navy
         /// </summary>
-        public static readonly IFill Navy = new SolidFill(Colors.Navy);
+        public static readonly IFillable Navy = new SolidFill(Colors.Navy);
 
         /// <summary>
         /// Old Lace
         /// </summary>
-        public static readonly IFill OldLace = new SolidFill(Colors.OldLace);
+        public static readonly IFillable OldLace = new SolidFill(Colors.OldLace);
 
         /// <summary>
         /// Olive
         /// </summary>
-        public static readonly IFill Olive = new SolidFill(Colors.Olive);
+        public static readonly IFillable Olive = new SolidFill(Colors.Olive);
 
         /// <summary>
         /// Olive Drab
         /// </summary>
-        public static readonly IFill OliveDrab = new SolidFill(Colors.OliveDrab);
+        public static readonly IFillable OliveDrab = new SolidFill(Colors.OliveDrab);
 
         /// <summary>
         /// Orange
         /// </summary>
-        public static readonly IFill Orange = new SolidFill(Colors.Orange);
+        public static readonly IFillable Orange = new SolidFill(Colors.Orange);
 
         /// <summary>
         /// Orange Red
         /// </summary>
-        public static readonly IFill OrangeRed = new SolidFill(Colors.OrangeRed);
+        public static readonly IFillable OrangeRed = new SolidFill(Colors.OrangeRed);
 
         /// <summary>
         /// Orchid
         /// </summary>
-        public static readonly IFill Orchid = new SolidFill(Colors.Orchid);
+        public static readonly IFillable Orchid = new SolidFill(Colors.Orchid);
 
         /// <summary>
         /// Pale Goldenrod
         /// </summary>
-        public static readonly IFill PaleGoldenrod = new SolidFill(Colors.PaleGoldenrod);
+        public static readonly IFillable PaleGoldenrod = new SolidFill(Colors.PaleGoldenrod);
 
         /// <summary>
         /// Pale Green
         /// </summary>
-        public static readonly IFill PaleGreen = new SolidFill(Colors.PaleGreen);
+        public static readonly IFillable PaleGreen = new SolidFill(Colors.PaleGreen);
 
         /// <summary>
         /// PaleTurquoise
         /// </summary>
-        public static readonly IFill PaleTurquoise = new SolidFill(Colors.PaleTurquoise);
+        public static readonly IFillable PaleTurquoise = new SolidFill(Colors.PaleTurquoise);
 
         /// <summary>
         /// Pale Violet Red
         /// </summary>
-        public static readonly IFill PaleVioletRed = new SolidFill(Colors.PaleVioletRed);
+        public static readonly IFillable PaleVioletRed = new SolidFill(Colors.PaleVioletRed);
 
         /// <summary>
         /// Papaya Whip
         /// </summary>
-        public static readonly IFill PapayaWhip = new SolidFill(Colors.PapayaWhip);
+        public static readonly IFillable PapayaWhip = new SolidFill(Colors.PapayaWhip);
 
         /// <summary>
         /// Peach Puff
         /// </summary>
-        public static readonly IFill PeachPuff = new SolidFill(Colors.PeachPuff);
+        public static readonly IFillable PeachPuff = new SolidFill(Colors.PeachPuff);
 
         /// <summary>
         /// Peru
         /// </summary>
-        public static readonly IFill Peru = new SolidFill(Colors.Peru);
+        public static readonly IFillable Peru = new SolidFill(Colors.Peru);
 
         /// <summary>
         /// Pink
         /// </summary>
-        public static readonly IFill Pink = new SolidFill(Colors.Pink);
+        public static readonly IFillable Pink = new SolidFill(Colors.Pink);
 
         /// <summary>
         /// Plum
         /// </summary>
-        public static readonly IFill Plum = new SolidFill(Colors.Plum);
+        public static readonly IFillable Plum = new SolidFill(Colors.Plum);
 
         /// <summary>
         /// Powder Blue
         /// </summary>
-        public static readonly IFill PowderBlue = new SolidFill(Colors.PowderBlue);
+        public static readonly IFillable PowderBlue = new SolidFill(Colors.PowderBlue);
 
         /// <summary>
         /// Purple
         /// </summary>
-        public static readonly IFill Purple = new SolidFill(Colors.Purple);
+        public static readonly IFillable Purple = new SolidFill(Colors.Purple);
 
         /// <summary>
         /// Red
         /// </summary>
-        public static readonly IFill Red = new SolidFill(Colors.Red);
+        public static readonly IFillable Red = new SolidFill(Colors.Red);
 
         /// <summary>
         /// Rosy Brown
         /// </summary>
-        public static readonly IFill RosyBrown = new SolidFill(Colors.RosyBrown);
+        public static readonly IFillable RosyBrown = new SolidFill(Colors.RosyBrown);
 
         /// <summary>
         /// Royal Blue
         /// </summary>
-        public static readonly IFill RoyalBlue = new SolidFill(Colors.RoyalBlue);
+        public static readonly IFillable RoyalBlue = new SolidFill(Colors.RoyalBlue);
 
         /// <summary>
         /// Saddle Brown
         /// </summary>
-        public static readonly IFill SaddleBrown = new SolidFill(Colors.SaddleBrown);
+        public static readonly IFillable SaddleBrown = new SolidFill(Colors.SaddleBrown);
 
         /// <summary>
         /// Salmon
         /// </summary>
-        public static readonly IFill Salmon = new SolidFill(Colors.Salmon);
+        public static readonly IFillable Salmon = new SolidFill(Colors.Salmon);
 
         /// <summary>
         /// Sandy Brown
         /// </summary>
-        public static readonly IFill SandyBrown = new SolidFill(Colors.SandyBrown);
+        public static readonly IFillable SandyBrown = new SolidFill(Colors.SandyBrown);
 
         /// <summary>
         /// Sea Green
         /// </summary>
-        public static readonly IFill SeaGreen = new SolidFill(Colors.SeaGreen);
+        public static readonly IFillable SeaGreen = new SolidFill(Colors.SeaGreen);
 
         /// <summary>
         /// Sea Shell
         /// </summary>
-        public static readonly IFill SeaShell = new SolidFill(Colors.SeaShell);
+        public static readonly IFillable SeaShell = new SolidFill(Colors.SeaShell);
 
         /// <summary>
         /// Sienna
         /// </summary>
-        public static readonly IFill Sienna = new SolidFill(Colors.Sienna);
+        public static readonly IFillable Sienna = new SolidFill(Colors.Sienna);
 
         /// <summary>
         /// Silver
         /// </summary>
-        public static readonly IFill Silver = new SolidFill(Colors.Silver);
+        public static readonly IFillable Silver = new SolidFill(Colors.Silver);
 
         /// <summary>
         /// Sky Blue
         /// </summary>
-        public static readonly IFill SkyBlue = new SolidFill(Colors.SkyBlue);
+        public static readonly IFillable SkyBlue = new SolidFill(Colors.SkyBlue);
 
         /// <summary>
         /// Slate Blue
         /// </summary>
-        public static readonly IFill SlateBlue = new SolidFill(Colors.SlateBlue);
+        public static readonly IFillable SlateBlue = new SolidFill(Colors.SlateBlue);
 
         /// <summary>
         /// Slate Gray
         /// </summary>
-        public static readonly IFill SlateGray = new SolidFill(Colors.SlateGray);
+        public static readonly IFillable SlateGray = new SolidFill(Colors.SlateGray);
 
         /// <summary>
         /// Snow
         /// </summary>
-        public static readonly IFill Snow = new SolidFill(Colors.Snow);
+        public static readonly IFillable Snow = new SolidFill(Colors.Snow);
 
         /// <summary>
         /// Spring Green
         /// </summary>
-        public static readonly IFill SpringGreen = new SolidFill(Colors.SpringGreen);
+        public static readonly IFillable SpringGreen = new SolidFill(Colors.SpringGreen);
 
         /// <summary>
         /// Steel Blue
         /// </summary>
-        public static readonly IFill SteelBlue = new SolidFill(Colors.SteelBlue);
+        public static readonly IFillable SteelBlue = new SolidFill(Colors.SteelBlue);
 
         /// <summary>
         /// Tan
         /// </summary>
-        public static readonly IFill Tan = new SolidFill(Colors.Tan);
+        public static readonly IFillable Tan = new SolidFill(Colors.Tan);
 
         /// <summary>
         /// Teal
         /// </summary>
-        public static readonly IFill Teal = new SolidFill(Colors.Teal);
+        public static readonly IFillable Teal = new SolidFill(Colors.Teal);
 
         /// <summary>
         /// Thistle
         /// </summary>
-        public static readonly IFill Thistle = new SolidFill(Colors.Thistle);
+        public static readonly IFillable Thistle = new SolidFill(Colors.Thistle);
 
         /// <summary>
         /// Tomato
         /// </summary>
-        public static readonly IFill Tomato = new SolidFill(Colors.Tomato);
+        public static readonly IFillable Tomato = new SolidFill(Colors.Tomato);
 
         /// <summary>
         /// Turquoise
         /// </summary>
-        public static readonly IFill Turquoise = new SolidFill(Colors.Turquoise);
+        public static readonly IFillable Turquoise = new SolidFill(Colors.Turquoise);
 
         /// <summary>
         /// Violet
         /// </summary>
-        public static readonly IFill Violet = new SolidFill(Colors.Violet);
+        public static readonly IFillable Violet = new SolidFill(Colors.Violet);
 
         /// <summary>
         /// Wheat
         /// </summary>
-        public static readonly IFill Wheat = new SolidFill(Colors.Wheat);
+        public static readonly IFillable Wheat = new SolidFill(Colors.Wheat);
 
         /// <summary>
         /// White
         /// </summary>
-        public static readonly IFill White = new SolidFill(Colors.White);
+        public static readonly IFillable White = new SolidFill(Colors.White);
 
         /// <summary>
         /// White Smoke
         /// </summary>
-        public static readonly IFill WhiteSmoke = new SolidFill(Colors.WhiteSmoke);
+        public static readonly IFillable WhiteSmoke = new SolidFill(Colors.WhiteSmoke);
 
         /// <summary>
         /// Yellow
         /// </summary>
-        public static readonly IFill Yellow = new SolidFill(Colors.Yellow);
+        public static readonly IFillable Yellow = new SolidFill(Colors.Yellow);
 
         /// <summary>
         /// Yellow Green
         /// </summary>
-        public static readonly IFill YellowGreen = new SolidFill(Colors.YellowGreen);
+        public static readonly IFillable YellowGreen = new SolidFill(Colors.YellowGreen);
     }
 }

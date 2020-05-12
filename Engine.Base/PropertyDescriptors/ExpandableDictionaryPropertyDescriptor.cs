@@ -155,8 +155,7 @@ namespace Engine
         /// <summary>
         /// Raises the refresh required event.
         /// </summary>
-        protected virtual void OnRefreshRequired()
-            => RefreshRequired?.Invoke(this, EventArgs.Empty);
+        protected virtual void OnRefreshRequired() => RefreshRequired?.Invoke(this, EventArgs.Empty);
         #endregion Methods
     }
 }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="IShape.cs" company="Shkyrockett" >
-//     Copyright © 2020 Shkyrockett. All rights reserved.
+//     Copyright © 2013 - 2020 Shkyrockett. All rights reserved.
 // </copyright> 
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -18,9 +19,23 @@ namespace Engine
     /// <summary>
     /// The base interface for all Shape types used in shapes.
     /// </summary>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public interface IShape
         : IFormattable
     {
+        ///// <summary>
+        ///// Gets or sets the bounds.
+        ///// </summary>
+        ///// <value>The <see cref="Rectangle2D"/>.</value>
+        //Rectangle2D Bounds { get; set; }
+
+        ///// <summary>
+        ///// The contains.
+        ///// </summary>
+        ///// <param name="point">The point.</param>
+        ///// <returns>The <see cref="bool"/>.</returns>
+        //bool Contains(Point2D point);
+
         /// <summary>
         /// Creates a <see cref="string"/> representation of this <see cref="IPrimitive"/> interface based on the current culture.
         /// </summary>

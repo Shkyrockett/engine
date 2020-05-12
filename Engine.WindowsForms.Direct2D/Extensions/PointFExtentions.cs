@@ -436,6 +436,11 @@ namespace Engine
         /// <param name="angle">The angle to rotate the points in pi radians.</param>
         public static void RotatePoints(this PointF[] points, double angle)
         {
+            if (points is null)
+            {
+                throw new System.ArgumentNullException(nameof(points));
+            }
+
             for (var i = 0; i < points.Length; i++)
             {
                 points[i] = RotatePoint(points[i], angle);
@@ -450,6 +455,11 @@ namespace Engine
         /// <param name="angle">The angle to rotate the points in pi radians.</param>
         public static void RotatePoints(this PointF[] points, PointF fulcrum, double angle)
         {
+            if (points is null)
+            {
+                throw new System.ArgumentNullException(nameof(points));
+            }
+
             for (var i = 0; i < points.Length; i++)
             {
                 points[i] = RotatePoint(points[i], fulcrum, angle);

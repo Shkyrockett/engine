@@ -1,4 +1,15 @@
-﻿using System;
+﻿// <copyright file="Tangents.cs" company="Shkyrockett" >
+//     Copyright © 2019 Shkyrockett. All rights reserved.
+// </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <summary></summary>
+// <remarks></remarks>
+
+using System;
+using static System.Math;
 
 namespace Engine
 {
@@ -48,17 +59,17 @@ namespace Engine
             var u2 = u * u;
             var t2 = t * t;
 
-            var tangent = (X:
-                ((-u2) * ax) +
-                (u * (u - (2d * t)) * bx) -
-                (t * (t - (2d * u)) * cx) +
-                (t2 * dx), Y:
-                ((-u2) * ay) +
-                (u * (u - (2d * t)) * by) -
-                (t * (t - (2d * u)) * cy) +
-                (t2 * dy));
-            var distance = Math.Sqrt((tangent.X * tangent.X) + (tangent.Y * tangent.Y));
-            return (tangent.X / distance, tangent.Y / distance);
+            var (tanX, tanY) = (
+                (-u2) * ax +
+                u * (u - 2d * t) * bx -
+                t * (t - 2d * u) * cx +
+                t2 * dx,
+                (-u2) * ay +
+                u * (u - 2d * t) * by -
+                t * (t - 2d * u) * cy +
+                t2 * dy);
+            var distance = Sqrt(tanX * tanX + tanY * tanY);
+            return (tanX / distance, tanY / distance);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Engine
     /// <summary>
     /// The parse method attribute class.
     /// </summary>
+    /// <seealso cref="System.Attribute" />
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
     public sealed class ParseMethodAttribute
         : Attribute
@@ -25,7 +26,9 @@ namespace Engine
         /// Get the parse method.
         /// </summary>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="MethodInfo"/>.</returns>
+        /// <returns>
+        /// The <see cref="MethodInfo" />.
+        /// </returns>
         public static MethodInfo GetParseMethod(Type t)
         {
             foreach (var method in t?.GetMethods())

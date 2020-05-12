@@ -103,9 +103,9 @@ namespace Engine
         /// <param name="destinationType"> The type to which this will convert the Matrix instance. </param>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType != null && value is Matrix3x2D)
+            if (destinationType != null && value is Matrix3x2D d)
             {
-                var instance = (Matrix3x2D)value;
+                var instance = d;
 
                 if (destinationType == typeof(string))
                 {

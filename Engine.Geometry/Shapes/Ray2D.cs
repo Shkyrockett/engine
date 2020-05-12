@@ -20,13 +20,15 @@ namespace Engine
     /// <summary>
     /// The ray class.
     /// </summary>
+    /// <seealso cref="Engine.Shape2D" />
+    /// <seealso cref="Engine.IShapeSegment" />
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Ray2D))]
     [TypeConverter(typeof(StructConverter<Ray2D>))]
     [DebuggerDisplay("{ToString()}")]
     public class Ray2D
-        : Shape2D
+        : Shape2D, IShapeSegment
     {
         #region Fields
         /// <summary>
@@ -42,14 +44,14 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ray2D"/> class.
+        /// Initializes a new instance of the <see cref="Ray2D" /> class.
         /// </summary>
         public Ray2D()
             : this(Point2D.Empty, Vector2D.Empty)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ray2D"/> class.
+        /// Initializes a new instance of the <see cref="Ray2D" /> class.
         /// </summary>
         /// <param name="location">The location.</param>
         /// <param name="direction">The direction.</param>
@@ -60,7 +62,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ray2D"/> class.
+        /// Initializes a new instance of the <see cref="Ray2D" /> class.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -92,6 +94,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the location.
         /// </summary>
+        /// <value>
+        /// The location.
+        /// </value>
         [DataMember, XmlElement, SoapElement]
         public Point2D Location
         {
@@ -108,6 +113,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the direction.
         /// </summary>
+        /// <value>
+        /// The direction.
+        /// </value>
         [DataMember, XmlElement, SoapElement]
         public Vector2D Direction
         {
@@ -124,9 +132,74 @@ namespace Engine
         /// <summary>
         /// Gets the bounds.
         /// </summary>
-        [DataMember, XmlElement, SoapElement]
-        public override Rectangle2D Bounds
-            => new Rectangle2D(location, location + direction);
+        /// <value>
+        /// The bounds.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public override Rectangle2D Bounds => new Rectangle2D(location, location + direction);
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="IShapeSegment" /> position should be calculated relative to the last item, or from Origin.
+        /// </summary>
+        /// <value>
+        ///   <see langword="true" /> if relative; otherwise, <see langword="false" />.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public bool Relative { get; set; }
+
+        /// <summary>
+        /// Gets or sets a reference to the segment after this segment.
+        /// </summary>
+        /// <value>
+        /// The before.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public IShapeSegment Before { get; set; }
+
+        /// <summary>
+        /// Gets or sets a reference to the segment before this segment.
+        /// </summary>
+        /// <value>
+        /// The after.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public IShapeSegment After { get; set; }
+
+        /// <summary>
+        /// Gets or sets the head point.
+        /// </summary>
+        /// <value>
+        /// The head.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Point2D Head { get; set; }
+
+        /// <summary>
+        /// Gets or sets the next to first point from the head point.
+        /// </summary>
+        /// <value>
+        /// The next to head point.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Point2D NextToHead { get; set; }
+
+        /// <summary>
+        /// Gets or sets the next to last point to the tail point.
+        /// </summary>
+        /// <value>
+        /// The next to tail point.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Point2D NextToTail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tail point.
+        /// </summary>
+        /// <value>
+        /// The tail.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Point2D Tail { get; set; }
         #endregion Properties
 
         #region Methods

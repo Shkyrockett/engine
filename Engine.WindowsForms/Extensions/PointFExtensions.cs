@@ -380,7 +380,7 @@ namespace Engine
         /// <returns></returns>
         public static PointF Reflect(this LineSegment2D segment, PointF axis)
         {
-            var SegmentVectorDelta = (segment?.A).Value.Delta(segment.B);
+            var SegmentVectorDelta = segment.A.Delta(segment.B);
             var QC12 = new Vector2D(
                 segment.B.CrossProduct(segment.A),
                 axis.DotProduct(SegmentVectorDelta)

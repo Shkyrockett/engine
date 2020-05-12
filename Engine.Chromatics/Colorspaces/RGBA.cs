@@ -286,7 +286,7 @@ namespace Engine.Colorspace
         /// The to RGBA tuple.
         /// </summary>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple() => (Red, Green, Blue, Alpha);
+        public (byte Red, byte Green, byte Blue, byte Alpha) ToRGBATuple() => (Red, Green, Blue, Alpha);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="RGBA"/> struct.
@@ -305,7 +305,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ConvertToString(string.Empty /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="RGBA"/> class based on the format string
@@ -314,13 +314,13 @@ namespace Engine.Colorspace
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format, provider);
+        public string ToString(string format, IFormatProvider formatProvider) => ConvertToString(format, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="RGBA"/> struct based on the format string
@@ -329,16 +329,16 @@ namespace Engine.Colorspace
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ConvertToString(string format, IFormatProvider provider)
+        public string ConvertToString(string format, IFormatProvider formatProvider)
         {
-            var sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(RGBA)}{{{nameof(Red)}={Red.ToString(format, provider)}{sep}{nameof(Green)}={Green.ToString(format, provider)}{sep}{nameof(Blue)}={Blue.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}{sep}{nameof(Name)}={name}}}";
+            var sep = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(RGBA)}{{{nameof(Red)}={Red.ToString(format, formatProvider)}{sep}{nameof(Green)}={Green.ToString(format, formatProvider)}{sep}{nameof(Blue)}={Blue.ToString(format, formatProvider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, formatProvider)}{sep}{nameof(Name)}={name}}}";
         }
         #endregion Standard Methods
     }

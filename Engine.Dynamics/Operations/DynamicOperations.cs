@@ -245,7 +245,7 @@ namespace Engine
 
             returnvalue.W = Cos(angle);
 
-            if (Math.Abs(sin) >= double.Epsilon)
+            if (Abs(sin) >= double.Epsilon)
             {
                 var coeff = sin / angle;
 
@@ -391,12 +391,12 @@ namespace Engine
             // start off With a Zero Quaternion
             var returnvalue = Quaternion4D.Empty;
 
-            if (Math.Abs(source.W) < 1d)
+            if (Abs(source.W) < 1d)
             {
                 var angle = Acos(source.W);
                 var sin = Sin(angle);
 
-                if (Math.Abs(sin) >= double.Epsilon)
+                if (Abs(sin) >= double.Epsilon)
                 {
                     var coeff = angle / sin;
                     returnvalue.X = coeff * source.X;

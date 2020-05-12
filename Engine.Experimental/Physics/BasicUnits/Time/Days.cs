@@ -119,8 +119,7 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Days(double value)
-            => new Days(value);
+        public static implicit operator Days(double value) => new Days(value);
 
         /// <summary>
         /// Implements the operator ==.
@@ -149,8 +148,7 @@ namespace Engine
         /// The name.
         /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static string Name
-            => nameof(Days);
+        public static string Name => nameof(Days);
 
         /// <summary>
         /// Gets the abbreviation.
@@ -159,8 +157,7 @@ namespace Engine
         /// The abbreviation.
         /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abbreviation
-            => "days";
+        public string Abbreviation => "days";
 
         /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.
@@ -194,7 +191,6 @@ namespace Engine
         /// <returns>
         /// A <see cref="string" /> that represents this instance.
         /// </returns>
-        public override string ToString()
-            => $"{Value} days";
+        public override string ToString() => $"{Value} days";
     }
 }

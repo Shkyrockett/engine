@@ -807,7 +807,7 @@ namespace Engine
         /// Parse.
         /// </summary>
         /// <param name="source">The source.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// The <see cref="Quaternion4D" />.
         /// </returns>
@@ -816,9 +816,9 @@ namespace Engine
         /// or
         /// The parts of the vectors must be decimal numbers
         /// </exception>
-        public static Quaternion4D Parse(string source, IFormatProvider provider)
+        public static Quaternion4D Parse(string source, IFormatProvider formatProvider)
         {
-            var sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(formatProvider);
             var values = source?.Replace("Quaternion", string.Empty, StringComparison.OrdinalIgnoreCase).Trim(' ', '{', '(', '[', '<', '}', ')', ']', '>').Split(sep);
 
             if (values.Length != 4)
@@ -830,10 +830,10 @@ namespace Engine
                 try
                 {
                     return new Quaternion4D(
-                        double.Parse(values[0].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture),
-                        double.Parse(values[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture),
-                        double.Parse(values[2].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture),
-                        double.Parse(values[3].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture));
+                        double.Parse(values[0].Trim(), NumberStyles.Float, formatProvider),
+                        double.Parse(values[1].Trim(), NumberStyles.Float, formatProvider),
+                        double.Parse(values[2].Trim(), NumberStyles.Float, formatProvider),
+                        double.Parse(values[3].Trim(), NumberStyles.Float, formatProvider));
                 }
                 catch (Exception ex)
                 {
@@ -868,13 +868,13 @@ namespace Engine
         /// Creates a string representation of this <see cref="Quaternion4D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <param name="formatProvider">The <see cref="CultureInfo" /> provider.</param>
         /// <returns>
         /// A string representation of this <see cref="Quaternion4D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ToString("R" /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Quaternion4D" /> class based on the format string
@@ -883,17 +883,17 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <param name="formatProvider">The <see cref="CultureInfo" /> provider.</param>
         /// <returns>
         /// A string representation of this <see cref="Quaternion4D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             if (this == null) return nameof(Quaternion4D);
-            var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Quaternion4D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Z)}:{Z.ToString(format, provider)}{s} {nameof(W)}:{W.ToString(format, provider)}]";
+            var s = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(Quaternion4D)}=[{nameof(X)}:{X.ToString(format, formatProvider)}{s} {nameof(Y)}:{Y.ToString(format, formatProvider)}{s} {nameof(Z)}:{Z.ToString(format, formatProvider)}{s} {nameof(W)}:{W.ToString(format, formatProvider)}]";
         }
         #endregion
     }

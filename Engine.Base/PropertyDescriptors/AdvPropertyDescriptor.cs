@@ -11,6 +11,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace Engine
@@ -145,6 +146,7 @@ namespace Engine
             {
                 return property.GetValue(component, null);
             }
+
             return field.GetValue(component);
         }
 
@@ -190,7 +192,7 @@ namespace Engine
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Equals(object obj) => obj is AdvPropertyDescriptor && Equals((AdvPropertyDescriptor)obj);
+        public override bool Equals([AllowNull] object obj) => obj is AdvPropertyDescriptor descriptor && Equals(descriptor);
 
         /// <summary>
         /// The equals.

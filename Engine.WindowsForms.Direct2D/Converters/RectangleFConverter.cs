@@ -105,33 +105,31 @@ namespace Engine
                 throw new ArgumentNullException(nameof(destinationType));
             }
 
-            if (value is RectangleF)
+            if (value is RectangleF f)
             {
                 if (destinationType == typeof(string))
                 {
-                    var rectangleF = (RectangleF)value;
                     if (culture is null)
                     {
                         culture = CultureInfo.CurrentCulture;
                     }
 
-                    var separator = culture.TextInfo.ListSeparator + " ";
+                    var separator = $"{culture.TextInfo.ListSeparator} ";
                     var converter = TypeDescriptor.GetConverter(typeof(float));
                     var strArray = new string[4];
                     var num = 0;
-                    strArray[num++] = converter.ConvertToString(context, culture, rectangleF.X);
-                    strArray[num++] = converter.ConvertToString(context, culture, rectangleF.Y);
-                    strArray[num++] = converter.ConvertToString(context, culture, rectangleF.Width);
-                    strArray[num++] = converter.ConvertToString(context, culture, rectangleF.Height);
+                    strArray[num++] = converter.ConvertToString(context, culture, f.X);
+                    strArray[num++] = converter.ConvertToString(context, culture, f.Y);
+                    strArray[num++] = converter.ConvertToString(context, culture, f.Width);
+                    strArray[num++] = converter.ConvertToString(context, culture, f.Height);
                     return string.Join(separator, strArray);
                 }
                 if (destinationType == typeof(InstanceDescriptor))
                 {
-                    var rectangle2 = (RectangleF)value;
                     var constructor = typeof(RectangleF).GetConstructor(new Type[] { typeof(float), typeof(float), typeof(float), typeof(float) });
                     if (constructor != null)
                     {
-                        return new InstanceDescriptor(constructor, new object[] { rectangle2.X, rectangle2.Y, rectangle2.Width, rectangle2.Height });
+                        return new InstanceDescriptor(constructor, new object[] { f.X, f.Y, f.Width, f.Height });
                     }
                 }
             }

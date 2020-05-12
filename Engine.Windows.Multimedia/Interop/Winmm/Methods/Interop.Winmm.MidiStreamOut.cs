@@ -31,38 +31,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiStreamOut", ExactSpelling = true)]
-        internal static extern MmResult MidiStreamOut(IntPtr hMidiStream, [MarshalAs(UnmanagedType.Struct)] ref MIDIHDR pmh, int cbmh);
-
-        /// <summary>
-        /// Midis the stream out.
-        /// </summary>
-        /// <param name="midiStream">The midi stream.</param>
-        /// <param name="midiHeader">The midi header.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">
-        /// The system is unable to allocate or lock memory.
-        /// or
-        /// The buffer pointed to by lpMidiOutHdr is still in the queue.
-        /// or
-        /// The buffer pointed to by lpMidiOutHdr has not been prepared.
-        /// or
-        /// The specified device handle is invalid.
-        /// or
-        /// The specified pointer or structure is invalid.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiStreamOut(IntPtr midiStream, ref MIDIHDR midiHeader)
-        {
-            return MidiStreamOut(midiStream, ref midiHeader, Marshal.SizeOf(midiHeader)) switch
-            {
-                MmResult.NoError => true,
-                MmResult.MemoryAllocationError => throw new Exception("The system is unable to allocate or lock memory."),
-                MmResult.StillPlaying => throw new Exception("The buffer pointed to by lpMidiOutHdr is still in the queue."),
-                MmResult.Unprepared => throw new Exception("The buffer pointed to by lpMidiOutHdr has not been prepared."),
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiStreamOut(IntPtr hMidiStream, [MarshalAs(UnmanagedType.Struct)] ref MIDIHDR pmh, int cbmh);
     }
 }

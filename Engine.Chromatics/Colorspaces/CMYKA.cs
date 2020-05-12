@@ -134,8 +134,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => Cyan.GetHashCode() | Yellow.GetHashCode() | Magenta.GetHashCode() | Black.GetHashCode() | Alpha.GetHashCode();
+        public override int GetHashCode() => Cyan.GetHashCode() | Yellow.GetHashCode() | Magenta.GetHashCode() | Black.GetHashCode() | Alpha.GetHashCode();
 
         /// <summary>
         /// Compares two <see cref="CMYKA" /> colors
@@ -147,8 +146,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(CMYKA a, CMYKA b)
-            => Equals(a, b);
+        public static bool Compare(CMYKA a, CMYKA b) => Equals(a, b);
 
         /// <summary>
         /// The equals.
@@ -160,8 +158,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(CMYKA a, CMYKA b)
-            => a.Cyan == b.Cyan && a.Yellow == b.Yellow && a.Magenta == b.Magenta && a.Black == b.Black && a.Alpha == b.Alpha;
+        public static bool Equals(CMYKA a, CMYKA b) => a.Cyan == b.Cyan && a.Yellow == b.Yellow && a.Magenta == b.Magenta && a.Black == b.Black && a.Alpha == b.Alpha;
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
@@ -170,8 +167,7 @@ namespace Engine.Colorspace
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(CMYKA other)
-            => Cyan == other.Cyan && Yellow == other.Yellow && Magenta == other.Magenta && Black == other.Black && Alpha == other.Alpha;
+        public bool Equals(CMYKA other) => Cyan == other.Cyan && Yellow == other.Yellow && Magenta == other.Magenta && Black == other.Black && Alpha == other.Alpha;
 
         /// <summary>
         /// The equals.
@@ -182,8 +178,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is CMYKA color && Equals(color);
+        public override bool Equals(object obj) => obj is CMYKA color && Equals(color);
 
         /// <summary>
         /// The equals.
@@ -206,8 +201,7 @@ namespace Engine.Colorspace
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public RGBA ToRGBA()
-            => new RGBA(ToRGBATuple());
+        public RGBA ToRGBA() => new RGBA(ToRGBATuple());
 
         /// <summary>
         /// Converts the <see cref="CMYKA"/> class to a <see cref="RGBA"/> class.
@@ -225,8 +219,7 @@ namespace Engine.Colorspace
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
-            => Colorspaces.CMYKAColorToRGBAColor(Cyan, Yellow, Magenta, Black, Alpha);
+        public (byte Red, byte Green, byte Blue, byte Alpha) ToRGBATuple() => Colorspaces.CMYKAColorToRGBAColor(Cyan, Yellow, Magenta, Black, Alpha);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="CMYKA"/> struct.
@@ -234,8 +227,7 @@ namespace Engine.Colorspace
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="CMYKA"/> struct based on the IFormatProvider
@@ -246,8 +238,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ConvertToString(string.Empty /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="CMYKA"/> class based on the format string
@@ -256,14 +247,13 @@ namespace Engine.Colorspace
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider formatProvider) => ConvertToString(format /* format string */, formatProvider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="CMYKA"/> struct based on the format string
@@ -272,16 +262,16 @@ namespace Engine.Colorspace
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ConvertToString(string format, IFormatProvider provider)
+        public string ConvertToString(string format, IFormatProvider formatProvider)
         {
-            var sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(CMYKA)}{{{nameof(Cyan)}={Cyan.ToString(format, provider)}{sep}{nameof(Yellow)}={Yellow.ToString(format, provider)}{sep}{nameof(Magenta)}={Magenta.ToString(format, provider)}{sep}{nameof(Black)}={Black.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";
+            var sep = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(CMYKA)}{{{nameof(Cyan)}={Cyan.ToString(format, formatProvider)}{sep}{nameof(Yellow)}={Yellow.ToString(format, formatProvider)}{sep}{nameof(Magenta)}={Magenta.ToString(format, formatProvider)}{sep}{nameof(Black)}={Black.ToString(format, formatProvider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, formatProvider)}}}";
         }
         #endregion Methods
     }

@@ -82,15 +82,15 @@ namespace Engine
         /// <summary>
         /// The from rotation matrix.
         /// </summary>
-        /// <param name="m0x0"></param>
-        /// <param name="m0x1"></param>
-        /// <param name="m0x2"></param>
-        /// <param name="m1x0"></param>
-        /// <param name="m1x1"></param>
-        /// <param name="m1x2"></param>
-        /// <param name="m2x0"></param>
-        /// <param name="m2x1"></param>
-        /// <param name="m2x2"></param>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
         /// <returns>The <see cref="Quaternion4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -143,9 +143,9 @@ namespace Engine
         /// <summary>
         /// The from axis angle.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="Quaternion4D"/>.</returns>
         [DebuggerStepThrough]
@@ -190,10 +190,10 @@ namespace Engine
         /// <summary>
         /// The conjugate.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <param name="w"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="w">The w.</param>
         /// <returns>The <see cref="Quaternion4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

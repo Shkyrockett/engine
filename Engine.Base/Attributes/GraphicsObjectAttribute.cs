@@ -21,7 +21,8 @@ namespace Engine
     /// <summary>
     /// Attribute used to tag a class as a graphics object.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
+    /// <seealso cref="System.Attribute" />
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, Inherited = false)]
     public class GraphicsObjectAttribute
         : Attribute
     { }

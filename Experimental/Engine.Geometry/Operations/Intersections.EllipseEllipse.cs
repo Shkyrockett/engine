@@ -63,8 +63,8 @@ namespace Engine
             // What am I missing?
 
             // Apply the rotation transform to the ellipse.
-            var dxh = (/*cos * cos **/ (dx - h) /*- sin * sin * (dy - k)*/);
-            var dyk = (/*cos * cos **/ (dy - k)  /*- sin *sin * (dx - h)*/);
+            var dxh = /*cos * cos **/ dx - h /*- sin * sin * (dy - k)*/;
+            var dyk = /*cos * cos **/ dy - k  /*- sin *sin * (dx - h)*/;
             var aa = a * a;
             var bb = b * b;
 

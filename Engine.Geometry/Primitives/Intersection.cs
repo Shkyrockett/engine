@@ -30,7 +30,7 @@ namespace Engine
     /// <summary>
     /// The intersection struct.
     /// </summary>
-    /// <seealso cref="System.IEquatable{Engine.Intersection}" />
+    /// <seealso cref="System.IEquatable{T}" />
     /// <seealso cref="System.IFormattable" />
     [DataContract, Serializable]
     [TypeConverter(typeof(StructConverter<Intersection>))]
@@ -284,7 +284,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals([AllowNull] object obj) => obj is Intersection && Equals(this, (Intersection)obj);
+        public override bool Equals([AllowNull] object obj) => obj is Intersection intersection && Equals(this, intersection);
 
         /// <summary>
         /// The equals.
@@ -311,19 +311,19 @@ namespace Engine
         /// Creates a string representation of this <see cref="Intersection" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A <see cref="string" /> representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ToString(string.Empty /* format string */, formatProvider);
 
         /// <summary>
         /// The to string.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// Creates a <see cref="string" /> representation of this <see cref="Intersection" /> class based on the format string
         /// and IFormatProvider passed in.
@@ -332,12 +332,12 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             if (this == null) return nameof(Intersection);
-            var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Intersection)}{{{nameof(State)}: {State}, {string.Join(sep.ToString(provider), Points)}}}";
-            return formatable.ToString(format, provider);
+            var sep = Tokenizer.GetNumericListSeparator(formatProvider);
+            IFormattable formatable = $"{nameof(Intersection)}{{{nameof(State)}: {State}, {string.Join(sep.ToString(formatProvider), Points)}}}";
+            return formatable.ToString(format, formatProvider);
         }
         #endregion Standard Class Methods
     }

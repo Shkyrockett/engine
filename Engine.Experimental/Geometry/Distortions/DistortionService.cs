@@ -8,8 +8,6 @@
 // <summary></summary>
 // <remarks> https://github.com/benmorris44/EnvelopeDistortion </remarks>
 
-using System.Collections.Generic;
-
 namespace Engine
 {
     /// <summary>
@@ -79,9 +77,10 @@ namespace Engine
         /// The inject precision points.
         /// </summary>
         /// <param name="gp">The gp.</param>
-        private static void InjectPrecisionPoints(PolycurveContour2D gp)
+        internal static void InjectPrecisionPoints(PolycurveContour2D gp)
         {
-            var InsertDictionary = new Dictionary<int, Point2D[]>();
+            _ = gp;
+            //var InsertDictionary = new Dictionary<int, Point2D[]>();
             //inject points on vertical and horizontal runs to increase precision
             //for (var j = 0; j < gp.PointCount; j++)
             //{
@@ -132,8 +131,9 @@ namespace Engine
         /// A debugging method - will return the corresponding distorted point for a given source
         /// </summary>
         /// <param name="point">The source point</param>
-        /// <returns>The distorted point location</returns>
-        public Point2D DistortPoint(Point2D point)
-            => distortion.Distort(source, point);
+        /// <returns>
+        /// The distorted point location
+        /// </returns>
+        public Point2D DistortPoint(Point2D point) => distortion.Distort(source, point);
     }
 }

@@ -36,7 +36,7 @@ namespace Engine.File
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="MediaFile"/> class.
+        /// Initializes a new instance of the <see cref="MediaFile" /> class.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public MediaFile()
@@ -44,7 +44,7 @@ namespace Engine.File
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MediaFile"/> class.
+        /// Initializes a new instance of the <see cref="MediaFile" /> class.
         /// </summary>
         /// <param name="media">The data.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -53,7 +53,7 @@ namespace Engine.File
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MediaFile"/> class.
+        /// Initializes a new instance of the <see cref="MediaFile" /> class.
         /// </summary>
         /// <param name="media">The media.</param>
         /// <param name="filename">The filename.</param>
@@ -69,13 +69,31 @@ namespace Engine.File
         /// <summary>
         /// Gets or sets the media.
         /// </summary>
+        /// <value>
+        /// The media.
+        /// </value>
         public IMediaContainer Media { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the Midi file.
         /// </summary>
+        /// <value>
+        /// The name of the file.
+        /// </value>
         public string FileName { get; set; }
         #endregion
+
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static bool RegisterExtensions<T>(T type, params string[] extensions)
+        //    where T : IMediaContainer
+        //{
+        //    foreach (var extension in extensions)
+        //    {
+        //        if (!RegisteredExtensions.ContainsKey(extension)) RegisteredExtensions.Add(extension, (s) => type.Load<T>(s));
+        //    }
+
+        //    return true;
+        //}
 
         #region Methods
         /// <summary>
@@ -83,10 +101,11 @@ namespace Engine.File
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <returns></returns>
+        /// <exception cref="Exception">The {ext} file format is not supported.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MediaFile Load(string filename)
         {
-            string ext = Path.GetExtension(filename).ToUpperInvariant();
+            var ext = Path.GetExtension(filename).ToUpperInvariant();
             if (!RegisteredExtensions.ContainsKey(ext))
             {
                 throw new Exception($"The {ext} file format is not supported.");

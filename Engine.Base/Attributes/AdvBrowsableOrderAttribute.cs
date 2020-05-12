@@ -16,45 +16,51 @@ namespace Engine
     /// <summary>
     /// The adv browsable order attribute class.
     /// </summary>
+    /// <seealso cref="System.Attribute" />
     [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public sealed class AdvBrowsableOrderAttribute
         : Attribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AdvBrowsableOrderAttribute"/> class.
+        /// Initializes a new instance of the <see cref="AdvBrowsableOrderAttribute" /> class.
         /// </summary>
         /// <param name="order">The order.</param>
         public AdvBrowsableOrderAttribute(string order)
-        {
-            Order = order?.Split(',');
-        }
+            : this(order?.Split(','))
+        { }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="order"></param>
-        //public AdvBrowsableOrderAttribute(params string[] order)
-        //{
-        //    this.order = order;
-        //}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdvBrowsableOrderAttribute" /> class.
+        /// </summary>
+        /// <param name="order">The order.</param>
+        public AdvBrowsableOrderAttribute(params string[] order)
+        {
+            Order = order;
+        }
 
         /// <summary>
         /// Gets the order.
         /// </summary>
+        /// <value>
+        /// The order.
+        /// </value>
         public string[] Order { get; }
 
         /// <summary>
         /// Get the order.
         /// </summary>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         public static string[] GetOrder(Type t)
         {
             var arr = t?.GetCustomAttributes(typeof(AdvBrowsableOrderAttribute), false);
-            if (arr.Length > 0)
+            if (arr?.Length > 0)
             {
                 return ((AdvBrowsableOrderAttribute)arr[0]).Order;
             }
+
             return null;
         }
     }

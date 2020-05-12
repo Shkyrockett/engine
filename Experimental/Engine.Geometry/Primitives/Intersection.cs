@@ -30,7 +30,7 @@ namespace Engine
     /// <summary>
     /// The intersection struct.
     /// </summary>
-    /// <seealso cref="System.IEquatable{Engine.Intersection}" />
+    /// <seealso cref="System.IEquatable{T}" />
     /// <seealso cref="System.IFormattable" />
     [DataContract, Serializable]
     [TypeConverter(typeof(StructConverter<Intersection>))]
@@ -39,6 +39,9 @@ namespace Engine
         : IFormattable, IEquatable<Intersection>
     {
         #region Implementations
+        /// <summary>
+        /// The empty
+        /// </summary>
         public static readonly Intersection Empty = new Intersection(IntersectionStates.NoIntersection);
         #endregion
 
@@ -281,7 +284,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals([AllowNull] object obj) => obj is Intersection && Equals(this, (Intersection)obj);
+        public override bool Equals([AllowNull] object obj) => obj is Intersection intersection && Equals(this, intersection);
 
         /// <summary>
         /// The equals.
@@ -333,7 +336,7 @@ namespace Engine
         {
             if (this == null) return nameof(Intersection);
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Intersection)}{{{nameof(State)}: {State.ToString()}, {string.Join(sep.ToString(provider), Points)}}}";
+            IFormattable formatable = $"{nameof(Intersection)}{{{nameof(State)}: {State}, {string.Join(sep.ToString(provider), Points)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Standard Class Methods

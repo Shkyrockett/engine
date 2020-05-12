@@ -65,7 +65,7 @@ namespace Engine
 
             if (value is string source)
             {
-                return Matrix4x4D.Parse(source);
+                return Matrix4x4D.Parse(source, culture);
             }
 
             return base.ConvertFrom(context, culture, value);

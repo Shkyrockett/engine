@@ -27,30 +27,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiConnect", ExactSpelling = true)]
-        internal static extern MmResult MidiConnect(IntPtr hMidiIn, out IntPtr hMidiOut, IntPtr pReserved);
-
-        /// <summary>
-        /// Connects a MIDI input device.
-        /// </summary>
-        /// <param name="midiInputHandle">The MIDI input handle.</param>
-        /// <returns>
-        /// The MIDI output handle.
-        /// </returns>
-        /// <exception cref="System.Exception">
-        /// The Midi Device is not ready to connect to.
-        /// or
-        /// An invalid handle was provided to connect to a MIDI device.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IntPtr MidiConnect(IntPtr midiInputHandle)
-        {
-            return (MidiConnect(midiInputHandle, out IntPtr midiOutputHandle, IntPtr.Zero)) switch
-            {
-                MmResult.NoError => midiOutputHandle,
-                MmResult.NotReady => throw new Exception("The Midi Device is not ready to connect to."),
-                MmResult.InvalidHandle => throw new Exception("An invalid handle was provided to connect to a MIDI device."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiConnect(IntPtr hMidiIn, out IntPtr hMidiOut, IntPtr pReserved);
     }
 }

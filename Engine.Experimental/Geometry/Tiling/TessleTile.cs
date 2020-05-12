@@ -29,7 +29,7 @@ namespace Engine.Experimental
             Rotation = rotation;
             Heesch = heesch;
             Alterations = alterations;
-            var shape = Shape;
+            //var shape = Shape;
         }
         #endregion Constructors
 

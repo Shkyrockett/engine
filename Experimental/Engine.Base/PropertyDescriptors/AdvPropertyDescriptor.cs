@@ -93,20 +93,17 @@ namespace Engine
         /// <summary>
         /// Gets the description.
         /// </summary>
-        public override string Description
-            => description;
+        public override string Description => description;
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        public override bool IsReadOnly
-            => !(property is null || !property.CanWrite);
+        public override bool IsReadOnly => !(property is null || !property.CanWrite);
 
         /// <summary>
         /// Gets the component type.
         /// </summary>
-        public override Type ComponentType
-            => info.DeclaringType;
+        public override Type ComponentType => info.DeclaringType;
 
         /// <summary>
         /// Gets the property type.
@@ -195,14 +192,14 @@ namespace Engine
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Equals([AllowNull] object obj) => obj is AdvPropertyDescriptor && Equals((AdvPropertyDescriptor)obj);
+        public override bool Equals([AllowNull] object obj) => obj is AdvPropertyDescriptor descriptor && Equals(descriptor);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public bool Equals(AdvPropertyDescriptor other) => info.Equals(other.info);
+        public bool Equals(AdvPropertyDescriptor other) => info.Equals(other?.info);
         #endregion Methods
     }
 }

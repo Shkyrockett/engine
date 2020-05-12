@@ -49,12 +49,12 @@ namespace Engine
         /// passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
         /// <returns>
         /// A <see cref="string"/> representation of this instance of the <see cref="IPrimitive"/> object as specified by provider.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider /* format provider */);
+        public string ToString(IFormatProvider formatProvider) => ToString("R" /* format string */, formatProvider /* format provider */);
     }
 }

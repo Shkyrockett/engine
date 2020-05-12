@@ -85,7 +85,7 @@ namespace Engine.File
         /// </returns>
         internal static new MLiveTag Read(BinaryReaderExtended reader, IEventStatus status)
         {
-            int length = reader.ReadVariableLengthInt();
+            var length = reader.ReadVariableLengthInt();
             return new MLiveTag(status, length, (MusicLiveTag)reader.ReadByte(), reader.ReadUTF8String(length - 1));
         }
 
@@ -93,7 +93,7 @@ namespace Engine.File
         /// Converts to string.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         public override string ToString() => "M-Live Tag";
     }

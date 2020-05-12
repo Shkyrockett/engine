@@ -320,8 +320,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public List<double> ExtremeAngles
-            => (List<double>)CachingProperty(() => Measurements.CircleExtremeAngles());
+        public List<double> ExtremeAngles => (List<double>)CachingProperty(() => Measurements.CircleExtremeAngles());
 
         /// <summary>
         /// Get the points of the Cartesian extremes of the circle.
@@ -416,7 +415,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals([AllowNull] object obj) => obj is Circle2D && Equals(this, (Circle2D)obj);
+        public override bool Equals([AllowNull] object obj) => obj is Circle2D o && Equals(o);
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
@@ -427,7 +426,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals([AllowNull] Circle2D other) => X == other.X && Y == other.Y && Radius == other.Radius;
+        public bool Equals([AllowNull] Circle2D other) => other is Circle2D o && X == o.X && Y == o.Y && Radius == o.Radius;
         #endregion
 
         #region Interpolators
@@ -463,7 +462,7 @@ namespace Engine
         /// </summary>
         /// <param name="triangle">The triangle.</param>
         /// <returns>The <see cref="Circle2D"/>.</returns>
-        public static Circle2D FromTriangle(Triangle2D triangle) => new Circle2D((triangle?.A).Value, triangle.B, triangle.C);
+        public static Circle2D FromTriangle(Triangle2D triangle) => new Circle2D(triangle.A, triangle.B, triangle.C);
 
         /// <summary>
         /// The from rectangle.

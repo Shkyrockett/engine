@@ -250,7 +250,7 @@ namespace Engine
             // Clamp it to be in the range of Acos()
             // This may be unnecessary, but floating point
             // precision can be a fickle mistress.
-            var dot = Operations.Clamp(Operations.DotProduct(a.X, a.Y, a.Y, b.X, b.Y, b.Z), -1d, 1d);
+            var dot = Operations.Clamp(DotProduct(a.X, a.Y, a.Y, b.X, b.Y, b.Z), -1d, 1d);
 
             // Acos(dot) returns the angle between start and end,
             // And multiplying that by percent returns the angle between
@@ -259,7 +259,7 @@ namespace Engine
             var RelativeVec = b - (a * dot);
 
             // Orthonormal basis
-            Operations.Normalize(RelativeVec.I, RelativeVec.J, RelativeVec.K);
+            Normalize(RelativeVec.I, RelativeVec.J, RelativeVec.K);
 
             // The final result.
             return (a * Cos(theta)) + (RelativeVec * Sin(theta));
@@ -1134,7 +1134,7 @@ namespace Engine
         /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) PolarEllipse(double t, double cX, double cY, double r1, double r2, double angle) => Ellipse(Operations.EllipticalPolarAngle(t, r1, r2), cX, cY, r1, r2, angle);
+        public static (double X, double Y) PolarEllipse(double t, double cX, double cY, double r1, double r2, double angle) => Ellipse(EllipticalPolarAngle(t, r1, r2), cX, cY, r1, r2, angle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse with Polar correction.
@@ -1149,7 +1149,7 @@ namespace Engine
         /// <returns>Interpolated point at theta adjusted to Polar angles.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) PolarEllipse(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle) => Ellipse(Operations.EllipticalPolarAngle(t, r1, r2), cX, cY, r1, r2, cosAngle, sinAngle);
+        public static (double X, double Y) PolarEllipse(double t, double cX, double cY, double r1, double r2, double cosAngle, double sinAngle) => Ellipse(EllipticalPolarAngle(t, r1, r2), cX, cY, r1, r2, cosAngle, sinAngle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse.

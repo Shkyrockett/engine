@@ -137,7 +137,7 @@ namespace Engine.Imaging
         /// <summary>
         /// Gets the fill.
         /// </summary>
-        public IFill Fill { get; }
+        public IFillable Fill { get; }
 
         /// <summary>
         /// Gets the stroke.

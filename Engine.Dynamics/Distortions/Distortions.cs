@@ -39,10 +39,11 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="factors">The factors.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Scale(Point2D point, Size2D factors)
-            => new Point2D(point.X * factors.Width, point.Y * factors.Height);
+        public static Point2D Scale(Point2D point, Size2D factors) => new Point2D(point.X * factors.Width, point.Y * factors.Height);
 
         /// <summary>
         /// The flip distortion.
@@ -51,34 +52,33 @@ namespace Engine
         /// <param name="fulcrum">The fulcrum.</param>
         /// <param name="flipHorz">The bHorz.</param>
         /// <param name="flipVert">The bVert.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Flip(Point2D point, Point2D fulcrum, bool flipHorz, bool flipVert)
-        {
-            var x = flipHorz ? fulcrum.X - (point.X - fulcrum.X + 1d) : point.X;
-            var y = flipVert ? fulcrum.Y - (point.Y - fulcrum.Y + 1d) : point.Y;
-            return new Point2D(x, y);
-        }
+        public static Point2D Flip(Point2D point, Point2D fulcrum, bool flipHorz, bool flipVert) => new Point2D(flipHorz ? fulcrum.X - (point.X - fulcrum.X + 1d) : point.X, flipVert ? fulcrum.Y - (point.Y - fulcrum.Y + 1d) : point.Y);
 
         /// <summary>
         /// The Translate distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="offset">The offset.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Translate(Point2D point, Vector2D offset)
-            => point + offset;
+        public static Point2D Translate(Point2D point, Vector2D offset) => point + offset;
 
         /// <summary>
         /// The matrix distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="matrix">The matrix.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Matrix(Point2D point, Matrix3x2D matrix)
-            => matrix.Transform(point);
+        public static Point2D Matrix(Point2D point, Matrix3x2D matrix) => matrix.Transform(point);
 
         /// <summary>
         /// Rotate a point about a center point.
@@ -89,18 +89,16 @@ namespace Engine
         /// <param name="yAxis">The Sine and Cosine of the angle on the y-axis.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Rotate(Point2D point, Point2D fulcrum, Vector2D xAxis, Vector2D yAxis)
-            => new Point2D(
-                fulcrum.X + (((point.X - fulcrum.X) * xAxis.I) + ((point.Y - fulcrum.Y) * xAxis.J)),
-                fulcrum.Y + (((point.X - fulcrum.X) * yAxis.I) + ((point.Y - fulcrum.Y) * yAxis.J)));
+        public static Point2D Rotate(Point2D point, Point2D fulcrum, Vector2D xAxis, Vector2D yAxis) => new Point2D(fulcrum.X + (((point.X - fulcrum.X) * xAxis.I) + ((point.Y - fulcrum.Y) * xAxis.J)), fulcrum.Y + (((point.X - fulcrum.X) * yAxis.I) + ((point.Y - fulcrum.Y) * yAxis.J)));
 
         /// <summary>
         /// Rotate all the coordinates in-place around the center point (cx, cy) by angle theta.
         /// </summary>
         /// <param name="a">an array of arrays of coordinates in 2D space.</param>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="theta"></param>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="theta">The theta.</param>
+        /// <exception cref="ArgumentNullException">a</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RotateArrays(List<List<Point2D>> a, double cx, double cy, double theta)
         {
@@ -131,7 +129,9 @@ namespace Engine
         /// <param name="topRight">The topRight.</param>
         /// <param name="bottomRight">The bottomRight.</param>
         /// <param name="bottomLeft">The bottomLeft.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         /// <acknowledgment>
         /// Based roughly on the ideas presented in: https://web.archive.org/web/20160825211055/http://www.neuroproductions.be:80/experiments/envelope-distort-with-actionscript/
         /// </acknowledgment>
@@ -168,13 +168,15 @@ namespace Engine
         /// <param name="bounds">The bounds.</param>
         /// <param name="topLeft">The topLeft.</param>
         /// <param name="topHandle">The topLeftH.</param>
-        /// <param name="leftHandle">The topLeftV.</param>
-        /// <param name="rightHandle">The topRightV.</param>
         /// <param name="topRight">The topRight.</param>
+        /// <param name="rightHandle">The topRightV.</param>
         /// <param name="bottomRight">The bottomRight.</param>
         /// <param name="bottomHandle">The bottomRightH.</param>
         /// <param name="bottomLeft">The bottomLeft.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <param name="leftHandle">The topLeftV.</param>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         /// <acknowledgment>
         /// Based roughly on the ideas presented in: https://web.archive.org/web/20160825211055/http://www.neuroproductions.be:80/experiments/envelope-distort-with-actionscript/
         /// </acknowledgment>
@@ -228,7 +230,9 @@ namespace Engine
         /// <param name="bottomLeft">The bottomLeft.</param>
         /// <param name="bottomLeftH">The bottomLeftH.</param>
         /// <param name="bottomLeftV">The bottomLeftV.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         /// <acknowledgment>
         /// Based roughly on the ideas presented in: https://web.archive.org/web/20160825211055/http://www.neuroproductions.be:80/experiments/envelope-distort-with-actionscript/
         /// </acknowledgment>
@@ -303,7 +307,9 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>
         /// <param name="strength">The strength.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Pinch(Point2D point, Point2D fulcrum, double strength = OneHalf)
         {
@@ -348,7 +354,9 @@ namespace Engine
         /// <param name="fulcrum">The fulcrum.</param>
         /// <param name="radius">The radius.</param>
         /// <param name="strength">The strength.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Pinch(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
         {
@@ -395,7 +403,9 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>
         /// <param name="degree">The degree.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Swirl(Point2D point, Point2D fulcrum, double degree = OneHalf)
         {
@@ -419,7 +429,9 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>
         /// <param name="factor">The factor.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D TimeWarp(Point2D point, Point2D fulcrum, double factor = 10d)
         {
@@ -439,7 +451,9 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>
         /// <param name="nWave">The nWave.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Water(Point2D point, Point2D fulcrum, double nWave = 1)
         {
@@ -458,7 +472,9 @@ namespace Engine
         /// </summary>
         /// <param name="bounds">The bounding box of the shape.</param>
         /// <param name="point">The point to warp.</param>
-        /// <returns>The returned point in normalized percentage form.</returns>
+        /// <returns>
+        /// The returned point in normalized percentage form.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D NormalizePoint(Rectangle2D bounds, Point2D point) => new Point2D((point.X - (bounds?.X).Value) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
@@ -469,10 +485,13 @@ namespace Engine
         /// </summary>
         /// <param name="source">Source list of points.</param>
         /// <param name="distance">Distance between points on the new path.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>List of equally-spaced points on the path.</returns>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// List of equally-spaced points on the path.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">source - List must not be null</exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <acknowledgment></acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> Linearize(List<Point2D> source, double distance, double epsilon = double.Epsilon)
@@ -540,9 +559,10 @@ namespace Engine
         /// </summary>
         /// <param name="points">Points to reduce</param>
         /// <param name="error">Maximum distance of a point to a line. Low values (~2-4) work well for mouse/touchscreen data.</param>
-        /// <returns>A new list containing only the points needed to approximate the curve.</returns>
-        /// <remarks>
-        /// </remarks>
+        /// <returns>
+        /// A new list containing only the points needed to approximate the curve.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">points - Must not be null.</exception>
         /// <acknowledgment>
         /// The image says it better than I could ever describe: http://upload.wikimedia.org/wikipedia/commons/3/30/Douglas-Peucker_animated.gif
         /// The Wiki article: http://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
@@ -622,9 +642,10 @@ namespace Engine
         /// were found, it returns the input list; otherwise it creates a new list with the repeats removed.
         /// </summary>
         /// <param name="points">Initial list of points.</param>
-        /// <returns>Either points (if no duplicates were found), or a new list containing points with duplicates removed.</returns>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <returns>
+        /// Either points (if no duplicates were found), or a new list containing points with duplicates removed.
+        /// </returns>
+        /// <acknowledgment></acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> RemoveDuplicates(List<Point2D> points)
@@ -678,7 +699,10 @@ namespace Engine
         /// Add the points to sides.
         /// </summary>
         /// <param name="contour">The contour.</param>
-        /// <returns>The <see cref="PolygonContour2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="PolygonContour2D" />.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">contour</exception>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour2D AddPointsToSides(PolygonContour2D contour)
@@ -710,7 +734,9 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="u">The u.</param>
         /// <param name="v">The v.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
         /// </acknowledgment>
@@ -739,7 +765,9 @@ namespace Engine
         /// <param name="c">The c.</param>
         /// <param name="u">The u.</param>
         /// <param name="v">The v.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Point2D" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
         /// </acknowledgment>
@@ -756,7 +784,9 @@ namespace Engine
         /// The solve perspective.
         /// </summary>
         /// <param name="points">The points.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
         /// </acknowledgment>

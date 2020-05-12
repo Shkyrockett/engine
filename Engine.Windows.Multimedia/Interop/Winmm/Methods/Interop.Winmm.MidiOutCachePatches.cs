@@ -31,40 +31,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutCachePatches", ExactSpelling = true)]
-        internal static extern MmResult MidiOutCachePatches_(IntPtr hMidiOut, int uBank, IntPtr lpPatchArray, MidiCacheFlags uFlags);
-
-        /// <summary>
-        /// Midis the out cache patches.
-        /// </summary>
-        /// <param name="midiOutputHandle">The midi output handle.</param>
-        /// <param name="bank">The bank.</param>
-        /// <param name="patchArray">The patch array.</param>
-        /// <param name="flags">The flags.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">
-        /// The flag specified by wFlags is invalid.
-        /// or
-        /// The specified device handle is invalid.
-        /// or
-        /// The specified pointer or structure is invalid.
-        /// or
-        /// The system is unable to allocate or lock memory.
-        /// or
-        /// The specified device does not support patch caching.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiOutCachePatches(IntPtr midiOutputHandle, int bank, IntPtr patchArray, MidiCacheFlags flags)
-        {
-            return (MidiOutCachePatches_(midiOutputHandle, bank, patchArray, flags)) switch
-            {
-                MmResult.NoError => true,
-                MmResult.InvalidFlag => throw new Exception("The flag specified by wFlags is invalid."),
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                MmResult.MemoryAllocationError => throw new Exception("The system is unable to allocate or lock memory."),
-                MmResult.NotSupported => throw new Exception("The specified device does not support patch caching."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutCachePatches_(IntPtr hMidiOut, int uBank, IntPtr lpPatchArray, MidiCacheFlags uFlags);
     }
 }

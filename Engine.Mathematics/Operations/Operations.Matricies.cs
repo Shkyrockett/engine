@@ -911,6 +911,52 @@ namespace Engine
 
         #region Multiply
         /// <summary>
+        /// Multiplies a matrix2x2 by a Vertical vector2.
+        /// </summary>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://matrixmultiplication.xyz/
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) MultiplyMatrix2x2ByVerticalVector2D(
+            double m1x1, double m1x2,
+            double m2x1, double m2x2,
+            double x, double y)
+            => (
+                (x * m1x1) + (y * m1x2),
+                (x * m2x1) + (y * m2x2)
+            ); // This should be correct.
+
+        /// <summary>
+        /// Multiplies a horizontal vector2 by a matrix2x2.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://matrixmultiplication.xyz/
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) MultiplyHorizontalVector2DByMatrix2x2(
+            double x, double y,
+            double m1x1, double m1x2,
+            double m2x1, double m2x2)
+            => (
+                (x * m1x1) + (y * m2x1),
+                (x * m1x2) + (y * m2x2)
+            ); // This should be correct.
+
+        /// <summary>
         /// Multiplies a vector2 and matrix2x2.
         /// </summary>
         /// <param name="x">The x.</param>
@@ -929,7 +975,7 @@ namespace Engine
             => (
                 (x * m1x1) + (x * m1x2),
                 (y * m2x1) + (y * m2x2)
-            );
+            ); // This is wrong!
 
         /// <summary>
         /// Multiplies a vector3 and matrix3x3.
@@ -958,7 +1004,7 @@ namespace Engine
                 (x * m1x1) + (x * m1x2) + (x * m1x3),
                 (y * m2x1) + (y * m2x2) + (y * m2x3),
                 (z * m3x1) + (z * m3x2) + (z * m3x3)
-            );
+            ); // This is wrong!
 
         /// <summary>
         /// Multiplies a vector4 and matrix4x4.
@@ -997,7 +1043,7 @@ namespace Engine
                 (y * m2x1) + (y * m2x2) + (y * m2x3) + (y * m2x4),
                 (z * m3x1) + (z * m3x2) + (z * m3x3) + (z * m3x4),
                 (w * m4x1) + (w * m4x2) + (w * m4x3) + (w * m4x4)
-            );
+            ); // This is wrong!
 
         /// <summary>
         /// Multiplies a vector5 and matrix5x5.
@@ -1048,7 +1094,7 @@ namespace Engine
                 (z * m3x1) + (z * m3x2) + (z * m3x3) + (z * m3x4) + (z * m3x5),
                 (w * m4x1) + (w * m4x2) + (w * m4x3) + (w * m4x4) + (w * m4x5),
                 (w * m5x1) + (v * m5x2) + (v * m5x3) + (v * m5x4) + (v * m5x5)
-            );
+            ); // This is wrong!
 
         /// <summary>
         /// Multiplies a vector6 and matrix6x6.
@@ -1113,7 +1159,7 @@ namespace Engine
                 (w * m4x1) + (w * m4x2) + (w * m4x3) + (w * m4x4) + (w * m4x5) + (w * m4x6),
                 (w * m5x1) + (v * m5x2) + (v * m5x3) + (v * m5x4) + (v * m5x5) + (v * m5x6),
                 (w * m6x1) + (u * m6x2) + (u * m6x3) + (u * m6x4) + (u * m6x5) + (u * m6x6)
-            );
+            ); // This is wrong!
 
         /// <summary>
         /// Used to multiply (concatenate) two Matrix2x2s.
@@ -3741,6 +3787,47 @@ namespace Engine
             double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
             ) => throw new NotImplementedException();
 
+        /// <summary>
+        /// Cofactors the matrix.
+        /// </summary>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
+        /// <param name="m0x4">The M0X4.</param>
+        /// <param name="m0x5">The M0X5.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m1x5">The M1X5.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m2x5">The M2X5.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m3x5">The M3X5.</param>
+        /// <param name="m4x0">The M4X0.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <param name="m4x5">The M4X5.</param>
+        /// <param name="m5x0">The M5X0.</param>
+        /// <param name="m5x1">The M5X1.</param>
+        /// <param name="m5x2">The M5X2.</param>
+        /// <param name="m5x3">The M5X3.</param>
+        /// <param name="m5x4">The M5X4.</param>
+        /// <param name="m5x5">The M5X5.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -3952,6 +4039,47 @@ namespace Engine
             double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
             ) => throw new NotImplementedException();
 
+        /// <summary>
+        /// Inverts the matrix.
+        /// </summary>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
+        /// <param name="m0x4">The M0X4.</param>
+        /// <param name="m0x5">The M0X5.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m1x5">The M1X5.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m2x5">The M2X5.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m3x5">The M3X5.</param>
+        /// <param name="m4x0">The M4X0.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <param name="m4x5">The M4X5.</param>
+        /// <param name="m5x0">The M5X0.</param>
+        /// <param name="m5x1">The M5X1.</param>
+        /// <param name="m5x2">The M5X2.</param>
+        /// <param name="m5x3">The M5X3.</param>
+        /// <param name="m5x4">The M5X4.</param>
+        /// <param name="m5x5">The M5X5.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (

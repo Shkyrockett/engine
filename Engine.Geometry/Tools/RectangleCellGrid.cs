@@ -260,36 +260,31 @@ namespace Engine
         /// Gets the calculated optimum cell scale.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public int CellScale
-            => (int)CachingProperty(() => Min(width / Columns, height / Rows));
+        public int CellScale => (int)CachingProperty(() => Min(width / Columns, height / Rows));
 
         /// <summary>
         /// Gets the calculated optimum <see cref="Size2D"/> height and width of any cell in the grid.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Size2D CellSize
-            => (Size2D)CachingProperty(() => new Size2D(CellScale, CellScale));
+        public Size2D CellSize => (Size2D)CachingProperty(() => new Size2D(CellScale, CellScale));
 
         /// <summary>
         /// Gets the inner-bounding <see cref="Rectangle2D"/> of the grid. 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Rectangle2D InnerBounds
-            => (Rectangle2D)CachingProperty(() => new Rectangle2D(new Point2D(x, y), new Size2D(Columns * CellSize.Width, Rows * CellSize.Height)));
+        public Rectangle2D InnerBounds => (Rectangle2D)CachingProperty(() => new Rectangle2D(new Point2D(x, y), new Size2D(Columns * CellSize.Width, Rows * CellSize.Height)));
 
         /// <summary>
         /// Gets the calculated optimum number of columns the grid can contain for its height and width.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public int Columns
-            => (int)CachingProperty(() => (int)Ceiling(Sqrt(width * count / height)));
+        public int Columns => (int)CachingProperty(() => (int)Ceiling(Sqrt(width * count / height)));
 
         /// <summary>
         /// Gets the calculated optimum number of rows the grid can contain for its height and width.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public int Rows
-            => (int)CachingProperty(() => (int)Ceiling((double)count / Columns));
+        public int Rows => (int)CachingProperty(() => (int)Ceiling((double)count / Columns));
 
         /// <summary>
         /// Gets or sets the exterior bounding <see cref="Rectangle2D"/> to contain the grid. 
@@ -317,10 +312,9 @@ namespace Engine
         /// Converts the attributes of this <see cref="RectangleCellGrid"/> to a human-readable string. 
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns></returns>
-        public override string ConvertToString(string format, IFormatProvider provider)
-            => $"{nameof(RectangleCellGrid)}{{Bounds{{{Bounds}}}, Count {count}}}";
+        public override string ConvertToString(string format, IFormatProvider formatProvider) => $"{nameof(RectangleCellGrid)}{{Bounds{{{Bounds}}}, Count {count}}}";
         #endregion Methods
     }
 }

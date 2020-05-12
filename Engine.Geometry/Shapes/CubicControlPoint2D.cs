@@ -192,7 +192,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is CubicControlPoint2D && Equals(this, (CubicControlPoint2D)obj);
+        public override bool Equals(object obj) => obj is CubicControlPoint2D d && Equals(this, d);
 
         /// <summary>
         /// The equals.
@@ -206,7 +206,7 @@ namespace Engine
         public bool Equals(CubicControlPoint2D value) => Equals(this, value);
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="CubicControlPoint" />.
+        /// Creates a human-readable string that represents this <see cref="CubicControlPoint2D" />.
         /// </summary>
         /// <returns>
         /// A <see cref="string" /> that represents this instance.

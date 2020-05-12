@@ -611,8 +611,8 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Overlap(double a, double b, double c, double d)
-            => Operations.Between((c < d) ? c : d, a, b)
-            || Operations.Between((a < b) ? a : b, c, d);
+            => Between((c < d) ? c : d, a, b)
+            || Between((a < b) ? a : b, c, d);
 
         /// <summary>
         /// Return true iff the polygon is convex.  It is

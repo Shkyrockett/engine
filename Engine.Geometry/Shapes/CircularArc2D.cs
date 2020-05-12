@@ -68,14 +68,14 @@ namespace Engine
         /// </summary>
         /// <param name="triangle"></param>
         public CircularArc2D(Triangle2D triangle)
-            : this((triangle?.A).Value, triangle.B, triangle.C)
+            : this(triangle.A, triangle.B, triangle.C)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularArc2D"/> class.
         /// </summary>
         public CircularArc2D(Circle2D circle, double startAngle, double sweepAngle)
-            : this((circle?.Center).Value, circle.Radius, startAngle, sweepAngle)
+            : this(circle.Center, circle.Radius, startAngle, sweepAngle)
         { }
 
         /// <summary>
@@ -217,8 +217,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the starting angle.")]
-        public Point2D StartPoint
-            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(0, x, y, radius, startAngle, sweepAngle));
+        public Point2D StartPoint => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(0, x, y, radius, startAngle, sweepAngle));
 
         /// <summary>
         /// Gets the point on the circular arc circumference coincident to the ending angle.
@@ -227,8 +226,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the ending angle.")]
-        public Point2D EndPoint
-            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(1, x, y, radius, startAngle, sweepAngle));
+        public Point2D EndPoint => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(1, x, y, radius, startAngle, sweepAngle));
 
         /// <summary>
         /// Gets or sets the <see cref="X"/> coordinate location of the center of the <see cref="CircularArc2D"/>.

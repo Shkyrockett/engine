@@ -229,7 +229,7 @@ namespace Engine.Colorspace
         /// <returns>
         /// The <see cref="ValueTuple{T1, T2, T3, T4}" />.
         /// </returns>
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple() => Colorspaces.HSLAColorToRGBAColor(hue, saturation, luminance, alpha);
+        public (byte Red, byte Green, byte Blue, byte Alpha) ToRGBATuple() => Colorspaces.HSLAColorToRGBAColor(hue, saturation, luminance, alpha);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="HSLA" /> struct.
@@ -245,13 +245,13 @@ namespace Engine.Colorspace
         /// Creates a string representation of this <see cref="HSLA" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ConvertToString(string.Empty /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="HSLA" /> class based on the format string
@@ -260,13 +260,13 @@ namespace Engine.Colorspace
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider formatProvider) => ConvertToString(format /* format string */, formatProvider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="HSLA" /> struct based on the format string
@@ -275,16 +275,16 @@ namespace Engine.Colorspace
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ConvertToString(string format, IFormatProvider provider)
+        public string ConvertToString(string format, IFormatProvider formatProvider)
         {
-            var sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(HSLA)}{{{nameof(Hue)}={hue.ToString(format, provider)}{sep}{nameof(Saturation)}={saturation.ToString(format, provider)}{sep}{nameof(Luminance)}={luminance.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";
+            var sep = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(HSLA)}{{{nameof(Hue)}={hue.ToString(format, formatProvider)}{sep}{nameof(Saturation)}={saturation.ToString(format, formatProvider)}{sep}{nameof(Luminance)}={luminance.ToString(format, formatProvider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, formatProvider)}}}";
         }
         #endregion Methods
     }

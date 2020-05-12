@@ -108,17 +108,16 @@ namespace Engine
                 throw new ArgumentNullException(nameof(destinationType));
             }
 
-            if (value is Size2D)
+            if (value is Size2D size2D)
             {
                 if (destinationType == typeof(string))
                 {
-                    var size2D = (Size2D)value;
                     if (culture is null)
                     {
                         culture = CultureInfo.CurrentCulture;
                     }
 
-                    var separator = culture.TextInfo.ListSeparator + " ";
+                    var separator = $"{culture.TextInfo.ListSeparator} ";
                     var converter = TypeDescriptor.GetConverter(typeof(double));
                     var strArray = new string[2];
                     var num = 0;
@@ -128,11 +127,10 @@ namespace Engine
                 }
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
-                    var size22D = (Size2D)value;
                     var constructor = typeof(Size2D).GetConstructor(new Type[] { typeof(double), typeof(double) });
                     if (constructor != null)
                     {
-                        return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { size22D.Width, size22D.Height });
+                        return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { size2D.Width, size2D.Height });
                     }
                 }
             }
@@ -153,6 +151,9 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="propertyValues">The propertyValues.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues != null ? new Size2D((double)propertyValues["Width"], (double)propertyValues["Height"]) : (object)null;
+        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues)
+            => propertyValues != null
+            ? new Size2D((double)propertyValues[$"{nameof(Size2D.Width)}"], (double)propertyValues[$"{nameof(Size2D.Height)}"])
+            : (object)null;
     }
 }

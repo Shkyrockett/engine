@@ -120,14 +120,14 @@ namespace Engine
                     } while (rd > md);
                     return new AddPointResult(first, add);
                 }
-                return AddPointResult.NO_CHANGE;
+                return AddPointResult.NoChange;
             }
             else
             {
                 prev = (Vector2D)p;
                 points.Add(p);
                 arclen.Add(0);
-                return AddPointResult.NO_CHANGE; // no curves were actually added yet
+                return AddPointResult.NoChange; // no curves were actually added yet
             }
         }
 

@@ -212,6 +212,7 @@ namespace Engine
         /// <value>≈1.32471...</value>
         public static readonly double Rho = Root(0.5d + (1d / 6d * Sqrt(23d / 3d)), 3d) + Root(0.5d - (1d / 6d * Sqrt(23d / 3d)), 3d);
 
+        #region Sine Cosine of Regular Angles.
         /// <summary>
         /// The cosine of 0.
         /// </summary>
@@ -251,6 +252,7 @@ namespace Engine
         /// The sine of Pau.
         /// </summary>
         public static readonly double SinPau = Sin(Pau);
+        #endregion
 
         #region Roots
         /// <summary>

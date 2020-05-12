@@ -139,15 +139,13 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Equals(object obj)
-            => obj is YUVA color && Equals(color);
+        public override bool Equals(object obj) => obj is YUVA color && Equals(color);
 
         /// <summary>
         /// The to color.
         /// </summary>
         /// <returns>The <see cref="RGBA"/>.</returns>
-        public RGBA ToColor()
-            => new RGBA(ToRGBATuple());
+        public RGBA ToColor() => new RGBA(ToRGBATuple());
 
         /// <summary>
         /// The to color rounded.
@@ -165,12 +163,7 @@ namespace Engine.Colorspace
         /// The to RGBA tuple.
         /// </summary>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
-            => (
-            (byte)(Y + (0d * U) + (1.13983d * V)),
-            (byte)(Y + (-0.39465d * U) + (-0.58060d * V)),
-            (byte)(Y + (-0.03211d * U) + (0d * V)),
-            Alpha);
+        public (byte Red, byte Green, byte Blue, byte Alpha) ToRGBATuple() => ((byte)(Y + (0d * U) + (1.13983d * V)), (byte)(Y + (-0.39465d * U) + (-0.58060d * V)), (byte)(Y + (-0.03211d * U) + (0d * V)), Alpha);
 
         /// <summary>
         /// The to string.
@@ -178,15 +171,13 @@ namespace Engine.Colorspace
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The formatProvider.</param>
         /// <returns>The <see cref="string"/>.</returns>
-        public string ToString(string format, IFormatProvider formatProvider)
-            => throw new NotImplementedException();
+        public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
 
         /// <summary>
         /// Get the hash code.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
-        public override int GetHashCode()
-            => Y.GetHashCode() | V.GetHashCode() | U.GetHashCode() | Alpha.GetHashCode();
+        public override int GetHashCode() => Y.GetHashCode() | V.GetHashCode() | U.GetHashCode() | Alpha.GetHashCode();
         #endregion Methods
     }
 }

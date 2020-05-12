@@ -35,17 +35,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{B0964909-C198-4748-A478-5D50A668F8F6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{D6E00A6B-7C10-44A7-8A1C-C23D8CEE0916}"
-	ProjectSection(SolutionItems) = preProject
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		Architecture.md = Architecture.md
-		Conventions.md = Conventions.md
-		LICENSE = LICENSE
-		README.md = README.md
-		ToDo.md = ToDo.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", "{B8050EC6-6A4A-491D-BFB6-DBD152D993F9}"
 	ProjectSection(SolutionItems) = preProject
 		Documents\Geometry.xlsx = Documents\Geometry.xlsx
@@ -85,6 +74,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3FA96DF9-08D8-44C7-AE50-2B2506F12A3F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Architecture.md = Architecture.md
+		Conventions.md = Conventions.md
+		LICENSE = LICENSE
+		README.md = README.md
+		ToDo.md = ToDo.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Windows.Multimedia", "Engine.Windows.Multimedia\Engine.Windows.Multimedia.csproj", "{6C9FCC83-0AE6-417C-8A19-0B21B4A373C2}"
@@ -389,7 +385,7 @@ Global
 		{25B0E0E8-D5AC-4072-B8F7-9002DE7EA359} = {B0964909-C198-4748-A478-5D50A668F8F6}
 		{79DE1E55-937E-40DB-9EE3-EA3D5CC2A4E8} = {56F8CF9F-E0B7-428F-BCE3-2D747C5BA920}
 		{41EDC6F4-1DBD-4890-8389-7C51FFF887EF} = {D49C6D22-94F7-4BDB-BE81-6E40CA01FBEE}
-		{B8050EC6-6A4A-491D-BFB6-DBD152D993F9} = {D6E00A6B-7C10-44A7-8A1C-C23D8CEE0916}
+		{B8050EC6-6A4A-491D-BFB6-DBD152D993F9} = {3FA96DF9-08D8-44C7-AE50-2B2506F12A3F}
 		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936} = {56F8CF9F-E0B7-428F-BCE3-2D747C5BA920}
 		{CC0F6635-2A7B-4B43-B612-13AFCCDAECE3} = {56F8CF9F-E0B7-428F-BCE3-2D747C5BA920}
 		{8240B9DE-F6BF-417B-B399-B8E9114EC2E1} = {56F8CF9F-E0B7-428F-BCE3-2D747C5BA920}

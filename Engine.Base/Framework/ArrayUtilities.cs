@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Engine
 {
@@ -20,14 +21,20 @@ namespace Engine
     public static class ArrayUtilities
     {
         /// <summary>
+        /// The r
+        /// </summary>
+        private static readonly Random random = new Random(DateTime.Now.Millisecond);
+
+        /// <summary>
         /// Add.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="array">The array.</param>
         /// <param name="t">The t.</param>
-        /// <typeparam name="T"></typeparam>
         /// <remarks>
         /// <para>https://social.msdn.microsoft.com/Forums/vstudio/en-US/ae359c99-4294-4c7e-9afd-a161e8096de3/how-to-add-add-extension-method-to-array?forum=csharpgeneral</para>
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Add<T>(ref T[] array, T t)
         {
             if (!(array is null))
@@ -40,9 +47,10 @@ namespace Engine
         /// <summary>
         /// Remove the at.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="array">The array.</param>
         /// <param name="index">The index.</param>
-        /// <typeparam name="T"></typeparam>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RemoveAt<T>(ref T[] array, int index)
         {
             if (!(array is null))
@@ -59,10 +67,13 @@ namespace Engine
         /// <summary>
         /// Remove the at.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="array">The array.</param>
         /// <param name="index">The index.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
-        /// <typeparam name="T"></typeparam>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T[] RemoveAt<T>(this T[] array, int index)
         {
             array.RemoveAt(index);
@@ -72,9 +83,12 @@ namespace Engine
         /// <summary>
         /// The pop.
         /// </summary>
-        /// <param name="list">The list.</param>
-        /// <returns>The <see cref="Type"/>.</returns>
         /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <returns>
+        /// The <see cref="Type" />.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Pop<T>(this List<T> list)
         {
             if (!(list is null))
@@ -90,9 +104,12 @@ namespace Engine
         /// <summary>
         /// The shift.
         /// </summary>
-        /// <param name="list">The list.</param>
-        /// <returns>The <see cref="Type"/>.</returns>
         /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <returns>
+        /// The <see cref="Type" />.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Shift<T>(this List<T> list)
         {
             if (!(list is null))
@@ -108,10 +125,13 @@ namespace Engine
         /// <summary>
         /// The unshift.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="list">The list.</param>
         /// <param name="item">The item.</param>
-        /// <returns>The <see cref="List{T}"/>.</returns>
-        /// <typeparam name="T"></typeparam>
+        /// <returns>
+        /// The <see cref="List{T}" />.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<T> UnShift<T>(this List<T> list, T item)
         {
             if (!(list is null))
@@ -123,77 +143,108 @@ namespace Engine
         }
 
         /// <summary>
-        /// Get the array slice between the two indexes.
-        /// ... Inclusive for start index, exclusive for end index.
+        /// Slices the specified start.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="source">The source.</param>
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
-        /// <typeparam name="T"></typeparam>
-        /// <remarks>
-        /// <para>https://www.dotnetperls.com/array-slice</para>
-        /// </remarks>
-        public static T[] Slice<T>(this T[] source, int start, int end)
-        {
-            if (!(source is null))
-            {
-                // Handles negative ends.
-                if (end < 0)
-                {
-                    end = source.Length + end;
-                }
-                var len = end - start;
-
-                // Return new array.
-                var res = new T[len];
-                for (var i = 0; i < len; i++)
-                {
-                    res[i] = source[i + start];
-                }
-                return res;
-            }
-
-            return source;
-        }
+        /// <returns>
+        /// The <see cref="Span{T}" />.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe Span<T> Slice<T>(this T[] source, int start, int end) => Slice(new Span<T>(source), start, end);
 
         /// <summary>
         /// Get the array slice between the two indexes.
         /// ... Inclusive for start index, exclusive for end index.
         /// </summary>
-        /// <param name="source">The source.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
         /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>
+        /// The <see cref="Span{T}" />.
+        /// </returns>
         /// <remarks>
         /// <para>https://www.dotnetperls.com/array-slice</para>
         /// </remarks>
-        public static T[] Slice<T>(this T[] source)
-        {
-            if (!(source is null))
-            {
-                // Return new array.
-                var res = new T[source.Length];
-                for (var i = 0; i < source.Length; i++)
-                {
-                    res[i] = source[i];
-                }
-                return res;
-            }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe Span<T> Slice<T>(this Span<T> source, int start, int end) =>
+            //if (!(source is null))
+            //{
+            //    // Handles negative ends.
+            //    if (end < 0)
+            //    {
+            //        end = source.Length + end;
+            //    }
+            //    var len = end - start;
 
-            return source;
-        }
+            //    // Return new array.
+            //    var res = new T[len];
+            //    for (var i = 0; i < len; i++)
+            //    {
+            //        res[i] = source[i + start];
+            //    }
+            //    return res;
+            //}
+
+            //return source;
+            source.Slice(start, end);
+
+        /// <summary>
+        /// Slices the specified source.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns>
+        /// The <see cref="Span{T}" />.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe Span<T> Slice<T>(this T[] source) => Slice(new Span<T>(source));
+
+        /// <summary>
+        /// Get the array slice between the two indexes.
+        /// ... Inclusive for start index, exclusive for end index.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns>
+        /// The <see cref="Span{T}" />.
+        /// </returns>
+        /// <remarks>
+        /// <para>https://www.dotnetperls.com/array-slice</para>
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe Span<T> Slice<T>(this Span<T> source) =>
+            //if (!(source is null))
+            //{
+            //    // Return new array.
+            //    var res = new T[source.Length];
+            //    for (var i = 0; i < source.Length; i++)
+            //    {
+            //        res[i] = source[i];
+            //    }
+            //    return res;
+            //}
+
+            //return source;
+            source.Slice();
 
         /// <summary>
         /// The map.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="list">The list.</param>
         /// <param name="func">The func.</param>
-        /// <returns>The <see cref="IEnumerable{TResult}"/>.</returns>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
+        /// <returns>
+        /// The <see cref="IEnumerable{TResult}" />.
+        /// </returns>
         /// <remarks>
         /// <para>http://www.justinshield.com/2011/06/mapreduce-in-c//</para>
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TResult> Map<T, TResult>(this IEnumerable<T> list, Func<T, TResult> func)
         {
             if (!(list is null))
@@ -208,15 +259,18 @@ namespace Engine
         /// <summary>
         /// The reduce.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
         /// <param name="list">The list.</param>
         /// <param name="func">The func.</param>
         /// <param name="acc">The acc.</param>
-        /// <returns>The <see cref="Type"/>.</returns>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="U"></typeparam>
+        /// <returns>
+        /// The <see cref="Type" />.
+        /// </returns>
         /// <remarks>
         /// <para>http://www.justinshield.com/2011/06/mapreduce-in-c//</para>
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Reduce<T, U>(this IEnumerable<U> list, Func<U, T, T> func, T acc)
         {
             if (!(list is null))
@@ -233,14 +287,17 @@ namespace Engine
         /// <summary>
         /// The splice.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="Source">The Source.</param>
         /// <param name="Start">The Start.</param>
         /// <param name="Size">The Size.</param>
-        /// <returns>The <see cref="List{T}"/>.</returns>
-        /// <typeparam name="T"></typeparam>
+        /// <returns>
+        /// The <see cref="List{T}" />.
+        /// </returns>
         /// <remarks>
         /// <para>http://stackoverflow.com/q/9325627</para>
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<T> Splice<T>(this List<T> Source, int Start, int Size)
         {
             if (!(Source is null))
@@ -256,32 +313,32 @@ namespace Engine
         /// <summary>
         /// The shuffle.
         /// </summary>
-        /// <param name="inputList">The inputList.</param>
-        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <typeparam name="T"></typeparam>
+        /// <param name="inputList">The inputList.</param>
+        /// <returns>
+        /// The <see cref="List{T}" />.
+        /// </returns>
         /// <remarks>
         /// <para>http://www.vcskicks.com/randomize_array.php</para>
         /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<T> Shuffle<T>(this List<T> inputList)
         {
             var randomList = new List<T>();
 
-#pragma warning disable SecurityIntelliSenseCS // MS Security rules violation
-            var r = new Random();
-#pragma warning restore SecurityIntelliSenseCS // MS Security rules violation
             while (inputList?.Count > 0)
             {
-                //Choose a random object in the list
-                var randomIndex = r.Next(0, inputList.Count);
+                // Choose a random object in the list
+                var randomIndex = random.Next(0, inputList.Count);
 
-                //add it to the new, random list
+                // Add it to the new, random list
                 randomList.Add(inputList[randomIndex]);
 
-                //remove to avoid duplicates
+                // Remove to avoid duplicates
                 inputList.RemoveAt(randomIndex);
             }
 
-            //return the new random list
+            // Return the new random list
             return randomList;
         }
     }

@@ -47,7 +47,7 @@ namespace Engine
         public Size2D MeasureString(string text, RenderFont font, TextFormat format, int width = int.MaxValue)
         {
             using var font1 = font.ToFont();
-            using StringFormat format1 = format.ToStringFormat();
+            using var format1 = format.ToStringFormat();
             return graphics.MeasureString(text, font1, width, format1).ToSize2D();
         }
 

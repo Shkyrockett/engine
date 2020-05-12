@@ -101,10 +101,8 @@ namespace Engine
         /// <param name="destinationType"> The type to which this will convert the Vector instance. </param>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType != null && value is Vector2D)
+            if (!(destinationType is null) && value is Vector2D instance)
             {
-                var instance = (Vector2D)value;
-
                 if (destinationType == typeof(string))
                 {
                     // Delegate to the formatting/culture-aware ConvertToString method.

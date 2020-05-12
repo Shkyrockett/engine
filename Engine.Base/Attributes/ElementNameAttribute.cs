@@ -18,6 +18,7 @@ namespace Engine
     /// <summary>
     /// The element name attribute class.
     /// </summary>
+    /// <seealso cref="System.Attribute" />
     /// <acknowledgment>
     /// https://msdn.microsoft.com/en-us/library/84c42s56(v=vs.110).aspx
     /// </acknowledgment>
@@ -26,17 +27,20 @@ namespace Engine
         : Attribute
     {
         /// <summary>
-        /// The v.
-        /// </summary>
-        private readonly string v;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ElementNameAttribute"/> class.
+        /// Initializes a new instance of the <see cref="ElementNameAttribute" /> class.
         /// </summary>
         /// <param name="v">The v.</param>
         public ElementNameAttribute(string v)
         {
-            this.v = v;
+            V = v;
         }
+
+        /// <summary>
+        /// Gets the v.
+        /// </summary>
+        /// <value>
+        /// The v.
+        /// </value>
+        public string V { get; }
     }
 }

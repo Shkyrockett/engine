@@ -74,8 +74,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool ApproximatelyBetween(double v, double m, double M)
-            => (m <= v && v <= M) || Approximately(v, m) || Approximately(v, M);
+        public static bool ApproximatelyBetween(double v, double m, double M) => (m <= v && v <= M) || Approximately(v, m) || Approximately(v, M);
 
         /// <summary>
         /// Return true iff angle c is between angles

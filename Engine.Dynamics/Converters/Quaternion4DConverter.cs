@@ -101,9 +101,9 @@ namespace Engine
         /// <param name="destinationType"> The type to which this will convert the Vector instance. </param>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType != null && value is Quaternion4D)
+            if (destinationType != null && value is Quaternion4D d)
             {
-                var instance = (Quaternion4D)value;
+                var instance = d;
 
                 if (destinationType == typeof(string))
                 {

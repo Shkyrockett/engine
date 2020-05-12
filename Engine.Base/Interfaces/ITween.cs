@@ -34,10 +34,10 @@ namespace Engine
         double Completion { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="ITween"/> is looping.
+        /// Gets or sets a value indicating whether this <see cref="ITween" /> is looping.
         /// </summary>
         /// <value>
-        ///   <see langword="true"/> if looping; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if looping; otherwise, <see langword="false" />.
         /// </value>
         bool Looping { get; }
 
@@ -54,15 +54,15 @@ namespace Engine
         /// </summary>
         /// <param name="lerper">The lerper.</param>
         /// <param name="info">The information.</param>
-        /// <param name="from">From.</param>
-        /// <param name="to">To.</param>
-        void AddLerp(IMemberLerper lerper, IMemberAccessor info, object from, object to);
+        /// <param name="first">From.</param>
+        /// <param name="last">To.</param>
+        void AddLerp(IMemberLerper lerper, IMemberAccessor info, object first, object last);
 
         /// <summary>
         /// Updates the specified elapsed.
         /// </summary>
         /// <param name="elapsed">The elapsed.</param>
-        void Update(double elapsed);
+        void UpdateTween(double elapsed);
 
         #region Behavior
         /// <summary>
@@ -144,33 +144,33 @@ namespace Engine
         /// <summary>
         /// Cancels this instance.
         /// </summary>
-        void Cancel();
+        void CancelTween();
 
         /// <summary>
         /// Cancels the specified properties.
         /// </summary>
         /// <param name="properties">The properties.</param>
-        void Cancel(params string[] properties);
+        void CancelTween(params string[] properties);
 
         /// <summary>
         /// Cancels the and complete.
         /// </summary>
-        void CancelAndComplete();
+        void CancelTweenAndComplete();
 
         /// <summary>
         /// Pauses this instance.
         /// </summary>
-        void Pause();
+        void PauseTween();
 
         /// <summary>
         /// Pauses the toggle.
         /// </summary>
-        void PauseToggle();
+        void PauseTweenToggle();
 
         /// <summary>
         /// Resumes this instance.
         /// </summary>
-        void Resume();
+        void ResumeTween();
         #endregion
     }
 }

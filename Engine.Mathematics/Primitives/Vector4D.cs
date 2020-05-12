@@ -26,8 +26,7 @@ namespace Engine
     /// </summary>
     /// <seealso cref="IVector{T}" />
     [DataContract, Serializable]
-    //[TypeConverter(typeof(Vector4DConverter))]
-    [TypeConverter(typeof(StructConverter<Vector4D>))]
+    [TypeConverter(typeof(Vector4DConverter))]
     [DebuggerDisplay("{ToString()}")]
     public struct Vector4D
         : IVector<Vector4D>
@@ -396,8 +395,8 @@ namespace Engine
         /// <summary>
         /// Divide a <see cref="Vector4D" />
         /// </summary>
-        /// <param name="dividend">The <see cref="Vector4D"/></param>
-        /// <param name="divedend">The divisor</param>
+        /// <param name="dividend">The <see cref="Vector4D" /></param>
+        /// <param name="divisor">The divisor.</param>
         /// <returns>
         /// A <see cref="Vector4D" /> divided by the divisor
         /// </returns>
@@ -468,7 +467,6 @@ namespace Engine
         /// <summary>
         /// Pluses the specified value.
         /// </summary>
-        /// <param name="value">The value.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -490,7 +488,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector4D Add(double addend) => Operations.AddVectorUniform(I, J, K, L, addend);
+        public Vector4D Add(double addend) => AddVectorUniform(I, J, K, L, addend);
 
         /// <summary>
         /// Adds the specified augend.
@@ -500,7 +498,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Add(Vector4D augend, double addend) => Operations.AddVectorUniform(augend.I, augend.J, augend.K, augend.L, addend);
+        public static Vector4D Add(Vector4D augend, double addend) => AddVectorUniform(augend.I, augend.J, augend.K, augend.L, addend);
 
         /// <summary>
         /// Adds the specified augend.
@@ -510,7 +508,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Add(double augend, Vector4D addend) => Operations.AddVectorUniform(addend.I, addend.J, addend.K, addend.L, augend);
+        public static Vector4D Add(double augend, Vector4D addend) => AddVectorUniform(addend.I, addend.J, addend.K, addend.L, augend);
 
         /// <summary>
         /// Adds the specified addend.
@@ -519,7 +517,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector4D Add(Vector4D addend) => Operations.AddVectors(I, J, K, L, addend.I, addend.J, addend.K, addend.L);
+        public Vector4D Add(Vector4D addend) => AddVectors(I, J, K, L, addend.I, addend.J, addend.K, addend.L);
 
         /// <summary>
         /// Adds the specified augend.
@@ -529,7 +527,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Add(Vector4D augend, Vector4D addend) => Operations.AddVectors(augend.I, augend.J, augend.K, augend.L, addend.I, addend.J, addend.K, addend.L);
+        public static Vector4D Add(Vector4D augend, Vector4D addend) => AddVectors(augend.I, augend.J, augend.K, augend.L, addend.I, addend.J, addend.K, addend.L);
 
         /// <summary>
         /// Negates this instance.
@@ -555,7 +553,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector4D Subtract(double subend) => Operations.SubtractVectorUniform(I, J, K, L, subend);
+        public Vector4D Subtract(double subend) => SubtractVectorUniform(I, J, K, L, subend);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -565,7 +563,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Subtract(Vector4D minuend, double subend) => Operations.SubtractVectorUniform(minuend.I, minuend.J, minuend.K, minuend.L, subend);
+        public static Vector4D Subtract(Vector4D minuend, double subend) => SubtractVectorUniform(minuend.I, minuend.J, minuend.K, minuend.L, subend);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -575,7 +573,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Subtract(double minuend, Vector4D subend) => Operations.SubtractFromMinuend(minuend, subend.I, subend.J, subend.K, subend.L);
+        public static Vector4D Subtract(double minuend, Vector4D subend) => SubtractFromMinuend(minuend, subend.I, subend.J, subend.K, subend.L);
 
         /// <summary>
         /// Subtracts the specified subend.
@@ -584,7 +582,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector4D Subtract(Vector4D subend) => Operations.SubtractVector(I, J, K, L, subend.I, subend.J, subend.K, subend.L);
+        public Vector4D Subtract(Vector4D subend) => SubtractVector(I, J, K, L, subend.I, subend.J, subend.K, subend.L);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -594,7 +592,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Subtract(Vector4D minuend, Vector4D subend) => Operations.SubtractVector(minuend.I, minuend.J, minuend.K, minuend.L, subend.I, subend.J, subend.K, subend.L);
+        public static Vector4D Subtract(Vector4D minuend, Vector4D subend) => SubtractVector(minuend.I, minuend.J, minuend.K, minuend.L, subend.I, subend.J, subend.K, subend.L);
 
         /// <summary>
         /// Multiplies the specified multiplier.
@@ -603,7 +601,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector4D Multiply(double multiplier) => Operations.ScaleVector(I, J, K, L, multiplier);
+        public Vector4D Multiply(double multiplier) => ScaleVector(I, J, K, L, multiplier);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -613,7 +611,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Multiply(Vector4D multiplicand, double multiplier) => Operations.ScaleVector(multiplicand.I, multiplicand.J, multiplicand.K, multiplicand.L, multiplier);
+        public static Vector4D Multiply(Vector4D multiplicand, double multiplier) => ScaleVector(multiplicand.I, multiplicand.J, multiplicand.K, multiplicand.L, multiplier);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -623,7 +621,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Multiply(double multiplicand, Vector4D multiplier) => Operations.ScaleVector(multiplier.I, multiplier.J, multiplier.K, multiplier.L, multiplicand);
+        public static Vector4D Multiply(double multiplicand, Vector4D multiplier) => ScaleVector(multiplier.I, multiplier.J, multiplier.K, multiplier.L, multiplicand);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -633,7 +631,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Multiply(Vector4D multiplicand, Matrix4x4D multiplier) => Operations.MultiplyVector4DMatrix4x4(multiplicand.I, multiplicand.J, multiplicand.K, multiplicand.L, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3);
+        public static Vector4D Multiply(Vector4D multiplicand, Matrix4x4D multiplier) => MultiplyVector4DMatrix4x4(multiplicand.I, multiplicand.J, multiplicand.K, multiplicand.L, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -643,7 +641,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Multiply(Matrix4x4D multiplicand, Vector4D multiplier) => Operations.MultiplyVector4DMatrix4x4(multiplier.I, multiplier.J, multiplier.K, multiplier.L, multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3);
+        public static Vector4D Multiply(Matrix4x4D multiplicand, Vector4D multiplier) => MultiplyVector4DMatrix4x4(multiplier.I, multiplier.J, multiplier.K, multiplier.L, multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3);
 
         /// <summary>
         /// Divides the specified divisor.
@@ -652,7 +650,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector4D Divide(double divisor) => Operations.DivideVectorUniform(I, J, K, L, divisor);
+        public Vector4D Divide(double divisor) => DivideVectorUniform(I, J, K, L, divisor);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -662,7 +660,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Divide(Vector4D dividend, double divisor) => Operations.DivideVectorUniform(dividend.I, dividend.J, dividend.K, dividend.L, divisor);
+        public static Vector4D Divide(Vector4D dividend, double divisor) => DivideVectorUniform(dividend.I, dividend.J, dividend.K, dividend.L, divisor);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -672,7 +670,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Divide(double dividend, Vector4D divisor) => Operations.DivideByVectorUniform(dividend, divisor.I, divisor.I, divisor.K, divisor.L);
+        public static Vector4D Divide(double dividend, Vector4D divisor) => DivideByVectorUniform(dividend, divisor.I, divisor.I, divisor.K, divisor.L);
 
         /// <summary>
         /// Dots the product.
@@ -757,21 +755,21 @@ namespace Engine
         /// Parse a string for a <see cref="Vector4D" /> value.
         /// </summary>
         /// <param name="source"><see cref="string" /> with <see cref="Vector4D" /> data</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// Returns an instance of the <see cref="Vector4D" /> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
-        public static Vector4D Parse(string source, IFormatProvider provider)
+        public static Vector4D Parse(string source, IFormatProvider formatProvider)
         {
-            var tokenizer = new Tokenizer(source, provider);
+            var tokenizer = new Tokenizer(source, formatProvider);
             var firstToken = tokenizer.NextTokenRequired();
 
             var value = new Vector4D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                Convert.ToDouble(firstToken, formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider)
                 );
 
             // There should be no more tokens in this string.
@@ -805,13 +803,13 @@ namespace Engine
         /// Creates a string representation of this <see cref="Vector4D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <param name="formatProvider">The <see cref="CultureInfo" /> provider.</param>
         /// <returns>
         /// A string representation of this <see cref="Vector4D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ToString("R" /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector4D" /> struct based on the format string

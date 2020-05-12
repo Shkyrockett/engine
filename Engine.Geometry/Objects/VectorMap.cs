@@ -50,22 +50,14 @@ namespace Engine
         /// </summary>
         /// <param name="area">The index area.</param>
         /// <returns>One element of type List{GraphicItem}.</returns>
-        public List<GraphicItem> this[Rectangle2D area]
-            => new List<GraphicItem>(
-                from shape in Items
-                where !(shape?.Shape?.Bounds is null) && shape.VisibleTest(area)
-                select shape);
+        public List<GraphicItem> this[Rectangle2D area] => new List<GraphicItem>(from shape in Items where !(shape?.Shape?.Bounds is null) && shape.VisibleTest(area) select shape);
 
         /// <summary>
         /// The Indexer.
         /// </summary>
         /// <param name="point">The index point.</param>
         /// <returns>One element of type List{GraphicItem}.</returns>
-        public List<GraphicItem> this[Point2D point]
-            => new List<GraphicItem>(
-                from shape in Items
-                where (shape?.Shape?.Bounds != null) && shape.Shape.Bounds.Contains(point) && shape.Shape.Contains(point)
-                select shape);
+        public List<GraphicItem> this[Point2D point] => new List<GraphicItem>(from shape in Items where (shape?.Shape?.Bounds != null) && shape.Shape.Bounds.Contains(point) && shape.Shape.Contains(point) select shape);
         #endregion Indexers
 
         #region Properties
@@ -124,16 +116,14 @@ namespace Engine
         /// Gets the count.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public int Count
-            => Items.Count;
+        public int Count => Items.Count;
         #endregion Properties
 
         /// <summary>
         /// Add.
         /// </summary>
         /// <param name="item">The item.</param>
-        public void Add(GraphicItem item)
-            => Items.Add(item);
+        public void Add(GraphicItem item) => Items.Add(item);
 
         /// <summary>
         /// Add the item.
@@ -210,48 +200,39 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="GraphicItem"/>.</returns>
-        public GraphicItem SelectItem(Point2D point)
-            => Items?.LastOrDefault(shape => shape.Shape.Bounds != null && shape.Shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point));
+        public GraphicItem SelectItem(Point2D point) => Items?.LastOrDefault(shape => shape.Shape.Bounds != null && shape.Shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point));
 
         /// <summary>
         /// Select the items.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        public List<GraphicItem> SelectItems(Point2D point)
-            => new List<GraphicItem>(
-            from shape in Items
-            where shape.Shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point)
-            select shape);
+        public List<GraphicItem> SelectItems(Point2D point) => new List<GraphicItem>(from shape in Items where shape.Shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point) select shape);
 
         /// <summary>
         /// The contains.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public bool Contains(GraphicItem item)
-            => Items.Contains(item);
+        public bool Contains(GraphicItem item) => Items.Contains(item);
 
         /// <summary>
         /// Copy the to.
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="arrayIndex">The arrayIndex.</param>
-        public void CopyTo(GraphicItem[] array, int arrayIndex)
-            => Items.CopyTo(array, arrayIndex);
+        public void CopyTo(GraphicItem[] array, int arrayIndex) => Items.CopyTo(array, arrayIndex);
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
-        public IEnumerator<GraphicItem> GetEnumerator()
-            => Items.GetEnumerator();
+        public IEnumerator<GraphicItem> GetEnumerator() => Items.GetEnumerator();
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator"/>.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-            => Items.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => Items.GetEnumerator();
     }
 }

@@ -125,7 +125,7 @@ namespace Engine.Colorspace
         /// The <see cref="ValueTuple{T1, T2, T3, T4}" />.
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple() => throw new NotImplementedException();
+        public (byte Red, byte Green, byte Blue, byte Alpha) ToRGBATuple() => throw new NotImplementedException();
 
         /// <summary>
         /// The to string.

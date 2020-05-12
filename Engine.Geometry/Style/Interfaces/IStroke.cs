@@ -63,8 +63,8 @@ namespace Engine
         /// <summary>
         /// Gets or sets the fill.
         /// </summary>
-        /// <value>The <see cref="IFill"/>.</value>
+        /// <value>The <see cref="IFillable"/>.</value>
         [NotifyParentProperty(true)]
-        IFill Fill { get; set; }
+        IFillable Fill { get; set; }
     }
 }

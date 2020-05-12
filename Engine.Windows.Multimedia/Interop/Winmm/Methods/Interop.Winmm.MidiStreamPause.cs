@@ -23,23 +23,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiStreamPause", ExactSpelling = true)]
-        internal static extern MmResult MidiStreamPause_(IntPtr hMidiStream);
-
-        /// <summary>
-        /// Pauses playback of a specified MIDI stream.
-        /// </summary>
-        /// <param name="midiStream">The midi stream.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">The specified device handle is invalid.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiStreamPause(IntPtr midiStream)
-        {
-            return MidiStreamPause_(midiStream) switch
-            {
-                MmResult.NoError => true,
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiStreamPause_(IntPtr hMidiStream);
     }
 }

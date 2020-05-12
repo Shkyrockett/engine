@@ -10,7 +10,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="System.IEquatable{Engine.OrientedBoundingBox2D}" />
+    /// <seealso cref="System.IEquatable{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(StructConverter<OrientedBoundingBox2D>))]
     [DebuggerDisplay("{ToString()}")]
@@ -95,7 +95,7 @@ namespace Engine
         /// </summary>
         /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

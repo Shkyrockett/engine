@@ -216,7 +216,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> Roots(Span<double> coefficients, double epsilon = double.Epsilon)
+        public static unsafe Span<double> Roots(Span<double> coefficients, double epsilon = double.Epsilon)
             => DegreeRealOrder(coefficients) switch
             {
                 PolynomialDegree.Constant => new double[] { coefficients[0] },
@@ -239,7 +239,7 @@ namespace Engine
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="List{T}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> LinearRoots(double a, double b, double epsilon = double.Epsilon) => LinearRoots(ref a, ref b, epsilon);
+        public static unsafe Span<double> LinearRoots(double a, double b, double epsilon = double.Epsilon) => LinearRoots(ref a, ref b, epsilon);
 
         /// <summary>
         /// The linear roots.
@@ -253,7 +253,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> LinearRoots(ref double a, ref double b, double epsilon = double.Epsilon) => Math.Abs(a) < epsilon ? Math.Abs(b) < epsilon ? Array.Empty<double>() : new double[] { b } : new double[] { -b / a };
+        public static unsafe Span<double> LinearRoots(ref double a, ref double b, double epsilon = double.Epsilon) => Math.Abs(a) < epsilon ? Math.Abs(b) < epsilon ? Array.Empty<double>() : new double[] { b } : new double[] { -b / a };
 
         /// <summary>
         /// The quadratic roots.
@@ -264,7 +264,7 @@ namespace Engine
         /// <param name = "epsilon"> The minimal value to represent a change.</param>
         /// <returns>The <see cref="List{T}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> QuadraticRoots(double a, double b, double c, double epsilon = double.Epsilon) => QuadraticRoots(ref a, ref b, ref c, epsilon);
+        public static unsafe Span<double> QuadraticRoots(double a, double b, double c, double epsilon = double.Epsilon) => QuadraticRoots(ref a, ref b, ref c, epsilon);
 
         /// <summary>
         /// The quadratic roots.
@@ -279,7 +279,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> QuadraticRoots(ref double a, ref double b, ref double c, double epsilon = double.Epsilon)
+        public static unsafe Span<double> QuadraticRoots(ref double a, ref double b, ref double c, double epsilon = double.Epsilon)
         {
             // Is the coefficient of the highest term zero?
             if (Math.Abs(a) < epsilon)
@@ -327,7 +327,7 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> CubicRoots(double a, double b, double c, double d, double epsilon = double.Epsilon) => CubicRoots(ref a, ref b, ref c, ref d, epsilon);
+        public static unsafe Span<double> CubicRoots(double a, double b, double c, double d, double epsilon = double.Epsilon) => CubicRoots(ref a, ref b, ref c, ref d, epsilon);
 
         /// <summary>
         /// Cubic Roots
@@ -343,7 +343,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> CubicRoots(ref double a, ref double b, ref double c, ref double d, double epsilon = double.Epsilon)
+        public static unsafe Span<double> CubicRoots(ref double a, ref double b, ref double c, ref double d, double epsilon = double.Epsilon)
         {
             // Is the coefficient of the highest term zero?
             if (Math.Abs(a) < epsilon)
@@ -424,7 +424,7 @@ namespace Engine
         /// <param name = "epsilon"> The minimal value to represent a change.</param>
         /// <returns>The <see cref="List{T}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = double.Epsilon) => QuarticRoots(ref a, ref b, ref c, ref d, ref e, epsilon);
+        public static unsafe Span<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = double.Epsilon) => QuarticRoots(ref a, ref b, ref c, ref d, ref e, epsilon);
 
         /// <summary>
         /// The quartic roots.
@@ -452,7 +452,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> QuarticRoots(ref double a, ref double b, ref double c, ref double d, ref double e, double epsilon = double.Epsilon)
+        public static unsafe Span<double> QuarticRoots(ref double a, ref double b, ref double c, ref double d, ref double e, double epsilon = double.Epsilon)
         {
             // Is the coefficient of the highest term zero?
             if (Math.Abs(a) < epsilon)
@@ -567,7 +567,7 @@ namespace Engine
         /// <param name = "epsilon"> The minimal value to represent a change.</param>
         /// <returns>The <see cref="List{T}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> QuinticRoots(double a, double b, double c, double d, double e, double f, double epsilon = double.Epsilon) => QuinticRoots(ref a, ref b, ref c, ref d, ref e, ref f, epsilon);
+        public static unsafe Span<double> QuinticRoots(double a, double b, double c, double d, double e, double f, double epsilon = double.Epsilon) => QuinticRoots(ref a, ref b, ref c, ref d, ref e, ref f, epsilon);
 
         /// <summary>
         /// The quintic roots.
@@ -588,7 +588,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> QuinticRoots(ref double a, ref double b, ref double c, ref double d, ref double e, ref double f, double epsilon = double.Epsilon)
+        public static unsafe Span<double> QuinticRoots(ref double a, ref double b, ref double c, ref double d, ref double e, ref double f, double epsilon = double.Epsilon)
         {
             // Is the coefficient of the highest term zero?
             if (Math.Abs(a) < epsilon)
@@ -604,12 +604,12 @@ namespace Engine
             var n1 = 5; // 6;
             var n2 = 6; // 7;
 
-            var a_ = new List<double> { f, e, d, c, b, a };
-            var b_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
-            //var c_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
-            var d_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
-            var real = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
-            var imag = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
+            var a_ = new Span<double>(new double[] { f, e, d, c, b, a });
+            var b_ = new Span<double>(new double[] { 0d, 0d, 0d, 0d, 0d, 0d });
+            //var c_ = new Span<double>(new double[] { 0d, 0d, 0d, 0d, 0d, 0d }) ;
+            var d_ = new Span<double>(new double[] { 0d, 0d, 0d, 0d, 0d, 0d });
+            var real = new Span<double>(new double[] { 0d, 0d, 0d, 0d, 0d, 0d });
+            var imag = new Span<double>(new double[] { 0d, 0d, 0d, 0d, 0d, 0d });
 
             ////  Copy into working array
             //for (var i = 0; i <= n; i++)
@@ -637,7 +637,7 @@ namespace Engine
                     b_[1] = 1d;
                     d_[1] = 1d;
 
-                    for (int i = 2, j = 1, k = 0; i < a_.Count; i++)
+                    for (int i = 2, j = 1, k = 0; i < a_.Length; i++)
                     {
                         b_[i] = a_[i] - (alfa1 * b_[j]) - (beta1 * b_[k]);
                         d_[i] = b_[i] - (alfa1 * d_[j]) - (beta1 * d_[k]);
@@ -661,7 +661,7 @@ namespace Engine
                     if (--limit < 0)
                     {
                         // Cannot solve
-                        return new List<double>();
+                        return new Span<double>();
                     }
 
                     if (Math.Abs(alfa2) < epsilon && Math.Abs(beta2) < epsilon)

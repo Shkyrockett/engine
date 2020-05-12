@@ -25,7 +25,7 @@ namespace Engine
     /// <summary>
     /// The <see cref="Point3D" /> struct.
     /// </summary>
-    /// <seealso cref="Engine.IVector{Engine.Point3D}" />
+    /// <seealso cref="Engine.IVector{T}" />
     /// <seealso cref="IVector{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Point3DConverter))]
@@ -115,7 +115,7 @@ namespace Engine
         /// <value>
         /// The x.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
         public double X { get; set; }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Engine
         /// <value>
         /// The y.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
         public double Y { get; set; }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace Engine
         /// <value>
         /// The z.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Z)), XmlAttribute(nameof(Z)), SoapAttribute(nameof(Z))]
         public double Z { get; set; }
 
         /// <summary>

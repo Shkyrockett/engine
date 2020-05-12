@@ -15,10 +15,10 @@ namespace Engine.Imaging
     /// <summary>
     /// The hatch fill struct.
     /// </summary>
-    /// <seealso cref="IFill" />
+    /// <seealso cref="IFillable" />
     /// <seealso cref="IEquatable{T}" />
     public struct HatchFill
-        : IFill, IEquatable<HatchFill>
+        : IFillable, IEquatable<HatchFill>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HatchFill" /> class.

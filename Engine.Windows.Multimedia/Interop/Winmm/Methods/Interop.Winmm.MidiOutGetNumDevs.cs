@@ -16,16 +16,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutGetNumDevs", ExactSpelling = true)]
-        internal static extern int MidiOutGetNumDevs_();
-
-        /// <summary>
-        /// Retrieves the number of MIDI output devices present in the system.
-        /// </summary>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int MidiOutGetNumDevs()
-        {
-            return MidiOutGetNumDevs_();
-        }
+        private static extern int MidiOutGetNumDevs_();
     }
 }

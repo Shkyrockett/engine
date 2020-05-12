@@ -63,24 +63,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutMessage", ExactSpelling = true)]
-        internal static extern MmResult MidiOutMessage(IntPtr hMidiOut, int msg, IntPtr dw1, IntPtr dw2);
-
-        /// <summary>
-        /// Midis the out message.
-        /// </summary>
-        /// <param name="midiOutputHandle">The midi output handle.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="param1">The param1.</param>
-        /// <param name="param2">The param2.</param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiOutMessage(IntPtr midiOutputHandle, int message, int param1, int param2)
-        {
-            return MidiOutMessage(midiOutputHandle, message, (IntPtr)param1, (IntPtr)param2) switch
-            {
-                MmResult.NoError => true,
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutMessage(IntPtr hMidiOut, int msg, IntPtr dw1, IntPtr dw2);
     }
 }

@@ -1,9 +1,9 @@
-﻿// <copyright file="BezierSegment2D.cs" >
-//    Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+﻿// <copyright file="BezierSegment2D.cs" company="Shkyrockett" >
+//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//    Licensed under the MIT License. See LICENSE file in the project root for full license information.
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
@@ -13,21 +13,28 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The bezier segment struct.
     /// </summary>
     /// <seealso cref="Engine.IShapeSegment" />
     /// <seealso cref="System.IEquatable{Engine.BezierSegment2D}" />
+    /// <remarks>
+    /// <para>https://github.com/superlloyd/Poly
+    /// http://pomax.github.io/bezierinfo/</para>
+    /// </remarks>
     [GraphicsObject]
     [DataContract, Serializable]
     [TypeConverter(typeof(StructConverter<BezierSegment2D>))]
+    [XmlType(TypeName = "bezier-Segment")]
     [DebuggerDisplay("{ToString()}")]
-    public struct BezierSegment2D
+    public class BezierSegment2D
         : IShapeSegment, IEquatable<BezierSegment2D>
     {
         /// <summary>
@@ -47,7 +54,7 @@ namespace Engine
         /// <param name="points">The points.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public BezierSegment2D(IEnumerable<Point2D> points)
+        public BezierSegment2D(IList<Point2D> points)
         {
             Points = points;
         }
@@ -58,7 +65,12 @@ namespace Engine
         /// <value>
         /// The points.
         /// </value>
-        public IEnumerable<Point2D> Points { get; internal set; }
+        public IList<Point2D> Points { get; internal set; }
+        public IShapeSegment Leading { get; set; }
+        public IShapeSegment Trailing { get; set; }
+        public Point2D? Head { get; set; }
+        public Point2D? Tail { get; set; }
+        public double Length { get; set; }
 
         /// <summary>
         /// Implements the operator ==.
@@ -128,5 +140,6 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
+        public Point2D Interpolate(double t) => throw new NotImplementedException();
     }
 }

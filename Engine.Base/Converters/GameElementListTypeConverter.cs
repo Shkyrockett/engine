@@ -19,6 +19,7 @@ namespace Engine
     /// <summary>
     /// The game element list type converter class.
     /// </summary>
+    /// <seealso cref="System.ComponentModel.TypeConverter" />
     public class GameElementListTypeConverter
         : TypeConverter
     {
@@ -29,7 +30,9 @@ namespace Engine
         /// <param name="culture">The culture.</param>
         /// <param name="value">The value.</param>
         /// <param name="destinationType">The destinationType.</param>
-        /// <returns>The <see cref="object"/>.</returns>
+        /// <returns>
+        /// The <see cref="object" />.
+        /// </returns>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType != typeof(string))
@@ -49,7 +52,9 @@ namespace Engine
         /// Get the properties supported.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public override bool GetPropertiesSupported(ITypeDescriptorContext context) => true;
 
         /// <summary>
@@ -58,7 +63,9 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="value">The value.</param>
         /// <param name="attributes">The attributes.</param>
-        /// <returns>The <see cref="PropertyDescriptorCollection"/>.</returns>
+        /// <returns>
+        /// The <see cref="PropertyDescriptorCollection" />.
+        /// </returns>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             var list = new List<PropertyDescriptor>();
@@ -79,11 +86,12 @@ namespace Engine
         /// <summary>
         /// The game element descriptor class.
         /// </summary>
+        /// <seealso cref="System.ComponentModel.TypeConverter.SimplePropertyDescriptor" />
         private class GameElementDescriptor
             : SimplePropertyDescriptor
         {
             /// <summary>
-            /// Initializes a new instance of the <see cref="GameElementDescriptor"/> class.
+            /// Initializes a new instance of the <see cref="GameElementDescriptor" /> class.
             /// </summary>
             /// <param name="gameElement">The gameElement.</param>
             /// <param name="index">The index.</param>
@@ -96,13 +104,18 @@ namespace Engine
             /// <summary>
             /// Gets the game element.
             /// </summary>
+            /// <value>
+            /// The game element.
+            /// </value>
             public IGameElement GameElement { get; }
 
             /// <summary>
             /// Get the value.
             /// </summary>
             /// <param name="component">The component.</param>
-            /// <returns>The <see cref="object"/>.</returns>
+            /// <returns>
+            /// The <see cref="object" />.
+            /// </returns>
             public override object GetValue(object component) => GameElement.Name;
 
             /// <summary>

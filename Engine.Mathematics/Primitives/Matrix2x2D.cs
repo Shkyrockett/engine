@@ -29,8 +29,7 @@ namespace Engine
     /// </summary>
     /// <seealso cref="IMatrix{T, T}" />
     [DataContract, Serializable]
-    //[TypeConverter(typeof(Matrix2x2DConverter))]
-    [TypeConverter(typeof(StructConverter<Matrix2x2D>))]
+    [TypeConverter(typeof(Matrix2x2DConverter))]
     [DebuggerDisplay("{ToString()}")]
     public struct Matrix2x2D
         : IMatrix<Matrix2x2D, Vector2D>
@@ -563,27 +562,27 @@ namespace Engine
         public static Matrix2x2D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// Parse a string for a <see cref="Matrix3x2D" /> value.
+        /// Parse a string for a <see cref="Matrix2x2D" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string" /> with <see cref="Matrix3x2D" /> data</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="source"><see cref="string" /> with <see cref="Matrix2x2D" /> data</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Matrix3x2D" /> struct converted
+        /// Returns an instance of the <see cref="Matrix2x2D" /> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix2x2D Parse(string source, IFormatProvider provider)
+        public static Matrix2x2D Parse(string source, IFormatProvider formatProvider)
         {
-            var tokenizer = new Tokenizer(source, provider);
+            var tokenizer = new Tokenizer(source, formatProvider);
             var firstToken = tokenizer.NextTokenRequired();
 
             // The token will already have had whitespace trimmed so we can do a simple string compare.
             var value = firstToken == nameof(Identity) ? Identity : new Matrix2x2D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                Convert.ToDouble(firstToken, formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider)
                 );
 
             // There should be no more tokens in this string.
@@ -656,13 +655,13 @@ namespace Engine
         /// Creates a string representation of this <see cref="Matrix2x2D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ToString("R" /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix2x2D" /> struct based on the format string
@@ -671,18 +670,18 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             if (this == null) return nameof(Matrix4x4D);
             if (IsIdentity) return nameof(Identity);
-            var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Matrix2x2D)}({nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)})";
+            var s = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(Matrix2x2D)}({nameof(M0x0)}:{M0x0.ToString(format, formatProvider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, formatProvider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, formatProvider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, formatProvider)})";
         }
         #endregion
     }

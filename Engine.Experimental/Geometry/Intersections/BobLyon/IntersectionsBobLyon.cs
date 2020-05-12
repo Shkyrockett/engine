@@ -196,7 +196,7 @@ namespace Engine
                 rx -= w / 2;
                 ry -= h / 2;
             }
-            return Operations.Between(x, rx, rx + w) && Operations.Between(y, ry, ry + h);
+            return Between(x, rx, rx + w) && Between(y, ry, ry + h);
         }
 
         /// <summary>
@@ -370,8 +370,8 @@ namespace Engine
             var nb = (bx1 * by2) - (by1 * bx2);
             var x = ROUND(((na * (bx1 - bx2)) - ((ax1 - ax2) * nb)) / denom);
             var y = ROUND(((na * (by1 - by2)) - ((ay1 - ay2) * nb)) / denom);
-            return Operations.Between(x, ROUND(ax1), ROUND(ax2)) && Operations.Between(x, ROUND(bx1), ROUND(bx2)) &&
-                Operations.Between(y, ROUND(ay1), ROUND(ay2)) && Operations.Between(y, ROUND(by1), ROUND(by2));
+            return Between(x, ROUND(ax1), ROUND(ax2)) && Between(x, ROUND(bx1), ROUND(bx2)) &&
+                Between(y, ROUND(ay1), ROUND(ay2)) && Between(y, ROUND(by1), ROUND(by2));
         }
 
         /// <summary>
@@ -528,7 +528,7 @@ namespace Engine
             }
             discrim = Sqrt(discrim);
             a *= 2;
-            return Operations.Between((-b - discrim) / a, x1, x2) || Operations.Between((-b + discrim) / a, x1, x2);
+            return Between((-b - discrim) / a, x1, x2) || Between((-b + discrim) / a, x1, x2);
         }
 
         /// <summary>
@@ -599,7 +599,7 @@ namespace Engine
             }
             discrim = Sqrt(discrim);
             a *= 2;
-            return Operations.Between((-b - discrim) / a, r1x, r2x) || Operations.Between((-b + discrim) / a, r1x, r2x);
+            return Between((-b - discrim) / a, r1x, r2x) || Between((-b + discrim) / a, r1x, r2x);
         }
 
         /// <summary>

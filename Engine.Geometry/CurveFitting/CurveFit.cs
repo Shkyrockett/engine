@@ -56,7 +56,7 @@ namespace Engine
         /// if less than two points in input.
         /// 
         /// Input data MUST not contain repeated points (that is, the same point twice in succession). The best way to
-        /// ensure this is to call any one of the methods in <see cref="Distortions" />, since all three pre-processing
+        /// ensure this is to call any one of the methods in Distortions, since all three pre-processing
         /// methods will remove duplicate points. If repeated points are encountered, unexpected behavior can occur.
         /// </summary>
         /// <param name="points">Set of points to fit to.</param>
@@ -146,6 +146,6 @@ namespace Engine
         /// Get the instance.
         /// </summary>
         /// <returns>The <see cref="CurveFit"/>.</returns>
-        private static CurveFit GetInstance() => instance ?? (instance = new CurveFit());
+        private static CurveFit GetInstance() => instance ??= new CurveFit();
     }
 }

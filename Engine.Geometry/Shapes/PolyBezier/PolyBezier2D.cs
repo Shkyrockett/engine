@@ -274,8 +274,7 @@ namespace Engine
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
         /// <returns>The <see cref="List{PolyBezierContour}"/>.</returns>
-        public static List<PolyBezierContour2D> ParsePathDefString(string pathDefinition)
-            => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
+        public static List<PolyBezierContour2D> ParsePathDefString(string pathDefinition) => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Parse the path def string.
@@ -311,7 +310,7 @@ namespace Engine
                     case 'M':
                         // M is Move to.
                         contour = new PolyBezierContour2D(new Point2D(args[0], args[1]));
-                        startPoint = segment.Start.Value;
+                        startPoint = segment.Start;
                         newContour = false;
                         break;
                     case 'Z':
@@ -353,8 +352,7 @@ namespace Engine
         /// The to path def string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        private string ToPathDefString()
-            => ToPathDefString(string.Empty, CultureInfo.InvariantCulture);
+        private string ToPathDefString() => ToPathDefString(string.Empty, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// The to path def string.
@@ -382,31 +380,27 @@ namespace Engine
         ///// <returns></returns>
         //[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public override bool Contains(Point2D point)
-        //    => Intersections.Contains(this, point) != Inclusion.Outside;
+        //public override bool Contains(Point2D point) => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
         /// Clone.
         /// </summary>
-        /// <returns>The <see cref="PolyBezier"/>.</returns>
+        /// <returns>The <see cref="PolyBezier2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public PolyBezier2D Clone()
-            => new PolyBezier2D(Contours.ToArray() as IEnumerable<PolyBezierContour2D>);
+        public PolyBezier2D Clone() => new PolyBezier2D(Contours.ToArray() as IEnumerable<PolyBezierContour2D>);
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator{PolyBezierContour}"/>.</returns>
-        public IEnumerator<PolyBezierContour2D> GetEnumerator()
-            => contours.GetEnumerator();
+        public IEnumerator<PolyBezierContour2D> GetEnumerator() => contours.GetEnumerator();
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator"/>.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-            => contours.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => contours.GetEnumerator();
 
         /// <summary>
         /// Convert the to string.

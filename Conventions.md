@@ -932,18 +932,18 @@ Please use the following as a template for IFormatable Structs/Classes, or objec
         /// Parses the provided string using the provided culture to create an instance of the <see cref="FormatableObject"/> struct.
         /// </summary>
         /// <param name="source">A string containinig the <see cref="FormatableObject"/> data</param>
-        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
         /// <returns>Returns an instance of the <see cref="FormatableObject"/> struct converted from the provided string.</returns>
-        public static FormatableObject Parse(string source, IFormatProvider provider)
+        public static FormatableObject Parse(string source, IFormatProvider formatProvider)
         {
             // Initialize the tokenizer.
-            var tokenizer = new Tokenizer(source, provider);
+            var tokenizer = new Tokenizer(source, formatProvider);
 
             // Fetch the values from the tokens.
             var value = new FormatableObject(
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider));
 
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();
@@ -967,12 +967,12 @@ Please use the following as a template for IFormatable Structs/Classes, or objec
         /// passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
         /// <returns>
         /// A string representation of this instance as specified by provider.
         /// </returns>
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider)
+            => ConvertToString(null /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="FormatableObject"/> struct based on the format string
@@ -980,11 +980,11 @@ Please use the following as a template for IFormatable Structs/Classes, or objec
         /// If the provider is null, the CurrentCulture is used.
         /// </summary>
         /// <param name="format">A numeric format string.</param>
-        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
         /// <returns>
         /// A string representation of this instance as specified by format and provider.
         /// </returns>
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
             => ConvertToString(format, provider);
 
         /// <summary>
@@ -993,17 +993,17 @@ Please use the following as a template for IFormatable Structs/Classes, or objec
         /// If the provider is null, the CurrentCulture is used.
         /// </summary>
         /// <param name="format">A numeric format string.</param>
-        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
         /// <returns>
         /// A string representation of this instance as specified by format and provider.
         /// </returns>
-        internal string ConvertToString(string format, IFormatProvider provider)
+        internal string ConvertToString(string format, IFormatProvider formatProvider)
         {
             // Capture the culture's list ceparator character.
-            char sep = Tokenizer.GetNumericListSeparator(provider);
+            char sep = Tokenizer.GetNumericListSeparator(formatProvider);
 
             // Create the string representation of the struct.
-            return $"{nameof(FormatableObject)}({nameof(A)}={A.ToString(format, provider)}{sep}{nameof(B)}={B.ToString(format, provider)}{sep}{nameof(C)}={C.ToString(format, provider)})";
+            return $"{nameof(FormatableObject)}({nameof(A)}={A.ToString(format, formatProvider)}{sep}{nameof(B)}={B.ToString(format, formatProvider)}{sep}{nameof(C)}={C.ToString(format, formatProvider)})";
         }
 
         #endregion

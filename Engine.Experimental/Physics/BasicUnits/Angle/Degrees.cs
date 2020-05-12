@@ -172,8 +172,7 @@ namespace Engine
         /// <param name="b">The b.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Degrees a, Degrees b)
-            => Equals(a, b);
+        public static bool Compare(Degrees a, Degrees b) => Equals(a, b);
 
         /// <summary>
         /// The equals.
@@ -184,8 +183,7 @@ namespace Engine
         /// The <see cref="bool" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Degrees a, Degrees b)
-            => (a.Value == b.Value) & (a.Value == b.Value);
+        public static bool Equals(Degrees a, Degrees b) => (a.Value == b.Value) & (a.Value == b.Value);
 
         /// <summary>
         /// override object.Equals
@@ -196,13 +194,12 @@ namespace Engine
         /// </returns>
         //
         // See the full list of guidelines at
-        //   https://msdn.microsoft.com/en-us/library/ms173147.aspx
+        //   https://docs.microsoft.com/en-us/previous-versions/ms173147(v=vs.90)
         // and also the guidance for operator== at
-        //   https://msdn.microsoft.com/en-us/library/53k8ybth.aspx
+        //   https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/equality-operators#equality-operator-
         //
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => (obj is Degrees || obj is Radians) && obj is Degrees ? Equals(this, (Degrees)obj) : Equals(this, ((Radians)obj).ToDegrees());
+        public override bool Equals(object obj) => obj is Degrees d ? Equals(d) : obj is Radians r && Equals(this, r.ToDegrees());
 
         /// <summary>
         /// The equals.
@@ -234,8 +231,7 @@ namespace Engine
         /// <returns>
         /// A <see cref="string" /> that represents this instance.
         /// </returns>
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Degrees" /> struct based on the IFormatProvider
@@ -245,8 +241,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Degrees" /> struct based on the format string
@@ -259,8 +254,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Degrees" /> struct based on the format string

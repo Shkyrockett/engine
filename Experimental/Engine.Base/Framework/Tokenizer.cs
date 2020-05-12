@@ -19,7 +19,7 @@ namespace Engine
     /// The tokenizer class.
     /// </summary>
     /// <remarks>
-    /// Based on TokenizerHelper from: http://referencesource.microsoft.com
+    /// <para>Based on TokenizerHelper from: http://referencesource.microsoft.com</para>
     /// </remarks>
     public class Tokenizer
     {
@@ -282,7 +282,7 @@ namespace Engine
             }
 
             // Loop until hit a character that isn't an argument separator or whitespace.
-            // !!ToDo: if more than one argSet; throw an exception
+            // !ToDo: if more than one argSet; throw an exception
             var argSepCount = 0;
             while (charIndex < strLen)
             {

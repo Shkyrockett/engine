@@ -141,8 +141,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public List<Point2D> Nodes
-            => Items.Select(item => item.End.Value).ToList();
+        public List<Point2D> Nodes => Items.Select(item => item.End).ToList();
 
         /// <summary>
         /// Gets or sets a value indicating whether 
@@ -196,16 +195,16 @@ namespace Engine
         {
             if (t == 0)
             {
-                return Items[0].Start.Value;
+                return Items[0].Start;
             }
 
             if (t == 1)
             {
-                return Items[^1].End.Value;
+                return Items[^1].End;
             }
 
             var weights = new (double length, double accumulated)[Items.Count];
-            var cursor = Items[0].End.Value;
+            var cursor = Items[0].End;
             double accumulatedLength = 0;
 
             // Build up the weights map.
@@ -347,7 +346,7 @@ namespace Engine
                     case 'M':
                         // M is Move to.
                         contour = new PolyBezierContour2D(new Point2D(args[0], args[1]));
-                        startPoint = segment.Start.Value;
+                        startPoint = segment.Start;
                         break;
                     case 'Z':
                         // Z is End of Path.
@@ -400,19 +399,19 @@ namespace Engine
                 {
                     case PolynomialDegree.Constant:
                         // M is Move to.
-                        output.Append($"M{item.Start.Value.X.ToString(format, provider)}{sep}{item.Start.Value.Y.ToString(format, provider)} ");
+                        output.Append($"M{item.Start.X.ToString(format, provider)}{sep}{item.Start.Y.ToString(format, provider)} ");
                         break;
                     case PolynomialDegree.Linear:
                         // L is a linear curve.
-                        output.Append($"L{item.End.Value.X.ToString(format, provider)}{sep}{item.End.Value.Y.ToString(format, provider)} ");
+                        output.Append($"L{item.End.X.ToString(format, provider)}{sep}{item.End.Y.ToString(format, provider)} ");
                         break;
                     case PolynomialDegree.Quadratic:
                         // Q is for Quadratic.
-                        output.Append($"Q{item.Handles[0].X.ToString(format, provider)}{sep}{item.Handles[0].X.ToString(format, provider)}{sep}{item.End.Value.X.ToString(format, provider)}{sep}{item.End.Value.Y.ToString(format, provider)} ");
+                        output.Append($"Q{item.Handles[0].X.ToString(format, provider)}{sep}{item.Handles[0].X.ToString(format, provider)}{sep}{item.End.X.ToString(format, provider)}{sep}{item.End.Y.ToString(format, provider)} ");
                         break;
                     case PolynomialDegree.Cubic:
                         // C is for Cubic.
-                        output.Append($"C{item.Handles[0].X.ToString(format, provider)}{sep}{item.Handles[0].Y.ToString(format, provider)}{sep}{item.Handles[1].X.ToString(format, provider)}{sep}{item.Handles[1].Y.ToString(format, provider)}{sep}{item.End.Value.X.ToString(format, provider)}{sep}{item.End.Value.Y.ToString(format, provider)} ");
+                        output.Append($"C{item.Handles[0].X.ToString(format, provider)}{sep}{item.Handles[0].Y.ToString(format, provider)}{sep}{item.Handles[1].X.ToString(format, provider)}{sep}{item.Handles[1].Y.ToString(format, provider)}{sep}{item.End.X.ToString(format, provider)}{sep}{item.End.Y.ToString(format, provider)} ");
                         break;
                     default:
                         break;

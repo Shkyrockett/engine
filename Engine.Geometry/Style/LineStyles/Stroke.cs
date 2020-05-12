@@ -75,7 +75,7 @@ namespace Engine
         /// </summary>
         /// <param name="brush">The brush.</param>
         /// <param name="width">The width.</param>
-        public Stroke(IFill brush, double width = 1)
+        public Stroke(IFillable brush, double width = 1)
         {
             Width = width;
             MiterLimit = 0;
@@ -173,7 +173,7 @@ namespace Engine
         /// Gets or sets the fill.
         /// </summary>
         [NotifyParentProperty(true)]
-        public IFill Fill { get; set; }
+        public IFillable Fill { get; set; }
 
         /// <summary>
         /// 

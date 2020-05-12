@@ -29,25 +29,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutShortMsg", ExactSpelling = true)]
-        internal static extern MmResult MidiOutShortMsg_(IntPtr hMidiOut, int dwMsg);
-
-        /// <summary>
-        /// Sends a short MIDI message to the specified MIDI output device.
-        /// </summary>
-        /// <param name="midiOutputHandle">The midi output handle.</param>
-        /// <param name="message">The message.</param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiOutShortMsg(IntPtr midiOutputHandle, int message)
-        {
-            return MidiOutSetVolume(midiOutputHandle, message) switch
-            {
-                MmResult.NoError => true,
-                MmResult.BadOpenMode => throw new Exception("The application sent a message without a status byte to a stream handle."),
-                MmResult.NotReady => throw new Exception("The hardware is busy with other data."),
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutShortMsg_(IntPtr hMidiOut, int dwMsg);
     }
 }

@@ -18,7 +18,8 @@ namespace Engine
     /// Unit of Charge
     /// </summary>
     /// <seealso cref="IEquatable{T}" />
-    public struct Coulombs : IEquatable<Coulombs>
+    public struct Coulombs
+        : IEquatable<Coulombs>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Coulombs" /> class.

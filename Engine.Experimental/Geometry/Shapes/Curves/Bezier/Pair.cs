@@ -91,7 +91,7 @@ namespace Engine
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public static bool operator ==(Pair left, Pair right) => left.Equals(right);
+        public static bool operator ==(Pair left, Pair right) => left?.Equals(right) ?? right is null;
 
         /// <summary>
         /// The operator !=.
@@ -99,7 +99,7 @@ namespace Engine
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public static bool operator !=(Pair left, Pair right) => !left.Equals(right);
+        public static bool operator !=(Pair left, Pair right) => !(left == right);
 
         /// <summary>
         /// The equals.
@@ -114,7 +114,7 @@ namespace Engine
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Equals(object obj) => obj is Pair && Equals(this, (Pair)obj);
+        public override bool Equals(object obj) => obj is Pair pair && Equals(this, pair);
 
         /// <summary>
         /// Get the hash code.

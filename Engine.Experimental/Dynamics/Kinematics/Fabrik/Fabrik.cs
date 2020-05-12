@@ -14,7 +14,9 @@ namespace Engine.Experimental
         /// <param name="head">The head.</param>
         /// <param name="tail">The tail.</param>
         /// <param name="target">The tgt.</param>
-        /// <returns>Returns new head and tail <see cref="ValueTuple{T1, T2}"/> where `new_head` has been moved to the target.</returns>
+        /// <returns>
+        /// Returns new head and tail <see cref="ValueTuple{T1, T2}" /> where `new_head` has been moved to the target.
+        /// </returns>
         /// <acknowledgment>
         /// http://sean.cm/a/fabrik-algorithm-2d
         /// </acknowledgment>
@@ -42,7 +44,6 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="segments">The segments.</param>
         /// <param name="target">The target mouse Position.</param>
-        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://sean.cm/a/fabrik-algorithm-2d
         /// </acknowledgment>

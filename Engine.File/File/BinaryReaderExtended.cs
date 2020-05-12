@@ -61,7 +61,7 @@ namespace Engine.File
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="encoding">The encoding.</param>
-        /// <param name="leaveOpen">if set to <c>true</c> [leave open].</param>
+        /// <param name="leaveOpen">if set to <see langword="true"/> [leave open].</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public BinaryReaderExtended(Stream input, Encoding encoding, bool leaveOpen)
             : base(input, encoding, leaveOpen)
@@ -260,10 +260,7 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public byte[] ReadVariableLengthBytes()
-        {
-            return base.ReadBytes(ReadVariableLengthInt());
-        }
+        public byte[] ReadVariableLengthBytes() => base.ReadBytes(ReadVariableLengthInt());
 
         /// <summary>
         /// Reads an ASCII string of variable byte integer length from the current stream.

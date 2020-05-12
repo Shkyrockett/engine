@@ -188,7 +188,7 @@ namespace Engine
         /// Creates a string representation of this <see cref="LineCapStyle" /> struct based on the IFormatProvider
         /// passed in. If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -204,14 +204,14 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider formatProvider)
+            => ConvertToString(format /* format string */, formatProvider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="LineDashStyle" /> inherited class based on the format string
@@ -220,14 +220,14 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A string representation of this LineStyle object.
         /// </returns>
-        public string ConvertToString(string format, IFormatProvider provider)
+        public string ConvertToString(string format, IFormatProvider formatProvider)
         {
             _ = format;
-            _ = provider;
+            _ = formatProvider;
             //if (this is null)
             //    return nameof(GraphicsObject);
             return capPath.Definition;

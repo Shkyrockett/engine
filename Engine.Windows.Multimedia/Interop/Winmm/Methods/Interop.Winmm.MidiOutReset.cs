@@ -24,22 +24,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutReset", ExactSpelling = true)]
-        internal static extern MmResult MidiOutReset_(IntPtr hMidiOut);
-
-        /// <summary>
-        /// Turns off all notes on all MIDI channels for the specified MIDI output device.
-        /// </summary>
-        /// <param name="midiOutputHandle">The midi output handle.</param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiOutReset(IntPtr midiOutputHandle)
-        {
-            return MidiOutReset_(midiOutputHandle) switch
-            {
-                MmResult.NoError => true,
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutReset_(IntPtr hMidiOut);
     }
 }

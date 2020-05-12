@@ -177,8 +177,7 @@ namespace Engine
         /// <param name="b">The b.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Radians a, Radians b)
-            => Equals(a, b);
+        public static bool Compare(Radians a, Radians b) => Equals(a, b);
 
         /// <summary>
         /// The equals.
@@ -189,8 +188,7 @@ namespace Engine
         /// The <see cref="bool" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Radians a, Radians b)
-            => (a.Value == b.Value) & (a.Value == b.Value);
+        public static bool Equals(Radians a, Radians b) => (a.Value == b.Value) & (a.Value == b.Value);
 
         /// <summary>
         /// override object.Equals
@@ -204,8 +202,7 @@ namespace Engine
         //   https://msdn.microsoft.com/en-us/library/53k8ybth.aspx
         //
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => (obj is Radians || obj is Degrees) && obj is Radians ? Equals(this, (Radians)obj) : Equals(this, ((Degrees)obj).ToRadian());
+        public override bool Equals(object obj) => obj is Radians r ? Equals(r) : obj is Degrees d && Equals(d.ToRadian());
 
         /// <summary>
         /// The equals.
@@ -215,8 +212,7 @@ namespace Engine
         /// The <see cref="bool" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Radians value)
-            => Equals(this, value);
+        public bool Equals(Radians value) => Equals(this, value);
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -230,8 +226,7 @@ namespace Engine
         /// Convert Radians to Degrees.
         /// </summary>
         /// <returns></returns>
-        public Radians ToDegrees()
-            => Value.RadiansToDegrees();
+        public Radians ToDegrees() => Value.RadiansToDegrees();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Radians" /> struct.
@@ -239,8 +234,7 @@ namespace Engine
         /// <returns>
         /// A <see cref="string" /> that represents this instance.
         /// </returns>
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Radians" /> struct based on the IFormatProvider
@@ -250,8 +244,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Radians" /> struct based on the format string
@@ -264,8 +257,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Radians" /> struct based on the format string
@@ -278,13 +270,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        internal string ConvertToString(string format, IFormatProvider provider)
-        {
-            //if (this is null) return nameof(Radians);
-            //return string.Format(provider, "{0:" + format + "} rad", value);
-            IFormattable formatable = $"{Value} rad";
-            return formatable.ToString(format, provider);
-        }
+        internal string ConvertToString(string format, IFormatProvider provider) => this == null ? nameof(Radians) : $"{Value.ToString(format, provider)} rad";
         #endregion Methods
     }
 }

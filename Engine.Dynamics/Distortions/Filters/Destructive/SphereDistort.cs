@@ -28,7 +28,7 @@ namespace Engine
         /// <param name="strength">The strength.</param>
         public SphereDistort(Rectangle2D rect, double strength = 0.5d)
         {
-            Center = (rect?.Center).Value;
+            Center = rect.Center;
             Radius = Math.Sqrt((rect.Width * rect.Width) + (rect.Height * rect.Height)) * 0.5d;
             Strength = strength;
         }

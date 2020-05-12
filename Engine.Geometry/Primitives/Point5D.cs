@@ -23,7 +23,7 @@ namespace Engine
     /// <summary>
     /// The <see cref="Point5D" /> struct.
     /// </summary>
-    /// <seealso cref="Engine.IVector{Engine.Point5D}" />
+    /// <seealso cref="Engine.IVector{T}" />
     /// <seealso cref="IVector{Point5D}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Point5DConverter))]
@@ -647,20 +647,20 @@ namespace Engine
         /// Parse a string for a <see cref="Point5D" /> value.
         /// </summary>
         /// <param name="source"><see cref="string" /> with <see cref="Point5D" /> data</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// Returns an instance of the <see cref="Point5D" /> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
-        public static Point5D Parse(string source, IFormatProvider provider)
+        public static Point5D Parse(string source, IFormatProvider formatProvider)
         {
-            var tokenizer = new Tokenizer(source, provider);
+            var tokenizer = new Tokenizer(source, formatProvider);
             var value = new Point5D(
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider)
                 );
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();

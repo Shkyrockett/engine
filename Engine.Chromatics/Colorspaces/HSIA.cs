@@ -179,7 +179,7 @@ namespace Engine.Colorspace
         /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
         /// https://github.com/dystopiancode/colorspace-conversions
         /// </acknowledgment>
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple() => Colorspaces.HSIAColorToRGBAColor(Hue, Saturation, Intensity, Alpha);
+        public (byte Red, byte Green, byte Blue, byte Alpha) ToRGBATuple() => Colorspaces.HSIAColorToRGBAColor(Hue, Saturation, Intensity, Alpha);
 
         /// <summary>
         /// The to string.

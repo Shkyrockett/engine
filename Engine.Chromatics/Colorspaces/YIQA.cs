@@ -189,8 +189,7 @@ namespace Engine.Colorspace
         /// <returns>
         /// The <see cref="ValueTuple{T1, T2, T3, T4}" />.
         /// </returns>
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
-            => Colorspaces.RGBAFColorToRGBAColor(Colorspaces.YIQAColorToRGBAFColor(Y, I, Q, Alpha));
+        public (byte Red, byte Green, byte Blue, byte Alpha) ToRGBATuple() => Colorspaces.RGBAFColorToRGBAColor(Colorspaces.YIQAColorToRGBAFColor(Y, I, Q, Alpha));
 
         /// <summary>
         /// The to string.
@@ -201,7 +200,6 @@ namespace Engine.Colorspace
         /// The <see cref="string" />.
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
-        public string ToString(string format, IFormatProvider formatProvider)
-            => throw new NotImplementedException();
+        public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

@@ -98,31 +98,29 @@ namespace Engine
                 throw new ArgumentNullException(nameof(destinationType));
             }
 
-            if (value is PointF)
+            if (value is PointF f)
             {
                 if (destinationType == typeof(string))
                 {
-                    var point = (PointF)value;
                     if (culture is null)
                     {
                         culture = CultureInfo.CurrentCulture;
                     }
 
-                    var separator = culture.TextInfo.ListSeparator + " ";
+                    var separator = $"{culture.TextInfo.ListSeparator} ";
                     var converter = TypeDescriptor.GetConverter(typeof(float));
                     var strArray = new string[2];
                     var num = 0;
-                    strArray[num++] = converter.ConvertToString(context, culture, point.X);
-                    strArray[num++] = converter.ConvertToString(context, culture, point.Y);
+                    strArray[num++] = converter.ConvertToString(context, culture, f.X);
+                    strArray[num++] = converter.ConvertToString(context, culture, f.Y);
                     return string.Join(separator, strArray);
                 }
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
-                    var point2 = (PointF)value;
                     var constructor = typeof(PointF).GetConstructor(new Type[] { typeof(float), typeof(float) });
                     if (constructor != null)
                     {
-                        return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { point2.X, point2.Y });
+                        return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { f.X, f.Y });
                     }
                 }
             }

@@ -218,8 +218,7 @@ namespace Engine.Colorspace
         /// <returns>
         /// The <see cref="RGBA" />.
         /// </returns>
-        public RGBA ToColor()
-            => new RGBA(ToRGBATuple());
+        public RGBA ToColor() => new RGBA(ToRGBATuple());
 
         /// <summary>
         /// The to RGBA tuple.
@@ -234,8 +233,7 @@ namespace Engine.Colorspace
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// </acknowledgment>
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
-            => Colorspaces.HSVAColorToRGBAColor(Hue, Saturation, Value, Alpha);
+        public (byte Red, byte Green, byte Blue, byte Alpha) ToRGBATuple() => Colorspaces.HSVAColorToRGBAColor(Hue, Saturation, Value, Alpha);
 
         /// <summary>
         /// The to string.
@@ -246,7 +244,6 @@ namespace Engine.Colorspace
         /// The <see cref="string" />.
         /// </returns>
         /// <exception cref="NotImplementedException"></exception>
-        public string ToString(string format, IFormatProvider formatProvider)
-            => throw new NotImplementedException();
+        public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

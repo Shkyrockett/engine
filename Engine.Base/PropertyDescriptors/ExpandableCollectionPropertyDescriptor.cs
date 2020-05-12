@@ -50,7 +50,7 @@ namespace Engine
         /// <param name="coll">The coll.</param>
         /// <param name="idx">The idx.</param>
         public ExpandableCollectionPropertyDescriptor(IList coll, int idx)
-            : base(GetDisplayName(coll, idx), null)
+            : base(GetDisplayName(coll ?? null, idx), null)
         {
             collection = coll;
             index = idx;
@@ -137,7 +137,7 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         private static string GetDisplayName(IList list, int index)
         {
-            int n = list.Count;
+            var n = list.Count;
             var digits = n == 0 ? 1 : (int)Math.Floor(Math.Log10(Math.Abs(n)) + 1);
             return $"[{index.ToString(CultureInfo.InvariantCulture).PadLeft(digits, '0')}]";
             //return $"{CSharpName(list[index].GetType())} [{index,4}]";
@@ -159,8 +159,7 @@ namespace Engine
         /// <summary>
         /// Raises the refresh required event.
         /// </summary>
-        protected virtual void OnRefreshRequired()
-            => RefreshRequired?.Invoke(this, EventArgs.Empty);
+        protected virtual void OnRefreshRequired() => RefreshRequired?.Invoke(this, EventArgs.Empty);
         #endregion Methods
     }
 }

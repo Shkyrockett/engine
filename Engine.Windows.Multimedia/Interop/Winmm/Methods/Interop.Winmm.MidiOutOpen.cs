@@ -48,39 +48,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutOpen", ExactSpelling = true)]
-        public static extern MmResult MidiOutOpen(out IntPtr lphMidiOut, IntPtr uDeviceID, MidiOutCallback dwCallback, IntPtr dwInstance, MidiOutOpenFlags dwFlags);
-
-        /// <summary>
-        /// Opens a MIDI output device for playback.
-        /// </summary>
-        /// <param name="deviceNo">The device no.</param>
-        /// <param name="callback">The callback.</param>
-        /// <param name="openFlag">The open flag.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">
-        /// No MIDI port was found. This error occurs only when the mapper is opened.
-        /// or
-        /// The specified resource is already allocated.
-        /// or
-        /// The specified device identifier is out of range.
-        /// or
-        /// The specified pointer or structure is invalid.
-        /// or
-        /// Unable to allocate or lock memory.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IntPtr MidiOutOpen(int deviceNo, MidiOutCallback callback, MidiOutOpenFlags openFlag = MidiOutOpenFlags.CALLBACK_FUNCTION)
-        {
-            return MidiOutOpen(out var midiOutputHandle, (IntPtr)deviceNo, callback, IntPtr.Zero, openFlag) switch
-            {
-                MmResult.NoError => midiOutputHandle,
-                MmResult.NoDevice => throw new Exception("No MIDI port was found. This error occurs only when the mapper is opened."),
-                MmResult.AlreadyAllocated => throw new Exception("The specified resource is already allocated."),
-                MmResult.BadDeviceId => throw new Exception("The specified device identifier is out of range."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                MmResult.MemoryAllocationError => throw new Exception("Unable to allocate or lock memory."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutOpen(out IntPtr lphMidiOut, IntPtr uDeviceID, MidiOutCallback dwCallback, IntPtr dwInstance, MidiOutOpenFlags dwFlags);
     }
 }

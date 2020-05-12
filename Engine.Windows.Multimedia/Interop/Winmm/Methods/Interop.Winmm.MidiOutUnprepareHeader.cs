@@ -27,32 +27,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutUnprepareHeader", ExactSpelling = true)]
-        internal static extern MmResult MidiOutUnprepareHeader(IntPtr hMidiOut, [MarshalAs(UnmanagedType.Struct)] ref MIDIHDR lpMidiOutHdr, int uSize);
-
-        /// <summary>
-        /// Midis the out unprepare header.
-        /// </summary>
-        /// <param name="midiOutputHandle">The midi output handle.</param>
-        /// <param name="midiOutHdr">The midi out HDR.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">
-        /// The buffer pointed to by lpMidiOutHdr is still in the queue.
-        /// or
-        /// The specified device handle is invalid.
-        /// or
-        /// The specified pointer or structure is invalid.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiOutUnprepareHeader(IntPtr midiOutputHandle, ref MIDIHDR midiOutHdr)
-        {
-            return MidiOutUnprepareHeader(midiOutputHandle, ref midiOutHdr, Marshal.SizeOf(midiOutHdr)) switch
-            {
-                MmResult.NoError => true,
-                MmResult.StillPlaying => throw new Exception("The buffer pointed to by lpMidiOutHdr is still in the queue."),
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutUnprepareHeader(IntPtr hMidiOut, [MarshalAs(UnmanagedType.Struct)] ref MIDIHDR lpMidiOutHdr, int uSize);
     }
 }

@@ -107,10 +107,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out double width, out double height, out double depth, out double breadth)
-        {
-            (width, height, depth, breadth) = (Width, Height, Depth, Breadth);
-        }
+        public void Deconstruct(out double width, out double height, out double depth, out double breadth) => (width, height, depth, breadth) = (Width, Height, Depth, Breadth);
         #endregion Deconstructors
 
         #region Properties
@@ -1012,22 +1009,22 @@ namespace Engine
         /// Parse a string for a <see cref="Size4D" /> value.
         /// </summary>
         /// <param name="source"><see cref="string" /> with <see cref="Size4D" /> data</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// Returns an instance of the <see cref="Size4D" /> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
-        public static Size4D Parse(string source, IFormatProvider provider)
+        public static Size4D Parse(string source, IFormatProvider formatProvider)
         {
-            var tokenizer = new Tokenizer(source, provider);
+            var tokenizer = new Tokenizer(source, formatProvider);
             var firstToken = tokenizer.NextTokenRequired();
 
             // The token will already have had whitespace trimmed so we can do a simple string compare.
             var value = firstToken == nameof(Empty) ? Empty : new Size4D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                Convert.ToDouble(firstToken, formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider)
                 );
 
             // There should be no more tokens in this string.

@@ -27,7 +27,7 @@ namespace Engine.File.Palettes
     /// <seealso cref="IEquatable{T}" />
     [FileObject]
     public class Palette
-        : IEnumerable, IEquatable<Palette>
+        : IEnumerable, IEnumerable<IColor>, IEquatable<Palette>
     {
         ///// <summary>
         ///// // ToDo: Add a named color lookup.
@@ -39,7 +39,7 @@ namespace Engine.File.Palettes
         /// </summary>
         public Palette()
         {
-            Colors = new List<RGBA>();
+            Colors = new List<IColor>();
             PaletteMimeFormat = PaletteMimeFormat.Default;
         }
 
@@ -47,9 +47,9 @@ namespace Engine.File.Palettes
         /// Initializes a new instance of the <see cref="Palette" /> class.
         /// </summary>
         /// <param name="colors">An array of colors to add to the palette.</param>
-        public Palette(RGBA[] colors)
+        public Palette(params IColor[] colors)
         {
-            Colors = new List<RGBA>();
+            Colors = new List<IColor>();
             AddRange(colors);
             PaletteMimeFormat = PaletteMimeFormat.Default;
         }
@@ -60,7 +60,7 @@ namespace Engine.File.Palettes
         /// <value>
         /// The colors.
         /// </value>
-        public List<RGBA> Colors { get; set; }
+        public List<IColor> Colors { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the palette file.
@@ -96,7 +96,7 @@ namespace Engine.File.Palettes
         /// <returns>
         /// A value representing the <see cref="RGBA" /> at the specified index in the <see cref="Palette" />.
         /// </returns>
-        public RGBA this[int index] => Colors[index];
+        public IColor this[int index] => Colors[index];
 
         /// <summary>
         /// Implements the operator ==.
@@ -146,7 +146,7 @@ namespace Engine.File.Palettes
             }
 
             // If we have a stream, the file should have successfully opened. Clear the colors list.
-            Colors = new List<RGBA>();
+            Colors = new List<IColor>();
 
             switch (format)
             {
@@ -220,27 +220,27 @@ namespace Engine.File.Palettes
         /// Add a color to the end of the palette.
         /// </summary>
         /// <param name="item">The color to add to the palette.</param>
-        public void Add(RGBA item) => Colors.Add(item);
+        public void Add(IColor item) => Colors.Add(item);
 
         /// <summary>
         /// Add a list of palette color entries to the end of the palette.
         /// </summary>
         /// <param name="items">The colors to add to the palette.</param>
-        public void AddRange(IEnumerable<RGBA> items) => Colors.AddRange(items);
+        public void AddRange(IEnumerable<IColor> items) => Colors.AddRange(items);
 
         /// <summary>
         /// Adds a palette entry at a specified index.
         /// </summary>
         /// <param name="index">Index to insert the palette entry color.</param>
         /// <param name="item">Palette entry color to add to the list.</param>
-        public void Insert(int index, RGBA item) => Colors.Insert(index, item);
+        public void Insert(int index, IColor item) => Colors.Insert(index, item);
 
         /// <summary>
         /// Adds a list of palette entries at a specified index.
         /// </summary>
         /// <param name="index">Index to insert the palette entry color.</param>
         /// <param name="item">List of palette entry colors to add to the list.</param>
-        public void InsertRange(int index, IEnumerable<RGBA> item) => Colors.InsertRange(index, item);
+        public void InsertRange(int index, IEnumerable<IColor> item) => Colors.InsertRange(index, item);
 
         /// <summary>
         /// Clears all palette entries from the list of colors.
@@ -262,7 +262,7 @@ namespace Engine.File.Palettes
         /// <returns>
         /// A value indicating whether the color was removed.
         /// </returns>
-        public bool RemoveFirstInstance(RGBA item) => Colors.Remove(Colors[Colors.IndexOf(item)]);
+        public bool RemoveFirstInstance(IColor item) => Colors.Remove(Colors[Colors.IndexOf(item)]);
 
         /// <summary>
         /// Remove the last instance of a specified color entry in the palette.
@@ -271,7 +271,7 @@ namespace Engine.File.Palettes
         /// <returns>
         /// A value indicating whether the color was removed.
         /// </returns>
-        public bool RemoveLastInstance(RGBA item) => Colors.Remove(Colors[Colors.LastIndexOf(item)]);
+        public bool RemoveLastInstance(IColor item) => Colors.Remove(Colors[Colors.LastIndexOf(item)]);
 
         /// <summary>
         /// Determines whether the specified palette item is in the palette list of colors.
@@ -280,7 +280,7 @@ namespace Engine.File.Palettes
         /// <returns>
         /// A value indicating whether the color was found in the list.
         /// </returns>
-        public bool Contains(RGBA item) => Colors.Contains(item);
+        public bool Contains(IColor item) => Colors.Contains(item);
 
         /// <summary>
         /// Searches for a the specific color in the palette and returns its index if found.
@@ -289,7 +289,7 @@ namespace Engine.File.Palettes
         /// <returns>
         /// The first index of the color in the palette.
         /// </returns>
-        public int IndexOf(RGBA item) => Colors.IndexOf(item);
+        public int IndexOf(IColor item) => Colors.IndexOf(item);
 
         /// <summary>
         /// Returns the last index of a given color in the palette.
@@ -298,7 +298,7 @@ namespace Engine.File.Palettes
         /// <returns>
         /// Returns the index of the last instance of the given color.
         /// </returns>
-        public int LastIndexOf(RGBA item) => Colors.LastIndexOf(item);
+        public int LastIndexOf(IColor item) => Colors.LastIndexOf(item);
 
         /// <summary>
         /// Reverses the order of the colors in the colors in the palette.
@@ -659,10 +659,11 @@ namespace Engine.File.Palettes
             // Colors
             foreach (var color in Colors)
             {
-                bw.Write(color.Red);
-                bw.Write(color.Green);
-                bw.Write(color.Blue);
-                bw.Write((byte)(255 - color.Alpha));
+                var (Red, Green, Blue, Alpha) = color.ToRGBATuple();
+                bw.Write(Red);
+                bw.Write(Green);
+                bw.Write(Blue);
+                bw.Write((byte)(255 - Alpha));
             }
         }
 
@@ -686,7 +687,8 @@ namespace Engine.File.Palettes
             // Colors
             foreach (var color in Colors)
             {
-                bw.WriteLine($"{color.Red} {color.Green} {color.Blue} {color.Alpha}");
+                var (Red, Green, Blue, Alpha) = color.ToRGBATuple();
+                bw.WriteLine($"{Red} {Green} {Blue} {Alpha}");
             }
         }
 
@@ -710,7 +712,8 @@ namespace Engine.File.Palettes
             // Colors
             foreach (var color in Colors)
             {
-                bw.WriteLine("{0:X2}{1:X2}{2:X2}{3:X2}", color.Alpha, color.Red, color.Green, color.Blue);
+                var (Red, Green, Blue, Alpha) = color.ToRGBATuple();
+                bw.WriteLine("{0:X2}{1:X2}{2:X2}{3:X2}", Alpha, Red, Green, Blue);
             }
         }
 
@@ -766,6 +769,14 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// An enumerator that can be used to iterate through the collection.
+        /// </returns>
+        IEnumerator<IColor> IEnumerable<IColor>.GetEnumerator() => Colors.GetEnumerator();
+
+        /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
@@ -781,7 +792,7 @@ namespace Engine.File.Palettes
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals([AllowNull] Palette other) => other != null && EqualityComparer<List<RGBA>>.Default.Equals(Colors, other.Colors);
+        public bool Equals([AllowNull] Palette other) => other != null && EqualityComparer<List<IColor>>.Default.Equals(Colors, other.Colors);
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -795,8 +806,32 @@ namespace Engine.File.Palettes
         /// Converts to string.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
-        public override string ToString() => "Palette";
+        public override string ToString() => ToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <param name="formatProvider">The provider.</param>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
+        public string ToString(IFormatProvider formatProvider) => ToString(string.Empty /* format string */, formatProvider);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The format provider.</param>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            _ = format;
+            _ = formatProvider;
+            return Colors.ToString();
+        }
     }
 }

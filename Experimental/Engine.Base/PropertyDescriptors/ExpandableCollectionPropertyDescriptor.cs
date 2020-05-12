@@ -50,7 +50,7 @@ namespace Engine
         /// <param name="coll">The coll.</param>
         /// <param name="idx">The idx.</param>
         public ExpandableCollectionPropertyDescriptor(IList coll, int idx)
-            : base(GetDisplayName(coll, idx), null)
+            : base(GetDisplayName(coll ?? null, idx), null)
         {
             collection = coll;
             index = idx;
@@ -61,38 +61,32 @@ namespace Engine
         /// <summary>
         /// Gets the name.
         /// </summary>
-        public override string Name
-            => index.ToString(CultureInfo.InvariantCulture);
+        public override string Name => index.ToString(CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        public override bool IsReadOnly
-            => false;
+        public override bool IsReadOnly => false;
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        public override bool SupportsChangeEvents
-            => true;
+        public override bool SupportsChangeEvents => true;
 
         /// <summary>
         /// Gets the component type.
         /// </summary>
-        public override Type ComponentType
-            => collection.GetType();
+        public override Type ComponentType => collection?.GetType();
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
-        public override Type PropertyType
-            => collection[index].GetType();
+        public override Type PropertyType => collection[index]?.GetType();
 
         ///// <summary>
         ///// 
         ///// </summary>
-        //public override AttributeCollection Attributes
-        //    => new AttributeCollection(null);
+        //public override AttributeCollection Attributes => new AttributeCollection(null);
         #endregion Properties
 
         #region Methods
@@ -143,9 +137,10 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         private static string GetDisplayName(IList list, int index)
         {
-            _ = list;
+            var n = list.Count;
+            var digits = n == 0 ? 1 : (int)Math.Floor(Math.Log10(Math.Abs(n)) + 1);
+            return $"[{index.ToString(CultureInfo.InvariantCulture).PadLeft(digits, '0')}]";
             //return $"{CSharpName(list[index].GetType())} [{index,4}]";
-            return $"[{index}]";
         }
 
         ///// <summary>

@@ -24,24 +24,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutGetID", ExactSpelling = true)]
-        internal static extern MmResult MidiOutGetID(IntPtr hMidiOut, out int lpuDeviceID);
-
-        /// <summary>
-        /// Retrieves the device identifier for the given MIDI output device.
-        /// </summary>
-        /// <param name="midiOutputHandle">The midi output handle.</param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int MidiOutGetID(IntPtr midiOutputHandle)
-        {
-            return MidiOutGetID(midiOutputHandle, out var deviceID) switch
-            {
-                MmResult.NoError => deviceID,
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.NoDriver => throw new Exception("No device driver is present."),
-                MmResult.MemoryAllocationError => throw new Exception("The system is unable to allocate or lock memory."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutGetID(IntPtr hMidiOut, out int lpuDeviceID);
     }
 }

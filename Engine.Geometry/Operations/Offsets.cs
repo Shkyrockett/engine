@@ -56,7 +56,7 @@ namespace Engine
         /// The <see cref="LineSegment" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment2D Offset(this LineSegment2D segment, double distance) => new LineSegment2D(OffsetSegment((segment?.A).Value.X, segment.A.Y, segment.B.X, segment.B.Y, distance));
+        public static LineSegment2D Offset(this LineSegment2D segment, double distance) => new LineSegment2D(OffsetSegment(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, distance));
 
         /// <summary>
         /// The offset segment.
@@ -226,7 +226,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour2D Offset(this PolygonContour2D polygon, double offset)
         {
-            var points = polygon.Points;
+            var points = polygon.Points as List<Point2D>;
 
             var polyline = new PolygonContour2D();
 

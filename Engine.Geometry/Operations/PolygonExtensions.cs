@@ -825,7 +825,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool? IsLeftOf(LineSegment2D edge, Point2D test)
         {
-            var tmp1 = (edge?.B).Value - edge.A;
+            var tmp1 = edge.B - edge.A;
             var tmp2 = test - edge.B;
 
             // dot product of perpendicular?

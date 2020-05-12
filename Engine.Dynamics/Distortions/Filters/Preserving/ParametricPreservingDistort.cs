@@ -71,7 +71,7 @@ namespace Engine
             var result = point;
             foreach (var function in functions)
             {
-                result = (function?.Invoke(result)).Value;
+                result = function.Invoke(result);
             }
             return result;
         }

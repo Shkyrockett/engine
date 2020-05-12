@@ -108,19 +108,19 @@ namespace Engine.WindowsForms
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public override string ConvertToString(string format, IFormatProvider provider)
+        public override string ConvertToString(string format, IFormatProvider formatProvider)
         {
             if (this is null)
             {
                 return nameof(Text2D);
             }
-            //var sep = ',';// Tokenizer.GetNumericListSeparator(provider);
+            //var sep = ',';// Tokenizer.GetNumericListSeparator(formatProvider);
             IFormattable formatable = $"{nameof(Text2D)}{{{nameof(Text)}=\"{Text}\",{nameof(Font)}={Font},{nameof(Location)}={Location},{nameof(Limits)}={Limits}}}";
-            return formatable.ToString(format, provider);
+            return formatable.ToString(format, formatProvider);
         }
     }
 }

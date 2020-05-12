@@ -54,7 +54,7 @@ namespace Engine
         private readonly LinkedList<SweepEvent> sortedEvents = new LinkedList<SweepEvent>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BooleanOpImp"/> class.
+        /// Initializes a new instance of the <see cref="BooleanOpImp" /> class.
         /// </summary>
         /// <param name="subj">The subj.</param>
         /// <param name="clip">The clip.</param>
@@ -153,8 +153,13 @@ namespace Engine
         /// </summary>
         /// <param name="subjectBB">The subjectBB.</param>
         /// <param name="clippingBB">The clippingBB.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        public static bool TrivialOperation(Rectangle2D subjectBB, Rectangle2D clippingBB) =>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        public static bool TrivialOperation(Rectangle2D subjectBB, Rectangle2D clippingBB)
+        {
+            _ = subjectBB;
+            _ = clippingBB;
             //// Test 1 for trivial result case
             //if (subject.ncontours() * clipping.ncontours() == 0)
             //{ // At least one of the polygons is empty
@@ -178,7 +183,8 @@ namespace Engine
             //    }
             //    return true;
             //}
-            false;
+            return false;
+        }
 
         /// <summary>
         /// Process the segment.
@@ -187,7 +193,9 @@ namespace Engine
         /// <param name="pt">The pt.</param>
         public static void ProcessSegment(LineSegment2D s, ClippingRelation pt)
         {
-            //*	if (s.degenerate ()) // if the two edge endpoints are equal the segment is dicarded
+            _ = s;
+            _ = pt;
+            //*	if (s.degenerate ()) // if the two edge endpoints are equal the segment is discarded
             //    return;          // This can be done as preprocessing to avoid "polygons" with less than 3 edges */
             //SweepEvent e1 = storeSweepEvent(SweepEvent(true, s.source(), 0, pt));
             //SweepEvent e2 = storeSweepEvent(SweepEvent(true, s.target(), e1, pt));
@@ -210,7 +218,9 @@ namespace Engine
         /// The store sweep event.
         /// </summary>
         /// <param name="e">The e.</param>
-        /// <returns>The <see cref="SweepEvent"/>.</returns>
+        /// <returns>
+        /// The <see cref="SweepEvent" />.
+        /// </returns>
         private SweepEvent StoreSweepEvent(SweepEvent e)
         {
             eventHolder.AddLast(e);
@@ -224,6 +234,8 @@ namespace Engine
         /// <param name="prev">The prev.</param>
         public static void ComputeFields(SweepEvent le, SortedSet<SweepEvent> prev)
         {
+            _ = le;
+            _ = prev;
             //// compute inOut and otherInOut fields
             //if (prev == sl.end())
             //{
@@ -251,7 +263,9 @@ namespace Engine
         /// The in result.
         /// </summary>
         /// <param name="le">The le.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public bool InResult(SweepEvent le)
         {
             switch (le?.Contribution)
@@ -284,8 +298,13 @@ namespace Engine
         /// </summary>
         /// <param name="le1">The le1.</param>
         /// <param name="le2">The le2.</param>
-        /// <returns>The <see cref="int"/>.</returns>
-        public static int PossibleIntersection(SweepEvent le1, SweepEvent le2) =>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
+        public static int PossibleIntersection(SweepEvent le1, SweepEvent le2)
+        {
+            _ = le1;
+            _ = le2;
             ////	if (e1.pol == e2.pol) // you can uncomment these two lines if self-intersecting polygons are not allowed
             ////		return 0;
 
@@ -368,7 +387,8 @@ namespace Engine
             //// one line segment includes the other one
             //DivideSegment(sortedEvents[0], sortedEvents[1].Point);
             //DivideSegment(sortedEvents[3].OtherEvent, sortedEvents[2].Point);
-            3;
+            return 3;
+        }
 
         /// <summary>
         /// The divide segment.
@@ -498,7 +518,10 @@ namespace Engine
         /// <param name="pos">The pos.</param>
         /// <param name="resultEvents">The resultEvents.</param>
         /// <param name="processed">The processed.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">processed</exception>
         public static int NextPos(int pos, List<SweepEvent> resultEvents, List<bool> processed)
         {
             if (processed is null)

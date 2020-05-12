@@ -108,14 +108,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="double"/> to <see cref="Seconds"/>.
+        /// Performs an implicit conversion from <see cref="double" /> to <see cref="Seconds" />.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Seconds(double value)
-            => new Seconds(value);
+        public static implicit operator Seconds(double value) => new Seconds(value);
 
         /// <summary>
         /// Implements the operator ==.
@@ -144,8 +143,7 @@ namespace Engine
         /// The name.
         /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static string Name
-            => nameof(Seconds);
+        public static string Name => nameof(Seconds);
 
         /// <summary>
         /// Gets the abbreviation.
@@ -154,8 +152,7 @@ namespace Engine
         /// The abbreviation.
         /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abbreviation
-            => "s";
+        public string Abbreviation => "s";
 
         /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.
@@ -189,7 +186,6 @@ namespace Engine
         /// <returns>
         /// A <see cref="string" /> that represents this instance.
         /// </returns>
-        public override string ToString()
-            => $"{Value} s";
+        public override string ToString() => $"{Value} s";
     }
 }

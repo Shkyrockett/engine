@@ -203,7 +203,7 @@ namespace Engine.Tweening
         /// Update.
         /// </summary>
         /// <param name="elapsed">The elapsed.</param>
-        public void Update(double elapsed)
+        public void UpdateTween(double elapsed)
         {
             if (firstUpdate)
             {
@@ -478,13 +478,13 @@ namespace Engine.Tweening
         /// <summary>
         /// Remove tweens from the tweener without calling their complete functions.
         /// </summary>
-        public void Cancel() => Remover.Remove(this);
+        public void CancelTween() => Remover.Remove(this);
 
         /// <summary>
         /// Cancel tweening given properties.
         /// </summary>
         /// <param name="properties"></param>
-        public void Cancel(params string[] properties)
+        public void CancelTween(params string[] properties)
         {
             var canceled = 0;
             for (var i = 0; i < properties.Length; ++i)
@@ -505,14 +505,14 @@ namespace Engine.Tweening
 
             if (canceled == vars.Count)
             {
-                Cancel();
+                CancelTween();
             }
         }
 
         /// <summary>
         /// Assign tweens their final value and remove them from the tweener.
         /// </summary>
-        public void CancelAndComplete()
+        public void CancelTweenAndComplete()
         {
             time = duration;
             update = null;
@@ -522,17 +522,17 @@ namespace Engine.Tweening
         /// <summary>
         /// Set tweens to pause. They won't update and their delays won't tick down.
         /// </summary>
-        public void Pause() => Paused = true;
+        public void PauseTween() => Paused = true;
 
         /// <summary>
         /// Toggle tweens' paused value.
         /// </summary>
-        public void PauseToggle() => Paused = !Paused;
+        public void PauseTweenToggle() => Paused = !Paused;
 
         /// <summary>
         /// Resumes tweens from a paused state.
         /// </summary>
-        public void Resume() => Paused = false;
+        public void ResumeTween() => Paused = false;
         #endregion Control
     }
 }

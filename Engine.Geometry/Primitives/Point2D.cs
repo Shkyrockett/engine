@@ -25,13 +25,13 @@ namespace Engine
     /// The <see cref="Point2D" /> struct.
     /// </summary>
     /// <seealso cref="Engine.IShapeSegment" />
-    /// <seealso cref="Engine.IVector{Engine.Point2D}" />
+    /// <seealso cref="Engine.IVector{T}" />
     /// <seealso cref="IVector{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Point2DConverter))]
     [DebuggerDisplay("{ToString()}")]
-    public struct Point2D
-        : IVector<Point2D>
+    public class Point2D
+        : IShapeSegment, IVector<Point2D>
     {
         #region Implementations
         /// <summary>
@@ -54,6 +54,15 @@ namespace Engine
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point2D" /> class.
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point2D()
+            : this(0d, 0d)
+        { }
+
+        /// <summary>
+        /// Initializes a new  instance of the <see cref="Point2D" /> class.
+        /// </summary>
         /// <param name="point">The Point2D.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -69,7 +78,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D(double x, double y)
-            : this()
+        //: this()
         {
             X = x;
             Y = y;
@@ -82,7 +91,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D((double X, double Y) tuple)
-            : this()
+        //: this()
         {
             (X, Y) = tuple;
         }
@@ -132,6 +141,69 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty => Abs(X) < Epsilon && Abs(Y) < Epsilon;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="IShapeSegment" /> position should be calculated relative to the last item, or from Origin.
+        /// </summary>
+        /// <value>
+        ///   <see langword="true" /> if relative; otherwise, <see langword="false" />.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public bool Relative { get; set; }
+
+        /// <summary>
+        /// Gets or sets a reference to the segment after this segment.
+        /// </summary>
+        /// <value>
+        /// The before.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public IShapeSegment Before { get; set; }
+
+        /// <summary>
+        /// Gets or sets a reference to the segment before this segment.
+        /// </summary>
+        /// <value>
+        /// The after.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public IShapeSegment After { get; set; }
+
+        /// <summary>
+        /// Gets or sets the head point.
+        /// </summary>
+        /// <value>
+        /// The head.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Point2D Head { get; set; }
+
+        /// <summary>
+        /// Gets or sets the next to first point from the head point.
+        /// </summary>
+        /// <value>
+        /// The next to head point.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Point2D NextToHead { get; set; }
+
+        /// <summary>
+        /// Gets or sets the next to last point to the tail point.
+        /// </summary>
+        /// <value>
+        /// The next to tail point.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Point2D NextToTail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tail point.
+        /// </summary>
+        /// <value>
+        /// The tail.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Point2D Tail { get; set; }
         #endregion Properties
 
         #region Operators
@@ -639,19 +711,19 @@ namespace Engine
         /// Parse a string for a <see cref="Point2D" /> value.
         /// </summary>
         /// <param name="source"><see cref="string" /> with <see cref="Point2D" /> data</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// Returns an instance of the <see cref="Point2D" /> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
-        public static Point2D Parse(string source, IFormatProvider provider)
+        public static Point2D Parse(string source, IFormatProvider formatProvider)
         {
-            var tokenizer = new Tokenizer(source, provider);
+            var tokenizer = new Tokenizer(source, formatProvider);
             var firstToken = tokenizer.NextTokenRequired();
 
             var value = new Point2D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                Convert.ToDouble(firstToken, formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider)
                 );
 
             // There should be no more tokens in this string.
@@ -685,13 +757,13 @@ namespace Engine
         /// Creates a string representation of this <see cref="Point2D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <param name="formatProvider">The <see cref="CultureInfo" /> provider.</param>
         /// <returns>
         /// A string representation of this <see cref="Point2D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ToString("R" /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Point2D" /> struct based on the format string

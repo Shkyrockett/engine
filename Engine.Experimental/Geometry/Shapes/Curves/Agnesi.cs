@@ -143,20 +143,20 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public override string ConvertToString(string format, IFormatProvider provider)
+        public override string ConvertToString(string format, IFormatProvider formatProvider)
         {
             if (this is null)
             {
                 return nameof(Agnesi);
             }
 
-            var sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(formatProvider);
             IFormattable formatable = $"{nameof(Agnesi)}{{{nameof(Offset)}={offset}{sep}{nameof(Multiplyer)}={multiplyer}{sep}{nameof(Precision)}={precision}}}";
-            return formatable.ToString(format, provider);
+            return formatable.ToString(format, formatProvider);
         }
         #endregion Methods
     }

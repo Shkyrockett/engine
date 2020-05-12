@@ -188,7 +188,7 @@ namespace Engine
         /// </summary>
         /// <param name="brush">The brush.</param>
         /// <param name="points">The points.</param>
-        void FillPolygon(IFill brush, IEnumerable<Point2D> points);
+        void FillPolygon(IFillable brush, IEnumerable<Point2D> points);
 
         /// <summary>
         /// Fill the curve.
@@ -198,7 +198,7 @@ namespace Engine
         /// <param name="offset">The offset.</param>
         /// <param name="numberOfSegments">The numberOfSegments.</param>
         /// <param name="tension">The tension.</param>
-        void FillCurve(IFill brush, IEnumerable<Point2D> points, double offset, int numberOfSegments, double tension = 0.5d);
+        void FillCurve(IFillable brush, IEnumerable<Point2D> points, double offset, int numberOfSegments, double tension = 0.5d);
 
         /// <summary>
         /// Fill the closed curve.
@@ -207,13 +207,13 @@ namespace Engine
         /// <param name="points">The points.</param>
         /// <param name="tension">The tension.</param>
         /// <param name="fillmode">The fill-mode.</param>
-        void FillClosedCurve(IFill brush, IEnumerable<Point2D> points, double tension, FillMode fillmode);
+        void FillClosedCurve(IFillable brush, IEnumerable<Point2D> points, double tension, FillMode fillmode);
 
         /// <summary>
         /// Fill the path.
         /// </summary>
         /// <param name="brush">The brush.</param>
-        void FillPath(IFill brush);
+        void FillPath(IFillable brush);
 
         /// <summary>
         /// Fill the quadratic bezier.
@@ -225,7 +225,7 @@ namespace Engine
         /// <param name="y2">The y2.</param>
         /// <param name="x3">The x3.</param>
         /// <param name="y3">The y3.</param>
-        void FillQuadraticBezier(IFill brush, double x1, double y1, double x2, double y2, double x3, double y3);
+        void FillQuadraticBezier(IFillable brush, double x1, double y1, double x2, double y2, double x3, double y3);
 
         /// <summary>
         /// Fill the cubic bezier.
@@ -239,13 +239,13 @@ namespace Engine
         /// <param name="y3">The y3.</param>
         /// <param name="x4">The x4.</param>
         /// <param name="y4">The y4.</param>
-        void FillCubicBezier(IFill brush, double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4);
+        void FillCubicBezier(IFillable brush, double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4);
 
         /// <summary>
         /// Fill the region.
         /// </summary>
         /// <param name="brush">The brush.</param>
-        void FillRegion(IFill brush);
+        void FillRegion(IFillable brush);
 
         /// <summary>
         /// Fill the arc.
@@ -257,7 +257,7 @@ namespace Engine
         /// <param name="height">The height.</param>
         /// <param name="startAngle">The startAngle.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
-        void FillArc(IFill brush, double x, double y, double width, double height, double startAngle, double sweepAngle);
+        void FillArc(IFillable brush, double x, double y, double width, double height, double startAngle, double sweepAngle);
 
         /// <summary>
         /// Fill the arc.
@@ -270,7 +270,7 @@ namespace Engine
         /// <param name="startAngle">The startAngle.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
         /// <param name="angle">The angle.</param>
-        void FillArc(IFill brush, double x, double y, double width, double height, double startAngle, double sweepAngle, double angle);
+        void FillArc(IFillable brush, double x, double y, double width, double height, double startAngle, double sweepAngle, double angle);
 
         /// <summary>
         /// Fill the pie.
@@ -282,7 +282,7 @@ namespace Engine
         /// <param name="height">The height.</param>
         /// <param name="startAngle">The startAngle.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
-        void FillPie(IFill brush, double x, double y, double width, double height, double startAngle, double sweepAngle);
+        void FillPie(IFillable brush, double x, double y, double width, double height, double startAngle, double sweepAngle);
 
         /// <summary>
         /// Fill the ellipse.
@@ -292,7 +292,7 @@ namespace Engine
         /// <param name="y">The y.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        void FillEllipse(IFill brush, double x, double y, double width, double height);
+        void FillEllipse(IFillable brush, double x, double y, double width, double height);
 
         /// <summary>
         /// Fill the ellipse.
@@ -303,7 +303,7 @@ namespace Engine
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <param name="angle">The angle.</param>
-        void FillEllipse(IFill brush, double x, double y, double width, double height, double angle);
+        void FillEllipse(IFillable brush, double x, double y, double width, double height, double angle);
 
         /// <summary>
         /// Fill the rectangle.
@@ -313,14 +313,14 @@ namespace Engine
         /// <param name="y">The y.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        void FillRectangle(IFill brush, double x, double y, double width, double height);
+        void FillRectangle(IFillable brush, double x, double y, double width, double height);
 
         /// <summary>
         /// Fill the rectangles.
         /// </summary>
         /// <param name="brush">The brush.</param>
         /// <param name="rectangles">The rectangles.</param>
-        void FillRectangles(IFill brush, IEnumerable<Rectangle2D> rectangles);
+        void FillRectangles(IFillable brush, IEnumerable<Rectangle2D> rectangles);
 
         /// <summary>
         /// The draw string.
@@ -331,7 +331,7 @@ namespace Engine
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="stringFormat">The stringFormat.</param>
-        void DrawString(string text, RenderFont font, IFill brush, double x, double y, TextFormat stringFormat);
+        void DrawString(string text, RenderFont font, IFillable brush, double x, double y, TextFormat stringFormat);
 
         /// <summary>
         /// The draw string.
@@ -344,7 +344,7 @@ namespace Engine
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <param name="stringFormat">The stringFormat.</param>
-        void DrawString(string text, RenderFont font, IFill brush, double x, double y, double width, double height, TextFormat stringFormat);
+        void DrawString(string text, RenderFont font, IFillable brush, double x, double y, double width, double height, TextFormat stringFormat);
 
         /// <summary>
         /// The measure string.

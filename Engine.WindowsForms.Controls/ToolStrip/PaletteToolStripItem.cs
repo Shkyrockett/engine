@@ -38,7 +38,6 @@ namespace Engine.WindowsForms
         /// <summary>
         /// Gets the palette control.
         /// </summary>
-        public PaletteControl PaletteControl
-            => Control as PaletteControl;
+        public PaletteControl PaletteControl => Control as PaletteControl;
     }
 }

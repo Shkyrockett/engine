@@ -18,7 +18,7 @@ namespace Engine.File
     /// <summary>
     /// The packed nibble struct.
     /// </summary>
-    /// <seealso cref="System.IEquatable{Engine.File.PackedNibble}" />
+    /// <seealso cref="System.IEquatable{T}" />
     /// <!-- This class is based on several solutions found at: http://stackoverflow.com/questions/11607848/working-with-nibbles-in-c-sharp -->
     public struct PackedNibble
         : IEquatable<PackedNibble>

@@ -27,26 +27,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutLongMsg", ExactSpelling = true)]
-        internal static extern MmResult MidiOutLongMsg(IntPtr hMidiOut, [MarshalAs(UnmanagedType.Struct)] ref MIDIHDR lpMidiOutHdr, int uSize);
-
-        /// <summary>
-        /// Midis the out long MSG.
-        /// </summary>
-        /// <param name="midiOutputHandle">The midi output handle.</param>
-        /// <param name="midiOutHeader">The midi out header.</param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static MIDIHDR MidiOutLongMsg(IntPtr midiOutputHandle, ref MIDIHDR midiOutHeader)
-        {
-            return MidiOutLongMsg(midiOutputHandle, ref midiOutHeader, Marshal.SizeOf(midiOutHeader)) switch
-            {
-                MmResult.NoError => midiOutHeader,
-                MmResult.NotReady => throw new Exception("The hardware is busy with other data."),
-                MmResult.Unprepared => throw new Exception("The buffer pointed to by lpMidiOutHdr has not been prepared."),
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutLongMsg(IntPtr hMidiOut, [MarshalAs(UnmanagedType.Struct)] ref MIDIHDR lpMidiOutHdr, int uSize);
     }
 }

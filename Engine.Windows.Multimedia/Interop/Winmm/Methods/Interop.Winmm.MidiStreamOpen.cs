@@ -27,35 +27,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiStreamOpen", ExactSpelling = true)]
-        internal static extern MmResult MidiStreamOpen(out IntPtr hMidiStream, IntPtr puDeviceID, int cMidi, IntPtr dwCallback, IntPtr dwInstance, MidiOutOpenFlags fdwOpen);
-
-        /// <summary>
-        /// Opens a MIDI stream for output. By default, the device is opened in paused mode. The stream handle retrieved by this function must be used in all subsequent references to the stream.
-        /// </summary>
-        /// <param name="deviceID">The device identifier.</param>
-        /// <param name="midi">The midi.</param>
-        /// <param name="callback">The callback.</param>
-        /// <param name="instance">The instance.</param>
-        /// <param name="midiOpenFlags">The midi open flags.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">
-        /// The specified device identifier is out of range.
-        /// or
-        /// The specified pointer or structure is invalid.
-        /// or
-        /// The system is unable to allocate or lock memory.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IntPtr MidiStreamOpen(IntPtr deviceID, int midi, IntPtr callback, IntPtr instance, MidiOutOpenFlags midiOpenFlags)
-        {
-            return MidiStreamOpen(out var midiOutputHandle, deviceID,midi,callback,instance, midiOpenFlags) switch
-            {
-                MmResult.NoError => midiOutputHandle,
-                MmResult.BadDeviceId => throw new Exception("The specified device identifier is out of range."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                MmResult.MemoryAllocationError => throw new Exception("The system is unable to allocate or lock memory."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiStreamOpen(out IntPtr hMidiStream, IntPtr puDeviceID, int cMidi, IntPtr dwCallback, IntPtr dwInstance, MidiOutOpenFlags fdwOpen);
     }
 }

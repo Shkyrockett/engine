@@ -169,7 +169,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(BezierSegment2D)}{{{string.Join(sep, points)}}}";
+            IFormattable formatable = $"{nameof(BezierSegment2D)}{{{string.Join<Point2D>(sep, points)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

@@ -31,36 +31,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutCacheDrumPatches", ExactSpelling = true)]
-        internal static extern MmResult MidiOutCacheDrumPatches_(IntPtr hMidiOut, int uPatch, IntPtr lpKeyArray, MidiCacheFlags uFlags);
-
-        /// <summary>
-        /// Midis the out cache drum patches.
-        /// </summary>
-        /// <param name="midiOutputHandle">The midi output handle.</param>
-        /// <param name="patch">The patch.</param>
-        /// <param name="keyArray">The key array.</param>
-        /// <param name="flags">The flags.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">
-        /// The specified device handle is invalid.
-        /// or
-        /// The specified pointer or structure is invalid.
-        /// or
-        /// The system is unable to allocate or lock memory.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiOutCacheDrumPatches(IntPtr midiOutputHandle, int patch, IntPtr keyArray, MidiCacheFlags flags)
-        {
-            return (MidiOutCacheDrumPatches_(midiOutputHandle, patch, keyArray, flags)) switch
-            {
-                MmResult.NoError => true,
-                MmResult.InvalidFlag => throw new Exception("The flag specified by wFlags is invalid."),
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                MmResult.MemoryAllocationError => throw new Exception("The system is unable to allocate or lock memory."),
-                MmResult.NotSupported => throw new Exception("The specified device does not support patch caching."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutCacheDrumPatches_(IntPtr hMidiOut, int uPatch, IntPtr lpKeyArray, MidiCacheFlags uFlags);
     }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="Ray.cs" company="Shkyrockett" >
+﻿// <copyright file="Ray2D.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -160,6 +160,11 @@ namespace Engine
         [field: NonSerialized]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         Dictionary<object, object> IPropertyCaching.PropertyCache { get; set; }
+        public IShapeSegment Leading { get; set; }
+        public IShapeSegment Trailing { get; set; }
+        public Point2D? Head { get; set; }
+        public Point2D? Tail { get; set; }
+        public double Length { get; set; }
         #endregion Properties
 
         #region Operators

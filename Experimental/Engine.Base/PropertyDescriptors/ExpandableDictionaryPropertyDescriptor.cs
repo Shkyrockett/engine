@@ -49,7 +49,7 @@ namespace Engine
         /// <param name="d">The d.</param>
         /// <param name="key">The key.</param>
         public ExpandableDictionaryPropertyDescriptor(IDictionary d, object key)
-            : base(key.ToString(), null)
+            : base(key?.ToString(), null)
         {
             dictionary = d;
             this.key = key;
@@ -60,38 +60,34 @@ namespace Engine
         /// <summary>
         /// Gets the name.
         /// </summary>
-        public override string Name
-            => key.ToString();
+        public override string Name => key.ToString();
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        public override bool IsReadOnly
-            => false;
+        public override bool IsReadOnly => false;
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        public override bool SupportsChangeEvents
-            => true;
+        public override bool SupportsChangeEvents => true;
 
         /// <summary>
         /// Gets the component type.
         /// </summary>
-        public override Type ComponentType
-            => dictionary.GetType();
+        public override Type ComponentType => dictionary.GetType();
 
         /// <summary>
         /// Gets the property type.
         /// </summary>
-        public override Type PropertyType
-            => dictionary[key].GetType();
+        public override Type PropertyType => dictionary[key].GetType();
 
         /// <summary>
         /// Gets the attributes.
         /// </summary>
-        public override AttributeCollection Attributes
-            => new AttributeCollection(null);
+        public override AttributeCollection Attributes => new AttributeCollection(null);
+
+        //public override string DisplayName => $"[{key}]";
         #endregion Properties
 
         #region Methods
@@ -139,8 +135,8 @@ namespace Engine
         protected static string GetDisplayName(IDictionary dictionary, object key)
         {
             _ = dictionary;
-            //return $"{CSharpName(dictionary[key].GetType())} [{key,4}]";
             return $"[{key}]";
+            //return $"{CSharpName(dictionary[key].GetType())} [{key,4}]";
         }
 
         ///// <summary>

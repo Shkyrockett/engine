@@ -63,7 +63,7 @@ namespace Engine
 
             if (value is string source)
             {
-                return Vector3D.Parse(source);
+                return Vector3D.Parse(source, culture);
             }
 
             return base.ConvertFrom(context, culture, value);

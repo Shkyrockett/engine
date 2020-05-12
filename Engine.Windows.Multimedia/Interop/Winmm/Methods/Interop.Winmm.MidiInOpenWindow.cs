@@ -32,39 +32,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiInOpen", ExactSpelling = true)]
-        internal static extern MmResult MidiInOpenWindow(out IntPtr hMidiIn, IntPtr uDeviceID, IntPtr callbackWindowHandle, IntPtr dwInstance, MidiInOpenFlags dwFlags);
-
-        /// <summary>
-        /// Midis the in open window.
-        /// </summary>
-        /// <param name="deviceNo">The device no.</param>
-        /// <param name="callback">The callback.</param>
-        /// <param name="openFlags">The open flags.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">
-        /// The specified resource is already allocated.
-        /// or
-        /// The specified device identifier is out of range.
-        /// or
-        /// The flags specified by dwFlags are invalid.
-        /// or
-        /// The specified pointer or structure is invalid.
-        /// or
-        /// Unable to allocate or lock memory.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IntPtr MidiInOpenWindow(int deviceNo, IntPtr callback, MidiInOpenFlags openFlags = MidiInOpenFlags.CALLBACK_WINDOW)
-        {
-            return MidiInOpenWindow(out var hMidiIn, (IntPtr)deviceNo, callback, IntPtr.Zero, openFlags) switch
-            {
-                MmResult.NoError => hMidiIn,
-                MmResult.AlreadyAllocated => throw new Exception("The specified resource is already allocated."),
-                MmResult.BadDeviceId => throw new Exception("The specified device identifier is out of range."),
-                MmResult.InvalidFlag => throw new Exception("The flags specified by dwFlags are invalid."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                MmResult.MemoryAllocationError => throw new Exception("Unable to allocate or lock memory."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiInOpenWindow(out IntPtr hMidiIn, IntPtr uDeviceID, IntPtr callbackWindowHandle, IntPtr dwInstance, MidiInOpenFlags dwFlags);
     }
 }

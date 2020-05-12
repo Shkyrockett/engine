@@ -57,13 +57,13 @@ namespace MethodSpeedTester
             if (dgv.Rows.Count == 0)
             {
                 using var grfx = e.Graphics;
-                var format = new StringFormat
+                using var format = new StringFormat
                 {
                     Alignment = StringAlignment.Center,
                     LineAlignment = StringAlignment.Center,
                 };
-
-                grfx.DrawString("No Results", new Font(FontFamily.GenericSansSerif, 12, FontStyle.Bold), Brushes.Blue, dgv.ClientRectangle, format);
+                using var font = new Font(FontFamily.GenericSansSerif, 12, FontStyle.Bold);
+                grfx.DrawString("No Results", font, Brushes.Blue, dgv.ClientRectangle, format);
             }
         }
 

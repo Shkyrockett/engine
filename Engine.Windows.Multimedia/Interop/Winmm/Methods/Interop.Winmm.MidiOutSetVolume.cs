@@ -25,27 +25,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutSetVolume", ExactSpelling = true)]
-        internal static extern MmResult MidiOutSetVolume(IntPtr hMidiOut, int dwVolume);
-
-        /// <summary>
-        /// Sets the volume of a MIDI output device.
-        /// </summary>
-        /// <param name="midiOutputHandle">The midi output handle.</param>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">The specified device handle is invalid.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiOutSetVolume(IntPtr midiOutputHandle, short left, short right)
-        {
-            return MidiOutSetVolume(midiOutputHandle, right & 0x0000FFFF | left << 16) switch
-            {
-                MmResult.NoError => true,
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.MemoryAllocationError => throw new Exception("The system is unable to allocate or lock memory."),
-                MmResult.NotSupported => throw new Exception("The function is not supported."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutSetVolume(IntPtr hMidiOut, int dwVolume);
     }
 }

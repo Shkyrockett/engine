@@ -172,8 +172,7 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => Alpha.GetHashCode() | Red.GetHashCode() | Green.GetHashCode() | Blue.GetHashCode();
+        public override int GetHashCode() => Alpha.GetHashCode() | Red.GetHashCode() | Green.GetHashCode() | Blue.GetHashCode();
 
         /// <summary>
         /// Compares two <see cref="RGBA"/> colors
@@ -183,8 +182,7 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(RGBAF a, RGBAF b)
-            => Equals(a, b);
+        public static bool Compare(RGBAF a, RGBAF b) => Equals(a, b);
 
         /// <summary>
         /// The equals.
@@ -196,8 +194,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(RGBAF a, RGBAF b)
-            => a.Red == b.Red && a.Green == b.Green && a.Blue == b.Blue && a.Alpha == b.Alpha;
+        public static bool Equals(RGBAF a, RGBAF b) => a.Red == b.Red && a.Green == b.Green && a.Blue == b.Blue && a.Alpha == b.Alpha;
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
@@ -241,8 +238,7 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="ValueTuple"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
-            => ((byte)(Red * 255), (byte)(Green * 255), (byte)(Blue * 255), (byte)(Alpha * 255));
+        public (byte Red, byte Green, byte Blue, byte Alpha) ToRGBATuple() => ((byte)(Red * 255), (byte)(Green * 255), (byte)(Blue * 255), (byte)(Alpha * 255));
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="RGBAF"/> struct.
@@ -250,8 +246,7 @@ namespace Engine.Colorspace
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="RGBAF"/> struct based on the IFormatProvider
@@ -262,8 +257,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="RGBAF"/> class based on the format string
@@ -272,14 +266,13 @@ namespace Engine.Colorspace
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider formatProvider) => ConvertToString(format /* format string */, formatProvider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="RGBAF"/> struct based on the format string
@@ -288,16 +281,16 @@ namespace Engine.Colorspace
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ConvertToString(string format, IFormatProvider provider)
+        public string ConvertToString(string format, IFormatProvider formatProvider)
         {
-            var sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(RGBAF)}{{{nameof(Red)}={Red.ToString(format, provider)}{sep}{nameof(Green)}={Green.ToString(format, provider)}{sep}{nameof(Blue)}={Blue.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";
+            var sep = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(RGBAF)}{{{nameof(Red)}={Red.ToString(format, formatProvider)}{sep}{nameof(Green)}={Green.ToString(format, formatProvider)}{sep}{nameof(Blue)}={Blue.ToString(format, formatProvider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, formatProvider)}}}";
         }
         #endregion Standard Methods
     }

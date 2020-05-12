@@ -32,24 +32,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutPrepareHeader", ExactSpelling = true)]
-        internal static extern MmResult MidiOutPrepareHeader(IntPtr hMidiOut, [MarshalAs(UnmanagedType.Struct)] ref MIDIHDR lpMidiOutHdr, int uSize);
-
-        /// <summary>
-        /// Midis the out prepare header.
-        /// </summary>
-        /// <param name="midiOutputHandle">The midi output handle.</param>
-        /// <param name="lpMidiOutHdr">The lp midi out HDR.</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static MIDIHDR MidiOutPrepareHeader(IntPtr midiOutputHandle, ref MIDIHDR midiOutHeader)
-        {
-            return MidiOutPrepareHeader(midiOutputHandle, ref midiOutHeader, Marshal.SizeOf(midiOutHeader)) switch
-            {
-                MmResult.NoError => midiOutHeader,
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                MmResult.MemoryAllocationError => throw new Exception("The system is unable to allocate or lock memory."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutPrepareHeader(IntPtr hMidiOut, [MarshalAs(UnmanagedType.Struct)] ref MIDIHDR lpMidiOutHdr, int uSize);
     }
 }

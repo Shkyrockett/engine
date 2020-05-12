@@ -680,8 +680,7 @@ namespace Engine
         /// <returns>The <see cref="Point2D"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override Point2D Interpolate(double t)
-            => new Point2D(Interpolators.QuadraticBezier(t, ax, ay, bx, by, cx, cy));
+        public override Point2D Interpolate(double t) => new Point2D(Interpolators.QuadraticBezier(t, ax, ay, bx, by, cx, cy));
 
         /// <summary>
         /// The interpolate.
@@ -774,8 +773,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(QuadraticBezier2D other)
-            => A.Equals(other?.A) && B.Equals(other?.B) && C.Equals(other?.C);
+        public bool Equals(QuadraticBezier2D other) => A.Equals(other?.A) && B.Equals(other?.B) && C.Equals(other?.C);
 
         /// <summary>
         /// The equals.
@@ -784,8 +782,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is CubicBezier2D && Equals((CubicBezier2D)obj);
+        public override bool Equals(object obj) => obj is CubicBezier2D d && Equals(d);
 
         /// <summary>
         /// Get the hash code.
@@ -793,8 +790,7 @@ namespace Engine
         /// <returns>The <see cref="int"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => HashCode.Combine(ax, ay, bx, by, cx, cy);
+        public override int GetHashCode() => HashCode.Combine(ax, ay, bx, by, cx, cy);
 
         /// <summary>
         /// Creates a string representation of this <see cref="QuadraticBezier2D"/> struct based on the format string

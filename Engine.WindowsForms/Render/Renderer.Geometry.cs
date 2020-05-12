@@ -100,7 +100,7 @@ namespace Engine.Imaging
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
 
-            var p1 = (shape?.Location).Value;
+            var p1 = shape?.Location;
             //var p2 = shape.Location + shape.Direction;
             var intersection = Intersections.Intersection(shape, bounds);
 
@@ -259,10 +259,10 @@ namespace Engine.Imaging
                 {
                     case PointSegment2D t:
                         path.StartFigure();
-                        path.AddLine(t.Head.Value.ToPointF(), t.Tail.Value.ToPointF());
+                        path.AddLine(t.Head.ToPointF(), t.Tail.ToPointF());
                         break;
                     case LineCurveSegment2D t:
-                        path.AddLine(t.Head.Value.ToPointF(), t.Tail.Value.ToPointF());
+                        path.AddLine(t.Head.ToPointF(), t.Tail.ToPointF());
                         break;
                     case ArcSegment2D t:
                         var arc = t.ToEllipticalArc();
@@ -276,10 +276,10 @@ namespace Engine.Imaging
                         }
                         break;
                     case CubicBezierSegment2D t:
-                        path.AddBezier(t.Head.Value.ToPointF(), t.Handle1.ToPointF(), t.Handle2.Value.ToPointF(), t.Tail.Value.ToPointF());
+                        path.AddBezier(t.Head.ToPointF(), t.Handle1.ToPointF(), t.Handle2.ToPointF(), t.Tail.ToPointF());
                         break;
                     case QuadraticBezierSegment2D t:
-                        path.AddBeziers(new PointF[] { t.Head.Value.ToPointF(), t.Handle.Value.ToPointF(), t.Tail.Value.ToPointF() });
+                        path.AddBeziers(new PointF[] { t.Head.ToPointF(), t.Handle.ToPointF(), t.Tail.ToPointF() });
                         break;
                     case CardinalSegment2D t:
                         path.AddCurve(t.Nodes.ToPointFArray());
@@ -324,10 +324,10 @@ namespace Engine.Imaging
                     {
                         case PointSegment2D t:
                             path.StartFigure();
-                            path.AddLine(t.Head.Value.ToPointF(), t.Tail.Value.ToPointF());
+                            path.AddLine(t.Head.ToPointF(), t.Tail.ToPointF());
                             break;
                         case LineCurveSegment2D t:
-                            path.AddLine(t.Head.Value.ToPointF(), t.Tail.Value.ToPointF());
+                            path.AddLine(t.Head.ToPointF(), t.Tail.ToPointF());
                             break;
                         case ArcSegment2D t:
                             var arc = t.ToEllipticalArc();
@@ -341,10 +341,10 @@ namespace Engine.Imaging
                             }
                             break;
                         case CubicBezierSegment2D t:
-                            path.AddBezier(t.Head.Value.ToPointF(), t.Handle1.ToPointF(), t.Handle2.Value.ToPointF(), t.Tail.Value.ToPointF());
+                            path.AddBezier(t.Head.ToPointF(), t.Handle1.ToPointF(), t.Handle2.ToPointF(), t.Tail.ToPointF());
                             break;
                         case QuadraticBezierSegment2D t:
-                            path.AddBeziers(new PointF[] { t.Head.Value.ToPointF(), t.Handle.Value.ToPointF(), t.Tail.Value.ToPointF() });
+                            path.AddBeziers(new PointF[] { t.Head.ToPointF(), t.Handle.ToPointF(), t.Tail.ToPointF() });
                             break;
                         case CardinalSegment2D t:
                             path.AddCurve(t.Nodes.ToPointFArray());

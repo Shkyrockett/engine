@@ -17,6 +17,7 @@ namespace Engine.Tools
     /// <summary>
     /// The yes no type converter class.
     /// </summary>
+    /// <seealso cref="System.ComponentModel.TypeConverter" />
     public class YesNoTypeConverter
         : TypeConverter
     {
@@ -25,7 +26,9 @@ namespace Engine.Tools
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="sourceType">The sourceType.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
@@ -41,7 +44,9 @@ namespace Engine.Tools
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="destinationType">The destinationType.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
@@ -58,7 +63,9 @@ namespace Engine.Tools
         /// <param name="context">The context.</param>
         /// <param name="culture">The culture.</param>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="object"/>.</returns>
+        /// <returns>
+        /// The <see cref="object" />.
+        /// </returns>
         /// <exception cref="Exception">Values must be "Yes" or "No"</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
         {
@@ -87,7 +94,9 @@ namespace Engine.Tools
         /// <param name="culture">The culture.</param>
         /// <param name="value">The value.</param>
         /// <param name="destinationType">The destinationType.</param>
-        /// <returns>The <see cref="object"/>.</returns>
+        /// <returns>
+        /// The <see cref="object" />.
+        /// </returns>
         public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
@@ -102,14 +111,18 @@ namespace Engine.Tools
         /// Get the standard values supported.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) => true;
 
         /// <summary>
         /// Get the standard values.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <returns>The <see cref="StandardValuesCollection"/>.</returns>
+        /// <returns>
+        /// The <see cref="StandardValuesCollection" />.
+        /// </returns>
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             var bools = new bool[] { true, false };

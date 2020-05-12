@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -27,35 +26,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiInGetErrorText", ExactSpelling = true, CharSet = CharSet.Auto)]
-        internal static extern MmResult MidiInGetErrorText(int err, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpText, int uSize);
-
-        /// <summary>
-        /// Midis the in get error text.
-        /// </summary>
-        /// <param name="error">The error.</param>
-        /// <returns></returns>
-        /// <exception cref="System.Exception">
-        /// The specified device identifier is out of range.
-        /// or
-        /// The specified device handle is invalid.
-        /// or
-        /// The driver is not installed.
-        /// or
-        /// The system is unable to allocate or lock memory.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string MidiInGetErrorText(int error)
-        {
-            var sb = new StringBuilder(MaxErrorLength);
-            return (MidiInGetErrorText(error, sb, MaxErrorLength)) switch
-            {
-                MmResult.NoError => sb.ToString().Trim(),
-                MmResult.BadDeviceId => throw new Exception("The specified device identifier is out of range."),
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.NoDriver => throw new Exception("The driver is not installed."),
-                MmResult.MemoryAllocationError => throw new Exception("The system is unable to allocate or lock memory."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiInGetErrorText(int err, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpText, int uSize);
     }
 }

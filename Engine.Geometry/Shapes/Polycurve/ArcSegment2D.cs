@@ -62,13 +62,13 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArcSegment"/> class.
+        /// Initializes a new instance of the <see cref="ArcSegment2D"/> class.
         /// </summary>
         public ArcSegment2D()
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArcSegment"/> class.
+        /// Initializes a new instance of the <see cref="ArcSegment2D"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
         /// <param name="centerX">The centerX.</param>
@@ -76,17 +76,17 @@ namespace Engine
         /// <param name="radius">The radius.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
         public ArcSegment2D(CurveSegment2D previous, double centerX, double centerY, double radius, double sweepAngle)
-            : this(previous, radius, radius, sweepAngle, false, sweepAngle <= 180, PolarToCartesian(centerX, centerY, radius, Atan2((previous?.Tail).Value.Y, previous.Tail.Value.X) + sweepAngle))
+            : this(previous, radius, radius, sweepAngle, false, sweepAngle <= 180, PolarToCartesian(centerX, centerY, radius, Atan2((previous?.Tail).Y, previous.Tail.X) + sweepAngle))
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArcSegment"/> class.
+        /// Initializes a new instance of the <see cref="ArcSegment2D"/> class.
         /// </summary>
         /// <param name="previous">The item.</param>
         /// <param name="relitive">The relative.</param>
         /// <param name="args">The arguments.</param>
         public ArcSegment2D(CurveSegment2D previous, bool relitive, double[] args)
-            : this(previous, args is null ? double.NaN : args[0], args is null ? double.NaN : args[1], args is null ? double.NaN : args[2], args is null ? false : args[3] != 0, args is null ? false : args[4] != 0, args?.Length == 7 ? (Point2D?)new Point2D(args[5], args[6]) : null)
+            : this(previous, args is null ? double.NaN : args[0], args is null ? double.NaN : args[1], args is null ? double.NaN : args[2], !(args is null) && args[3] != 0, !(args is null) && args[4] != 0, args?.Length == 7 ? new Point2D(args[5], args[6]) : null)
         {
             if (args is null)
             {
@@ -100,7 +100,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArcSegment"/> class.
+        /// Initializes a new instance of the <see cref="ArcSegment2D"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
         /// <param name="rx">The rx.</param>
@@ -123,7 +123,7 @@ namespace Engine
             Angle = angle;
             LargeArc = largeArc;
             Sweep = sweep;
-            Tail = end.Value;
+            Tail = end;
         }
         #endregion Constructors
 
@@ -158,7 +158,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the Elliptical arc circumference coincident to the starting angle.")]
-        public override Point2D? Head
+        public override Point2D Head
         {
             get { return Previous.Tail; }
             set
@@ -191,7 +191,7 @@ namespace Engine
         {
             get
             {
-                return (Point2D)CachingProperty(() => center(Head.Value, Tail.Value, Cos(Angle), Sin(Angle)));
+                return (Point2D)CachingProperty(() => center(Head, Tail, Cos(Angle), Sin(Angle)));
 
                 Point2D center(Point2D start, Point2D end, double cosT, double sinT)
                 {
@@ -311,15 +311,13 @@ namespace Engine
         /// Gets the Cosine of the angle of rotation.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double CosAngle
-            => (double)CachingProperty(() => Cos(angle));
+        public double CosAngle => (double)CachingProperty(() => Cos(angle));
 
         /// <summary>
         /// Gets the Sine of the angle of rotation.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double SinAngle
-            => (double)CachingProperty(() => Sin(angle));
+        public double SinAngle => (double)CachingProperty(() => Sin(angle));
 
         /// <summary>
         /// Gets the start angle.
@@ -332,16 +330,14 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double StartAngle
-            => (double)CachingProperty(() => ToEllipticalArc().StartAngle);
+        public double StartAngle => (double)CachingProperty(() => ToEllipticalArc().StartAngle);
 
         /// <summary>
         /// Gets the Polar corrected start angle of the <see cref="Ellipse2D"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
-        public double PolarStartAngle
-            => (double)CachingProperty(() => EllipticalPolarAngle(StartAngle, rX, rY));
+        public double PolarStartAngle => (double)CachingProperty(() => EllipticalPolarAngle(StartAngle, rX, rY));
 
         /// <summary>
         /// Gets the sweep angle.
@@ -354,8 +350,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
-        public double SweepAngle
-            => (double)CachingProperty(() => ToEllipticalArc().SweepAngle);
+        public double SweepAngle => (double)CachingProperty(() => ToEllipticalArc().SweepAngle);
 
         /// <summary>
         /// Gets the end angle.
@@ -368,16 +363,14 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public double EndAngle
-            => (double)CachingProperty(() => StartAngle + SweepAngle);
+        public double EndAngle => (double)CachingProperty(() => StartAngle + SweepAngle);
 
         /// <summary>
         /// Gets the Polar corrected end angle of the <see cref="Ellipse2D"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [GeometryAngleRadians]
-        public double PolarEndAngle
-            => (double)CachingProperty(() => EllipticalPolarAngle(StartAngle + SweepAngle, rX, rY));
+        public double PolarEndAngle => (double)CachingProperty(() => EllipticalPolarAngle(StartAngle + SweepAngle, rX, rY));
 
         /// <summary>
         /// Gets or sets a value indicating whether 
@@ -430,7 +423,7 @@ namespace Engine
             get { return end; }
             set
             {
-                end = value.Value;
+                end = value;
                 ClearCache();
             }
         }
@@ -440,8 +433,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public override List<Point2D> Grips
-            => new List<Point2D> { Head.Value, Tail.Value };
+        public override List<Point2D> Grips => new List<Point2D> { Head, Tail };
 
         /// <summary>
         /// Gets the bounds.
@@ -450,15 +442,13 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => ToEllipticalArc().Bounds);
+        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => ToEllipticalArc().Bounds);
 
         /// <summary>
         /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override double Length
-            => (double)CachingProperty(() => ToEllipticalArc().Perimeter);
+        public override double Length => (double)CachingProperty(() => ToEllipticalArc().Perimeter);
         #endregion Properties
 
         /// <summary>
@@ -466,8 +456,7 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public override Point2D Interpolate(double t)
-            => ToEllipticalArc().Interpolate(t);
+        public override Point2D Interpolate(double t) => ToEllipticalArc().Interpolate(t);
 
         #region Methods
         /// <summary>
@@ -475,15 +464,13 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Inclusions"/>.</returns>
-        public Inclusions Contains(Point2D point)
-            => Intersections.Contains(ToEllipticalArc(), point);
+        public Inclusions Contains(Point2D point) => Intersections.Contains(ToEllipticalArc(), point);
 
         /// <summary>
         /// The to elliptical arc.
         /// </summary>
         /// <returns>The <see cref="EllipticalArc2D"/>.</returns>
-        public EllipticalArc2D ToEllipticalArc()
-            => (EllipticalArc2D)CachingProperty(() => new EllipticalArc2D(Head.Value.X, Head.Value.Y, RX, RY, Angle, LargeArc, Sweep, Tail.Value.X, Tail.Value.Y));
+        public EllipticalArc2D ToEllipticalArc() => (EllipticalArc2D)CachingProperty(() => new EllipticalArc2D(Head.X, Head.Y, RX, RY, Angle, LargeArc, Sweep, Tail.X, Tail.Y));
         #endregion Methods
     }
 }

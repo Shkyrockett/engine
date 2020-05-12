@@ -36,9 +36,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />
-    <ProjectReference Include="..\Engine.Dynamic\Engine.Dynamic.csproj" />
+    <ProjectReference Include="..\Engine.Dynamics\Engine.Dynamics.csproj" />
     <ProjectReference Include="..\Engine.Geometry\Engine.Geometry.csproj" />
-    <ProjectReference Include="..\Engine.Mathmatics\Engine.Mathmatics.csproj" />
+    <ProjectReference Include="..\Engine.Mathematics\Engine.Mathematics.csproj" />
   </ItemGroup>
 
 </Project>

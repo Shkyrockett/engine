@@ -24,31 +24,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiInClose", ExactSpelling = true)]
-        internal static extern MmResult MidiInClose_(IntPtr hMidiIn);
-
-        /// <summary>
-        /// Midis the in close.
-        /// </summary>
-        /// <param name="midiInputHandle">The midi input handle.</param>
-        /// <returns></returns>
-        /// <exception cref="System.Exception">
-        /// The Midi buffer is still in the queue.
-        /// or
-        /// The specified device handle is invalid.
-        /// or
-        /// The system is unable to allocate or lock memory.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiInClose(IntPtr midiInputHandle)
-        {
-            return (MidiInClose_(midiInputHandle)) switch
-            {
-                MmResult.NoError => true,
-				MmResult.StillPlaying => throw new Exception("The Midi buffer is still in the queue."),
-				MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-				MmResult.MemoryAllocationError => throw new Exception("The system is unable to allocate or lock memory."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiInClose_(IntPtr hMidiIn);
     }
 }

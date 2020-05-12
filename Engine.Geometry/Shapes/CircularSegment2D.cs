@@ -68,14 +68,14 @@ namespace Engine
         /// </summary>
         /// <param name="triangle"></param>
         public CircularSegment2D(Triangle2D triangle)
-            : this((triangle?.A).Value, triangle.B, triangle.C)
+            : this(triangle.A, triangle.B, triangle.C)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularSegment2D"/> class.
         /// </summary>
         public CircularSegment2D(Circle2D circle, double startAngle, double endAngle)
-            : this((circle?.Center).Value, circle.Radius, startAngle, endAngle)
+            : this(circle.Center, circle.Radius, startAngle, endAngle)
         { }
 
         /// <summary>
@@ -209,8 +209,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the starting angle.")]
-        public Point2D StartPoint
-            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(0, x, y, radius, startAngle, SweepAngle));
+        public Point2D StartPoint => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(0, x, y, radius, startAngle, SweepAngle));
 
         /// <summary>
         /// Gets the point on the circular arc circumference coincident to the ending angle.
@@ -219,8 +218,7 @@ namespace Engine
         [Browsable(true)]
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the ending angle.")]
-        public Point2D EndPoint
-            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(1, x, y, radius, startAngle, SweepAngle));
+        public Point2D EndPoint => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(1, x, y, radius, startAngle, SweepAngle));
 
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the circle.
@@ -409,8 +407,7 @@ namespace Engine
         /// </summary>
         [Category("Properties")]
         [Description("The distance around the Chord.")]
-        public double ChordLength
-            => (double)CachingProperty(() => Abs(SweepAngle) * radius);
+        public double ChordLength => (double)CachingProperty(() => Abs(SweepAngle) * radius);
 
         /// <returns></returns>
         /// <summary>
@@ -418,8 +415,7 @@ namespace Engine
         /// </summary>
         [Category("Properties")]
         [Description("The distance around the arc.")]
-        public double Perimiter
-            => (double)CachingProperty(() => (2 * PI * radius * -SweepAngle) + (Abs(SweepAngle) * radius));
+        public double Perimiter => (double)CachingProperty(() => (2 * PI * radius * -SweepAngle) + (Abs(SweepAngle) * radius));
 
         /// <remarks><para>https://en.wikipedia.org/wiki/Circular_segment</para></remarks>
         /// <summary>
@@ -427,8 +423,7 @@ namespace Engine
         /// </summary>
         [Category("Properties")]
         [Description("The area of the Chord.")]
-        public override double Area
-            => (double)CachingProperty(() => radius * radius * 0.5d * (SweepAngle - Sin(SweepAngle)));
+        public override double Area => (double)CachingProperty(() => radius * radius * 0.5d * (SweepAngle - Sin(SweepAngle)));
 
         //return radius * (1 - Cos(SweepAngle * 0.5d));
         /// <summary>
@@ -440,8 +435,7 @@ namespace Engine
         /// <remarks><para>https://en.wikipedia.org/wiki/Circular_segment</para></remarks>
         [Category("Properties")]
         [Description("The sagitta of the Chord.")]
-        public double Sagitta
-            => (double)CachingProperty(() => radius - Sqrt((radius * radius) - (SweepAngle * SweepAngle / 4)));
+        public double Sagitta => (double)CachingProperty(() => radius - Sqrt((radius * radius) - (SweepAngle * SweepAngle / 4)));
 
         /// <summary>
         /// Gets the bounds.
@@ -499,8 +493,7 @@ namespace Engine
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle containing the Chord.")]
-        public Rectangle2D DrawingBounds
-            => (Rectangle2D)CachingProperty(() => Rectangle2D.FromLTRB(x - radius, y - radius, x + radius, y + radius));
+        public Rectangle2D DrawingBounds => (Rectangle2D)CachingProperty(() => Rectangle2D.FromLTRB(x - radius, y - radius, x + radius, y + radius));
         #endregion Properties
 
         #region Interpolators

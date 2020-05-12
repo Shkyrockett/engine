@@ -27,11 +27,11 @@ namespace Engine.WindowsForms
         public static RGBA ToRGBA(this Color color) => new RGBA(color.R, color.G, color.B, color.A, color.Name);
 
         /// <summary>
-        /// Converts an <see cref="IFill"/> to a <see cref="Brush"/>.
+        /// Converts an <see cref="IFillable"/> to a <see cref="Brush"/>.
         /// </summary>
         /// <param name="brush">The brush.</param>
         /// <returns>The <see cref="Brush"/>.</returns>
-        public static Brush ToBrush(this IFill brush) => new SolidBrush((brush?.Color).ToColor());
+        public static Brush ToBrush(this IFillable brush) => new SolidBrush((brush?.Color).ToColor());
 
         /// <summary>
         /// Converts an <see cref="IStroke"/> to a <see cref="Pen"/>.

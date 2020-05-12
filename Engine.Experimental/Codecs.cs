@@ -140,7 +140,7 @@ namespace Engine.Experimental
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
-        public override bool Equals(object obj) => obj is Codecs && Equals((Codecs)obj);
+        public override bool Equals(object obj) => obj is Codecs codecs && Equals(codecs);
 
         /// <summary>
         /// The equals.

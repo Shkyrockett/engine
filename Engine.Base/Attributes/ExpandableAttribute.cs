@@ -15,6 +15,7 @@ namespace Engine
     /// <summary>
     /// Attribute used to mark properties as expandable for WinForms PropertyGrid.
     /// </summary>
+    /// <seealso cref="System.Attribute" />
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Struct, Inherited = true)]
     public class ExpandableAttribute
         : Attribute

@@ -1,4 +1,4 @@
-﻿// <copyright file="Line.cs" company="Shkyrockett" >
+﻿// <copyright file="Line2D.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -27,6 +27,7 @@ namespace Engine
     /// <structure>Engine.Geometry.Line2D</structure>
     [GraphicsObject]
     [DataContract, Serializable]
+    [DisplayName(nameof(Line2D))]
     [TypeConverter(typeof(StructConverter<Line2D>))]
     [XmlType(TypeName = "line", Namespace = "http://www.w3.org/2000/svg")]
     [DebuggerDisplay("{ToString()}")]

@@ -143,36 +143,22 @@ namespace Engine.Imaging
         /// <summary>
         /// Gets the stroke.
         /// </summary>
-        public IStroke Stroke
+        public IStroke Stroke => ForePen.Brush switch
         {
-            get
-            {
-                switch (ForePen.Brush)
-                {
-                    case SolidBrush b:
-                        return new Stroke(new SolidFill(b.Color.ToRGBA()));
-                    case HatchBrush h:
-                        return new Stroke(new SolidFill(h.ForegroundColor.ToRGBA()));
-                    case LinearGradientBrush _:
-                    case PathGradientBrush _:
-                    case TextureBrush _:
-                    default:
-                        return new Stroke(new SolidFill(Colors.Transparent));
-                }
-
-            }
-        }
+            SolidBrush b => new Stroke(new SolidFill(b.Color.ToRGBA())),
+            HatchBrush h => new Stroke(new SolidFill(h.ForegroundColor.ToRGBA())),
+            _ => new Stroke(new SolidFill(Colors.Transparent)),
+        };
 
         /// <summary>
         /// Gets the fill.
         /// </summary>
-        public IFill Fill
-            => BackPen switch
-            {
-                Pen p when p.Brush is HatchBrush => new SolidFill(Colors.Black),
-                Pen p when p.Brush is SolidBrush => new SolidFill(BackPen?.Color.ToRGBA() ?? Colors.Black),
-                _ => new SolidFill(Colors.Black),
-            };
+        public IFillable Fill => BackPen switch
+        {
+            Pen p when p.Brush is HatchBrush => new SolidFill(Colors.Black),
+            Pen p when p.Brush is SolidBrush => new SolidFill(BackPen?.Color.ToRGBA() ?? Colors.Black),
+            _ => new SolidFill(Colors.Black),
+        };
 
         /// <summary>
         /// Gets or sets the fore brush.

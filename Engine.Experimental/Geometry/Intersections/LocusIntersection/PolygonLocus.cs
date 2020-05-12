@@ -77,9 +77,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// Converts to polygoncontour.
+        /// Converts to polygonContour.
         /// </summary>
         /// <returns></returns>
-        public PolygonContour2D ToPolygonContour() => new PolygonContour2D(Points);
+        public PolygonContour2D ToPolygonContour2D() => new PolygonContour2D(Points);
     }
 }

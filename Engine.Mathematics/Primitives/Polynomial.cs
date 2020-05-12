@@ -1446,7 +1446,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (double minY, double maxY) MinMax(double minX = 0, double maxX = 1)
         {
-            var roots = Derivate().Trim().Roots()
+            var roots = Derivate().Trim().Roots().ToArray()
                 .Where(t => t > minX && t < maxX)
                 .Concat(Identity).ToArray();
 
@@ -1715,16 +1715,16 @@ namespace Engine
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public IEnumerable<double> RealOrComplexRoots(double epsilon = double.Epsilon)
+        public unsafe Span<double> RealOrComplexRoots(double epsilon = double.Epsilon)
         {
             if (CanSolveRealRoots)
             {
                 return Roots();
             }
 
-            return ComplexRoots()
+            return ComplexRoots().ToArray()
                 .Where(c => Abs(c.Imaginary) < epsilon)
-                .Select(c => c.Real);
+                .Select(c => c.Real).ToArray();
         }
 
         /// <summary>
@@ -1740,7 +1740,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Complex[] ComplexRoots(double epsilon = double.Epsilon)
+        public unsafe Span<Complex> ComplexRoots(double epsilon = double.Epsilon)
         {
             var poly = Normalize();
             if (poly.Count == 1)
@@ -1823,7 +1823,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double[] RootsInInterval(double min = 0, double max = 1, double epsilon = double.Epsilon)
+        public unsafe Span<double> RootsInInterval(double min = 0, double max = 1, double epsilon = double.Epsilon)
         {
             var roots = new HashSet<double>();
             double? root;
@@ -1889,7 +1889,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double[] Roots(double epsilon = double.Epsilon)
+        public unsafe Span<double> Roots(double epsilon = double.Epsilon)
         {
             switch (Degree)
             {
@@ -1968,26 +1968,26 @@ namespace Engine
         /// Creates a string representation of this <see cref="Polynomial" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString(string.Empty /* format string */, provider /* format provider */);
+        public string ToString(IFormatProvider formatProvider) => ToString(string.Empty /* format string */, formatProvider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Polynomial" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             // ¹²³⁴⁵⁶⁷⁸⁹⁰ ⁱ ₁₂₃₄₅₆₇₈₉₀ ⁻⁼⁺⁽⁾ⁿ‽ ₊₋₌₍₎ₓ
             var coefs = new List<string>();
@@ -1995,7 +1995,7 @@ namespace Engine
             for (var i = (coefficients?.Length ?? 0) - 1; i >= 0; i--)
             {
                 var value = coefficients[i];
-                var powStr = i.ToString(format, provider);
+                var powStr = i.ToString(format, formatProvider);
                 powStr = powStr.Replace("1", "¹", StringComparison.OrdinalIgnoreCase);
                 powStr = powStr.Replace("2", "²", StringComparison.OrdinalIgnoreCase);
                 powStr = powStr.Replace("3", "³", StringComparison.OrdinalIgnoreCase);
@@ -2010,7 +2010,7 @@ namespace Engine
                 {
                     var sign = (value < 0) ? " - " : " + ";
                     value = Abs(value);
-                    var valueString = value.ToString(format, provider);
+                    var valueString = value.ToString(format, formatProvider);
                     if (i > 0)
                     {
                         if (value == 1)

@@ -74,7 +74,7 @@ namespace Engine
         public List<Point2D> Points { get; set; }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="PointSetLocus"/> to <see cref="PointSet"/>.
+        /// Performs an implicit conversion from <see cref="PointSetLocus"/> to <see cref="PointSet2D"/>.
         /// </summary>
         /// <param name="locus">The locus.</param>
         /// <returns>
@@ -136,5 +136,21 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public PointSet2D ToPointSet() => new PointSet2D(Points);
+
+        /// <summary>
+        /// Converts to pointset2d.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public PointSet2D ToPointSet2D() => throw new System.NotImplementedException();
+
+        /// <summary>
+        /// Converts to pointsetlocus.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public static PointSetLocus ToPointSetLocus(PointSetLocus left, PointSetLocus right) => throw new System.NotImplementedException();
     }
 }

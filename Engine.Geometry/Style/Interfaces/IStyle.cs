@@ -21,8 +21,8 @@ namespace Engine
         /// <summary>
         /// Gets the fill.
         /// </summary>
-        /// <value>The <see cref="IFill"/>.</value>
-        IFill Fill { get; }
+        /// <value>The <see cref="IFillable"/>.</value>
+        IFillable Fill { get; }
 
         /// <summary>
         /// Gets the stroke.

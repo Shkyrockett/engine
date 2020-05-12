@@ -118,7 +118,7 @@ namespace Engine.File
         /// <summary>
         /// Loads a Midi file from a stream.
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="stream">The stream.</param>
         /// <returns></returns>
         public static Midi Load(Stream stream)
         {
@@ -160,7 +160,7 @@ namespace Engine.File
         /// Converts to string.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
+        /// A <see cref="string" /> that represents this instance.
         /// </returns>
         public override string ToString() => "Midi File";
         #endregion

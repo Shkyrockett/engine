@@ -24,25 +24,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutClose", ExactSpelling = true)]
-        internal static extern MmResult MidiOutClose_(IntPtr hMidiOut);
-
-        /// <summary>
-        /// Midis the out close.
-        /// </summary>
-        /// <param name="midiOutputHandle">The midi output handle.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">The specified device handle is invalid.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiOutClose(IntPtr midiOutputHandle)
-        {
-            return (MidiOutClose_(midiOutputHandle)) switch
-            {
-                MmResult.NoError => true,
-                MmResult.StillPlaying => throw new Exception("Buffers are still in the queue."),
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.MemoryAllocationError => throw new Exception("The system is unable to load mapper string description."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutClose_(IntPtr hMidiOut);
     }
 }

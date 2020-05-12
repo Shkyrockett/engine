@@ -24,25 +24,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiDisconnect", ExactSpelling = true)]
-        internal static extern MmResult MidiDisconnect(IntPtr hMidiIn, out IntPtr hMidiOut, IntPtr pReserved);
-
-        /// <summary>
-        /// Disconnects the specified midi input handle.
-        /// </summary>
-        /// <param name="midiInputHandle">The midi input handle.</param>
-        /// <returns>
-        /// The MIDI output handle.
-        /// </returns>
-        /// <exception cref="System.Exception">An invalid handle was provided to disconnect a MIDI device.</exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IntPtr MidiDisconnect(IntPtr midiInputHandle)
-        {
-            return (MidiDisconnect(midiInputHandle, out var midiOutputHandle, IntPtr.Zero)) switch
-            {
-                MmResult.NoError => midiOutputHandle,
-                MmResult.InvalidHandle => throw new Exception("An invalid handle was provided to disconnect a MIDI device."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiDisconnect(IntPtr hMidiIn, out IntPtr hMidiOut, IntPtr pReserved);
     }
 }

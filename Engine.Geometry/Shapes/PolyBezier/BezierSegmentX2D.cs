@@ -42,7 +42,7 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a default instance of the <see cref="BezierSegmentX"/> class with no terms.
+        /// Initializes a default instance of the <see cref="BezierSegmentX2D"/> class with no terms.
         /// </summary>
         public BezierSegmentX2D()
         {
@@ -51,7 +51,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BezierSegmentX"/> class as a single point constant term curve.
+        /// Initializes a new instance of the <see cref="BezierSegmentX2D"/> class as a single point constant term curve.
         /// </summary>
         public BezierSegmentX2D(Point2D point)
         {
@@ -60,7 +60,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BezierSegmentX"/> class as a line segment from the previous curve.
+        /// Initializes a new instance of the <see cref="BezierSegmentX2D"/> class as a line segment from the previous curve.
         /// </summary>
         /// <param name="previous">The previous curve.</param>
         /// <param name="point">The next point.</param>
@@ -69,7 +69,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BezierSegmentX"/> class as a quadratic bezier curve from the previous curve.
+        /// Initializes a new instance of the <see cref="BezierSegmentX2D"/> class as a quadratic bezier curve from the previous curve.
         /// </summary>
         /// <param name="previous">The previous curve.</param>
         /// <param name="handle">The quadratic curve handle.</param>
@@ -79,7 +79,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BezierSegmentX"/> class as a quadratic bezier curve from the previous curve.
+        /// Initializes a new instance of the <see cref="BezierSegmentX2D"/> class as a quadratic bezier curve from the previous curve.
         /// </summary>
         /// <param name="previous">The previous curve.</param>
         /// <param name="handle1">The first cubic curve handle.</param>
@@ -90,7 +90,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BezierSegmentX"/> class using a parameter array.
+        /// Initializes a new instance of the <see cref="BezierSegmentX2D"/> class using a parameter array.
         /// </summary>
         /// <param name="previous"></param>
         /// <param name="points"></param>
@@ -101,7 +101,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BezierSegmentX"/> class.
+        /// Initializes a new instance of the <see cref="BezierSegmentX2D"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
         /// <param name="points">The points.</param>
@@ -140,10 +140,10 @@ namespace Engine
         public BezierSegmentX2D Previous { get; set; }
 
         /// <summary>
-        /// Gets or sets a reference to the end point of the previous <see cref="BezierSegmentX"/> to use as the stating point.
+        /// Gets or sets a reference to the end point of the previous <see cref="BezierSegmentX2D"/> to use as the stating point.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public Point2D? Start
+        public Point2D Start
         {
             get { return Previous.End; }
             set
@@ -161,7 +161,7 @@ namespace Engine
         [TypeConverter(typeof(ArrayConverter))]
         public Point2D[] Handles
         {
-            get { return handles.Slice(0, handles.Length - 2); }
+            get { return handles.Slice(0, handles.Length - 2).ToArray(); }
             set
             {
                 var temp = new[] { handles[^1] };
@@ -179,7 +179,7 @@ namespace Engine
         [TypeConverter(typeof(ArrayConverter))]
         public Point2D[] Points
         {
-            get { return handles.Slice(0, handles.Length - 2); }
+            get { return handles.Slice(0, handles.Length - 2).ToArray(); }
             set
             {
                 var temp = new[] { handles[^1] };
@@ -193,18 +193,18 @@ namespace Engine
         /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Point2D? NextToEnd
+        public Point2D NextToEnd
         {
             get { return (handles.Length >= 2) ? handles[^2] : Start; }
             set
             {
                 if (handles.Length >= 2)
                 {
-                    handles[^2] = value.Value;
+                    handles[^2] = value;
                 }
                 else
                 {
-                    Start = value.Value;
+                    Start = value;
                 }
             }
         }
@@ -213,10 +213,10 @@ namespace Engine
         /// Gets or sets the end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Point2D? End
+        public Point2D End
         {
             get { return handles[^1]; }
-            set { handles[^1] = value.Value; }
+            set { handles[^1] = value; }
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => Polynomials.Bezier(handles.Concat(new[] { Start.Value }).Select(p => p.X).ToArray()));
+                var curveX = (Polynomial)CachingProperty(() => Polynomials.Bezier(handles.Concat(new[] { Start }).Select(p => p.X).ToArray()));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -256,7 +256,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => Polynomials.Bezier(handles.Concat(new[] { Start.Value }).Select(p => p.Y).ToArray()));
+                var curveY = (Polynomial)CachingProperty(() => Polynomials.Bezier(handles.Concat(new[] { Start }).Select(p => p.Y).ToArray()));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -292,7 +292,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(BezierSegmentX2D)}{{{string.Join(sep, handles)}}}";
+            IFormattable formatable = $"{nameof(BezierSegmentX2D)}{{{string.Join<Point2D>(sep, handles)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

@@ -210,13 +210,13 @@ namespace Engine
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">ToDo: describe provider parameter on ToString</param>
+        /// <param name="formatProvider">ToDo: describe provider parameter on ToString</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ConvertToString(string.Empty /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the format string
@@ -225,13 +225,13 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider formatProvider) => ConvertToString(format /* format string */, formatProvider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the format string
@@ -240,19 +240,19 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public virtual string ConvertToString(string format, IFormatProvider provider)
+        public virtual string ConvertToString(string format, IFormatProvider formatProvider)
         {
             if (this is null)
             {
                 return nameof(GraphicsObject);
             }
-            //char sep = Tokenizer.GetNumericListSeparator(provider);
+            //char sep = Tokenizer.GetNumericListSeparator(formatProvider);
             IFormattable formatable = $"{nameof(GraphicsObject)}";
-            return formatable.ToString(format, provider);
+            return formatable.ToString(format, formatProvider);
         }
         #endregion Methods
     }

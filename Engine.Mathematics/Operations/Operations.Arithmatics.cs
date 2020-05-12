@@ -9,7 +9,9 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace Engine
@@ -1125,5 +1127,50 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Wrap(this double value, double min, double max) => (value < min) ? max - ((min - value) % (max - min)) : min + ((value - min) % (max - min));
         #endregion Wrapping
+
+        /// <summary>
+        /// Ranges the specified minimum.
+        /// </summary>
+        /// <param name="min">The minimum.</param>
+        /// <param name="max">The maximum.</param>
+        /// <param name="step">The step.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://stackoverflow.com/a/7552870
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<double> StepRange(double min, double max, double step)
+        {
+            double i;
+            for (i = min; i <= max; i += step)
+            {
+                yield return i;
+            }
+
+            if (i != max + step) // Added only because you want max to be returned as last item
+            {
+                yield return max;
+            }
+        }
+
+        /// <summary>
+        /// Generates a range of double values from a minimum value to a maximum value.
+        /// </summary>
+        /// <param name="min">The minimum.</param>
+        /// <param name="max">The maximum.</param>
+        /// <param name="numberOfSteps">The number of steps.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">numberOfSteps - Number of steps must be greater than zero.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEnumerable<double> CountRange(double min, double max, int numberOfSteps)
+        {
+            if (numberOfSteps < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(numberOfSteps), "Number of steps must be greater than zero.");
+            }
+
+            var stepSize = (max - min) / numberOfSteps;
+            return Enumerable.Range(0, numberOfSteps + 1).Select(stepIndex => min + stepIndex * stepSize);
+        }
     }
 }

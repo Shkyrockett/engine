@@ -29,8 +29,8 @@ namespace Engine
         {
             PointList = new List<Point2D>
             {
-                (s?.A).Value,
-                (s?.B).Value
+                s.A,
+                s.B
             };
             Closed = false;
         }

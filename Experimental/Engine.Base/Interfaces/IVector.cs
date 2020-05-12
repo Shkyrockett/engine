@@ -24,13 +24,15 @@ namespace Engine
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public interface IVector<V>
         : IPrimitive, //IComparable<V>, //IConvertible,
-        IEquatable<V> where V : struct, IVector<V>
+        IEquatable<V> where V : /*struct,*/ IVector<V>
     {
         /// <summary>
         /// The equals.
         /// </summary>
-        /// <param name="item">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <param name="vector">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals([AllowNull] object vector) => vector is V d && Equals(d);

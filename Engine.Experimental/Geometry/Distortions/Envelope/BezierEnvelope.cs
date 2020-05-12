@@ -181,7 +181,7 @@ namespace Engine
         //            return 2;
         //        case CubicBezierSegment2D c:
         //            return 3;
-        //        case ArcSegment2D a:
+        //        case EllipticalArcSegment2D a:
         //            return 0;
         //        default:
         //            return -1;
@@ -231,7 +231,7 @@ namespace Engine
         /// <param name="bounds">The bounding box of the shape.</param>
         /// <param name="points">The points of the segment.</param>
         /// <returns>The returned points in normalized percentage form.</returns>
-        public static Point2D[] NormalizePoints(Rectangle2D bounds, Point2D[] points)
+        internal static Point2D[] NormalizePoints(Rectangle2D bounds, Point2D[] points)
         {
             var (xmin, ymin, xdiff, ydiff) = bounds;
             var percentages = new Point2D[points.Length];
@@ -371,7 +371,7 @@ namespace Engine
         /// <param name="d"></param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        private static Point2D PointOnCubic(Point2D a, Point2D b, Point2D c, Point2D d, double t)
+        internal static Point2D PointOnCubic(Point2D a, Point2D b, Point2D c, Point2D d, double t)
         {
             var t2 = t * t;
             var t3 = t2 * t;
@@ -393,7 +393,7 @@ namespace Engine
         /// <param name="key2">The key2.</param>
         /// <param name="percentage">The percentage.</param>
         /// <returns>The <see cref="Array"/>.</returns>
-        private static Point2D[] TweenCubic(Point2D[] key1, Point2D[] key2, double percentage)
+        internal static Point2D[] TweenCubic(Point2D[] key1, Point2D[] key2, double percentage)
         {
             var tween = new Point2D[key1.Length];
             for (var i = 0; i < key1.Length; i++)
@@ -449,8 +449,7 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        private static ((double x, double y, double z) x, (double x, double y, double z) y) RotateTransform(double a)
-            => ((Math.Cos(a), -Math.Sin(a), 0), (Math.Sin(a), Math.Cos(a), 0));
+        internal static ((double x, double y, double z) x, (double x, double y, double z) y) RotateTransform(double a) => ((Math.Cos(a), -Math.Sin(a), 0), (Math.Sin(a), Math.Cos(a), 0));
 
         /// <summary>
         /// The scale transform.
@@ -458,7 +457,6 @@ namespace Engine
         /// <param name="sx">The sx.</param>
         /// <param name="sy">The sy.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        private static ((double x, double y, double z) x, (double x, double y, double z) y) ScaleTransform(double sx, double sy)
-            => ((sx, 0, 0), (0, sy, 0));
+        internal static ((double x, double y, double z) x, (double x, double y, double z) y) ScaleTransform(double sx, double sy) => ((sx, 0, 0), (0, sy, 0));
     }
 }

@@ -62,32 +62,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiInMessage", ExactSpelling = true)]
-        internal static extern MmResult MidiInMessage_(IntPtr hMidiIn, int msg, IntPtr dw1, IntPtr dw2);
-
-        /// <summary>
-        /// Sends a message to the MIDI device driver.
-        /// </summary>
-        /// <param name="midiInputHandle">The midi input handle.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="paramerter1">The paramerter1.</param>
-        /// <param name="paramerter2">The paramerter2.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">
-        /// An invalid handle was provided to connect to a MIDI device.
-        /// or
-        /// No device driver is present.
-        /// or
-        /// Unable to allocate or lock memory.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool MidiInMessage(IntPtr midiInputHandle, int message, IntPtr paramerter1, IntPtr paramerter2 )
-        {
-            return (MidiInMessage_(midiInputHandle, message, paramerter1, paramerter2)) switch
-            {
-                MmResult.NoError => true,
-                // ToDo: Sift through the documentation to figure out how to correctly use this.
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiInMessage_(IntPtr hMidiIn, int msg, IntPtr dw1, IntPtr dw2);
     }
 }

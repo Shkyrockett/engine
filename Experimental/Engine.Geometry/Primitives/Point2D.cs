@@ -25,13 +25,13 @@ namespace Engine
     /// The <see cref="Point2D" /> struct.
     /// </summary>
     /// <seealso cref="Engine.IShapeSegment" />
-    /// <seealso cref="Engine.IVector{Engine.Point2D}" />
+    /// <seealso cref="Engine.IVector{T}" />
     /// <seealso cref="IVector{T}" />
     [GraphicsObject]
     [DataContract, Serializable]
     [TypeConverter(typeof(Point2DConverter))]
     [DebuggerDisplay("{ToString()}")]
-    public struct Point2D
+    public class Point2D
         : IShapeSegment, IVector<Point2D>
     {
         #region Implementations
@@ -70,7 +70,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D(double x, double y)
-            : this()
+            //: this()
         {
             X = x;
             Y = y;
@@ -83,7 +83,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D((double X, double Y) tuple)
-            : this()
+            //: this()
         {
             (X, Y) = tuple;
         }
@@ -112,7 +112,7 @@ namespace Engine
         /// <value>
         /// The x.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
         public double X { get; set; }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Engine
         /// <value>
         /// The y.
         /// </value>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
         public double Y { get; set; }
 
         /// <summary>
@@ -133,6 +133,12 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty => Abs(X) < Epsilon && Abs(Y) < Epsilon;
+
+        public IShapeSegment Leading { get; set; }
+        public IShapeSegment Trailing { get; set; }
+        public Point2D? Head { get; set; }
+        public Point2D? Tail { get; set; }
+        public double Length { get; set; }
         #endregion Properties
 
         #region Operators
@@ -713,6 +719,8 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Point2D)}({nameof(X)}: {X.ToString(format, formatProvider)}{s} {nameof(Y)}: {Y.ToString(format, formatProvider)})";
         }
+
+        public Point2D Interpolate(double t) => throw new NotImplementedException();
         #endregion
     }
 }

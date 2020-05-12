@@ -23,7 +23,7 @@ namespace Engine
         /// <summary>
         /// Boolean, true if the source type is a string
         /// </summary>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string) ? true : base.CanConvertFrom(context, sourceType);
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
 
         /// <summary>
         /// The can convert to.
@@ -31,7 +31,7 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="destinationType">The destinationType.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) ? true : base.CanConvertTo(context, destinationType);
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
 
         /// <summary>
         /// Converts the specified string into a Point4D.
@@ -68,7 +68,7 @@ namespace Engine
                 numArray[i] = (double)converter.ConvertFromString(context, culture, strArray[i]);
             }
 
-            if (numArray.Length != 2)
+            if (numArray.Length != 4)
             {
                 throw new ArgumentException("Parse failed.");
             }
@@ -92,17 +92,16 @@ namespace Engine
                 throw new ArgumentNullException(nameof(destinationType));
             }
 
-            if (value is Point4D)
+            if (value is Point4D point)
             {
                 if (destinationType == typeof(string))
                 {
-                    var point = (Point4D)value;
                     if (culture is null)
                     {
                         culture = CultureInfo.CurrentCulture;
                     }
 
-                    var separator = culture.TextInfo.ListSeparator + " ";
+                    var separator = $"{culture.TextInfo.ListSeparator} ";
                     var converter = TypeDescriptor.GetConverter(typeof(double));
                     var strArray = new string[2];
                     var num = 0;
@@ -114,11 +113,10 @@ namespace Engine
                 }
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
-                    var point2 = (Point4D)value;
                     var constructor = typeof(Point4D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double), typeof(double) });
                     if (constructor != null)
                     {
-                        return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { point2.X, point2.Y, point2.Z, point2.W });
+                        return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { point.X, point.Y, point.Z, point.W });
                     }
                 }
             }
@@ -139,6 +137,6 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="propertyValues">The propertyValues.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues != null ? new Point4D((double)propertyValues["X"], (double)propertyValues["Y"], (double)propertyValues["Z"], (double)propertyValues["W"]) : (object)null;
+        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues != null ? new Point4D((double)propertyValues[$"{nameof(Point4D.X)}"], (double)propertyValues[$"{nameof(Point4D.Y)}"], (double)propertyValues[$"{nameof(Point4D.Z)}"], (double)propertyValues[$"{nameof(Point4D.W)}"]) : (object)null;
     }
 }

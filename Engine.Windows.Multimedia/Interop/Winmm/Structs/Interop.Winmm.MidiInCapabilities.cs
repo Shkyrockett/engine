@@ -13,28 +13,28 @@ internal static partial class Interop
             /// <summary>
             /// wMid
             /// </summary>
-            private ushort manufacturerId;
+            private readonly ushort manufacturerId;
 
             /// <summary>
             /// wPid
             /// </summary>
-            private ushort productId;
+            private readonly ushort productId;
 
             /// <summary>
             /// vDriverVersion
             /// </summary>
-            private uint driverVersion;
+            private readonly uint driverVersion;
 
             /// <summary>
             /// Product Name
             /// </summary>
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MaxProductNameLength)]
-            private string productName;
+            private readonly string productName;
 
             /// <summary>
             /// Support - Reserved
             /// </summary>
-            private int support;
+            private readonly int support;
 
             /// <summary>
             /// The maximum product name length

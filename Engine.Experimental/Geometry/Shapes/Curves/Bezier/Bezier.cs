@@ -33,10 +33,10 @@ namespace Engine
         /// </summary>
         public List<Point2D> lut = new List<Point2D>();
 
-        /// <summary>
-        /// The dims.
-        /// </summary>
-        private readonly List<char> dims = new List<char> { 'x', 'y'/*, 'z'*/ };
+        ///// <summary>
+        ///// The dims.
+        ///// </summary>
+        //private readonly List<char> dims = new List<char> { 'x', 'y'/*, 'z'*/ };
         #endregion Private Fields
 
         #region Constructors
@@ -57,7 +57,7 @@ namespace Engine
                 new Point2D(v1,v2/*,0*/),
                 new Point2D(x2,y2/*,0*/)
             };
-            DerivativePoints = DerivativeCoordinates_Ported(Points);
+            DerivativePoints = DerivativeCoordinates(Points);
             Direction = ComputeDirection(Points);
         }
 
@@ -81,12 +81,12 @@ namespace Engine
                 new Point2D(v3,v4/*,0*/),
                 new Point2D(x2,y2/*,0*/)
             };
-            DerivativePoints = DerivativeCoordinates_Ported(Points);
+            DerivativePoints = DerivativeCoordinates(Points);
             Direction = ComputeDirection(Points);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Bezier"/> class.
+        /// Initializes a new instance of the <see cref="Bezier" /> class.
         /// </summary>
         /// <param name="x1">The x1.</param>
         /// <param name="y1">The y1.</param>
@@ -102,6 +102,10 @@ namespace Engine
         /// <param name="z2">The z2.</param>
         public Bezier(double x1, double y1, double z1, double v1, double v2, double v3, double v4, double v5, double v6, double x2, double y2, double z2)
         {
+            _ = z1;
+            _ = v3;
+            _ = v6;
+            _ = z2;
             Points = new List<Point2D>
             {
                 new Point2D(x1,y1/*,z1*/),
@@ -109,7 +113,7 @@ namespace Engine
                 new Point2D(v4,v5/*,v6*/),
                 new Point2D(x2,y2/*,z2*/)
             };
-            DerivativePoints = DerivativeCoordinates_Ported(Points);
+            DerivativePoints = DerivativeCoordinates(Points);
             Direction = ComputeDirection(Points);
         }
 
@@ -120,7 +124,7 @@ namespace Engine
         public Bezier(List<Point2D> points)
         {
             Points = points;
-            DerivativePoints = DerivativeCoordinates_Ported(Points);
+            DerivativePoints = DerivativeCoordinates(Points);
             Direction = ComputeDirection(Points);
         }
 
@@ -185,8 +189,7 @@ namespace Engine
         /// <summary>
         /// Gets the order.
         /// </summary>
-        public int Order
-            => Points.Count - 1;
+        public int Order => Points.Count - 1;
 
         /// <summary>
         /// Gets a value indicating whether 
@@ -196,8 +199,7 @@ namespace Engine
         /// <summary>
         /// Gets the length.
         /// </summary>
-        public double Length
-            => BezierUtil.Length(Derivativate_Ported);
+        public double Length => BezierUtil.Length(Derivativate);
 
         /// <summary>
         /// The inflections.
@@ -206,8 +208,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
-        public List<double> Inflections_Ported
-            => BezierUtil.Inflections(Points);
+        public List<double> Inflections => BezierUtil.Inflections(Points);
 
         /// <summary>
         /// The extrema.
@@ -216,7 +217,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
-        public List<double> Extrema_Ported
+        public List<double> Extrema
         {
             get
             {
@@ -243,7 +244,7 @@ namespace Engine
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public static bool operator ==(Bezier left, Bezier right) => left.Equals(right);
+        public static bool operator ==(Bezier left, Bezier right) => left?.Equals(right) ?? right is null;
 
         /// <summary>
         /// The operator !=.
@@ -251,7 +252,7 @@ namespace Engine
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public static bool operator !=(Bezier left, Bezier right) => !left.Equals(right);
+        public static bool operator !=(Bezier left, Bezier right) => !(left == right);
         #endregion Operators
 
         #region Factories
@@ -370,7 +371,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<List<Point2D>> DerivativeCoordinates_Ported(List<Point2D> Points)
+        public static List<List<Point2D>> DerivativeCoordinates(List<Point2D> Points)
         {
             // One-time compute of derivative coordinates
             var derivitivePoints = new List<List<Point2D>>();
@@ -436,7 +437,7 @@ namespace Engine
 
             for (var t = 0; t <= steps; t++)
             {
-                lut.Add(Interpolate_Ported(t / (double)steps));
+                lut.Add(Interpolate(t / (double)steps));
             }
 
             return lut;
@@ -490,7 +491,7 @@ namespace Engine
             // The position Y( t ) , tmin <= t <= tmax. 
             Point2D DY(double t)
             {
-                return Derivativate_Ported(ts);
+                return Derivativate(ts);
             };
             static double Length(Point2D u) { return double.NaN; }
             //double LengthDY(double u) { return Length(DY(u)); }
@@ -638,7 +639,7 @@ namespace Engine
             if (mpos == 0 || mpos == l)
             {
                 var t0 = mpos / l;
-                AccumulatorPoint2D pt = Interpolate_Ported(t0);
+                AccumulatorPoint2D pt = Interpolate(t0);
                 pt.Theta = t0;
                 pt.TotalDistance = mdist;
                 return pt;
@@ -656,7 +657,7 @@ namespace Engine
 
             for (t = t1, ft = t; t < t2 + step; t += step)
             {
-                p = Interpolate_Ported(t);
+                p = Interpolate(t);
                 d = Measurements.Distance(point, p.ToPoint());
                 if (d < mdist)
                 {
@@ -664,7 +665,7 @@ namespace Engine
                     ft = t;
                 }
             }
-            p = Interpolate_Ported(ft);
+            p = Interpolate(ft);
             p.Theta = ft;
             p.TotalDistance = mdist;
             return p;
@@ -680,8 +681,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private Point2D Point(int idx)
-            => Points[idx];
+        private Point2D Point(int idx) => Points[idx];
 
         /// <summary>
         /// The Interpolate.
@@ -693,7 +693,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Interpolate_Ported(double t)
+        public Point2D Interpolate(double t)
         {
             // shortcuts
             if (t == 0)
@@ -779,7 +779,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Derivativate_Ported(double t)
+        public Point2D Derivativate(double t)
         {
             var ti = 1 - t;
             double a = 0;
@@ -816,9 +816,9 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D Normal_Ported(double t)
+        public Vector2D Normal(double t)
         {
-            var d = Derivativate_Ported(t);
+            var d = Derivativate(t);
             var q = 1d / Sqrt((d.X * d.X) + (d.Y * d.Y));
             return new Vector2D(-d.Y * q, d.X * q);
         }
@@ -872,7 +872,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<Point2D> Hull_Ported(double t)
+        public List<Point2D> Hull(double t)
         {
             var p = Points;
             var _p = new List<Point2D>();
@@ -1137,7 +1137,7 @@ namespace Engine
         {
             if (Linear)
             {
-                var nv = Normal_Ported(0);
+                var nv = Normal(0);
 
                 var coords = new List<Point2D>();
                 foreach (var p in Points)
@@ -1173,8 +1173,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (Point2D, Point2D, Point2D) Offset(double t, double d)
         {
-            var c = Interpolate_Ported(t);
-            var n = Normal_Ported(t);
+            var c = Interpolate(t);
+            var n = Normal(t);
             return (
                 c,
                 (Point2D)n,
@@ -1232,9 +1232,9 @@ namespace Engine
                 }
 
                 var p = np[t * order];
-                var d2 = Derivativate_Ported(t);
+                var d2 = Derivativate(t);
                 var p2 = new Point2D(x: p.X + d2.X, y: p.Y + d2.Y/*, z: p.Z + d2.Z*/);
-                np[t + 1] = BezierUtil.Lli4(p, p2, o.Value, points[t + 1]).Value;
+                np[t + 1] = BezierUtil.Lli4(p, p2, o, points[t + 1]);
             }
 
             return new Bezier(np.ToList());
@@ -1257,7 +1257,7 @@ namespace Engine
             var order = Order;
             if (order == 2)
             {
-                return Raise().Scale(distanceFn);
+                return RaiseToPower().Scale(distanceFn);
             }
 
             // ToDo: add special handling for degenerate (=linear) curves.
@@ -1294,8 +1294,8 @@ namespace Engine
 
                 var p = points[t + 1];
                 var ov = new Point2D(
-                        x: p.X - o.Value.X,
-                        y: p.Y - o.Value.Y
+                        x: p.X - o.X,
+                        y: p.Y - o.Y
                         /*,z: p.Z - o.Z*/);
                 var rc = distanceFn((t + 1) / order);
                 if (direction != RotationDirection.Clockwise)
@@ -1325,8 +1325,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public PolyBezier2 Outline(double d1)
-            => Outline(d1, d1, 0, 0, true);
+        public PolyBezier2 Outline(double d1) => Outline(d1, d1, 0, 0, true);
 
         /// <summary>
         /// The outline.
@@ -1339,8 +1338,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public PolyBezier2 Outline(double d1, double d2)
-            => Outline(d1, d2, 0, 0, true);
+        public PolyBezier2 Outline(double d1, double d2) => Outline(d1, d2, 0, 0, true);
 
         /// <summary>
         /// The outline.
@@ -1354,8 +1352,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public PolyBezier2 Outline(double d1, double d3, double d4)
-            => Outline(d1, d1, d3, d4, false);
+        public PolyBezier2 Outline(double d1, double d3, double d4) => Outline(d1, d1, d3, d4, false);
 
         /// <summary>
         /// The outline.
@@ -1414,8 +1411,8 @@ namespace Engine
 
             // form the endcaps as lines
             var fs = fcurves[0].Points[0];
-            var fe = fcurves[len - 1].Points[fcurves[len - 1].Points.Count - 1];
-            var bs = bcurves[len - 1].Points[bcurves[len - 1].Points.Count - 1];
+            var fe = fcurves[len - 1].Points[^1];
+            var bs = bcurves[len - 1].Points[^1];
             var be = bcurves[0].Points[0];
             var ls = BezierUtil.MakeLine(bs, fs);
             var le = BezierUtil.MakeLine(fe, be);
@@ -1496,14 +1493,14 @@ namespace Engine
                 e = 1d;
 
                 // points:
-                var np1 = Interpolate_Ported(s);
+                var np1 = Interpolate(s);
                 Point2D np2;
                 Point2D np3;
                 var arc = new Arc2D();
                 Arc2D prev_arc;
 
                 // booleans:
-                bool curr_good = false, prev_good = false, done;
+                bool curr_good = false, done;
 
                 // numbers:
                 double m = e, prev_e = 1, step = 0;
@@ -1511,13 +1508,13 @@ namespace Engine
                 // step 2: find the best possible arc
                 do
                 {
-                    prev_good = curr_good;
+                    var prev_good = curr_good;
                     prev_arc = arc;
                     m = (s + e) / 2d;
                     step++;
 
-                    np2 = Interpolate_Ported(m);
-                    np3 = Interpolate_Ported(e);
+                    np2 = Interpolate(m);
+                    np3 = Interpolate(e);
 
                     arc = BezierUtil.Getccenter(np1, np2, np3);
                     var error = Error(arc, np1, s, e);
@@ -1583,9 +1580,9 @@ namespace Engine
         public double Error(Arc2D pc, Point2D np1, double s, double e)
         {
             var q = (e - s) / 4d;
-            var c1 = Interpolate_Ported(s + q);
-            var c2 = Interpolate_Ported(e - q);
-            var reff = Measurements.Distance((pc?.Center).Value, np1);
+            var c1 = Interpolate(s + q);
+            var c2 = Interpolate(e - q);
+            var reff = Measurements.Distance(pc.Center, np1);
             var d1 = Measurements.Distance(pc.Center, c1);
             var d2 = Measurements.Distance(pc.Center, c2);
             return Abs(d1 - reff) + Abs(d2 - reff);
@@ -1600,7 +1597,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Bezier Raise()
+        public Bezier RaiseToPower()
         {
             var p = Points;
             var np = new List<Point2D>(Points.Count) { p[0] };
@@ -1641,8 +1638,8 @@ namespace Engine
                     return false;
                 }
             }
-            var n1 = Normal_Ported(0);
-            var n2 = Normal_Ported(1);
+            var n1 = Normal(0);
+            var n2 = Normal(1);
             var s = (n1.I * n2.I) + (n1.J * n2.J)/* + n1.K * n2.K*/;
             var angle = Abs(Acos(s));
             return angle < PI / 3d;
@@ -1659,7 +1656,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public BBox Bbox()
         {
-            var extrema = Extrema_Ported;
+            var extrema = Extrema;
             return new BBox(
                 BezierUtil.GetMinMax(this, 0, extrema),
                 BezierUtil.GetMinMax(this, 1, extrema),
@@ -1679,14 +1676,13 @@ namespace Engine
         public List<Bezier> Reduce()
         {
             int i;
-            double t1 = 0, t2 = 0;
             const double step = 0.01;
             Bezier segment;
             var pass1 = new List<Bezier>();
             var pass2 = new List<Bezier>();
 
             // first pass: split on extrema
-            var extrema = Extrema_Ported;
+            var extrema = Extrema;
             if (extrema.IndexOf(0) == -1)
             {
                 extrema.Insert(0, 0);
@@ -1699,6 +1695,8 @@ namespace Engine
 
             //extrema.Sort();
             extrema.Reverse();
+            double t1;
+            double t2;
             for (t1 = extrema[0], i = 1; i < extrema.Count; i++)
             {
                 t2 = extrema[i];
@@ -1828,7 +1826,7 @@ namespace Engine
 
             return new List<bool>(
                 from t in BezierUtil.Roots(Points, line)
-                let p = self.Interpolate_Ported(t)
+                let p = self.Interpolate(t)
 
                 select Intersections.ApproximatelyBetween(p.X, mx, MX) && Intersections.ApproximatelyBetween(p.Y, my, MY));
         }
@@ -1983,7 +1981,6 @@ namespace Engine
             {
                 // one real root, and two imaginary roots
                 var sd = Sqrt(discriminant);
-                var tt = -q2 + sd;
                 u1 = CubeRoot(-q2 + sd);
                 v1 = CubeRoot(q2 + sd);
                 x1 = u1 - v1 - (a / 3);
@@ -2048,7 +2045,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is Bezier && Equals(this, (Bezier)obj);
+        public override bool Equals(object obj) => obj is Bezier bezier && Equals(this, bezier);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="GraphicsObject"/> inherited class.
@@ -2062,13 +2059,13 @@ namespace Engine
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">ToDo: describe provider parameter on ToString</param>
+        /// <param name="formatProvider">ToDo: describe provider parameter on ToString</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ConvertToString(string.Empty /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the format string
@@ -2077,13 +2074,13 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider formatProvider) => ConvertToString(format /* format string */, formatProvider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="CubicBezier2D"/> struct based on the format string
@@ -2092,22 +2089,22 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ConvertToString(string format, IFormatProvider provider)
+        public string ConvertToString(string format, IFormatProvider formatProvider)
         {
             if (this is null)
             {
                 return nameof(Bezier);
             }
 
-            var sep = Tokenizer.GetNumericListSeparator(provider);
+            var sep = Tokenizer.GetNumericListSeparator(formatProvider);
             IFormattable formatable = $"{nameof(Bezier)}={{A={Points[0]}{sep}B={Points[0]}{sep}C={Points[0]}{sep}D={Points[0]}}}";
-            return formatable.ToString(format, provider);
+            return formatable.ToString(format, formatProvider);
         }
         #endregion Standard Methods
     }

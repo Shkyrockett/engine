@@ -75,7 +75,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Ray2D[] Split(this Line2D line, double t) => new Ray2D[] { new Ray2D((line.Interpolate(t)), -line.Direction), new Ray2D(line.Interpolate(t), line.Direction) };
+        public static Ray2D[] Split(this Line2D line, double t) => new Ray2D[] { new Ray2D(line.Interpolate(t), -line.Direction), new Ray2D(line.Interpolate(t), line.Direction) };
 
         /// <summary>
         /// The split.
@@ -100,7 +100,7 @@ namespace Engine
 
             var n = filtered.Length;
             var shapes = new IShapeSegment[n + 1];
-            var prev = (line.Interpolate(filtered[0]));
+            var prev = line.Interpolate(filtered[0]);
             shapes[0] = new Ray2D(prev, -line.Direction);
 
             for (var i = 1; i < n; i++)
@@ -159,7 +159,7 @@ namespace Engine
 
             var n = filtered.Length;
             var shapes = new IShapeSegment[n + 1];
-            var prev = (ray.Location);
+            var prev = ray.Location;
             for (var i = 0; i < n; i++)
             {
                 var next = ray.Interpolate(filtered[i]);
@@ -200,7 +200,7 @@ namespace Engine
             }
 
             return new[] {
-                new LineSegment2D((segment?.A).Value, segment.Interpolate(t)),
+                new LineSegment2D(segment.A, segment.Interpolate(t)),
                 new LineSegment2D(segment.Interpolate(t), segment.B)
             };
         }
@@ -228,7 +228,7 @@ namespace Engine
 
             var start = segment;
             var list = new LineSegment2D[filtered.Length + 1];
-            var previous = (segment?.A).Value;
+            var previous = segment.A;
             for (var i = 0; i < filtered.Length; i++)
             {
                 var next = segment.Interpolate(filtered[i]);
@@ -257,18 +257,18 @@ namespace Engine
         /// </summary>
         /// <param name="circle">The circle.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="CircularArc2D"/>.</returns>
+        /// <returns>The <see cref="CircularArcSegment2D"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CircularArc2D Split(this Circle2D circle, double t)
+        public static CircularArcSegment2D Split(this Circle2D circle, double t)
         {
             if (t < 0d || t > 1d)
             {
                 throw new ArgumentOutOfRangeException(nameof(t));
             }
 
-            return new CircularArc2D(circle.Center, circle.Radius, Tau * t, Tau);
+            return new CircularArcSegment2D(circle.Center, circle.Radius, Tau * t, Tau);
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CircularArc2D[] Split(this Circle2D circle, params double[] ts)
+        public static CircularArcSegment2D[] Split(this Circle2D circle, params double[] ts)
         {
             if (ts is null)
             {
@@ -295,7 +295,7 @@ namespace Engine
             var arc = Split(circle, filtered[0]);
             var tLast = 0d;
             var start = arc;
-            var list = new List<CircularArc2D>(filtered.Count + 1);
+            var list = new List<CircularArcSegment2D>(filtered.Count + 1);
             foreach (var t in filtered)
             {
                 var relT = 1d - ((1d - t) / (1d - tLast));
@@ -317,7 +317,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CircularArc2D[] Split(this Circle2D circle, IEnumerable<double> ts) => Split(circle, ts.ToArray());
+        public static CircularArcSegment2D[] Split(this Circle2D circle, IEnumerable<double> ts) => Split(circle, ts.ToArray());
         #endregion
 
         #region Split Circular Arcs
@@ -330,7 +330,7 @@ namespace Engine
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CircularArc2D[] Split(this CircularArc2D arc, double t)
+        public static CircularArcSegment2D[] Split(this CircularArcSegment2D arc, double t)
         {
             if (t < 0d || t > 1d)
             {
@@ -338,8 +338,8 @@ namespace Engine
             }
 
             return new[] {
-                new CircularArc2D(arc.Center, arc.Radius, arc.StartAngle, arc.SweepAngle * t),
-                new CircularArc2D(arc.Center, arc.Radius, arc.StartAngle + (arc.SweepAngle * t), arc.SweepAngle - (arc.SweepAngle * t))
+                new CircularArcSegment2D(arc.Center, arc.Radius, arc.StartAngle, arc.SweepAngle * t),
+                new CircularArcSegment2D(arc.Center, arc.Radius, arc.StartAngle + (arc.SweepAngle * t), arc.SweepAngle - (arc.SweepAngle * t))
             };
         }
 
@@ -351,7 +351,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CircularArc2D[] Split(this CircularArc2D arc, params double[] ts)
+        public static CircularArcSegment2D[] Split(this CircularArcSegment2D arc, params double[] ts)
         {
             if (ts is null)
             {
@@ -366,7 +366,7 @@ namespace Engine
 
             var tLast = 0d;
             var start = arc;
-            var list = new List<CircularArc2D>(filtered.Count + 1);
+            var list = new List<CircularArcSegment2D>(filtered.Count + 1);
             foreach (var t in filtered)
             {
                 var relT = 1d - ((1d - t) / (1d - tLast));
@@ -388,7 +388,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CircularArc2D[] Split(this CircularArc2D arc, IEnumerable<double> ts) => Split(arc, ts.ToArray());
+        public static CircularArcSegment2D[] Split(this CircularArcSegment2D arc, IEnumerable<double> ts) => Split(arc, ts.ToArray());
         #endregion
 
         #region Split Ellipse
@@ -401,14 +401,14 @@ namespace Engine
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static EllipticalArc2D Split(this Ellipse2D ellipse, double t)
+        public static EllipticalArcSegment2D Split(this Ellipse2D ellipse, double t)
         {
             if (t < 0d || t > 1d)
             {
                 throw new ArgumentOutOfRangeException(nameof(t));
             }
 
-            return new EllipticalArc2D(ellipse.Center, ellipse.RadiusA, ellipse.RadiusB, ellipse.Angle, Tau * t, Tau);
+            return new EllipticalArcSegment2D(ellipse.Center, ellipse.RadiusA, ellipse.RadiusB, ellipse.Angle, Tau * t, Tau);
         }
 
         /// <summary>
@@ -419,7 +419,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static EllipticalArc2D[] Split(this Ellipse2D ellipse, params double[] ts)
+        public static EllipticalArcSegment2D[] Split(this Ellipse2D ellipse, params double[] ts)
         {
             if (ts is null)
             {
@@ -435,7 +435,7 @@ namespace Engine
             var arc = Split(ellipse, filtered[0]);
             var tLast = 0d;
             var start = arc;
-            var list = new List<EllipticalArc2D>(filtered.Count + 1);
+            var list = new List<EllipticalArcSegment2D>(filtered.Count + 1);
             foreach (var t in filtered)
             {
                 var relT = 1d - ((1d - t) / (1d - tLast));
@@ -457,7 +457,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static EllipticalArc2D[] Split(this Ellipse2D ellipse, IEnumerable<double> ts) => Split(ellipse, ts.ToArray());
+        public static EllipticalArcSegment2D[] Split(this Ellipse2D ellipse, IEnumerable<double> ts) => Split(ellipse, ts.ToArray());
         #endregion
 
         #region Split Elliptical Arc
@@ -470,7 +470,7 @@ namespace Engine
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static EllipticalArc2D[] Split(this EllipticalArc2D arc, double t)
+        public static EllipticalArcSegment2D[] Split(this EllipticalArcSegment2D arc, double t)
         {
             if (t < 0d || t > 1d)
             {
@@ -478,8 +478,8 @@ namespace Engine
             }
 
             return new[] {
-                new EllipticalArc2D(arc.Center, arc.RadiusA, arc.RadiusB, arc.Angle, arc.StartAngle, arc.SweepAngle * t),
-                new EllipticalArc2D(arc.Center, arc.RadiusA, arc.RadiusB, arc.Angle, arc.StartAngle + (arc.SweepAngle * t), arc.SweepAngle - (arc.SweepAngle * t))
+                new EllipticalArcSegment2D(arc.Center, arc.RadiusA, arc.RadiusB, arc.Angle, arc.StartAngle, arc.SweepAngle * t),
+                new EllipticalArcSegment2D(arc.Center, arc.RadiusA, arc.RadiusB, arc.Angle, arc.StartAngle + (arc.SweepAngle * t), arc.SweepAngle - (arc.SweepAngle * t))
             };
         }
 
@@ -491,7 +491,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static EllipticalArc2D[] Split(this EllipticalArc2D arc, params double[] ts)
+        public static EllipticalArcSegment2D[] Split(this EllipticalArcSegment2D arc, params double[] ts)
         {
             if (ts is null)
             {
@@ -506,7 +506,7 @@ namespace Engine
 
             var tLast = 0d;
             var start = arc;
-            var list = new List<EllipticalArc2D>(filtered.Count + 1);
+            var list = new List<EllipticalArcSegment2D>(filtered.Count + 1);
             foreach (var t in filtered)
             {
                 var relT = 1d - ((1d - t) / (1d - tLast));
@@ -528,7 +528,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static EllipticalArc2D[] Split(this EllipticalArc2D arc, IEnumerable<double> ts) => Split(arc, ts.ToArray());
+        public static EllipticalArcSegment2D[] Split(this EllipticalArcSegment2D arc, IEnumerable<double> ts) => Split(arc, ts.ToArray());
         #endregion
 
         #region Split Quadratic Bezier Curves
@@ -540,7 +540,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment2D[] Split(this QuadraticBezier2D bezier, double t) => SplitBezier(bezier.Points, t);
+        public static BezierSegment2D[] Split(this QuadraticBezierSegment2D bezier, double t) => SplitBezier(bezier.Points, t);
 
         /// <summary>
         /// The split.
@@ -550,7 +550,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment2D[] Split(this QuadraticBezier2D bezier, params double[] ts)
+        public static BezierSegment2D[] Split(this QuadraticBezierSegment2D bezier, params double[] ts)
         {
             if (ts is null)
             {
@@ -587,7 +587,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment2D[] Split(this QuadraticBezier2D bezier, IEnumerable<double> ts) => Split(bezier, ts.ToArray());
+        public static BezierSegment2D[] Split(this QuadraticBezierSegment2D bezier, IEnumerable<double> ts) => Split(bezier, ts.ToArray());
         #endregion
 
         #region Split Cubic Bezier Curves
@@ -599,7 +599,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment2D[] Split(this CubicBezier2D bezier, double t) => SplitBezier(bezier.Points, t);
+        public static BezierSegment2D[] Split(this CubicBezierSegment2D bezier, double t) => SplitBezier(bezier.Points, t);
 
         /// <summary>
         /// The split.
@@ -609,22 +609,22 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment2D[] Split(this CubicBezier2D bezier, params double[] ts)
+        public static BezierSegment2D[] Split(this CubicBezierSegment2D bezier, params double[] ts)
         {
             if (ts is null)
             {
-                return new[] { new BezierSegment2D(bezier.Points) };
+                return new BezierSegment2D[]  { new BezierSegment2D(bezier.Points.ToArray()) };
             }
 
             var filtered = ts.Where(t => t >= 0d && t <= 1d).Distinct().OrderBy(t => t).ToList();
 
             if (filtered.Count == 0)
             {
-                return new[] { new BezierSegment2D(bezier.Points) };
+                return new[] { new BezierSegment2D(bezier.Points.ToArray()) };
             }
 
             var tLast = 0d;
-            var prev = new BezierSegment2D(bezier.Points);
+            var prev = new BezierSegment2D(bezier.Points.ToArray());
             var list = new List<BezierSegment2D>(filtered.Count + 1);
             foreach (var t in filtered)
             {
@@ -647,7 +647,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment2D[] Split(this CubicBezier2D bezier, IEnumerable<double> ts) => Split(bezier, ts.ToArray());
+        public static BezierSegment2D[] Split(this CubicBezierSegment2D bezier, IEnumerable<double> ts) => Split(bezier, ts.ToArray());
         #endregion
 
         #region Split General Bezier Curves
@@ -705,7 +705,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment2D[] Split(this BezierSegment2D bezier, IEnumerable<double> ts) => Split(bezier, ts.ToArray());
+        public static BezierSegment2D[] Split(this BezierSegment2D bezier, IList<double> ts) => Split(bezier, ts.ToArray());
 
         /// <summary>
         /// The split.
@@ -715,7 +715,7 @@ namespace Engine
         /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static BezierSegment2D[] SplitBezier(IEnumerable<Point2D> points, params double[] ts)
+        public static BezierSegment2D[] SplitBezier(IList<Point2D> points, params double[] ts)
         {
             if (ts is null)
             {

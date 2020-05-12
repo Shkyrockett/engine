@@ -26,7 +26,7 @@ namespace Engine
     /// </summary>
     /// <seealso cref="Engine.IVector{T}" />
     [DataContract, Serializable]
-    [TypeConverter(typeof(StructConverter<Vector2D>))]
+    [TypeConverter(typeof(Vector2DConverter))]
     [DebuggerDisplay("{ToString()}")]
     public struct Vector2D
         : IVector<Vector2D>
@@ -215,6 +215,19 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public double LengthSquared => VectorMagnitudeSquared(I, J);
+
+        /// <summary>
+        /// This returns the Normalized Vector2D that is passed. This is also known as a Unit Vector.
+        /// </summary>
+        /// <value>
+        /// The normalized.
+        /// </value>
+        /// <remarks>
+        ///   <para><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector" /></para>
+        /// </remarks>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public Vector2D Normalized => Normalize(I, J);
         #endregion Properties
 
         #region Operators
@@ -456,7 +469,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D Add(double addend) => Operations.AddVectorUniform(I, J, addend);
+        public Vector2D Add(double addend) => AddVectorUniform(I, J, addend);
 
         /// <summary>
         /// Adds the specified augend.
@@ -466,7 +479,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(Vector2D augend, double addend) => Operations.AddVectorUniform(augend.I, augend.J, addend);
+        public static Vector2D Add(Vector2D augend, double addend) => AddVectorUniform(augend.I, augend.J, addend);
 
         /// <summary>
         /// Adds the specified augend.
@@ -476,7 +489,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(double augend, Vector2D addend) => Operations.AddVectorUniform(addend.I, addend.J, augend);
+        public static Vector2D Add(double augend, Vector2D addend) => AddVectorUniform(addend.I, addend.J, augend);
 
         /// <summary>
         /// Adds the specified addend.
@@ -485,7 +498,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D Add(Vector2D addend) => Operations.AddVectors(I, J, addend.I, addend.J);
+        public Vector2D Add(Vector2D addend) => AddVectors(I, J, addend.I, addend.J);
 
         /// <summary>
         /// Adds the specified augend.
@@ -495,7 +508,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(Vector2D augend, Vector2D addend) => Operations.AddVectors(augend.I, augend.J, addend.I, addend.J);
+        public static Vector2D Add(Vector2D augend, Vector2D addend) => AddVectors(augend.I, augend.J, addend.I, addend.J);
 
         /// <summary>
         /// Negates this instance.
@@ -521,7 +534,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D Subtract(double subend) => Operations.SubtractVectorUniform(I, J, subend);
+        public Vector2D Subtract(double subend) => SubtractVectorUniform(I, J, subend);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -531,7 +544,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Subtract(Vector2D minuend, double subend) => Operations.SubtractVectorUniform(minuend.I, minuend.J, subend);
+        public static Vector2D Subtract(Vector2D minuend, double subend) => SubtractVectorUniform(minuend.I, minuend.J, subend);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -541,7 +554,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Subtract(double minuend, Vector2D subend) => Operations.SubtractFromMinuend(minuend, subend.I, subend.J);
+        public static Vector2D Subtract(double minuend, Vector2D subend) => SubtractFromMinuend(minuend, subend.I, subend.J);
 
         /// <summary>
         /// Subtracts the specified subend.
@@ -550,7 +563,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D Subtract(Vector2D subend) => Operations.SubtractVector(I, J, subend.I, subend.J);
+        public Vector2D Subtract(Vector2D subend) => SubtractVector(I, J, subend.I, subend.J);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -560,7 +573,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Subtract(Vector2D minuend, Vector2D subend) => Operations.SubtractVector(minuend.I, minuend.J, subend.I, subend.J);
+        public static Vector2D Subtract(Vector2D minuend, Vector2D subend) => SubtractVector(minuend.I, minuend.J, subend.I, subend.J);
 
         /// <summary>
         /// Multiplies the specified multiplier.
@@ -569,7 +582,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D Multiply(double multiplier) => Operations.ScaleVector(I, J, multiplier);
+        public Vector2D Multiply(double multiplier) => ScaleVector(I, J, multiplier);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -579,7 +592,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Multiply(Vector2D multiplicand, double multiplier) => Operations.ScaleVector(multiplicand.I, multiplicand.J, multiplier);
+        public static Vector2D Multiply(Vector2D multiplicand, double multiplier) => ScaleVector(multiplicand.I, multiplicand.J, multiplier);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -589,7 +602,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Multiply(double multiplicand, Vector2D multiplier) => Operations.ScaleVector(multiplier.I, multiplier.J, multiplicand);
+        public static Vector2D Multiply(double multiplicand, Vector2D multiplier) => ScaleVector(multiplier.I, multiplier.J, multiplicand);
 
         /// <summary>
         /// Multiplies the specified multiplier.
@@ -598,7 +611,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D Multiply(Matrix2x2D multiplier) => Operations.MultiplyVector2DMatrix2x2(I, J, multiplier.M0x0, multiplier.M0x1, multiplier.M1x0, multiplier.M1x1);
+        public Vector2D Multiply(Matrix2x2D multiplier) => MultiplyVector2DMatrix2x2(I, J, multiplier.M0x0, multiplier.M0x1, multiplier.M1x0, multiplier.M1x1);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -608,7 +621,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Multiply(Vector2D multiplicand, Matrix2x2D multiplier) => Operations.MultiplyVector2DMatrix2x2(multiplicand.I, multiplicand.J, multiplier.M0x0, multiplier.M0x1, multiplier.M1x0, multiplier.M1x1);
+        public static Vector2D Multiply(Vector2D multiplicand, Matrix2x2D multiplier) => MultiplyVector2DMatrix2x2(multiplicand.I, multiplicand.J, multiplier.M0x0, multiplier.M0x1, multiplier.M1x0, multiplier.M1x1);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -618,7 +631,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Multiply(Matrix2x2D multiplicand, Vector2D multiplier) => Operations.MultiplyVector2DMatrix2x2(multiplier.I, multiplier.J, multiplicand.M0x0, multiplicand.M0x1, multiplicand.M1x0, multiplicand.M1x1);
+        public static Vector2D Multiply(Matrix2x2D multiplicand, Vector2D multiplier) => MultiplyVector2DMatrix2x2(multiplier.I, multiplier.J, multiplicand.M0x0, multiplicand.M0x1, multiplicand.M1x0, multiplicand.M1x1);
 
         /// <summary>
         /// Divides the specified divisor.
@@ -627,7 +640,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D Divide(double divisor) => Operations.DivideVectorUniform(I, J, divisor);
+        public Vector2D Divide(double divisor) => DivideVectorUniform(I, J, divisor);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -637,7 +650,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Divide(Vector2D dividend, double divisor) => Operations.DivideVectorUniform(dividend.I, dividend.J, divisor);
+        public static Vector2D Divide(Vector2D dividend, double divisor) => DivideVectorUniform(dividend.I, dividend.J, divisor);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -647,7 +660,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Divide(double dividend, Vector2D divisor) => Operations.DivideByVectorUniform(dividend, divisor.I, divisor.I);
+        public static Vector2D Divide(double dividend, Vector2D divisor) => DivideByVectorUniform(dividend, divisor.I, divisor.I);
 
         /// <summary>
         /// Dots the product.
@@ -732,19 +745,19 @@ namespace Engine
         /// Parse a string for a <see cref="Vector2D" /> value.
         /// </summary>
         /// <param name="source"><see cref="string" /> with <see cref="Vector2D" /> data</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// Returns an instance of the <see cref="Vector2D" /> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
-        public static Vector2D Parse(string source, IFormatProvider provider)
+        public static Vector2D Parse(string source, IFormatProvider formatProvider)
         {
-            var tokenizer = new Tokenizer(source, provider);
+            var tokenizer = new Tokenizer(source, formatProvider);
             var firstToken = tokenizer.NextTokenRequired();
 
             var value = new Vector2D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                Convert.ToDouble(firstToken, formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider)
                 );
 
             // There should be no more tokens in this string.
@@ -778,13 +791,13 @@ namespace Engine
         /// Creates a string representation of this <see cref="Vector2D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <param name="formatProvider">The <see cref="CultureInfo" /> provider.</param>
         /// <returns>
         /// A string representation of this <see cref="Vector2D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ToString("R" /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector2D" /> struct based on the format string

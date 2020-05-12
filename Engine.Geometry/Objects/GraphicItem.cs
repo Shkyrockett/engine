@@ -67,8 +67,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The unique identifier for the object.")]
-        public uint ID
-            => id;
+        public uint ID => id;
 
         /// <summary>
         /// Gets or sets the name.

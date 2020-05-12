@@ -26,13 +26,13 @@ namespace Engine
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="CubicBezierSegment"/> class.
+        /// Initializes a new instance of the <see cref="CubicBezierSegment2D"/> class.
         /// </summary>
         public CubicBezierSegment2D()
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CubicBezierSegment"/> class.
+        /// Initializes a new instance of the <see cref="CubicBezierSegment2D"/> class.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="relative">The relative.</param>
@@ -43,7 +43,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CubicBezierSegment"/> class.
+        /// Initializes a new instance of the <see cref="CubicBezierSegment2D"/> class.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="relative">The relative.</param>
@@ -60,7 +60,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CubicBezierSegment"/> class.
+        /// Initializes a new instance of the <see cref="CubicBezierSegment2D"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
         /// <param name="handle1">The handle1.</param>
@@ -83,7 +83,7 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="CubicBezierSegment"/> to a Tuple.
+        /// Deconstruct this <see cref="CubicBezierSegment2D"/> to a Tuple.
         /// </summary>
         /// <param name="ax">The ax.</param>
         /// <param name="ay">The ay.</param>
@@ -95,14 +95,14 @@ namespace Engine
         /// <param name="dy">The dy.</param>
         public void Deconstruct(out double ax, out double ay, out double bx, out double by, out double cx, out double cy, out double dx, out double dy)
         {
-            ax = Head.Value.X;
-            ay = Head.Value.Y;
+            ax = Head.X;
+            ay = Head.Y;
             bx = Handle1.X;
             by = Handle1.Y;
-            cx = Handle2.Value.X;
-            cy = Handle2.Value.Y;
-            dx = Tail.Value.X;
-            dy = Tail.Value.Y;
+            cx = Handle2.X;
+            cy = Handle2.Y;
+            dx = Tail.X;
+            dy = Tail.Y;
         }
         #endregion Deconstructors
 
@@ -135,27 +135,26 @@ namespace Engine
         /// Gets or sets the handle2.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public Point2D? Handle2 { get; set; }
+        public Point2D Handle2 { get; set; }
 
         /// <summary>
         /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? NextToEnd { get { return Handle2; } set { Handle2 = value; } }
+        public override Point2D NextToEnd { get { return Handle2; } set { Handle2 = value; } }
 
         /// <summary>
         /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public override Point2D? Tail { get; set; }
+        public override Point2D Tail { get; set; }
 
         /// <summary>
         /// Gets the grips.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public override List<Point2D> Grips
-            => new List<Point2D> { Head.Value, Handle1, Handle2.Value, Tail.Value };
+        public override List<Point2D> Grips => new List<Point2D> { Head, Handle1, Handle2, Tail };
 
         /// <summary>
         /// Gets the bounds.
@@ -176,7 +175,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierBernsteinBasis(Head.Value.X, Handle1.X, Handle2.Value.X, Tail.Value.X));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierBernsteinBasis(Head.X, Handle1.X, Handle2.X, Tail.X));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -190,7 +189,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierBernsteinBasis(Head.Value.Y, Handle1.Y, Handle2.Value.X, Tail.Value.Y));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierBernsteinBasis(Head.Y, Handle1.Y, Handle2.X, Tail.Y));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -200,8 +199,7 @@ namespace Engine
         /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override double Length
-            => (double)CachingProperty(() => Measurements.CubicBezierArcLength(Head.Value.X, Head.Value.Y, Handle1.X, Handle1.Y, Handle2.Value.X, Handle2.Value.Y, Tail.Value.X, Tail.Value.Y));
+        public override double Length => (double)CachingProperty(() => Measurements.CubicBezierArcLength(Head.X, Head.Y, Handle1.X, Handle1.Y, Handle2.X, Handle2.Y, Tail.X, Tail.Y));
         #endregion Properties
 
         /// <summary>
@@ -209,16 +207,14 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public override Point2D Interpolate(double t)
-            => ToCubicBezier().Interpolate(t);
+        public override Point2D Interpolate(double t) => ToCubicBezier().Interpolate(t);
 
         #region Methods
         /// <summary>
         /// The to cubic bezier.
         /// </summary>
         /// <returns>The <see cref="CubicBezier2D"/>.</returns>
-        public CubicBezier2D ToCubicBezier()
-            => new CubicBezier2D(Head.Value, Handle1, Handle2.Value, Tail.Value);
+        public CubicBezier2D ToCubicBezier() => new CubicBezier2D(Head, Handle1, Handle2, Tail);
         #endregion Methods
     }
 }

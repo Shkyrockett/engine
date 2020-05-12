@@ -15,11 +15,15 @@ using System.Runtime.Serialization;
 
 namespace Engine
 {
+    /// <summary>
+    /// Base <see cref="Shape2D"/> class for using as a template for various shapes.
+    /// </summary>
+    /// <seealso cref="Engine.IShape" />
     [GraphicsObject]
     [DataContract, Serializable]
     [TypeConverter(typeof(StructConverter<Shape2D>))]
     [DebuggerDisplay("{ToString()}")]
     public struct Shape2D
-    {
-    }
+        : IShape, IBoundable
+    { }
 }

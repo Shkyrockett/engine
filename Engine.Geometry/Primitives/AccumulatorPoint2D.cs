@@ -275,7 +275,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is AccumulatorPoint2D && Equals(this, (AccumulatorPoint2D)obj);
+        public override bool Equals(object obj) => obj is AccumulatorPoint2D d && Equals(this, d);
 
         /// <summary>
         /// The equals.
@@ -314,11 +314,11 @@ namespace Engine
         /// Creates a string representation of this <see cref="AccumulatorPoint2D"/> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <param name="formatProvider">The <see cref="CultureInfo"/> provider.</param>
         /// <returns>A string representation of this <see cref="AccumulatorPoint2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ToString("R" /* format string */, formatProvider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="AccumulatorPoint2D"/> struct based on the format string
@@ -327,15 +327,15 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <param name="formatProvider">The <see cref="CultureInfo"/> provider.</param>
         /// <returns>A string representation of this <see cref="AccumulatorPoint2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             if (this == null) return nameof(AccumulatorPoint2D);
-            var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(AccumulatorPoint2D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Theta)}:{Theta.ToString(format, provider)}{s} {nameof(TotalDistance)}:{TotalDistance.ToString(format, provider)}{s} {nameof(PreviousIndex)}:{PreviousIndex.ToString(format, provider)})";
+            var s = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(AccumulatorPoint2D)}({nameof(X)}:{X.ToString(format, formatProvider)}{s} {nameof(Y)}:{Y.ToString(format, formatProvider)}{s} {nameof(Theta)}:{Theta.ToString(format, formatProvider)}{s} {nameof(TotalDistance)}:{TotalDistance.ToString(format, formatProvider)}{s} {nameof(PreviousIndex)}:{PreviousIndex.ToString(format, formatProvider)})";
         }
         #endregion Methods
     }

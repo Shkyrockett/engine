@@ -17,6 +17,7 @@ namespace Engine.Tweening
     /// <summary>
     /// The member accessors class.
     /// </summary>
+    /// <seealso cref="Engine.IMemberAccessor" />
     public class MemberAccessor
         : IMemberAccessor
     {
@@ -41,7 +42,7 @@ namespace Engine.Tweening
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="MemberAccessor"/> class.
+        /// Initializes a new instance of the <see cref="MemberAccessor" /> class.
         /// </summary>
         /// <param name="target">The target.</param>
         /// <param name="name">The property.</param>
@@ -113,21 +114,33 @@ namespace Engine.Tweening
         /// <summary>
         /// Gets the target.
         /// </summary>
+        /// <value>
+        /// The target.
+        /// </value>
         public object Target { get; private set; }
 
         /// <summary>
         /// Gets the member name.
         /// </summary>
+        /// <value>
+        /// The name of the member.
+        /// </value>
         public string MemberName { get; private set; }
 
         /// <summary>
         /// Gets the member type.
         /// </summary>
+        /// <value>
+        /// The type of the member.
+        /// </value>
         public Type MemberType { get; private set; }
 
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public object Value { get { return getMethod(Target); } set { setMethod(Target, value); } }
         #endregion Properties
     }

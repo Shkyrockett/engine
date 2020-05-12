@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.File", "Engine.File\
 		{183DFF77-D25F-4BF1-A2DB-CE13E476992D} = {183DFF77-D25F-4BF1-A2DB-CE13E476992D}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Mathmatics", "Engine.Mathmatics\Engine.Mathmatics.csproj", "{175641A0-45DB-42D1-A697-5B48799B89E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Mathematics", "Engine.Mathematics\Engine.Mathematics.csproj", "{175641A0-45DB-42D1-A697-5B48799B89E8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Calendar", "Engine.Calendar\Engine.Calendar.csproj", "{A6A2B62A-3B44-4992-B6C1-372BC390A4A9}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -49,7 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Chroma", "Engine.Chr
 		{175641A0-45DB-42D1-A697-5B48799B89E8} = {175641A0-45DB-42D1-A697-5B48799B89E8}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Dynamic", "Engine.Dynamic\Engine.Dynamic.csproj", "{E0690987-62B6-4057-A9AB-D65736CCA4C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Dynamics", "Engine.Dynamics\Engine.Dynamics.csproj", "{E0690987-62B6-4057-A9AB-D65736CCA4C3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Physics", "Engine.Physics\Engine.Physics.csproj", "{C1A41C18-C2DE-43B2-B911-52A2F70A9AD3}"
 	ProjectSection(ProjectDependencies) = postProject

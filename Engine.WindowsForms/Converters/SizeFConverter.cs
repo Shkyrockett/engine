@@ -98,11 +98,10 @@ namespace Engine
                 throw new ArgumentNullException(nameof(destinationType));
             }
 
-            if (value is SizeF)
+            if (value is SizeF f)
             {
                 if (destinationType == typeof(string))
                 {
-                    var sizeF = (SizeF)value;
                     if (culture is null)
                     {
                         culture = CultureInfo.CurrentCulture;
@@ -112,17 +111,16 @@ namespace Engine
                     var converter = TypeDescriptor.GetConverter(typeof(double));
                     var strArray = new string[2];
                     var num = 0;
-                    strArray[num++] = converter.ConvertToString(context, culture, sizeF.Width);
-                    strArray[num++] = converter.ConvertToString(context, culture, sizeF.Height);
+                    strArray[num++] = converter.ConvertToString(context, culture, f.Width);
+                    strArray[num++] = converter.ConvertToString(context, culture, f.Height);
                     return string.Join(separator, strArray);
                 }
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
-                    var sizeF2 = (SizeF)value;
                     var constructor = typeof(SizeF).GetConstructor(new Type[] { typeof(double), typeof(double) });
                     if (constructor != null)
                     {
-                        return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { sizeF2.Width, sizeF2.Height });
+                        return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { f.Width, f.Height });
                     }
                 }
             }

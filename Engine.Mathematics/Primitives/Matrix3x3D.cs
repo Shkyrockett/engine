@@ -30,8 +30,7 @@ namespace Engine
     /// </summary>
     /// <seealso cref="IMatrix{T, T}" />
     [DataContract, Serializable]
-    //[TypeConverter(typeof(Matrix3x3DConverter))]
-    [TypeConverter(typeof(StructConverter<Matrix3x3D>))]
+    [TypeConverter(typeof(Matrix3x3DConverter))]
     [DebuggerDisplay("{ToString()}")]
     public struct Matrix3x3D
         : IMatrix<Matrix3x3D, Vector3D>
@@ -910,12 +909,12 @@ namespace Engine
         public static Matrix3x3D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// Parse a string for a <see cref="Matrix3x2D" /> value.
+        /// Parse a string for a <see cref="Matrix3x3D" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string" /> with <see cref="Matrix3x2D" /> data</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="source"><see cref="string" /> with <see cref="Matrix3x3D" /> data</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Matrix3x2D" /> struct converted
+        /// Returns an instance of the <see cref="Matrix3x3D" /> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         [DebuggerStepThrough]
@@ -995,7 +994,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix3x2D" /> struct based on the current culture.
+        /// Creates a string representation of this <see cref="Matrix3x3D" /> struct based on the current culture.
         /// </summary>
         /// <returns>
         /// A string representation of this object.
@@ -1005,36 +1004,36 @@ namespace Engine
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix3x2D" /> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Matrix3x3D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ToString("R" /* format string */, formatProvider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix3x2D" /> struct based on the format string
+        /// Creates a string representation of this <see cref="Matrix3x3D" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             if (this == null) return nameof(Matrix3x3D);
             if (IsIdentity) return nameof(Identity);
-            var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Matrix3x3D)}({nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, provider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, provider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, provider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, provider)})";
+            var s = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(Matrix3x3D)}({nameof(M0x0)}:{M0x0.ToString(format, formatProvider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, formatProvider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, formatProvider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, formatProvider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, formatProvider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, formatProvider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, formatProvider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, formatProvider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, formatProvider)})";
         }
         #endregion
     }

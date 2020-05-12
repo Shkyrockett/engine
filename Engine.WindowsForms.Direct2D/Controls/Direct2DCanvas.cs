@@ -41,12 +41,12 @@ namespace Engine.Winforms.Direct2D
         /// <summary>
         /// The gap
         /// </summary>
-        private float gap;
+        private readonly float gap;
 
         /// <summary>
         /// The frequency
         /// </summary>
-        private static int frequency;
+        private static readonly int frequency;
 
         /// <summary>
         /// The band brush.
@@ -56,7 +56,7 @@ namespace Engine.Winforms.Direct2D
         /// <summary>
         /// The random.
         /// </summary>
-        private Random random;
+        private readonly Random random;
 
         /// <summary>
         /// The cycle count.
@@ -66,10 +66,10 @@ namespace Engine.Winforms.Direct2D
         /// <summary>
         /// The band count
         /// </summary>
-        private int bandCount;
+        private readonly int bandCount;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Direct2DCanvas"/> class.
+        /// Initializes a new instance of the <see cref="Direct2DCanvas" /> class.
         /// </summary>
         public Direct2DCanvas()
         {

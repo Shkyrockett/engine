@@ -144,7 +144,7 @@ namespace Editor
             SetStyle(ControlStyles.ResizeRedraw, true);
 
             // Build the color palette.
-            paletteToolStripItem1.PaletteControl.Palette = new Palette(new[] {
+            paletteToolStripItem1.PaletteControl.Palette = new Palette(new IColor[] {
                 Colors.Black,
                 Colors.White,
                 Colors.Red,

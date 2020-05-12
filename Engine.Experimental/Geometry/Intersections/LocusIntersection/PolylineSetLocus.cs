@@ -80,6 +80,6 @@ namespace Engine
         /// Converts to polylineset.
         /// </summary>
         /// <returns></returns>
-        public PolylineSet2D ToPolylineSet() => new PolylineSet2D(Polylines);
+        public PolylineSet2D ToPolylineSet2D() => new PolylineSet2D(Polylines);
     }
 }

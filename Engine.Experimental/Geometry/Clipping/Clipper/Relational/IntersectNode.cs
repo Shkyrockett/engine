@@ -186,8 +186,7 @@ namespace Engine.Experimental
         /// In this equality Double.NaN is equal to itself, unlike in numeric equality.</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int CompareTo(object other)
-            => other is null ? 1 : other is IntersectNode ? CompareTo((IntersectNode)other) : throw new ArgumentException("Object must be an IntersectNode.", nameof(other));
+        public int CompareTo(object other) => other is null ? 1 : other is IntersectNode node ? CompareTo(node) : throw new ArgumentException("Object must be an IntersectNode.", nameof(other));
 
         /// <summary>
         /// Compares this <see cref="IntersectNode" /> to another <see cref="IntersectNode" />, returning a value indicating the relation.
@@ -205,8 +204,7 @@ namespace Engine.Experimental
         /// In this equality Double.NaN is equal to itself, unlike in numeric equality.</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int CompareTo(IntersectNode other)
-            => Compare(this, other);
+        public int CompareTo(IntersectNode other) => Compare(this, other);
 
         /// <summary>
         /// Compares two <see cref="IntersectNode" /> objects, returning a value indicating the relation.
@@ -220,8 +218,7 @@ namespace Engine.Experimental
         /// <see cref="IntersectNode" /> is greater than the right <see cref="IntersectNode" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static int Compare(IntersectNode left, IntersectNode right)
-            => right.Point.Y.CompareTo(left.Point.Y); // Soft descending sort.
+        private static int Compare(IntersectNode left, IntersectNode right) => right.Point.Y.CompareTo(left.Point.Y); // Soft descending sort.
         #endregion Methods
     }
 }

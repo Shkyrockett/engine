@@ -1,4 +1,4 @@
-﻿// <copyright file="LineSegment.cs" company="Shkyrockett" >
+﻿// <copyright file="LineSegment2D.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -32,7 +32,7 @@ namespace Engine
     [XmlType(TypeName = "line-segment")]
     [TypeConverter(typeof(StructConverter<LineSegment2D>))]
     [DebuggerDisplay("{ToString()}")]
-    public class LineSegment2D
+    public struct LineSegment2D
         : IShapeSegment, IPropertyCaching, IEquatable<LineSegment2D>
     {
         #region Implementations

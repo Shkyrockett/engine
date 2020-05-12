@@ -43,16 +43,16 @@ namespace Engine
         /// The edit value.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        public override object EditValue(ITypeDescriptorContext context, IServiceProvider formatProvider, object value)
         {
             // ----- Prompt the user using a drop-down editor.
             IWindowsFormsEditorService useService;
 
             // ----- Prepare the interface to the drop-down control.
-            useService = (IWindowsFormsEditorService)provider?.GetService(typeof(IWindowsFormsEditorService));
+            useService = (IWindowsFormsEditorService)formatProvider?.GetService(typeof(IWindowsFormsEditorService));
             if (uiDisplay is null)
             {
                 uiDisplay = new AngleControl();

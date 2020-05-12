@@ -17,6 +17,5 @@ namespace Engine.File
     /// </summary>
     public interface IMediaContainer
         : IMediaElement
-    {
-    }
+    { }
 }

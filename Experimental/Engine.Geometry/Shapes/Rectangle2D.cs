@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -30,6 +31,7 @@ namespace Engine
     [GraphicsObject]
     [DataContract, Serializable]
     [TypeConverter(typeof(StructConverter<Rectangle2D>))]
+    [XmlType(TypeName = "rect", Namespace = "http://www.w3.org/2000/svg")]
     [DebuggerDisplay("{ToString()}")]
     public struct Rectangle2D
         : IClosedShape, IPropertyCaching, IEquatable<Rectangle2D>
@@ -46,6 +48,18 @@ namespace Engine
         public static readonly Rectangle2D Unit = new Rectangle2D(0, 0, 1, 1);
         #endregion Implementations
 
+        #region Fields
+        /// <summary>
+        /// The coordinate location of the rectangle.
+        /// </summary>
+        private Point2D location;
+
+        /// <summary>
+        /// The dimensions of the rectangle.
+        /// </summary>
+        private Size2D size;
+        #endregion
+
         #region Event Delegates
         /// <summary>
         /// The property changed event of the <see cref="PropertyChangedEventHandler"/>.
@@ -59,12 +73,13 @@ namespace Engine
         #endregion
 
         #region Constructors
-        ///// <summary>
-        ///// Initializes a new default instance of the <see cref="Rectangle2D"/> class.
-        ///// </summary>
-        //public Rectangle2D()
-        //    : this(0, 0, 0, 0)
-        //{ }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Rectangle2D" /> class with an empty location, with the provided size.
+        /// </summary>
+        /// <param name="size">The height and width of the <see cref="Rectangle2D" />.</param>
+        public Rectangle2D(Size2D size)
+            : this(0d, 0d, size.Width, size.Height)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D" /> class with an initial location and size.
@@ -75,21 +90,15 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle2D" /> class with an empty location, with the provided size.
-        /// </summary>
-        /// <param name="size">The height and width of the <see cref="Rectangle2D" />.</param>
-        public Rectangle2D(Size2D size)
-            : this(0, 0, size.Width, size.Height)
-        { }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D" /> class with an initial location and size.
         /// </summary>
         /// <param name="location">The location.</param>
         /// <param name="size">The size.</param>
         public Rectangle2D(Point2D location, Size2D size)
-            : this(location.X, location.Y, size.Width, size.Height)
-        { }
+            : this()
+        {
+            (this.location, this.size) = (location, size);
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D" /> class  with a location and a vector size.
@@ -101,14 +110,21 @@ namespace Engine
         { }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Rectangle2D"/> class with the location and size from a tuple.
+        /// </summary>
+        /// <param name="tuple1"></param>
+        /// <param name="tuple2"></param>
+        public Rectangle2D((double, double) tuple1, (double, double) tuple2)
+            : this(new Point2D(tuple1), new Point2D(tuple2))
+        { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D" /> class with the location and size from a tuple.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
-        public Rectangle2D((double, double, double, double) tuple)
-            : this()
-        {
-            (X, Y, Width, Height) = tuple;
-        }
+        public Rectangle2D((double x, double y, double width, double height) tuple)
+            : this(new Point2D(tuple.x, tuple.y), new Size2D(tuple.width, tuple.height))
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D" /> class with a location and size.
@@ -120,13 +136,8 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Rectangle2D(double x, double y, double width, double height)
-            : this()
-        {
-            X = x;
-            Y = y;
-            Width = width;
-            Height = height;
-        }
+            : this(new Point2D(x, y), new Size2D(width, height))
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D" /> class with the upper left and lower right corners.
@@ -138,32 +149,25 @@ namespace Engine
         public Rectangle2D(Point2D point1, Point2D point2)
             : this()
         {
-            X = Min(point1.X, point2.X);
-            Y = Min(point1.Y, point2.Y);
-
+            location = (Min(point1.X, point2.X), Min(point1.Y, point2.Y));
             //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-            Width = Max(Max(point1.X, point2.X) - X, 0);
-            Height = Max(Max(point1.Y, point2.Y) - Y, 0);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Rectangle2D" /> class with the location and size from a tuple.
-        /// </summary>
-        /// <param name="tuple1">The tuple1.</param>
-        /// <param name="tuple2">The tuple2.</param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Rectangle2D((double, double) tuple1, (double, double) tuple2)
-            : this()
-        {
-            (X, Y) = tuple1;
-            (Width, Height) = tuple2;
+            size = (Max(Max(point1.X, point2.X) - location.X, 0), Max(Max(point1.Y, point2.Y) - location.Y, 0));
         }
         #endregion Constructors
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="Rectangle2D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
+        /// Deconstruct this <see cref="Rectangle2D" /> to a <see cref="ValueTuple{T1, T2}" />.
+        /// </summary>
+        /// <param name="location">The location.</param>
+        /// <param name="size">The size.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out (double left, double top) location, out (double width, double height) size) => (location, size) = (this.location, this.size);
+
+        /// <summary>
+        /// Deconstruct this <see cref="Rectangle2D" /> to a <see cref="ValueTuple{T1, T2, T3, T4}" />.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="top">The top.</param>
@@ -172,65 +176,17 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out double left, out double top, out double width, out double height)
-        {
-            left = X;
-            top = Y;
-            width = Width;
-            height = Height;
-        }
+        public void Deconstruct(out double left, out double top, out double width, out double height) => (left, top, width, height) = (location.X, location.Y, size.Width, size.Height);
         #endregion Deconstructors
 
         #region Properties
         /// <summary>
-        /// Gets or sets the X coordinate location of the rectangle.
-        /// </summary>
-        [Browsable(true)]
-        [DisplayName(nameof(X))]
-        [Category("Elements")]
-        [Description("The " + nameof(X) + " coordinate location of the " + nameof(Rectangle2D) + ".")]
-        [RefreshProperties(RefreshProperties.All)]
-        [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
-        public double X { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Y coordinate location of the rectangle.
-        /// </summary>
-        [Browsable(true)]
-        [DisplayName(nameof(Y))]
-        [Category("Elements")]
-        [Description("The " + nameof(Y) + " coordinate location of the " + nameof(Rectangle2D) + ".")]
-        [RefreshProperties(RefreshProperties.All)]
-        [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
-        public double Y { get; set; }
-
-        /// <summary>
-        /// Gets or sets the width of the rectangle.
-        /// </summary>
-        [Browsable(true)]
-        [DisplayName(nameof(Width))]
-        [Category("Elements")]
-        [Description("The " + nameof(Width) + " of the " + nameof(Rectangle2D) + ".")]
-        [RefreshProperties(RefreshProperties.All)]
-        [DataMember(Name = nameof(Width)), XmlAttribute(nameof(Width)), SoapAttribute(nameof(Width))]
-        public double Width { get; set; }
-
-        /// <summary>
-        /// Gets or sets the height of the rectangle.
-        /// </summary>
-        [Browsable(true)]
-        [DisplayName(nameof(Height))]
-        [Category("Elements")]
-        [Description("The " + nameof(Height) + " of the " + nameof(Rectangle2D) + ".")]
-        [RefreshProperties(RefreshProperties.All)]
-        [DataMember(Name = nameof(Height)), XmlAttribute(nameof(Height)), SoapAttribute(nameof(Height))]
-        public double Height { get; set; }
-
-        /// <summary>
         /// Gets or sets the location of the rectangle.
         /// </summary>
+        /// <value>
+        /// The location.
+        /// </value>
         [Browsable(false)]
-        [DisplayName(nameof(Location))]
         [Category("Elements")]
         [Description("The top left " + nameof(Location) + " of the " + nameof(Rectangle2D) + ".")]
         [EditorBrowsable(EditorBrowsableState.Always)]
@@ -238,27 +194,143 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Point2D Location { get { return new Point2D(X, Y); } set { (X, Y) = value; } }
+        public Point2D Location
+        {
+            get { return location; }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                location = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the X coordinate location of the rectangle.
+        /// </summary>
+        /// <value>
+        /// The x.
+        /// </value>
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The " + nameof(X) + " coordinate location of the " + nameof(Rectangle2D) + ".")]
+        [RefreshProperties(RefreshProperties.All)]
+        [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
+        public double X
+        {
+            get { return location.X; }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                location.X = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Y coordinate location of the rectangle.
+        /// </summary>
+        /// <value>
+        /// The y.
+        /// </value>
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The " + nameof(Y) + " coordinate location of the " + nameof(Rectangle2D) + ".")]
+        [RefreshProperties(RefreshProperties.All)]
+        [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
+        public double Y
+        {
+            get { return location.Y; }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                location.Y = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the width of the rectangle.
+        /// </summary>
+        /// <value>
+        /// The width.
+        /// </value>
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The " + nameof(Width) + " of the " + nameof(Rectangle2D) + ".")]
+        [RefreshProperties(RefreshProperties.All)]
+        [DataMember(Name = nameof(Width)), XmlAttribute(nameof(Width)), SoapAttribute(nameof(Width))]
+        public double Width
+        {
+            get { return size.Width; }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                size.Width = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the height of the rectangle.
+        /// </summary>
+        /// <value>
+        /// The height.
+        /// </value>
+        [Browsable(true)]
+        [Category("Elements")]
+        [Description("The " + nameof(Height) + " of the " + nameof(Rectangle2D) + ".")]
+        [RefreshProperties(RefreshProperties.All)]
+        [DataMember(Name = nameof(Height)), XmlAttribute(nameof(Height)), SoapAttribute(nameof(Height))]
+        public double Height
+        {
+            get { return size.Height; }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                size.Height = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the height and width of the rectangle.
         /// </summary>
+        /// <value>
+        /// The size.
+        /// </value>
         [Browsable(false)]
-        [DisplayName(nameof(Size))]
         [Category("Elements")]
         [Description("The " + nameof(Size) + " in " + nameof(Height) + " and " + nameof(Width) + " of the " + nameof(Rectangle2D) + ".")]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        //[TypeConverter(typeof(Size2DConverter))]
+        [TypeConverter(typeof(Size2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Size2D Size { get { return new Size2D(Width, Height); } set { (Width, Height) = value; } }
+        public Size2D Size
+        {
+            get { return size; }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                size = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the center point X and Y coordinates of the rectangle.
         /// </summary>
+        /// <value>
+        /// The center.
+        /// </value>
         [Browsable(false)]
-        [DisplayName(nameof(Center))]
         [Category("Elements")]
         [Description("The " + nameof(Center) + " location of the " + nameof(Rectangle2D) + ".")]
         [EditorBrowsable(EditorBrowsableState.Always)]
@@ -266,121 +338,274 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Point2D Center { get { return new Point2D(X + (Width * 0.5d), Y + (Height * 0.5d)); } set { (X, Y) = (value.X - (Width * 0.5d), value.Y - (Height * 0.5d)); } }
+        public Point2D Center
+        {
+            get { return new Point2D(X + (size.Width * 0.5d), Y + (size.Height * 0.5d)); }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                location = (value.X - (size.Width * 0.5d), value.Y - (size.Height * 0.5d));
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the Aspect ratio of the rectangle.
         /// </summary>
+        /// <value>
+        /// The aspect.
+        /// </value>
         [Browsable(true)]
-        [DisplayName(nameof(Aspect))]
         [Category("Properties")]
         [Description("The " + nameof(Aspect) + " ratio of the height and width of the " + nameof(Rectangle2D) + ".")]
         [RefreshProperties(RefreshProperties.All)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Aspect { get { return Height / Width; } set { (Height, Width) = (Width * value, Height / value); } }
+        public double Aspect
+        {
+            get { return size.Height / size.Width; }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                size.Height = size.Width * value;
+                size.Width = size.Height / value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the left.
         /// </summary>
+        /// <value>
+        /// The left.
+        /// </value>
         [Browsable(false)]
-        [DisplayName(nameof(Left))]
         [Category("Elements")]
         [Description("The left location of the " + nameof(Rectangle2D) + ".")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Left { get { return X; } set { Width += X - value; X = value; } }
+        public double Left
+        {
+            get { return location.X; }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                size.Width += location.X - value;
+                location.X = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the top.
         /// </summary>
+        /// <value>
+        /// The top.
+        /// </value>
         [Browsable(false)]
-        [DisplayName(nameof(Top))]
         [Category("Elements")]
         [Description("The top location of the " + nameof(Rectangle2D) + ".")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Top { get { return Y; } set { Height += Y - value; Y = value; } }
+        public double Top
+        {
+            get { return location.Y; }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                size.Height += location.Y - value;
+                location.Y = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the right.
         /// </summary>
+        /// <value>
+        /// The right.
+        /// </value>
         [Browsable(false)]
-        [DisplayName(nameof(Right))]
         [Category("Elements")]
         [Description("The right location of the " + nameof(Rectangle2D) + ".")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Right { get { return X + Width; } set { Width = value - X; } }
+        public double Right
+        {
+            get { return location.X + size.Width; }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                size.Width = value - location.X;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the bottom.
         /// </summary>
+        /// <value>
+        /// The bottom.
+        /// </value>
         [Browsable(false)]
-        //[DisplayName(nameof(Bottom))]
         [Category("Elements")]
         [Description("The bottom location of the " + nameof(Rectangle2D) + ".")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Bottom { get { return Y + Height; } set { Height = value - Y; } }
+        public double Bottom
+        {
+            get { return location.Y + size.Height; }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                size.Height = value - location.Y;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the top left point.
         /// </summary>
+        /// <value>
+        /// The top left.
+        /// </value>
         [Browsable(false)]
-        [DisplayName(nameof(TopLeft))]
         [Category("Elements")]
         [Description("The top left location of the " + nameof(Rectangle2D) + ".")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Point2D TopLeft { get { return new Point2D(Left, Top); } set { (Left, Top) = value; } }
+        public Point2D TopLeft
+        {
+            get { return new Point2D(Left, Top); }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                (location.X, location.Y, size.Width, size.Height) = (value.X, value.Y, size.Width + location.X - value.X, size.Height + location.Y - value.Y);
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the top right point.
         /// </summary>
+        /// <value>
+        /// The top right.
+        /// </value>
         [Browsable(false)]
-        [DisplayName(nameof(TopRight))]
         [Category("Elements")]
         [Description("The top right location of the " + nameof(Rectangle2D) + ".")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Point2D TopRight { get { return new Point2D(Right, Top); } set { (Right, Top) = value; } }
+        public Point2D TopRight
+        {
+            get { return new Point2D(Right, Top); }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                (location.Y, size.Width, size.Height) = (value.Y, value.X - location.X, size.Height + location.Y - value.Y);
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the bottom left point.
         /// </summary>
+        /// <value>
+        /// The bottom left.
+        /// </value>
         [Browsable(false)]
-        [DisplayName(nameof(BottomLeft))]
         [Category("Elements")]
         [Description("The bottom left location of the " + nameof(Rectangle2D) + ".")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Point2D BottomLeft { get { return new Point2D(Left, Bottom); } set { (Left, Bottom) = value; } }
+        public Point2D BottomLeft
+        {
+            get { return new Point2D(Left, Bottom); }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                (Left, Bottom) = (value.X, value.Y);
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the bottom right point.
         /// </summary>
+        /// <value>
+        /// The bottom right.
+        /// </value>
         [Browsable(false)]
-        [DisplayName(nameof(BottomRight))]
         [Category("Elements")]
         [Description("The bottom right location of the " + nameof(Rectangle2D) + ".")]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Point2D BottomRight { get { return new Point2D(Right, Bottom); } set { (Right, Bottom) = value; } }
+        public Point2D BottomRight
+        {
+            get { return new Point2D(Right, Bottom); }
+            set
+            {
+                OnPropertyChanging();
+                (this as IPropertyCaching).ClearCache();
+                (Right, Bottom) = (value.X, value.Y);
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets the area.
+        /// </summary>
+        /// <value>
+        /// The area.
+        /// </value>
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [Category("Elements")]
+        [Description("The " + nameof(Area) + " of the " + nameof(Rectangle2D) + ".")]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public double Area => size.Height * size.Width;
+
+        /// <summary>
+        /// Gets the length of the perimeter of the rectangle.
+        /// </summary>
+        /// <value>
+        /// The perimeter.
+        /// </value>
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [Category("Elements")]
+        [Description("The distance around the " + nameof(Rectangle2D) + ".")]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public double Perimeter => (Measurements.Distance(TopLeft, TopRight) * 2) + (Measurements.Distance(TopLeft, BottomLeft) * 2);
 
         /// <summary>
         /// Gets the bounding box of the rectangle.
         /// </summary>
+        /// <value>
+        /// The bounds.
+        /// </value>
         [Browsable(false)]
         [ReadOnly(true)]
-        [DisplayName(nameof(Bounds))]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [TypeConverter(typeof(Rectangle2DConverter))]
@@ -391,56 +616,37 @@ namespace Engine
         public Rectangle2D Bounds => this;
 
         /// <summary>
-        /// Gets the length of the perimeter of the rectangle.
-        /// </summary>
-        [Browsable(true)]
-        [ReadOnly(true)]
-        [DisplayName(nameof(Perimeter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [Category("Elements")]
-        [Description("The distance around the " + nameof(Rectangle2D) + ".")]
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Perimeter => (Measurements.Distance(TopLeft, TopRight) * 2) + (Measurements.Distance(TopLeft, BottomLeft) * 2);
-
-        /// <summary>
-        /// Gets the area.
-        /// </summary>
-        [Browsable(true)]
-        [ReadOnly(true)]
-        [DisplayName(nameof(Area))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [Category("Elements")]
-        [Description("The " + nameof(Area) + " of the " + nameof(Rectangle2D) + ".")]
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Area => Height * Width;
-
-        /// <summary>
         /// Gets a value indicating whether the Rectangle2D has area.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance has area; otherwise, <c>false</c>.
+        /// </value>
         [Browsable(false)]
         [ReadOnly(true)]
-        [DisplayName(nameof(HasArea))]
         [Category("Elements")]
         [Description("A value indicating whether or not the " + nameof(Rectangle2D) + " has " + nameof(Height) + " or " + nameof(Width) + ".")]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public bool HasArea => Width > 0 && Height > 0;
+        public bool HasArea => size.Width > 0 && size.Height > 0;
 
         /// <summary>
         /// Gets a value indicating whether the Rectangle2D is empty.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is empty; otherwise, <c>false</c>.
+        /// </value>
         [Browsable(false)]
         [ReadOnly(true)]
-        [DisplayName(nameof(IsEmpty))]
         [Category("Elements")]
         [Description("A value indicating whether or not the " + nameof(Rectangle2D) + " has height or width.")]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public bool IsEmpty => (Width <= 0) || (Height <= 0);
+        public bool IsEmpty => (size.Width <= 0) || (size.Height <= 0);
 
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
+        /// <value>
+        /// The property cache.
+        /// </value>
         [Browsable(false)]
         [field: NonSerialized]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
@@ -485,7 +691,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator (double Left, double Top, double Width, double Height)(Rectangle2D rectangle) => (rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-        #endregion Operators
+        #endregion
 
         #region Operator Backing Methods
         /// <summary>
@@ -535,31 +741,34 @@ namespace Engine
 
         #region Factories
         /// <summary>
-        /// Creates a new <see cref="Rectangle2D"/> with the specified location and size.
+        /// Creates a new <see cref="Rectangle2D" /> with the specified location and size.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="top">The top.</param>
         /// <param name="right">The right.</param>
         /// <param name="bottom">The bottom.</param>
-        /// <returns>The <see cref="Rectangle2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Rectangle2D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D FromLTRB(double left, double top, double right, double bottom) => new Rectangle2D(left, top, right - left, bottom - top);
 
         /// <summary>
-        /// Creates a <see cref="Rectangle2D"/> from a center point and it's size.
+        /// Creates a <see cref="Rectangle2D" /> from a center point and it's size.
         /// </summary>
-        /// <param name="center">The center point to create the <see cref="Rectangle2D"/> as a <see cref="Point2D"/>.</param>
-        /// <param name="size">The height and width of the new <see cref="Rectangle2D"/> as a <see cref="Size"/>.</param>
-        /// <returns>Returns a <see cref="Rectangle2D"/> based around a center point and it's size.</returns>
-        public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size)
-            => new Rectangle2D(center - (size * 0.5d), size);
+        /// <param name="center">The center point to create the <see cref="Rectangle2D" /> as a <see cref="Point2D" />.</param>
+        /// <param name="size">The height and width of the new <see cref="Rectangle2D" /> as a <see cref="Size" />.</param>
+        /// <returns>
+        /// Returns a <see cref="Rectangle2D" /> based around a center point and it's size.
+        /// </returns>
+        public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size) => new Rectangle2D(center - size * 0.5d, size);
 
         /// <summary>
         /// Creates a rectangle that represents the union between a and b.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
         /// <returns></returns>
         public static Rectangle2D Union(Rectangle2D a, Rectangle2D b)
         {
@@ -574,6 +783,9 @@ namespace Engine
         /// <summary>
         /// Union - Return the result of the union of Rectangle2D and point.
         /// </summary>
+        /// <param name="rect">The rect.</param>
+        /// <param name="point">The point.</param>
+        /// <returns></returns>
         public static Rectangle2D Union(Rectangle2D rect, Point2D point)
         {
             rect.UnionMutate(new Rectangle2D(point, point));
@@ -583,8 +795,8 @@ namespace Engine
         /// <summary>
         /// Creates a rectangle that represents the intersection between a and b. If there is no intersection, null is returned.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
         /// <returns></returns>
         public static Rectangle2D Intersect(Rectangle2D a, Rectangle2D b)
         {
@@ -605,6 +817,9 @@ namespace Engine
         /// Offset - return the result of offsetting Rectangle2D by the offset provided
         /// If this is Empty, this method is illegal.
         /// </summary>
+        /// <param name="rect">The rect.</param>
+        /// <param name="offsetVector">The offset vector.</param>
+        /// <returns></returns>
         public static Rectangle2D Offset(Rectangle2D rect, Vector2D offsetVector)
         {
             rect.Offset(offsetVector.I, offsetVector.J);
@@ -615,6 +830,10 @@ namespace Engine
         /// Offset - return the result of offsetting Rectangle2D by the offset provided
         /// If this is Empty, this method is illegal.
         /// </summary>
+        /// <param name="rect">The rect.</param>
+        /// <param name="offsetX">The offset x.</param>
+        /// <param name="offsetY">The offset y.</param>
+        /// <returns></returns>
         public static Rectangle2D Offset(Rectangle2D rect, double offsetX, double offsetY)
         {
             rect.Offset(offsetX, offsetY);
@@ -622,11 +841,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// Creates a <see cref="Rectangle2D"/> that is inflated by the specified amount.
+        /// Creates a <see cref="Rectangle2D" /> that is inflated by the specified amount.
         /// </summary>
-        /// <param name="rect"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="rect">The rect.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         /// <returns></returns>
         public static Rectangle2D Inflate(Rectangle2D rect, float x, float y)
         {
@@ -639,6 +858,9 @@ namespace Engine
         /// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
         /// If this is Empty, this method is illegal.
         /// </summary>
+        /// <param name="rect">The rect.</param>
+        /// <param name="size">The size.</param>
+        /// <returns></returns>
         public static Rectangle2D Inflate(Rectangle2D rect, Size2D size)
         {
             rect.Inflate(size.Width, size.Height);
@@ -649,6 +871,10 @@ namespace Engine
         /// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
         /// If this is Empty, this method is illegal.
         /// </summary>
+        /// <param name="rect">The rect.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <returns></returns>
         public static Rectangle2D Inflate(Rectangle2D rect, double width, double height)
         {
             rect.Inflate(width, height);
@@ -666,6 +892,11 @@ namespace Engine
         ///// <param name="matrix"> The Matrix by which to transform. </param>
         //public static Rectangle2D Transform(Rectangle2D rect, Matrix3x2D matrix)
         //{
+        //    if (rect is null)
+        //    {
+        //        throw new ArgumentNullException(nameof(rect));
+        //    }
+
         //    Matrix3x2D.TransformRect(ref rect, ref matrix);
         //    return rect;
         //}
@@ -679,11 +910,9 @@ namespace Engine
         /// <returns></returns>
         public void UnionMutate(Rectangle2D rect)
         {
-            var left = /*rect is null ? Left :*/ Min(Left, rect.Left);
-            var top = /*rect is null ? Top :*/ Min(Top, rect.Top);
+            var left = Min(Left, rect.Left);
+            var top = Min(Top, rect.Top);
 
-            //if (!(rect is null))
-            //{
             // We need this check so that the math does not result in NaN
             if (double.IsPositiveInfinity(rect.Width) || double.IsPositiveInfinity(Width))
             {
@@ -705,7 +934,6 @@ namespace Engine
                 //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
                 Height = Max(Max(Bottom, rect.Bottom) - top, 0);
             }
-            //}
 
             X = left;
             Y = top;
@@ -764,17 +992,8 @@ namespace Engine
         /// <summary>
         /// Creates a Rectangle that represents the intersection between this Rectangle and rectangle.
         /// </summary>
-        /// <param name="rect"></param>
-        public void Intersect(Rectangle2D rect)
-        {
-            var result = Intersect(rect, this);
-
-            X = result.X;
-            Y = result.Y;
-            Width = result.Width;
-            Height = result.Height;
-            OnPropertyChanged(nameof(Intersect));
-        }
+        /// <param name="rect">The rect.</param>
+        public Rectangle2D Intersect(Rectangle2D rect) => Intersect(rect, this);
 
         /// <summary>
         /// Adjusts the location of this rectangle by the specified amount.
@@ -801,9 +1020,11 @@ namespace Engine
                 throw new InvalidOperationException("Cannot call method.");
             }
 
-            X += x;
-            Y += y;
-            OnPropertyChanged(nameof(Offset));
+            OnPropertyChanging();
+            (this as IPropertyCaching).ClearCache();
+            location.X += x;
+            location.Y += y;
+            OnPropertyChanged();
         }
 
         /// <summary>
@@ -813,11 +1034,13 @@ namespace Engine
         /// <param name="y"></param>
         public void Inflate(double x, double y)
         {
-            X -= x;
-            Y -= y;
-            Width += 2 * x;
-            Height += 2 * y;
-            OnPropertyChanged(nameof(Inflate));
+            OnPropertyChanging();
+            (this as IPropertyCaching).ClearCache();
+            location.X -= x;
+            location.Y -= y;
+            size.Width += 2 * x;
+            size.Height += 2 * y;
+            OnPropertyChanged();
         }
 
         /// <summary>
@@ -832,8 +1055,7 @@ namespace Engine
         ///// The Empty Rectangle2D is not affected by this call.
         ///// </summary>
         ///// <param name="matrix"> Matrix </param>
-        //public void Transform(Matrix3x2D matrix)
-        //    => Matrix3x2D.TransformRect(ref this, ref matrix);
+        //public void Transform(Matrix3x2D matrix) => Matrix3x2D.TransformRect(ref this, ref matrix);
         #endregion Mutators
 
         #region Methods
@@ -867,6 +1089,14 @@ namespace Engine
         /// </returns>
         public bool Intersects(IShape shape) => Intersections.Intersects(this, shape);
         #endregion
+
+        /// <summary>
+        /// Convert a rectangle to a polygon containing an array of the rectangle's corner points.
+        /// </summary>
+        /// <returns>
+        /// An array of points representing the corners of a rectangle.
+        /// </returns>
+        public PolygonContour2D ToPolygon() => new PolygonContour2D(ToPoints().ToArray());
 
         #region Standard Methods
         /// <summary>
@@ -924,8 +1154,6 @@ namespace Engine
             var sep = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Rectangle2D)}({nameof(X)}: {X.ToString(format, formatProvider)}{sep} {nameof(Y)}: {Y.ToString(format, formatProvider)}{sep} {nameof(Width)}: {Width.ToString(format, formatProvider)}{sep} {nameof(Height)}: {Height.ToString(format, formatProvider)})";
         }
-
-        public (double Left, double Top, double Width, double Height) ToValueTuple() => throw new NotImplementedException();
         #endregion Methods
     }
 }

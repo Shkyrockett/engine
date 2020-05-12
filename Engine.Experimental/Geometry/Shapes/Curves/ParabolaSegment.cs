@@ -493,8 +493,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double Height, double Distance, double Time) TrajectoryToParabola(double x, double angle, double velocity, double gravity = 9.80665)
         {
-            double b = velocity * velocity * Sin(angle * 0.5d) / gravity;
-            double cos = Cos(angle);
+            var b = velocity * velocity * Sin(angle * 0.5d) / gravity;
+            var cos = Cos(angle);
             return (
                 x + b * 0.5d * Tan(angle) - (gravity * 0.5d * (b * 0.5d / velocity * cos) * (b * 0.5d / velocity * cos)),
                 b,

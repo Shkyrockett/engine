@@ -144,7 +144,7 @@ namespace Engine.WindowsForms
         /// </summary>
         /// <param name="fill">The pen.</param>
         /// <param name="points">The points.</param>
-        public void FillPolygon(IFill fill, IEnumerable<Point2D> points)
+        public void FillPolygon(IFillable fill, IEnumerable<Point2D> points)
         {
             if (points is null)
             {
@@ -184,7 +184,7 @@ namespace Engine.WindowsForms
         /// <param name="offset">The offset.</param>
         /// <param name="numberOfSegments">The numberOfSegments.</param>
         /// <param name="tension">The tension.</param>
-        public void FillCurve(IFill fill, IEnumerable<Point2D> points, double offset, int numberOfSegments, double tension = 0.5)
+        public void FillCurve(IFillable fill, IEnumerable<Point2D> points, double offset, int numberOfSegments, double tension = 0.5)
         {
             if (points is null)
             {
@@ -242,7 +242,7 @@ namespace Engine.WindowsForms
         /// <param name="y2">The y2.</param>
         /// <param name="x3">The x3.</param>
         /// <param name="y3">The y3.</param>
-        public void FillQuadraticBezier(IFill fill, double x1, double y1, double x2, double y2, double x3, double y3)
+        public void FillQuadraticBezier(IFillable fill, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             using var path = new GraphicsPath();
             (var aX, var aY, var bX, var bY, var cX, var cY, var dX, var dY) = Conversions.QuadraticBezierToCubicBezierTuple(x1, y1, x2, y2, x3, y3);
@@ -281,7 +281,7 @@ namespace Engine.WindowsForms
         /// <param name="y3">The y3.</param>
         /// <param name="x4">The x4.</param>
         /// <param name="y4">The y4.</param>
-        public void FillCubicBezier(IFill fill, double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
+        public void FillCubicBezier(IFillable fill, double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
         {
             using var path = new GraphicsPath();
             path.AddBezier((float)x1, (float)y1, (float)x2, (float)y2, (float)x3, (float)y3, (float)x4, (float)y4);
@@ -315,7 +315,7 @@ namespace Engine.WindowsForms
         /// <param name="height">The height.</param>
         /// <param name="startAngle">The startAngle.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
-        public void FillArc(IFill fill, double x, double y, double width, double height, double startAngle, double sweepAngle)
+        public void FillArc(IFillable fill, double x, double y, double width, double height, double startAngle, double sweepAngle)
         {
             using var path = new GraphicsPath();
             path.AddArc((float)x, (float)y, (float)width, (float)height, (float)startAngle.RadiansToDegrees(), (float)sweepAngle.RadiansToDegrees());
@@ -356,7 +356,7 @@ namespace Engine.WindowsForms
         /// <param name="startAngle">The startAngle.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
         /// <param name="angle">The angle.</param>
-        public void FillArc(IFill fill, double x, double y, double width, double height, double startAngle, double sweepAngle, double angle)
+        public void FillArc(IFillable fill, double x, double y, double width, double height, double startAngle, double sweepAngle, double angle)
         {
             var center = new PointF((float)((0.5d * width) + x), (float)((0.5d * height) + y));
             var mat = new Matrix();
@@ -395,7 +395,7 @@ namespace Engine.WindowsForms
         /// <param name="height">The height.</param>
         /// <param name="startAngle">The startAngle.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
-        public void FillPie(IFill fill, double x, double y, double width, double height, double startAngle, double sweepAngle)
+        public void FillPie(IFillable fill, double x, double y, double width, double height, double startAngle, double sweepAngle)
         {
             using var brush = fill.ToBrush();
             Graphics.FillPie(brush, (float)x, (float)y, (float)width, (float)height, (float)startAngle.RadiansToDegrees(), (float)sweepAngle.RadiansToDegrees());
@@ -430,7 +430,7 @@ namespace Engine.WindowsForms
         /// <param name="y">The y.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public void FillEllipse(IFill fill, double x, double y, double width, double height)
+        public void FillEllipse(IFillable fill, double x, double y, double width, double height)
         {
             using var brush = fill.ToBrush();
             try
@@ -472,7 +472,7 @@ namespace Engine.WindowsForms
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <param name="angle">The angle.</param>
-        public void FillEllipse(IFill fill, double x, double y, double width, double height, double angle)
+        public void FillEllipse(IFillable fill, double x, double y, double width, double height, double angle)
         {
             var mat = new Matrix();
             var center = new PointF((float)((0.5d * width) + x), (float)((0.5d * height) + y));
@@ -505,7 +505,7 @@ namespace Engine.WindowsForms
         /// <param name="y">The y.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        public void FillRectangle(IFill fill, double x, double y, double width, double height)
+        public void FillRectangle(IFillable fill, double x, double y, double width, double height)
         {
             using var brush = fill.ToBrush();
             Graphics.FillRectangle(brush, (float)x, (float)y, (float)width, (float)height);
@@ -533,7 +533,7 @@ namespace Engine.WindowsForms
         /// </summary>
         /// <param name="fill">The pen.</param>
         /// <param name="rectangles">The rectangles.</param>
-        public void FillRectangles(IFill fill, IEnumerable<Rectangle2D> rectangles)
+        public void FillRectangles(IFillable fill, IEnumerable<Rectangle2D> rectangles)
         {
             if (rectangles is null)
             {
@@ -552,21 +552,21 @@ namespace Engine.WindowsForms
         /// <param name="points">The points.</param>
         /// <param name="tension">The tension.</param>
         /// <param name="fillmode">The fill-mode.</param>
-        public void FillClosedCurve(IFill fill, IEnumerable<Point2D> points, double tension, FillMode fillmode)
+        public void FillClosedCurve(IFillable fill, IEnumerable<Point2D> points, double tension, FillMode fillmode)
             => throw new NotImplementedException();
 
         /// <summary>
         /// Fill the region.
         /// </summary>
         /// <param name="fill">The pen.</param>
-        public void FillRegion(IFill fill)
+        public void FillRegion(IFillable fill)
             => throw new NotImplementedException();
 
         /// <summary>
         /// Fill the path.
         /// </summary>
         /// <param name="fill">The brush.</param>
-        public void FillPath(IFill fill)
+        public void FillPath(IFillable fill)
             => throw new NotImplementedException();
 
         /// <summary>
@@ -578,7 +578,7 @@ namespace Engine.WindowsForms
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="stringFormat">The stringFormat.</param>
-        public void DrawString(string text, RenderFont font, IFill brush, double x, double y, TextFormat stringFormat)
+        public void DrawString(string text, RenderFont font, IFillable brush, double x, double y, TextFormat stringFormat)
         {
             using var font1 = font.ToFont();
             using var brush1 = brush.ToBrush();
@@ -597,7 +597,7 @@ namespace Engine.WindowsForms
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <param name="stringFormat">The stringFormat.</param>
-        public void DrawString(string text, RenderFont font, IFill brush, double x, double y, double width, double height, TextFormat stringFormat)
+        public void DrawString(string text, RenderFont font, IFillable brush, double x, double y, double width, double height, TextFormat stringFormat)
         {
             using var font1 = font.ToFont();
             using var brush1 = brush.ToBrush();

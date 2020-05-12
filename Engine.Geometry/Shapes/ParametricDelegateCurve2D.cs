@@ -304,8 +304,7 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public override Point2D Interpolate(double t)
-            => Interpolate(Interpolator, t, x, y, h, v, r);
+        public override Point2D Interpolate(double t) => Interpolate(Interpolator, t, x, y, h, v, r);
 
         /// <summary>
         /// The interpolate.
@@ -318,16 +317,14 @@ namespace Engine
         /// <param name="h">The h.</param>
         /// <param name="a">The a.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public static Point2D Interpolate(Func<double, double, double, double, double, double, Point2D> function, double t, double x, double y, double w, double h, double a)
-            => (function?.Invoke(t, x, y, w, h, a)).Value;
+        public static Point2D Interpolate(Func<double, double, double, double, double, double, Point2D> function, double t, double x, double y, double w, double h, double a) => function?.Invoke(t, x, y, w, h, a);
 
         /// <summary>
         /// The contains.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Contains(Point2D point)
-            => Contains(PointIntersector, x, y, h, v, r, point.X, point.Y) != Inclusions.Outside;
+        public override bool Contains(Point2D point) => Contains(PointIntersector, x, y, h, v, r, point.X, point.Y) != Inclusions.Outside;
 
         /// <summary>
         /// The contains.
@@ -341,8 +338,7 @@ namespace Engine
         /// <param name="pX">The pX.</param>
         /// <param name="pY">The pY.</param>
         /// <returns>The <see cref="Inclusions"/>.</returns>
-        public static Inclusions Contains(Func<double, double, double, double, double, double, double, Inclusions> function, double x, double y, double w, double h, double a, double pX, double pY)
-            => (function != null) ? function.Invoke(x, y, w, h, a, pX, pY) : Inclusions.Outside;
+        public static Inclusions Contains(Func<double, double, double, double, double, double, double, Inclusions> function, double x, double y, double w, double h, double a, double pX, double pY) => (function != null) ? function.Invoke(x, y, w, h, a, pX, pY) : Inclusions.Outside;
 
         /// <summary>
         /// Convert the to string.

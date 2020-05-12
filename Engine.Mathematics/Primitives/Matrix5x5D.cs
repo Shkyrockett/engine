@@ -28,8 +28,7 @@ namespace Engine
     /// </summary>
     /// <seealso cref="IMatrix{M, V}" />
     [DataContract, Serializable]
-    //[TypeConverter(typeof(Matrix5x5DConverter))]
-    [TypeConverter(typeof(StructConverter<Matrix5x5D>))]
+    [TypeConverter(typeof(Matrix5x5DConverter))]
     [DebuggerDisplay("{ToString()}")]
     public struct Matrix5x5D
         : IMatrix<Matrix5x5D, Vector5D>
@@ -187,9 +186,7 @@ namespace Engine
             out double m1x0, out double m1x1, out double m1x2, out double m1x3, out double m1x4,
             out double m2x0, out double m2x1, out double m2x2, out double m2x3, out double m2x4,
             out double m3x0, out double m3x1, out double m3x2, out double m3x3, out double m3x4,
-            out double m4x0, out double m4x1, out double m4x2, out double m4x3, out double m4x4)
-        {
-            (
+            out double m4x0, out double m4x1, out double m4x2, out double m4x3, out double m4x4) => (
                 m0x0, m0x1, m0x2, m0x3, m0x4,
                 m1x0, m1x1, m1x2, m1x3, m1x4,
                 m2x0, m2x1, m2x2, m2x3, m2x4,
@@ -202,7 +199,6 @@ namespace Engine
                 M3x0, M3x1, M3x2, M3x3, M3x4,
                 M4x0, M4x1, M4x2, M4x3, M4x4
             );
-        }
         #endregion Deconstructors
 
         #region Properties
@@ -608,7 +604,7 @@ namespace Engine
         ///   <see langword="true"/> if this instance is identity; otherwise, <see langword="false"/>.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public bool IsIdentity => Operations.IsMatrixIdentity(
+        public bool IsIdentity => IsMatrixIdentity(
                 M0x0, M0x1, M0x2, M0x3, M0x4,
                 M1x0, M1x1, M1x2, M1x3, M1x4,
                 M2x0, M2x1, M2x2, M2x3, M2x4,
@@ -1086,17 +1082,16 @@ namespace Engine
         public override bool Equals([AllowNull] object obj) => obj is Matrix5x5D d && Equals(d);
 
         /// <summary>
-        /// Compares two <see cref="Matrix5x5D"/> instances for object equality.  In this equality
+        /// Compares two <see cref="Matrix5x5D" /> instances for object equality.  In this equality
         /// Double.NaN is equal to itself, unlike in numeric equality.
         /// Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which
         /// are logically equal may fail.
         /// </summary>
+        /// <param name="matrix2">The second Matrix to compare</param>
         /// <returns>
         /// bool - true if the two Matrix instances are exactly equal, false otherwise
         /// </returns>
-        /// <param name='matrix1'>The first Matrix to compare</param>
-        /// <param name='matrix2'>The second Matrix to compare</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Matrix5x5D matrix2) =>
@@ -1299,45 +1294,45 @@ namespace Engine
         /// Parse a string for a <see cref="Matrix5x5D" /> value.
         /// </summary>
         /// <param name="source"><see cref="string" /> with <see cref="Matrix5x5D" /> data</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
         /// Returns an instance of the <see cref="Matrix5x5D" /> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix5x5D Parse(string source, IFormatProvider provider)
+        public static Matrix5x5D Parse(string source, IFormatProvider formatProvider)
         {
-            var tokenizer = new Tokenizer(source, provider);
+            var tokenizer = new Tokenizer(source, formatProvider);
             var firstToken = tokenizer.NextTokenRequired();
 
             // The token will already have had whitespace trimmed so we can do a simple string compare.
             var value = firstToken == nameof(Identity) ? Identity : new Matrix5x5D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                Convert.ToDouble(firstToken, formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider)
                 );
 
             // There should be no more tokens in this string.
@@ -1350,7 +1345,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="IEnumerator{IEnumerable{double}}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {
@@ -1409,46 +1404,46 @@ namespace Engine
         }
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix3x2D" /> struct based on the current culture.
+        /// Creates a string representation of this <see cref="Matrix5x5D" /> struct based on the current culture.
         /// </summary>
         /// <returns>
-        /// A string representation of this <see cref="Matrix3x2D" />.
+        /// A string representation of this <see cref="Matrix5x5D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix3x2D" /> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Matrix5x5D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
-        /// A string representation of this <see cref="Matrix3x2D" />.
+        /// A string representation of this <see cref="Matrix5x5D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+        public string ToString(IFormatProvider formatProvider) => ToString("R" /* format string */, formatProvider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix3x2D" /> struct based on the format string
+        /// Creates a string representation of this <see cref="Matrix5x5D" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>
-        /// A string representation of this <see cref="Matrix3x2D" />.
+        /// A string representation of this <see cref="Matrix5x5D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             if (this == null) return nameof(Matrix5x5D);
             if (IsIdentity) return nameof(Identity);
-            var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Matrix5x5D)}({nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, provider)}{s} {nameof(M0x3)}:{M0x3.ToString(format, provider)}{s} {nameof(M0x4)}:{M0x4.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, provider)}{s} {nameof(M1x3)}:{M1x3.ToString(format, provider)}{s} {nameof(M1x4)}:{M1x4.ToString(format, provider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, provider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, provider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, provider)}{s} {nameof(M2x3)}:{M2x3.ToString(format, provider)}{s} {nameof(M2x4)}:{M2x4.ToString(format, provider)}{s} {nameof(M3x0)}:{M3x0.ToString(format, provider)}{s} {nameof(M3x1)}:{M3x1.ToString(format, provider)}{s} {nameof(M3x2)}:{M3x2.ToString(format, provider)}{s} {nameof(M3x3)}:{M3x3.ToString(format, provider)}{s} {nameof(M3x4)}:{M3x4.ToString(format, provider)}{s} {nameof(M4x0)}:{M4x0.ToString(format, provider)}{s} {nameof(M4x1)}:{M4x1.ToString(format, provider)}{s} {nameof(M4x2)}:{M4x2.ToString(format, provider)}{s} {nameof(M4x3)}:{M4x3.ToString(format, provider)}{s} {nameof(M4x4)}:{M4x4.ToString(format, provider)})";
+            var s = Tokenizer.GetNumericListSeparator(formatProvider);
+            return $"{nameof(Matrix5x5D)}({nameof(M0x0)}:{M0x0.ToString(format, formatProvider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, formatProvider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, formatProvider)}{s} {nameof(M0x3)}:{M0x3.ToString(format, formatProvider)}{s} {nameof(M0x4)}:{M0x4.ToString(format, formatProvider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, formatProvider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, formatProvider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, formatProvider)}{s} {nameof(M1x3)}:{M1x3.ToString(format, formatProvider)}{s} {nameof(M1x4)}:{M1x4.ToString(format, formatProvider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, formatProvider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, formatProvider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, formatProvider)}{s} {nameof(M2x3)}:{M2x3.ToString(format, formatProvider)}{s} {nameof(M2x4)}:{M2x4.ToString(format, formatProvider)}{s} {nameof(M3x0)}:{M3x0.ToString(format, formatProvider)}{s} {nameof(M3x1)}:{M3x1.ToString(format, formatProvider)}{s} {nameof(M3x2)}:{M3x2.ToString(format, formatProvider)}{s} {nameof(M3x3)}:{M3x3.ToString(format, formatProvider)}{s} {nameof(M3x4)}:{M3x4.ToString(format, formatProvider)}{s} {nameof(M4x0)}:{M4x0.ToString(format, formatProvider)}{s} {nameof(M4x1)}:{M4x1.ToString(format, formatProvider)}{s} {nameof(M4x2)}:{M4x2.ToString(format, formatProvider)}{s} {nameof(M4x3)}:{M4x3.ToString(format, formatProvider)}{s} {nameof(M4x4)}:{M4x4.ToString(format, formatProvider)})";
         }
         #endregion
     }

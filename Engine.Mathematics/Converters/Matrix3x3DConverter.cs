@@ -65,7 +65,7 @@ namespace Engine
 
             if (value is string source)
             {
-                return Matrix3x3D.Parse(source);
+                return Matrix3x3D.Parse(source, culture);
             }
 
             return base.ConvertFrom(context, culture, value);

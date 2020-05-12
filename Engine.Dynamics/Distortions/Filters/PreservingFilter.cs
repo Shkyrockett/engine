@@ -167,10 +167,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process a <see cref="PointSet"/> structure with a distortion filter.
+        /// Process a <see cref="PointSet2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="points">The points.</param>
-        /// <returns>The <see cref="PointSet"/>.</returns>
+        /// <returns>The <see cref="PointSet2D"/>.</returns>
         public PointSet2D Process(PointSet2D points)
         {
             if (points is null) return points;
@@ -269,14 +269,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process a <see cref="PolycurveContour"/> structure with a distortion filter.
+        /// Process a <see cref="PolycurveContour2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="contour">The contour.</param>
-        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        /// <returns>The <see cref="PolycurveContour2D"/>.</returns>
         public PolycurveContour2D Process(PolycurveContour2D contour)
         {
             if (contour is null) return contour;
-            var result = new PolycurveContour2D(Process(contour.Items[0].Head.Value));
+            var result = new PolycurveContour2D(Process(contour.Items[0].Head));
             foreach (var item in contour)
             {
                 switch (item)
@@ -284,19 +284,19 @@ namespace Engine
                     case PointSegment2D _:
                         break;
                     case LineCurveSegment2D t:
-                        result.AddLineSegment(Process(t.Tail.Value));
+                        result.AddLineSegment(Process(t.Tail));
                         break;
                     case ArcSegment2D t:
-                        result.AddArc(t.RX, t.RY, t.Angle, t.LargeArc, t.Sweep, Process(t.Tail.Value));
+                        result.AddArc(t.RX, t.RY, t.Angle, t.LargeArc, t.Sweep, Process(t.Tail));
                         break;
                     //case CardinalSegment2D t:
                     //    result.AddCardinalCurve(Process(t.CentralPoints.ToArray()));
                     //    break;
                     case QuadraticBezierSegment2D t:
-                        result.AddQuadraticBezier(Process(t.Handle.Value), Process(t.Tail.Value));
+                        result.AddQuadraticBezier(Process(t.Handle), Process(t.Tail));
                         break;
                     case CubicBezierSegment2D t:
-                        result.AddCubicBezier(Process(t.Handle1), Process(t.Handle2.Value), Process(t.Tail.Value));
+                        result.AddCubicBezier(Process(t.Handle1), Process(t.Handle2), Process(t.Tail));
                         break;
                     default:
                         break;

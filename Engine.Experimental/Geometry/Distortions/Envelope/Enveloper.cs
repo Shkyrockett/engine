@@ -53,26 +53,26 @@ namespace Engine.Experimental
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
             // Normalize the point to the bounding box.
-            var normal = (X: (point.X - bounds?.X).Value / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
-            var reverseNormal = (X: 1d - normal.X, Y: 1d - normal.Y);
+            var (normalX, normalY) = ((point.X - bounds?.X).Value / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
+            var (inverseNormalX, inverseNormalY) = (1d - normalX, 1d - normalY);
 
             // Set up Interpolation variables.
-            var reverseNormalSquared = (X: reverseNormal.X * reverseNormal.X, Y: reverseNormal.Y * reverseNormal.Y);
-            var reverseNormalCubed = (X: reverseNormalSquared.X * reverseNormal.X, Y: reverseNormalSquared.Y * reverseNormal.Y);
-            var normalSquared = (X: normal.X * normal.X, Y: normal.Y * normal.Y);
-            var normalCubed = (X: normalSquared.X * normal.X, Y: normalSquared.Y * normal.Y);
+            var (inverseNormalSquaredX, inverseNormalSquaredY) = (inverseNormalX * inverseNormalX, inverseNormalY * inverseNormalY);
+            var (inverseNormalCubedX, inverseNormalCubedY) = (inverseNormalSquaredX * inverseNormalX, inverseNormalSquaredY * inverseNormalY);
+            var (normalSquaredX, normalSquaredY) = (normalX * normalX, normalY * normalY);
+            var (normalCubedX, normalCubedY) = (normalSquaredX * normalX, normalSquaredY * normalY);
 
             // Interpolate the normalized point along the Cubic Bézier curves.
             // ToDo: Certain variables are only using one of their components. This messes up the envelope when rotated 90 degrees where they turn 0 in combination. Need to add the other components in somehow.
-            var left = (reverseNormalCubed.Y * topLeft.X) + (3d * normal.Y * reverseNormalSquared.Y * topLeftV.X) + (3d * normalSquared.Y * reverseNormal.Y * bottomLeftV.X) + (normalCubed.Y * bottomLeft.X);
-            var right = (reverseNormalCubed.Y * topRight.X) + (3d * normal.Y * reverseNormalSquared.Y * topRightV.X) + (3d * normalSquared.Y * reverseNormal.Y * bottomRightV.X) + (normalCubed.Y * bottomRight.X);
-            var top = (reverseNormalCubed.X * topLeft.Y) + (3d * normal.X * reverseNormalSquared.X * topLeftH.Y) + (3d * normalSquared.X * reverseNormal.X * topRightH.Y) + (normalCubed.X * topRight.Y);
-            var bottom = (reverseNormalCubed.X * bottomLeft.Y) + (3d * normal.X * reverseNormalSquared.X * bottomLeftH.Y) + (3d * normalSquared.X * reverseNormal.X * bottomRightH.Y) + (normalCubed.X * bottomRight.Y);
+            var left = (inverseNormalCubedY * topLeft.X) + (3d * normalY * inverseNormalSquaredY * topLeftV.X) + (3d * normalSquaredY * inverseNormalY * bottomLeftV.X) + (normalCubedY * bottomLeft.X);
+            var right = (inverseNormalCubedY * topRight.X) + (3d * normalY * inverseNormalSquaredY * topRightV.X) + (3d * normalSquaredY * inverseNormalY * bottomRightV.X) + (normalCubedY * bottomRight.X);
+            var top = (inverseNormalCubedX * topLeft.Y) + (3d * normalX * inverseNormalSquaredX * topLeftH.Y) + (3d * normalSquaredX * inverseNormalX * topRightH.Y) + (normalCubedX * topRight.Y);
+            var bottom = (inverseNormalCubedX * bottomLeft.Y) + (3d * normalX * inverseNormalSquaredX * bottomLeftH.Y) + (3d * normalSquaredX * inverseNormalX * bottomRightH.Y) + (normalCubedX * bottomRight.Y);
 
             // Linearly interpolate the point between the Bézier curves.
             return new Point2D(
-                (reverseNormal.X * left) + (normal.X * right),
-                (reverseNormal.Y * top) + (normal.Y * bottom)
+                (inverseNormalX * left) + (normalX * right),
+                (inverseNormalY * top) + (normalY * bottom)
                 );
         }
 
@@ -122,18 +122,18 @@ namespace Engine.Experimental
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
             // Normalize the point to the bounding box.
-            var normal = (X: (point.X - bounds?.X).Value / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
-            //var reverseNormal = (X: 1d - normal.X, Y: 1d - normal.Y);
+            var (normalX, normalY) = ((point.X - bounds?.X).Value / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
+            //var (inverseNormalX, inverseNormalY) = (1d - normalX, 1d - normalY);
 
             // Interpolate the normalized point along the Cubic Bézier curves.
-            var left = Interpolators.CubicBezier(normal.Y, topLeft.X, topLeft.Y, topLeftV.X, topLeftV.Y, bottomLeftV.X, bottomLeftV.Y, bottomLeft.X, bottomLeft.Y);
-            var right = Interpolators.CubicBezier(normal.Y, topRight.X, topRight.Y, topRightV.X, topRightV.Y, bottomRightV.X, bottomRightV.Y, bottomRight.X, bottomRight.Y);
-            var top = Interpolators.CubicBezier(normal.X, topLeft.X, topLeft.Y, topLeftH.X, topLeftH.Y, topRightH.X, topRightH.Y, topRight.X, topRight.Y);
-            var bottom = Interpolators.CubicBezier(normal.X, bottomLeft.X, bottomLeft.Y, bottomLeftH.X, bottomLeftH.Y, bottomRightH.X, bottomRightH.Y, bottomRight.X, bottomRight.Y);
+            var left = Interpolators.CubicBezier(normalY, topLeft.X, topLeft.Y, topLeftV.X, topLeftV.Y, bottomLeftV.X, bottomLeftV.Y, bottomLeft.X, bottomLeft.Y);
+            var right = Interpolators.CubicBezier(normalY, topRight.X, topRight.Y, topRightV.X, topRightV.Y, bottomRightV.X, bottomRightV.Y, bottomRight.X, bottomRight.Y);
+            var top = Interpolators.CubicBezier(normalX, topLeft.X, topLeft.Y, topLeftH.X, topLeftH.Y, topRightH.X, topRightH.Y, topRight.X, topRight.Y);
+            var bottom = Interpolators.CubicBezier(normalX, bottomLeft.X, bottomLeft.Y, bottomLeftH.X, bottomLeftH.Y, bottomRightH.X, bottomRightH.Y, bottomRight.X, bottomRight.Y);
 
             // Linearly interpolate the point between the Bézier curves.
-            var a = Interpolators.Linear(normal.X, left, right); // Horizontal.
-            var b = Interpolators.Linear(normal.Y, top, bottom); // Vertical.
+            var a = Interpolators.Linear(normalX, left, right); // Horizontal.
+            var b = Interpolators.Linear(normalY, top, bottom); // Vertical.
 
             //var c = new Point2D(0.5, 0.5);
 

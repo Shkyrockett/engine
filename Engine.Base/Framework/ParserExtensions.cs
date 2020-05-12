@@ -51,22 +51,22 @@ namespace Engine
         /// Parse the <see cref="sbyte"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="sbyte"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static sbyte? ParseSByte(this string text, IFormatProvider provider) => ParseSByte(text, NumberStyles.Integer, provider);
+        public static sbyte? ParseSByte(this string text, IFormatProvider formatProvider) => ParseSByte(text, NumberStyles.Integer, formatProvider);
 
         /// <summary>
         /// Parse the <see cref="sbyte"/>.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="styles"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="sbyte"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static sbyte? ParseSByte(this string text, NumberStyles styles, IFormatProvider provider) => sbyte.TryParse(text, styles, provider, out var value) ? value : (sbyte?)null;
+        public static sbyte? ParseSByte(this string text, NumberStyles styles, IFormatProvider formatProvider) => sbyte.TryParse(text, styles, formatProvider, out var value) ? value : (sbyte?)null;
 
         /// <summary>
         /// Parse the <see cref="byte"/>.
@@ -81,22 +81,22 @@ namespace Engine
         /// Parse the <see cref="byte"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="byte"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte? ParseByte(this string text, IFormatProvider provider) => ParseByte(text, NumberStyles.Integer, provider);
+        public static byte? ParseByte(this string text, IFormatProvider formatProvider) => ParseByte(text, NumberStyles.Integer, formatProvider);
 
         /// <summary>
         /// Parse the <see cref="byte"/>.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="styles"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="byte"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte? ParseByte(this string text, NumberStyles styles, IFormatProvider provider) => byte.TryParse(text, styles, provider, out var value) ? value : (byte?)null;
+        public static byte? ParseByte(this string text, NumberStyles styles, IFormatProvider formatProvider) => byte.TryParse(text, styles, formatProvider, out var value) ? value : (byte?)null;
 
         /// <summary>
         /// Parse the <see cref="ushort"/>.
@@ -111,22 +111,22 @@ namespace Engine
         /// Parse the <see cref="ushort"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="ushort"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ushort? ParseUShort(this string text, IFormatProvider provider) => ParseUShort(text, NumberStyles.Integer, provider);
+        public static ushort? ParseUShort(this string text, IFormatProvider formatProvider) => ParseUShort(text, NumberStyles.Integer, formatProvider);
 
         /// <summary>
         /// Parse the <see cref="ushort"/>.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="styles"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="ushort"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ushort? ParseUShort(this string text, NumberStyles styles, IFormatProvider provider) => ushort.TryParse(text, styles, provider, out var value) ? value : (ushort?)null;
+        public static ushort? ParseUShort(this string text, NumberStyles styles, IFormatProvider formatProvider) => ushort.TryParse(text, styles, formatProvider, out var value) ? value : (ushort?)null;
 
         /// <summary>
         /// Parse the <see cref="short"/>.
@@ -141,22 +141,22 @@ namespace Engine
         /// Parse the <see cref="short"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="short"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static short? ParseShort(this string text, IFormatProvider provider) => ParseShort(text, NumberStyles.Integer, provider);
+        public static short? ParseShort(this string text, IFormatProvider formatProvider) => ParseShort(text, NumberStyles.Integer, formatProvider);
 
         /// <summary>
         /// Parse the <see cref="short"/>.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="styles"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="short"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static short? ParseShort(this string text, NumberStyles styles, IFormatProvider provider) => short.TryParse(text, styles, provider, out var value) ? value : (short?)null;
+        public static short? ParseShort(this string text, NumberStyles styles, IFormatProvider formatProvider) => short.TryParse(text, styles, formatProvider, out var value) ? value : (short?)null;
 
         /// <summary>
         /// Parse the <see cref="uint"/>.
@@ -171,22 +171,22 @@ namespace Engine
         /// Parse the <see cref="uint"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="uint"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint? ParseUInt(this string text, IFormatProvider provider) => ParseUInt(text, NumberStyles.Integer, provider);
+        public static uint? ParseUInt(this string text, IFormatProvider formatProvider) => ParseUInt(text, NumberStyles.Integer, formatProvider);
 
         /// <summary>
         /// Parse the <see cref="uint"/>.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="styles"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="uint"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint? ParseUInt(this string text, NumberStyles styles, IFormatProvider provider) => uint.TryParse(text, styles, provider, out var value) ? value : (uint?)null;
+        public static uint? ParseUInt(this string text, NumberStyles styles, IFormatProvider formatProvider) => uint.TryParse(text, styles, formatProvider, out var value) ? value : (uint?)null;
 
         /// <summary>
         /// Parse the <see cref="int"/>.
@@ -201,22 +201,22 @@ namespace Engine
         /// Parse the <see cref="int"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int? ParseInt(this string text, IFormatProvider provider) => ParseInt(text, NumberStyles.Integer, provider);
+        public static int? ParseInt(this string text, IFormatProvider formatProvider) => ParseInt(text, NumberStyles.Integer, formatProvider);
 
         /// <summary>
         /// Parse the <see cref="int"/>.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="styles"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int? ParseInt(this string text, NumberStyles styles, IFormatProvider provider) => int.TryParse(text, styles, provider, out var value) ? value : (int?)null;
+        public static int? ParseInt(this string text, NumberStyles styles, IFormatProvider formatProvider) => int.TryParse(text, styles, formatProvider, out var value) ? value : (int?)null;
 
         /// <summary>
         /// Parse the <see cref="ulong"/>.
@@ -231,22 +231,22 @@ namespace Engine
         /// Parse the <see cref="ulong"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="ulong"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ulong? ParseULong(this string text, IFormatProvider provider) => ParseULong(text, NumberStyles.Integer, provider);
+        public static ulong? ParseULong(this string text, IFormatProvider formatProvider) => ParseULong(text, NumberStyles.Integer, formatProvider);
 
         /// <summary>
         /// Parse the <see cref="ulong"/>.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="styles"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="ulong"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ulong? ParseULong(this string text, NumberStyles styles, IFormatProvider provider) => ulong.TryParse(text, styles, provider, out var value) ? value : (ulong?)null;
+        public static ulong? ParseULong(this string text, NumberStyles styles, IFormatProvider formatProvider) => ulong.TryParse(text, styles, formatProvider, out var value) ? value : (ulong?)null;
 
         /// <summary>
         /// Parse the <see cref="long"/>.
@@ -261,22 +261,22 @@ namespace Engine
         /// Parse the <see cref="long"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="long"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long? ParseLong(this string text, IFormatProvider provider) => ParseLong(text, NumberStyles.Integer, provider);
+        public static long? ParseLong(this string text, IFormatProvider formatProvider) => ParseLong(text, NumberStyles.Integer, formatProvider);
 
         /// <summary>
         /// Parse the <see cref="long"/>.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="styles"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="long"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long? ParseLong(this string text, NumberStyles styles, IFormatProvider provider) => long.TryParse(text, styles, provider, out var value) ? value : (long?)null;
+        public static long? ParseLong(this string text, NumberStyles styles, IFormatProvider formatProvider) => long.TryParse(text, styles, formatProvider, out var value) ? value : (long?)null;
 
         /// <summary>
         /// Parse the <see cref="float"/>.
@@ -291,22 +291,22 @@ namespace Engine
         /// Parse the <see cref="float"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="float"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float? ParseFloat(this string text, IFormatProvider provider) => ParseFloat(text, NumberStyles.Float | NumberStyles.AllowThousands, provider);
+        public static float? ParseFloat(this string text, IFormatProvider formatProvider) => ParseFloat(text, NumberStyles.Float | NumberStyles.AllowThousands, formatProvider);
 
         /// <summary>
         /// Parse the <see cref="float"/>.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="styles"></param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="float"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float? ParseFloat(this string text, NumberStyles styles, IFormatProvider provider) => float.TryParse(text, styles, provider, out var value) ? value : (float?)null;
+        public static float? ParseFloat(this string text, NumberStyles styles, IFormatProvider formatProvider) => float.TryParse(text, styles, formatProvider, out var value) ? value : (float?)null;
 
         /// <summary>
         /// Parse the <see cref="double"/>.
@@ -321,22 +321,22 @@ namespace Engine
         /// Parse the <see cref="double"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double? ParseDouble(this string text, IFormatProvider provider) => ParseDouble(text, NumberStyles.Float | NumberStyles.AllowThousands, provider);
+        public static double? ParseDouble(this string text, IFormatProvider formatProvider) => ParseDouble(text, NumberStyles.Float | NumberStyles.AllowThousands, formatProvider);
 
         /// <summary>
         /// Parse the <see cref="double"/>.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="styles"></param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double? ParseDouble(this string text, NumberStyles styles, IFormatProvider provider) => double.TryParse(text, styles, provider, out var value) ? value : (double?)null;
+        public static double? ParseDouble(this string text, NumberStyles styles, IFormatProvider formatProvider) => double.TryParse(text, styles, formatProvider, out var value) ? value : (double?)null;
 
         /// <summary>
         /// Parse the <see cref="decimal"/>.
@@ -351,21 +351,21 @@ namespace Engine
         /// Parse the <see cref="decimal"/>.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="provider"></param>
+        /// <param name="formatProvider"></param>
         /// <returns>The <see cref="decimal"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static decimal? ParseDecimal(this string text, IFormatProvider provider) => ParseDecimal(text, NumberStyles.Number, provider);
+        public static decimal? ParseDecimal(this string text, IFormatProvider formatProvider) => ParseDecimal(text, NumberStyles.Number, formatProvider);
 
         /// <summary>
         /// Parse the <see cref="decimal"/>.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="styles"></param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="formatProvider">The provider.</param>
         /// <returns>The <see cref="decimal"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static decimal? ParseDecimal(this string text, NumberStyles styles, IFormatProvider provider) => decimal.TryParse(text, styles, provider, out var value) ? value : (decimal?)null;
+        public static decimal? ParseDecimal(this string text, NumberStyles styles, IFormatProvider formatProvider) => decimal.TryParse(text, styles, formatProvider, out var value) ? value : (decimal?)null;
     }
 }

@@ -102,17 +102,16 @@ namespace Engine
                 throw new ArgumentNullException(nameof(destinationType));
             }
 
-            if (value is Rectangle2D)
+            if (value is Rectangle2D rectangle2D)
             {
                 if (destinationType == typeof(string))
                 {
-                    var rectangle2D = (Rectangle2D)value;
                     if (culture is null)
                     {
                         culture = CultureInfo.CurrentCulture;
                     }
 
-                    var separator = culture.TextInfo.ListSeparator + " ";
+                    var separator = $"{culture.TextInfo.ListSeparator} ";
                     var converter = TypeDescriptor.GetConverter(typeof(double));
                     var strArray = new string[4];
                     var num = 0;
@@ -124,11 +123,10 @@ namespace Engine
                 }
                 if (destinationType == typeof(InstanceDescriptor))
                 {
-                    var rectangle2 = (Rectangle2D)value;
                     var constructor = typeof(Rectangle2D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double), typeof(double) });
                     if (constructor != null)
                     {
-                        return new InstanceDescriptor(constructor, new object[] { rectangle2.X, rectangle2.Y, rectangle2.Width, rectangle2.Height });
+                        return new InstanceDescriptor(constructor, new object[] { rectangle2D.X, rectangle2D.Y, rectangle2D.Width, rectangle2D.Height });
                     }
                 }
             }

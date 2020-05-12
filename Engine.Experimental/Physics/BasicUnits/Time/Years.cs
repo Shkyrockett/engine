@@ -119,8 +119,7 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Years(double value)
-            => new Years(value);
+        public static implicit operator Years(double value) => new Years(value);
 
         /// <summary>
         /// Implements the operator ==.
@@ -149,8 +148,7 @@ namespace Engine
         /// The name.
         /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static string Name
-            => nameof(Years);
+        public static string Name => nameof(Years);
 
         /// <summary>
         /// Gets the abbreviation.
@@ -159,8 +157,7 @@ namespace Engine
         /// The abbreviation.
         /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abbreviation
-            => "years";
+        public string Abbreviation => "years";
 
         /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.
@@ -178,7 +175,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals([AllowNull] Years other) => Value == other.Value;
+        public bool Equals([AllowNull] Years other) => other is Years years && Value == years.Value;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -194,7 +191,6 @@ namespace Engine
         /// <returns>
         /// A <see cref="string" /> that represents this instance.
         /// </returns>
-        public override string ToString()
-            => $"{Value} years";
+        public override string ToString() => $"{Value} years";
     }
 }

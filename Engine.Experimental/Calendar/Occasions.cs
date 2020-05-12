@@ -23,7 +23,7 @@ namespace Engine.Chrono
         /// <summary>
         /// The list of holidays.
         /// </summary>
-        public List<Occasion> HolidayList;
+        public List<Occasion> HolidayList { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Occasions"/> class.

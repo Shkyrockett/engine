@@ -23,7 +23,7 @@ namespace Engine
         /// <summary>
         /// Boolean, true if the source type is a string
         /// </summary>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string) ? true : base.CanConvertFrom(context, sourceType);
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
 
         /// <summary>
         /// The can convert to.
@@ -31,7 +31,7 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="destinationType">The destinationType.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) ? true : base.CanConvertTo(context, destinationType);
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
 
         /// <summary>
         /// Converts the specified string into an angle.
@@ -68,7 +68,7 @@ namespace Engine
                 numArray[i] = (double)converter.ConvertFromString(context, culture, strArray[i]);
             }
 
-            if (numArray.Length != 2)
+            if (numArray.Length != 1)
             {
                 throw new ArgumentException("Parse failed.");
             }

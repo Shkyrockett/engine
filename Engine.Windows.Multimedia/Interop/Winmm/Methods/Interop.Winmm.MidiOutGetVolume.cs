@@ -27,33 +27,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutGetVolume", ExactSpelling = true)]
-        internal static extern MmResult MidiOutGetVolume(IntPtr uDeviceID, out int lpdwVolume);
-
-        /// <summary>
-        /// Midis the out get volume.
-        /// </summary>
-        /// <param name="midiInDeviceNumber">The midi in device number.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">
-        /// The specified device handle is invalid.
-        /// or
-        /// The specified pointer or structure is invalid.
-        /// or
-        /// The system is unable to allocate or lock memory.
-        /// or
-        /// The function is not supported.
-        /// </exception>
-        public static (short left, short right) MidiOutGetVolume(int midiInDeviceNumber)
-        {
-            return (MidiOutGetVolume((IntPtr)midiInDeviceNumber, out var volume)) switch
-            {
-                MmResult.NoError => ((short)(volume & 0x0000FFFF), (short)(volume >> 16)),
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                MmResult.MemoryAllocationError => throw new Exception("The system is unable to allocate or lock memory."),
-                MmResult.NotSupported => throw new Exception("The function is not supported."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiOutGetVolume(IntPtr uDeviceID, out int lpdwVolume);
     }
 }

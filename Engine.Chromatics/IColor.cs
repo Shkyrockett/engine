@@ -9,12 +9,15 @@
 // <remarks></remarks>
 
 using System;
+using System.Globalization;
 
 namespace Engine
 {
     /// <summary>
     /// The IColor interface.
     /// </summary>
+    /// <seealso cref="System.IFormattable" />
+    /// <seealso cref="System.IEquatable{Engine.IColor}" />
     public interface IColor
         : IFormattable, //IComparable<IColor>, //IConvertible,
         IEquatable<IColor>
@@ -22,7 +25,36 @@ namespace Engine
         /// <summary>
         /// The to RGBA tuple.
         /// </summary>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
-        (byte red, byte green, byte blue, byte alpha) ToRGBATuple();
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4}" />.
+        /// </returns>
+        (byte Red, byte Green, byte Blue, byte Alpha) ToRGBATuple();
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
+        string ToString() => ToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <param name="formatProvider">The provider.</param>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
+        string ToString(IFormatProvider formatProvider) => ToString(string.Empty /* format string */, formatProvider);
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The provider.</param>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
+        new string ToString(string format, IFormatProvider formatProvider);
     }
 }

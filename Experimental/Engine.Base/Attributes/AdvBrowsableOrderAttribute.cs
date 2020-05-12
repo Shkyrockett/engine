@@ -47,7 +47,7 @@ namespace Engine
         /// Get the order.
         /// </summary>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="string[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static string[] GetOrder(Type t)
         {
             var arr = t?.GetCustomAttributes(typeof(AdvBrowsableOrderAttribute), false);

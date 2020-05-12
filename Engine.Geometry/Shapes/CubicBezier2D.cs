@@ -122,7 +122,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier2D(double ax, double ay, double bx, double by, double cx, double cy)
         {
-            (this.ax, this.ay, this.bx, this.by, this.cx, this.cy, this.dx, this.dy) = Conversions.QuadraticBezierToCubicBezierTuple(ax, ay, bx, by, cx, cy);
+            (this.ax, this.ay, this.bx, this.by, this.cx, this.cy, dx, dy) = Conversions.QuadraticBezierToCubicBezierTuple(ax, ay, bx, by, cx, cy);
         }
 
         /// <summary>
@@ -985,8 +985,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(CubicBezier2D other)
-            => A.Equals(other?.A) && B.Equals(other?.B) && C.Equals(other?.C) && D.Equals(other?.D);
+        public bool Equals(CubicBezier2D other) => A.Equals(other?.A) && B.Equals(other?.B) && C.Equals(other?.C) && D.Equals(other?.D);
 
         /// <summary>
         /// The equals.
@@ -995,8 +994,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is CubicBezier2D && Equals((CubicBezier2D)obj);
+        public override bool Equals(object obj) => obj is CubicBezier2D d && Equals(d);
 
         /// <summary>
         /// Get the hash code.
@@ -1005,8 +1003,7 @@ namespace Engine
         /// <remarks><para>https://github.com/burningmime/curves</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => HashCode.Combine(ax, ay, bx, by, cx, cy, dx, dy);
+        public override int GetHashCode() => HashCode.Combine(ax, ay, bx, by, cx, cy, dx, dy);
 
         /// <summary>
         /// Creates a string representation of this <see cref="CubicBezier2D"/> struct based on the format string

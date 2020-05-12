@@ -119,8 +119,7 @@ namespace Engine
         /// The name.
         /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static string Name
-            => nameof(Hours);
+        public static string Name => nameof(Hours);
 
         /// <summary>
         /// Gets the abbreviation.
@@ -129,8 +128,7 @@ namespace Engine
         /// The abbreviation.
         /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abbreviation
-            => "h";
+        public string Abbreviation => "h";
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="double"/> to <see cref="Hours"/>.
@@ -139,8 +137,7 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Hours(double value)
-            => new Hours(value);
+        public static implicit operator Hours(double value) => new Hours(value);
 
         /// <summary>
         /// Implements the operator ==.
@@ -194,7 +191,6 @@ namespace Engine
         /// <returns>
         /// A <see cref="string" /> that represents this instance.
         /// </returns>
-        public override string ToString()
-            => $"{Value} h";
+        public override string ToString() => $"{Value} h";
     }
 }

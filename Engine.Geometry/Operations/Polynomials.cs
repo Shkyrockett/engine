@@ -700,13 +700,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double b) GetLinearPolynomialFromParametricLinearBezier(
             double aX, double aY,
-            double bX, double bY)
-        {
-            return (
+            double bX, double bY) => (
                 a: (aX * aX) + (aY * aY) - (2 * aX * bX) + (bX * bX) - (2 * aY * bY) + (bY * bY),
                 b: (-aX * aX) - (aY * aY) + (aX * bX) + (aY * bY)
                 );
-        }
 
         /// <summary>
         /// Gets the cubic polynomial from quadratic bezier.
@@ -726,15 +723,12 @@ namespace Engine
         public static (double a, double b, double c, double d) GetCubicPolynomialFromParametricQuadraticBezier(
             double aX, double aY,
             double bX, double bY,
-            double cX, double cY)
-        {
-            return (
+            double cX, double cY) => (
                a: (2 * aX * aX) + (2 * aY * aY) - (8 * aX * bX) + (8 * bX * bX) - (8 * aY * bY) + (8 * bY * bY) + (4 * aX * cX) - (8 * bX * cX) + (2 * cX * cX) + (4 * aY * cY) - (8 * bY * cY) + (2 * cY * cY),
                b: (-6 * aX * aX) - (6 * aY * aY) + (18 * aX * bX) - (12 * bX * bX) + (18 * aY * bY) - (12 * bY * bY) - (6 * aX * cX) + (6 * bX * cX) - (6 * aY * cY) + (6 * bY * cY),
                c: (6 * aX * aX) + (6 * aY * aY) - (12 * aX * bX) + (4 * bX * bX) - (12 * aY * bY) + (4 * bY * bY) + (2 * aX * cX) + (2 * aY * cY),
                d: (-2 * aX * aX) - (2 * aY * aY) + (2 * aX * bX) + (2 * aY * bY)
                );
-        }
 
         /// <summary>
         /// Gets the quintic polynomial from cubic bezier and point.
@@ -757,9 +751,7 @@ namespace Engine
             double aX, double aY,
             double bX, double bY,
             double cX, double cY,
-            double dX, double dY)
-        {
-            return (
+            double dX, double dY) => (
                 a: (3 * aX * aX) + (3 * aY * aY) - (18 * aX * bX) + (27 * bX * bX) - (18 * aY * bY) + (27 * bY * bY) + (18 * aX * cX) - (54 * bX * cX) + (27 * cX * cX) + (18 * aY * cY) - (54 * bY * cY) + (27 * cY * cY) - (6 * aX * dX) + (18 * bX * dX) - (18 * cX * dX) + (3 * dX * dX) - (6 * aY * dY) + (18 * bY * dY) - (18 * cY * dY) + (3 * dY * dY),
                 b: (-15 * aX * aX) - (15 * aY * aY) + (75 * aX * bX) - (90 * bX * bX) + (75 * aY * bY) - (90 * bY * bY) - (60 * aX * cX) + (135 * bX * cX) - (45 * cX * cX) - (60 * aY * cY) + (135 * bY * cY) - (45 * cY * cY) + (15 * aX * dX) - (30 * bX * dX) + (15 * cX * dX) + (15 * aY * dY) - (30 * bY * dY) + (15 * cY * dY),
                 c: (30 * aX * aX) + (30 * aY * aY) - (120 * aX * bX) + (108 * bX * bX) - (120 * aY * bY) + (108 * bY * bY) + (72 * aX * cX) - (108 * bX * cX) + (18 * cX * cX) + (72 * aY * cY) - (108 * bY * cY) + (18 * cY * cY) - (12 * aX * dX) + (12 * bX * dX) - (12 * aY * dY) + (12 * bY * dY),
@@ -767,7 +759,6 @@ namespace Engine
                 e: (15 * aX * aX) + (15 * aY * aY) - (30 * aX * bX) + (9 * bX * bX) - (30 * aY * bY) + (9 * bY * bY) + (6 * aX * cX) + (6 * aY * cY),
                 f: (-3 * aX * aX) - (3 * aY * aY) + (3 * aX * bX) + (3 * aY * bY)
                 );
-        }
 
         /// <summary>
         /// Gets the quintic polynomial from cubic bezier and point.
@@ -793,9 +784,7 @@ namespace Engine
             double bX, double bY,
             double cX, double cY,
             double dX, double dY,
-            double eX, double eY)
-        {
-            return (
+            double eX, double eY) => (
                 a: (4 * aX * aX) + (4 * aY * aY) - (32 * aX * bX) + (64 * bX * bX) - (32 * aY * bY) + (64 * bY * bY) + (48 * aX * cX) - (192 * bX * cX) + (144 * cX * cX) + (48 * aY * cY) - (192 * bY * cY) + (144 * cY * cY) - (32 * aX * dX) + (128 * bX * dX) - (192 * cX * dX) + (64 * dX * dX) - (32 * aY * dY) + (128 * bY * dY) - (192 * cY * dY) + (64 * dY * dY) + (8 * aX * eX) - (32 * bX * eX) + (48 * cX * eX) - (32 * dX * eX) + (4 * eX * eX) + (8 * aY * eY) - (32 * bY * eY) + (48 * cY * eY) - (32 * dY * eY) + (4 * eY * eY),
                 b: (-28 * aX * aX) - (28 * aY * aY) + (196 * aX * bX) - (336 * bX * bX) + (196 * aY * bY) - (336 * bY * bY) - (252 * aX * cX) + (840 * bX * cX) - (504 * cX * cX) - (252 * aY * cY) + (840 * bY * cY) - (504 * cY * cY) + (140 * aX * dX) - (448 * bX * dX) + (504 * cX * dX) - (112 * dX * dX) + (140 * aY * dY) - (448 * bY * dY) + (504 * cY * dY) - (112 * dY * dY) - (28 * aX * eX) + (84 * bX * eX) - (84 * cX * eX) + (28 * dX * eX) - (28 * aY * eY) + (84 * bY * eY) - (84 * cY * eY) + (28 * dY * eY),
                 c: (84 * aX * aX) + (84 * aY * aY) - (504 * aX * bX) + (720 * bX * bX) - (504 * aY * bY) + (720 * bY * bY) + (540 * aX * cX) - (1440 * bX * cX) + (648 * cX * cX) + (540 * aY * cY) - (1440 * bY * cY) + (648 * cY * cY) - (240 * aX * dX) + (576 * bX * dX) - (432 * cX * dX) + (48 * dX * dX) - (240 * aY * dY) + (576 * bY * dY) - (432 * cY * dY) + (48 * dY * dY) + (36 * aX * eX) - (72 * bX * eX) + (36 * cX * eX) + (36 * aY * eY) - (72 * bY * eY) + (36 * cY * eY),
@@ -805,7 +794,6 @@ namespace Engine
                 g: (28 * aX * aX) + (28 * aY * aY) - (56 * aX * bX) + (16 * bX * bX) - (56 * aY * bY) + (16 * bY * bY) + (12 * aX * cX) + (12 * aY * cY),
                 h: (-4 * aX * aX) - (4 * aY * aY) + (4 * aX * bX) + (4 * aY * bY)
                 );
-        }
 
         /// <summary>
         /// Gets the nonic polynomial from quintic bezier and point.
@@ -834,9 +822,7 @@ namespace Engine
             double cX, double cY,
             double dX, double dY,
             double eX, double fX,
-            double fY, double eY)
-        {
-            return (
+            double fY, double eY) => (
                 a: (5 * aX * aX) + (5 * aY * aY) - (50 * aX * bX) + (125 * bX * bX) - (50 * aY * bY) + (125 * bY * bY) + (100 * aX * cX) - (500 * bX * cX) + (500 * cX * cX) + (100 * aY * cY) - (500 * bY * cY) + (500 * cY * cY) - (100 * aX * dX) + (500 * bX * dX) - (1000 * cX * dX) + (500 * dX * dX) - (100 * aY * dY) + (500 * bY * dY) - (1000 * cY * dY) + (500 * dY * dY) + (50 * aX * eX) - (250 * bX * eX) + (500 * cX * eX) - (500 * dX * eX) + (125 * eX * eX) + (50 * aY * eY) - (250 * bY * eY) + (500 * cY * eY) - (500 * dY * eY) + (125 * eY * eY) - (10 * aX * fX) + (50 * bX * fX) - (100 * cX * fX) + (100 * dX * fX) - (50 * eX * fX) + (5 * fX * fX) - (10 * aY * fY) + (50 * bY * fY) - (100 * cY * fY) + (100 * dY * fY) - (50 * eY * fY) + (5 * fY * fY),
                 b: (-45 * aX * aX) - (45 * aY * aY) + (405 * aX * bX) - (900 * bX * bX) + (405 * aY * bY) - (900 * bY * bY) - (720 * aX * cX) + (3150 * bX * cX) - (2700 * cX * cX) - (720 * aY * cY) + (3150 * bY * cY) - (2700 * cY * cY) + (630 * aX * dX) - (2700 * bX * dX) + (4500 * cX * dX) - (1800 * dX * dX) + (630 * aY * dY) - (2700 * bY * dY) + (4500 * cY * dY) - (1800 * dY * dY) - (270 * aX * eX) + (1125 * bX * eX) - (1800 * cX * eX) + (1350 * dX * eX) - (225 * eX * eX) - (270 * aY * eY) + (1125 * bY * eY) - (1800 * cY * eY) + (1350 * dY * eY) - (225 * eY * eY) + (45 * aX * fX) - (180 * bX * fX) + (270 * cX * fX) - (180 * dX * fX) + (45 * eX * fX) + (45 * aY * fY) - (180 * bY * fY) + (270 * cY * fY) - (180 * dY * fY) + (45 * eY * fY),
                 c: (180 * aX * aX) + (180 * aY * aY) - (1440 * aX * bX) + (2800 * bX * bX) - (1440 * aY * bY) + (2800 * bY * bY) + (2240 * aX * cX) - (8400 * bX * cX) + (6000 * cX * cX) + (2240 * aY * cY) - (8400 * bY * cY) + (6000 * cY * cY) - (1680 * aX * dX) + (6000 * bX * dX) - (8000 * cX * dX) + (2400 * dX * dX) - (1680 * aY * dY) + (6000 * bY * dY) - (8000 * cY * dY) + (2400 * dY * dY) + (600 * aX * eX) - (2000 * bX * eX) + (2400 * cX * eX) - (1200 * dX * eX) + (100 * eX * eX) + (600 * aY * eY) - (2000 * bY * eY) + (2400 * cY * eY) - (1200 * dY * eY) + (100 * eY * eY) - (80 * aX * fX) + (240 * bX * fX) - (240 * cX * fX) + (80 * dX * fX) - (80 * aY * fY) + (240 * bY * fY) - (240 * cY * fY) + (80 * dY * fY),
@@ -848,7 +834,6 @@ namespace Engine
                 i: (45 * aX * aX) + (45 * aY * aY) - (90 * aX * bX) + (25 * bX * bX) - (90 * aY * bY) + (25 * bY * bY) + (20 * aX * cX) + (20 * aY * cY),
                 j: (-5 * aX * aX) - (5 * aY * aY) + (5 * aX * bX) + (5 * aY * bY)
                 );
-        }
 
         /// <summary>
         /// Gets the linear polynomial from linear bezier and point.
@@ -1214,6 +1199,14 @@ namespace Engine
             double ay, double by, double cy, double dy,
             double h, double k, double a, double b, double cosA, double sinA)
         {
+            _ = ax;
+            _ = ay;
+            _ = bx;
+            _ = by;
+            _ = cx;
+            _ = cy;
+            _ = dx;
+            _ = dy;
             var oCoefA = (b * b * (cosA * cosA)) + (a * a * (sinA * sinA));
             var oCoefB = 2d * ((b * b) + (a * a)) * sinA * cosA;
             return (
@@ -1436,17 +1429,15 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double b, double c, double d, double e) GetConicSectionQuartic(
             (double a, double b, double c, double d, double e, double f) a,
-            (double a, double b, double c, double d, double e, double f) b)
-        {
+            (double a, double b, double c, double d, double e, double f) b) =>
             // ToDo: This seems to be reversed from Bezout. IT seems like this might work with everything else if reversed. Needs testing.
-            return (
+            (
                 a: (a.f * a.a * b.d * b.d) + (a.a * a.a * b.f * b.f) - (a.d * a.a * b.d * b.f) + (b.a * b.a * a.f * a.f) - (2d * a.a * b.f * b.a * a.f) - (a.d * b.d * b.a * a.f) + (b.a * a.d * a.d * b.f),
                 b: (b.e * a.d * a.d * b.a) - (b.f * b.d * a.a * a.b) - (2d * a.a * b.f * b.a * a.e) - (a.f * b.a * b.b * a.d) + (2d * b.d * b.b * a.a * a.f) + (2d * b.e * b.f * a.a * a.a) + (b.d * b.d * a.a * a.e) - (b.e * b.d * a.a * a.d) - (2d * a.a * b.e * b.a * a.f) - (a.f * b.a * b.d * a.b) + (2d * a.f * a.e * b.a * b.a) - (b.f * b.b * a.a * a.d) - (a.e * b.a * b.d * a.d) + (2d * b.f * a.b * b.a * a.d),
                 c: (b.e * b.e * a.a * a.a) + (2d * b.c * b.f * a.a * a.a) - (a.e * b.a * b.d * a.b) + (b.f * b.a * a.b * a.b) - (a.e * b.a * b.b * a.d) - (b.f * b.b * a.a * a.b) - (2d * a.a * b.e * b.a * a.e) + (2d * b.d * b.b * a.a * a.e) - (b.c * b.d * a.a * a.d) - (2d * a.a * b.c * b.a * a.f) + (b.b * b.b * a.a * a.f) + (2d * b.e * a.b * b.a * a.d) + (a.e * a.e * b.a * b.a) - (a.c * b.a * b.d * a.d) - (b.e * b.b * a.a * a.d) + (2d * a.f * a.c * b.a * b.a) - (a.f * b.a * b.b * a.b) + (b.c * a.d * a.d * b.a) + (b.d * b.d * a.a * a.c) - (b.e * b.d * a.a * a.b) - (2d * a.a * b.f * b.a * a.c),
                 d: (-2d * a.a * b.a * a.c * b.e) + (b.e * b.a * a.b * a.b) + (2d * b.c * a.b * b.a * a.d) - (a.c * b.a * b.b * a.d) + (b.b * b.b * a.a * a.e) - (b.e * b.b * a.a * a.b) - (2d * a.a * b.c * b.a * a.e) - (a.e * b.a * b.b * a.b) - (b.c * b.b * a.a * a.d) + (2d * b.e * b.c * a.a * a.a) + (2d * a.e * a.c * b.a * b.a) - (a.c * b.a * b.d * a.b) + (2d * b.d * b.b * a.a * a.c) - (b.c * b.d * a.a * a.b),
                 e: (a.a * a.a * b.c * b.c) - (2d * a.a * b.c * b.a * a.c) + (b.a * b.a * a.c * a.c) - (a.b * a.a * b.b * b.c) - (a.b * b.b * b.a * a.c) + (a.b * a.b * b.a * b.c) + (a.c * a.a * b.b * b.b)
             );
-        }
         #endregion Helpers
     }
 }

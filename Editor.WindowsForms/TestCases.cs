@@ -1663,7 +1663,7 @@ namespace Editor
 
             foreach (var shape in results)
             {
-                var item = new GraphicItem(shape, solidLightGreenStyle)
+                var item = new GraphicItem(shape as GraphicsObject, solidLightGreenStyle)
                 {
                     Name = $"{shape.ToString(CultureInfo.InvariantCulture)}"
                 };
@@ -1692,7 +1692,7 @@ namespace Editor
 
             foreach (var shape in results)
             {
-                var item = new GraphicItem(shape, solidLightGreenStyle)
+                var item = new GraphicItem(shape as GraphicsObject, solidLightGreenStyle)
                 {
                     Name = $"{shape.ToString(CultureInfo.InvariantCulture)}"
                 };
@@ -4319,6 +4319,11 @@ namespace Editor
         /// <param name="form">The form.</param>
         public static void IntersectingsEllipseEllipse(VectorMap vectorMap, EditorForm form)
         {
+            if (form is null)
+            {
+                throw new ArgumentNullException(nameof(form));
+            }
+
             var location = new Point2D(100, 100);
             var scale = new Size2D(75, 50);
             //var axis = new Point2D(200, 100);
@@ -4385,6 +4390,11 @@ namespace Editor
         /// <param name="form">The form.</param>
         public static void IntersectingsEllipseQuadraticSegment(VectorMap vectorMap, EditorForm form)
         {
+            if (form is null)
+            {
+                throw new ArgumentNullException(nameof(form));
+            }
+
             var location = new Point2D(100, 200);
             var scale = new Size2D(75, 50);
             var axis = new Point2D(200, 100);
@@ -4489,6 +4499,11 @@ namespace Editor
         /// <param name="form">The form.</param>
         public static void IntersectingsEllipseCubicSegment(VectorMap vectorMap, EditorForm form)
         {
+            if (form is null)
+            {
+                throw new ArgumentNullException(nameof(form));
+            }
+
             var location = new Point2D(100, 200);
             var scale = new Size2D(75, 50);
             var axis = new Point2D(200, 100);

@@ -967,7 +967,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double InverseHyperbolicSine(double value) => Math.Log(value + Sqrt((value * value) + 1d));
+        public static double InverseHyperbolicSine(double value) => Log(value + Sqrt((value * value) + 1d));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Cosine
@@ -983,7 +983,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double InverseHyperbolicCosine(double value) => Math.Log(value + Sqrt((value * value) - 1d));
+        public static double InverseHyperbolicCosine(double value) => Log(value + Sqrt((value * value) - 1d));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Tangent
@@ -999,7 +999,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double InverseHyperbolicTangent(double value) => Math.Log((1d + value) / (1d - value)) * 0.5d;
+        public static double InverseHyperbolicTangent(double value) => Log((1d + value) / (1d - value)) * 0.5d;
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Secant
@@ -1015,7 +1015,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double InverseHyperbolicSecant(double value) => Math.Log((Sqrt((value * value * -1d) + 1d) + 1d) / value);
+        public static double InverseHyperbolicSecant(double value) => Log((Sqrt((value * value * -1d) + 1d) + 1d) / value);
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Co-secant
@@ -1031,7 +1031,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double InverseHyperbolicCosecant(double value) => Math.Log(((Sin(value) * Sqrt((value * value) + 1d)) + 1d) / value);
+        public static double InverseHyperbolicCosecant(double value) => Log(((Sin(value) * Sqrt((value * value) + 1d)) + 1d) / value);
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Cotangent
@@ -1047,7 +1047,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double InverseHyperbolicCotangent(double value) => Math.Log((value + 1d) / (value - 1d)) * 0.5d;
+        public static double InverseHyperbolicCotangent(double value) => Log((value + 1d) / (value - 1d)) * 0.5d;
 
         /// <summary>
         /// Derived math functions equivalent Base N Logarithm
@@ -1065,7 +1065,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double LogarithmTobaseN(double value, double numberBase) => (numberBase == 1d) ? (Math.Log(value) / Math.Log(numberBase)) : 0d;
+        public static double LogarithmTobaseN(double value, double numberBase) => (numberBase == 1d) ? (Log(value) / Log(numberBase)) : 0d;
         #endregion Derived Equivalent Math Functions
     }
 }

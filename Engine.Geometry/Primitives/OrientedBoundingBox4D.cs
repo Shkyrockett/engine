@@ -10,7 +10,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="System.IEquatable{Engine.OrientedBoundingBox4D}" />
+    /// <seealso cref="System.IEquatable{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(StructConverter<OrientedBoundingBox4D>))]
     [DebuggerDisplay("{ToString()}")]

@@ -18,6 +18,7 @@ namespace Engine
     /// <summary>
     /// The expandable dictionary converter class.
     /// </summary>
+    /// <seealso cref="System.ComponentModel.CollectionConverter" />
     /// <acknowledgment>
     /// http://stackoverflow.com/questions/32582504/propertygrid-expandable-collection
     /// </acknowledgment>
@@ -32,7 +33,9 @@ namespace Engine
         /// <param name="culture">The culture.</param>
         /// <param name="value">The value.</param>
         /// <param name="destType">The destType.</param>
-        /// <returns>The <see cref="object"/>.</returns>
+        /// <returns>
+        /// The <see cref="object" />.
+        /// </returns>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destType)
         {
             if (destType == typeof(string))
@@ -47,7 +50,9 @@ namespace Engine
         /// Get the properties supported.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public override bool GetPropertiesSupported(ITypeDescriptorContext context) => true;
 
         /// <summary>
@@ -56,7 +61,9 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="value">The value.</param>
         /// <param name="attributes">The attributes.</param>
-        /// <returns>The <see cref="PropertyDescriptorCollection"/>.</returns>
+        /// <returns>
+        /// The <see cref="PropertyDescriptorCollection" />.
+        /// </returns>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             if (!(value is IDictionary dictionary) || dictionary.Count == 0)

@@ -538,7 +538,7 @@ namespace Engine
                 -3d * k,
                 (3d * k * k) + (2d * k * a) + (2d * b),
                 (-k * k * k) - (a * k * k) - (b * k)
-                ).Roots().OrderByDescending(c => c).ToArray();
+                ).Roots().ToArray().OrderByDescending(c => c).ToArray();
 
             if (roots.Length != 3)
             {

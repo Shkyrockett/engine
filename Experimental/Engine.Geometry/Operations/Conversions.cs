@@ -45,7 +45,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CircularArc2D ToCircularArc(this Circle2D circle) => CircleToCircularArc(circle.X, circle.Y, circle.Radius);
+        public static CircularArcSegment2D ToCircularArc(this Circle2D circle) => CircleToCircularArc(circle.X, circle.Y, circle.Radius);
 
         /// <summary>
         /// Generate an array of CubicBeziers, representing an elliptical arc centered at (x, y)
@@ -62,7 +62,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<CubicBezier2D> ToCubicBeziers(this EllipticalArc2D ellipse) => EllipticalArcToCubicBeziers(ellipse.X, ellipse.Y, ellipse.RadiusA, ellipse.RadiusB, ellipse.StartAngle, ellipse.SweepAngle);
+        public static List<CubicBezierSegment2D> ToCubicBeziers(this EllipticalArcSegment2D ellipse) => EllipticalArcToCubicBeziers(ellipse.X, ellipse.Y, ellipse.RadiusA, ellipse.RadiusB, ellipse.StartAngle, ellipse.SweepAngle);
 
         /// <summary>
         /// Converts a line segment to a quadratic Bézier curve.
@@ -73,7 +73,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static QuadraticBezier2D ToQuadraticBezier(this LineSegment2D segment) => LineSegmentToQuadraticBezier(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+        public static QuadraticBezierSegment2D ToQuadraticBezier(this LineSegment2D segment) => LineSegmentToQuadraticBezier(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
 
         /// <summary>
         /// Converts a line segment to a Cubic Bézier.
@@ -84,7 +84,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CubicBezier2D ToCubicBezier(this LineSegment2D segment) => LineSegmentToCubicBezier(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
+        public static CubicBezierSegment2D ToCubicBezier(this LineSegment2D segment) => LineSegmentToCubicBezier(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
 
         /// <summary>
         /// Converts a Quadratic Bézier curve to a Cubic Bézier curve.
@@ -95,7 +95,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CubicBezier2D ToCubicBezier(this QuadraticBezier2D curve) => QuadraticBezierToCubicBezier(curve.A, curve.B, curve.C);
+        public static CubicBezierSegment2D ToCubicBezier(this QuadraticBezierSegment2D curve) => QuadraticBezierToCubicBezier(curve.A, curve.B, curve.C);
         #endregion Conversion Extension Methods
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CircularArc2D CircleToCircularArc(double x, double y, double r) => new CircularArc2D(x, y, r, 0, Tau);
+        public static CircularArcSegment2D CircleToCircularArc(double x, double y, double r) => new CircularArcSegment2D(x, y, r, 0, Tau);
 
         /// <summary>
         /// Converts a Circle to an ellipse.
@@ -189,7 +189,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<CubicBezier2D> EllipticalArcToCubicBeziers(
+        public static List<CubicBezierSegment2D> EllipticalArcToCubicBeziers(
             double cx, double cy,
             double rx, double ry,
             double startAngle, double sweepAngle)
@@ -209,7 +209,7 @@ namespace Engine
             var dx = -rx * sine;  /* dx/dθ at start pt */
             var dy = ry * cosine;  /* dy/dθ at start pt */
 
-            var beziers = new List<CubicBezier2D>();  /* the results */
+            var beziers = new List<CubicBezierSegment2D>();  /* the results */
 
             double ex;
             double ey;  /* end pt coordinates */
@@ -227,7 +227,7 @@ namespace Engine
                 var c2x = ex - (alpha * dx);  /* 2nd control pt X */
                 var c2y = ey - (alpha * dy);  /* 2nd control pt Y */
 
-                beziers.Add(new CubicBezier2D(sx, sy, c1x, c1y, c2x, c2y, ex, ey));
+                beziers.Add(new CubicBezierSegment2D(sx, sy, c1x, c1y, c2x, c2y, ex, ey));
             }
             return beziers;
         }
@@ -242,7 +242,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static QuadraticBezier2D LineSegmentToQuadraticBezier(Point2D a, Point2D b) => LineSegmentToQuadraticBezier(a.X, a.Y, b.X, b.Y);
+        public static QuadraticBezierSegment2D LineSegmentToQuadraticBezier(Point2D a, Point2D b) => LineSegmentToQuadraticBezier(a.X, a.Y, b.X, b.Y);
 
         /// <summary>
         /// Converts a line segment to a Quadratic Bézier curve.
@@ -256,7 +256,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static QuadraticBezier2D LineSegmentToQuadraticBezier(double x0, double y0, double x1, double y1) => new QuadraticBezier2D(new Point2D(x0, y0), Operations.Lerp(x0, y0, x1, y1, OneHalf), new Point2D(x1, y1));
+        public static QuadraticBezierSegment2D LineSegmentToQuadraticBezier(double x0, double y0, double x1, double y1) => new QuadraticBezierSegment2D(new Point2D(x0, y0), Operations.Lerp(x0, y0, x1, y1, OneHalf), new Point2D(x1, y1));
 
         /// <summary>
         /// Converts a Line segment to a Cubic Bézier curve.
@@ -268,7 +268,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CubicBezier2D LineSegmentToCubicBezier(Point2D a, Point2D b) => LineSegmentToCubicBezier(a.X, a.Y, b.X, b.Y);
+        public static CubicBezierSegment2D LineSegmentToCubicBezier(Point2D a, Point2D b) => LineSegmentToCubicBezier(a.X, a.Y, b.X, b.Y);
 
         /// <summary>
         /// Converts a Line segment to a Cubic Bézier curve.
@@ -282,7 +282,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CubicBezier2D LineSegmentToCubicBezier(double x0, double y0, double x1, double y1) => new CubicBezier2D(new Point2D(x0, y0), Operations.Lerp(x0, y0, x1, y1, OneThird), Operations.Lerp(x0, y0, x1, y1, TwoThirds), new Point2D(x1, y1));
+        public static CubicBezierSegment2D LineSegmentToCubicBezier(double x0, double y0, double x1, double y1) => new CubicBezierSegment2D(new Point2D(x0, y0), Operations.Lerp(x0, y0, x1, y1, OneThird), Operations.Lerp(x0, y0, x1, y1, TwoThirds), new Point2D(x1, y1));
 
         /// <summary>
         /// Converts a Quadratic Bezier to a Cubic Bezier.
@@ -316,8 +316,8 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CubicBezier2D QuadraticBezierToCubicBezier(Point2D a, Point2D b, Point2D c)
-            => new CubicBezier2D(
+        public static CubicBezierSegment2D QuadraticBezierToCubicBezier(Point2D a, Point2D b, Point2D c)
+            => new CubicBezierSegment2D(
                 a.X, a.Y,
                 a.X + (TwoThirds * (b.X - a.X)), a.Y + (TwoThirds * (b.Y - a.Y)),
                 c.X + (TwoThirds * (b.X - c.X)), c.Y + (TwoThirds * (b.Y - c.Y)),

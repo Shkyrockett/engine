@@ -26,29 +26,6 @@ internal static partial class Interop
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiStreamPosition", ExactSpelling = true)]
-        public static extern MmResult MidiStreamPosition(IntPtr hMidiStream, [MarshalAs(UnmanagedType.Struct)] ref MMTIME lpmmt, int cbmmt);
-
-        /// <summary>
-        /// Retrieves the current position in a MIDI stream.
-        /// </summary>
-        /// <param name="midiStream">The midi stream.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">
-        /// The specified device handle is invalid.
-        /// or
-        /// The specified pointer or structure is invalid.
-        /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static MMTIME MidiStreamPosition(IntPtr midiStream)
-        {
-            MMTIME lpmmt = new MMTIME();
-            return MidiStreamPosition(midiStream, ref lpmmt, Marshal.SizeOf(lpmmt)) switch
-            {
-                MmResult.NoError => lpmmt,
-                MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),
-                MmResult.InvalidParameter => throw new Exception("The specified pointer or structure is invalid."),
-                _ => throw new Exception("Unspecified Error"),
-            };
-        }
+        private static extern MmResult MidiStreamPosition(IntPtr hMidiStream, [MarshalAs(UnmanagedType.Struct)] ref MMTIME lpmmt, int cbmmt);
     }
 }

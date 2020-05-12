@@ -61,7 +61,7 @@ namespace Engine
         /// <returns>
         /// Returns a Boolean value indicating whether the two shapes intersect.
         /// </returns>
-        public static bool Intersects(Rectangle2D rect, IShape shape, double epsilon = Epsilon) =>
+        public static bool Intersects(Rectangle2D rect, IShape shape, double epsilon = double.Epsilon) =>
             // Shapes arranged by degree and complexity.
             shape switch
             {
@@ -70,15 +70,15 @@ namespace Engine
                 LineSegment2D l => LineSegmentRectangleIntersects(l.A.X, l.A.Y, l.B.X, l.B.Y, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon),
                 Ray2D r => RayRectangleIntersects(r.Location.X, r.Location.Y, r.Location.X + r.Direction.I, r.Location.Y + r.Direction.J, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon),
                 Line2D l => LineRectangleIntersects(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon),
-                QuadraticBezier2D b => QuadraticBezierSegmentRectangleIntersects(b.A.X, b.A.Y, b.B.X, b.B.Y, b.C.X, b.C.Y, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon),
-                CubicBezier2D b => CubicBezierSegmentRectangleIntersects(b.A.X, b.A.Y, b.B.X, b.B.Y, b.C.X, b.C.Y, b.D.X, b.D.Y, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon),
+                QuadraticBezierSegment2D b => QuadraticBezierSegmentRectangleIntersects(b.A.X, b.A.Y, b.B.X, b.B.Y, b.C.X, b.C.Y, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon),
+                CubicBezierSegment2D b => CubicBezierSegmentRectangleIntersects(b.A.X, b.A.Y, b.B.X, b.B.Y, b.C.X, b.C.Y, b.D.X, b.D.Y, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon),
                 Rectangle2D r => RectangleRectangleIntersects(r.X, r.Y, r.Right, r.Bottom, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon),
                 Polyline2D _ => throw new NotImplementedException(),
                 PolygonContour2D _ => throw new NotImplementedException(),
                 Polygon2D _ => throw new NotImplementedException(),
                 //case PolyBezierContour _ => throw new NotImplementedException();
                 //case PolyBezier _ => throw new NotImplementedException();
-                //case PolycurveContour _ => throw new NotImplementedException();
+                //case PolycurveContour2D _ => throw new NotImplementedException();
                 //case Polycurve _ => throw new NotImplementedException();
                 _ => false,
             };

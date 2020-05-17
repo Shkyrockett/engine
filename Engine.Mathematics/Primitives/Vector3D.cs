@@ -251,8 +251,8 @@ namespace Engine
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -263,8 +263,8 @@ namespace Engine
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -275,8 +275,8 @@ namespace Engine
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -298,8 +298,8 @@ namespace Engine
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subend"></param>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -310,8 +310,8 @@ namespace Engine
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subend"></param>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -322,8 +322,8 @@ namespace Engine
         /// <summary>
         /// Subtract Vectors
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subend"></param>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -356,30 +356,6 @@ namespace Engine
         public static Vector3D operator *(double multiplicand, Vector3D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
-        /// Scale a Vector
-        /// </summary>
-        /// <param name="multiplicand">The Point</param>
-        /// <param name="multiplier">The Multiplier</param>
-        /// <returns>
-        /// A Vector Multiplied by the Multiplier
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator *(Vector3D multiplicand, Matrix3x3D multiplier) => Multiply(multiplicand, multiplier);
-
-        /// <summary>
-        /// Scale a Vector
-        /// </summary>
-        /// <param name="multiplicand">The Multiplier</param>
-        /// <param name="multiplier">The Point</param>
-        /// <returns>
-        /// A Vector Multiplied by the Multiplier
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator *(Matrix3x3D multiplicand, Vector3D multiplier) => Multiply(multiplicand, multiplier);
-
-        /// <summary>
         /// Divide a <see cref="Vector3D" />
         /// </summary>
         /// <param name="dividend">The <see cref="Vector3D" /></param>
@@ -394,7 +370,7 @@ namespace Engine
         /// <summary>
         /// Divide a <see cref="Vector3D" />
         /// </summary>
-        /// <param name="dividend">The <see cref="Vector3D"/></param>
+        /// <param name="dividend">The <see cref="Vector3D" /></param>
         /// <param name="divisor">The divisor</param>
         /// <returns>
         /// A <see cref="Vector3D" /> divided by the divisor
@@ -611,35 +587,6 @@ namespace Engine
         public static Vector3D Multiply(double multiplicand, Vector3D multiplier) => ScaleVector(multiplier.I, multiplier.J, multiplier.K, multiplicand);
 
         /// <summary>
-        /// Multiplies the specified multiplier.
-        /// </summary>
-        /// <param name="multiplier">The multiplier.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector3D Multiply(Matrix3x3D multiplier) => MultiplyVector3DMatrix3x3(I, J, K, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2);
-
-        /// <summary>
-        /// Multiplies the specified multiplicand.
-        /// </summary>
-        /// <param name="multiplicand">The multiplicand.</param>
-        /// <param name="multiplier">The multiplier.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D Multiply(Vector3D multiplicand, Matrix3x3D multiplier) => MultiplyVector3DMatrix3x3(multiplicand.I, multiplicand.J, multiplicand.K, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2);
-
-        /// <summary>
-        /// Multiplies the specified multiplicand.
-        /// </summary>
-        /// <param name="multiplicand">The multiplicand.</param>
-        /// <param name="multiplier">The multiplier.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D Multiply(Matrix3x3D multiplicand, Vector3D multiplier) => MultiplyVector3DMatrix3x3(multiplier.I, multiplier.J, multiplier.K, multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2);
-
-        /// <summary>
         /// Divides the specified divisor.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
@@ -692,7 +639,7 @@ namespace Engine
         /// </summary>
         /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

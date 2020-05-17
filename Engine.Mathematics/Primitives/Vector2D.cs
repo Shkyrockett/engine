@@ -245,8 +245,8 @@ namespace Engine
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -257,8 +257,8 @@ namespace Engine
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -269,8 +269,8 @@ namespace Engine
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -292,8 +292,8 @@ namespace Engine
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subend"></param>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -304,8 +304,8 @@ namespace Engine
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subend"></param>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -316,8 +316,8 @@ namespace Engine
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subend"></param>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -348,30 +348,6 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator *(double multiplicand, Vector2D multiplier) => Multiply(multiplicand, multiplier);
-
-        /// <summary>
-        /// Implements the operator *.
-        /// </summary>
-        /// <param name="multiplicand">The multiplicand.</param>
-        /// <param name="multiplier">The multiplier.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(Vector2D multiplicand, Matrix2x2D multiplier) => Multiply(multiplicand, multiplier);
-
-        /// <summary>
-        /// Implements the operator *.
-        /// </summary>
-        /// <param name="multiplicand">The multiplicand.</param>
-        /// <param name="multiplier">The multiplier.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(Matrix2x2D multiplicand, Vector2D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Divide a Vector2D
@@ -605,35 +581,6 @@ namespace Engine
         public static Vector2D Multiply(double multiplicand, Vector2D multiplier) => ScaleVector(multiplier.I, multiplier.J, multiplicand);
 
         /// <summary>
-        /// Multiplies the specified multiplier.
-        /// </summary>
-        /// <param name="multiplier">The multiplier.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D Multiply(Matrix2x2D multiplier) => MultiplyVector2DMatrix2x2(I, J, multiplier.M0x0, multiplier.M0x1, multiplier.M1x0, multiplier.M1x1);
-
-        /// <summary>
-        /// Multiplies the specified multiplicand.
-        /// </summary>
-        /// <param name="multiplicand">The multiplicand.</param>
-        /// <param name="multiplier">The multiplier.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Multiply(Vector2D multiplicand, Matrix2x2D multiplier) => MultiplyVector2DMatrix2x2(multiplicand.I, multiplicand.J, multiplier.M0x0, multiplier.M0x1, multiplier.M1x0, multiplier.M1x1);
-
-        /// <summary>
-        /// Multiplies the specified multiplicand.
-        /// </summary>
-        /// <param name="multiplicand">The multiplicand.</param>
-        /// <param name="multiplier">The multiplier.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Multiply(Matrix2x2D multiplicand, Vector2D multiplier) => MultiplyVector2DMatrix2x2(multiplier.I, multiplier.J, multiplicand.M0x0, multiplicand.M0x1, multiplicand.M1x0, multiplicand.M1x1);
-
-        /// <summary>
         /// Divides the specified divisor.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
@@ -686,7 +633,7 @@ namespace Engine
         /// </summary>
         /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

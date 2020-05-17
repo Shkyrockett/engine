@@ -16,8 +16,9 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using static Engine.Mathematics;
 using static System.Math;
+using static Engine.Mathematics;
+using static Engine.Operations;
 
 namespace Engine
 {
@@ -398,6 +399,30 @@ namespace Engine
         public static Point2D operator /(double dividend, Point2D divisor) => Divide(dividend, divisor);
 
         /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D operator *(Matrix2x2D multiplicand, Point2D multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D operator *(Point2D multiplicand, Matrix2x2D multiplier) => Multiply(multiplier, multiplicand);
+
+        /// <summary>
         /// Compares two <see cref="Point2D" /> objects.
         /// The result specifies whether the values of the <see cref="X" />, and <see cref="Y" />
         /// values of the two <see cref="Point2D" /> objects are equal.
@@ -488,7 +513,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(Point2D augend, double addend) => Operations.AddVectorUniform(augend.X, augend.Y, addend);
+        public static Point2D Add(Point2D augend, double addend) => AddVectorUniform(augend.X, augend.Y, addend);
 
         /// <summary>
         /// Adds the specified augend.
@@ -498,7 +523,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(double augend, Point2D addend) => Operations.AddVectorUniform(addend.X, addend.Y, augend);
+        public static Point2D Add(double augend, Point2D addend) => AddVectorUniform(addend.X, addend.Y, augend);
 
         /// <summary>
         /// Adds the specified augend.
@@ -508,7 +533,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Add(Point2D augend, Point2D addend) => Operations.AddVectors(augend.X, augend.Y, addend.X, addend.Y);
+        public static Vector2D Add(Point2D augend, Point2D addend) => AddVectors(augend.X, augend.Y, addend.X, addend.Y);
 
         /// <summary>
         /// Adds the specified augend.
@@ -518,7 +543,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(Point2D augend, Vector2D addend) => Operations.AddVectors(augend.X, augend.Y, addend.I, addend.J);
+        public static Point2D Add(Point2D augend, Vector2D addend) => AddVectors(augend.X, augend.Y, addend.I, addend.J);
 
         /// <summary>
         /// Adds the specified augend.
@@ -528,7 +553,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Add(Vector2D augend, Point2D addend) => Operations.AddVectors(augend.I, augend.J, addend.X, addend.Y);
+        public static Point2D Add(Vector2D augend, Point2D addend) => AddVectors(augend.I, augend.J, addend.X, addend.Y);
 
         /// <summary>
         /// Negates the specified value.
@@ -547,7 +572,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Subtract(Point2D minuend, double subend) => Operations.SubtractVectorUniform(minuend.X, minuend.Y, subend);
+        public static Point2D Subtract(Point2D minuend, double subend) => SubtractVectorUniform(minuend.X, minuend.Y, subend);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -557,7 +582,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Subtract(double minuend, Point2D subend) => Operations.SubtractFromMinuend(minuend, subend.X, subend.Y);
+        public static Point2D Subtract(double minuend, Point2D subend) => SubtractFromMinuend(minuend, subend.X, subend.Y);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -567,7 +592,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Subtract(Point2D minuend, Point2D subend) => Operations.SubtractVector(minuend.X, minuend.Y, subend.X, subend.Y);
+        public static Vector2D Subtract(Point2D minuend, Point2D subend) => SubtractVector(minuend.X, minuend.Y, subend.X, subend.Y);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -577,7 +602,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Subtract(Point2D minuend, Vector2D subend) => Operations.SubtractVector(minuend.X, minuend.Y, subend.I, subend.J);
+        public static Point2D Subtract(Point2D minuend, Vector2D subend) => SubtractVector(minuend.X, minuend.Y, subend.I, subend.J);
 
         /// <summary>
         /// Subtracts the specified minuend.
@@ -587,7 +612,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Subtract(Vector2D minuend, Point2D subend) => Operations.SubtractVector(minuend.I, minuend.J, subend.X, subend.Y);
+        public static Point2D Subtract(Vector2D minuend, Point2D subend) => SubtractVector(minuend.I, minuend.J, subend.X, subend.Y);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -597,7 +622,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Multiply(Point2D multiplicand, double multiplier) => Operations.ScaleVector(multiplicand.X, multiplicand.Y, multiplier);
+        public static Point2D Multiply(Point2D multiplicand, double multiplier) => ScaleVector(multiplicand.X, multiplicand.Y, multiplier);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -607,7 +632,27 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Multiply(double multiplicand, Point2D multiplier) => Operations.ScaleVector(multiplier.X, multiplier.Y, multiplicand);
+        public static Point2D Multiply(double multiplicand, Point2D multiplier) => ScaleVector(multiplier.X, multiplier.Y, multiplicand);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Multiply(Matrix2x2D multiplicand, Point2D multiplier) => MultiplyMatrix2x2ByVerticalVector2D(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M1x0, multiplicand.M1x1, multiplier.X, multiplier.Y);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Multiply(Point2D multiplicand, Matrix2x2D multiplier) => MultiplyHorizontalVector2DByMatrix2x2(multiplicand.X, multiplicand.Y, multiplier.M0x0, multiplier.M0x1, multiplier.M1x0, multiplier.M1x1);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -617,7 +662,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Divide(Point2D dividend, double divisor) => Operations.DivideVectorUniform(dividend.X, dividend.Y, divisor);
+        public static Point2D Divide(Point2D dividend, double divisor) => DivideVectorUniform(dividend.X, dividend.Y, divisor);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -627,7 +672,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Divide(double dividend, Point2D divisor) => Operations.DivideByVectorUniform(dividend, divisor.X, divisor.Y);
+        public static Point2D Divide(double dividend, Point2D divisor) => DivideByVectorUniform(dividend, divisor.X, divisor.Y);
 
         /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.

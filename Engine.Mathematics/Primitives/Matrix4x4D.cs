@@ -454,7 +454,7 @@ namespace Engine
         /// The inverted.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix4x4D Inverted => InvertMatrix(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
+        public Matrix4x4D Inverted => InverseMatrix(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
 
         /// <summary>
         /// Gets a value indicating whether or not a given transform is an identity transform matrix.
@@ -497,8 +497,8 @@ namespace Engine
         /// <summary>
         /// Used to add two matrices together.
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -509,7 +509,7 @@ namespace Engine
         /// <summary>
         /// Negates all the items in the Matrix.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -520,8 +520,8 @@ namespace Engine
         /// <summary>
         /// Used to subtract two matrices.
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subend"></param>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -532,8 +532,8 @@ namespace Engine
         /// <summary>
         /// Multiplies all the items in the Matrix3 by a scalar value.
         /// </summary>
-        /// <param name="multiplicand"></param>
-        /// <param name="multiplier"></param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -544,8 +544,8 @@ namespace Engine
         /// <summary>
         /// Multiplies all the items in the Matrix3 by a scalar value.
         /// </summary>
-        /// <param name="multiplicand"></param>
-        /// <param name="multiplier"></param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -554,10 +554,34 @@ namespace Engine
         public static Matrix4x4D operator *(double multiplicand, Matrix4x4D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D operator *(Matrix4x4D multiplicand, Vector4D multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D operator *(Vector4D multiplicand, Matrix4x4D multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
         /// </summary>
-        /// <param name="multiplicand"></param>
-        /// <param name="multiplier"></param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -568,8 +592,8 @@ namespace Engine
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
         /// </summary>
-        /// <param name="multiplicand"></param>
-        /// <param name="multiplier"></param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -580,8 +604,8 @@ namespace Engine
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
         /// </summary>
-        /// <param name="multiplicand"></param>
-        /// <param name="multiplier"></param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -592,8 +616,8 @@ namespace Engine
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
         /// </summary>
-        /// <param name="multiplicand"></param>
-        /// <param name="multiplier"></param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -604,8 +628,8 @@ namespace Engine
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
         /// </summary>
-        /// <param name="multiplicand"></param>
-        /// <param name="multiplier"></param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -765,6 +789,26 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Multiply(Matrix4x4D multiplicand, Vector4D multiplier) => MultiplyMatrix4x4ByVerticalVector4D(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3, multiplier.I, multiplier.J, multiplier.K, multiplier.L);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector4D Multiply(Vector4D multiplicand, Matrix4x4D multiplier) => MultiplyHorizontalVector4DByMatrix4x4(multiplicand.I, multiplicand.J, multiplicand.K, multiplicand.L, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D Multiply(Matrix4x4D multiplicand, Matrix4x4D multiplier) => Multiply4x4x4x4(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3);
 
         /// <summary>
@@ -812,7 +856,7 @@ namespace Engine
         /// </summary>
         /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -381,7 +381,7 @@ namespace Engine
         {
             var (a, b, c, d) = CubicHermiteBernsteinBasis(p0, t0, p1, t1);
             var (m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4) = InverseCubicBezierBernsteinBasisMatrix;
-            return MultiplyVector4DMatrix4x4(d, c, b, a, m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4);
+            return MultiplyHorizontalVector4DByMatrix4x4(d, c, b, a, m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4);
         }
 
         /// <summary>
@@ -403,8 +403,8 @@ namespace Engine
             var (ax, bx, cx, dx) = CubicHermiteBernsteinBasis(px0, tx0, px1, tx1);
             var (ay, by, cy, dy) = CubicHermiteBernsteinBasis(py0, ty0, py1, ty1);
             var (m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4) = InverseCubicBezierBernsteinBasisMatrix;
-            var (rax, rbx, rcx, rdx) = MultiplyVector4DMatrix4x4(dx, cx, bx, ax, m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4);
-            var (ray, rby, rcy, rdy) = MultiplyVector4DMatrix4x4(dy, cy, by, ay, m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4);
+            var (rax, rbx, rcx, rdx) = MultiplyHorizontalVector4DByMatrix4x4(dx, cx, bx, ax, m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4);
+            var (ray, rby, rcy, rdy) = MultiplyHorizontalVector4DByMatrix4x4(dy, cy, by, ay, m1x1, m1x2, m1x3, m1x4, m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4);
             return (rax, ray, rbx, rby, rcx, rcy, rdx, rdy);
         }
         #endregion

@@ -21,6 +21,34 @@ namespace Engine
     {
         #region Add
         /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/different-operation-matrices/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[,] Add(double[,] augend, double[,] addend)
+        {
+            var rows = augend.GetLength(0);
+            var cols = augend.GetLength(1);
+
+            var result = new double[rows, cols];
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = 0; j < cols; j++)
+                {
+                    result[i, j] = augend[i, j] + addend[i, j];
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Add.
         /// </summary>
         /// <param name="augendX">The augend x.</param>
@@ -35,9 +63,7 @@ namespace Engine
         /// <param name="addendSkewY">The addend skew y.</param>
         /// <param name="addendScaleX">The addend scale x.</param>
         /// <param name="addendScaleY">The addend scale y.</param>
-        /// <returns>
-        /// The <see cref="Transform2D" />.
-        /// </returns>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -50,7 +76,10 @@ namespace Engine
             double augendScaleX, double augendScaleY,
             double addendX, double addendY,
             double addendSkewX, double addendSkewY,
-            double addendScaleX, double addendScaleY) => (augendX + addendX, augendY + addendY, augendSkewX + addendSkewX, augendSkewY + addendSkewY, augendScaleX * addendScaleX, augendScaleY * addendScaleY);
+            double addendScaleX, double addendScaleY) => (
+                augendX + addendX, augendY + addendY,
+                augendSkewX + addendSkewX, augendSkewY + addendSkewY,
+                augendScaleX * addendScaleX, augendScaleY * addendScaleY);
 
         /// <summary>
         /// Used to add two matrices together.
@@ -73,8 +102,8 @@ namespace Engine
             double augendM0x0, double augendM0x1,
             double augendM1x0, double augendM1x1,
             double addendM0x0, double addendM0x1,
-            double addendM1x0, double addendM1x1)
-            => (augendM0x0 + addendM0x0, augendM0x1 + addendM0x1,
+            double addendM1x0, double addendM1x1) => (
+                augendM0x0 + addendM0x0, augendM0x1 + addendM0x1,
                 augendM1x0 + addendM1x0, augendM1x1 + addendM1x1);
 
         /// <summary>
@@ -111,8 +140,8 @@ namespace Engine
             double augendM2x0, double augendM2x1, double augendM2x2,
             double addendM0x0, double addendM0x1, double addendM0x2,
             double addendM1x0, double addendM1x1, double addendM1x2,
-            double addendM2x0, double addendM2x1, double addendM2x2)
-            => (augendM0x0 + addendM0x0, augendM0x1 + addendM0x1, augendM0x2 + addendM0x2,
+            double addendM2x0, double addendM2x1, double addendM2x2) => (
+                augendM0x0 + addendM0x0, augendM0x1 + addendM0x1, augendM0x2 + addendM0x2,
                 augendM1x0 + addendM1x0, augendM1x1 + addendM1x1, augendM1x2 + addendM1x2,
                 augendM2x0 + addendM2x0, augendM2x1 + addendM2x1, augendM2x2 + addendM2x2);
 
@@ -167,8 +196,8 @@ namespace Engine
             double addendM0x0, double addendM0x1, double addendM0x2, double addendM0x3,
             double addendM1x0, double addendM1x1, double addendM1x2, double addendM1x3,
             double addendM2x0, double addendM2x1, double addendM2x2, double addendM2x3,
-            double addendM3x0, double addendM3x1, double addendM3x2, double addendM3x3)
-            => (augendM0x0 + addendM0x0, augendM0x1 + addendM0x1, augendM0x2 + addendM0x2, augendM0x3 + addendM0x3,
+            double addendM3x0, double addendM3x1, double addendM3x2, double addendM3x3) => (
+                augendM0x0 + addendM0x0, augendM0x1 + addendM0x1, augendM0x2 + addendM0x2, augendM0x3 + addendM0x3,
                 augendM1x0 + addendM1x0, augendM1x1 + addendM1x1, augendM1x2 + addendM1x2, augendM1x3 + addendM1x3,
                 augendM2x0 + addendM2x0, augendM2x1 + addendM2x1, augendM2x2 + addendM2x2, augendM2x3 + addendM2x3,
                 augendM3x0 + addendM3x0, augendM3x1 + addendM3x1, augendM3x2 + addendM3x2, augendM3x3 + addendM3x3);
@@ -245,8 +274,8 @@ namespace Engine
             double addendM1x0, double addendM1x1, double addendM1x2, double addendM1x3, double addendM1x4,
             double addendM2x0, double addendM2x1, double addendM2x2, double addendM2x3, double addendM2x4,
             double addendM3x0, double addendM3x1, double addendM3x2, double addendM3x3, double addendM3x4,
-            double addendM4x0, double addendM4x1, double addendM4x2, double addendM4x3, double addendM4x4)
-            => (augendM0x0 + addendM0x0, augendM0x1 + addendM0x1, augendM0x2 + addendM0x2, augendM0x3 + addendM0x3, augendM0x4 + addendM0x4,
+            double addendM4x0, double addendM4x1, double addendM4x2, double addendM4x3, double addendM4x4) => (
+                augendM0x0 + addendM0x0, augendM0x1 + addendM0x1, augendM0x2 + addendM0x2, augendM0x3 + addendM0x3, augendM0x4 + addendM0x4,
                 augendM1x0 + addendM1x0, augendM1x1 + addendM1x1, augendM1x2 + addendM1x2, augendM1x3 + addendM1x3, augendM1x4 + addendM1x4,
                 augendM2x0 + addendM2x0, augendM2x1 + addendM2x1, augendM2x2 + addendM2x2, augendM2x3 + addendM2x3, augendM2x4 + addendM2x4,
                 augendM3x0 + addendM3x0, augendM3x1 + addendM3x1, augendM3x2 + addendM3x2, augendM3x3 + addendM3x3, augendM3x4 + addendM3x4,
@@ -349,8 +378,8 @@ namespace Engine
             double addendM2x0, double addendM2x1, double addendM2x2, double addendM2x3, double addendM2x4, double addendM2x5,
             double addendM3x0, double addendM3x1, double addendM3x2, double addendM3x3, double addendM3x4, double addendM3x5,
             double addendM4x0, double addendM4x1, double addendM4x2, double addendM4x3, double addendM4x4, double addendM4x5,
-            double addendM5x0, double addendM5x1, double addendM5x2, double addendM5x3, double addendM5x4, double addendM5x5)
-            => (augendM0x0 + addendM0x0, augendM0x1 + addendM0x1, augendM0x2 + addendM0x2, augendM0x3 + addendM0x3, augendM0x4 + addendM0x4, augendM0x5 + addendM0x5,
+            double addendM5x0, double addendM5x1, double addendM5x2, double addendM5x3, double addendM5x4, double addendM5x5) => (
+                augendM0x0 + addendM0x0, augendM0x1 + addendM0x1, augendM0x2 + addendM0x2, augendM0x3 + addendM0x3, augendM0x4 + addendM0x4, augendM0x5 + addendM0x5,
                 augendM1x0 + addendM1x0, augendM1x1 + addendM1x1, augendM1x2 + addendM1x2, augendM1x3 + addendM1x3, augendM1x4 + addendM1x4, augendM1x5 + addendM1x5,
                 augendM2x0 + addendM2x0, augendM2x1 + addendM2x1, augendM2x2 + addendM2x2, augendM2x3 + addendM2x3, augendM2x4 + addendM2x4, augendM2x5 + addendM2x5,
                 augendM3x0 + addendM3x0, augendM3x1 + addendM3x1, augendM3x2 + addendM3x2, augendM3x3 + addendM3x3, augendM3x4 + addendM3x4, augendM3x5 + addendM3x5,
@@ -359,6 +388,34 @@ namespace Engine
         #endregion Add
 
         #region Subtract
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subtrahend">The subtrahend.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/different-operation-matrices/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[,] Subtract(double[,] minuend, double[,] subtrahend)
+        {
+            var rows = minuend.GetLength(0);
+            var cols = minuend.GetLength(1);
+
+            var result = new double[rows, cols];
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = 0; j < cols; j++)
+                {
+                    result[i, j] = minuend[i, j] - subtrahend[i, j];
+                }
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Subtracts the transform matrix.
         /// </summary>
@@ -909,7 +966,7 @@ namespace Engine
             );
         #endregion Scale
 
-        #region Multiply
+        #region Multiply Matrix by Vertical Vector
         /// <summary>
         /// Multiplies a matrix2x2 by a Vertical vector2.
         /// </summary>
@@ -923,6 +980,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://matrixmultiplication.xyz/
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) MultiplyMatrix2x2ByVerticalVector2D(
             double m1x1, double m1x2,
@@ -931,10 +989,205 @@ namespace Engine
             => (
                 (x * m1x1) + (y * m1x2),
                 (x * m2x1) + (y * m2x2)
-            ); // This should be correct.
+            );
 
         /// <summary>
-        /// Multiplies a horizontal vector2 by a matrix2x2.
+        /// Multiplies the matrix3x3 by vertical vector3 d.
+        /// </summary>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://matrixmultiplication.xyz/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y, double Z) MultiplyMatrix3x3ByVerticalVector3D(
+            double m1x1, double m1x2, double m1x3,
+            double m2x1, double m2x2, double m2x3,
+            double m3x1, double m3x2, double m3x3,
+            double x, double y, double z)
+            => (
+                (x * m1x1) + (y * m1x2) + (z * m1x3),
+                (x * m2x1) + (y * m2x2) + (z * m2x3),
+                (x * m3x1) + (y * m3x2) + (z * m3x3)
+            );
+
+        /// <summary>
+        /// Multiplies the matrix4x4 by vertical vector4 d.
+        /// </summary>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="w">The w.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y, double Z, double W) MultiplyMatrix4x4ByVerticalVector4D(
+            double m1x1, double m1x2, double m1x3, double m1x4,
+            double m2x1, double m2x2, double m2x3, double m2x4,
+            double m3x1, double m3x2, double m3x3, double m3x4,
+            double m4x1, double m4x2, double m4x3, double m4x4,
+            double x, double y, double z, double w)
+            => (
+                (x * m1x1) + (y * m1x2) + (z * m1x3) + (w * m1x4),
+                (x * m2x1) + (y * m2x2) + (z * m2x3) + (w * m2x4),
+                (x * m3x1) + (y * m3x2) + (z * m3x3) + (w * m3x4),
+                (x * m4x1) + (y * m4x2) + (z * m4x3) + (w * m4x4)
+            );
+
+        /// <summary>
+        /// Multiplies the matrix5x5 by vertical vector5 d.
+        /// </summary>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m1x5">The M1X5.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m2x5">The M2X5.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m3x5">The M3X5.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <param name="m4x5">The M4X5.</param>
+        /// <param name="m5x1">The M5X1.</param>
+        /// <param name="m5x2">The M5X2.</param>
+        /// <param name="m5x3">The M5X3.</param>
+        /// <param name="m5x4">The M5X4.</param>
+        /// <param name="m5x5">The M5X5.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="v">The v.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://matrixmultiplication.xyz/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y, double Z, double W, double V) MultiplyMatrix5x5ByVerticalVector5D(
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5,
+            double x, double y, double z, double w, double v)
+            => (
+                (x * m1x1) + (y * m1x2) + (z * m1x3) + (w * m1x4) + (v * m1x5),
+                (x * m2x1) + (y * m2x2) + (z * m2x3) + (w * m2x4) + (v * m2x5),
+                (x * m3x1) + (y * m3x2) + (z * m3x3) + (w * m3x4) + (v * m3x5),
+                (x * m4x1) + (y * m4x2) + (z * m4x3) + (w * m4x4) + (v * m4x5),
+                (x * m5x1) + (y * m5x2) + (z * m5x3) + (w * m5x4) + (v * m5x5)
+            );
+
+        /// <summary>
+        /// Multiplies the matrix6x6 by vertical vector6 d.
+        /// </summary>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m1x5">The M1X5.</param>
+        /// <param name="m1x6">The M1X6.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m2x5">The M2X5.</param>
+        /// <param name="m2x6">The M2X6.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m3x5">The M3X5.</param>
+        /// <param name="m3x6">The M3X6.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <param name="m4x5">The M4X5.</param>
+        /// <param name="m4x6">The M4X6.</param>
+        /// <param name="m5x1">The M5X1.</param>
+        /// <param name="m5x2">The M5X2.</param>
+        /// <param name="m5x3">The M5X3.</param>
+        /// <param name="m5x4">The M5X4.</param>
+        /// <param name="m5x5">The M5X5.</param>
+        /// <param name="m5x6">The M5X6.</param>
+        /// <param name="m6x1">The M6X1.</param>
+        /// <param name="m6x2">The M6X2.</param>
+        /// <param name="m6x3">The M6X3.</param>
+        /// <param name="m6x4">The M6X4.</param>
+        /// <param name="m6x5">The M6X5.</param>
+        /// <param name="m6x6">The M6X6.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="u">The u.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://matrixmultiplication.xyz/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y, double Z, double W, double V, double U) MultiplyMatrix6x6ByVerticalVector6D(
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5, double m1x6,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5, double m2x6,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5, double m3x6,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5, double m4x6,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5, double m5x6,
+            double m6x1, double m6x2, double m6x3, double m6x4, double m6x5, double m6x6,
+            double x, double y, double z, double w, double v, double u)
+            => (
+                (x * m1x1) + (y * m1x2) + (z * m1x3) + (w * m1x4) + (v * m1x5) + (u * m1x6),
+                (x * m2x1) + (y * m2x2) + (z * m2x3) + (w * m2x4) + (v * m2x5) + (u * m2x6),
+                (x * m3x1) + (y * m3x2) + (z * m3x3) + (w * m3x4) + (v * m3x5) + (u * m3x6),
+                (x * m4x1) + (y * m4x2) + (z * m4x3) + (w * m4x4) + (v * m4x5) + (u * m4x6),
+                (x * m5x1) + (y * m5x2) + (z * m5x3) + (w * m5x4) + (v * m5x5) + (u * m5x6),
+                (x * m6x1) + (y * m6x2) + (z * m6x3) + (w * m6x4) + (v * m6x5) + (u * m6x6)
+            );
+        #endregion
+
+        #region Multiply Horizontal Vector by Matrix
+        /// <summary>
+        /// Multiplies the horizontal vector2 d by matrix2x2.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -946,6 +1199,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://matrixmultiplication.xyz/
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) MultiplyHorizontalVector2DByMatrix2x2(
             double x, double y,
@@ -954,31 +1208,10 @@ namespace Engine
             => (
                 (x * m1x1) + (y * m2x1),
                 (x * m1x2) + (y * m2x2)
-            ); // This should be correct.
+            );
 
         /// <summary>
-        /// Multiplies a vector2 and matrix2x2.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="m1x1">The M1X1.</param>
-        /// <param name="m1x2">The M1X2.</param>
-        /// <param name="m2x1">The M2X1.</param>
-        /// <param name="m2x2">The M2X2.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) MultiplyVector2DMatrix2x2(
-            double x, double y,
-            double m1x1, double m1x2,
-            double m2x1, double m2x2)
-            => (
-                (x * m1x1) + (x * m1x2),
-                (y * m2x1) + (y * m2x2)
-            ); // This is wrong!
-
-        /// <summary>
-        /// Multiplies a vector3 and matrix3x3.
+        /// Multiplies the horizontal vector3 d by matrix3x3.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -993,21 +1226,24 @@ namespace Engine
         /// <param name="m3x2">The M3X2.</param>
         /// <param name="m3x3">The M3X3.</param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// http://matrixmultiplication.xyz/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) MultiplyVector3DMatrix3x3(
+        public static (double X, double Y, double Z) MultiplyHorizontalVector3DByMatrix3x3(
             double x, double y, double z,
             double m1x1, double m1x2, double m1x3,
             double m2x1, double m2x2, double m2x3,
             double m3x1, double m3x2, double m3x3)
             => (
-                (x * m1x1) + (x * m1x2) + (x * m1x3),
-                (y * m2x1) + (y * m2x2) + (y * m2x3),
-                (z * m3x1) + (z * m3x2) + (z * m3x3)
-            ); // This is wrong!
+                (x * m1x1) + (y * m2x1) + (z * m3x1),
+                (x * m1x2) + (y * m2x2) + (z * m3x2),
+                (x * m1x3) + (y * m2x3) + (z * m3x3)
+            );
 
         /// <summary>
-        /// Multiplies a vector4 and matrix4x4.
+        /// Multiplies the horizontal vector4 d by matrix4x4.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -1030,23 +1266,26 @@ namespace Engine
         /// <param name="m4x3">The M4X3.</param>
         /// <param name="m4x4">The M4X4.</param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// http://matrixmultiplication.xyz/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z, double W) MultiplyVector4DMatrix4x4(
+        public static (double X, double Y, double Z, double W) MultiplyHorizontalVector4DByMatrix4x4(
             double x, double y, double z, double w,
             double m1x1, double m1x2, double m1x3, double m1x4,
             double m2x1, double m2x2, double m2x3, double m2x4,
             double m3x1, double m3x2, double m3x3, double m3x4,
             double m4x1, double m4x2, double m4x3, double m4x4)
             => (
-                (x * m1x1) + (x * m1x2) + (x * m1x3) + (x * m1x4),
-                (y * m2x1) + (y * m2x2) + (y * m2x3) + (y * m2x4),
-                (z * m3x1) + (z * m3x2) + (z * m3x3) + (z * m3x4),
-                (w * m4x1) + (w * m4x2) + (w * m4x3) + (w * m4x4)
-            ); // This is wrong!
+                (x * m1x1) + (x * m2x1) + (x * m3x1) + (x * m4x1),
+                (y * m1x2) + (y * m2x2) + (y * m3x2) + (y * m4x2),
+                (z * m1x3) + (z * m2x3) + (z * m3x3) + (z * m4x3),
+                (w * m1x4) + (w * m2x4) + (w * m3x4) + (w * m4x4)
+            );
 
         /// <summary>
-        /// Multiplies a vector5 and matrix5x5.
+        /// Multiplies the horizontal vector5 d by matrix5x5.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -1079,9 +1318,12 @@ namespace Engine
         /// <param name="m5x4">The M5X4.</param>
         /// <param name="m5x5">The M5X5.</param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// http://matrixmultiplication.xyz/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z, double W, double V) MultiplyVector5DMatrix5x5(
+        public static (double X, double Y, double Z, double W, double V) MultiplyHorizontalVector5DByMatrix5x5(
             double x, double y, double z, double w, double v,
             double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
             double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
@@ -1089,15 +1331,15 @@ namespace Engine
             double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
             double m5x1, double m5x2, double m5x3, double m5x4, double m5x5)
             => (
-                (x * m1x1) + (x * m1x2) + (x * m1x3) + (x * m1x4) + (x * m1x5),
-                (y * m2x1) + (y * m2x2) + (y * m2x3) + (y * m2x4) + (y * m2x5),
-                (z * m3x1) + (z * m3x2) + (z * m3x3) + (z * m3x4) + (z * m3x5),
-                (w * m4x1) + (w * m4x2) + (w * m4x3) + (w * m4x4) + (w * m4x5),
-                (w * m5x1) + (v * m5x2) + (v * m5x3) + (v * m5x4) + (v * m5x5)
-            ); // This is wrong!
+                (x * m1x1) + (y * m2x1) + (z * m3x1) + (w * m4x1) + (v * m5x1),
+                (x * m1x2) + (y * m2x2) + (z * m3x2) + (w * m4x2) + (v * m5x2),
+                (x * m1x3) + (y * m2x3) + (z * m3x3) + (w * m4x3) + (v * m5x3),
+                (x * m1x4) + (y * m2x4) + (z * m3x4) + (w * m4x4) + (v * m5x4),
+                (x * m1x5) + (y * m2x5) + (z * m3x5) + (w * m4x5) + (v * m5x5)
+            );
 
         /// <summary>
-        /// Multiplies a vector6 and matrix6x6.
+        /// Multiplies the horizontal vector6 d by matrix6x6.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -1142,9 +1384,12 @@ namespace Engine
         /// <param name="m6x5">The M6X5.</param>
         /// <param name="m6x6">The M6X6.</param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// http://matrixmultiplication.xyz/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z, double W, double V, double U) MultiplyVector6DMatrix6x6(
+        public static (double X, double Y, double Z, double W, double V, double U) MultiplyHorizontalVector6DByMatrix6x6(
             double x, double y, double z, double w, double v, double u,
             double m1x1, double m1x2, double m1x3, double m1x4, double m1x5, double m1x6,
             double m2x1, double m2x2, double m2x3, double m2x4, double m2x5, double m2x6,
@@ -1153,13 +1398,53 @@ namespace Engine
             double m5x1, double m5x2, double m5x3, double m5x4, double m5x5, double m5x6,
             double m6x1, double m6x2, double m6x3, double m6x4, double m6x5, double m6x6)
             => (
-                (x * m1x1) + (x * m1x2) + (x * m1x3) + (x * m1x4) + (x * m1x5) + (x * m1x6),
-                (y * m2x1) + (y * m2x2) + (y * m2x3) + (y * m2x4) + (y * m2x5) + (y * m2x6),
-                (z * m3x1) + (z * m3x2) + (z * m3x3) + (z * m3x4) + (z * m3x5) + (z * m3x6),
-                (w * m4x1) + (w * m4x2) + (w * m4x3) + (w * m4x4) + (w * m4x5) + (w * m4x6),
-                (w * m5x1) + (v * m5x2) + (v * m5x3) + (v * m5x4) + (v * m5x5) + (v * m5x6),
-                (w * m6x1) + (u * m6x2) + (u * m6x3) + (u * m6x4) + (u * m6x5) + (u * m6x6)
-            ); // This is wrong!
+                (x * m1x1) + (y * m2x1) + (z * m3x1) + (w * m4x1) + (v * m5x1) + (u * m6x1),
+                (x * m1x2) + (y * m2x2) + (z * m3x2) + (w * m4x2) + (v * m5x2) + (u * m6x2),
+                (x * m1x3) + (y * m2x3) + (z * m3x3) + (w * m4x3) + (v * m5x3) + (u * m6x3),
+                (x * m1x4) + (y * m2x4) + (z * m3x4) + (w * m4x4) + (v * m5x4) + (u * m6x4),
+                (x * m1x5) + (y * m2x5) + (z * m3x5) + (w * m4x5) + (v * m5x5) + (u * m6x5),
+                (x * m1x6) + (y * m2x6) + (z * m3x6) + (w * m4x6) + (v * m5x6) + (u * m6x6)
+            );
+        #endregion
+
+        #region Multiply Matrix by Matrix
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Columns of multiplicand must be the same length as the rows of multiplier.</exception>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/different-operation-matrices/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[,] Multiply(double[,] multiplicand, double[,] multiplier)
+        {
+            var multiplicandRows = multiplicand.GetLength(0);
+            var multiplicandCols = multiplicand.GetLength(1);
+            var multiplierRows = multiplier.GetLength(0);
+
+            if (multiplicandCols != multiplierRows) throw new Exception("Columns of multiplicand must be the same length as the rows of multiplier.");
+
+            var multiplierCols = multiplier.GetLength(1);
+
+            var result = new double[multiplicandRows, multiplicandCols];
+            for (var i = 0; i < multiplicandRows; i++)
+            {
+                for (var j = 0; j < multiplierCols; j++)
+                {
+                    result[i, j] = 0;
+                    for (var k = 0; k < multiplicandCols; k++)
+                    {
+                        result[i, j] += multiplicand[i, j] * multiplier[i, j];
+                    }
+                }
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// Used to multiply (concatenate) two Matrix2x2s.
@@ -3196,6 +3481,36 @@ namespace Engine
 
         #region Is Identity
         /// <summary>
+        /// Determines whether the specified matrix is identity.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified matrix is identity; otherwise, <see langword="false"/>.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://www.tutorialgateway.org/c-program-to-check-matrix-is-an-identity-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsIdentity(double[,] matrix)
+        {
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
+
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = 0; j < cols; j++)
+                {
+                    if (matrix[i, j] != 1 && matrix[j, i] != 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
         /// <param name="m0x0">The M0X0.</param>
@@ -3378,6 +3693,46 @@ namespace Engine
 
         #region Adjoint
         /// <summary>
+        /// Function to get adjoint of the specified matrix.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/adjoint-inverse-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[,] Adjoint(double[,] matrix)
+        {
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
+
+            if (rows == 1)
+            {
+                return new double[1, 1] { { 1d } };
+            }
+
+            var adj = new double[rows, cols];
+
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = 0; j < cols; j++)
+                {
+                    // Get cofactor of A[i,j] 
+                    var temp = Cofactor(matrix, i, j);
+
+                    // Sign of adj[j,i] positive if sum of row and column indexes is even. 
+                    var sign = ((i + j) % 2d == 0d) ? 1d : -1d;
+
+                    // Interchanging rows and columns to get the  transpose of the cofactor matrix 
+                    adj[j, i] = sign * Determinant(temp);
+                }
+            }
+
+            return adj;
+        }
+
+        /// <summary>
         /// The adjoint.
         /// </summary>
         /// <param name="m0x0">The M0X0.</param>
@@ -3451,6 +3806,10 @@ namespace Engine
         /// <returns>
         /// The adjoint matrix of the current instance.
         /// </returns>
+        /// <acknowledgment>
+        /// https://sites.google.com/site/physics2d/
+        /// This is an expanded version of the Ogre adjoint() method.
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
@@ -3489,22 +3848,11 @@ namespace Engine
             var m10m21m20m11 = (m1x0 * m2x1) - (m2x0 * m1x1);
 
             return (
-                (m1x1 * m22m33m32m23) - (m1x2 * m21m33m31m23) + (m1x3 * m21m32m31m22),
-                -((m0x1 * m22m33m32m23) - (m0x2 * m21m33m31m23) + (m0x3 * m21m32m31m22)),
-                (m0x1 * m12m33m32m13) - (m0x2 * m11m33m31m13) + (m0x3 * m11m32m31m12),
-                -((m0x1 * m12m23m22m13) - (m0x2 * m11m23m21m13) + (m0x3 * m11m22m21m12)),
-                -((m1x0 * m22m33m32m23) - (m1x2 * m20m33m30m23) + (m1x3 * m20m32m30m22)),
-                (m0x0 * m22m33m32m23) - (m0x2 * m20m33m30m23) + (m0x3 * m20m32m30m22),
-                -((m0x0 * m12m33m32m13) - (m0x2 * m10m33m30m13) + (m0x3 * m10m32m30m12)),
-                (m0x0 * m12m23m22m13) - (m0x2 * m10m23m20m13) + (m0x3 * m10m22m20m12),
-                (m1x0 * m21m33m31m23) - (m1x1 * m20m33m30m23) + (m1x3 * m20m31m30m21),
-                -((m0x0 * m21m33m31m23) - (m0x1 * m20m33m30m23) + (m0x3 * m20m31m30m21)),
-                (m0x0 * m11m33m31m13) - (m0x1 * m10m33m30m13) + (m0x3 * m20m31m30m21),
-                -((m0x0 * m11m23m21m13) - (m0x1 * m10m23m20m13) + (m0x3 * m10m21m20m11)),
-                -((m1x0 * m21m32m31m22) - (m1x1 * m20m32m30m22) + (m1x2 * m20m31m30m21)),
-                (m0x0 * m21m32m31m22) - (m0x1 * m20m32m30m22) + (m0x2 * m20m31m30m21),
-                -((m0x0 * m11m32m31m12) - (m0x1 * m10m32m30m12) + (m0x2 * m10m31m30m11)),
-                (m0x0 * m11m22m21m12) - (m0x1 * m10m22m20m12) + (m0x2 * m10m21m20m11));
+                  (m1x1 * m22m33m32m23) - (m1x2 * m21m33m31m23) + (m1x3 * m21m32m31m22), -((m0x1 * m22m33m32m23) - (m0x2 * m21m33m31m23) + (m0x3 * m21m32m31m22)), (m0x1 * m12m33m32m13) - (m0x2 * m11m33m31m13) + (m0x3 * m11m32m31m12), -((m0x1 * m12m23m22m13) - (m0x2 * m11m23m21m13) + (m0x3 * m11m22m21m12)),
+                -((m1x0 * m22m33m32m23) - (m1x2 * m20m33m30m23) + (m1x3 * m20m32m30m22)), (m0x0 * m22m33m32m23) - (m0x2 * m20m33m30m23) + (m0x3 * m20m32m30m22), -((m0x0 * m12m33m32m13) - (m0x2 * m10m33m30m13) + (m0x3 * m10m32m30m12)), (m0x0 * m12m23m22m13) - (m0x2 * m10m23m20m13) + (m0x3 * m10m22m20m12),
+                  (m1x0 * m21m33m31m23) - (m1x1 * m20m33m30m23) + (m1x3 * m20m31m30m21), -((m0x0 * m21m33m31m23) - (m0x1 * m20m33m30m23) + (m0x3 * m20m31m30m21)), (m0x0 * m11m33m31m13) - (m0x1 * m10m33m30m13) + (m0x3 * m10m31m30m11), -((m0x0 * m11m23m21m13) - (m0x1 * m10m23m20m13) + (m0x3 * m10m21m20m11)),
+                -((m1x0 * m21m32m31m22) - (m1x1 * m20m32m30m22) + (m1x2 * m20m31m30m21)), (m0x0 * m21m32m31m22) - (m0x1 * m20m32m30m22) + (m0x2 * m20m31m30m21), -((m0x0 * m11m32m31m12) - (m0x1 * m10m32m30m12) + (m0x2 * m10m31m30m11)), (m0x0 * m11m22m21m12) - (m0x1 * m10m22m20m12) + (m0x2 * m10m21m20m11)
+                );
         }
 
         /// <summary>
@@ -3550,8 +3898,22 @@ namespace Engine
             double m1x0, double m1x1, double m1x2, double m1x3, double m1x4,
             double m2x0, double m2x1, double m2x2, double m2x3, double m2x4,
             double m3x0, double m3x1, double m3x2, double m3x3, double m3x4,
-            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
-            ) => throw new NotImplementedException();
+            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4)
+        {
+            var m = Adjoint(new double[,]
+                {
+                    {m0x0, m0x1, m0x2, m0x3, m0x4},
+                    {m1x0, m1x1, m1x2, m1x3, m1x4},
+                    {m2x0, m2x1, m2x2, m2x3, m2x4},
+                    {m3x0, m3x1, m3x2, m3x3, m3x4},
+                    {m4x0, m4x1, m4x2, m4x3, m4x4}
+                });
+            return (m[0, 0], m[0, 1], m[0, 2], m[0, 3], m[0, 4],
+                    m[1, 0], m[1, 1], m[1, 2], m[1, 3], m[1, 4],
+                    m[2, 0], m[2, 1], m[2, 2], m[2, 3], m[2, 4],
+                    m[3, 0], m[3, 1], m[3, 2], m[3, 3], m[3, 4],
+                    m[4, 0], m[4, 1], m[4, 2], m[4, 3], m[4, 4]);
+        }
 
         /// <summary>
         /// Adjoints the specified M0X0.
@@ -3609,218 +3971,257 @@ namespace Engine
             double m2x0, double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
             double m3x0, double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
             double m4x0, double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
-            double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
-            ) => throw new NotImplementedException();
+            double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5)
+        {
+            var m = Adjoint(new double[,]
+                {
+                    {m0x0, m0x1, m0x2, m0x3, m0x4, m0x5},
+                    {m1x0, m1x1, m1x2, m1x3, m1x4, m1x5},
+                    {m2x0, m2x1, m2x2, m2x3, m2x4, m2x5},
+                    {m3x0, m3x1, m3x2, m3x3, m3x4, m3x5},
+                    {m4x0, m4x1, m4x2, m4x3, m4x4, m4x5},
+                    {m5x0, m5x1, m5x2, m5x3, m5x4, m5x5}
+                });
+            return (m[0, 0], m[0, 1], m[0, 2], m[0, 3], m[0, 4], m[0, 5],
+                    m[1, 0], m[1, 1], m[1, 2], m[1, 3], m[1, 4], m[1, 5],
+                    m[2, 0], m[2, 1], m[2, 2], m[2, 3], m[2, 4], m[2, 5],
+                    m[3, 0], m[3, 1], m[3, 2], m[3, 3], m[3, 4], m[3, 5],
+                    m[4, 0], m[4, 1], m[4, 2], m[4, 3], m[4, 4], m[4, 5],
+                    m[5, 0], m[5, 1], m[5, 2], m[5, 3], m[5, 4], m[5, 5]);
+        }
         #endregion Adjoint
 
         #region Cofactor
         /// <summary>
+        /// Cofactors the specified a.
+        /// </summary>
+        /// <param name="matrix">a.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/determinant-of-a-matrix/
+        /// https://www.geeksforgeeks.org/adjoint-inverse-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[,] Cofactor(double[,] matrix)
+        {
+            var i = 0;
+            var j = 0;
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
+            var temp = new double[rows, cols];
+
+            // Looping for each element of the matrix 
+            for (var row = 0; row < rows; row++)
+            {
+                for (var col = 0; col < cols; col++)
+                {
+                    temp[i, j++] = matrix[row, col];
+
+                    // Row is filled, so increase row index and 
+                    // reset col index 
+                    if (j == cols - 1)
+                    {
+                        j = 0;
+                        i++;
+                    }
+                }
+            }
+
+            return temp;
+        }
+
+        /// <summary>
+        /// Cofactors the specified a.
+        /// </summary>
+        /// <param name="matrix">a.</param>
+        /// <param name="p">The p.</param>
+        /// <param name="q">The q.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/determinant-of-a-matrix/
+        /// https://www.geeksforgeeks.org/adjoint-inverse-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[,] Cofactor(double[,] matrix, int p, int q)
+        {
+            var i = 0;
+            var j = 0;
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
+            var temp = new double[rows, cols];
+
+            // Looping for each element of the matrix 
+            for (var row = 0; row < rows; row++)
+            {
+                for (var col = 0; col < cols; col++)
+                {
+                    // Copying into temporary matrix only those element 
+                    // which are not in given row and column 
+                    if (row != p && col != q)
+                    {
+                        temp[i, j++] = matrix[row, col];
+
+                        // Row is filled, so increase row index and 
+                        // reset col index 
+                        if (j == cols - 1)
+                        {
+                            j = 0;
+                            i++;
+                        }
+                    }
+                }
+            }
+
+            return temp;
+        }
+
+        /// <summary>
         /// The cofactor.
         /// </summary>
-        /// <param name="m0x0">The M0X0.</param>
-        /// <param name="m0x1">The M0X1.</param>
-        /// <param name="m1x0">The M1X0.</param>
-        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x1">The M0X0.</param>
+        /// <param name="m1x2">The M0X1.</param>
+        /// <param name="m2x1">The M1X0.</param>
+        /// <param name="m2x2">The M1X1.</param>
         /// <returns>
         /// The <see cref="Matrix2x2D" />.
         /// </returns>
+        /// <acknowledgment>
+        /// https://sites.google.com/site/physics2d/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
-            double m0x0, double m0x1,
-            double m1x0, double m1x1
+            double m1x1, double m1x2,
+            double m2x1, double m2x2
             ) CofactorMatrix(
-            double m0x0, double m0x1,
-            double m1x0, double m1x1)
-            => (-m1x1, m0x1,
-                m1x0, -m0x0);
+            double m1x1, double m1x2,
+            double m2x1, double m2x2)
+            => (-m2x2, m1x2,
+                m2x1, -m1x1);
 
         /// <summary>
         /// The cofactor.
         /// </summary>
-        /// <param name="m0x0">The M0X0.</param>
-        /// <param name="m0x1">The M0X1.</param>
-        /// <param name="m0x2">The M0X2.</param>
-        /// <param name="m1x0">The M1X0.</param>
-        /// <param name="m1x1">The M1X1.</param>
-        /// <param name="m1x2">The M1X2.</param>
-        /// <param name="m2x0">The M2X0.</param>
-        /// <param name="m2x1">The M2X1.</param>
-        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m1x1">The M0X0.</param>
+        /// <param name="m1x2">The M0X1.</param>
+        /// <param name="m1x3">The M0X2.</param>
+        /// <param name="m2x1">The M1X0.</param>
+        /// <param name="m2x2">The M1X1.</param>
+        /// <param name="m2x3">The M1X2.</param>
+        /// <param name="m3x1">The M2X0.</param>
+        /// <param name="m3x2">The M2X1.</param>
+        /// <param name="m3x3">The M2X2.</param>
         /// <returns>
         /// The <see cref="Matrix3x3D" />.
         /// </returns>
+        /// <acknowledgment>
+        /// https://sites.google.com/site/physics2d/
+        /// This is an expanded version of the Ogre determinant() method, to give better performance in C#. Generated using a script.
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
-            double m0x0, double m0x1, double m0x2,
-            double m1x0, double m1x1, double m1x2,
-            double m2x0, double m2x1, double m2x2
+            double m1x1, double m1x2, double m1x3,
+            double m2x1, double m2x2, double m2x3,
+            double m3x1, double m3x2, double m3x3
             ) CofactorMatrix(
-            double m0x0, double m0x1, double m0x2,
-            double m1x0, double m1x1, double m1x2,
-            double m2x0, double m2x1, double m2x2)
-            => (-((m1x1 * m2x2) - (m1x2 * m2x1)), (m0x1 * m2x2) - (m0x2 * m2x1), -((m0x1 * m1x2) - (m0x2 * m1x1)),
-                (m1x0 * m2x2) - (m1x2 * m2x0), -((m0x0 * m2x2) - (m0x2 * m2x0)), (m0x0 * m1x2) - (m0x2 * m1x0),
-                -((m1x0 * m2x1) - (m1x1 * m2x0)), (m0x0 * m2x1) - (m0x1 * m2x0), -((m0x0 * m1x1) - (m0x1 * m1x0)));
+            double m1x1, double m1x2, double m1x3,
+            double m2x1, double m2x2, double m2x3,
+            double m3x1, double m3x2, double m3x3)
+            => (-((m2x2 * m3x3) - (m2x3 * m3x2)), (m1x2 * m3x3) - (m1x3 * m3x2), -((m1x2 * m2x3) - (m1x3 * m2x2)),
+                  (m2x1 * m3x3) - (m2x3 * m3x1), -((m1x1 * m3x3) - (m1x3 * m3x1)), (m1x1 * m2x3) - (m1x3 * m2x1),
+                -((m2x1 * m3x2) - (m2x2 * m3x1)), (m1x1 * m3x2) - (m1x2 * m3x1), -((m1x1 * m2x2) - (m1x2 * m2x1)));
 
         /// <summary>
         /// The cofactor.
         /// </summary>
-        /// <param name="m0x0">The M0X0.</param>
-        /// <param name="m0x1">The M0X1.</param>
-        /// <param name="m0x2">The M0X2.</param>
-        /// <param name="m0x3">The M0X3.</param>
-        /// <param name="m1x0">The M1X0.</param>
-        /// <param name="m1x1">The M1X1.</param>
-        /// <param name="m1x2">The M1X2.</param>
-        /// <param name="m1x3">The M1X3.</param>
-        /// <param name="m2x0">The M2X0.</param>
-        /// <param name="m2x1">The M2X1.</param>
-        /// <param name="m2x2">The M2X2.</param>
-        /// <param name="m2x3">The M2X3.</param>
-        /// <param name="m3x0">The M3X0.</param>
-        /// <param name="m3x1">The M3X1.</param>
-        /// <param name="m3x2">The M3X2.</param>
-        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m1x1">The M0X0.</param>
+        /// <param name="m1x2">The M0X1.</param>
+        /// <param name="m1x3">The M0X2.</param>
+        /// <param name="m1x4">The M0X3.</param>
+        /// <param name="m2x1">The M1X0.</param>
+        /// <param name="m2x2">The M1X1.</param>
+        /// <param name="m2x3">The M1X2.</param>
+        /// <param name="m2x4">The M1X3.</param>
+        /// <param name="m3x1">The M2X0.</param>
+        /// <param name="m3x2">The M2X1.</param>
+        /// <param name="m3x3">The M2X2.</param>
+        /// <param name="m3x4">The M2X3.</param>
+        /// <param name="m4x1">The M3X0.</param>
+        /// <param name="m4x2">The M3X1.</param>
+        /// <param name="m4x3">The M3X2.</param>
+        /// <param name="m4x4">The M3X3.</param>
         /// <returns>
         /// The <see cref="Matrix4x4D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
-            double m0x0, double m0x1, double m0x2, double m0x3,
-            double m1x0, double m1x1, double m1x2, double m1x3,
-            double m2x0, double m2x1, double m2x2, double m2x3,
-            double m3x0, double m3x1, double m3x2, double m3x3
+            double m1x1, double m1x2, double m1x3, double m1x4,
+            double m2x1, double m2x2, double m2x3, double m2x4,
+            double m3x1, double m3x2, double m3x3, double m3x4,
+            double m4x1, double m4x2, double m4x3, double m4x4
             ) CofactorMatrix(
-            double m0x0, double m0x1, double m0x2, double m0x3,
-            double m1x0, double m1x1, double m1x2, double m1x3,
-            double m2x0, double m2x1, double m2x2, double m2x3,
-            double m3x0, double m3x1, double m3x2, double m3x3)
+            double m1x1, double m1x2, double m1x3, double m1x4,
+            double m2x1, double m2x2, double m2x3, double m2x4,
+            double m3x1, double m3x2, double m3x3, double m3x4,
+            double m4x1, double m4x2, double m4x3, double m4x4)
         {
+            var m33m44m43m34 = (m3x3 * m4x4) - (m4x3 * m3x4);
+            var m32m44m42m34 = (m3x2 * m4x4) - (m4x2 * m3x4);
+            var m32m43m42m33 = (m3x2 * m4x3) - (m4x2 * m3x3);
+            var m23m44m43m24 = (m2x3 * m4x4) - (m4x3 * m2x4);
+
+            var m22m44m42m24 = (m2x2 * m4x4) - (m4x2 * m2x4);
+            var m22m43m42m23 = (m2x2 * m4x3) - (m4x2 * m2x3);
+            var m23m34m33m24 = (m2x3 * m3x4) - (m3x3 * m2x4);
+            var m22m34m32m24 = (m2x2 * m3x4) - (m3x2 * m2x4);
+
             var m22m33m32m23 = (m2x2 * m3x3) - (m3x2 * m2x3);
+            var m31m44m41m34 = (m3x1 * m4x4) - (m4x1 * m3x4);
+            var m31m43m41m33 = (m3x1 * m4x3) - (m4x1 * m3x3);
+            var m21m44m41m24 = (m2x1 * m4x4) - (m4x1 * m2x4);
+
+            var m21m43m41m23 = (m2x1 * m4x3) - (m4x1 * m2x3);
+            var m21m34m31m24 = (m2x1 * m3x4) - (m3x1 * m2x4);
             var m21m33m31m23 = (m2x1 * m3x3) - (m3x1 * m2x3);
+            var m31m42m41m32 = (m3x1 * m4x2) - (m4x1 * m3x2);
+
+            var m21m42m41m22 = (m2x1 * m4x2) - (m4x1 * m2x2);
             var m21m32m31m22 = (m2x1 * m3x2) - (m3x1 * m2x2);
-            var m12m33m32m13 = (m1x2 * m3x3) - (m3x2 * m1x3);
-
-            var m11m33m31m13 = (m1x1 * m3x3) - (m3x1 * m1x3);
-            var m11m32m31m12 = (m1x1 * m3x2) - (m3x1 * m1x2);
-            var m12m23m22m13 = (m1x2 * m2x3) - (m2x2 * m1x3);
-            var m11m23m21m13 = (m1x1 * m2x3) - (m2x1 * m1x3);
-
-            var m11m22m21m12 = (m1x1 * m2x2) - (m2x1 * m1x2);
-            var m20m33m30m23 = (m2x0 * m3x3) - (m3x0 * m2x3);
-            var m20m32m30m22 = (m2x0 * m3x2) - (m3x0 * m2x2);
-            var m10m33m30m13 = (m1x0 * m3x3) - (m3x0 * m1x3);
-
-            var m10m32m30m12 = (m1x0 * m3x2) - (m3x0 * m1x2);
-            var m10m23m20m13 = (m1x0 * m2x3) - (m2x0 * m1x3);
-            var m10m22m20m12 = (m1x0 * m2x2) - (m2x0 * m1x2);
-            var m20m31m30m21 = (m2x0 * m3x1) - (m3x0 * m2x1);
-
-            var m10m31m30m11 = (m1x0 * m3x1) - (m3x0 * m1x1);
-            var m10m21m20m11 = (m1x0 * m2x1) - (m2x0 * m1x1);
 
             return (
-                -((m1x1 * m22m33m32m23) - (m1x2 * m21m33m31m23) + (m1x3 * m21m32m31m22)),
-                (m0x1 * m22m33m32m23) - (m0x2 * m21m33m31m23) + (m0x3 * m21m32m31m22),
-                -((m0x1 * m12m33m32m13) - (m0x2 * m11m33m31m13) + (m0x3 * m11m32m31m12)),
-                (m0x1 * m12m23m22m13) - (m0x2 * m11m23m21m13) + (m0x3 * m11m22m21m12),
-                (m1x0 * m22m33m32m23) - (m1x2 * m20m33m30m23) + (m1x3 * m20m32m30m22),
-                -((m0x0 * m22m33m32m23) - (m0x2 * m20m33m30m23) + (m0x3 * m20m32m30m22)),
-                (m0x0 * m12m33m32m13) - (m0x2 * m10m33m30m13) + (m0x3 * m10m32m30m12),
-                -((m0x0 * m12m23m22m13) - (m0x2 * m10m23m20m13) + (m0x3 * m10m22m20m12)),
-                -((m1x0 * m21m33m31m23) - (m1x1 * m20m33m30m23) + (m1x3 * m20m31m30m21)),
-                (m0x0 * m21m33m31m23) - (m0x1 * m20m33m30m23) + (m0x3 * m20m31m30m21),
-                -((m0x0 * m11m33m31m13) - (m0x1 * m10m33m30m13) + (m0x3 * m20m31m30m21)),
-                (m0x0 * m11m23m21m13) - (m0x1 * m10m23m20m13) + (m0x3 * m10m21m20m11),
-                (m1x0 * m21m32m31m22) - (m1x1 * m20m32m30m22) + (m1x2 * m20m31m30m21),
-                -((m0x0 * m21m32m31m22) - (m0x1 * m20m32m30m22) + (m0x2 * m20m31m30m21)),
-                (m0x0 * m11m32m31m12) - (m0x1 * m10m32m30m12) + (m0x2 * m10m31m30m11),
-                -((m0x0 * m11m22m21m12) - (m0x1 * m10m22m20m12) + (m0x2 * m10m21m20m11)));
+                -((m2x2 * m33m44m43m34) - (m2x3 * m32m44m42m34) + (m2x4 * m32m43m42m33)), (m1x2 * m33m44m43m34) - (m1x3 * m32m44m42m34) + (m1x4 * m32m43m42m33), -((m1x2 * m23m44m43m24) - (m1x3 * m22m44m42m24) + (m1x4 * m22m43m42m23)), (m1x2 * m23m34m33m24) - (m1x3 * m22m34m32m24) + (m1x4 * m22m33m32m23),
+                (m2x1 * m33m44m43m34) - (m2x3 * m31m44m41m34) + (m2x4 * m31m43m41m33), -((m1x1 * m33m44m43m34) - (m1x3 * m31m44m41m34) + (m1x4 * m31m43m41m33)), (m1x1 * m23m44m43m24) - (m1x3 * m21m44m41m24) + (m1x4 * m21m43m41m23), -((m1x1 * m23m34m33m24) - (m1x3 * m21m34m31m24) + (m1x4 * m21m33m31m23)),
+                -((m2x1 * m32m44m42m34) - (m2x2 * m31m44m41m34) + (m2x4 * m31m42m41m32)), (m1x1 * m32m44m42m34) - (m1x2 * m31m44m41m34) + (m1x4 * m31m42m41m32), -((m1x1 * m22m44m42m24) - (m1x2 * m21m44m41m24) + (m1x4 * m21m42m41m22)), (m1x1 * m22m34m32m24) - (m1x2 * m21m34m31m24) + (m1x4 * m21m32m31m22),
+                (m2x1 * m32m43m42m33) - (m2x2 * m31m43m41m33) + (m2x3 * m31m42m41m32), -((m1x1 * m32m43m42m33) - (m1x2 * m31m43m41m33) + (m1x3 * m31m42m41m32)), (m1x1 * m22m43m42m23) - (m1x2 * m21m43m41m23) + (m1x3 * m21m42m41m22), -((m1x1 * m22m33m32m23) - (m1x2 * m21m33m31m23) + (m1x3 * m21m32m31m22)));
         }
 
         /// <summary>
         /// Cofactors the specified M0X0.
         /// </summary>
-        /// <param name="m0x0">The M0X0.</param>
-        /// <param name="m0x1">The M0X1.</param>
-        /// <param name="m0x2">The M0X2.</param>
-        /// <param name="m0x3">The M0X3.</param>
-        /// <param name="m0x4">The M0X4.</param>
-        /// <param name="m1x0">The M1X0.</param>
-        /// <param name="m1x1">The M1X1.</param>
-        /// <param name="m1x2">The M1X2.</param>
-        /// <param name="m1x3">The M1X3.</param>
-        /// <param name="m1x4">The M1X4.</param>
-        /// <param name="m2x0">The M2X0.</param>
-        /// <param name="m2x1">The M2X1.</param>
-        /// <param name="m2x2">The M2X2.</param>
-        /// <param name="m2x3">The M2X3.</param>
-        /// <param name="m2x4">The M2X4.</param>
-        /// <param name="m3x0">The M3X0.</param>
-        /// <param name="m3x1">The M3X1.</param>
-        /// <param name="m3x2">The M3X2.</param>
-        /// <param name="m3x3">The M3X3.</param>
-        /// <param name="m3x4">The M3X4.</param>
-        /// <param name="m4x0">The M4X0.</param>
-        /// <param name="m4x1">The M4X1.</param>
-        /// <param name="m4x2">The M4X2.</param>
-        /// <param name="m4x3">The M4X3.</param>
-        /// <param name="m4x4">The M4X4.</param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (
-            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4,
-            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4,
-            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4,
-            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4,
-            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
-            ) CofactorMatrix(
-            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4,
-            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4,
-            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4,
-            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4,
-            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
-            ) => throw new NotImplementedException();
-
-        /// <summary>
-        /// Cofactors the matrix.
-        /// </summary>
-        /// <param name="m0x0">The M0X0.</param>
-        /// <param name="m0x1">The M0X1.</param>
-        /// <param name="m0x2">The M0X2.</param>
-        /// <param name="m0x3">The M0X3.</param>
-        /// <param name="m0x4">The M0X4.</param>
-        /// <param name="m0x5">The M0X5.</param>
-        /// <param name="m1x0">The M1X0.</param>
         /// <param name="m1x1">The M1X1.</param>
         /// <param name="m1x2">The M1X2.</param>
         /// <param name="m1x3">The M1X3.</param>
         /// <param name="m1x4">The M1X4.</param>
         /// <param name="m1x5">The M1X5.</param>
-        /// <param name="m2x0">The M2X0.</param>
         /// <param name="m2x1">The M2X1.</param>
         /// <param name="m2x2">The M2X2.</param>
         /// <param name="m2x3">The M2X3.</param>
         /// <param name="m2x4">The M2X4.</param>
         /// <param name="m2x5">The M2X5.</param>
-        /// <param name="m3x0">The M3X0.</param>
         /// <param name="m3x1">The M3X1.</param>
         /// <param name="m3x2">The M3X2.</param>
         /// <param name="m3x3">The M3X3.</param>
         /// <param name="m3x4">The M3X4.</param>
         /// <param name="m3x5">The M3X5.</param>
-        /// <param name="m4x0">The M4X0.</param>
         /// <param name="m4x1">The M4X1.</param>
         /// <param name="m4x2">The M4X2.</param>
         /// <param name="m4x3">The M4X3.</param>
         /// <param name="m4x4">The M4X4.</param>
         /// <param name="m4x5">The M4X5.</param>
-        /// <param name="m5x0">The M5X0.</param>
         /// <param name="m5x1">The M5X1.</param>
         /// <param name="m5x2">The M5X2.</param>
         /// <param name="m5x3">The M5X3.</param>
@@ -3831,272 +4232,421 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
-            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4, double m0x5,
-            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
-            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
-            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
-            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
-            double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
             ) CofactorMatrix(
-            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4, double m0x5,
-            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
-            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
-            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
-            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
-            double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
-            ) => throw new NotImplementedException();
-        #endregion Cofactor
-
-        #region Invert
-        /// <summary>
-        /// The invert.
-        /// </summary>
-        /// <param name="m0x0">The M0X0.</param>
-        /// <param name="m0x1">The M0X1.</param>
-        /// <param name="m1x0">The M1X0.</param>
-        /// <param name="m1x1">The M1X1.</param>
-        /// <returns>
-        /// The <see cref="Matrix2x2D" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (
-            double m0x0, double m0x1,
-            double m1x0, double m1x1
-            ) InvertMatrix(
-            double m0x0, double m0x1,
-            double m1x0, double m1x1)
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5)
         {
-            var detInv = 1d / ((m0x0 * m1x1) - (m0x1 * m1x0));
-            return (
-                detInv * m1x1, detInv * -m0x1,
-                detInv * -m1x0, detInv * m0x0);
+            var m = Cofactor(new double[,]
+                {
+                    {m1x1, m1x2, m1x3, m1x4, m1x5},
+                    {m2x1, m2x2, m2x3, m2x4, m2x5},
+                    {m3x1, m3x2, m3x3, m3x4, m3x5},
+                    {m4x1, m4x2, m4x3, m4x4, m4x5},
+                    {m5x1, m5x2, m5x3, m5x4, m5x5}
+                });
+            return (m[0, 0], m[0, 1], m[0, 2], m[0, 3], m[0, 4],
+                    m[1, 0], m[1, 1], m[1, 2], m[1, 3], m[1, 4],
+                    m[2, 0], m[2, 1], m[2, 2], m[2, 3], m[2, 4],
+                    m[3, 0], m[3, 1], m[3, 2], m[3, 3], m[3, 4],
+                    m[4, 0], m[4, 1], m[4, 2], m[4, 3], m[4, 4]);
         }
 
         /// <summary>
-        /// The invert.
+        /// Cofactors the matrix.
         /// </summary>
-        /// <param name="m0x0">The M0X0.</param>
-        /// <param name="m0x1">The M0X1.</param>
-        /// <param name="m0x2">The M0X2.</param>
-        /// <param name="m1x0">The M1X0.</param>
-        /// <param name="m1x1">The M1X1.</param>
-        /// <param name="m1x2">The M1X2.</param>
-        /// <param name="m2x0">The M2X0.</param>
-        /// <param name="m2x1">The M2X1.</param>
-        /// <param name="m2x2">The M2X2.</param>
-        /// <returns>
-        /// The <see cref="Matrix3x3D" />.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (
-            double m0x0, double m0x1, double m0x2,
-            double m1x0, double m1x1, double m1x2,
-            double m2x0, double m2x1, double m2x2
-            ) InvertMatrix(
-            double m0x0, double m0x1, double m0x2,
-            double m1x0, double m1x1, double m1x2,
-            double m2x0, double m2x1, double m2x2)
-        {
-            var m11m22m12m21 = (m1x1 * m2x2) - (m1x2 * m2x1);
-            var m10m22m12m20 = (m1x0 * m2x2) - (m1x2 * m2x0);
-            var m10m21m11m20 = (m1x0 * m2x1) - (m1x1 * m2x0);
-            var detInv = 1d / ((m0x0 * m11m22m12m21) - (m0x1 * m10m22m12m20) + (m0x2 * m10m21m11m20));
-            return (
-                detInv * m11m22m12m21, detInv * (-((m0x1 * m2x2) - (m0x2 * m2x1))), detInv * ((m0x1 * m1x2) - (m0x2 * m1x1)),
-                detInv * (-m10m22m12m20), detInv * ((m0x0 * m2x2) - (m0x2 * m2x0)), detInv * (-((m0x0 * m1x2) - (m0x2 * m1x0))),
-                detInv * m10m21m11m20, detInv * (-((m0x0 * m2x1) - (m0x1 * m2x0))), detInv * ((m0x0 * m1x1) - (m0x1 * m1x0)));
-        }
-
-        /// <summary>
-        /// The invert.
-        /// </summary>
-        /// <param name="m0x0">The M0X0.</param>
-        /// <param name="m0x1">The M0X1.</param>
-        /// <param name="m0x2">The M0X2.</param>
-        /// <param name="m0x3">The M0X3.</param>
-        /// <param name="m1x0">The M1X0.</param>
         /// <param name="m1x1">The M1X1.</param>
         /// <param name="m1x2">The M1X2.</param>
         /// <param name="m1x3">The M1X3.</param>
-        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m1x5">The M1X5.</param>
+        /// <param name="m1x6">The M1X6.</param>
         /// <param name="m2x1">The M2X1.</param>
         /// <param name="m2x2">The M2X2.</param>
         /// <param name="m2x3">The M2X3.</param>
-        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m2x5">The M2X5.</param>
+        /// <param name="m2x6">The M2X6.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m3x5">The M3X5.</param>
+        /// <param name="m3x6">The M3X6.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <param name="m4x5">The M4X5.</param>
+        /// <param name="m4x6">The M4X6.</param>
+        /// <param name="m5x1">The M5X1.</param>
+        /// <param name="m5x2">The M5X2.</param>
+        /// <param name="m5x3">The M5X3.</param>
+        /// <param name="m5x4">The M5X4.</param>
+        /// <param name="m5x5">The M5X5.</param>
+        /// <param name="m5x6">The M5X6.</param>
+        /// <param name="m6x1">The M6X1.</param>
+        /// <param name="m6x2">The M6X2.</param>
+        /// <param name="m6x3">The M6X3.</param>
+        /// <param name="m6x4">The M6X4.</param>
+        /// <param name="m6x5">The M6X5.</param>
+        /// <param name="m6x6">The M6X6.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5, double m1x6,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5, double m2x6,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5, double m3x6,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5, double m4x6,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5, double m5x6,
+            double m6x1, double m6x2, double m6x3, double m6x4, double m6x5, double m6x6
+            ) CofactorMatrix(
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5, double m1x6,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5, double m2x6,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5, double m3x6,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5, double m4x6,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5, double m5x6,
+            double m6x1, double m6x2, double m6x3, double m6x4, double m6x5, double m6x6)
+        {
+            var m = Cofactor(new double[,]
+                {
+                    {m1x1, m1x2, m1x3, m1x4, m1x5, m1x6},
+                    {m2x1, m2x2, m2x3, m2x4, m2x5, m2x6},
+                    {m3x1, m3x2, m3x3, m3x4, m3x5, m3x6},
+                    {m4x1, m4x2, m4x3, m4x4, m4x5, m4x6},
+                    {m5x1, m5x2, m5x3, m5x4, m5x5, m5x6},
+                    {m6x1, m6x2, m6x3, m6x4, m6x5, m6x6}
+                });
+            return (m[0, 0], m[0, 1], m[0, 2], m[0, 3], m[0, 4], m[0, 5],
+                    m[1, 0], m[1, 1], m[1, 2], m[1, 3], m[1, 4], m[1, 5],
+                    m[2, 0], m[2, 1], m[2, 2], m[2, 3], m[2, 4], m[2, 5],
+                    m[3, 0], m[3, 1], m[3, 2], m[3, 3], m[3, 4], m[3, 5],
+                    m[4, 0], m[4, 1], m[4, 2], m[4, 3], m[4, 4], m[4, 5],
+                    m[5, 0], m[5, 1], m[5, 2], m[5, 3], m[5, 4], m[5, 5]);
+        }
+        #endregion Cofactor
+
+        #region Inverse
+        /// <summary>
+        /// Function to calculate the inverse of the specified matrix.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Singular matrix, can't find its inverse</exception>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/adjoint-inverse-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[,] Inverse(double[,] matrix)
+        {
+            // Find determinant of [,]A 
+            var det = Determinant(matrix);
+            if (det == 0)
+                throw new Exception("Singular matrix, can't find its inverse");
+
+            // Find adjoint 
+            var adj = Adjoint(matrix);
+
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
+            var inverse = new double[rows, cols];
+
+            // Find Inverse using formula "inverse(A) = adj(A)/det(A)" 
+            for (var i = 0; i < rows; i++)
+                for (var j = 0; j < cols; j++)
+                    inverse[i, j] = adj[i, j] / det;
+
+            return inverse;
+        }
+
+        /// <summary>
+        /// The invert.
+        /// </summary>
+        /// <param name="m1x1">The M0X0.</param>
+        /// <param name="m1x2">The M0X1.</param>
+        /// <param name="m2x1">The M1X0.</param>
+        /// <param name="m2x2">The M1X1.</param>
+        /// <returns>
+        /// The <see cref="Matrix2x2D" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://sites.google.com/site/physics2d/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+            double m1x1, double m1x2,
+            double m2x1, double m2x2
+            ) InverseMatrix(
+            double m1x1, double m1x2,
+            double m2x1, double m2x2)
+        {
+            var detInv = 1d / ((m1x1 * m2x2) - (m1x2 * m2x1));
+            return (
+                detInv * m2x2, detInv * -m1x2,
+                detInv * -m2x1, detInv * m1x1);
+        }
+
+        /// <summary>
+        /// The invert.
+        /// </summary>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
         /// <param name="m3x1">The M3X1.</param>
         /// <param name="m3x2">The M3X2.</param>
         /// <param name="m3x3">The M3X3.</param>
         /// <returns>
-        /// The <see cref="Matrix4x4D" />.
+        /// The <see cref="Matrix3x3D" />.
         /// </returns>
+        /// <acknowledgment>
+        /// https://sites.google.com/site/physics2d/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
-            double m0x0, double m0x1, double m0x2, double m0x3,
-            double m1x0, double m1x1, double m1x2, double m1x3,
-            double m2x0, double m2x1, double m2x2, double m2x3,
-            double m3x0, double m3x1, double m3x2, double m3x3
-            ) InvertMatrix(
-            double m0x0, double m0x1, double m0x2, double m0x3,
-            double m1x0, double m1x1, double m1x2, double m1x3,
-            double m2x0, double m2x1, double m2x2, double m2x3,
-            double m3x0, double m3x1, double m3x2, double m3x3)
+            double m1x1, double m1x2, double m1x3,
+            double m2x1, double m2x2, double m2x3,
+            double m3x1, double m3x2, double m3x3
+            ) InverseMatrix(
+            double m1x1, double m1x2, double m1x3,
+            double m2x1, double m2x2, double m2x3,
+            double m3x1, double m3x2, double m3x3)
         {
-            var m22m33m32m23 = (m2x2 * m3x3) - (m3x2 * m2x3);
-            var m21m33m31m23 = (m2x1 * m3x3) - (m3x1 * m2x3);
-            var m21m32m31m22 = (m2x1 * m3x2) - (m3x1 * m2x2);
+            var m11m22m12m21 = (m2x2 * m3x3) - (m2x3 * m3x2);
+            var m10m22m12m20 = (m2x1 * m3x3) - (m2x3 * m3x1);
+            var m10m21m11m20 = (m2x1 * m3x2) - (m2x2 * m3x1);
 
-            var m12m33m32m13 = (m1x2 * m3x3) - (m3x2 * m1x3);
-            var m11m33m31m13 = (m1x1 * m3x3) - (m3x1 * m1x3);
-            var m11m32m31m12 = (m1x1 * m3x2) - (m3x1 * m1x2);
-
-            var m12m23m22m13 = (m1x2 * m2x3) - (m2x2 * m1x3);
-            var m11m23m21m13 = (m1x1 * m2x3) - (m2x1 * m1x3);
-            var m11m22m21m12 = (m1x1 * m2x2) - (m2x1 * m1x2);
-
-            var m20m33m30m23 = (m2x0 * m3x3) - (m3x0 * m2x3);
-            var m20m32m30m22 = (m2x0 * m3x2) - (m3x0 * m2x2);
-            var m10m33m30m13 = (m1x0 * m3x3) - (m3x0 * m1x3);
-
-            var m10m32m30m12 = (m1x0 * m3x2) - (m3x0 * m1x2);
-            var m10m23m20m13 = (m1x0 * m2x3) - (m2x0 * m1x3);
-            var m10m22m20m12 = (m1x0 * m2x2) - (m2x0 * m1x2);
-
-            var m20m31m30m21 = (m2x0 * m3x1) - (m3x0 * m2x1);
-            var m10m31m30m11 = (m1x0 * m3x1) - (m3x0 * m1x1);
-            var m10m21m20m11 = (m1x0 * m2x1) - (m2x0 * m1x1);
-
-            var detInv = 1d /
-            ((m0x0 * ((m1x1 * m22m33m32m23) - (m1x2 * m21m33m31m23) + (m1x3 * m21m32m31m22))) -
-            (m0x1 * ((m1x0 * m22m33m32m23) - (m1x2 * m20m33m30m23) + (m1x3 * m20m32m30m22))) +
-            (m0x2 * ((m1x0 * m21m33m31m23) - (m1x1 * m20m33m30m23) + (m1x3 * m20m31m30m21))) -
-            (m0x3 * ((m1x0 * m21m32m31m22) - (m1x1 * m20m32m30m22) + (m1x2 * m20m31m30m21))));
+            var detInv = 1d / ((m1x1 * m11m22m12m21) - (m1x2 * m10m22m12m20) + (m1x3 * m10m21m11m20));
 
             return (
-                detInv * ((m1x1 * m22m33m32m23) - (m1x2 * m21m33m31m23) + (m1x3 * m21m32m31m22)),
-                detInv * (-((m0x1 * m22m33m32m23) - (m0x2 * m21m33m31m23) + (m0x3 * m21m32m31m22))),
-                detInv * ((m0x1 * m12m33m32m13) - (m0x2 * m11m33m31m13) + (m0x3 * m11m32m31m12)),
-                detInv * (-((m0x1 * m12m23m22m13) - (m0x2 * m11m23m21m13) + (m0x3 * m11m22m21m12))),
-                detInv * (-((m1x0 * m22m33m32m23) - (m1x2 * m20m33m30m23) + (m1x3 * m20m32m30m22))),
-                detInv * ((m0x0 * m22m33m32m23) - (m0x2 * m20m33m30m23) + (m0x3 * m20m32m30m22)),
-                detInv * (-((m0x0 * m12m33m32m13) - (m0x2 * m10m33m30m13) + (m0x3 * m10m32m30m12))),
-                detInv * ((m0x0 * m12m23m22m13) - (m0x2 * m10m23m20m13) + (m0x3 * m10m22m20m12)),
-                detInv * ((m1x0 * m21m33m31m23) - (m1x1 * m20m33m30m23) + (m1x3 * m20m31m30m21)),
-                detInv * (-((m0x0 * m21m33m31m23) - (m0x1 * m20m33m30m23) + (m0x3 * m20m31m30m21))),
-                detInv * ((m0x0 * m11m33m31m13) - (m0x1 * m10m33m30m13) + (m0x3 * m20m31m30m21)),
-                detInv * (-((m0x0 * m11m23m21m13) - (m0x1 * m10m23m20m13) + (m0x3 * m10m21m20m11))),
-                detInv * (-((m1x0 * m21m32m31m22) - (m1x1 * m20m32m30m22) + (m1x2 * m20m31m30m21))),
-                detInv * ((m0x0 * m21m32m31m22) - (m0x1 * m20m32m30m22) + (m0x2 * m20m31m30m21)),
-                detInv * (-((m0x0 * m11m32m31m12) - (m0x1 * m10m32m30m12) + (m0x2 * m10m31m30m11))),
-                detInv * ((m0x0 * m11m22m21m12) - (m0x1 * m10m22m20m12) + (m0x2 * m10m21m20m11)));
+                detInv * m11m22m12m21, detInv * (-((m1x2 * m3x3) - (m1x3 * m3x2))), detInv * ((m1x2 * m2x3) - (m1x3 * m2x2)),
+                detInv * (-m10m22m12m20), detInv * ((m1x1 * m3x3) - (m1x3 * m3x1)), detInv * (-((m1x1 * m2x3) - (m1x3 * m2x1))),
+                detInv * m10m21m11m20, detInv * (-((m1x1 * m3x2) - (m1x2 * m3x1))), detInv * ((m1x1 * m2x2) - (m1x2 * m2x1)));
+        }
+
+        /// <summary>
+        /// The invert.
+        /// </summary>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <returns>
+        /// The <see cref="Matrix4x4D" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://sites.google.com/site/physics2d/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (
+                double m1x1, double m1x2, double m1x3, double m1x4,
+                double m2x1, double m2x2, double m2x3, double m2x4,
+                double m3x1, double m3x2, double m3x3, double m3x4,
+                double m4x1, double m4x2, double m4x3, double m4x4
+                ) InverseMatrix(
+                double m1x1, double m1x2, double m1x3, double m1x4,
+                double m2x1, double m2x2, double m2x3, double m2x4,
+                double m3x1, double m3x2, double m3x3, double m3x4,
+                double m4x1, double m4x2, double m4x3, double m4x4)
+        {
+            var m22m33m32m23 = (m3x3 * m4x4) - (m4x3 * m3x4);
+            var m21m33m31m23 = (m3x2 * m4x4) - (m4x2 * m3x4);
+            var m21m32m31m22 = (m3x2 * m4x3) - (m4x2 * m3x3);
+
+            var m12m33m32m13 = (m2x3 * m4x4) - (m4x3 * m2x4);
+            var m11m33m31m13 = (m2x2 * m4x4) - (m4x2 * m2x4);
+            var m11m32m31m12 = (m2x2 * m4x3) - (m4x2 * m2x3);
+
+            var m12m23m22m13 = (m2x3 * m3x4) - (m3x3 * m2x4);
+            var m11m23m21m13 = (m2x2 * m3x4) - (m3x2 * m2x4);
+            var m11m22m21m12 = (m2x2 * m3x3) - (m3x2 * m2x3);
+
+            var m20m33m30m23 = (m3x1 * m4x4) - (m4x1 * m3x4);
+            var m20m32m30m22 = (m3x1 * m4x3) - (m4x1 * m3x3);
+            var m10m33m30m13 = (m2x1 * m4x4) - (m4x1 * m2x4);
+
+            var m10m32m30m12 = (m2x1 * m4x3) - (m4x1 * m2x3);
+            var m10m23m20m13 = (m2x1 * m3x4) - (m3x1 * m2x4);
+            var m10m22m20m12 = (m2x1 * m3x3) - (m3x1 * m2x3);
+
+            var m20m31m30m21 = (m3x1 * m4x2) - (m4x1 * m3x2);
+            var m10m31m30m11 = (m2x1 * m4x2) - (m4x1 * m2x2);
+            var m10m21m20m11 = (m2x1 * m3x2) - (m3x1 * m2x2);
+
+            var detInv = 1d /
+            ((m1x1 * ((m2x2 * m22m33m32m23) - (m2x3 * m21m33m31m23) + (m2x4 * m21m32m31m22))) -
+            (m1x2 * ((m2x1 * m22m33m32m23) - (m2x3 * m20m33m30m23) + (m2x4 * m20m32m30m22))) +
+            (m1x3 * ((m2x1 * m21m33m31m23) - (m2x2 * m20m33m30m23) + (m2x4 * m20m31m30m21))) -
+            (m1x4 * ((m2x1 * m21m32m31m22) - (m2x2 * m20m32m30m22) + (m2x3 * m20m31m30m21))));
+
+            return (
+                detInv * ((m2x2 * m22m33m32m23) - (m2x3 * m21m33m31m23) + (m2x4 * m21m32m31m22)), detInv * (-((m1x2 * m22m33m32m23) - (m1x3 * m21m33m31m23) + (m1x4 * m21m32m31m22))), detInv * ((m1x2 * m12m33m32m13) - (m1x3 * m11m33m31m13) + (m1x4 * m11m32m31m12)), detInv * (-((m1x2 * m12m23m22m13) - (m1x3 * m11m23m21m13) + (m1x4 * m11m22m21m12))),
+                detInv * (-((m2x1 * m22m33m32m23) - (m2x3 * m20m33m30m23) + (m2x4 * m20m32m30m22))), detInv * ((m1x1 * m22m33m32m23) - (m1x3 * m20m33m30m23) + (m1x4 * m20m32m30m22)), detInv * (-((m1x1 * m12m33m32m13) - (m1x3 * m10m33m30m13) + (m1x4 * m10m32m30m12))), detInv * ((m1x1 * m12m23m22m13) - (m1x3 * m10m23m20m13) + (m1x4 * m10m22m20m12)),
+                detInv * ((m2x1 * m21m33m31m23) - (m2x2 * m20m33m30m23) + (m2x4 * m20m31m30m21)), detInv * (-((m1x1 * m21m33m31m23) - (m1x2 * m20m33m30m23) + (m1x4 * m20m31m30m21))), detInv * ((m1x1 * m11m33m31m13) - (m1x2 * m10m33m30m13) + (m1x4 * m10m31m30m11)), detInv * (-((m1x1 * m11m23m21m13) - (m1x2 * m10m23m20m13) + (m1x4 * m10m21m20m11))),
+                detInv * (-((m2x1 * m21m32m31m22) - (m2x2 * m20m32m30m22) + (m2x3 * m20m31m30m21))), detInv * ((m1x1 * m21m32m31m22) - (m1x2 * m20m32m30m22) + (m1x3 * m20m31m30m21)), detInv * (-((m1x1 * m11m32m31m12) - (m1x2 * m10m32m30m12) + (m1x3 * m10m31m30m11))), detInv * ((m1x1 * m11m22m21m12) - (m1x2 * m10m22m20m12) + (m1x3 * m10m21m20m11)));
         }
 
         /// <summary>
         /// Inverts the specified M0X0.
         /// </summary>
-        /// <param name="m0x0">The M0X0.</param>
-        /// <param name="m0x1">The M0X1.</param>
-        /// <param name="m0x2">The M0X2.</param>
-        /// <param name="m0x3">The M0X3.</param>
-        /// <param name="m0x4">The M0X4.</param>
-        /// <param name="m1x0">The M1X0.</param>
-        /// <param name="m1x1">The M1X1.</param>
-        /// <param name="m1x2">The M1X2.</param>
-        /// <param name="m1x3">The M1X3.</param>
-        /// <param name="m1x4">The M1X4.</param>
-        /// <param name="m2x0">The M2X0.</param>
-        /// <param name="m2x1">The M2X1.</param>
-        /// <param name="m2x2">The M2X2.</param>
-        /// <param name="m2x3">The M2X3.</param>
-        /// <param name="m2x4">The M2X4.</param>
-        /// <param name="m3x0">The M3X0.</param>
-        /// <param name="m3x1">The M3X1.</param>
-        /// <param name="m3x2">The M3X2.</param>
-        /// <param name="m3x3">The M3X3.</param>
-        /// <param name="m3x4">The M3X4.</param>
-        /// <param name="m4x0">The M4X0.</param>
-        /// <param name="m4x1">The M4X1.</param>
-        /// <param name="m4x2">The M4X2.</param>
-        /// <param name="m4x3">The M4X3.</param>
-        /// <param name="m4x4">The M4X4.</param>
+        /// <param name="m1x1">The M0X0.</param>
+        /// <param name="m1x2">The M0X1.</param>
+        /// <param name="m1x3">The M0X2.</param>
+        /// <param name="m1x4">The M0X3.</param>
+        /// <param name="m1x5">The M0X4.</param>
+        /// <param name="m2x1">The M1X0.</param>
+        /// <param name="m2x2">The M1X1.</param>
+        /// <param name="m2x3">The M1X2.</param>
+        /// <param name="m2x4">The M1X3.</param>
+        /// <param name="m2x5">The M1X4.</param>
+        /// <param name="m3x1">The M2X0.</param>
+        /// <param name="m3x2">The M2X1.</param>
+        /// <param name="m3x3">The M2X2.</param>
+        /// <param name="m3x4">The M2X3.</param>
+        /// <param name="m3x5">The M2X4.</param>
+        /// <param name="m4x1">The M3X0.</param>
+        /// <param name="m4x2">The M3X1.</param>
+        /// <param name="m4x3">The M3X2.</param>
+        /// <param name="m4x4">The M3X3.</param>
+        /// <param name="m4x5">The M3X4.</param>
+        /// <param name="m5x1">The M4X0.</param>
+        /// <param name="m5x2">The M4X1.</param>
+        /// <param name="m5x3">The M4X2.</param>
+        /// <param name="m5x4">The M4X3.</param>
+        /// <param name="m5x5">The M4X4.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
-            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4,
-            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4,
-            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4,
-            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4,
-            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
-            ) InvertMatrix(
-            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4,
-            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4,
-            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4,
-            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4,
-            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4
-            ) => throw new NotImplementedException();
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
+            ) InverseMatrix(
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5)
+        {
+            var m = Inverse(new double[,]
+                {
+                    {m1x1, m1x2, m1x3, m1x4, m1x5},
+                    {m2x1, m2x2, m2x3, m2x4, m2x5},
+                    {m3x1, m3x2, m3x3, m3x4, m3x5},
+                    {m4x1, m4x2, m4x3, m4x4, m4x5},
+                    {m5x1, m5x2, m5x3, m5x4, m5x5}
+                });
+            return (m[0, 0], m[0, 1], m[0, 2], m[0, 3], m[0, 4],
+                    m[1, 0], m[1, 1], m[1, 2], m[1, 3], m[1, 4],
+                    m[2, 0], m[2, 1], m[2, 2], m[2, 3], m[2, 4],
+                    m[3, 0], m[3, 1], m[3, 2], m[3, 3], m[3, 4],
+                    m[4, 0], m[4, 1], m[4, 2], m[4, 3], m[4, 4]);
+        }
 
         /// <summary>
         /// Inverts the matrix.
         /// </summary>
-        /// <param name="m0x0">The M0X0.</param>
-        /// <param name="m0x1">The M0X1.</param>
-        /// <param name="m0x2">The M0X2.</param>
-        /// <param name="m0x3">The M0X3.</param>
-        /// <param name="m0x4">The M0X4.</param>
-        /// <param name="m0x5">The M0X5.</param>
-        /// <param name="m1x0">The M1X0.</param>
-        /// <param name="m1x1">The M1X1.</param>
-        /// <param name="m1x2">The M1X2.</param>
-        /// <param name="m1x3">The M1X3.</param>
-        /// <param name="m1x4">The M1X4.</param>
-        /// <param name="m1x5">The M1X5.</param>
-        /// <param name="m2x0">The M2X0.</param>
-        /// <param name="m2x1">The M2X1.</param>
-        /// <param name="m2x2">The M2X2.</param>
-        /// <param name="m2x3">The M2X3.</param>
-        /// <param name="m2x4">The M2X4.</param>
-        /// <param name="m2x5">The M2X5.</param>
-        /// <param name="m3x0">The M3X0.</param>
-        /// <param name="m3x1">The M3X1.</param>
-        /// <param name="m3x2">The M3X2.</param>
-        /// <param name="m3x3">The M3X3.</param>
-        /// <param name="m3x4">The M3X4.</param>
-        /// <param name="m3x5">The M3X5.</param>
-        /// <param name="m4x0">The M4X0.</param>
-        /// <param name="m4x1">The M4X1.</param>
-        /// <param name="m4x2">The M4X2.</param>
-        /// <param name="m4x3">The M4X3.</param>
-        /// <param name="m4x4">The M4X4.</param>
-        /// <param name="m4x5">The M4X5.</param>
-        /// <param name="m5x0">The M5X0.</param>
-        /// <param name="m5x1">The M5X1.</param>
-        /// <param name="m5x2">The M5X2.</param>
-        /// <param name="m5x3">The M5X3.</param>
-        /// <param name="m5x4">The M5X4.</param>
-        /// <param name="m5x5">The M5X5.</param>
+        /// <param name="m1x1">The M0X0.</param>
+        /// <param name="m1x2">The M0X1.</param>
+        /// <param name="m1x3">The M0X2.</param>
+        /// <param name="m1x4">The M0X3.</param>
+        /// <param name="m1x5">The M0X4.</param>
+        /// <param name="m1x6">The M0X5.</param>
+        /// <param name="m2x1">The M1X0.</param>
+        /// <param name="m2x2">The M1X1.</param>
+        /// <param name="m2x3">The M1X2.</param>
+        /// <param name="m2x4">The M1X3.</param>
+        /// <param name="m2x5">The M1X4.</param>
+        /// <param name="m2x6">The M1X5.</param>
+        /// <param name="m3x1">The M2X0.</param>
+        /// <param name="m3x2">The M2X1.</param>
+        /// <param name="m3x3">The M2X2.</param>
+        /// <param name="m3x4">The M2X3.</param>
+        /// <param name="m3x5">The M2X4.</param>
+        /// <param name="m3x6">The M2X5.</param>
+        /// <param name="m4x1">The M3X0.</param>
+        /// <param name="m4x2">The M3X1.</param>
+        /// <param name="m4x3">The M3X2.</param>
+        /// <param name="m4x4">The M3X3.</param>
+        /// <param name="m4x5">The M3X4.</param>
+        /// <param name="m4x6">The M3X5.</param>
+        /// <param name="m5x1">The M4X0.</param>
+        /// <param name="m5x2">The M4X1.</param>
+        /// <param name="m5x3">The M4X2.</param>
+        /// <param name="m5x4">The M4X3.</param>
+        /// <param name="m5x5">The M4X4.</param>
+        /// <param name="m5x6">The M4X5.</param>
+        /// <param name="m6x1">The M5X0.</param>
+        /// <param name="m6x2">The M5X1.</param>
+        /// <param name="m6x3">The M5X2.</param>
+        /// <param name="m6x4">The M5X3.</param>
+        /// <param name="m6x5">The M5X4.</param>
+        /// <param name="m6x6">The M5X5.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (
-            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4, double m0x5,
-            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
-            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
-            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
-            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
-            double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
-            ) InvertMatrix(
-            double m0x0, double m0x1, double m0x2, double m0x3, double m0x4, double m0x5,
-            double m1x0, double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
-            double m2x0, double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
-            double m3x0, double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
-            double m4x0, double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
-            double m5x0, double m5x1, double m5x2, double m5x3, double m5x4, double m5x5
-            ) => throw new NotImplementedException();
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5, double m1x6,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5, double m2x6,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5, double m3x6,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5, double m4x6,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5, double m5x6,
+            double m6x1, double m6x2, double m6x3, double m6x4, double m6x5, double m6x6
+            ) InverseMatrix(
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5, double m1x6,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5, double m2x6,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5, double m3x6,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5, double m4x6,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5, double m5x6,
+            double m6x1, double m6x2, double m6x3, double m6x4, double m6x5, double m6x6)
+        {
+            var m = Inverse(new double[,]
+                {
+                    {m1x1, m1x2, m1x3, m1x4, m1x5, m1x6},
+                    {m2x1, m2x2, m2x3, m2x4, m2x5, m2x6},
+                    {m3x1, m3x2, m3x3, m3x4, m3x5, m3x6},
+                    {m4x1, m4x2, m4x3, m4x4, m4x5, m4x6},
+                    {m5x1, m5x2, m5x3, m5x4, m5x5, m5x6},
+                    {m6x1, m6x2, m6x3, m6x4, m6x5, m6x6}
+                });
+            return (m[0, 0], m[0, 1], m[0, 2], m[0, 3], m[0, 4], m[0, 5],
+                    m[1, 0], m[1, 1], m[1, 2], m[1, 3], m[1, 4], m[1, 5],
+                    m[2, 0], m[2, 1], m[2, 2], m[2, 3], m[2, 4], m[2, 5],
+                    m[3, 0], m[3, 1], m[3, 2], m[3, 3], m[3, 4], m[3, 5],
+                    m[4, 0], m[4, 1], m[4, 2], m[4, 3], m[4, 4], m[4, 5],
+                    m[5, 0], m[5, 1], m[5, 2], m[5, 3], m[5, 4], m[5, 5]);
+        }
         #endregion Invert
 
         #region Transpose
@@ -4318,12 +4868,50 @@ namespace Engine
 
         #region Determinant
         /// <summary>
+        /// Recursive function for finding determinant of matrix.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/determinant-of-a-matrix/
+        /// https://www.geeksforgeeks.org/adjoint-inverse-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Determinant(double[,] matrix)
+        {
+            var rows = matrix.GetLength(0);
+            //var cols = matrix.GetLength(1);
+
+            var result = 0d; // Initialize result 
+
+            // Base case : if matrix contains single element 
+            if (rows == 1)
+                return matrix[0, 0];
+
+            var sign = 1d; // To store sign multiplier 
+
+            // Iterate for each element of first row 
+            for (var f = 0; f < rows; f++)
+            {
+                // Getting Cofactor of A[0,f] 
+                var temp = Cofactor(matrix, 0, f);
+                result += sign * matrix[0, f] * Determinant(temp);
+
+                // terms are to be added with alternate sign 
+                sign = -sign;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Find the determinant of a 2 by 2 matrix.
         /// </summary>
-        /// <param name="a">a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="c">The c.</param>
-        /// <param name="d">The d.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
@@ -4331,56 +4919,102 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double MatrixDeterminant(
-            double a, double b,
-            double c, double d)
-            => (a * d)
-              - (b * c);
+            double m1x1, double m1x2,
+            double m2x1, double m2x2)
+            => (m1x1 * m2x2)
+              - (m1x2 * m2x1);
 
         /// <summary>
         /// Find the determinant of a 3 by 3 matrix.
         /// </summary>
-        /// <param name="a">a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="c">The c.</param>
-        /// <param name="d">The d.</param>
-        /// <param name="e">The e.</param>
-        /// <param name="f">The f.</param>
-        /// <param name="g">The g.</param>
-        /// <param name="h">The h.</param>
-        /// <param name="i">The i.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
         /// <returns></returns>
         /// <acknowledgment>
-        /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
+        /// https://sites.google.com/site/physics2d/
+        /// This is an expanded version of the Ogre determinant() method, to give better performance in C#. Generated using a script.
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double MatrixDeterminant(
-            double a, double b, double c,
-            double d, double e, double f,
-            double g, double h, double i)
-            => (a * MatrixDeterminant(e, f, h, i))
-              - (b * MatrixDeterminant(d, f, g, i))
-              + (c * MatrixDeterminant(d, e, g, h));
+            double m1x1, double m1x2, double m1x3,
+            double m2x1, double m2x2, double m2x3,
+            double m3x1, double m3x2, double m3x3)
+            => (m1x1 * ((m2x2 * m3x3) - (m2x3 * m3x2)))
+             - (m1x2 * ((m2x1 * m3x3) - (m2x3 * m3x1)))
+             + (m1x3 * ((m2x1 * m3x2) - (m2x2 * m3x1)));
 
         /// <summary>
         /// Find the determinant of a 4 by 4 matrix.
         /// </summary>
-        /// <param name="a">a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="c">The c.</param>
-        /// <param name="d">The d.</param>
-        /// <param name="e">The e.</param>
-        /// <param name="f">The f.</param>
-        /// <param name="g">The g.</param>
-        /// <param name="h">The h.</param>
-        /// <param name="i">The i.</param>
-        /// <param name="j">The j.</param>
-        /// <param name="k">The k.</param>
-        /// <param name="l">The l.</param>
-        /// <param name="m">The m.</param>
-        /// <param name="n">The n.</param>
-        /// <param name="o">The o.</param>
-        /// <param name="p">The p.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://sites.google.com/site/physics2d/
+        /// This is an expanded version of the Ogre determinant() method, to give better performance in C#. Generated using a script.
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double MatrixDeterminant(
+            double m1x1, double m1x2, double m1x3, double m1x4,
+            double m2x1, double m2x2, double m2x3, double m2x4,
+            double m3x1, double m3x2, double m3x3, double m3x4,
+            double m4x1, double m4x2, double m4x3, double m4x4)
+            => (m1x1 * ((m2x2 * ((m3x3 * m4x4) - (m4x3 * m3x4))) - (m2x3 * ((m3x2 * m4x4) - (m4x2 * m3x4))) + (m2x4 * ((m3x2 * m4x3) - (m4x2 * m3x3)))))
+             - (m1x2 * ((m2x1 * ((m3x3 * m4x4) - (m4x3 * m3x4))) - (m2x3 * ((m3x1 * m4x4) - (m4x1 * m3x4))) + (m2x4 * ((m3x1 * m4x3) - (m4x1 * m3x3)))))
+             + (m1x3 * ((m2x1 * ((m3x2 * m4x4) - (m4x2 * m3x4))) - (m2x2 * ((m3x1 * m4x4) - (m4x1 * m3x4))) + (m2x4 * ((m3x1 * m4x2) - (m4x1 * m3x2)))))
+             - (m1x4 * ((m2x1 * ((m3x2 * m4x3) - (m4x2 * m3x3))) - (m2x2 * ((m3x1 * m4x3) - (m4x1 * m3x3))) + (m2x3 * ((m3x1 * m4x2) - (m4x1 * m3x2)))));
+
+        /// <summary>
+        /// Find the determinant of a 5 by 5 matrix.
+        /// </summary>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m1x4">The M1X4.</param>
+        /// <param name="m1x5">The M1X5.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m2x4">The M2X4.</param>
+        /// <param name="m2x5">The M2X5.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
+        /// <param name="m3x4">The M3X4.</param>
+        /// <param name="m3x5">The M3X5.</param>
+        /// <param name="m4x1">The M4X1.</param>
+        /// <param name="m4x2">The M4X2.</param>
+        /// <param name="m4x3">The M4X3.</param>
+        /// <param name="m4x4">The M4X4.</param>
+        /// <param name="m4x5">The M4X5.</param>
+        /// <param name="m5x1">The M5X1.</param>
+        /// <param name="m5x2">The M5X2.</param>
+        /// <param name="m5x3">The M5X3.</param>
+        /// <param name="m5x4">The M5X4.</param>
+        /// <param name="m5x5">The M5X5.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
@@ -4388,113 +5022,75 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double MatrixDeterminant(
-            double a, double b, double c, double d,
-            double e, double f, double g, double h,
-            double i, double j, double k, double l,
-            double m, double n, double o, double p)
-            => (a * MatrixDeterminant(f, g, h, j, k, l, n, o, p))
-              - (b * MatrixDeterminant(e, g, h, i, k, l, m, o, p))
-              + (c * MatrixDeterminant(e, f, h, i, j, l, m, n, p))
-              - (d * MatrixDeterminant(e, f, g, i, j, k, m, n, o));
-
-        /// <summary>
-        /// Find the determinant of a 5 by 5 matrix.
-        /// </summary>
-        /// <param name="a">a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="c">The c.</param>
-        /// <param name="d">The d.</param>
-        /// <param name="e">The e.</param>
-        /// <param name="f">The f.</param>
-        /// <param name="g">The g.</param>
-        /// <param name="h">The h.</param>
-        /// <param name="i">The i.</param>
-        /// <param name="j">The j.</param>
-        /// <param name="k">The k.</param>
-        /// <param name="l">The l.</param>
-        /// <param name="m">The m.</param>
-        /// <param name="n">The n.</param>
-        /// <param name="o">The o.</param>
-        /// <param name="p">The p.</param>
-        /// <param name="q">The q.</param>
-        /// <param name="r">The r.</param>
-        /// <param name="s">The s.</param>
-        /// <param name="t">The t.</param>
-        /// <param name="u">The u.</param>
-        /// <param name="v">The v.</param>
-        /// <param name="w">The w.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double MatrixDeterminant(
-            double a, double b, double c, double d, double e,
-            double f, double g, double h, double i, double j,
-            double k, double l, double m, double n, double o,
-            double p, double q, double r, double s, double t,
-            double u, double v, double w, double x, double y)
-            => (a * MatrixDeterminant(g, h, i, j, l, m, n, o, q, r, s, t, v, w, x, y))
-              - (b * MatrixDeterminant(f, h, i, j, k, m, n, o, p, r, s, t, u, w, x, y))
-              + (c * MatrixDeterminant(f, g, i, j, k, l, n, o, p, q, s, t, u, v, x, y))
-              - (d * MatrixDeterminant(f, g, h, j, k, l, m, o, p, q, r, t, u, v, w, y))
-              + (e * MatrixDeterminant(f, g, h, i, k, l, m, n, p, q, r, s, u, v, w, x));
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5)
+            => (m1x1 * MatrixDeterminant(m2x2, m2x3, m2x4, m2x5, m3x2, m3x3, m3x4, m3x5, m4x2, m4x3, m4x4, m4x5, m5x2, m5x3, m5x4, m5x5))
+             - (m1x2 * MatrixDeterminant(m2x1, m2x3, m2x4, m2x5, m3x1, m3x3, m3x4, m3x5, m4x1, m4x3, m4x4, m4x5, m5x1, m5x3, m5x4, m5x5))
+             + (m1x3 * MatrixDeterminant(m2x1, m2x2, m2x4, m2x5, m3x1, m3x2, m3x4, m3x5, m4x1, m4x2, m4x4, m4x5, m5x1, m5x2, m5x4, m5x5))
+             - (m1x4 * MatrixDeterminant(m2x1, m2x2, m2x3, m2x5, m3x1, m3x2, m3x3, m3x5, m4x1, m4x2, m4x3, m4x5, m5x1, m5x2, m5x3, m5x5))
+             + (m1x5 * MatrixDeterminant(m2x1, m2x2, m2x3, m2x4, m3x1, m3x2, m3x3, m3x4, m4x1, m4x2, m4x3, m4x4, m5x1, m5x2, m5x3, m5x4));
 
         /// <summary>
         /// Find the determinant of a 6 by 6 matrix.
         /// </summary>
-        /// <param name="a">a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="c">The c.</param>
-        /// <param name="d">The d.</param>
-        /// <param name="e">The e.</param>
-        /// <param name="f">The f.</param>
-        /// <param name="g">The g.</param>
-        /// <param name="h">The h.</param>
-        /// <param name="i">The i.</param>
-        /// <param name="j">The j.</param>
-        /// <param name="k">The k.</param>
-        /// <param name="l">The l.</param>
-        /// <param name="m">The m.</param>
-        /// <param name="n">The n.</param>
-        /// <param name="o">The o.</param>
-        /// <param name="p">The p.</param>
-        /// <param name="q">The q.</param>
-        /// <param name="r">The r.</param>
-        /// <param name="s">The s.</param>
-        /// <param name="t">The t.</param>
-        /// <param name="u">The u.</param>
-        /// <param name="v">The v.</param>
-        /// <param name="w">The w.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="z">The z.</param>
-        /// <param name="aa">The aa.</param>
-        /// <param name="bb">The bb.</param>
-        /// <param name="cc">The cc.</param>
-        /// <param name="dd">The dd.</param>
-        /// <param name="ee">The ee.</param>
-        /// <param name="ff">The ff.</param>
-        /// <param name="gg">The gg.</param>
-        /// <param name="hh">The hh.</param>
-        /// <param name="ii">The ii.</param>
-        /// <param name="jj">The jj.</param>
+        /// <param name="m1x1">a.</param>
+        /// <param name="m1x2">The b.</param>
+        /// <param name="m1x3">The c.</param>
+        /// <param name="m1x4">The d.</param>
+        /// <param name="m1x5">The e.</param>
+        /// <param name="m1x6">The f.</param>
+        /// <param name="m2x1">The g.</param>
+        /// <param name="m2x2">The h.</param>
+        /// <param name="m2x3">The i.</param>
+        /// <param name="m2x4">The j.</param>
+        /// <param name="m2x5">The k.</param>
+        /// <param name="m2x6">The l.</param>
+        /// <param name="m3x1">The m.</param>
+        /// <param name="m3x2">The n.</param>
+        /// <param name="m3x3">The o.</param>
+        /// <param name="m3x4">The p.</param>
+        /// <param name="m3x5">The q.</param>
+        /// <param name="m3x6">The r.</param>
+        /// <param name="m4x1">The s.</param>
+        /// <param name="m4x2">The t.</param>
+        /// <param name="m4x3">The u.</param>
+        /// <param name="m4x4">The v.</param>
+        /// <param name="m4x5">The w.</param>
+        /// <param name="m4x6">The x.</param>
+        /// <param name="m5x1">The y.</param>
+        /// <param name="m5x2">The z.</param>
+        /// <param name="m5x3">The aa.</param>
+        /// <param name="m5x4">The bb.</param>
+        /// <param name="m5x5">The cc.</param>
+        /// <param name="m5x6">The dd.</param>
+        /// <param name="m6x1">The ee.</param>
+        /// <param name="m6x2">The ff.</param>
+        /// <param name="m6x3">The gg.</param>
+        /// <param name="m6x4">The hh.</param>
+        /// <param name="m6x5">The ii.</param>
+        /// <param name="m6x6">The jj.</param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double MatrixDeterminant(
-            double a, double b, double c, double d, double e, double f,
-            double g, double h, double i, double j, double k, double l,
-            double m, double n, double o, double p, double q, double r,
-            double s, double t, double u, double v, double w, double x,
-            double y, double z, double aa, double bb, double cc, double dd,
-            double ee, double ff, double gg, double hh, double ii, double jj)
-            => (a * MatrixDeterminant(h, i, j, k, l, n, o, p, q, r, t, u, v, w, x, z, aa, bb, cc, dd, ff, gg, hh, ii, jj))
-              - (b * MatrixDeterminant(g, i, j, k, l, m, o, p, q, r, s, u, v, w, x, y, aa, bb, cc, dd, ee, gg, hh, ii, jj))
-              + (c * MatrixDeterminant(g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z, bb, cc, dd, ee, ff, hh, ii, jj))
-              - (d * MatrixDeterminant(g, h, i, k, l, m, n, o, q, r, s, t, u, w, x, y, z, aa, cc, dd, ee, ff, gg, ii, jj))
-              + (e * MatrixDeterminant(g, h, i, j, l, m, n, o, p, r, s, t, u, v, x, y, z, aa, bb, dd, ee, ff, gg, hh, jj))
-              - (f * MatrixDeterminant(g, h, i, j, k, m, n, o, p, q, s, t, u, v, w, y, z, aa, bb, cc, ee, ff, gg, hh, ii));
+            double m1x1, double m1x2, double m1x3, double m1x4, double m1x5, double m1x6,
+            double m2x1, double m2x2, double m2x3, double m2x4, double m2x5, double m2x6,
+            double m3x1, double m3x2, double m3x3, double m3x4, double m3x5, double m3x6,
+            double m4x1, double m4x2, double m4x3, double m4x4, double m4x5, double m4x6,
+            double m5x1, double m5x2, double m5x3, double m5x4, double m5x5, double m5x6,
+            double m6x1, double m6x2, double m6x3, double m6x4, double m6x5, double m6x6)
+            => (m1x1 * MatrixDeterminant(m2x2, m2x3, m2x4, m2x5, m2x6, m3x2, m3x3, m3x4, m3x5, m3x6, m4x2, m4x3, m4x4, m4x5, m4x6, m5x2, m5x3, m5x4, m5x5, m5x6, m6x2, m6x3, m6x4, m6x5, m6x6))
+             - (m1x2 * MatrixDeterminant(m2x1, m2x3, m2x4, m2x5, m2x6, m3x1, m3x3, m3x4, m3x5, m3x6, m4x1, m4x3, m4x4, m4x5, m4x6, m5x1, m5x3, m5x4, m5x5, m5x6, m6x1, m6x3, m6x4, m6x5, m6x6))
+             + (m1x3 * MatrixDeterminant(m2x1, m2x2, m2x4, m2x5, m2x6, m3x1, m3x2, m3x4, m3x5, m3x6, m4x1, m4x2, m4x4, m4x5, m4x6, m5x1, m5x2, m5x4, m5x5, m5x6, m6x1, m6x2, m6x4, m6x5, m6x6))
+             - (m1x4 * MatrixDeterminant(m2x1, m2x2, m2x3, m2x5, m2x6, m3x1, m3x2, m3x3, m3x5, m3x6, m4x1, m4x2, m4x3, m4x5, m4x6, m5x1, m5x2, m5x3, m5x5, m5x6, m6x1, m6x2, m6x3, m6x5, m6x6))
+             + (m1x5 * MatrixDeterminant(m2x1, m2x2, m2x3, m2x4, m2x6, m3x1, m3x2, m3x3, m3x4, m3x6, m4x1, m4x2, m4x3, m4x4, m4x6, m5x1, m5x2, m5x3, m5x4, m5x6, m6x1, m6x2, m6x3, m6x4, m6x6))
+             - (m1x6 * MatrixDeterminant(m2x1, m2x2, m2x3, m2x4, m2x5, m3x1, m3x2, m3x3, m3x4, m3x5, m4x1, m4x2, m4x3, m4x4, m4x5, m5x1, m5x2, m5x3, m5x4, m5x5, m6x1, m6x2, m6x3, m6x4, m6x5));
         #endregion Determinant
 
         #region Inverse Determinant

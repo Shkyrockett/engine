@@ -289,7 +289,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator -(Vector4D minuend, Point4D subend) => Vector4D(minuend, subend);
+        public static Point4D operator -(Vector4D minuend, Point4D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Scale a point
@@ -314,6 +314,30 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point4D operator *(Point4D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point4D operator *(Matrix4x4D multiplicand, Point4D multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point4D operator *(Point4D multiplicand, Matrix4x4D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Divide a <see cref="Point4D" /> by a value.
@@ -368,9 +392,9 @@ namespace Engine
         public static bool operator !=(Point4D comparand, Point4D comparanda) => !Equals(comparand, comparanda);
 
         /// <summary>
-        /// Explicit conversion from the specified <see cref="Vector4D" /> structure to a <see cref="Point4D" /> structure.
+        /// Explicit conversion from the specified <see cref="Subtract" /> structure to a <see cref="Point4D" /> structure.
         /// </summary>
-        /// <param name="vector">The <see cref="Vector4D" /> to be converted.</param>
+        /// <param name="vector">The <see cref="Subtract" /> to be converted.</param>
         /// <returns>
         /// The result of the conversion.
         /// </returns>
@@ -529,7 +553,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D Vector4D(Vector4D minuend, Point4D subend) => SubtractVector(minuend.I, minuend.J, minuend.K, minuend.L, subend.X, subend.Y, subend.Z, subend.W);
+        public static Point4D Subtract(Vector4D minuend, Point4D subend) => SubtractVector(minuend.I, minuend.J, minuend.K, minuend.L, subend.X, subend.Y, subend.Z, subend.W);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -550,6 +574,26 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point4D Multiply(Point4D multiplicand, double multiplier) => ScaleVector(multiplicand.X, multiplicand.Y, multiplicand.Z, multiplicand.W, multiplier);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point4D Multiply(Matrix4x4D multiplicand, Point4D multiplier) => MultiplyMatrix4x4ByVerticalVector4D(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3, multiplier.X, multiplier.Y, multiplier.Z, multiplier.W);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point4D Multiply(Point4D multiplicand, Matrix4x4D multiplier) => MultiplyHorizontalVector4DByMatrix4x4(multiplicand.X, multiplicand.Y, multiplicand.Z, multiplicand.W, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -605,7 +649,6 @@ namespace Engine
         /// <summary>
         /// Converts to vector4d.
         /// </summary>
-        /// <param name="point">The point.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

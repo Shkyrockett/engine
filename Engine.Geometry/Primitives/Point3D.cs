@@ -303,6 +303,30 @@ namespace Engine
         public static Point3D operator *(Point3D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D operator *(Matrix3x3D multiplicand, Point3D multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D operator *(Point3D multiplicand, Matrix3x3D multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
         /// Scale a point
         /// </summary>
         /// <param name="multiplicand">The multiplicand.</param>
@@ -549,6 +573,26 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D Multiply(double multiplicand, Point3D multiplier) => ScaleVector(multiplier.X, multiplier.Y, multiplier.Z, multiplicand);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Multiply(Matrix3x3D multiplicand, Point3D multiplier) => MultiplyMatrix3x3ByVerticalVector3D(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplier.X, multiplier.Y, multiplier.Z);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Multiply(Point3D multiplicand, Matrix3x3D multiplier) => MultiplyHorizontalVector3DByMatrix3x3(multiplicand.X, multiplicand.Y, multiplicand.Z, multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M2x0, multiplier.M2x1, multiplier.M2x2);
 
         /// <summary>
         /// Divides the specified divisor.

@@ -741,7 +741,7 @@ internal static partial class Interop
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public static MMTIME MidiStreamPosition(IntPtr midiStream)
             {
-                MMTIME lpmmt = new MMTIME();
+                var lpmmt = new MMTIME();
                 return Winmm.MidiStreamPosition(midiStream, ref lpmmt, Marshal.SizeOf(lpmmt)) switch
                 {
                     MmResult.NoError => lpmmt,

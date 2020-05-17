@@ -291,7 +291,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point5D operator -(Vector5D minuend, Point5D subend) => Vector5D(minuend, subend);
+        public static Point5D operator -(Vector5D minuend, Point5D subend) => Subtract(minuend, subend);
 
         /// <summary>
         /// Scale a point
@@ -316,6 +316,30 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point5D operator *(Point5D multiplicand, double multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point5D operator *(Matrix5x5D multiplicand, Point5D multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point5D operator *(Point5D multiplicand, Matrix5x5D multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Divide a <see cref="Point5D" /> by a value.
@@ -370,9 +394,9 @@ namespace Engine
         public static bool operator !=(Point5D comparand, Point5D comparanda) => !Equals(comparand, comparanda);
 
         /// <summary>
-        /// Explicit conversion from the specified <see cref="Vector5D" /> structure to a <see cref="Point5D" /> structure.
+        /// Explicit conversion from the specified <see cref="Subtract" /> structure to a <see cref="Point5D" /> structure.
         /// </summary>
-        /// <param name="vector">The <see cref="Vector5D" /> to be converted.</param>
+        /// <param name="vector">The <see cref="Subtract" /> to be converted.</param>
         /// <returns>
         /// The result of the conversion.
         /// </returns>
@@ -531,7 +555,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point5D Vector5D(Vector5D minuend, Point5D subend) => SubtractVector(minuend.I, minuend.J, minuend.K, minuend.L, minuend.M, subend.X, subend.Y, subend.Z, subend.W, subend.V);
+        public static Point5D Subtract(Vector5D minuend, Point5D subend) => SubtractVector(minuend.I, minuend.J, minuend.K, minuend.L, minuend.M, subend.X, subend.Y, subend.Z, subend.W, subend.V);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -552,6 +576,38 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point5D Multiply(Point5D multiplicand, double multiplier) => ScaleVector(multiplicand.X, multiplicand.Y, multiplicand.Z, multiplicand.W, multiplicand.V, multiplier);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point5D Multiply(Matrix5x5D multiplicand, Point5D multiplier) => MultiplyMatrix5x5ByVerticalVector5D(
+            multiplicand.M0x0, multiplicand.M0x1, multiplicand.M0x2, multiplicand.M0x3, multiplicand.M0x4,
+            multiplicand.M1x0, multiplicand.M1x1, multiplicand.M1x2, multiplicand.M1x3, multiplicand.M1x4,
+            multiplicand.M2x0, multiplicand.M2x1, multiplicand.M2x2, multiplicand.M2x3, multiplicand.M2x4,
+            multiplicand.M3x0, multiplicand.M3x1, multiplicand.M3x2, multiplicand.M3x3, multiplicand.M3x4,
+            multiplicand.M4x0, multiplicand.M4x1, multiplicand.M4x2, multiplicand.M4x3, multiplicand.M4x4,
+            multiplier.X, multiplier.Y, multiplier.Z, multiplier.W, multiplier.V);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point5D Multiply(Point5D multiplicand, Matrix5x5D multiplier) => MultiplyHorizontalVector5DByMatrix5x5(
+            multiplicand.X, multiplicand.Y, multiplicand.Z, multiplicand.W, multiplicand.V,
+            multiplier.M0x0, multiplier.M0x1, multiplier.M0x2, multiplier.M0x3, multiplier.M0x4,
+            multiplier.M1x0, multiplier.M1x1, multiplier.M1x2, multiplier.M1x3, multiplier.M1x4,
+            multiplier.M2x0, multiplier.M2x1, multiplier.M2x2, multiplier.M2x3, multiplier.M2x4,
+            multiplier.M3x0, multiplier.M3x1, multiplier.M3x2, multiplier.M3x3, multiplier.M3x4,
+            multiplier.M4x0, multiplier.M4x1, multiplier.M4x2, multiplier.M4x3, multiplier.M4x4);
 
         /// <summary>
         /// Divides the specified dividend.
@@ -607,7 +663,6 @@ namespace Engine
         /// <summary>
         /// Converts to vector5D.
         /// </summary>
-        /// <param name="point">The point.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

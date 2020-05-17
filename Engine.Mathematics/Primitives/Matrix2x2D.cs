@@ -237,7 +237,7 @@ namespace Engine
         /// The inverted.
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix2x2D Inverted => InvertMatrix(M0x0, M0x1, M1x0, M1x1);
+        public Matrix2x2D Inverted => InverseMatrix(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
@@ -264,8 +264,8 @@ namespace Engine
         /// <summary>
         /// Used to add two matrices together.
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -276,7 +276,7 @@ namespace Engine
         /// <summary>
         /// Negates all the items in the Matrix.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -287,8 +287,8 @@ namespace Engine
         /// <summary>
         /// Used to subtract two matrices.
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subend"></param>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subend">The subend.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -299,8 +299,8 @@ namespace Engine
         /// <summary>
         /// Multiplies all the items in the Matrix3 by a scalar value.
         /// </summary>
-        /// <param name="multiplicand"></param>
-        /// <param name="multiplier"></param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -311,8 +311,8 @@ namespace Engine
         /// <summary>
         /// Multiplies all the items in the Matrix3 by a scalar value.
         /// </summary>
-        /// <param name="multiplicand"></param>
-        /// <param name="multiplier"></param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -321,10 +321,34 @@ namespace Engine
         public static Matrix2x2D operator *(double multiplicand, Matrix2x2D multiplier) => Multiply(multiplier, multiplicand);
 
         /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D operator *(Matrix2x2D multiplicand, Vector2D multiplier) => Multiply(multiplicand, multiplier);
+
+        /// <summary>
+        /// Implements the operator *.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D operator *(Vector2D multiplicand, Matrix2x2D multiplier) => Multiply(multiplier, multiplicand);
+
+        /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
         /// </summary>
-        /// <param name="multiplicand"></param>
-        /// <param name="multiplier"></param>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
         /// <returns>
         /// The result of the operator.
         /// </returns>
@@ -452,6 +476,26 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Multiply(Matrix2x2D multiplicand, Vector2D multiplier) => MultiplyMatrix2x2ByVerticalVector2D(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M1x0, multiplicand.M1x1, multiplier.I, multiplier.J);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D Multiply(Vector2D multiplicand, Matrix2x2D multiplier) => MultiplyHorizontalVector2DByMatrix2x2(multiplicand.I, multiplicand.J, multiplier.M0x0, multiplier.M0x1, multiplier.M1x0, multiplier.M1x1);
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D Multiply(Matrix2x2D multiplicand, Matrix2x2D multiplier) => Multiply2x2x2x2(multiplicand.M0x0, multiplicand.M0x1, multiplicand.M1x0, multiplicand.M1x1, multiplier.M0x0, multiplier.M0x1, multiplier.M1x0, multiplier.M1x1);
 
         /// <summary>
@@ -463,7 +507,7 @@ namespace Engine
         /// </summary>
         /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -496,7 +540,9 @@ namespace Engine
         /// <summary>
         /// Converts to matrix2x2d.
         /// </summary>
+        /// <param name="tuple">The tuple.</param>
         /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         /// <exception cref="NotImplementedException"></exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

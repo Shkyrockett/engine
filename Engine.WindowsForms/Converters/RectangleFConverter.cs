@@ -34,8 +34,7 @@ namespace Engine
         /// </param>
         /// <param name="sourceType">The type of the source that is being evaluated for conversion.</param>
         /// <filterpriority>1</filterpriority>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-            => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
 
         /// <summary>
         /// Determines whether a <see cref="RectangleF" /> can be converted to the specified type. 
@@ -47,8 +46,7 @@ namespace Engine
         /// </param>
         /// <param name="destinationType">The desired type this <see cref="RectangleF" /> is being evaluated for conversion.</param>
         /// <filterpriority>1</filterpriority>
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-            => destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
 
         /// <summary>Attempts to convert the specified object to a <see cref="RectangleF" />. </summary>
         /// <returns>The <see cref="RectangleF" /> created from converting <paramref name="value" />.</returns>

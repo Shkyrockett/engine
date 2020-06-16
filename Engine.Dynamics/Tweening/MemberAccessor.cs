@@ -82,13 +82,13 @@ namespace Engine.Tweening
             {
                 // Capture the property member info.
                 var propertyInfo = memberInfo as PropertyInfo;
-                MemberType = (propertyInfo as PropertyInfo).PropertyType;
+                MemberType = propertyInfo.PropertyType;
                 MemberName = propertyInfo.Name;
 
                 // Set up for reading
                 var param = Expression.Parameter(typeof(object));
                 var instance = Expression.Convert(param, propertyInfo.DeclaringType);
-                var convert = Expression.TypeAs(Expression.Property(instance, propertyInfo as PropertyInfo), typeof(object));
+                var convert = Expression.TypeAs(Expression.Property(instance, propertyInfo), typeof(object));
                 getMethod = Expression.Lambda<Func<object, object>>(convert, param).Compile();
 
                 // Set up for writing
@@ -97,8 +97,8 @@ namespace Engine.Tweening
                     var argument = Expression.Parameter(typeof(object));
                     var setterCall = Expression.Call(
                         Expression.Convert(param, propertyInfo.DeclaringType),
-                        (propertyInfo as PropertyInfo).GetSetMethod(),
-                        Expression.Convert(argument, (propertyInfo as PropertyInfo).PropertyType));
+                        propertyInfo.GetSetMethod(),
+                        Expression.Convert(argument, propertyInfo.PropertyType));
 
                     setMethod = Expression.Lambda<Action<object, object>>(setterCall, param, argument).Compile();
                 }

@@ -58,7 +58,7 @@ internal static partial class Interop
             /// Reserved; do not use.
             /// </summary>
             /// <remarks>
-            /// MSDN documentation incorrect, see mmsystem.h
+            /// <para>MSDN documentation incorrect, see mmsystem.h</para>
             /// </remarks>
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
             public IntPtr[] dwReserved; // DWORD_PTR dwReserved[8]

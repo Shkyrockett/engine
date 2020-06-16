@@ -1544,7 +1544,7 @@ namespace Editor
         /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void LineSegmentLineSegmentIntersectionT(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            if (!(vectorMap is null) && !(form is null) && !(metrics is null))
+            if ((vectorMap is not null) && (form is not null) && (metrics is not null))
             {
                 (double left, double top) = (0, 0);
 
@@ -1600,7 +1600,7 @@ namespace Editor
         /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void NearestPoint(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            if (!(vectorMap is null) && !(form is null) && !(metrics is null))
+            if ((vectorMap is not null) && (form is not null) && (metrics is not null))
             {
                 (double left, double top) = (0, 0);
 
@@ -1859,7 +1859,7 @@ namespace Editor
         /// <param name="tools">Reference to the Tools stack.</param>
         public static void NearestParameterQuadraticBezier(VectorMap vectorMap, ToolStack tools)
         {
-            if (!(vectorMap is null) && !(tools is null))
+            if ((vectorMap is not null) && (tools is not null))
             {
                 const int top = 10;
                 const int left = 10;
@@ -1912,7 +1912,7 @@ namespace Editor
         /// <param name="tools">Reference to the Tools stack.</param>
         public static void NearestParameterCubicBezier(VectorMap vectorMap, ToolStack tools)
         {
-            if (!(vectorMap is null) && !(tools is null))
+            if ((vectorMap is not null) && (tools is not null))
             {
                 const int top = 10;
                 const int left = 10;
@@ -2497,7 +2497,7 @@ namespace Editor
         /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void TextRendering(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            if (!(vectorMap is null) && !(form is null) && !(metrics is null))
+            if ((vectorMap is not null) && (form is not null) && (metrics is not null))
             {
                 var text = new Text2D(
                     $"Test Text.",
@@ -2910,7 +2910,7 @@ namespace Editor
         /// <param name="form">The form.</param>
         public static void QuadraticBezierPathFollow(VectorMap vectorMap, EditorForm form)
         {
-            if (!(vectorMap is null) && !(form is null))
+            if ((vectorMap is not null) && (form is not null))
             {
                 (var left, var top) = (0d, 0d);
                 (var duration, var delay) = (75d, 0d);
@@ -2968,7 +2968,7 @@ namespace Editor
         /// <param name="form">The form.</param>
         public static void CubicBezierPathFollow(VectorMap vectorMap, EditorForm form)
         {
-            if (!(vectorMap is null) && !(form is null))
+            if ((vectorMap is not null) && (form is not null))
             {
                 (var left, var top) = (0d, 0d);
                 (var duration, var delay) = (75d, 0d);
@@ -3026,7 +3026,7 @@ namespace Editor
         /// <param name="form">The form.</param>
         public static void PathFollow(VectorMap vectorMap, EditorForm form)
         {
-            if (!(vectorMap is null) && !(form is null))
+            if ((vectorMap is not null) && (form is not null))
             {
                 (var left, var top) = (25d, 25d);
                 (var duration, var delay) = (75d, 0d);
@@ -3085,7 +3085,7 @@ namespace Editor
         /// <param name="form">The form.</param>
         public static void Pathfinding(VectorMap vectorMap, EditorForm form)
         {
-            if (!(vectorMap is null) && !(form is null))
+            if ((vectorMap is not null) && (form is not null))
             {
                 (var left, var top) = (25d, 25d);
                 (var duration, var delay) = (150d, 0d);
@@ -3112,7 +3112,7 @@ namespace Editor
                 };
                 vectorMap?.Add(innerPolygonItem);
 
-                var pathPolyline = (polyset as Polygon2D).ShortestPath(new Point2D(left + 20, top + 20), new Point2D(left + 200, top + 200));
+                var pathPolyline = polyset.ShortestPath(new Point2D(left + 20, top + 20), new Point2D(left + 200, top + 200));
                 var polylineSet = new PolylineSet2D(new List<Polyline2D> { pathPolyline?.Offset(10), pathPolyline?.Offset(-10) });
                 var pathPolyline2 = pathPolyline?.Offset(-10);
                 pathPolyline2?.Reverse();
@@ -3163,7 +3163,7 @@ namespace Editor
         /// <param name="boundaryItem">The boundary item to update.</param>
         public static void ResizeRefreshBounds(VectorMap vectorMap, CanvasPanel canvasPanel, out GraphicItem boundaryItem)
         {
-            if (!(vectorMap is null) && !(canvasPanel is null))
+            if ((vectorMap is not null) && (canvasPanel is not null))
             {
                 vectorMap.VisibleBounds = canvasPanel.ClientRectangle.ToRectangle2D();
                 boundaryItem = new GraphicItem(vectorMap?.VisibleBounds, solidPinkStyle);
@@ -3182,7 +3182,7 @@ namespace Editor
         /// <param name="form">The form to reference.</param>
         public static void Tweenning(VectorMap vectorMap, EditorForm form)
         {
-            if (!(vectorMap is null) && !(form is null))
+            if ((vectorMap is not null) && (form is not null))
             {
                 var ellipseTween = new Ellipse2D(
                     new Point2D(100d, 375d),
@@ -3215,7 +3215,7 @@ namespace Editor
         /// <param name="form">The form to reference.</param>
         public static void KaraokeBall(VectorMap vectorMap, EditorForm form)
         {
-            if (!(vectorMap is null) && !(form is null))
+            if ((vectorMap is not null) && (form is not null))
             {
                 (var left, var top) = (100d, 200d);
                 (var duration, var delay) = (75d, 0d);
@@ -5696,7 +5696,7 @@ namespace Editor
         /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void SegmentIntersections(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            if (!(vectorMap is null) && !(form is null) && !(metrics is null))
+            if ((vectorMap is not null) && (form is not null) && (metrics is not null))
             {
                 var segment0 = new LineSegment2D(new Point2D(20, 150), new Point2D(180, 200));
                 var segment0Item = new GraphicItem(segment0, solidGreenStyle);
@@ -6238,7 +6238,7 @@ namespace Editor
         /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void QuadraticLength(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            if (!(vectorMap is null) && !(form is null) && !(metrics is null))
+            if ((vectorMap is not null) && (form is not null) && (metrics is not null))
             {
                 var quadBezier = new QuadraticBezier2D(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
                 var quadBezierItem = new GraphicItem(quadBezier, solidLightGreenStyle);
@@ -6270,7 +6270,7 @@ namespace Editor
         /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void CubicBezierLength(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            if (!(vectorMap is null) && !(form is null) && !(metrics is null))
+            if ((vectorMap is not null) && (form is not null) && (metrics is not null))
             {
                 var cubeBezier = new CubicBezier2D(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300));
                 var cubeBezierItem = new GraphicItem(cubeBezier, whiteishStyle);

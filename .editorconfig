@@ -32,3 +32,9 @@ dotnet_diagnostic.CA1814.severity = none
 
 # CA1710: Identifiers should have correct suffix
 dotnet_diagnostic.CA1710.severity = none
+
+# CS8632: The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+dotnet_diagnostic.CS8632.severity = none
+
+# CA1714: Flags enums should have plural names
+dotnet_diagnostic.CA1714.severity = none

@@ -15,7 +15,7 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidParameter"/> The specified device handle is invalid.
         /// </returns>
         /// <remarks>
-        /// This function returns all pending input buffers to the callback function and sets the MHDR_DONE flag in the dwFlags member of the MIDIHDR structure.
+        /// <para>This function returns all pending input buffers to the callback function and sets the MHDR_DONE flag in the dwFlags member of the MIDIHDR structure.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinreset

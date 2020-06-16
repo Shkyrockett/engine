@@ -49,7 +49,7 @@ namespace Engine
         /// <param name="relative">The relative.</param>
         /// <param name="args">The args.</param>
         public CubicBezierSegment2D(CurveSegment2D item, bool relative, Point2D[] args)
-            : this(item, args?.Length == 3 ? (Point2D?)args[0] : null, args?.Length == 3 ? args[1] : args[0], args?.Length == 3 ? args[1] : args[2])
+            : this(item, args?.Length == 3 ? args[0] : null, args?.Length == 3 ? args[1] : args[0], args?.Length == 3 ? args[1] : args[2])
         {
             if (relative)
             {

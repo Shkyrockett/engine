@@ -148,7 +148,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public uint ReadNetworkUInt24() => ((((uint)ReadByte() << 16) | ((uint)ReadByte() << 8) | (uint)ReadByte()) << 12) >> 12;
+        public uint ReadNetworkUInt24() => ((((uint)ReadByte() << 16) | ((uint)ReadByte() << 8) | ReadByte()) << 12) >> 12;
 
         /// <summary>
         /// Reads a 3-byte signed integer from the current stream using big-endian
@@ -172,7 +172,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public uint ReadNetworkUInt32() => ((uint)ReadByte() << 24) | ((uint)ReadByte() << 16) | ((uint)ReadByte() << 8) | (uint)ReadByte();
+        public uint ReadNetworkUInt32() => ((uint)ReadByte() << 24) | ((uint)ReadByte() << 16) | ((uint)ReadByte() << 8) | ReadByte();
 
         /// <summary>
         /// Reads a 4-byte signed integer from the current stream using big-endian
@@ -196,7 +196,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public long ReadNetworkInt64() => ((long)ReadByte() << 56) | ((long)ReadByte() << 48) | ((long)ReadByte() << 40) | ((long)ReadByte() << 32) | ((long)ReadByte() << 24) | ((long)ReadByte() << 16) | ((long)ReadByte() << 8) | (long)ReadByte();
+        public long ReadNetworkInt64() => ((long)ReadByte() << 56) | ((long)ReadByte() << 48) | ((long)ReadByte() << 40) | ((long)ReadByte() << 32) | ((long)ReadByte() << 24) | ((long)ReadByte() << 16) | ((long)ReadByte() << 8) | ReadByte();
 
         /// <summary>
         /// Reads an 8-byte unsigned integer from the current stream using big-endian
@@ -208,7 +208,7 @@ namespace Engine.File
         /// <exception cref="IOException">An I/O error has occurred.</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ulong ReadNetworkUInt64() => ((ulong)ReadByte() << 56) | ((ulong)ReadByte() << 48) | ((ulong)ReadByte() << 40) | ((ulong)ReadByte() << 32) | ((ulong)ReadByte() << 24) | ((ulong)ReadByte() << 16) | ((ulong)ReadByte() << 8) | (ulong)ReadByte();
+        public ulong ReadNetworkUInt64() => ((ulong)ReadByte() << 56) | ((ulong)ReadByte() << 48) | ((ulong)ReadByte() << 40) | ((ulong)ReadByte() << 32) | ((ulong)ReadByte() << 24) | ((ulong)ReadByte() << 16) | ((ulong)ReadByte() << 8) | ReadByte();
 
         /// <summary>
         /// Reads in a 32-bit integer in compressed format.

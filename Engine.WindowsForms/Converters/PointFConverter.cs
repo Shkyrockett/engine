@@ -143,7 +143,7 @@ namespace Engine
         /// <returns>The <see cref="object"/>.</returns>
         public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues)
         {
-            if (!(propertyValues is null))
+            if (propertyValues is not null)
             {
                 return new PointF((float)propertyValues["X"], (float)propertyValues["Y"]);
             }

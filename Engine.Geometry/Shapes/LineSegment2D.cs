@@ -146,10 +146,10 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D this[int index]
         {
-            get { return (Points as List<Point2D>)[index]; }
+            get { return Points[index]; }
             set
             {
-                (Points as List<Point2D>)[index] = value;
+                Points[index] = value;
                 OnPropertyChanged(nameof(Points));
                 update?.Invoke();
             }
@@ -170,7 +170,7 @@ namespace Engine
             get { return new List<Point2D> { A, B }; }
             set
             {
-                if (!(value is null))
+                if (value is not null)
                 {
                     A = value[0];
                     B = value[1];

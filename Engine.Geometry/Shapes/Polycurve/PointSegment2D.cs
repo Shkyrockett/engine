@@ -40,7 +40,7 @@ namespace Engine
         /// <param name="args">The args.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PointSegment2D(CurveSegment2D previous, bool relative, double[] args)
-            : this(args?.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
+            : this(args?.Length == 2 ? new Point2D(args[0], args[1]) : null)
         {
             if (relative)
             {

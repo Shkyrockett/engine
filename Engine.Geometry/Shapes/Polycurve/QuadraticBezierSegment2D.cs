@@ -51,7 +51,7 @@ namespace Engine
         /// <param name="relative">The relative.</param>
         /// <param name="args">The args.</param>
         public QuadraticBezierSegment2D(CurveSegment2D previous, bool relative, Point2D[] args)
-            : this(previous, args?.Length == 2 ? (Point2D?)args[0] : null, args.Length == 2 ? args[0] : args[1])
+            : this(previous, args?.Length == 2 ? args[0] : null, args.Length == 2 ? args[0] : args[1])
         {
             if (relative)
             {

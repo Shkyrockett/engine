@@ -1,31 +1,75 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <Version>0.0.0.1</Version>
-    <Authors>Shkyrockett</Authors>
-    <Description>Multimedia PInvoke API library for Engine.</Description>
-    <Copyright>Copyright © 2020 Shkyrockett</Copyright>
-    <RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
-    <NeutralLanguage>English (United States)</NeutralLanguage>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
+		<LangVersion>preview</LangVersion>
+		<Platforms>AnyCPU;x64;x86</Platforms>
+		<Version>0.0.0.1</Version>
+		<Authors>Shkyrockett</Authors>
+		<Description>Multimedia PInvoke API library for Engine.</Description>
+		<Copyright>Copyright Â© 2020 Shkyrockett</Copyright>
+		<RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
+		<NeutralLanguage>English (United States)</NeutralLanguage>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>bin\AnyCPU\Debug\net5.0\</OutputPath>
+		<DocumentationFile>bin\AnyCPU\Debug\net5.0\Engine.Windows.Multimedia.xml</DocumentationFile>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Interop.WimMM.MidiInMessage.cs" />
-    <Compile Remove="Interop.Winmm.MidiInAddBuffer.cs" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<OutputPath>bin\x64\Debug\net5.0\</OutputPath>
+		<DocumentationFile>bin\x64\Debug\net5.0\Engine.Windows.Multimedia.xml</DocumentationFile>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="Interop\Winmm\Methods\Interop.Winmm.MidiInAddBuffer.cs" />
-    <None Include="Interop\Winmm\Enums\Interop.Winmm.MidiInMessage.cs" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+		<OutputPath>bin\x86\Debug\net5.0\</OutputPath>
+		<DocumentationFile>bin\x86\Debug\net5.0\Engine.Windows.Multimedia.xml</DocumentationFile>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath>bin\AnyCPU\Release\net5.0\</OutputPath>
+		<DocumentationFile>bin\AnyCPU\Release\net5.0\Engine.Windows.Multimedia.xml</DocumentationFile>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+		<OutputPath>bin\x86\Release\net5.0\</OutputPath>
+		<DocumentationFile>bin\x86\Release\net5.0\Engine.Windows.Multimedia.xml</DocumentationFile>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<OutputPath>bin\x64\Release\net5.0\</OutputPath>
+		<DocumentationFile>bin\x64\Release\net5.0\Engine.Windows.Multimedia.xml</DocumentationFile>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />
+	</ItemGroup>
 
 </Project>

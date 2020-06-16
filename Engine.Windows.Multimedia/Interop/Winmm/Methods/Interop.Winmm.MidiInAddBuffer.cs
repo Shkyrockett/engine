@@ -21,8 +21,8 @@ internal static partial class Interop
         /// <see cref="MmResult.MemoryAllocationError"/> The system is unable to allocate or lock memory.
         /// </returns>
         /// <remarks>
-        /// When the buffer is filled, it is sent back to the application.
-        /// The buffer must be prepared by using the midiInPrepareHeader function before it is passed to the midiInAddBuffer function.
+        /// <para>When the buffer is filled, it is sent back to the application.
+        /// The buffer must be prepared by using the midiInPrepareHeader function before it is passed to the midiInAddBuffer function.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/en-us/windows/win32/api/mmeapi/nf-mmeapi-midiinaddbuffer

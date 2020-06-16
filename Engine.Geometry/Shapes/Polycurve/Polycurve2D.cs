@@ -295,7 +295,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polycurve2D Clone()
-            => new Polycurve2D(Contours.ToArray() as IEnumerable<PolycurveContour2D>);
+            => new Polycurve2D(Contours.ToArray());
 
         /// <summary>
         /// Get the enumerator.

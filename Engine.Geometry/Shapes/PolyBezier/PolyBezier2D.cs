@@ -388,7 +388,7 @@ namespace Engine
         /// <returns>The <see cref="PolyBezier2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public PolyBezier2D Clone() => new PolyBezier2D(Contours.ToArray() as IEnumerable<PolyBezierContour2D>);
+        public PolyBezier2D Clone() => new PolyBezier2D(Contours.ToArray());
 
         /// <summary>
         /// Get the enumerator.

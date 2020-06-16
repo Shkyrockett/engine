@@ -135,7 +135,7 @@ namespace Engine.Experimental
             }
 
             PathNode? pn = new PathNode(p, jt, et);
-            if (!(pn.Value.Path is null))
+            if (pn.Value.Path is not null)
             {
                 Nodes.Add(pn.Value);
             }

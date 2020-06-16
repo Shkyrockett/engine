@@ -57,7 +57,7 @@ namespace Engine
         {
             (var len, var min, var max) = (Length, InterpolationMin, InterpolationMax);
             var stepSize = (max - min) / len;
-            return Interpolate(Enumerable.Range(0, (int)(len + 1)).Select(stepIndex => min + stepIndex * stepSize));
+            return Interpolate(Enumerable.Range(0, (int)(len + 1)).Select(stepIndex => min + (stepIndex * stepSize)));
         }
 
         /// <summary>

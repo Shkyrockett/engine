@@ -15,8 +15,8 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidParameter"/> The specified device handle is invalid.
         /// </returns>
         /// <remarks>
-        /// If there are any system-exclusive messages or stream buffers in the queue, the current buffer is marked as done (the dwBytesRecorded member of the MIDIHDR structure will contain the actual length of data), but any empty buffers in the queue remain there and are not marked as done.
-        /// Calling this function when input is not started has no effect, and the function returns zero.
+        /// <para>If there are any system-exclusive messages or stream buffers in the queue, the current buffer is marked as done (the dwBytesRecorded member of the MIDIHDR structure will contain the actual length of data), but any empty buffers in the queue remain there and are not marked as done.
+        /// Calling this function when input is not started has no effect, and the function returns zero.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinstop

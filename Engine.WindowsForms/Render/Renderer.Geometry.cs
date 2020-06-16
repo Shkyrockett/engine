@@ -61,7 +61,7 @@ namespace Engine.Imaging
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
             var points = shape?.InterpolatePoints(100);
-            if (!(itemStyle is null) && !(points is null))
+            if ((itemStyle is not null) && (points is not null))
             {
                 renderer?.FillPolygon(itemStyle.Fill, points);
                 renderer?.DrawPolygon(itemStyle.Stroke, points);
@@ -80,7 +80,7 @@ namespace Engine.Imaging
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
-            if (!(itemStyle is null) && !(shape is null))
+            if ((itemStyle is not null) && (shape is not null))
             {
                 renderer?.DrawRectangle(itemStyle.Stroke, shape.X, shape.Y, 1d, 1d);
             }
@@ -104,7 +104,7 @@ namespace Engine.Imaging
             //var p2 = shape.Location + shape.Direction;
             var intersection = Intersections.Intersection(shape, bounds);
 
-            if (!(itemStyle is null) && !(shape is null))
+            if ((itemStyle is not null) && (shape is not null))
             {
                 if (intersection.Count == 1)
                 {
@@ -131,7 +131,7 @@ namespace Engine.Imaging
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
             var intersection = Intersections.Intersection(shape, bounds);
-            if (!(itemStyle is null) && !(shape is null))
+            if ((itemStyle is not null) && (shape is not null))
             {
                 if (intersection.Count == 2)
                 {
@@ -152,7 +152,7 @@ namespace Engine.Imaging
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
-            if (!(itemStyle is null) && !(shape is null))
+            if ((itemStyle is not null) && (shape is not null))
             {
                 renderer?.DrawLine(itemStyle.Stroke, shape.AX, shape.AY, shape.BX, shape.BY);
             }
@@ -170,7 +170,7 @@ namespace Engine.Imaging
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
-            if (!(itemStyle is null) && !(shape is null))
+            if ((itemStyle is not null) && (shape is not null))
             {
                 renderer?.FillPolygon(itemStyle.Fill, shape.Points);
                 renderer?.DrawPolygon(itemStyle.Stroke, shape.Points);
@@ -189,7 +189,7 @@ namespace Engine.Imaging
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
-            if (!(itemStyle is null) && !(shape is null))
+            if ((itemStyle is not null) && (shape is not null))
             {
                 renderer?.FillPolygon(itemStyle.Fill, shape.Points);
                 renderer?.DrawLines(itemStyle.Stroke, shape.Points);
@@ -208,7 +208,7 @@ namespace Engine.Imaging
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
-            if (!(itemStyle is null) && !(set?.Polylines is null))
+            if ((itemStyle is not null) && (set?.Polylines is not null))
             {
                 foreach (var shape in set.Polylines)
                 {
@@ -380,7 +380,7 @@ namespace Engine.Imaging
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
-            if (!(itemStyle is null) && !(shape is null))
+            if ((itemStyle is not null) && (shape is not null))
             {
                 renderer?.FillRectangle(itemStyle.Fill, shape.X, shape.Y, shape.Width, shape.Height);
                 renderer?.DrawRectangle(itemStyle.Stroke, shape.X, shape.Y, shape.Width, shape.Height);
@@ -400,7 +400,7 @@ namespace Engine.Imaging
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
             var bounds = shape?.Bounds;
-            if (!(itemStyle is null) && !(bounds is null))
+            if ((itemStyle is not null) && (bounds is not null))
             {
                 renderer?.FillEllipse(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height);
                 renderer?.DrawEllipse(itemStyle.Stroke, bounds.X, bounds.Y, bounds.Width, bounds.Height);
@@ -420,7 +420,7 @@ namespace Engine.Imaging
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
             var bounds = shape?.DrawingBounds;
-            if (!(itemStyle is null) && !(shape is null) && !(bounds is null))
+            if ((itemStyle is not null) && (shape is not null) && (bounds is not null))
             {
                 renderer?.FillArc(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
                 renderer?.DrawArc(itemStyle.Stroke, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
@@ -440,7 +440,7 @@ namespace Engine.Imaging
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
             var bounds = shape?.OrthogonalBounds;
-            if (!(itemStyle is null) && !(shape is null) && !(bounds is null))
+            if ((itemStyle is not null) && (shape is not null) && (bounds is not null))
             {
                 renderer?.FillEllipse(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.Angle);
                 renderer?.DrawEllipse(itemStyle.Stroke, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.Angle);
@@ -460,7 +460,7 @@ namespace Engine.Imaging
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
             var bounds = shape?.OrthogonalBounds;
-            if (!(itemStyle is null) && !(shape is null) && !(bounds is null))
+            if ((itemStyle is not null) && (shape is not null) && (bounds is not null))
             {
                 renderer?.FillArc(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle, shape.Angle);
                 renderer?.DrawArc(itemStyle.Stroke, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle, shape.Angle);
@@ -509,7 +509,7 @@ namespace Engine.Imaging
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
-            if (!(itemStyle is null) && !(shape is null))
+            if ((itemStyle is not null) && (shape is not null))
             {
                 switch (shape.Degree)
                 {
@@ -542,7 +542,7 @@ namespace Engine.Imaging
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
-            if (!(itemStyle is null) && !(shape is null))
+            if ((itemStyle is not null) && (shape is not null))
             {
                 renderer?.FillCubicBezier(itemStyle.Fill, shape.AX, shape.AY, shape.BX, shape.BY, shape.CX, shape.CY, shape.DX, shape.DY);
                 renderer?.DrawCubicBezier(itemStyle.Stroke, shape.AX, shape.AY, shape.BX, shape.BY, shape.CX, shape.CY, shape.DX, shape.DY);
@@ -561,7 +561,7 @@ namespace Engine.Imaging
         {
             _ = g;
             var itemStyle = style ?? (ShapeStyle)item?.Style;
-            if (!(itemStyle is null) && !(shape is null))
+            if ((itemStyle is not null) && (shape is not null))
             {
                 renderer?.FillQuadraticBezier(itemStyle.Fill, shape.AX, shape.AY, shape.BX, shape.BY, shape.CX, shape.CY);
                 renderer?.DrawQuadraticBezier(itemStyle.Stroke, shape.AX, shape.AY, shape.BX, shape.BY, shape.CX, shape.CY);

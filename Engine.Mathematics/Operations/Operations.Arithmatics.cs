@@ -23,7 +23,7 @@ namespace Engine
     {
         #region Unary Plus
         /// <summary>
-        /// Unaries the add2 d.
+        /// Unary Plus 2d.
         /// </summary>
         /// <param name="valueA">The value a.</param>
         /// <param name="valueB">The value b.</param>
@@ -33,7 +33,7 @@ namespace Engine
         public static (double A, double B) Plus(double valueA, double valueB) => (+valueA, +valueB);
 
         /// <summary>
-        /// Unaries the add3 d.
+        /// Unary Plus 3d.
         /// </summary>
         /// <param name="valueA">The value a.</param>
         /// <param name="valueB">The value b.</param>
@@ -44,7 +44,7 @@ namespace Engine
         public static (double A, double B, double C) Plus(double valueA, double valueB, double valueC) => (+valueA, +valueB, +valueC);
 
         /// <summary>
-        /// Unaries the add4 d.
+        /// Unary Plus 4d.
         /// </summary>
         /// <param name="valueA">The value a.</param>
         /// <param name="valueB">The value b.</param>
@@ -56,7 +56,7 @@ namespace Engine
         public static (double A, double B, double C, double D) Plus(double valueA, double valueB, double valueC, double valueD) => (+valueA, +valueB, +valueC, +valueD);
 
         /// <summary>
-        /// Unaries the add5 d.
+        /// Unary Plus 5d.
         /// </summary>
         /// <param name="valueA">The value a.</param>
         /// <param name="valueB">The value b.</param>
@@ -69,7 +69,7 @@ namespace Engine
         public static (double A, double B, double C, double D, double E) Plus(double valueA, double valueB, double valueC, double valueD, double valueE) => (+valueA, +valueB, +valueC, +valueD, +valueE);
 
         /// <summary>
-        /// Unaries the add6 d.
+        /// Unary Plus 6d.
         /// </summary>
         /// <param name="valueA">The value a.</param>
         /// <param name="valueB">The value b.</param>
@@ -83,7 +83,7 @@ namespace Engine
         public static (double A, double B, double C, double D, double E, double F) Plus(double valueA, double valueB, double valueC, double valueD, double valueE, double valueF) => (+valueA, +valueB, +valueC, +valueD, +valueE, +valueF);
 
         /// <summary>
-        /// Posates a <see cref="Matrix3x3D" />.
+        /// Unary Plus a <see cref="Matrix3x3D" />.
         /// </summary>
         /// <param name="sourceM0x0">The source M0X0.</param>
         /// <param name="sourceM0x1">The source M0X1.</param>
@@ -110,7 +110,7 @@ namespace Engine
                 +sourceM2x0, +sourceM2x1, +sourceM2x2);
 
         /// <summary>
-        /// Posates a <see cref="Matrix4x4D" />.
+        /// Unary Plus a <see cref="Matrix4x4D" />.
         /// </summary>
         /// <param name="sourceM0x0">The source M0X0.</param>
         /// <param name="sourceM0x1">The source M0X1.</param>
@@ -147,7 +147,7 @@ namespace Engine
                 +sourceM3x0, +sourceM3x1, +sourceM3x2, +sourceM3x3);
 
         /// <summary>
-        /// Posates a Matrix5x5D.
+        /// Unary Plus a Matrix5x5D.
         /// </summary>
         /// <param name="sourceM0x0">The source M0X0.</param>
         /// <param name="sourceM0x1">The source M0X1.</param>
@@ -196,7 +196,7 @@ namespace Engine
                 +sourceM4x0, +sourceM4x1, +sourceM4x2, +sourceM4x3, +sourceM4x4);
 
         /// <summary>
-        /// Posates a Matrix6x6D.
+        /// Unary Plus a Matrix6x6D.
         /// </summary>
         /// <param name="sourceM0x0">The source M0X0.</param>
         /// <param name="sourceM0x1">The source M0X1.</param>
@@ -1170,7 +1170,7 @@ namespace Engine
             }
 
             var stepSize = (max - min) / numberOfSteps;
-            return Enumerable.Range(0, numberOfSteps + 1).Select(stepIndex => min + stepIndex * stepSize);
+            return Enumerable.Range(0, numberOfSteps + 1).Select(stepIndex => min + (stepIndex * stepSize));
         }
     }
 }

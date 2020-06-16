@@ -96,9 +96,9 @@ namespace Engine
         public override string Description => description;
 
         /// <summary>
-        /// Gets a value indicating whether 
+        /// Gets a value indicating whether
         /// </summary>
-        public override bool IsReadOnly => !(property is null || !property.CanWrite);
+        public override bool IsReadOnly => property is not null && property.CanWrite;
 
         /// <summary>
         /// Gets the component type.

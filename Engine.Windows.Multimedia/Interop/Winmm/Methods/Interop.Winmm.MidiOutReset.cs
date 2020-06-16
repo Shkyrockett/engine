@@ -15,9 +15,9 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidHandle"/> The specified device handle is invalid.
         /// </returns>
         /// <remarks>
-        /// Any pending system-exclusive or stream output buffers are returned to the callback function and the MHDR_DONE flag is set in the dwFlags member of the MIDIHDR structure.
+        /// <para>Any pending system-exclusive or stream output buffers are returned to the callback function and the MHDR_DONE flag is set in the dwFlags member of the MIDIHDR structure.
         /// Terminating a system-exclusive message without sending an EOX (end-of-exclusive) byte might cause problems for the receiving device. The midiOutReset function does not send an EOX byte when it terminates a system-exclusive message applications are responsible for doing this.
-        /// To turn off all notes, a note-off message for each note in each channel is sent. In addition, the sustain controller is turned off for each channel.
+        /// To turn off all notes, a note-off message for each note in each channel is sent. In addition, the sustain controller is turned off for each channel.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutreset

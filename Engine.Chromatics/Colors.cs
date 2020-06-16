@@ -37,12 +37,12 @@ namespace Engine.Colorspace
         /// <summary>
         /// Aqua
         /// </summary>
-        public static readonly RGBA Aqua = new RGBA(unchecked((int)0x00FFFFFF), nameof(Aqua));
+        public static readonly RGBA Aqua = new RGBA(unchecked(0x00FFFFFF), nameof(Aqua));
 
         /// <summary>
         /// Aquamarine
         /// </summary>
-        public static readonly RGBA Aquamarine = new RGBA(unchecked((int)0x7FFFD4FF), nameof(Aquamarine));
+        public static readonly RGBA Aquamarine = new RGBA(unchecked(0x7FFFD4FF), nameof(Aquamarine));
 
         /// <summary>
         /// Azure
@@ -62,7 +62,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Black
         /// </summary>
-        public static readonly RGBA Black = new RGBA(unchecked((int)0x000000FF), nameof(Black));
+        public static readonly RGBA Black = new RGBA(unchecked(0x000000FF), nameof(Black));
 
         /// <summary>
         /// Blanched Almond
@@ -72,7 +72,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Blue
         /// </summary>
-        public static readonly RGBA Blue = new RGBA(unchecked((int)0x0000FFFF), nameof(Blue));
+        public static readonly RGBA Blue = new RGBA(unchecked(0x0000FFFF), nameof(Blue));
 
         /// <summary>
         /// Blue Violet
@@ -92,12 +92,12 @@ namespace Engine.Colorspace
         /// <summary>
         /// Cadet Blue
         /// </summary>
-        public static readonly RGBA CadetBlue = new RGBA(unchecked((int)0x5F9EA0FF), nameof(CadetBlue));
+        public static readonly RGBA CadetBlue = new RGBA(unchecked(0x5F9EA0FF), nameof(CadetBlue));
 
         /// <summary>
         /// Chartreuse
         /// </summary>
-        public static readonly RGBA Chartreuse = new RGBA(unchecked((int)0x7FFF00FF), nameof(Chartreuse));
+        public static readonly RGBA Chartreuse = new RGBA(unchecked(0x7FFF00FF), nameof(Chartreuse));
 
         /// <summary>
         /// Chocolate
@@ -112,7 +112,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Cornflower Blue
         /// </summary>
-        public static readonly RGBA CornflowerBlue = new RGBA(unchecked((int)0x6495EDFF), nameof(CornflowerBlue));
+        public static readonly RGBA CornflowerBlue = new RGBA(unchecked(0x6495EDFF), nameof(CornflowerBlue));
 
         /// <summary>
         /// Corn-silk
@@ -127,17 +127,17 @@ namespace Engine.Colorspace
         /// <summary>
         /// Cyan
         /// </summary>
-        public static readonly RGBA Cyan = new RGBA(unchecked((int)0x00FFFFFF), nameof(Cyan));
+        public static readonly RGBA Cyan = new RGBA(unchecked(0x00FFFFFF), nameof(Cyan));
 
         /// <summary>
         /// Dark Blue
         /// </summary>
-        public static readonly RGBA DarkBlue = new RGBA(unchecked((int)0x00008BFF), nameof(DarkBlue));
+        public static readonly RGBA DarkBlue = new RGBA(unchecked(0x00008BFF), nameof(DarkBlue));
 
         /// <summary>
         /// Dark Cyan
         /// </summary>
-        public static readonly RGBA DarkCyan = new RGBA(unchecked((int)0x008B8BFF), nameof(DarkCyan));
+        public static readonly RGBA DarkCyan = new RGBA(unchecked(0x008B8BFF), nameof(DarkCyan));
 
         /// <summary>
         /// Dark Goldenrod
@@ -152,7 +152,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Dark Green
         /// </summary>
-        public static readonly RGBA DarkGreen = new RGBA(unchecked((int)0x006400FF), nameof(DarkGreen));
+        public static readonly RGBA DarkGreen = new RGBA(unchecked(0x006400FF), nameof(DarkGreen));
 
         /// <summary>
         /// Dark Khaki
@@ -167,7 +167,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Dark Olive Green
         /// </summary>
-        public static readonly RGBA DarkOliveGreen = new RGBA(unchecked((int)0x556B2FFF), nameof(DarkOliveGreen));
+        public static readonly RGBA DarkOliveGreen = new RGBA(unchecked(0x556B2FFF), nameof(DarkOliveGreen));
 
         /// <summary>
         /// Dark Orange
@@ -197,17 +197,17 @@ namespace Engine.Colorspace
         /// <summary>
         /// Dark Slate Blue
         /// </summary>
-        public static readonly RGBA DarkSlateBlue = new RGBA(unchecked((int)0x483D8BFF), nameof(DarkSlateBlue));
+        public static readonly RGBA DarkSlateBlue = new RGBA(unchecked(0x483D8BFF), nameof(DarkSlateBlue));
 
         /// <summary>
         /// Dark Slate Gray
         /// </summary>
-        public static readonly RGBA DarkSlateGray = new RGBA(unchecked((int)0x2F4F4FFF), nameof(DarkSlateGray));
+        public static readonly RGBA DarkSlateGray = new RGBA(unchecked(0x2F4F4FFF), nameof(DarkSlateGray));
 
         /// <summary>
         /// Dark Turquoise
         /// </summary>
-        public static readonly RGBA DarkTurquoise = new RGBA(unchecked((int)0x00CED1FF), nameof(DarkTurquoise));
+        public static readonly RGBA DarkTurquoise = new RGBA(unchecked(0x00CED1FF), nameof(DarkTurquoise));
 
         /// <summary>
         /// Dark Violet
@@ -222,17 +222,17 @@ namespace Engine.Colorspace
         /// <summary>
         /// Deep Sky Blue
         /// </summary>
-        public static readonly RGBA DeepSkyBlue = new RGBA(unchecked((int)0x00BFFFFF), nameof(DeepSkyBlue));
+        public static readonly RGBA DeepSkyBlue = new RGBA(unchecked(0x00BFFFFF), nameof(DeepSkyBlue));
 
         /// <summary>
         /// Dim Gray
         /// </summary>
-        public static readonly RGBA DimGray = new RGBA(unchecked((int)0x696969FF), nameof(DimGray));
+        public static readonly RGBA DimGray = new RGBA(unchecked(0x696969FF), nameof(DimGray));
 
         /// <summary>
         /// Dodger Blue
         /// </summary>
-        public static readonly RGBA DodgerBlue = new RGBA(unchecked((int)0x1E90FFFF), nameof(DodgerBlue));
+        public static readonly RGBA DodgerBlue = new RGBA(unchecked(0x1E90FFFF), nameof(DodgerBlue));
 
         /// <summary>
         /// Firebrick
@@ -247,7 +247,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Forest Green
         /// </summary>
-        public static readonly RGBA ForestGreen = new RGBA(unchecked((int)0x228B22FF), nameof(ForestGreen));
+        public static readonly RGBA ForestGreen = new RGBA(unchecked(0x228B22FF), nameof(ForestGreen));
 
         /// <summary>
         /// Fuchsia
@@ -282,7 +282,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Green
         /// </summary>
-        public static readonly RGBA Green = new RGBA(unchecked((int)0x008000FF), nameof(Green));
+        public static readonly RGBA Green = new RGBA(unchecked(0x008000FF), nameof(Green));
 
         /// <summary>
         /// Green Yellow
@@ -307,7 +307,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Indigo
         /// </summary>
-        public static readonly RGBA Indigo = new RGBA(unchecked((int)0x4B0082FF), nameof(Indigo));
+        public static readonly RGBA Indigo = new RGBA(unchecked(0x4B0082FF), nameof(Indigo));
 
         /// <summary>
         /// Ivory
@@ -332,7 +332,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Lawn Green
         /// </summary>
-        public static readonly RGBA LawnGreen = new RGBA(unchecked((int)0x7CFC00FF), nameof(LawnGreen));
+        public static readonly RGBA LawnGreen = new RGBA(unchecked(0x7CFC00FF), nameof(LawnGreen));
 
         /// <summary>
         /// Lemon Chiffon
@@ -382,7 +382,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Light Sea Green
         /// </summary>
-        public static readonly RGBA LightSeaGreen = new RGBA(unchecked((int)0x20B2AAFF), nameof(LightSeaGreen));
+        public static readonly RGBA LightSeaGreen = new RGBA(unchecked(0x20B2AAFF), nameof(LightSeaGreen));
 
         /// <summary>
         /// Light Sky Blue
@@ -392,7 +392,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Light Slate Gray
         /// </summary>
-        public static readonly RGBA LightSlateGray = new RGBA(unchecked((int)0x778899FF), nameof(LightSlateGray));
+        public static readonly RGBA LightSlateGray = new RGBA(unchecked(0x778899FF), nameof(LightSlateGray));
 
         /// <summary>
         /// Light Steel Blue
@@ -407,12 +407,12 @@ namespace Engine.Colorspace
         /// <summary>
         /// Lime
         /// </summary>
-        public static readonly RGBA Lime = new RGBA(unchecked((int)0x00FF00FF), nameof(Lime));
+        public static readonly RGBA Lime = new RGBA(unchecked(0x00FF00FF), nameof(Lime));
 
         /// <summary>
         /// Lime Green
         /// </summary>
-        public static readonly RGBA LimeGreen = new RGBA(unchecked((int)0x32CD32FF), nameof(LimeGreen));
+        public static readonly RGBA LimeGreen = new RGBA(unchecked(0x32CD32FF), nameof(LimeGreen));
 
         /// <summary>
         /// Linen
@@ -432,12 +432,12 @@ namespace Engine.Colorspace
         /// <summary>
         /// Medium Aquamarine
         /// </summary>
-        public static readonly RGBA MediumAquamarine = new RGBA(unchecked((int)0x66CDAAFF), nameof(MediumAquamarine));
+        public static readonly RGBA MediumAquamarine = new RGBA(unchecked(0x66CDAAFF), nameof(MediumAquamarine));
 
         /// <summary>
         /// Medium Blue
         /// </summary>
-        public static readonly RGBA MediumBlue = new RGBA(unchecked((int)0x0000CDFF), nameof(MediumBlue));
+        public static readonly RGBA MediumBlue = new RGBA(unchecked(0x0000CDFF), nameof(MediumBlue));
 
         /// <summary>
         /// Medium Orchid
@@ -452,22 +452,22 @@ namespace Engine.Colorspace
         /// <summary>
         /// Medium Sea Green
         /// </summary>
-        public static readonly RGBA MediumSeaGreen = new RGBA(unchecked((int)0x3CB371FF), nameof(MediumSeaGreen));
+        public static readonly RGBA MediumSeaGreen = new RGBA(unchecked(0x3CB371FF), nameof(MediumSeaGreen));
 
         /// <summary>
         /// Medium Slate Blue
         /// </summary>
-        public static readonly RGBA MediumSlateBlue = new RGBA(unchecked((int)0x7B68EEFF), nameof(MediumSlateBlue));
+        public static readonly RGBA MediumSlateBlue = new RGBA(unchecked(0x7B68EEFF), nameof(MediumSlateBlue));
 
         /// <summary>
         /// Medium Spring Green
         /// </summary>
-        public static readonly RGBA MediumSpringGreen = new RGBA(unchecked((int)0x00FA9AFF), nameof(MediumSpringGreen));
+        public static readonly RGBA MediumSpringGreen = new RGBA(unchecked(0x00FA9AFF), nameof(MediumSpringGreen));
 
         /// <summary>
         /// Medium Turquoise
         /// </summary>
-        public static readonly RGBA MediumTurquoise = new RGBA(unchecked((int)0x48D1CCFF), nameof(MediumTurquoise));
+        public static readonly RGBA MediumTurquoise = new RGBA(unchecked(0x48D1CCFF), nameof(MediumTurquoise));
 
         /// <summary>
         /// Medium Violet Red
@@ -477,7 +477,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Midnight Blue
         /// </summary>
-        public static readonly RGBA MidnightBlue = new RGBA(unchecked((int)0x191970FF), nameof(MidnightBlue));
+        public static readonly RGBA MidnightBlue = new RGBA(unchecked(0x191970FF), nameof(MidnightBlue));
 
         /// <summary>
         /// Mint Cream
@@ -502,7 +502,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Navy
         /// </summary>
-        public static readonly RGBA Navy = new RGBA(unchecked((int)0x000080FF), nameof(Navy));
+        public static readonly RGBA Navy = new RGBA(unchecked(0x000080FF), nameof(Navy));
 
         /// <summary>
         /// Old Lace
@@ -517,7 +517,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Olive Drab
         /// </summary>
-        public static readonly RGBA OliveDrab = new RGBA(unchecked((int)0x6B8E23FF), nameof(OliveDrab));
+        public static readonly RGBA OliveDrab = new RGBA(unchecked(0x6B8E23FF), nameof(OliveDrab));
 
         /// <summary>
         /// Orange
@@ -602,7 +602,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Royal Blue
         /// </summary>
-        public static readonly RGBA RoyalBlue = new RGBA(unchecked((int)0x4169E1FF), nameof(RoyalBlue));
+        public static readonly RGBA RoyalBlue = new RGBA(unchecked(0x4169E1FF), nameof(RoyalBlue));
 
         /// <summary>
         /// Saddle Brown
@@ -622,7 +622,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Sea Green
         /// </summary>
-        public static readonly RGBA SeaGreen = new RGBA(unchecked((int)0x2E8B57FF), nameof(SeaGreen));
+        public static readonly RGBA SeaGreen = new RGBA(unchecked(0x2E8B57FF), nameof(SeaGreen));
 
         /// <summary>
         /// Sea Shell
@@ -647,12 +647,12 @@ namespace Engine.Colorspace
         /// <summary>
         /// Slate Blue
         /// </summary>
-        public static readonly RGBA SlateBlue = new RGBA(unchecked((int)0x6A5ACDFF), nameof(SlateBlue));
+        public static readonly RGBA SlateBlue = new RGBA(unchecked(0x6A5ACDFF), nameof(SlateBlue));
 
         /// <summary>
         /// Slate Gray
         /// </summary>
-        public static readonly RGBA SlateGray = new RGBA(unchecked((int)0x708090FF), nameof(SlateGray));
+        public static readonly RGBA SlateGray = new RGBA(unchecked(0x708090FF), nameof(SlateGray));
 
         /// <summary>
         /// Snow
@@ -662,12 +662,12 @@ namespace Engine.Colorspace
         /// <summary>
         /// Spring Green
         /// </summary>
-        public static readonly RGBA SpringGreen = new RGBA(unchecked((int)0x00FF7FFF), nameof(SpringGreen));
+        public static readonly RGBA SpringGreen = new RGBA(unchecked(0x00FF7FFF), nameof(SpringGreen));
 
         /// <summary>
         /// Steel Blue
         /// </summary>
-        public static readonly RGBA SteelBlue = new RGBA(unchecked((int)0x4682B4FF), nameof(SteelBlue));
+        public static readonly RGBA SteelBlue = new RGBA(unchecked(0x4682B4FF), nameof(SteelBlue));
 
         /// <summary>
         /// Tan
@@ -677,7 +677,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Teal
         /// </summary>
-        public static readonly RGBA Teal = new RGBA(unchecked((int)0x008080FF), nameof(Teal));
+        public static readonly RGBA Teal = new RGBA(unchecked(0x008080FF), nameof(Teal));
 
         /// <summary>
         /// Thistle
@@ -692,7 +692,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Turquoise
         /// </summary>
-        public static readonly RGBA Turquoise = new RGBA(unchecked((int)0x40E0D0FF), nameof(Turquoise));
+        public static readonly RGBA Turquoise = new RGBA(unchecked(0x40E0D0FF), nameof(Turquoise));
 
         /// <summary>
         /// Violet

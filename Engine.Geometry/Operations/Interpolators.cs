@@ -1433,7 +1433,7 @@ namespace Engine
             if (Abs(dX) < Epsilon && Abs(dY) < Epsilon)
             {
                 // In place Vertical Throw.
-                return (x1, y1 + k * ((-4d * t * t) + (4d * t)));
+                return (x1, y1 + (k * ((-4d * t * t) + (4d * t))));
             }
             if (Abs(dX) < Epsilon)
             {

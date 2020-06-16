@@ -29,7 +29,7 @@ namespace Engine.Tools
         /// <summary>
         /// The bit mask to extract modifiers from a key value.
         /// </summary>
-        Modifiers = unchecked((uint)0xFFFF0000),
+        Modifiers = unchecked(0xFFFF0000),
 
         /// <summary>
         /// No key pressed.

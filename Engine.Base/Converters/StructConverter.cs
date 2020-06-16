@@ -54,10 +54,10 @@ namespace Engine
             var t = typeof(TType);
             parse = ParseMethodAttribute.GetParseMethod(t);
             descriptions = AdvBrowsableAttribute.GetDispMembers(t);
-            if (!(descriptions is null))
+            if (descriptions is not null)
             {
                 instanceCtor = InstanceConstructorAttribute.GetConstructor(t, out instanceCtorParamNames);
-                if (!(instanceCtor is null))
+                if (instanceCtor is not null)
                 {
                     var paraminfos = instanceCtor.GetParameters();
                     if (paraminfos.Length == instanceCtorParamNames.Length)
@@ -91,7 +91,7 @@ namespace Engine
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => (!(parse is null) && sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => ((parse is not null) && sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
 
         /// <summary>
         /// The can convert to.
@@ -101,7 +101,7 @@ namespace Engine
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => (!(instanceCtor is null) && destinationType == typeof(InstanceDescriptor)) || base.CanConvertTo(context, destinationType);
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => ((instanceCtor is not null) && destinationType == typeof(InstanceDescriptor)) || base.CanConvertTo(context, destinationType);
 
         /// <summary>
         /// Get the create instance supported.
@@ -110,7 +110,7 @@ namespace Engine
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
-        public override bool GetCreateInstanceSupported(ITypeDescriptorContext context) => !(instanceCtor is null) || base.GetCreateInstanceSupported(context);
+        public override bool GetCreateInstanceSupported(ITypeDescriptorContext context) => (instanceCtor is not null) || base.GetCreateInstanceSupported(context);
 
         /// <summary>
         /// Get the properties supported.
@@ -119,7 +119,7 @@ namespace Engine
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
-        public override bool GetPropertiesSupported(ITypeDescriptorContext context) => !(descriptions is null) || base.GetPropertiesSupported(context);
+        public override bool GetPropertiesSupported(ITypeDescriptorContext context) => (descriptions is not null) || base.GetPropertiesSupported(context);
 
         /// <summary>
         /// Convert the from.
@@ -132,7 +132,7 @@ namespace Engine
         /// </returns>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (!(parse is null) && value is string s)
+            if ((parse is not null) && value is string s)
             {
                 try
                 {
@@ -159,7 +159,7 @@ namespace Engine
         /// </returns>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (!(instanceCtor is null) && value is TType v && destinationType == typeof(InstanceDescriptor))
+            if ((instanceCtor is not null) && value is TType v && destinationType == typeof(InstanceDescriptor))
             {
                 return new InstanceDescriptor(instanceCtor, GetInstanceDescriptorObjects(v));
             }
@@ -177,7 +177,7 @@ namespace Engine
         /// </returns>
         public override object CreateInstance(ITypeDescriptorContext context, IDictionary propertyValues)
         {
-            if (!(instanceCtor is null) && !(propertyValues is null))
+            if ((instanceCtor is not null) && (propertyValues is not null))
             {
                 try
                 {
@@ -203,7 +203,7 @@ namespace Engine
         /// </returns>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
-            if (!(descriptions is null))
+            if (descriptions is not null)
             {
                 return descriptions;
             }

@@ -282,7 +282,7 @@ namespace EventEditorMidi
             //       let containsInterface = prop.ReflectedType.GetInterfaces().Contains(iMidiElement)
             //       let isGenericType = propertyType.IsGenericType
             //       let isListType = isGenericType && propertyType.GetGenericTypeDefinition() == listType
-            //       where !(prop is null) && (isInterface || (isGenericType && isListType && containsInterface))
+            //       where (prop is not null) && (isInterface || (isGenericType && isListType && containsInterface))
             //       let child = new TreeNode(prop.Name)
             //       {
             //           Tag = prop.GetValue(item, null)

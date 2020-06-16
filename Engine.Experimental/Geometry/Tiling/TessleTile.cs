@@ -62,58 +62,27 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets the shape.
         /// </summary>
-        public TileShape Shape
-        {
-            get
-            {
+        public TileShape Shape =>
                 // Symmetries 
                 // T: Translation
                 // G: Glide and Reflection
                 // C: Rotation
-                switch (Heesch)
+                Heesch switch
                 {
                     // Triangular
-                    case HeeschTiling.CCC: // Three rotations.
-                    case HeeschTiling.CC3C3:
-                    case HeeschTiling.CC4C4:
-                    case HeeschTiling.CC6C6:
-                    case HeeschTiling.CGG:
-                        return TileShape.Triangular;
+                    // Three rotations.
+                    HeeschTiling.CCC or HeeschTiling.CC3C3 or HeeschTiling.CC4C4 or HeeschTiling.CC6C6 or HeeschTiling.CGG => TileShape.Triangular,
                     // Quadrilateral
-                    case HeeschTiling.TTTT: // Double translation.
-                    case HeeschTiling.CCCC: // Four rotations.
-                    case HeeschTiling.TCTC:
-                    case HeeschTiling.C3C3C3C3:
-                    case HeeschTiling.C4C4C4C4:
-                    case HeeschTiling.C3C3C6C6:
-                    case HeeschTiling.CCGG:
-                    case HeeschTiling.TGTG:
-                    case HeeschTiling.CGCG:
-                    case HeeschTiling.G1G1G2G2:
-                    case HeeschTiling.G1G2G1G2:
-                        return TileShape.Quadrilateral;
+                    // Double translation.
+                    HeeschTiling.TTTT or HeeschTiling.CCCC or HeeschTiling.TCTC or HeeschTiling.C3C3C3C3 or HeeschTiling.C4C4C4C4 or HeeschTiling.C3C3C6C6 or HeeschTiling.CCGG or HeeschTiling.TGTG or HeeschTiling.CGCG or HeeschTiling.G1G1G2G2 or HeeschTiling.G1G2G1G2 => TileShape.Quadrilateral,
                     // Pentagonal
-                    case HeeschTiling.TCTCC:
-                    case HeeschTiling.TCTGG:
-                    case HeeschTiling.CC3C3C6C6:
-                    case HeeschTiling.CC4C4C4C4:
-                    case HeeschTiling.CG1G2G1G2:
-                        return TileShape.Pentagonal;
+                    HeeschTiling.TCTCC or HeeschTiling.TCTGG or HeeschTiling.CC3C3C6C6 or HeeschTiling.CC4C4C4C4 or HeeschTiling.CG1G2G1G2 => TileShape.Pentagonal,
                     // Hexagonal
-                    case HeeschTiling.TTTTTT: // Triple translation.
-                    case HeeschTiling.TCCTCC:
-                    case HeeschTiling.TG1G1TG2G2:
-                    case HeeschTiling.TG1G2TG2G1:
-                    case HeeschTiling.TCCTGG:
-                    case HeeschTiling.C3C3C3C3C3C3:
-                    case HeeschTiling.CG1CG2G1G2:
-                        return TileShape.Hexagonal;
+                    // Triple translation.
+                    HeeschTiling.TTTTTT or HeeschTiling.TCCTCC or HeeschTiling.TG1G1TG2G2 or HeeschTiling.TG1G2TG2G1 or HeeschTiling.TCCTGG or HeeschTiling.C3C3C3C3C3C3 or HeeschTiling.CG1CG2G1G2 => TileShape.Hexagonal,
                     // Unknown
-                    default:
-                        return TileShape.Unknown;
-                }
-            }
-        }
+                    _ => TileShape.Unknown,
+                };
         #endregion Properties
 
         #region Methods

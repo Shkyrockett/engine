@@ -22,10 +22,10 @@ internal static partial class Interop
         /// <see cref="MmResult.MemoryAllocationError"/> The system is unable to allocate or lock memory.
         /// </returns>
         /// <remarks>
-        /// Before you pass a MIDI data block to a device driver, you must prepare the buffer by passing it to the midiOutPrepareHeader function. After the header has been prepared, do not modify the buffer. After the driver is done using the buffer, call the midiOutUnprepareHeader function.
+        /// <para>Before you pass a MIDI data block to a device driver, you must prepare the buffer by passing it to the midiOutPrepareHeader function. After the header has been prepared, do not modify the buffer. After the driver is done using the buffer, call the midiOutUnprepareHeader function.
         /// The application can re-use the same buffer, or allocate multiple buffers and call midiOutPrepareHeader for each buffer. If you re-use the same buffer, it is not necessary to prepare the buffer each time. You can call midiOutPrepareHeader once at the beginning and then call midiOutUnprepareHeader once at the end.
         /// A stream buffer cannot be larger than 64K.
-        /// Preparing a header that has already been prepared has no effect, and the function returns MMSYSERR_NOERROR.
+        /// Preparing a header that has already been prepared has no effect, and the function returns MMSYSERR_NOERROR.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutprepareheader

@@ -15,8 +15,8 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidHandle"/> The specified device handle is invalid.
         /// </returns>
         /// <remarks>
-        /// The current playback position is saved when playback is paused. To resume playback from the current position, use the midiStreamRestart function.
-        /// Calling this function when the output is already paused has no effect, and the function returns MMSYSERR_NOERROR.
+        /// <para>The current playback position is saved when playback is paused. To resume playback from the current position, use the midiStreamRestart function.
+        /// Calling this function when the output is already paused has no effect, and the function returns MMSYSERR_NOERROR.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreampause

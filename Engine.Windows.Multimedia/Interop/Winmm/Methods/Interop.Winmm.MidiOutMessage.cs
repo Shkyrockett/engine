@@ -17,7 +17,7 @@ internal static partial class Interop
         /// Returns the value returned by the audio device driver.
         /// </returns>
         /// <remarks>
-        /// The DRV_QUERYDEVICEINTERFACE message queries for the device-interface name of a waveIn, waveOut, midiIn, midiOut, or mixer device.
+        /// <para>The DRV_QUERYDEVICEINTERFACE message queries for the device-interface name of a waveIn, waveOut, midiIn, midiOut, or mixer device.
         /// For DRV_QUERYDEVICEINTERFACE, dwParam1 is a pointer to a caller-allocated buffer into which the function writes a null-terminated Unicode string containing the device-interface name. If the device has no device interface, the string length is zero.
         /// For DRV_QUERYDEVICEINTERFACE, dwParam2 specifies the buffer size in bytes.This is an input parameter to the function.The caller should specify a size that is greater than or equal to the buffer size retrieved by the DRV_QUERYDEVICEINTERFACESIZE message.
         /// The DRV_QUERYDEVICEINTERFACE message is supported in Windows Me, and Windows 2000 and later. This message is valid only for the waveInMessage, waveOutMessage, midiInMessage, midiOutMessage, and mixerMessage functions.The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted xxxMessage functions, see System-Intercepted Device Messages.
@@ -56,7 +56,7 @@ internal static partial class Interop
         /// The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted xxxMessage functions, see System-Intercepted Device Messages.
         /// This message provides a way to determine which device is preferred for audio functions in general, in contrast to the DRVM_MAPPER_CONSOLEVOICECOM_GET message, which determines which device is preferred specifically for voice communications.
         /// When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by dwParam2, the waveIn and waveOut APIs use only the current preferred device and do not search for other available devices if the preferred device is unavailable.Note that the midiOutMessage function does not output this flag--the midiOut API always uses only the preferred device.The flag that is output by either the waveInMessage or waveOutMessage call applies to the preferred device for both the waveIn and waveOut APIs, regardless of whether the call is made to waveInMessage or waveOutMessage.
-        /// The xxxMessage functions accept this value in place of a valid device handle in order to allow an application to determine the default device ID without first having to open a device.For more information, see Accessing the Preferred Device ID.
+        /// The xxxMessage functions accept this value in place of a valid device handle in order to allow an application to determine the default device ID without first having to open a device.For more information, see Accessing the Preferred Device ID.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/en-us/windows/win32/api/mmeapi/nf-mmeapi-midioutmessage

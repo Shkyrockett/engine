@@ -146,7 +146,7 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item?.Style;
             var layoutRectangle = shape?.Bounds?.ToRectangleF();
-            if (!(layoutRectangle is null))
+            if (layoutRectangle is not null)
             {
                 using var font = shape.Font.ToFont();
                 g?.DrawString(shape.Text, font, itemStyle.ForeBrush, layoutRectangle.Value);

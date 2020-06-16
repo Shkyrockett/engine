@@ -18,8 +18,8 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidParameter"/> Specified pointer or structure is invalid.
         /// </returns>
         /// <remarks>
-        /// Before calling midiStreamPosition, set the wType member of the MMTIME structure to indicate the time format you desire. After calling midiStreamPosition, check the wType member to determine if the desired time format is supported. If the desired format is not supported, wType will specify an alternative format.
-        /// The position is set to zero when the device is opened or reset.
+        /// <para>Before calling midiStreamPosition, set the wType member of the MMTIME structure to indicate the time format you desire. After calling midiStreamPosition, check the wType member to determine if the desired time format is supported. If the desired format is not supported, wType will specify an alternative format.
+        /// The position is set to zero when the device is opened or reset.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamposition

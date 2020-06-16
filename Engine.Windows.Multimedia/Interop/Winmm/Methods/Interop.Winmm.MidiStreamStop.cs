@@ -15,8 +15,8 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidHandle"/> The specified device handle is invalid.
         /// </returns>
         /// <remarks>
-        /// When you call this function, any pending system-exclusive or stream output buffers are returned to the callback mechanism and the MHDR_DONE bit is set in the dwFlags member of the MIDIHDR structure.
-        /// While the midiOutReset function turns off all notes, midiStreamStop turns off only those notes that have been turned on by a MIDI note-on message.
+        /// <para>When you call this function, any pending system-exclusive or stream output buffers are returned to the callback mechanism and the MHDR_DONE bit is set in the dwFlags member of the MIDIHDR structure.
+        /// While the midiOutReset function turns off all notes, midiStreamStop turns off only those notes that have been turned on by a MIDI note-on message.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamstop

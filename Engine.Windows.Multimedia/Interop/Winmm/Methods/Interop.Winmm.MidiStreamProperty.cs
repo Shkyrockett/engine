@@ -18,7 +18,7 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidParameter"/> The given handle or flags parameter is invalid.
         /// </returns>
         /// <remarks>
-        /// These properties are the default properties defined by the system. Driver writers can implement and document their own properties.
+        /// <para>These properties are the default properties defined by the system. Driver writers can implement and document their own properties.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamproperty

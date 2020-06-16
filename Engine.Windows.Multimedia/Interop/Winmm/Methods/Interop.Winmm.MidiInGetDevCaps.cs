@@ -20,7 +20,7 @@ internal static partial class Interop
         /// <see cref="MmResult.MemoryAllocationError"/> The system is unable to allocate or lock memory.
         /// </returns>
         /// <remarks>
-        /// To determine the number of MIDI input devices present on the system, use the midiInGetNumDevs function.
+        /// <para>To determine the number of MIDI input devices present on the system, use the midiInGetNumDevs function.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/en-us/windows/win32/api/mmeapi/nf-mmeapi-midiingetdevcaps

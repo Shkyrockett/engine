@@ -136,6 +136,6 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="propertyValues">The propertyValues.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => !(propertyValues is null) ? new Point3D((double)propertyValues[$"{nameof(Point3D.X)}"], (double)propertyValues[$"{nameof(Point3D.Y)}"], (double)propertyValues[$"{nameof(Point3D.Z)}"]) : (object)null;
+        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => (propertyValues is not null) ? new Point3D((double)propertyValues[$"{nameof(Point3D.X)}"], (double)propertyValues[$"{nameof(Point3D.Y)}"], (double)propertyValues[$"{nameof(Point3D.Z)}"]) : (object)null;
     }
 }

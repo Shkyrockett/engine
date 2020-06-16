@@ -5,7 +5,7 @@
         /// <summary>
         /// Represents the different types of technology used by a MIDI out device
         /// </summary>
-        /// <remarks>from mmsystem.h</remarks>
+        /// <remarks><para>from mmsystem.h</para></remarks>
         public enum MidiOutTechnology
         {
             /// <summary>

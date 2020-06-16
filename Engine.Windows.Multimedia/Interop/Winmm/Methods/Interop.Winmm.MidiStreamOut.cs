@@ -21,10 +21,10 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidParameter"/>  The pointer specified by lpMidiHdr is invalid.
         /// </returns>
         /// <remarks>
-        /// Before the buffer is passed to midiStreamOpen, it must be prepared by using the midiOutPrepareHeader function.
+        /// <para>Before the buffer is passed to midiStreamOpen, it must be prepared by using the midiOutPrepareHeader function.
         /// Because the midiStreamOpen function opens the output device in paused mode, you must call the midiStreamRestart function before you can use midiStreamOut to start the playback.
         /// For the current implementation of this function, the buffer must be smaller than 64K.
-        /// The buffer pointed to by the MIDIHDR structure contains one or more MIDI events, each of which is defined by a MIDIEVENT structure.
+        /// The buffer pointed to by the MIDIHDR structure contains one or more MIDI events, each of which is defined by a MIDIEVENT structure.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamout

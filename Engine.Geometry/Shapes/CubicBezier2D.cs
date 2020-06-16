@@ -209,7 +209,7 @@ namespace Engine
             get { return new List<Point2D> { A, B, C, D }; }
             set
             {
-                if (!(value is null))
+                if (value is not null)
                 {
                     A = value[0];
                     B = value[1];

@@ -496,7 +496,7 @@ namespace Engine
             var b = velocity * velocity * Sin(angle * 0.5d) / gravity;
             var cos = Cos(angle);
             return (
-                x + b * 0.5d * Tan(angle) - (gravity * 0.5d * (b * 0.5d / velocity * cos) * (b * 0.5d / velocity * cos)),
+                x + (b * 0.5d * Tan(angle)) - (gravity * 0.5d * (b * 0.5d / velocity * cos) * (b * 0.5d / velocity * cos)),
                 b,
                 b / (velocity * cos)
                 );

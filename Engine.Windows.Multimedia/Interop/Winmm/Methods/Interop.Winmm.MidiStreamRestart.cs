@@ -15,7 +15,7 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidParameter"/> The specified device handle is invalid.
         /// </returns>
         /// <remarks>
-        /// Calling this function when the output is not paused has no effect, and the function returns MMSYSERR_NOERROR.
+        /// <para>Calling this function when the output is not paused has no effect, and the function returns MMSYSERR_NOERROR.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamrestart

@@ -889,7 +889,7 @@ namespace Engine
             var left = rect is null ? Left : Min(Left, rect.Left);
             var top = rect is null ? Top : Min(Top, rect.Top);
 
-            if (!(rect is null))
+            if (rect is not null)
             {
                 // We need this check so that the math does not result in NaN
                 if (double.IsPositiveInfinity(rect.Width) || double.IsPositiveInfinity(Width))
@@ -931,7 +931,7 @@ namespace Engine
             var width = this.width;
             var height = this.width;
 
-            if (!(rect is null))
+            if (rect is not null)
             {
                 // We need this check so that the math does not result in NaN
                 if (double.IsPositiveInfinity(rect.Width) || double.IsPositiveInfinity(Width))

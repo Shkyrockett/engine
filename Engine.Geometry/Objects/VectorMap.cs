@@ -50,7 +50,7 @@ namespace Engine
         /// </summary>
         /// <param name="area">The index area.</param>
         /// <returns>One element of type List{GraphicItem}.</returns>
-        public List<GraphicItem> this[Rectangle2D area] => new List<GraphicItem>(from shape in Items where !(shape?.Shape?.Bounds is null) && shape.VisibleTest(area) select shape);
+        public List<GraphicItem> this[Rectangle2D area] => new List<GraphicItem>(from shape in Items where (shape?.Shape?.Bounds is not null) && shape.VisibleTest(area) select shape);
 
         /// <summary>
         /// The Indexer.

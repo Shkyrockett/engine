@@ -1,7 +1,7 @@
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
-* text=auto
+*              text=auto
 
 ###############################################################################
 # Set default behavior for command prompt diff.
@@ -36,29 +36,191 @@
 #*.wwaproj   merge=binary
 
 ###############################################################################
-# behavior for image files
-#
-# image files are treated as binary by default.
-###############################################################################
-*.jpg   binary
-*.png   binary
-*.gif   binary
-*.eps   binary
-
-###############################################################################
 # diff behavior for common document formats
 # 
 # Convert binary document formats to text before diffing them. This feature
 # is only available from the command line. Turn it on by uncommenting the 
 # entries below.
 ###############################################################################
-*.doc   diff=astextplain
-*.DOC   diff=astextplain
-*.docx  diff=astextplain
-*.DOCX  diff=astextplain
-#*.dot   diff=astextplain
-#*.DOT   diff=astextplain
-#*.pdf   diff=astextplain
-#*.PDF   diff=astextplain
-*.rtf   diff=astextplain
-*.RTF   diff=astextplain
+*.bibtex       text diff=bibtex
+*.doc          diff=astextplain
+*.DOC          diff=astextplain
+*.docx         diff=astextplain
+*.DOCX         diff=astextplain
+*.dot          diff=astextplain
+*.DOT          diff=astextplain
+*.pdf          diff=astextplain
+*.PDF          diff=astextplain
+*.rtf          diff=astextplain
+*.RTF          diff=astextplain
+*.md           markdown
+*.markdown     markdown
+*.tex          text diff=tex
+*.adoc         text
+*.textile      text
+*.mustache     text
+*.csv          text
+*.tab          text
+*.tsv          text
+*.txt          text
+*.sql          text
+*.xls          binary diff=astextplain
+*.XLS          binary diff=astextplain
+*.xlsx         binary diff=astextplain
+*.XLSX         binary diff=astextplain
+
+###############################################################################
+# behavior for image files
+#
+# Image files are treated as binary by default.
+###############################################################################
+*.ai           binary
+*.bmp          binary
+*.cgm          binary
+*.cdr          binary
+*.emf          binary
+*.eps          binary
+*.gif          binary
+*.gifv         binary
+*.ico          binary
+*.ipx          binary
+*.jng          binary
+*.jp2          binary
+*.jpg          binary
+*.jpeg         binary
+*.jpx          binary
+*.jxr          binary
+*.pcx          binary
+*.pdf          binary
+*.png          binary
+*.psb          binary
+*.psd          binary
+# SVG treated as an asset (binary) by default.
+*.svg   text
+# If you want to treat it as binary,
+# use the following line instead.
+# *.svg          binary
+*.svgz         binary
+*.tif          binary
+*.tiff         binary
+*.wbmp         binary
+*.webp         binary
+*.wmf          binary
+*.wpg          binary
+*.xar          binary
+
+###############################################################################
+# behavior for audio files
+#
+# Audio files are treated as binary by default.
+###############################################################################
+*.kar          binary
+*.m4a          binary
+*.mid          binary
+*.midi         binary
+*.mp3          binary
+*.ogg          binary
+*.ra           binary
+*.wav          binary
+
+###############################################################################
+# behavior for video files
+#
+# Video files are treated as binary by default.
+###############################################################################
+*.3gpp         binary
+*.3gp          binary
+*.as           text
+*.asf          binary
+*.asx          binary
+*.avi          binary
+*.fla          binary
+*.flv          binary
+*.m4v          binary
+*.mng          binary
+*.mov          binary
+*.mp4          binary
+*.mpeg         binary
+*.mpg          binary
+*.ogv          binary
+# Treat .swf and .swc as binary
+# https://stackoverflow.com/q/1529178
+*.swc          binary -crlf -diff -merge
+*.swf          binary -crlf -diff -merge
+*.webm         binary
+
+###############################################################################
+# behavior for script files
+#
+# Script files are treated as text by default. Line endings depend on platform.
+###############################################################################
+# These are explicitly *nix files and should use lf
+*.bash         text eol=lf
+*.fish         text eol=lf
+*.sh           text eol=lf
+# These are explicitly windows files and should use crlf
+*.bat          text eol=crlf
+*.cmd          text eol=crlf
+*.ps1		   text working-tree-encoding=UTF-16LE eol=CRLF
+
+###############################################################################
+# behavior for serialisation files
+#
+# Serialisation files are treated as text by default. Line endings depend on platform.
+###############################################################################
+*.json         text
+*.toml         text
+*.xml          text
+*.yaml         text
+*.yml          text
+
+###############################################################################
+# behavior for archive files
+#
+# Archive files are treated as binary by default.
+###############################################################################
+*.7z           binary
+*.gz           binary
+*.jar          binary
+*.rar          binary
+*.tar          binary
+*.zip          binary
+
+###############################################################################
+# behavior for font files
+#
+# Font files are treated as binary by default.
+###############################################################################
+*.ttf          binary
+*.eot          binary
+*.otf          binary
+*.woff         binary
+*.woff2        binary
+
+###############################################################################
+# behavior for executable files
+#
+# Executable files are treated as binary by default.
+###############################################################################
+*.exe          binary
+*.pyc          binary
+
+###############################################################################
+# behavior for geneology files
+#
+# Geneology files are treated as binary by default.
+###############################################################################
+*.ged          text
+*.gedata       binary
+*.gedcom       binary
+*.gno          binary
+*.rgmc         binary
+*.wdf          binary
+
+###############################################################################
+#
+# Exclude files from exporting
+#
+###############################################################################
+.gitattributes export-ignore
+.gitignore     export-ignore

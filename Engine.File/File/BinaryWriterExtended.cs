@@ -90,7 +90,7 @@ namespace Engine.File
             //// I think there needs to be some shifting here.
             //Write(buffer, 0, 2);
 
-            var uvalue = (ushort)value;
+            var uvalue = value;
             Write((byte)(uvalue >> 7));
             Write((byte)(uvalue & 0x7F));
         }
@@ -185,7 +185,7 @@ namespace Engine.File
             //var v = BitConverter.IsLittleEndian ? IPAddress.HostToNetworkOrder(value) : value;
             //byte[] buffer = BitConverter.GetBytes(v);
             //Write(buffer, 0, 3);
-            var uvalue = (uint)value;
+            var uvalue = value;
             Write((byte)(uvalue >> 16));
             Write((byte)((uvalue >> 8) & 0xFF));
             Write((byte)(uvalue & 0xFF));

@@ -66,7 +66,7 @@ namespace Engine
                 {
                     var att = (AdvBrowsableAttribute)atts[0];
                     AdvPropertyDescriptor descriptor;
-                    descriptor = !(att.Name is null) ? new AdvPropertyDescriptor(att.Name, info) : new AdvPropertyDescriptor(info);
+                    descriptor = (att.Name is not null) ? new AdvPropertyDescriptor(att.Name, info) : new AdvPropertyDescriptor(info);
                     atts = info.GetCustomAttributes(typeof(DescriptionAttribute), true);
                     if (atts.Length > 0)
                     {
@@ -84,7 +84,7 @@ namespace Engine
                 {
                     var att = (AdvBrowsableAttribute)atts[0];
                     AdvPropertyDescriptor descriptor;
-                    descriptor = !(att.Name is null) ? new AdvPropertyDescriptor(att.Name, info) : new AdvPropertyDescriptor(info);
+                    descriptor = (att.Name is not null) ? new AdvPropertyDescriptor(att.Name, info) : new AdvPropertyDescriptor(info);
                     atts = info.GetCustomAttributes(typeof(DescriptionAttribute), true);
                     if (atts.Length > 0)
                     {
@@ -100,7 +100,7 @@ namespace Engine
                 return null;
             }
 
-            if (!(order is null))
+            if (order is not null)
             {
                 return new PropertyDescriptorCollection(rv.ToArray()).Sort(order);
             }

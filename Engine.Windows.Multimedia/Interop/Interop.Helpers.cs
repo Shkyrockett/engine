@@ -13,7 +13,7 @@ internal static partial class Interop
         /// <param name="result">The result.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>
-        /// https://github.com/AArnott/pinvoke
+        /// <para>https://github.com/AArnott/pinvoke</para>
         /// </remarks>
         internal static bool GrowStringBuffer(Func<StringBuilder, bool> nativeMethod, out string result)
         {

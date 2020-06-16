@@ -177,7 +177,7 @@ namespace Engine.File
             }
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("value", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 
-            var value = (uint)input;
+            var value = input;
             ulong buffer = value & 0x7f;
 
             while ((value >>= 7) > 0)

@@ -143,7 +143,7 @@ namespace MethodSpeedTester
             Func<List<PointF>, PointF, Inclusions> method,
             string text)
         {
-            if (!(polygon is null) && !(points is null) && !(method is null))
+            if ((polygon is not null) && (points is not null) && (method is not null))
             {
                 var poly = polygon.ToArray();
                 g?.DrawString(text, font, Brushes.Black, new Point());

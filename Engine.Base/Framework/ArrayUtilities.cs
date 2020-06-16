@@ -37,10 +37,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Add<T>(ref T[] array, T t)
         {
-            if (!(array is null))
+            if (array is not null && array is T[] a)
             {
-                Array.Resize(ref array, (array?.Length).Value + 1);
-                array[^1] = t;
+                Array.Resize(ref a, a.Length + 1);
+                a[^1] = t;
             }
         }
 
@@ -53,14 +53,14 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RemoveAt<T>(ref T[] array, int index)
         {
-            if (!(array is null))
+            if (array is not null && array is T[] a)
             {
-                if (index < array.Length - 1)
+                if (index < a.Length - 1)
                 {
-                    Array.Copy(array, index + 1, array, index, array.Length - index - 1);
+                    Array.Copy(a, index + 1, a, index, a.Length - index - 1);
                 }
 
-                Array.Resize(ref array, array.Length - 1);
+                Array.Resize(ref a, a.Length - 1);
             }
         }
 
@@ -91,10 +91,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Pop<T>(this List<T> list)
         {
-            if (!(list is null))
+            if (list is not null && list is List<T> l)
             {
-                var r = list[^1];
-                list.RemoveAt(list.Count - 1);
+                var r = l[^1];
+                l.RemoveAt(l.Count - 1);
                 return r;
             }
 
@@ -112,10 +112,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Shift<T>(this List<T> list)
         {
-            if (!(list is null))
+            if (list is not null && list is List<T> l)
             {
-                var r = list[0];
-                list.RemoveAt(0);
+                var r = l[0];
+                l.RemoveAt(0);
                 return r;
             }
 
@@ -134,9 +134,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<T> UnShift<T>(this List<T> list, T item)
         {
-            if (!(list is null))
+            if (list is not null && list is List<T> l)
             {
-                list.Insert(0, item);
+                l.Insert(0, item);
             }
 
             return list;
@@ -171,7 +171,7 @@ namespace Engine
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe Span<T> Slice<T>(this Span<T> source, int start, int end) =>
-            //if (!(source is null))
+            //if ((source is not null))
             //{
             //    // Handles negative ends.
             //    if (end < 0)
@@ -217,7 +217,7 @@ namespace Engine
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe Span<T> Slice<T>(this Span<T> source) =>
-            //if (!(source is null))
+            //if ((source is not null))
             //{
             //    // Return new array.
             //    var res = new T[source.Length];
@@ -247,9 +247,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TResult> Map<T, TResult>(this IEnumerable<T> list, Func<T, TResult> func)
         {
-            if (!(list is null))
+            if (list is not null && list is IEnumerable<T> l)
             {
-                foreach (var i in list)
+                foreach (var i in l)
                 {
                     yield return func(i);
                 }
@@ -273,9 +273,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Reduce<T, U>(this IEnumerable<U> list, Func<U, T, T> func, T acc)
         {
-            if (!(list is null))
+            if (list is not null && list is IEnumerable<U> l)
             {
-                foreach (var i in list)
+                foreach (var i in l)
                 {
                     acc = func(i, acc);
                 }
@@ -288,9 +288,9 @@ namespace Engine
         /// The splice.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="Source">The Source.</param>
-        /// <param name="Start">The Start.</param>
-        /// <param name="Size">The Size.</param>
+        /// <param name="source">The Source.</param>
+        /// <param name="start">The Start.</param>
+        /// <param name="size">The Size.</param>
         /// <returns>
         /// The <see cref="List{T}" />.
         /// </returns>
@@ -298,16 +298,16 @@ namespace Engine
         /// <para>http://stackoverflow.com/q/9325627</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<T> Splice<T>(this List<T> Source, int Start, int Size)
+        public static List<T> Splice<T>(this List<T> source, int start, int size)
         {
-            if (!(Source is null))
+            if (source is not null && source is List<T> s)
             {
-                var retVal = Source.Skip(Start).Take(Size).ToList();
-                Source.RemoveRange(Start, Size);
+                var retVal = s.Skip(start).Take(size).ToList();
+                s.RemoveRange(start, size);
                 return retVal;
             }
 
-            return Source;
+            return source;
         }
 
         /// <summary>

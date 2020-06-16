@@ -15,7 +15,7 @@ internal static partial class Interop
         /// <param name="messageParameter1">The Message parameter 1.</param>
         /// <param name="messageParameter2">The Message parameter 2.</param>
         /// <remarks>
-        /// Applications should not call any multimedia functions from inside the callback function, as doing so can cause a deadlock. Other system functions can safely be called from the callback.
+        /// <para>Applications should not call any multimedia functions from inside the callback function, as doing so can cause a deadlock. Other system functions can safely be called from the callback.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/previous-versions//dd798478(v=vs.85)
@@ -39,9 +39,9 @@ internal static partial class Interop
         /// <see cref="MmResult.MemoryAllocationError"/> The system is unable to allocate or lock memory.
         /// </returns>
         /// <remarks>
-        /// To determine the number of MIDI output devices present in the system, use the midiOutGetNumDevs function. The device identifier specified by wDeviceID varies from zero to one less than the number of devices present. MIDI_MAPPER can also be used as the device identifier.
+        /// <para>To determine the number of MIDI output devices present in the system, use the midiOutGetNumDevs function. The device identifier specified by wDeviceID varies from zero to one less than the number of devices present. MIDI_MAPPER can also be used as the device identifier.
         /// If a window or thread is chosen to receive callback information, the following messages are sent to the window procedure or thread to indicate the progress of MIDI output: MM_MOM_OPEN, MM_MOM_CLOSE, and MM_MOM_DONE.
-        /// If a function is chosen to receive callback information, the following messages are sent to the function to indicate the progress of MIDI output: MOM_OPEN, MOM_CLOSE, and MOM_DONE.
+        /// If a function is chosen to receive callback information, the following messages are sent to the function to indicate the progress of MIDI output: MOM_OPEN, MOM_CLOSE, and MOM_DONE.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutopen

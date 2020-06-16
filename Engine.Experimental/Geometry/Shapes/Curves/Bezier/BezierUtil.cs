@@ -1061,7 +1061,7 @@ namespace Engine.Experimental
             var nx = (((x1 * y2) - (y1 * x2)) * (x3 - x4)) - ((x1 - x2) * ((x3 * y4) - (y3 * x4)));
             var ny = (((x1 * y2) - (y1 * x2)) * (y3 - y4)) - ((y1 - y2) * ((x3 * y4) - (y3 * x4)));
             var d = ((x1 - x2) * (y3 - y4)) - ((y1 - y2) * (x3 - x4));
-            return d == 0 ? null : (Point2D?)new Point2D(nx / d, ny / d);
+            return d == 0 ? null : new Point2D(nx / d, ny / d);
         }
 
         /// <summary>

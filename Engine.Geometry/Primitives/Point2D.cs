@@ -16,9 +16,9 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {

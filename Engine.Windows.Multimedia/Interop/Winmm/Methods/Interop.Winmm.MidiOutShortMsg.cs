@@ -21,8 +21,8 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidHandle"/> The specified device handle is invalid.
         /// </returns>
         /// <remarks>
-        /// This function is used to send any MIDI message except for system-exclusive or stream messages.
-        /// This function might not return until the message has been sent to the output device. You can send short messages while streams are playing on the same device (although you cannot use a running status in this case).
+        /// <para>This function is used to send any MIDI message except for system-exclusive or stream messages.
+        /// This function might not return until the message has been sent to the output device. You can send short messages while streams are playing on the same device (although you cannot use a running status in this case).</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutshortmsg

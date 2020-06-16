@@ -21,7 +21,7 @@ internal static partial class Interop
         /// <see cref="MmResult.MemoryAllocationError"/>MMSYSERR_NOMEM The system is unable to load mapper string description.
         /// </returns>
         /// <remarks>
-        /// To determine the number of MIDI output devices present in the system, use the midiOutGetNumDevs function.
+        /// <para>To determine the number of MIDI output devices present in the system, use the midiOutGetNumDevs function.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgetdevcaps

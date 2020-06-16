@@ -20,7 +20,7 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidParameter"/> The specified pointer or structure is invalid.
         /// </returns>
         /// <remarks>
-        /// Before the buffer is passed to midiOutLongMsg, it must be prepared by using the midiOutPrepareHeader function. The MIDI output device driver determines whether the data is sent synchronously or asynchronously.
+        /// <para>Before the buffer is passed to midiOutLongMsg, it must be prepared by using the midiOutPrepareHeader function. The MIDI output device driver determines whether the data is sent synchronously or asynchronously.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutlongmsg

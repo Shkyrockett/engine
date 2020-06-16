@@ -10,6 +10,7 @@
     <Description>Project for testing and profiling methods.</Description>
     <Copyright>Copyright © 2017 - 2020 Shkyrockett</Copyright>
     <RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
@@ -45,6 +46,10 @@
     <OutputPath>bin\x64\Release\net5.0\</OutputPath>
     <DocumentationFile>bin\x64\Release\net5.0\MethodTester.xml</DocumentationFile>
   </PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59">

@@ -19,8 +19,8 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidParameter"/> The specified pointer or structure is invalid.
         /// </returns>
         /// <remarks>
-        /// This function is complementary to the midiOutPrepareHeader function. You must call midiOutUnprepareHeader before freeing the buffer. After passing a buffer to the device driver with the midiOutLongMsg function, you must wait until the device driver is finished with the buffer before calling midiOutUnprepareHeader.
-        /// Unpreparing a buffer that has not been prepared has no effect, and the function returns MMSYSERR_NOERROR.
+        /// <para>This function is complementary to the midiOutPrepareHeader function. You must call midiOutUnprepareHeader before freeing the buffer. After passing a buffer to the device driver with the midiOutLongMsg function, you must wait until the device driver is finished with the buffer before calling midiOutUnprepareHeader.
+        /// Unpreparing a buffer that has not been prepared has no effect, and the function returns MMSYSERR_NOERROR.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutunprepareheader

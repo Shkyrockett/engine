@@ -1,72 +1,76 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
-  <PropertyGroup>
-    <IsPackable>false</IsPackable>
-    <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>preview</LangVersion>
-    <Platforms>AnyCPU;x64;x86</Platforms>
-    <Version>0.0.0.1</Version>
-    <Authors>Shkyrockett</Authors>
-    <Description>Unit Tests for Engine.</Description>
-    <Copyright>Copyright ©  2016 - 2020 Shkyrockett</Copyright>
-    <RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<IsPackable>false</IsPackable>
+		<TargetFramework>net5.0</TargetFramework>
+		<LangVersion>preview</LangVersion>
+		<Platforms>AnyCPU;x64;x86</Platforms>
+		<Version>0.0.0.1</Version>
+		<Authors>Shkyrockett</Authors>
+		<Description>Unit Tests for Engine.</Description>
+		<Copyright>Copyright ©  2016 - 2020 Shkyrockett</Copyright>
+		<RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>bin\AnyCPU\Debug\net5.0\</OutputPath>
-    <DocumentationFile>bin\AnyCPU\Debug\net5.0\EngineTests.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>bin\AnyCPU\Debug\net5.0\</OutputPath>
+		<DocumentationFile>bin\AnyCPU\Debug\net5.0\EngineTests.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutputPath>bin\x64\Debug\net5.0\</OutputPath>
-    <DocumentationFile>bin\x64\Debug\net5.0\EngineTests.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<OutputPath>bin\x64\Debug\net5.0\</OutputPath>
+		<DocumentationFile>bin\x64\Debug\net5.0\EngineTests.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <OutputPath>bin\x86\Debug\net5.0\</OutputPath>
-    <DocumentationFile>bin\x86\Debug\net5.0\EngineTests.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+		<OutputPath>bin\x86\Debug\net5.0\</OutputPath>
+		<DocumentationFile>bin\x86\Debug\net5.0\EngineTests.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>bin\AnyCPU\Release\net5.0\</OutputPath>
-    <DocumentationFile>bin\AnyCPU\Release\net5.0\EngineTests.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath>bin\AnyCPU\Release\net5.0\</OutputPath>
+		<DocumentationFile>bin\AnyCPU\Release\net5.0\EngineTests.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <OutputPath>bin\x86\Release\net5.0\</OutputPath>
-    <DocumentationFile>bin\x86\Release\net5.0\EngineTests.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+		<OutputPath>bin\x86\Release\net5.0\</OutputPath>
+		<DocumentationFile>bin\x86\Release\net5.0\EngineTests.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutputPath>bin\x64\Release\net5.0\</OutputPath>
-    <DocumentationFile>bin\x64\Release\net5.0\EngineTests.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<OutputPath>bin\x64\Release\net5.0\</OutputPath>
+		<DocumentationFile>bin\x64\Release\net5.0\EngineTests.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.0-preview-20200428-01" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.1.1" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />
-    <ProjectReference Include="..\Engine.Chromatics\Engine.Chromatics.csproj" />
-    <ProjectReference Include="..\Engine.Dynamics\Engine.Dynamics.csproj" />
-    <ProjectReference Include="..\Engine.File\Engine.File.csproj" />
-    <ProjectReference Include="..\Engine.Geometry\Engine.Geometry.csproj" />
-    <ProjectReference Include="..\Engine.Mathematics\Engine.Mathematics.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers" Version="1.0.0-beta.59">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.0-preview-20200519-01" />
+		<PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
+		<PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />
+		<ProjectReference Include="..\Engine.Chromatics\Engine.Chromatics.csproj" />
+		<ProjectReference Include="..\Engine.Dynamics\Engine.Dynamics.csproj" />
+		<ProjectReference Include="..\Engine.File\Engine.File.csproj" />
+		<ProjectReference Include="..\Engine.Geometry\Engine.Geometry.csproj" />
+		<ProjectReference Include="..\Engine.Mathematics\Engine.Mathematics.csproj" />
+	</ItemGroup>
 
 </Project>

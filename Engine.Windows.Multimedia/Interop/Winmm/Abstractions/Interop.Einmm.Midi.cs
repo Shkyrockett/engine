@@ -597,7 +597,7 @@ internal static partial class Interop
             /// <returns></returns>
             /// <exception cref="Exception">The specified device handle is invalid.</exception>
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            public static bool MidiOutSetVolume(IntPtr midiOutputHandle, short left, short right) => Winmm.MidiOutSetVolume(midiOutputHandle, right & 0x0000FFFF | left << 16) switch
+            public static bool MidiOutSetVolume(IntPtr midiOutputHandle, short left, short right) => Winmm.MidiOutSetVolume(midiOutputHandle, (right & 0x0000FFFF) | (left << 16)) switch
             {
                 MmResult.NoError => true,
                 MmResult.InvalidHandle => throw new Exception("The specified device handle is invalid."),

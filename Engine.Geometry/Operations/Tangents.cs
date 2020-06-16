@@ -59,15 +59,15 @@ namespace Engine
             var t2 = t * t;
 
             var (tanX, tanY) = (
-                (-u2) * ax +
-                u * (u - 2d * t) * bx -
-                t * (t - 2d * u) * cx +
-                t2 * dx,
-                (-u2) * ay +
-                u * (u - 2d * t) * by -
-                t * (t - 2d * u) * cy +
-                t2 * dy);
-            var distance = Sqrt(tanX * tanX + tanY * tanY);
+                ((-u2) * ax) +
+                (u * (u - (2d * t)) * bx) -
+                (t * (t - (2d * u)) * cx) +
+                (t2 * dx),
+                ((-u2) * ay) +
+                (u * (u - (2d * t)) * by) -
+                (t * (t - (2d * u)) * cy) +
+                (t2 * dy));
+            var distance = Sqrt((tanX * tanX) + (tanY * tanY));
             return (tanX / distance, tanY / distance);
         }
     }

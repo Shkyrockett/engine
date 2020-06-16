@@ -7565,8 +7565,8 @@ namespace Engine
             {
                 var xRoots = new Polynomial((
                        e1.a,
-                    b: e1.d + s * e1.b,
-                    c: e1.f + s * (e1.e + s * e1.c)
+                    b: e1.d + (s * e1.b),
+                    c: e1.f + (s * (e1.e + (s * e1.c)))
                 )).Trim().Roots().ToArray();
                 Array.Sort(xRoots);
                 foreach (var t in xRoots)

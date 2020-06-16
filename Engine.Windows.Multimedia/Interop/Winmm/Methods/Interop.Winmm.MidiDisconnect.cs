@@ -17,7 +17,7 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidHandle"/> Specified device handle is invalid.
         /// </returns>
         /// <remarks>
-        /// MIDI input, output, and thru devices can be connected by using the midiConnect function. Thereafter, whenever the MIDI input device receives event data in an MIM_DATA message, a message with the same event data is sent to the output device driver (or through the thru driver to the output drivers).
+        /// <para>MIDI input, output, and thru devices can be connected by using the midiConnect function. Thereafter, whenever the MIDI input device receives event data in an MIM_DATA message, a message with the same event data is sent to the output device driver (or through the thru driver to the output drivers).</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mididisconnect

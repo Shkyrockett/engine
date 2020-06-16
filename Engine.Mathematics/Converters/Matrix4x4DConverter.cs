@@ -74,20 +74,18 @@ namespace Engine
         /// <summary>
         /// ConvertTo - Attempt to convert an instance of Matrix to the given type
         /// </summary>
+        /// <param name="context">The ITypeDescriptorContext for this call.</param>
+        /// <param name="culture">The CultureInfo which is respected when converting.</param>
+        /// <param name="value">The object to convert to an instance of "destinationType".</param>
+        /// <param name="destinationType">The type to which this will convert the Matrix instance.</param>
         /// <returns>
         /// The object which was constructed.
         /// </returns>
-        /// <exception cref="NotSupportedException">
-        /// A NotSupportedException is thrown if "value" is null or not an instance of Matrix,
-        /// or if the destinationType isn't one of the valid destination types.
-        /// </exception>
-        /// <param name="context"> The ITypeDescriptorContext for this call. </param>
-        /// <param name="culture"> The CultureInfo which is respected when converting. </param>
-        /// <param name="value"> The object to convert to an instance of "destinationType". </param>
-        /// <param name="destinationType"> The type to which this will convert the Matrix instance. </param>
+        /// <exception cref="NotSupportedException">A NotSupportedException is thrown if "value" is null or not an instance of Matrix,
+        /// or if the destinationType isn't one of the valid destination types.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (!(destinationType is null) && value is Matrix4x4D instance)
+            if ((destinationType is not null) && value is Matrix4x4D instance)
             {
                 if (destinationType == typeof(string))
                 {

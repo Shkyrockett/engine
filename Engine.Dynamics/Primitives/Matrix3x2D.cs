@@ -38,17 +38,17 @@ namespace Engine
         /// <summary>
         /// An Empty <see cref="Matrix3x2D"/>.
         /// </summary>
-        public static readonly Matrix3x2D Empty = new Matrix3x2D(0d, 0d, 0d, 0d, 0d, 0d);
+        public static Matrix3x2D Empty = new Matrix3x2D(0d, 0d, 0d, 0d, 0d, 0d);
 
         /// <summary>
         /// The na n
         /// </summary>
-        public static readonly Matrix3x2D NaN = new Matrix3x2D(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+        public static Matrix3x2D NaN = new Matrix3x2D(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
 
         /// <summary>
         /// An Identity <see cref="Matrix3x2D"/>.
         /// </summary>
-        public static readonly Matrix3x2D Identity = new Matrix3x2D(1d, 0d, 0d, 1d, 0d, 0d) { type = MatrixTypes.Identity };
+        public static Matrix3x2D Identity = new Matrix3x2D(1d, 0d, 0d, 1d, 0d, 0d) { type = MatrixTypes.Identity };
         #endregion Static Fields
 
         #region Constants
@@ -102,7 +102,7 @@ namespace Engine
         /// Matrix in blt'd to unmanaged code, so this is padding
         /// to align structure.
         /// </summary>
-        private readonly int padding;
+        private int padding;
 #pragma warning restore IDE0052
 #pragma warning restore CS0414
         #endregion Private Fields
@@ -139,14 +139,7 @@ namespace Engine
         {
             get
             {
-                if (type == MatrixTypes.Identity)
-                {
-                    return 1.0f;
-                }
-                else
-                {
-                    return m0x0;
-                }
+                return type == MatrixTypes.Identity ? 1.0f : m0x0;
             }
             set
             {
@@ -175,12 +168,7 @@ namespace Engine
         {
             get
             {
-                if (type == MatrixTypes.Identity)
-                {
-                    return 0;
-                }
-
-                return m0x1;
+                return type == MatrixTypes.Identity ? 0 : m0x1;
             }
             set
             {
@@ -206,14 +194,7 @@ namespace Engine
         {
             get
             {
-                if (type == MatrixTypes.Identity)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return m1x0;
-                }
+                return type == MatrixTypes.Identity ? 0 : m1x0;
             }
             set
             {
@@ -237,17 +218,7 @@ namespace Engine
         /// </summary>
         public double M22
         {
-            get
-            {
-                if (type == MatrixTypes.Identity)
-                {
-                    return 1.0f;
-                }
-                else
-                {
-                    return m1x1;
-                }
-            }
+            get { return type == MatrixTypes.Identity ? 1.0f : m1x1; }
             set
             {
                 if (type == MatrixTypes.Identity)
@@ -275,14 +246,7 @@ namespace Engine
         {
             get
             {
-                if (type == MatrixTypes.Identity)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return offsetX;
-                }
+                return type == MatrixTypes.Identity ? 0 : offsetX;
             }
             set
             {
@@ -311,14 +275,7 @@ namespace Engine
         {
             get
             {
-                if (type == MatrixTypes.Identity)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return offsetY;
-                }
+                return type == MatrixTypes.Identity ? 0 : offsetY;
             }
             set
             {
@@ -442,19 +399,14 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Matrix3x2D matrix1, Matrix3x2D matrix2)
         {
-            if (matrix1.IsDistinguishedIdentity || matrix2.IsDistinguishedIdentity)
-            {
-                return matrix1.IsIdentity == matrix2.IsIdentity;
-            }
-            else
-            {
-                return matrix1.M11.Equals(matrix2.M11)
+            return matrix1.IsDistinguishedIdentity || matrix2.IsDistinguishedIdentity
+                ? matrix1.IsIdentity == matrix2.IsIdentity
+                : matrix1.M11.Equals(matrix2.M11)
                        && matrix1.M12.Equals(matrix2.M12)
                        && matrix1.M21.Equals(matrix2.M21)
                        && matrix1.M22.Equals(matrix2.M22)
                        && matrix1.OffsetX.Equals(matrix2.OffsetX)
                        && matrix1.OffsetY.Equals(matrix2.OffsetY);
-            }
         }
 
         /// <summary>
@@ -1433,23 +1385,12 @@ namespace Engine
         /// <summary>
         /// The determinant of this matrix
         /// </summary>
-        public double Determinant
+        public double Determinant => type switch
         {
-            get
-            {
-                switch (type)
-                {
-                    case MatrixTypes.Identity:
-                    case MatrixTypes.Translation:
-                        return 1.0d;
-                    case MatrixTypes.Scaling:
-                    case MatrixTypes.Scaling | MatrixTypes.Translation:
-                        return m0x0 * m1x1;
-                    default:
-                        return (m0x0 * m1x1) - (m0x1 * m1x0);
-                }
-            }
-        }
+            MatrixTypes.Identity or MatrixTypes.Translation => 1.0d,
+            MatrixTypes.Scaling or MatrixTypes.Scaling | MatrixTypes.Translation => m0x0 * m1x1,
+            _ => (m0x0 * m1x1) - (m0x1 * m1x0),
+        };
         #endregion
 
         #region Standard Methods

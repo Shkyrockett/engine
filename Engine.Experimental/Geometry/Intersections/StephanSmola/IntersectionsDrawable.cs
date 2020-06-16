@@ -117,13 +117,13 @@ namespace Engine
             var rotCX = cX * sin * cos;
             var rotX = x * sin * cos;
             var scalar = a2 * b2 / 2d * (ac + bs);
-            var discriminant = 2d * 2d * (ac - bs - cX * cX + 2d * cX * x - x * x);
+            var discriminant = 2d * 2d * (ac - bs - (cX * cX) + (2d * cX * x) - (x * x));
             var divisor = r1 * r2;
-            var t1 = 2d * (rotCX + cY * sin2 - rotX) / a2;
-            var t2 = 2d * (-rotCX + cY * cos2 + rotX) / b2;
+            var t1 = 2d * (rotCX + (cY * sin2) - rotX) / a2;
+            var t2 = 2d * (-rotCX + (cY * cos2) + rotX) / b2;
 
-            var y1 = scalar * (-Sqrt(discriminant) / divisor + t1 + t2);
-            var y2 = scalar * (Sqrt(discriminant) / divisor + t1 + t2);
+            var y1 = scalar * ((-Sqrt(discriminant) / divisor) + t1 + t2);
+            var y2 = scalar * ((Sqrt(discriminant) / divisor) + t1 + t2);
 
             return new (double x, double y)[] { (x, y1), (x, y2) };
         }

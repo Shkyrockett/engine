@@ -19,7 +19,7 @@ internal static partial class Interop
         /// <see cref="MmResult.MemoryAllocationError"/> The system is unable to allocate or lock memory.
         /// </returns>
         /// <remarks>
-        /// If the textual error description is longer than the specified buffer, the description is truncated. The returned error string is always null-terminated. If cchText is zero, nothing is copied, and the function returns zero. All error descriptions are less than MAXERRORLENGTH characters long.
+        /// <para>If the textual error description is longer than the specified buffer, the description is truncated. The returned error string is always null-terminated. If cchText is zero, nothing is copied, and the function returns zero. All error descriptions are less than MAXERRORLENGTH characters long.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingeterrortext

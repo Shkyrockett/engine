@@ -17,7 +17,7 @@ internal static partial class Interop
         /// <see cref="MmResult.MemoryAllocationError"/> The system is unable to load mapper string description.
         /// </returns>
         /// <remarks>
-        /// If there are output buffers that have been sent by using the midiOutLongMsg function and have not been returned to the application, the close operation will fail. To mark all pending buffers as being done, use the midiOutReset function.
+        /// <para>If there are output buffers that have been sent by using the midiOutLongMsg function and have not been returned to the application, the close operation will fail. To mark all pending buffers as being done, use the midiOutReset function.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutclose

@@ -86,7 +86,7 @@ namespace Engine
         /// <param name="relitive">The relative.</param>
         /// <param name="args">The arguments.</param>
         public ArcSegment2D(CurveSegment2D previous, bool relitive, double[] args)
-            : this(previous, args is null ? double.NaN : args[0], args is null ? double.NaN : args[1], args is null ? double.NaN : args[2], !(args is null) && args[3] != 0, !(args is null) && args[4] != 0, args?.Length == 7 ? new Point2D(args[5], args[6]) : null)
+            : this(previous, args is null ? double.NaN : args[0], args is null ? double.NaN : args[1], args is null ? double.NaN : args[2], (args is not null) && args[3] != 0, (args is not null) && args[4] != 0, args?.Length == 7 ? new Point2D(args[5], args[6]) : null)
         {
             if (args is null)
             {

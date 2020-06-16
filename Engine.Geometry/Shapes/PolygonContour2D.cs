@@ -112,10 +112,10 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         public Point2D this[int index]
         {
-            get { return (points as List<Point2D>)[index]; }
+            get { return points[index]; }
             set
             {
-                (points as List<Point2D>)[index] = value;
+                points[index] = value;
                 update?.Invoke();
             }
         }

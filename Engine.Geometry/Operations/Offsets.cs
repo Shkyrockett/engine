@@ -226,7 +226,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour2D Offset(this PolygonContour2D polygon, double offset)
         {
-            var points = polygon.Points as List<Point2D>;
+            var points = polygon.Points;
 
             var polyline = new PolygonContour2D();
 

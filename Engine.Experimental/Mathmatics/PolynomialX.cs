@@ -562,12 +562,12 @@ namespace Engine.Geometry
             //}
 
             power[0] = 1;
-            factor[0] = new PolynomialX(new Complex[] { -Coefficients[Degree] * (Complex)roots[0], Coefficients[Degree] });
+            factor[0] = new PolynomialX(new Complex[] { -Coefficients[Degree] * roots[0], Coefficients[Degree] });
 
             for (var i = 1; i < roots.Length; i++)
             {
                 power[i] = 1;
-                factor[i] = new PolynomialX(new Complex[] { -(Complex)roots[i], Complex.One });
+                factor[i] = new PolynomialX(new Complex[] { -roots[i], Complex.One });
             }
 
             p.Factor = factor;

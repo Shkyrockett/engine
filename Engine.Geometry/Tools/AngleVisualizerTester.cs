@@ -229,7 +229,7 @@ namespace Engine
             set
             {
                 var angles = new List<double>();
-                if (!(value is null))
+                if (value is not null)
                 {
                     foreach (var point in value)
                     {

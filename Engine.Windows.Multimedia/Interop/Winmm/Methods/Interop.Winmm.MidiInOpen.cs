@@ -15,8 +15,8 @@ internal static partial class Interop
         /// <param name="messageParameter1">Message parameter.</param>
         /// <param name="messageParameter2">Message parameter.</param>
         /// <remarks>
-        /// The meaning of the dwParam1 and dwParam2 parameters is specific to the message type. For more information, see the topics for messages, such as MIM_DATA.
-        /// Applications should not call any multimedia functions from inside the callback function, as doing so can cause a deadlock. Other system functions can safely be called from the callback.
+        /// <para>The meaning of the dwParam1 and dwParam2 parameters is specific to the message type. For more information, see the topics for messages, such as MIM_DATA.
+        /// Applications should not call any multimedia functions from inside the callback function, as doing so can cause a deadlock. Other system functions can safely be called from the callback.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/previous-versions//dd798460(v=vs.85)
@@ -40,9 +40,9 @@ internal static partial class Interop
         /// <see cref="MmResult.MemoryAllocationError"/>MMSYSERR_NOMEM The system is unable to allocate or lock memory.
         /// </returns>
         /// <remarks>
-        /// To determine the number of MIDI input devices present in the system, use the midiInGetNumDevs function. The device identifier specified by wDeviceID varies from zero to one less than the number of devices present.
+        /// <para>To determine the number of MIDI input devices present in the system, use the midiInGetNumDevs function. The device identifier specified by wDeviceID varies from zero to one less than the number of devices present.
         /// If a window or thread is chosen to receive callback information, the following messages are sent to the window procedure or thread to indicate the progress of MIDI input: MM_MIM_OPEN, MM_MIM_CLOSE, MM_MIM_DATA, MM_MIM_LONGDATA, MM_MIM_ERROR, MM_MIM_LONGERROR, and MM_MIM_MOREDATA.
-        /// If a function is chosen to receive callback information, the following messages are sent to the function to indicate the progress of MIDI input: MIM_OPEN, MIM_CLOSE, MIM_DATA, MIM_LONGDATA, MIM_ERROR, MIM_LONGERROR, and MIM_MOREDATA.
+        /// If a function is chosen to receive callback information, the following messages are sent to the function to indicate the progress of MIDI input: MIM_OPEN, MIM_CLOSE, MIM_DATA, MIM_LONGDATA, MIM_ERROR, MIM_LONGERROR, and MIM_MOREDATA.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinopen

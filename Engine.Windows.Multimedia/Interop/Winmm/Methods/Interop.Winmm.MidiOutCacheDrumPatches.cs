@@ -22,9 +22,9 @@ internal static partial class Interop
         /// <see cref="MmResult.NotSupported"/> The specified device does not support patch caching.
         /// </returns>
         /// <remarks>
-        /// Some synthesizers are not capable of keeping all percussion patches loaded simultaneously. Caching patches ensures that the specified patches are available.
+        /// <para>Some synthesizers are not capable of keeping all percussion patches loaded simultaneously. Caching patches ensures that the specified patches are available.
         /// Each element of the KEYARRAY array represents one of the 128 key-based percussion patches and has bits set for each of the 16 MIDI channels that use the particular patch. The least-significant bit represents physical channel 0, and the most-significant bit represents physical channel 15. For example, if the patch on key number 60 is used by physical channels 9 and 15, element 60 would be set to 0x8200.
-        /// This function applies only to internal MIDI synthesizer devices. Not all internal synthesizers support patch caching. To see if a device supports patch caching, use the MIDICAPS_CACHE flag to test the dwSupport member of the MIDIOUTCAPS structure filled by the midiOutGetDevCaps function.
+        /// This function applies only to internal MIDI synthesizer devices. Not all internal synthesizers support patch caching. To see if a device supports patch caching, use the MIDICAPS_CACHE flag to test the dwSupport member of the MIDIOUTCAPS structure filled by the midiOutGetDevCaps function.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutcachedrumpatches

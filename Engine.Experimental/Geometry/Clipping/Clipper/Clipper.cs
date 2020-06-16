@@ -192,15 +192,13 @@ namespace Engine.Experimental
         /// This is a virtual method as descendant classes may need to produce descendant classes of OutPt ...
         /// </summary>
         /// <returns></returns>
-        protected virtual LinkedPoint CreateOutPoint()
-            => new LinkedPoint();
+        protected virtual LinkedPoint CreateOutPoint() => new LinkedPoint();
 
         /// <summary>
         /// This is a virtual method as descendant classes may need to produce descendant classes of OutRec ...
         /// </summary>
         /// <returns></returns>
-        protected virtual OutRec CreateOutRec()
-            => new OutRec();
+        protected virtual OutRec CreateOutRec() => new OutRec();
 
         /// <summary>
         /// Add the out point.

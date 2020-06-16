@@ -67,7 +67,7 @@ namespace Engine
             var c2 = 0d;
             var c3 = -2d * h / r2;
             var c4 = -2d * k / r2;
-            var c5 = h2 / r2 + k2 / r2 - 1d;
+            var c5 = (h2 / r2) + (k2 / r2) - 1d;
             return (c0, c1, c2, c3, c4, c5);
         }
 
@@ -95,7 +95,7 @@ namespace Engine
             var c2 = 0d;
             var c3 = -2d * h / a2;
             var c4 = -2d * k / b2;
-            var c5 = h2 / a2 + k2 / b2 - 1d;
+            var c5 = (h2 / a2) + (k2 / b2) - 1d;
             return (c0, c1, c2, c3, c4, c5);
         }
 
@@ -139,12 +139,12 @@ namespace Engine
             var h2 = h * h;
             var k2 = k * k;
 
-            var c0 = cos2 / a2 + sin2 / b2;
-            var c1 = sin2 / a2 + cos2 / b2;
-            var c2 = sin2t / a2 - sin2t / b2;
-            var c3 = -(2d * h * cos2) / a2 - k * sin2t / a2 - 2d * h * sin2 / b2 + k * sin2t / b2;
-            var c4 = -(h * sin2t) / a2 - 2d * k * sin2 / a2 + h * sin2t / b2 - 2d * k * cos2 / b2;
-            var c5 = h2 * cos2 / a2 + h * k * sin2t / a2 + k2 * sin2 / a2 + h2 * sin2 / b2 - h * k * sin2t / b2 + k2 * cos2 / b2 - 1d;
+            var c0 = (cos2 / a2) + (sin2 / b2);
+            var c1 = (sin2 / a2) + (cos2 / b2);
+            var c2 = (sin2t / a2) - (sin2t / b2);
+            var c3 = (-(2d * h * cos2) / a2) - (k * sin2t / a2) - (2d * h * sin2 / b2) + (k * sin2t / b2);
+            var c4 = (-(h * sin2t) / a2) - (2d * k * sin2 / a2) + (h * sin2t / b2) - (2d * k * cos2 / b2);
+            var c5 = (h2 * cos2 / a2) + (h * k * sin2t / a2) + (k2 * sin2 / a2) + (h2 * sin2 / b2) - (h * k * sin2t / b2) + (k2 * cos2 / b2) - 1d;
 
             return (c0, c1, c2, c3, c4, c5);
         }
@@ -214,7 +214,7 @@ namespace Engine
                         var factor = -arr[r2, r] / arr[r, r];
                         for (var j = r; j <= cols; j++)
                         {
-                            arr[r2, j] = arr[r2, j] + factor * arr[r, j];
+                            arr[r2, j] = arr[r2, j] + (factor * arr[r, j]);
                         }
                     }
                 }
@@ -324,7 +324,7 @@ namespace Engine
         public static ConicType GetConicType(double a, double b, double c)
         {
             // Calculate the determinant.
-            var determinant = b * b - 4d * a * c;
+            var determinant = (b * b) - (4d * a * c);
             return Abs(determinant) < double.Epsilon
                 ? ConicType.Parabola
                 : determinant < 0d
@@ -381,11 +381,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InterpolateConicY(double x, double a, double b, double c, double d, double e, double f, int rootSign)
         {
-            var result = b * x + e;
+            var result = (b * x) + e;
             result *= result;
-            result -= 4d * c * (a * x * x + d * x + f);
+            result -= 4d * c * ((a * x * x) + (d * x) + f);
             result = rootSign * Sqrt(result);
-            result = -(b * x + e) + result;
+            result = -((b * x) + e) + result;
             result = result / 2d / c;
             return result;
         }
@@ -437,9 +437,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InterpolateConicPrimeY(double x, double a, double b, double c, double d, double e, double f, int rootSign)
         {
-            var numerator = 2d * (b * x + e) * b - 4d * c * (2d * a * x + d);
-            var denominator = 2d * Sqrt((b * x + e) * (b * x + e) - 4d * c * (a * x * x + d * x + f));
-            var result = -b + rootSign * numerator / denominator;
+            var numerator = (2d * ((b * x) + e) * b) - (4d * c * ((2d * a * x) + d));
+            var denominator = 2d * Sqrt((((b * x) + e) * ((b * x) + e)) - (4d * c * ((a * x * x) + (d * x) + f)));
+            var result = -b + (rootSign * numerator / denominator);
             result = result / 2d / c;
 
             return result;
@@ -472,26 +472,26 @@ namespace Engine
             var dy = y2 - y1;
 
             // Calculate the coefficients of the intersection for the quadratic formula.
-            var a1 = a * dx * dx + b * dx * dy + c * dy * dy;
-            var b1 = a * 2d * x1 * dx + b * x1 * dy + b * y1 * dx + c * 2d * y1 * dy + d * dx + e * dy;
-            var c1 = a * x1 * x1 + b * x1 * y1 + c * y1 * y1 + d * x1 + e * y1 + f;
+            var a1 = (a * dx * dx) + (b * dx * dy) + (c * dy * dy);
+            var b1 = (a * 2d * x1 * dx) + (b * x1 * dy) + (b * y1 * dx) + (c * 2d * y1 * dy) + (d * dx) + (e * dy);
+            var c1 = (a * x1 * x1) + (b * x1 * y1) + (c * y1 * y1) + (d * x1) + (e * y1) + f;
 
             // Check the determinant to see how many solutions there are.
             var solutions = new List<Point2D>();
-            var det = b1 * b1 - 4d * a1 * c1;
+            var det = (b1 * b1) - (4d * a1 * c1);
 
             if (det == 0)
             {
                 var t = -b1 / (2d * a1);
-                solutions.Add(new Point2D(x1 + t * dx, y1 + t * dy));
+                solutions.Add(new Point2D(x1 + (t * dx), y1 + (t * dy)));
             }
             else if (det > 0)
             {
-                var root = Sqrt(b1 * b1 - 4d * a1 * c1);
+                var root = Sqrt((b1 * b1) - (4d * a1 * c1));
                 var t1 = (-b1 + root) / (2d * a1);
-                solutions.Add(new Point2D(x1 + t1 * dx, y1 + t1 * dy));
+                solutions.Add(new Point2D(x1 + (t1 * dx), y1 + (t1 * dy)));
                 var t2 = (-b1 - root) / (2d * a1);
-                solutions.Add(new Point2D(x1 + t2 * dx, y1 + t2 * dy));
+                solutions.Add(new Point2D(x1 + (t2 * dx), y1 + (t2 * dy)));
             }
 
             return solutions;

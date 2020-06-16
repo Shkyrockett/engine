@@ -17,7 +17,7 @@ internal static partial class Interop
         /// <see cref="MmResult.MemoryAllocationError"/> The system is unable to allocate or lock memory.
         /// </returns>
         /// <remarks>
-        /// If there are input buffers that have been sent by using the midiInAddBuffer function and have not been returned to the application, the close operation will fail. To return all pending buffers through the callback function, use the midiInReset function.
+        /// <para>If there are input buffers that have been sent by using the midiInAddBuffer function and have not been returned to the application, the close operation will fail. To return all pending buffers through the callback function, use the midiInReset function.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinclose

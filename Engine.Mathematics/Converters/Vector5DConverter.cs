@@ -72,20 +72,18 @@ namespace Engine
         /// <summary>
         /// ConvertTo - Attempt to convert an instance of Vector to the given type
         /// </summary>
+        /// <param name="context">The ITypeDescriptorContext for this call.</param>
+        /// <param name="culture">The CultureInfo which is respected when converting.</param>
+        /// <param name="value">The object to convert to an instance of "destinationType".</param>
+        /// <param name="destinationType">The type to which this will convert the Vector instance.</param>
         /// <returns>
         /// The object which was constructed.
         /// </returns>
-        /// <exception cref="NotSupportedException">
-        /// A NotSupportedException is thrown if "value" is null or not an instance of Vector,
-        /// or if the destinationType isn't one of the valid destination types.
-        /// </exception>
-        /// <param name="context"> The ITypeDescriptorContext for this call. </param>
-        /// <param name="culture"> The CultureInfo which is respected when converting. </param>
-        /// <param name="value"> The object to convert to an instance of "destinationType". </param>
-        /// <param name="destinationType"> The type to which this will convert the Vector instance. </param>
+        /// <exception cref="NotSupportedException">A NotSupportedException is thrown if "value" is null or not an instance of Vector,
+        /// or if the destinationType isn't one of the valid destination types.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (!(destinationType is null) && value is Vector5D instance)
+            if ((destinationType is not null) && value is Vector5D instance)
             {
                 if (destinationType == typeof(string))
                 {

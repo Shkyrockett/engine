@@ -28,13 +28,13 @@ namespace Engine
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="CardinalSegment"/> class.
+        /// Initializes a new instance of the <see cref="CardinalSegment2D"/> class.
         /// </summary>
         public CardinalSegment2D()
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CardinalSegment"/> class.
+        /// Initializes a new instance of the <see cref="CardinalSegment2D"/> class.
         /// </summary>
         /// <param name="previous">The previous.</param>
         /// <param name="points">The points.</param>

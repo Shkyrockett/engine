@@ -19,7 +19,7 @@ internal static partial class Interop
         /// <see cref="MmResult.InvalidHandle"/> The specified device handle is invalid.
         /// </returns>
         /// <remarks>
-        /// This function is complementary to midiInPrepareHeader. You must use this function before freeing the buffer. After passing a buffer to the device driver by using the midiInAddBuffer function, you must wait until the driver is finished with the buffer before using midiInUnprepareHeader. Unpreparing a buffer that has not been prepared has no effect, and the function returns MMSYSERR_NOERROR.
+        /// <para>This function is complementary to midiInPrepareHeader. You must use this function before freeing the buffer. After passing a buffer to the device driver by using the midiInAddBuffer function, you must wait until the driver is finished with the buffer before using midiInUnprepareHeader. Unpreparing a buffer that has not been prepared has no effect, and the function returns MMSYSERR_NOERROR.</para>
         /// </remarks>
 		/// <acknowledgment>
 		/// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinunprepareheader

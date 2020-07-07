@@ -27,7 +27,7 @@ namespace Engine
     /// <seealso cref="Engine.IVector{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Vector2DConverter))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Vector2D
         : IVector<Vector2D>
     {
@@ -185,6 +185,15 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty => IsEmptyVector(I, J);
+
+        /// <summary>
+        /// Gets the number of components in the Vector.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => 2;
 
         /// <summary>
         /// Gets the magnitude.
@@ -765,6 +774,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Vector2D)}({nameof(I)}: {I.ToString(format, formatProvider)}{s} {nameof(J)}: {J.ToString(format, formatProvider)})";
         }
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
         #endregion
     }
 }

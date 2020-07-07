@@ -20,23 +20,23 @@ namespace Engine
         : byte
     {
         /// <summary>
-        /// The Identity = 0.
+        /// The Unknown.
         /// </summary>
-        Identity = 0,
+        Unknown = 0,
 
         /// <summary>
-        /// The Translation = 1.
+        /// The Identity.
         /// </summary>
-        Translation = 1,
+        Identity = 1,
 
         /// <summary>
-        /// The Scaling = 2.
+        /// The Translation.
         /// </summary>
-        Scaling = 2,
+        Translation = 2,
 
         /// <summary>
-        /// The Unknown = 4.
+        /// The Scaling.
         /// </summary>
-        Unknown = 4
+        Scaling = 4
     }
 }

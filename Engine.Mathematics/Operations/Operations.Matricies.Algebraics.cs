@@ -20,6 +20,38 @@ namespace Engine
     /// </summary>
     public static partial class Operations
     {
+        /// <summary>
+        /// Converts to jagged array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="twoDimensionalArray">The two dimensional array.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://stackoverflow.com/a/25995025
+        /// </acknowledgment>
+        public static T[][] ToJaggedArray<T>(this T[,] twoDimensionalArray)
+        {
+            var rowsFirstIndex = twoDimensionalArray.GetLowerBound(0);
+            var rowsLastIndex = twoDimensionalArray.GetUpperBound(0);
+            var numberOfRows = rowsLastIndex + 1;
+
+            var columnsFirstIndex = twoDimensionalArray.GetLowerBound(1);
+            var columnsLastIndex = twoDimensionalArray.GetUpperBound(1);
+            var numberOfColumns = columnsLastIndex + 1;
+
+            var jaggedArray = new T[numberOfRows][];
+            for (var i = rowsFirstIndex; i <= rowsLastIndex; i++)
+            {
+                jaggedArray[i] = new T[numberOfColumns];
+
+                for (var j = columnsFirstIndex; j <= columnsLastIndex; j++)
+                {
+                    jaggedArray[i][j] = twoDimensionalArray[i, j];
+                }
+            }
+            return jaggedArray;
+        }
+
         #region Bézier Bernstein Basis Matrices
         /// <summary>
         /// The linear Bézier Bernstein basis matrix.
@@ -247,6 +279,47 @@ namespace Engine
 
                     // Interchanging rows and columns to get the  transpose of the cofactor matrix 
                     adj[j, i] = sign * Determinant(temp);
+                }
+            }
+
+            return adj;
+        }
+
+        /// <summary>
+        /// Function to get adjoint of the specified matrix.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/adjoint-inverse-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Adjoint(double[][] matrix)
+        {
+            var rows = matrix.Length;
+            var cols = matrix[0].Length;
+
+            if (rows == 1)
+            {
+                return new double[1][] { new double[] { 1d } };
+            }
+
+            var adj = new double[rows][];
+
+            for (var i = 0; i < rows; i++)
+            {
+                adj[i] = new double[cols];
+                for (var j = 0; j < cols; j++)
+                {
+                    // Get cofactor of A[i,j] 
+                    var temp = Cofactor(matrix, i, j);
+
+                    // Sign of adj[j,i] positive if sum of row and column indexes is even. 
+                    var sign = ((i + j) % 2d == 0d) ? 1d : -1d;
+
+                    // Interchanging rows and columns to get the  transpose of the cofactor matrix 
+                    adj[j][i] = sign * Determinant(temp);
                 }
             }
 
@@ -562,6 +635,46 @@ namespace Engine
         /// Cofactors the specified a.
         /// </summary>
         /// <param name="matrix">a.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/determinant-of-a-matrix/
+        /// https://www.geeksforgeeks.org/adjoint-inverse-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Cofactor(double[][] matrix)
+        {
+            var i = 0;
+            var j = 0;
+            var rows = matrix.Length;
+            var cols = matrix[0].Length;
+            var temp = new double[rows][];
+
+            // Looping for each element of the matrix 
+            for (var row = 0; row < rows; row++)
+            {
+                temp[row] = new double[cols];
+                for (var col = 0; col < cols; col++)
+                {
+                    temp[i][j++] = matrix[row][col];
+
+                    // Row is filled, so increase row index and 
+                    // reset col index 
+                    if (j == cols - 1)
+                    {
+                        j = 0;
+                        i++;
+                    }
+                }
+            }
+
+            return temp;
+        }
+
+        /// <summary>
+        /// Cofactors the specified a.
+        /// </summary>
+        /// <param name="matrix">a.</param>
         /// <param name="p">The p.</param>
         /// <param name="q">The q.</param>
         /// <returns></returns>
@@ -589,6 +702,53 @@ namespace Engine
                     if (row != p && col != q)
                     {
                         temp[i, j++] = matrix[row, col];
+
+                        // Row is filled, so increase row index and 
+                        // reset col index 
+                        if (j == cols - 1)
+                        {
+                            j = 0;
+                            i++;
+                        }
+                    }
+                }
+            }
+
+            return temp;
+        }
+
+        /// <summary>
+        /// Cofactors the specified a.
+        /// </summary>
+        /// <param name="matrix">a.</param>
+        /// <param name="p">The p.</param>
+        /// <param name="q">The q.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/determinant-of-a-matrix/
+        /// https://www.geeksforgeeks.org/adjoint-inverse-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Cofactor(double[][] matrix, int p, int q)
+        {
+            var i = 0;
+            var j = 0;
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
+            var temp = new double[rows][];
+
+            // Looping for each element of the matrix 
+            for (var row = 0; row < rows; row++)
+            {
+                temp[row] = new double[cols];
+                for (var col = 0; col < cols; col++)
+                {
+                    // Copying into temporary matrix only those element 
+                    // which are not in given row and column 
+                    if (row != p && col != q)
+                    {
+                        temp[i][j++] = matrix[row][col];
 
                         // Row is filled, so increase row index and 
                         // reset col index 
@@ -897,6 +1057,44 @@ namespace Engine
         }
 
         /// <summary>
+        /// Function to calculate the inverse of the specified matrix.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Singular matrix, can't find its inverse</exception>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/adjoint-inverse-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Inverse(double[][] matrix)
+        {
+            // Find determinant of [,]A 
+            var det = Determinant(matrix);
+            if (det == 0)
+                throw new Exception("Singular matrix, can't find its inverse");
+
+            // Find adjoint 
+            var adj = Adjoint(matrix);
+
+            var rows = matrix.Length;
+            var cols = matrix[0].Length;
+            var inverse = new double[rows][];
+
+            // Find Inverse using formula "inverse(A) = adj(A)/det(A)" 
+            for (var i = 0; i < rows; i++)
+            {
+                inverse[i] = new double[cols];
+                for (var j = 0; j < cols; j++)
+                {
+                    inverse[i][j] = adj[i][j] / det;
+                }
+            }
+
+            return inverse;
+        }
+
+        /// <summary>
         /// The invert.
         /// </summary>
         /// <param name="m1x1">The M0X0.</param>
@@ -1178,38 +1376,68 @@ namespace Engine
 
         #region Determinant
         /// <summary>
-        /// Recursive function for finding determinant of matrix.
+        /// Recursive function for finding determinant of a matrix.
         /// </summary>
         /// <param name="matrix">The matrix.</param>
         /// <returns></returns>
         /// <acknowledgment>
-        /// https://www.geeksforgeeks.org/determinant-of-a-matrix/
-        /// https://www.geeksforgeeks.org/adjoint-inverse-matrix/
+        /// https://www.answers.com/Q/Determinant_of_matrix_in_java
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(double[,] matrix)
+        //{
+        //    var result = 0d;
+        //    if (matrix.GetLength(0) == 2)
+        //    {
+        //        result = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
+        //        return result;
+        //    }
+        //    for (var i = 0; i < matrix.GetLength(1); i++)
+        //    {
+        //        var temp = new double[matrix.Length - 1, matrix.GetLength(1) - 1];
+        //        for (var j = 1; j < matrix.Length; j++)
+        //        {
+        //            Array.Copy(matrix, 0, temp[j - 1], 0, i);
+        //            Array.Copy(matrix, i + 1, temp[j - 1], i, matrix.GetLength(1) - i - 1);
+        //        }
+
+        //        result += matrix[0, i] * Math.Pow(-1, i) * Determinant(temp);
+        //    }
+
+        //    return result;
+        //}
+        => Determinant(matrix.ToJaggedArray()); // Convert to jagged array until the above code can be fixed.
+
+        /// <summary>
+        /// Recursive function for finding determinant of a matrix.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.answers.com/Q/Determinant_of_matrix_in_java
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Determinant(double[][] matrix)
         {
-            var rows = matrix.GetLength(0);
-            //var cols = matrix.GetLength(1);
-
-            var result = 0d; // Initialize result 
-
-            // Base case : if matrix contains single element 
-            if (rows == 1)
-                return matrix[0, 0];
-
-            var sign = 1d; // To store sign multiplier 
-
-            // Iterate for each element of first row 
-            for (var f = 0; f < rows; f++)
+            var result = 0d;
+            if (matrix.Length == 2)
             {
-                // Getting Cofactor of A[0,f] 
-                var temp = Cofactor(matrix, 0, f);
-                result += sign * matrix[0, f] * Determinant(temp);
+                result = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+                return result;
+            }
+            for (var i = 0; i < matrix[0].Length; i++)
+            {
+                var temp = new double[matrix.Length - 1][];
+                for (var j = 1; j < matrix.Length; j++)
+                {
+                    temp[j - 1] = new double[matrix[j].Length - 1];
+                    Array.Copy(matrix[j], 0, temp[j - 1], 0, i);
+                    Array.Copy(matrix[j], i + 1, temp[j - 1], i, matrix[j].Length - i - 1);
+                }
 
-                // terms are to be added with alternate sign 
-                sign = -sign;
+                result += matrix[0][i] * Math.Pow(-1, i) * Determinant(temp);
             }
 
             return result;
@@ -1606,6 +1834,37 @@ namespace Engine
                 for (var j = 0; j < aCols; j++)
                 {
                     results[i, j] = a[i, j] + ((b[i, j] - a[i, j]) * amount);
+                }
+            }
+
+            return results;
+        }
+
+        /// <summary>
+        /// Lerps the specified a.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="amount">The amount.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Lerp(double[][] a, double[][] b, double amount)
+        {
+            var aRows = a.Length;
+            var bRows = b[0].Length;
+            var aCols = a.Length;
+            var bCols = b[0].Length;
+            if (aRows != bRows || aCols != bCols) throw new Exception();
+
+            var results = new double[aRows][];
+            for (var i = 0; i < aRows; i++)
+            {
+                results[i] = new double[bRows];
+                for (var j = 0; j < aCols; j++)
+                {
+                    results[i][j] = a[i][j] + ((b[i][j] - a[i][j]) * amount);
                 }
             }
 
@@ -2095,6 +2354,36 @@ namespace Engine
         }
 
         /// <summary>
+        /// Dots the product.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double DotProduct(double[][] a, double[][] b)
+        {
+            var rowsA = a?.Length;
+            var colsA = a[0]?.Length;
+            var rowsB = b?.Length;
+            var colsB = b[0]?.Length;
+
+            if (rowsA != rowsB || colsA != colsB) throw new Exception();
+
+            double result = 0;
+            for (var i = 0; i < rowsA; i++)
+            {
+                for (var j = 0; j < colsA; j++)
+                {
+                    result += a[i][j] * b[i][j];
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Dots the product matrix2x2.
         /// </summary>
         /// <param name="m1x1A">The M1X1 a.</param>
@@ -2441,6 +2730,66 @@ namespace Engine
                         }
 
                         lower[j, i] = (matrix[j, i] - sumL) / upper[i, i];
+                    }
+                }
+
+                return (lower, upper);
+            }
+        }
+
+        /// <summary>
+        /// Compute LU decomposition on a squared matrix
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://github.com/SarahFrem/AutoRegressive_model_cs/blob/master/Matrix.cs#L219
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double[][] Lower, double[][] Upper) DecomposeToLowerUpper(double[][] matrix)
+        {
+            var rows = matrix.Length;
+            var cols = matrix[0].Length;
+
+            if (!IsSquareMatrix(matrix))
+            {
+                return (new double[1][] { new double[1] }, new double[1][] { new double[1] });
+            }
+            else
+            {
+                var lower = new double[rows][];
+                var upper = new double[rows][];
+
+                for (var i = 0; i < rows; i++)
+                {
+                    lower[i] = new double[cols];
+                    lower[i][i] = 1;
+                }
+
+                for (var i = 0; i < rows; i++)
+                {
+                    upper[i] = new double[cols];
+                    for (var j = i; j < rows; j++)
+                    {
+                        var sumU = 0d;
+                        for (var k = 0; k < i; k++)
+                        {
+                            sumU += lower[i][k] * upper[k][j];
+                        }
+
+                        upper[i][j] = matrix[i][j] - sumU;
+                    }
+
+                    for (var j = i; j < rows; j++)
+                    {
+                        var sumL = 0d;
+                        for (var k = 0; k < i; k++)
+                        {
+                            sumL += lower[j][k] * upper[k][i];
+                        }
+
+                        lower[j][i] = (matrix[j][i] - sumL) / upper[i][i];
                     }
                 }
 

@@ -280,9 +280,9 @@ namespace Engine
         public static double Angle(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
-            => (Math.Abs(x1 - x2) < Epsilon
-            && Math.Abs(y1 - y2) < Epsilon
-            && Math.Abs(z1 - z2) < Epsilon) ? 0d : Acos(Math.Min(1d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
+            => (Math.Abs(x1 - x2) < double.Epsilon
+            && Math.Abs(y1 - y2) < double.Epsilon
+            && Math.Abs(z1 - z2) < double.Epsilon) ? 0d : Acos(Math.Min(1d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
 
         /// <summary>
         /// The angle vector.
@@ -588,7 +588,7 @@ namespace Engine
         /// </remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Slope(double i, double j) => Math.Abs(i) < Epsilon ? SlopeMax : (j / i);
+        public static double Slope(double i, double j) => Math.Abs(i) < double.Epsilon ? SlopeMax : (j / i);
 
         /// <summary>
         /// Returns the slope angle of a line.
@@ -609,7 +609,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(
             double x1, double y1,
-            double x2, double y2) => (Math.Abs(x1 - x2) < Epsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
+            double x2, double y2) => (Math.Abs(x1 - x2) < double.Epsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
         #endregion Slope
 
         #region Unit

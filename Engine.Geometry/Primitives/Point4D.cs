@@ -23,11 +23,11 @@ namespace Engine
     /// <summary>
     /// The <see cref="Point4D" /> struct.
     /// </summary>
-    /// <seealso cref="Engine.IVector{T}" />
+    /// <seealso cref="IVector{T}" />
     /// <seealso cref="IVector{Point4D}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Point4DConverter))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Point4D
         : IVector<Point4D>
     {
@@ -146,6 +146,15 @@ namespace Engine
         /// </value>
         [DataMember(Name = nameof(W)), XmlAttribute(nameof(W)), SoapAttribute(nameof(W))]
         public double W { get; set; }
+
+        /// <summary>
+        /// Gets the number of components in the Vector.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => 4;
         #endregion Properties
 
         #region Operators
@@ -748,6 +757,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Point4D)}({nameof(X)}: {X.ToString(format, formatProvider)}{s} {nameof(Y)}: {Y.ToString(format, formatProvider)}{s} {nameof(Z)}: {Z.ToString(format, formatProvider)}{s} {nameof(W)}: {W.ToString(format, formatProvider)})";
         }
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
         #endregion
     }
 }

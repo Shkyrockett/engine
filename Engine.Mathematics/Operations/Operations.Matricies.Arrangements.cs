@@ -18,6 +18,7 @@ namespace Engine
     /// </summary>
     public static partial class Operations
     {
+        #region Truncate Matrix
         /// <summary>
         /// Truncate a matrix
         /// </summary>
@@ -59,6 +60,49 @@ namespace Engine
             return result;
         }
 
+        /// <summary>
+        /// Truncate a matrix
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <param name="rowStart">The row start.</param>
+        /// <param name="rowEnd">The row end.</param>
+        /// <param name="columnStart">The column start.</param>
+        /// <param name="columnEnd">The column end.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://github.com/SarahFrem/AutoRegressive_model_cs/blob/master/Matrix.cs#L100
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Truncate(double[][] matrix, int rowStart, int rowEnd, int columnStart, int columnEnd)
+        {
+            var rows = matrix.GetLength(0);
+            var cols = matrix.GetLength(1);
+
+            var minimumIndex = rowStart == 0 || rowEnd == 0 || columnStart == 0 || columnEnd == 0;
+            var coherenceIndex = rowEnd < rowStart || columnEnd < columnStart;
+            var boundIndex = rowEnd > rows || columnEnd > cols;
+
+            if (minimumIndex || coherenceIndex || boundIndex)
+            {
+                return new double[1][] { new double[1] { 0d } };
+            }
+
+            var result = new double[rowEnd - rowStart + 1][];
+
+            for (var i = rowStart - 1; i < rowEnd; i++)
+            {
+                result[i] = new double[columnEnd - columnStart + 1];
+                for (var j = columnStart - 1; j < columnEnd; j++)
+                {
+                    result[i - rowStart + 1][j - columnStart + 1] = matrix[i][j];
+                }
+            }
+
+            return result;
+        }
+        #endregion
+
         #region Transpose Matrix
         /// <summary>
         /// Returns the transpose of a matrix
@@ -81,6 +125,34 @@ namespace Engine
                 for (var j = 0; j < rows; j++)
                 {
                     res[i, j] = matrix[j, i];
+                }
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Returns the transpose of a matrix
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://github.com/SarahFrem/AutoRegressive_model_cs/blob/master/Matrix.cs#L100
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Transpose(double[][] matrix)
+        {
+            var rows = matrix.Length;
+            var cols = matrix[0].Length;
+
+            var res = new double[cols][];
+            for (var i = 0; i < cols; i++)
+            {
+                res[i] = new double[rows];
+                for (var j = 0; j < rows; j++)
+                {
+                    res[i][j] = matrix[j][i];
                 }
             }
 

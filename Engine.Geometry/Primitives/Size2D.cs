@@ -29,7 +29,7 @@ namespace Engine
     /// <seealso cref="IVector{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Size2DConverter))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Size2D
         : IVector<Size2D>
     {
@@ -137,8 +137,17 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
-            => Abs(Width) < Epsilon
-            && Abs(Height) < Epsilon;
+            => Abs(Width) < double.Epsilon
+            && Abs(Height) < double.Epsilon;
+
+        /// <summary>
+        /// Gets the number of components in the Vector.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => 2;
         #endregion Properties
 
         #region Operators
@@ -1031,7 +1040,7 @@ namespace Engine
         public Size2D Truncate() => new Size2D((int)Width, (int)Height);
         #endregion Factories
 
-        #region Methods
+        #region Standard Methods
         /// <summary>
         /// Get the hash code.
         /// </summary>
@@ -1083,6 +1092,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Size2D)}({nameof(Width)}: {Width.ToString(format, formatProvider)}{s} {nameof(Height)}: {Height.ToString(format, formatProvider)})";
         }
-        #endregion Methods
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
+        #endregion
     }
 }

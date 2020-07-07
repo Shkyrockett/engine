@@ -25,11 +25,11 @@ namespace Engine
     /// <summary>
     /// The <see cref="Point3D" /> struct.
     /// </summary>
-    /// <seealso cref="Engine.IVector{T}" />
+    /// <seealso cref="IVector{T}" />
     /// <seealso cref="IVector{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Point3DConverter))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Point3D
         : IVector<Point3D>
     {
@@ -144,7 +144,16 @@ namespace Engine
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        public bool IsEmpty => Abs(X) < Epsilon && Abs(Y) < Epsilon && Abs(Z) < Epsilon;
+        public bool IsEmpty => Abs(X) < double.Epsilon && Abs(Y) < double.Epsilon && Abs(Z) < double.Epsilon;
+
+        /// <summary>
+        /// Gets the number of components in the Vector.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => 3;
         #endregion Properties
 
         #region Operators
@@ -762,6 +771,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Point3D)}({nameof(X)}: {X.ToString(format, formatProvider)}{s} {nameof(Y)}: {Y.ToString(format, formatProvider)}{s} {nameof(Z)}: {Z.ToString(format, formatProvider)})";
         }
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
         #endregion Methods
     }
 }

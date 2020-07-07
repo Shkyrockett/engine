@@ -2369,7 +2369,7 @@ namespace Engine
         /// <para>Returns a value representing the focus radius of an ellipse.</para>
         /// </remarks>
         /// <acknowledgment>
-        /// https://en.wikipedia.org/wiki/Ellipse2D
+        /// https://en.wikipedia.org/wiki/Ellipse
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipseFocusRadius(double rX, double rY) => Sqrt((rX * rX) - (rY * rY));

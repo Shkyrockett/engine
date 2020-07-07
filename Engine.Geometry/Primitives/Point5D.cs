@@ -27,7 +27,7 @@ namespace Engine
     /// <seealso cref="IVector{Point5D}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Point5DConverter))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Point5D
         : IVector<Point5D>
     {
@@ -148,6 +148,15 @@ namespace Engine
         /// </value>
         [DataMember(Name = nameof(V)), XmlAttribute(nameof(V)), SoapAttribute(nameof(V))]
         public double V { get; set; }
+
+        /// <summary>
+        /// Gets the number of components in the Vector.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => 5;
         #endregion Properties
 
         #region Operators
@@ -763,6 +772,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Point5D)}({nameof(X)}: {X.ToString(format, formatProvider)}{s} {nameof(Y)}: {Y.ToString(format, formatProvider)}{s} {nameof(Z)}: {Z.ToString(format, formatProvider)}{s} {nameof(W)}: {W.ToString(format, formatProvider)}{s} {nameof(V)}: {V.ToString(format, formatProvider)})";
         }
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
         #endregion
     }
 }

@@ -19,6 +19,7 @@ namespace Engine
     /// </summary>
     public static partial class Operations
     {
+        #region Plus
         /// <summary>
         /// Applies the plus operator to the specified augend.
         /// </summary>
@@ -33,7 +34,7 @@ namespace Engine
         {
             if (augend is null)
             {
-               return augend;
+                return augend;
             }
 
             var rows = augend.GetLength(0);
@@ -50,6 +51,40 @@ namespace Engine
 
             return result;
         }
+
+        /// <summary>
+        /// Applies the plus operator to the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/different-operation-matrices/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Plus(double[][] augend)
+        {
+            if (augend is null)
+            {
+                return augend;
+            }
+
+            var rows = augend.Length;
+            var cols = augend[0].Length;
+
+            var result = new double[rows][];
+            for (var i = 0; i < rows; i++)
+            {
+                result[i] = new double[cols];
+                for (var j = 0; j < cols; j++)
+                {
+                    result[i][j] = +augend[i][j];
+                }
+            }
+
+            return result;
+        }
+        #endregion
 
         #region Add
         /// <summary>
@@ -84,6 +119,45 @@ namespace Engine
                 for (var j = 0; j < cols; j++)
                 {
                     result[i, j] = augend[i, j] + addend[i, j];
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Adds the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/different-operation-matrices/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Add(double[][] augend, double[][] addend)
+        {
+            if (augend is null)
+            {
+                return addend;
+            }
+
+            if (addend is null)
+            {
+                return augend;
+            }
+
+            var rows = augend.Length;
+            var cols = augend[0].Length;
+
+            var result = new double[rows][];
+            for (var i = 0; i < rows; i++)
+            {
+                result[i] = new double[cols];
+                for (var j = 0; j < cols; j++)
+                {
+                    result[i][j] = augend[i][j] + addend[i][j];
                 }
             }
 
@@ -429,6 +503,7 @@ namespace Engine
                 augendM6x1 + addendM6x1, augendM6x2 + addendM6x2, augendM6x3 + addendM6x3, augendM6x4 + addendM6x4, augendM6x5 + addendM6x5, augendM6x6 + addendM6x6);
         #endregion Add
 
+        #region Negate
         /// <summary>
         /// Applies the plus operator to the specified augend.
         /// </summary>
@@ -456,6 +531,35 @@ namespace Engine
             return result;
         }
 
+        /// <summary>
+        /// Applies the plus operator to the specified augend.
+        /// </summary>
+        /// <param name="augend">The augend.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/different-operation-matrices/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Negate(double[][] augend)
+        {
+            var rows = augend.GetLength(0);
+            var cols = augend.GetLength(1);
+
+            var result = new double[rows][];
+            for (var i = 0; i < rows; i++)
+            {
+                result[0] = new double[cols];
+                for (var j = 0; j < cols; j++)
+                {
+                    result[i][j] = -augend[i][j];
+                }
+            }
+
+            return result;
+        }
+        #endregion
+
         #region Subtract
         /// <summary>
         /// Subtracts the specified minuend.
@@ -479,6 +583,35 @@ namespace Engine
                 for (var j = 0; j < cols; j++)
                 {
                     result[i, j] = minuend[i, j] - subtrahend[i, j];
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Subtracts the specified minuend.
+        /// </summary>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subtrahend">The subtrahend.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/different-operation-matrices/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Subtract(double[][] minuend, double[][] subtrahend)
+        {
+            var rows = minuend.Length;
+            var cols = minuend[0].Length;
+
+            var result = new double[rows][];
+            for (var i = 0; i < rows; i++)
+            {
+                result[i] = new double[cols];
+                for (var j = 0; j < cols; j++)
+                {
+                    result[i][j] = minuend[i][j] - subtrahend[i][j];
                 }
             }
 
@@ -856,6 +989,36 @@ namespace Engine
         }
 
         /// <summary>
+        /// Multiplies the specified multiplicand by a scalar.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Columns of multiplicand must be the same length as the rows of multiplier.</exception>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/different-operation-matrices/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Scale(double[][] multiplicand, double multiplier)
+        {
+            var rows = multiplicand.Length;
+            var cols = multiplicand[0].Length;
+
+            var result = new double[rows][];
+            for (var i = 0; i < rows; i++)
+            {
+                result[i] = new double[cols];
+                for (var j = 0; j < cols; j++)
+                {
+                    result[i][j] = multiplicand[i][j] * multiplier;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Multiplies the specified multiplier by a scalar.
         /// </summary>
         /// <param name="multiplicand">The multiplicand.</param>
@@ -878,6 +1041,36 @@ namespace Engine
                 for (var j = 0; j < multiplicandCols; j++)
                 {
                     result[i, j] = multiplicand * multiplier[i, j];
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Multiplies the specified multiplier by a scalar.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Columns of multiplicand must be the same length as the rows of multiplier.</exception>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/different-operation-matrices/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Scale(double multiplicand, double[][] multiplier)
+        {
+            var multiplicandRows = multiplier.Length;
+            var multiplicandCols = multiplier[0].Length;
+
+            var result = new double[multiplicandRows][];
+            for (var i = 0; i < multiplicandRows; i++)
+            {
+                result[i] = new double[multiplicandCols];
+                for (var j = 0; j < multiplicandCols; j++)
+                {
+                    result[i][j] = multiplicand * multiplier[i][j];
                 }
             }
 
@@ -1132,6 +1325,44 @@ namespace Engine
                     for (var k = 0; k < multiplicandCols; k++)
                     {
                         result[i] += multiplicand[i, k] * multiplier[j];
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Columns of multiplicand must be the same length as the rows of multiplier.</exception>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/different-operation-matrices/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[] Multiply(double[][] multiplicand, double[] multiplier)
+        {
+            var multiplicandRows = multiplicand.Length;
+            var multiplicandCols = multiplicand[0].Length;
+            var multiplierRows = multiplier.Length;
+
+            if (multiplicandCols != multiplierRows) throw new Exception("Columns of multiplicand must be the same length as the rows of multiplier.");
+
+            var multiplierCols = multiplier.GetLength(1);
+
+            var result = new double[multiplicandRows];
+            for (var i = 0; i < multiplicandRows; i++)
+            {
+                for (var j = 0; j < multiplierCols; j++)
+                {
+                    result[i] = 0;
+                    for (var k = 0; k < multiplicandCols; k++)
+                    {
+                        result[i] += multiplicand[i][k] * multiplier[j];
                     }
                 }
             }
@@ -1397,6 +1628,44 @@ namespace Engine
         }
 
         /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Columns of multiplicand must be the same length as the rows of multiplier.</exception>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/different-operation-matrices/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[] Multiply(double[] multiplicand, double[][] multiplier)
+        {
+            var multiplicandRows = 1;
+            var multiplicandCols = multiplicand.Length;
+            var multiplierRows = multiplier.Length;
+
+            if (multiplicandCols != multiplierRows) throw new Exception("Columns of multiplicand must be the same length as the rows of multiplier.");
+
+            var multiplierCols = multiplier[0].Length;
+
+            var result = new double[multiplicandCols];
+            for (var i = 0; i < multiplicandRows; i++)
+            {
+                for (var j = 0; j < multiplierCols; j++)
+                {
+                    result[j] = 0;
+                    for (var k = 0; k < multiplicandCols; k++)
+                    {
+                        result[j] += multiplicand[i] * multiplier[k][j];
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Multiplies the horizontal vector2 d by matrix2x2.
         /// </summary>
         /// <param name="x">The x.</param>
@@ -1649,6 +1918,45 @@ namespace Engine
                     for (var k = 0; k < multiplicandCols; k++)
                     {
                         result[i, j] += multiplicand[i, k] * multiplier[k, j];
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Multiplies the specified multiplicand.
+        /// </summary>
+        /// <param name="multiplicand">The multiplicand.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Columns of multiplicand must be the same length as the rows of multiplier.</exception>
+        /// <acknowledgment>
+        /// https://www.geeksforgeeks.org/different-operation-matrices/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[][] Multiply(double[][] multiplicand, double[][] multiplier)
+        {
+            var multiplicandRows = multiplicand.Length;
+            var multiplicandCols = multiplicand[0].Length;
+            var multiplierRows = multiplier.Length;
+
+            if (multiplicandCols != multiplierRows) throw new Exception("Columns of multiplicand must be the same length as the rows of multiplier.");
+
+            var multiplierCols = multiplier[0].Length;
+
+            var result = new double[multiplicandRows][];
+            for (var i = 0; i < multiplicandRows; i++)
+            {
+                result[i] = new double[multiplierCols];
+                for (var j = 0; j < multiplierCols; j++)
+                {
+                    result[i][j] = 0;
+                    for (var k = 0; k < multiplicandCols; k++)
+                    {
+                        result[i][j] += multiplicand[i][k] * multiplier[k][j];
                     }
                 }
             }

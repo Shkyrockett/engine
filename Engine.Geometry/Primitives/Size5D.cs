@@ -26,7 +26,7 @@ namespace Engine
     /// <seealso cref="IVector{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Size5DConverter))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Size5D
         : IVector<Size5D>
     {
@@ -120,7 +120,7 @@ namespace Engine
         /// The width.
         /// </value>
         [DataMember(Name = nameof(Width)), XmlAttribute(nameof(Width)), SoapAttribute(nameof(Width))]
-        public double Width { get; internal set; }
+        public double Width { get; set; }
 
         /// <summary>
         /// Gets or sets the Height component of a <see cref="Size5D" /> coordinate.
@@ -129,7 +129,7 @@ namespace Engine
         /// The height.
         /// </value>
         [DataMember(Name = nameof(Height)), XmlAttribute(nameof(Height)), SoapAttribute(nameof(Height))]
-        public double Height { get; internal set; }
+        public double Height { get; set; }
 
         /// <summary>
         /// Gets or sets the Depth component of a <see cref="Size5D" /> coordinate.
@@ -138,7 +138,7 @@ namespace Engine
         /// The depth.
         /// </value>
         [DataMember(Name = nameof(Depth)), XmlAttribute(nameof(Depth)), SoapAttribute(nameof(Depth))]
-        public double Depth { get; internal set; }
+        public double Depth { get; set; }
 
         /// <summary>
         /// Gets or sets the Breadth component of a <see cref="Size5D" /> coordinate.
@@ -147,7 +147,7 @@ namespace Engine
         /// The breadth.
         /// </value>
         [DataMember(Name = nameof(Breadth)), XmlAttribute(nameof(Breadth)), SoapAttribute(nameof(Breadth))]
-        public double Breadth { get; internal set; }
+        public double Breadth { get; set; }
 
         /// <summary>
         /// Gets or sets the Length component of a <see cref="Size5D" /> coordinate.
@@ -156,7 +156,16 @@ namespace Engine
         /// The length.
         /// </value>
         [DataMember(Name = nameof(Length)), XmlAttribute(nameof(Length)), SoapAttribute(nameof(Length))]
-        public double Length { get; internal set; }
+        public double Length { get; set; }
+
+        /// <summary>
+        /// Gets the number of components in the Vector.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => 5;
         #endregion Properties
 
         #region Operators
@@ -1044,7 +1053,7 @@ namespace Engine
         }
         #endregion Factories
 
-        #region Methods
+        #region Standard Methods
         /// <summary>
         /// Get the hash code.
         /// </summary>
@@ -1084,6 +1093,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Size5D)}({nameof(Width)}:{Width.ToString(format, formatProvider)}{s} {nameof(Height)}:{Height.ToString(format, formatProvider)}{s} {nameof(Depth)}:{Depth.ToString(format, formatProvider)}{s} {nameof(Breadth)}:{Breadth.ToString(format, formatProvider)}{s} {nameof(Length)}:{Length.ToString(format, formatProvider)})";
         }
-        #endregion Methods
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
+        #endregion
     }
 }

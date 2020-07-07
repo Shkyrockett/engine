@@ -28,7 +28,7 @@ namespace Engine
     /// <seealso cref="System.IEquatable{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(StructConverter<Orientation3D>))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Orientation3D
         : IVector<Orientation3D>, IEquatable<Orientation3D>
     {
@@ -128,6 +128,15 @@ namespace Engine
         /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Yaw { get; set; }
+
+        /// <summary>
+        /// Gets the number of components in the Vector.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => 3;
         #endregion Properties
 
         #region Operators
@@ -508,6 +517,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Orientation3D)}({nameof(Roll)}:{Roll.ToString(format, formatProvider)}{s} {nameof(Pitch)}:{Pitch.ToString(format, formatProvider)}{s} {nameof(Yaw)}:{Yaw.ToString(format, formatProvider)})";
         }
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
         #endregion
     }
 }

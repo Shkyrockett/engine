@@ -10,6 +10,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -27,16 +28,38 @@ namespace Engine
     /// </summary>
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
     public struct MatrixXD
-        : IEquatable<MatrixXD>
+        : IMatrix<MatrixXD, VectorXD>
     {
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="MatrixXD" /> struct.
         /// </summary>
         /// <param name="values">The values.</param>
-        public MatrixXD(double[,] values)
+        public MatrixXD(double[][] values)
         {
-            this.Values = values;
+            Values = values;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatrixXD" /> struct.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        public MatrixXD(double[,] matrix)
+        {
+            var rows = (matrix?.GetLength(0)).Value;
+            var cols = (matrix?.GetLength(1)).Value;
+            var values = new double[rows][];
+            for (var i = 0; i < rows; i++)
+            {
+                var row = new double[cols];
+                for (var j = 0; j < cols; j++)
+                {
+                    row[j] = matrix[i, j];
+                }
+                values[i] = row;
+            }
+
+            Values = values;
         }
 
         /// <summary>
@@ -45,9 +68,8 @@ namespace Engine
         /// <param name="rows">The rows.</param>
         /// <param name="columns">The columns.</param>
         public MatrixXD(int rows, int columns)
-        {
-            Values = new double[rows, columns];
-        }
+            : this(new double[rows, columns])
+        { }
         #endregion
 
         #region Indexers
@@ -62,8 +84,8 @@ namespace Engine
         /// <returns></returns>
         public double this[int index1, int index2]
         {
-            get { return Values[index1, index2]; }
-            set { Values[index1, index2] = value; }
+            get { return Values[index1][index2]; }
+            set { Values[index1][index2] = value; }
         }
         #endregion
 
@@ -74,7 +96,7 @@ namespace Engine
         /// <value>
         /// The values.
         /// </value>
-        public double[,] Values { get; set; }
+        public double[][] Values { get; set; }
 
         /// <summary>
         /// Gets the rows.
@@ -82,7 +104,7 @@ namespace Engine
         /// <value>
         /// The rows.
         /// </value>
-        public int Rows => Values.GetLength(0);
+        public int Rows => Values.Length;
 
         /// <summary>
         /// Gets the columns.
@@ -90,7 +112,7 @@ namespace Engine
         /// <value>
         /// The columns.
         /// </value>
-        public int Columns => Values.GetLength(1);
+        public int Columns => Values[0].Length;
 
         /// <summary>
         /// Gets a value indicating whether this instance is square.
@@ -175,7 +197,7 @@ namespace Engine
         /// <value>
         /// The decompose.
         /// </value>
-        public (MatrixXD Lower, MatrixXD Upper) Decompose => Operations.DecomposeToLowerUpper(Values);
+        public (MatrixXD Lower, MatrixXD Upper) Decompose => DecomposeToLowerUpper(Values);
         #endregion
 
         #region Operators
@@ -186,6 +208,7 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixXD operator +(MatrixXD value) => Plus(value);
 
         /// <summary>
@@ -196,6 +219,7 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixXD operator +(MatrixXD augend, MatrixXD addend) => Add(augend, addend);
 
         /// <summary>
@@ -205,6 +229,7 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixXD operator -(MatrixXD value) => Negate(value);
 
         /// <summary>
@@ -215,6 +240,7 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixXD operator -(MatrixXD minuend, MatrixXD subend) => Subtract(minuend, subend);
 
         /// <summary>
@@ -225,6 +251,7 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixXD operator *(MatrixXD multiplicand, double multiplier) => Scale(multiplicand, multiplier);
 
         /// <summary>
@@ -235,6 +262,7 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixXD operator *(double multiplicand, MatrixXD multiplier) => Scale(multiplicand, multiplier);
 
         /// <summary>
@@ -245,7 +273,8 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static Vector operator *(MatrixXD multiplicand, Vector multiplier) => Multiply(multiplicand, multiplier);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static VectorXD operator *(MatrixXD multiplicand, VectorXD multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
         /// Implements the operator *.
@@ -255,7 +284,8 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static Vector operator *(Vector multiplicand, MatrixXD multiplier) => Multiply(multiplier, multiplicand);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static VectorXD operator *(VectorXD multiplicand, MatrixXD multiplier) => Multiply(multiplier, multiplicand);
 
         /// <summary>
         /// Implements the operator *.
@@ -265,6 +295,7 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixXD operator *(MatrixXD multiplicand, MatrixXD multiplier) => Multiply(multiplicand, multiplier);
 
         /// <summary>
@@ -275,6 +306,7 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(MatrixXD left, MatrixXD right) => left.Equals(right);
 
         /// <summary>
@@ -285,6 +317,7 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(MatrixXD left, MatrixXD right) => !(left == right);
 
         /// <summary>
@@ -294,7 +327,18 @@ namespace Engine
         /// <returns>
         /// The result of the conversion.
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator MatrixXD(double[,] array) => ToMatrix(array);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Array" /> to <see cref="MatrixXD" />.
+        /// </summary>
+        /// <param name="array">The array.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator MatrixXD(double[][] array) => ToMatrix(array);
         #endregion
 
         #region Operator Backing Methods
@@ -357,7 +401,7 @@ namespace Engine
         /// <param name="multiplier">The multiplier.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Vector Multiply(MatrixXD multiplicand, Vector multiplier) => Operations.Multiply(multiplicand.Values, multiplier.Values);
+        private static VectorXD Multiply(MatrixXD multiplicand, VectorXD multiplier) => Operations.Multiply(multiplicand.Values, multiplier.Values);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -366,7 +410,7 @@ namespace Engine
         /// <param name="multiplier">The multiplier.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Vector Multiply(Vector multiplicand, MatrixXD multiplier) => Operations.Multiply(multiplicand.Values, multiplier.Values);
+        private static VectorXD Multiply(VectorXD multiplicand, MatrixXD multiplier) => Operations.Multiply(multiplicand.Values, multiplier.Values);
 
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -395,7 +439,7 @@ namespace Engine
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(MatrixXD other) => other is MatrixXD matrix && EqualityComparer<double[,]>.Default.Equals(Values, matrix.Values);
+        public bool Equals(MatrixXD other) => other is MatrixXD matrix && EqualityComparer<double[][]>.Default.Equals(Values, matrix.Values);
 
         /// <summary>
         /// Converts to matrix.
@@ -404,6 +448,14 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixXD ToMatrix(double[,] array) => new MatrixXD(array);
+
+        /// <summary>
+        /// Converts to matrix.
+        /// </summary>
+        /// <param name="array">The array.</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixXD ToMatrix(double[][] array) => new MatrixXD(array);
         #endregion
 
         /// <summary>
@@ -411,6 +463,7 @@ namespace Engine
         /// </summary>
         /// <param name="b">The b.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double DotProduct(MatrixXD b) => Operations.DotProduct(Values, b.Values);
 
         /// <summary>
@@ -419,15 +472,37 @@ namespace Engine
         /// <param name="b">The b.</param>
         /// <param name="t">The t.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public MatrixXD Lerp(MatrixXD b, double t) => Operations.Lerp(Values, b.Values, t);
 
         #region Standard Methods
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// An enumerator that can be used to iterate through the collection.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public IEnumerator<IEnumerable<double>> GetEnumerator() => throw new NotImplementedException();
+
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
+
         /// <summary>
         /// Returns a hash code for this instance.
         /// </summary>
         /// <returns>
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => HashCode.Combine(Values);
 
         /// <summary>
@@ -436,6 +511,7 @@ namespace Engine
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
@@ -445,6 +521,7 @@ namespace Engine
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider formatProvider) => ToString("R" /* format string */, formatProvider);
 
         /// <summary>
@@ -465,7 +542,7 @@ namespace Engine
                 sb.Append("{");
                 for (var j = 0; j < Columns; j++)
                 {
-                    sb.Append($"{Values[i, j].ToString(format, formatProvider)},\t");
+                    sb.Append($"{Values[i][j].ToString(format, formatProvider)},\t");
                 }
 
                 sb.Append("},");

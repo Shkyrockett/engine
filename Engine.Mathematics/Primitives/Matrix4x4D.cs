@@ -31,7 +31,7 @@ namespace Engine
     /// <seealso cref="IMatrix{M, V}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Matrix4x4DConverter))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Matrix4x4D
         : IMatrix<Matrix4x4D, Vector4D>
     {
@@ -185,6 +185,98 @@ namespace Engine
             m3x3 = M2x3;
         }
         #endregion Deconstructors
+
+        #region Indexers
+        /// <summary>
+        /// Gets or sets the <see cref="double"/> with the specified index1.
+        /// </summary>
+        /// <value>
+        /// The <see cref="double"/>.
+        /// </value>
+        /// <param name="index1">The index1.</param>
+        /// <param name="index2">The index2.</param>
+        /// <returns></returns>
+        public double this[int index1, int index2]
+        {
+            get
+            {
+                return index1 switch
+                {
+                    0 => index2 switch
+                    {
+                        0 => M0x0,
+                        1 => M0x1,
+                        2 => M0x2,
+                        3 => M0x3,
+                        _ => double.NaN,
+                    },
+                    1 => index2 switch
+                    {
+                        0 => M1x0,
+                        1 => M1x1,
+                        2 => M1x2,
+                        3 => M1x3,
+                        _ => double.NaN,
+                    },
+                    2 => index2 switch
+                    {
+                        0 => M2x0,
+                        1 => M2x1,
+                        2 => M2x2,
+                        3 => M2x3,
+                        _ => double.NaN,
+                    },
+                    3 => index2 switch
+                    {
+                        0 => M3x0,
+                        1 => M3x1,
+                        2 => M3x2,
+                        3 => M3x3,
+                        _ => double.NaN,
+                    },
+                    _ => double.NaN,
+                };
+            }
+            set
+            {
+                switch (index1)
+                {
+                    case 0:
+                        switch (index2)
+                        {
+                            case 0: M0x0 = value; break;
+                            case 1: M0x1 = value; break;
+                            case 2: M0x2 = value; break;
+                            case 3: M0x3 = value; break;
+                            default: break;
+                        }
+                        break;
+                    case 1:
+                        switch (index2)
+                        {
+                            case 0: M1x0 = value; break;
+                            case 1: M1x1 = value; break;
+                            case 2: M1x2 = value; break;
+                            case 3: M1x3 = value; break;
+                            default: break;
+                        }
+                        break;
+                    case 2:
+                        switch (index2)
+                        {
+                            case 0: M2x0 = value; break;
+                            case 1: M2x1 = value; break;
+                            case 2: M2x2 = value; break;
+                            case 3: M2x3 = value; break;
+                            default: break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        #endregion
 
         #region Properties
         /// <summary>
@@ -464,22 +556,49 @@ namespace Engine
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsIdentity
-            => Abs(M0x0 - 1) < Epsilon
-                && Abs(M0x1) < Epsilon
-                && Abs(M0x2) < Epsilon
-                && Abs(M0x3) < Epsilon
-                && Abs(M1x0) < Epsilon
-                && Abs(M1x1 - 1) < Epsilon
-                && Abs(M1x2) < Epsilon
-                && Abs(M1x3) < Epsilon
-                && Abs(M2x0) < Epsilon
-                && Abs(M2x1) < Epsilon
-                && Abs(M2x2 - 1) < Epsilon
-                && Abs(M2x3) < Epsilon
-                && Abs(M3x0) < Epsilon
-                && Abs(M3x1) < Epsilon
-                && Abs(M3x2) < Epsilon
-                && Abs(M3x3 - 1) < Epsilon;
+            => Abs(M0x0 - 1) < double.Epsilon
+                && Abs(M0x1) < double.Epsilon
+                && Abs(M0x2) < double.Epsilon
+                && Abs(M0x3) < double.Epsilon
+                && Abs(M1x0) < double.Epsilon
+                && Abs(M1x1 - 1) < double.Epsilon
+                && Abs(M1x2) < double.Epsilon
+                && Abs(M1x3) < double.Epsilon
+                && Abs(M2x0) < double.Epsilon
+                && Abs(M2x1) < double.Epsilon
+                && Abs(M2x2 - 1) < double.Epsilon
+                && Abs(M2x3) < double.Epsilon
+                && Abs(M3x0) < double.Epsilon
+                && Abs(M3x1) < double.Epsilon
+                && Abs(M3x2) < double.Epsilon
+                && Abs(M3x3 - 1) < double.Epsilon;
+
+        /// <summary>
+        /// Gets the number of rows.
+        /// </summary>
+        /// <value>
+        /// The rows.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Rows => 4;
+
+        /// <summary>
+        /// Gets the number of columns.
+        /// </summary>
+        /// <value>
+        /// The columns.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Columns => 4;
+
+        /// <summary>
+        /// Gets the number of cells in the Matrix.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => Rows * Columns;
         #endregion Properties
 
         #region Operators
@@ -1143,6 +1262,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Matrix4x4D)}({nameof(M0x0)}:{M0x0.ToString(format, formatProvider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, formatProvider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, formatProvider)}{s} {nameof(M0x3)}:{M0x3.ToString(format, formatProvider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, formatProvider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, formatProvider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, formatProvider)}{s} {nameof(M1x3)}:{M1x3.ToString(format, formatProvider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, formatProvider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, formatProvider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, formatProvider)}{s} {nameof(M2x3)}:{M2x3.ToString(format, formatProvider)}{s} {nameof(M3x0)}:{M3x0.ToString(format, formatProvider)}{s} {nameof(M3x1)}:{M3x1.ToString(format, formatProvider)}{s} {nameof(M3x2)}:{M3x2.ToString(format, formatProvider)}{s} {nameof(M3x3)}:{M3x3.ToString(format, formatProvider)})";
         }
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
         #endregion
     }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="Vector.cs" company="Shkyrockett" >
+﻿// <copyright file="VectorXD.cs" company="Shkyrockett" >
 //     Copyright © 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -14,32 +14,35 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
+    /// <seealso cref="System.IEquatable{T}" />
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
-    public struct Vector
-        : IEquatable<Vector>
+    public struct VectorXD
+        : IVector<VectorXD>
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector"/> class.
+        /// Initializes a new instance of the <see cref="VectorXD"/> class.
         /// </summary>
         /// <param name="values">The values.</param>
-        public Vector(double[] values)
+        public VectorXD(double[] values)
         {
             Values = values;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector"/> class.
+        /// Initializes a new instance of the <see cref="VectorXD"/> class.
         /// </summary>
         /// <param name="rows">The rows.</param>
-        public Vector(int rows)
+        public VectorXD(int rows)
         {
             Values = new double[rows];
         }
@@ -68,7 +71,16 @@ namespace Engine
         /// <value>
         /// The values.
         /// </value>
-        public double[] Values { get; internal set; }
+        public double[] Values { get; set; }
+
+        /// <summary>
+        /// Gets the number of components in the Vector.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => Values.Length;
         #endregion
 
         #region Operators
@@ -80,7 +92,7 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator ==(Vector left, Vector right) => EqualityComparer<Vector>.Default.Equals(left, right);
+        public static bool operator ==(VectorXD left, VectorXD right) => EqualityComparer<VectorXD>.Default.Equals(left, right);
 
         /// <summary>
         /// Implements the operator !=.
@@ -90,16 +102,16 @@ namespace Engine
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator !=(Vector left, Vector right) => !(left == right);
+        public static bool operator !=(VectorXD left, VectorXD right) => !(left == right);
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Array" /> to <see cref="Vector" />.
+        /// Performs an implicit conversion from <see cref="Array" /> to <see cref="VectorXD" />.
         /// </summary>
         /// <param name="array">The array.</param>
         /// <returns>
         /// The result of the conversion.
         /// </returns>
-        public static implicit operator Vector(double[] array) => ToVector(array);
+        public static implicit operator VectorXD(double[] array) => ToVector(array);
         #endregion
 
         #region Operator Backing MEthods
@@ -110,7 +122,7 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false" />.
         /// </returns>
-        public override bool Equals(object obj) => obj is Vector vector && Equals(vector);
+        public override bool Equals(object obj) => obj is VectorXD vector && Equals(vector);
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
@@ -119,14 +131,14 @@ namespace Engine
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(Vector other) => other != null && EqualityComparer<double[]>.Default.Equals(Values, other.Values);
+        public bool Equals(VectorXD other) => other != null && EqualityComparer<double[]>.Default.Equals(Values, other.Values);
 
         /// <summary>
         /// Converts to vector.
         /// </summary>
         /// <param name="array">The array.</param>
         /// <returns></returns>
-        private static Vector ToVector(double[] array) => new Vector(array);
+        private static VectorXD ToVector(double[] array) => new VectorXD(array);
         #endregion
 
         #region Standard Methods

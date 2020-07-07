@@ -15,6 +15,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Engine
 {
@@ -29,6 +31,33 @@ namespace Engine
         IEnumerable<IEnumerable<double>>,
         IEquatable<M> where M : struct, IMatrix<M, V> where V : struct, IVector<V>
     {
+        /// <summary>
+        /// Gets the number of rows.
+        /// </summary>
+        /// <value>
+        /// The rows.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Rows { get; }
+
+        /// <summary>
+        /// Gets the number of columns.
+        /// </summary>
+        /// <value>
+        /// The columns.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Columns { get; }
+
+        /// <summary>
+        /// Gets the number of cells in the Matrix.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => Rows * Columns;
+
         /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>

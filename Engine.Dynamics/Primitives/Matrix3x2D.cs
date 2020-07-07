@@ -18,6 +18,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 using static Engine.Mathematics;
 using static Engine.Operations;
 using static System.Math;
@@ -38,17 +39,17 @@ namespace Engine
         /// <summary>
         /// An Empty <see cref="Matrix3x2D"/>.
         /// </summary>
-        public static Matrix3x2D Empty = new Matrix3x2D(0d, 0d, 0d, 0d, 0d, 0d);
+        public static readonly Matrix3x2D Empty = new Matrix3x2D(0d, 0d, 0d, 0d, 0d, 0d);
 
         /// <summary>
         /// The na n
         /// </summary>
-        public static Matrix3x2D NaN = new Matrix3x2D(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+        public static readonly Matrix3x2D NaN = new Matrix3x2D(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
 
         /// <summary>
         /// An Identity <see cref="Matrix3x2D"/>.
         /// </summary>
-        public static Matrix3x2D Identity = new Matrix3x2D(1d, 0d, 0d, 1d, 0d, 0d) { type = MatrixTypes.Identity };
+        public static readonly Matrix3x2D Identity = new Matrix3x2D(1d, 0d, 0d, 1d, 0d, 0d) { type = MatrixTypes.Identity };
         #endregion Static Fields
 
         #region Constants
@@ -94,17 +95,6 @@ namespace Engine
         /// The offset y.
         /// </summary>
         private double offsetY;
-
-#pragma warning disable CS0414
-#pragma warning disable IDE0052
-        /// <summary>
-        /// This field is only used by unmanaged code which isn't detected by the compiler.
-        /// Matrix in blt'd to unmanaged code, so this is padding
-        /// to align structure.
-        /// </summary>
-        private int padding;
-#pragma warning restore IDE0052
-#pragma warning restore CS0414
         #endregion Private Fields
 
         #region Constructors
@@ -114,6 +104,8 @@ namespace Engine
         /// | m21, m22, 0 |<br/>
         /// \ offsetX, offsetY, 1 /<br/>
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix3x2D(double m1x1, double m1x2, double m2x1, double m2x2, double offsetX, double offsetY)
         {
             m0x0 = m1x1;
@@ -123,7 +115,6 @@ namespace Engine
             this.offsetX = offsetX;
             this.offsetY = offsetY;
             type = MatrixTypes.Unknown;
-            padding = 0;
 
             // We will detect EXACT identity, scale, translation or
             // scale+translation and use special case algorithms.
@@ -135,6 +126,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the m11.
         /// </summary>
+        [DataMember(Name = nameof(M11)), XmlAttribute(nameof(M11)), SoapAttribute(nameof(M11))]
         public double M11
         {
             get
@@ -164,6 +156,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the m12.
         /// </summary>
+        [DataMember(Name = nameof(M12)), XmlAttribute(nameof(M12)), SoapAttribute(nameof(M12))]
         public double M12
         {
             get
@@ -190,6 +183,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the m21.
         /// </summary>
+        [DataMember(Name = nameof(M21)), XmlAttribute(nameof(M21)), SoapAttribute(nameof(M21))]
         public double M21
         {
             get
@@ -216,6 +210,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the m22.
         /// </summary>
+        [DataMember(Name = nameof(M22)), XmlAttribute(nameof(M22)), SoapAttribute(nameof(M22))]
         public double M22
         {
             get { return type == MatrixTypes.Identity ? 1.0f : m1x1; }
@@ -242,6 +237,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the offset x.
         /// </summary>
+        [DataMember(Name = nameof(OffsetX)), XmlAttribute(nameof(OffsetX)), SoapAttribute(nameof(OffsetX))]
         public double OffsetX
         {
             get
@@ -271,6 +267,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the offset y.
         /// </summary>
+        [DataMember(Name = nameof(OffsetY)), XmlAttribute(nameof(OffsetY)), SoapAttribute(nameof(OffsetY))]
         public double OffsetY
         {
             get
@@ -302,26 +299,47 @@ namespace Engine
         /// true if the matrix is identity.  If it returns false
         /// the matrix may still be identity.
         /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         private bool IsDistinguishedIdentity => type == MatrixTypes.Identity;
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform
         /// </summary>
-        public bool IsIdentity
-            => type == MatrixTypes.Identity
-            || (
-                Abs(m0x0 - 1) < Epsilon
-                && Abs(m0x1) < Epsilon
-                && Abs(m1x0) < Epsilon
-                && Abs(m1x1 - 1) < Epsilon
-                && Abs(offsetX) < Epsilon
-                && Abs(offsetY) < Epsilon);
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public bool IsIdentity => type == MatrixTypes.Identity || IsMatrixIdentityEpsilon(m0x0, m0x1, m1x0, m1x1, offsetX, offsetY);
 
         /// <summary>
         /// HasInverse Property - returns true if this matrix is invert-able, false otherwise.
         /// </summary>
-        public bool HasInverse
-            => !Determinant.IsZero();
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public bool HasInverse => !Determinant.IsZero();
+
+        /// <summary>
+        /// Gets the number of rows.
+        /// </summary>
+        /// <value>
+        /// The rows.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Rows => 3;
+
+        /// <summary>
+        /// Gets the number of columns.
+        /// </summary>
+        /// <value>
+        /// The columns.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Columns => 2;
+
+        /// <summary>
+        /// Gets the number of cells in the Matrix.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => Rows * Columns;
         #endregion Properties
 
         #region Operators
@@ -571,7 +589,7 @@ namespace Engine
         /// </summary>
         /// <param name="rect"> The Rectangle to transform. </param>
         /// <param name="matrix"> The Matrix with which to transform the Rectangle. </param>
-        internal static void TransformRect(ref Rectangle2D rect, ref Matrix3x2D matrix)
+        public static void TransformRect(ref Rectangle2D rect, ref Matrix3x2D matrix)
         {
             if (rect.IsEmpty)
             {
@@ -645,7 +663,7 @@ namespace Engine
         /// To reduce duplication and to ensure consistent behavior, this is the
         /// method which is used to implement Matrix * Matrix as well.
         /// </summary>
-        internal static void MultiplyMatrix(ref Matrix3x2D matrix1, ref Matrix3x2D matrix2)
+        public static void MultiplyMatrix(ref Matrix3x2D matrix1, ref Matrix3x2D matrix2)
         {
             var type1 = matrix1.type;
             var type2 = matrix2.type;
@@ -775,7 +793,7 @@ namespace Engine
         /// To reduce duplication and to ensure consistent behavior, this is the
         /// method which is used to implement Matrix * Matrix as well.
         /// </summary>
-        internal static Matrix3x2D MultiplyMatrix(Matrix3x2D matrix1, Matrix3x2D matrix2)
+        public static Matrix3x2D MultiplyMatrix(Matrix3x2D matrix1, Matrix3x2D matrix2)
         {
             var type1 = matrix1.type;
             var type2 = matrix2.type;
@@ -902,7 +920,7 @@ namespace Engine
         /// <summary>
         /// Applies an offset to the specified matrix in place.
         /// </summary>
-        internal static void PrependOffset(ref Matrix3x2D matrix, double offsetX, double offsetY)
+        public static void PrependOffset(ref Matrix3x2D matrix, double offsetX, double offsetY)
         {
             if (matrix.type == MatrixTypes.Identity)
             {
@@ -939,33 +957,25 @@ namespace Engine
         /// Append - "this" becomes this * matrix, the same as this *= matrix.
         /// </summary>
         /// <param name="matrix"> The Matrix to append to this Matrix </param>
-        public void Append(Matrix3x2D matrix)
-            => this *= matrix;
+        public void Append(Matrix3x2D matrix) => this *= matrix;
 
         /// <summary>
         /// Prepend - "this" becomes matrix * this, the same as this = matrix * this.
         /// </summary>
         /// <param name="matrix"> The Matrix to prepend to this Matrix </param>
-        public void Prepend(Matrix3x2D matrix)
-            => this = matrix * this;
+        public void Prepend(Matrix3x2D matrix) => this = matrix * this;
 
         /// <summary>
         /// Rotates this matrix about the origin
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in degrees</param>
-        public void Rotate(double angle)
-            //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            //this *= CreateRotationRadians((angle * (PI / 180.0)));
-            => this *= CreateRotationRadians(Operations.WrapAngle(angle));
+        public void Rotate(double angle) => this *= CreateRotationRadians(Operations.WrapAngle(angle));
 
         /// <summary>
         /// Prepends a rotation about the origin to "this"
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in degrees</param>
-        public void RotatePrepend(double angle)
-            //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            //this = CreateRotationRadians((angle * (PI / 180.0))) * this;
-            => this = CreateRotationRadians(Operations.WrapAngle(angle)) * this;
+        public void RotatePrepend(double angle) => this = CreateRotationRadians(Operations.WrapAngle(angle)) * this;
 
         /// <summary>
         /// Rotates this matrix about the given point
@@ -973,10 +983,7 @@ namespace Engine
         /// <param name='angle'>The angle to rotate specified in degrees</param>
         /// <param name='centerX'>The centerX of rotation</param>
         /// <param name='centerY'>The centerY of rotation</param>
-        public void RotateAt(double angle, double centerX, double centerY)
-            //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            //this *= CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY);
-            => this *= CreateRotationRadians(Operations.WrapAngle(angle), centerX, centerY);
+        public void RotateAt(double angle, double centerX, double centerY) => this *= CreateRotationRadians(Operations.WrapAngle(angle), centerX, centerY);
 
         /// <summary>
         /// Prepends a rotation about the given point to "this"
@@ -984,26 +991,21 @@ namespace Engine
         /// <param name='angle'>The angle to rotate specified in degrees</param>
         /// <param name='centerX'>The centerX of rotation</param>
         /// <param name='centerY'>The centerY of rotation</param>
-        public void RotateAtPrepend(double angle, double centerX, double centerY)
-            //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
-            //this = CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY) * this;
-            => this = CreateRotationRadians(Operations.WrapAngle(angle), centerX, centerY) * this;
+        public void RotateAtPrepend(double angle, double centerX, double centerY) => this = CreateRotationRadians(Operations.WrapAngle(angle), centerX, centerY) * this;
 
         /// <summary>
         /// Scales this matrix around the origin
         /// </summary>
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
-        public void Scale(double scaleX, double scaleY)
-            => this *= CreateScaling(scaleX, scaleY);
+        public void Scale(double scaleX, double scaleY) => this *= CreateScaling(scaleX, scaleY);
 
         /// <summary>
         /// Prepends a scale around the origin to "this"
         /// </summary>
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
-        public void ScalePrepend(double scaleX, double scaleY)
-            => this = CreateScaling(scaleX, scaleY) * this;
+        public void ScalePrepend(double scaleX, double scaleY) => this = CreateScaling(scaleX, scaleY) * this;
 
         /// <summary>
         /// Scales this matrix around the center provided
@@ -1012,8 +1014,7 @@ namespace Engine
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         /// <param name="centerX">The centerX about which to scale</param>
         /// <param name="centerY">The centerY about which to scale</param>
-        public void ScaleAt(double scaleX, double scaleY, double centerX, double centerY)
-            => this *= CreateScaling(scaleX, scaleY, centerX, centerY);
+        public void ScaleAt(double scaleX, double scaleY, double centerX, double centerY) => this *= CreateScaling(scaleX, scaleY, centerX, centerY);
 
         /// <summary>
         /// Prepends a scale around the center provided to "this"
@@ -1022,32 +1023,21 @@ namespace Engine
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         /// <param name="centerX">The centerX about which to scale</param>
         /// <param name="centerY">The centerY about which to scale</param>
-        public void ScaleAtPrepend(double scaleX, double scaleY, double centerX, double centerY)
-            => this = CreateScaling(scaleX, scaleY, centerX, centerY) * this;
+        public void ScaleAtPrepend(double scaleX, double scaleY, double centerX, double centerY) => this = CreateScaling(scaleX, scaleY, centerX, centerY) * this;
 
         /// <summary>
         /// Skews this matrix
         /// </summary>
         /// <param name='skewX'>The skew angle in the x dimension in radians</param>
         /// <param name='skewY'>The skew angle in the y dimension in radians</param>
-        public void Skew(double skewX, double skewY)
-            //skewX %= 360;
-            //skewY %= 360;
-            //this *= CreateSkewRadians((skewX * (PI / 180.0)),
-            //                         (skewY * (PI / 180.0)));
-            => this *= CreateSkewRadians(Operations.WrapAngle(skewX), Operations.WrapAngle(skewY));
+        public void Skew(double skewX, double skewY) => this *= CreateSkewRadians(Operations.WrapAngle(skewX), Operations.WrapAngle(skewY));
 
         /// <summary>
         /// Prepends a skew to this matrix
         /// </summary>
         /// <param name='skewX'>The skew angle in the x dimension in radians</param>
         /// <param name='skewY'>The skew angle in the y dimension in radians</param>
-        public void SkewPrepend(double skewX, double skewY)
-            //skewX %= 360;
-            //skewY %= 360;
-            //this = CreateSkewRadians((skewX * (PI / 180.0)),
-            //                         (skewY * (PI / 180.0))) * this;
-            => this = CreateSkewRadians(Operations.WrapAngle(skewX), Operations.WrapAngle(skewY)) * this;
+        public void SkewPrepend(double skewX, double skewY) => this = CreateSkewRadians(Operations.WrapAngle(skewX), Operations.WrapAngle(skewY)) * this;
 
         /// <summary>
         /// Translates this matrix
@@ -1094,8 +1084,7 @@ namespace Engine
         /// </summary>
         /// <param name='offsetX'>The offset in the x dimension</param>
         /// <param name='offsetY'>The offset in the y dimension</param>
-        public void TranslatePrepend(double offsetX, double offsetY)
-            => this = CreateTranslation(offsetX, offsetY) * this;
+        public void TranslatePrepend(double offsetX, double offsetY) => this = CreateTranslation(offsetX, offsetY) * this;
 
         /// <summary>
         /// Transform - Transforms each Vector in the array by this matrix.
@@ -1185,7 +1174,7 @@ namespace Engine
         /// <summary>
         /// MultiplyVector
         /// </summary>
-        internal void MultiplyVector(ref double x, ref double y)
+        public void MultiplyVector(ref double x, ref double y)
         {
             switch (type)
             {
@@ -1211,7 +1200,7 @@ namespace Engine
         /// <summary>
         /// MultiplyVector
         /// </summary>
-        internal void MultiplyVector(ref Vector2D vector)
+        public void MultiplyVector(ref Vector2D vector)
         {
             switch (type)
             {
@@ -1237,7 +1226,7 @@ namespace Engine
         /// <summary>
         /// MultiplyPoint
         /// </summary>
-        internal void MultiplyPoint(ref double x, ref double y)
+        public void MultiplyPoint(ref double x, ref double y)
         {
             switch (type)
             {
@@ -1271,7 +1260,7 @@ namespace Engine
         /// <summary>
         /// MultiplyPoint
         /// </summary>
-        internal void MultiplyPoint(ref Point2D point)
+        public void MultiplyPoint(ref Point2D point)
         {
             switch (type)
             {
@@ -1333,8 +1322,13 @@ namespace Engine
                 type = MatrixTypes.Unknown;
                 return;
             }
-
-            if (!(Abs(m0x0 - 1) < double.Epsilon && Abs(m1x1 - 1) < double.Epsilon))
+            else if (0 == (type & (MatrixTypes.Translation | MatrixTypes.Scaling)))
+            {
+                // We have an identity matrix.
+                type = MatrixTypes.Identity;
+                return;
+            }
+            else if (!(Abs(m0x0 - 1) < double.Epsilon && Abs(m1x1 - 1) < double.Epsilon))
             {
                 type = MatrixTypes.Scaling;
             }
@@ -1342,12 +1336,6 @@ namespace Engine
             if (!(Abs(offsetX) < double.Epsilon && Abs(offsetY) < double.Epsilon))
             {
                 type |= MatrixTypes.Translation;
-            }
-
-            if (0 == (type & (MatrixTypes.Translation | MatrixTypes.Scaling)))
-            {
-                // We have an identity matrix.
-                type = MatrixTypes.Identity;
             }
             return;
         }

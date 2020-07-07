@@ -14,6 +14,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Engine
 {
@@ -26,6 +28,15 @@ namespace Engine
         : IPrimitive, //IComparable<V>, //IConvertible,
         IEquatable<V> where V : /*struct,*/ IVector<V>
     {
+        /// <summary>
+        /// Gets the number of components in the Vector.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count { get; }
+
         /// <summary>
         /// The equals.
         /// </summary>

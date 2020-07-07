@@ -1,4 +1,4 @@
-﻿// <copyright file="Operations.MatriciesQueries.cs" company="Shkyrockett" >
+﻿// <copyright file="Operations.Matricies.Queries.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -11,6 +11,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using static System.Math;
 
 namespace Engine
 {
@@ -19,6 +20,7 @@ namespace Engine
     /// </summary>
     public static partial class Operations
     {
+        #region Is Square Matrix
         /// <summary>
         /// Check if a matrix is has the same number of rows as columns.
         /// </summary>
@@ -37,6 +39,26 @@ namespace Engine
             var cols = matrix?.GetLength(1);
             return rows == cols;
         }
+
+        /// <summary>
+        /// Check if a matrix is has the same number of rows as columns.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>
+        ///   <see langword="true" /> if [is square matrix] [the specified matrix]; otherwise, <see langword="false" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://github.com/SarahFrem/AutoRegressive_model_cs/blob/master/Matrix.cs#L173
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsSquareMatrix(double[][] matrix)
+        {
+            var rows = matrix?.Length;
+            var cols = matrix[0]?.Length;
+            return rows == cols;
+        }
+        #endregion
 
         #region Is Identity
         /// <summary>
@@ -71,6 +93,37 @@ namespace Engine
         }
 
         /// <summary>
+        /// Determines whether the specified matrix is identity.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified matrix is identity; otherwise, <see langword="false"/>.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://www.tutorialgateway.org/c-program-to-check-matrix-is-an-identity-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsIdentity(double[][] matrix)
+        {
+            var rows = matrix?.Length;
+            var cols = matrix[0]?.Length;
+
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = 0; j < cols; j++)
+                {
+                    if (matrix[i][j] != 1 && matrix[j][i] != 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
         /// <param name="m1x1">The M0X0.</param>
@@ -87,6 +140,25 @@ namespace Engine
             double m2x1, double m2x2)
             => m1x1 == 1d && m2x2 == 1d /* Check diagonals first to exit sooner. */
             && m1x2 == 0d && m2x1 == 0d;
+
+        /// <summary>
+        /// Determines whether the specified M0X0 is identity.
+        /// </summary>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="offsetX">The offset x.</param>
+        /// <param name="offsetY">The offset y.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the specified M0X0 is identity; otherwise, <see langword="false" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsMatrixIdentity(double m0x0, double m0x1, double m1x0, double m1x1, double offsetX, double offsetY)
+            => m0x0 == 1d && m1x1 == 1d /* Check diagonals first to exit sooner. */
+            && m0x1 == 0d && m1x0 == 0d
+            && offsetX == 0d && offsetY == 0d;
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
@@ -253,6 +325,68 @@ namespace Engine
 
         #region Is Identity With Epsilon
         /// <summary>
+        /// Determines whether the specified matrix is identity.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified matrix is identity; otherwise, <see langword="false"/>.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://www.tutorialgateway.org/c-program-to-check-matrix-is-an-identity-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsIdentityEpsilon(double[,] matrix)
+        {
+            var rows = matrix?.GetLength(0);
+            var cols = matrix?.GetLength(1);
+
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = 0; j < cols; j++)
+                {
+                    if (!(Math.Abs(matrix[i, j] - 1d) < double.Epsilon) && !(Math.Abs(matrix[j, i]) < double.Epsilon))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Determines whether the specified matrix is identity.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified matrix is identity; otherwise, <see langword="false"/>.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://www.tutorialgateway.org/c-program-to-check-matrix-is-an-identity-matrix/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsIdentityEpsilon(double[][] matrix)
+        {
+            var rows = matrix?.Length;
+            var cols = matrix[0]?.Length;
+
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = 0; j < cols; j++)
+                {
+                    if (!(Math.Abs(matrix[i][j] - 1d) < double.Epsilon) && !(Math.Abs(matrix[j][i]) < double.Epsilon))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
         /// <param name="m1x1">The M0X0.</param>
@@ -269,6 +403,28 @@ namespace Engine
             double m2x1, double m2x2)
             => Math.Abs(m1x1 - 1d) < double.Epsilon && Math.Abs(m2x2 - 1d) < double.Epsilon /* Check diagonals first to exit sooner. */
             && Math.Abs(m1x2) < double.Epsilon && Math.Abs(m2x1) < double.Epsilon;
+
+        /// <summary>
+        /// Determines whether the specified M0X0 is identity.
+        /// </summary>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
+        /// <param name="offsetX">The offset x.</param>
+        /// <param name="offsetY">The offset y.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the specified M0X0 is identity; otherwise, <see langword="false" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsMatrixIdentityEpsilon(double m0x0, double m0x1, double m1x0, double m1x1, double offsetX, double offsetY) => (
+                Math.Abs(m0x0 - 1) < double.Epsilon
+                && Math.Abs(m0x1) < double.Epsilon
+                && Math.Abs(m1x0) < double.Epsilon
+                && Math.Abs(m1x1 - 1) < double.Epsilon
+                && Math.Abs(offsetX) < double.Epsilon
+                && Math.Abs(offsetY) < double.Epsilon);
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
@@ -456,6 +612,37 @@ namespace Engine
                 for (var j = i + 1; j < cols; j++)
                 {
                     if (matrix[i, j] != 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Check whether a matrix is a lower matrix.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>
+        ///   <see langword="true" /> if [is lower matrix] [the specified matrix]; otherwise, <see langword="false" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://github.com/SarahFrem/AutoRegressive_model_cs/blob/master/Matrix.cs#L181
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsLowerMatrix(double[][] matrix)
+        {
+            var rows = matrix?.Length;
+            var cols = matrix[0]?.Length;
+
+            for (var i = 0; i < rows; i++)
+            {
+                for (var j = i + 1; j < cols; j++)
+                {
+                    if (matrix[i][j] != 0)
                     {
                         return false;
                     }
@@ -683,6 +870,37 @@ namespace Engine
                 for (var j = 0; j < i; j++)
                 {
                     if (matrix[i, j] != 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Check whether a matrix is an upper matrix.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>
+        ///   <see langword="true" /> if [is upper matrix] [the specified matrix]; otherwise, <see langword="false" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://github.com/SarahFrem/AutoRegressive_model_cs/blob/master/Matrix.cs#L199
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsUpperMatrix(double[][] matrix)
+        {
+            var rows = matrix?.Length;
+            //var cols = matrix[0]?.Length;
+
+            for (var i = 1; i < rows; i++)
+            {
+                for (var j = 0; j < i; j++)
+                {
+                    if (matrix[i][j] != 0)
                     {
                         return false;
                     }

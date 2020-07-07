@@ -30,10 +30,9 @@ namespace Engine
     /// <seealso cref="IEquatable{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(StructConverter<Transform2D>))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Transform2D
-        : IPrimitive, IMatrix<Transform2D, Vector2D>,
-        IEquatable<Transform2D>
+        : IPrimitive, IMatrix<Transform2D, Vector2D>, IEquatable<Transform2D>
     {
         #region Implementations
         /// <summary>
@@ -291,6 +290,33 @@ namespace Engine
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Size2D Scale { get { return new Size2D(X, Y); } set { (ScaleX, ScaleY) = value; } }
+
+        /// <summary>
+        /// Gets the number of rows.
+        /// </summary>
+        /// <value>
+        /// The rows.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Rows => 3;
+
+        /// <summary>
+        /// Gets the number of columns.
+        /// </summary>
+        /// <value>
+        /// The columns.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Columns => 2;
+
+        /// <summary>
+        /// Gets the number of cells in the Matrix.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => Rows * Columns;
         #endregion Properties
 
         #region Operators
@@ -540,6 +566,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Transform2D)}({nameof(X)}:{X.ToString(format, formatProvider)}{s} {nameof(Y)}:{Y.ToString(format, formatProvider)}{s} {nameof(SkewX)}:{SkewX.ToString(format, formatProvider)}{s} {nameof(SkewY)}:{SkewY.ToString(format, formatProvider)}{s} {nameof(ScaleX)}:{ScaleX.ToString(format, formatProvider)}{s} {nameof(ScaleY)}:{ScaleY.ToString(format, formatProvider)})";
         }
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
         #endregion
     }
 }

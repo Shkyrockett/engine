@@ -169,9 +169,16 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        public bool IsEmpty
-            => Abs(X) < Epsilon
-            && Abs(Y) < Epsilon;
+        public bool IsEmpty => Operations.IsEmptyVector(X, Y);
+
+        /// <summary>
+        /// Gets the number of components in the Vector.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => 2;
         #endregion Properties
 
         #region Operators

@@ -1430,22 +1430,22 @@ namespace Engine
         {
             var parabolicT = (t * 2d) - 1d;
             var (dX, dY) = (x2 - x1, y2 - y1);
-            if (Abs(dX) < Epsilon && Abs(dY) < Epsilon)
+            if (Abs(dX) < double.Epsilon && Abs(dY) < double.Epsilon)
             {
                 // In place Vertical Throw.
-                return (x1, y1 + (k * ((-4d * t * t) + (4d * t))));
+                return (x1, y1 + k * ((-4d * t * t) + (4d * t)));
             }
-            if (Abs(dX) < Epsilon)
+            if (Abs(dX) < double.Epsilon)
             {
                 // Vertical throw with different heights.
                 return (x1, y1 + (t * dY) + (((-parabolicT * parabolicT) + 1d) * k));
             }
-            else if (Abs(dY) < Epsilon && y1 == k)
+            else if (Abs(dY) < double.Epsilon && y1 == k)
             {
                 // Horizontal slide.
                 return (((1d - t) * x1) + (t * x2), y1);
             }
-            else if (Abs(dY) < Epsilon)
+            else if (Abs(dY) < double.Epsilon)
             {
                 // Start and end are roughly level, pretend they are - simpler solution with fewer steps.
                 return (x1 + (t * dX), y1 + (t * dY) + (((-parabolicT * parabolicT) + 1d) * k));

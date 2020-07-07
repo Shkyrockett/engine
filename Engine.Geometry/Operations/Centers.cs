@@ -130,7 +130,7 @@ namespace Engine
             var cd = (offset - (p3X * p3X) - (p3Y * p3Y)) * 0.5d;
             var determinant = ((p1X - p2X) * (p2Y - p3Y)) - ((p2X - p3X) * (p1Y - p2Y));
 
-            return Abs(determinant) < DoubleEpsilon
+            return Abs(determinant) < double.Epsilon
                 ? (0d, 0d)
                 : (((bc * (p2Y - p3Y)) - (cd * (p1Y - p2Y))) / determinant,
                 ((cd * (p1X - p2X)) - (bc * (p2X - p3X))) / determinant);

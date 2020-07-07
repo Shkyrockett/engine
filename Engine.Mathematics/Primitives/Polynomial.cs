@@ -35,9 +35,10 @@ namespace Engine
     /// <para>Internally the polynomial is represented by an array of the coefficients in reverse order.
     /// When accessed externally, the coefficients are generally in forward order.</para>
     /// </remarks>
+    /// <seealso cref="IEquatable{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(StructConverter<Polynomial>))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Polynomial
         : IEquatable<Polynomial>
     {
@@ -1073,7 +1074,7 @@ namespace Engine
 
             for (var i = 0; i < t1.Count; i++)
             {
-                if (Abs(t1.coefficients[i] - t2.coefficients[i]) > Epsilon)
+                if (Abs(t1.coefficients[i] - t2.coefficients[i]) > double.Epsilon)
                 {
                     return false;
                 }
@@ -2045,6 +2046,14 @@ namespace Engine
 
             return result;
         }
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
         #endregion
     }
 }

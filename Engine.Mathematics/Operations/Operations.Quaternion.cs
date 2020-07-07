@@ -239,17 +239,17 @@ namespace Engine
                 quat.Pitch = Atan2((2d * x * w) - (2d * y * z), 1d - (2d * sqX) - (2d * sqZ));
             }
 
-            if (quat.Pitch <= Epsilon)
+            if (quat.Pitch <= double.Epsilon)
             {
                 quat.Pitch = 0d;
             }
 
-            if (quat.Yaw <= Epsilon)
+            if (quat.Yaw <= double.Epsilon)
             {
                 quat.Yaw = 0d;
             }
 
-            if (quat.Roll <= Epsilon)
+            if (quat.Roll <= double.Epsilon)
             {
                 quat.Roll = 0d;
             }

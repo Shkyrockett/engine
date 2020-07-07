@@ -26,7 +26,7 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     [TypeConverter(typeof(Vector5DConverter))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Vector5D
         : IVector<Vector5D>
     {
@@ -234,6 +234,15 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty => IsEmptyVector(I, J, K, L, M);
+
+        /// <summary>
+        /// Gets the number of components in the Vector.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => 5;
 
         /// <summary>
         /// Gets the magnitude.
@@ -802,6 +811,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Vector5D)}({nameof(I)}: {I.ToString(format, formatProvider)}{s} {nameof(J)}: {J.ToString(format, formatProvider)}{s} {nameof(K)}: {K.ToString(format, formatProvider)}{s} {nameof(L)}: {L.ToString(format, formatProvider)}{s} {nameof(M)}: {M.ToString(format, formatProvider)})";
         }
-        #endregion 
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
+        #endregion
     }
 }

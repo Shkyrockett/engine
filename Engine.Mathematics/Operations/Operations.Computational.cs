@@ -43,15 +43,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ref T ElementAt<T>(ref T[] array, int position)
-        {
-            if (array is null)
-            {
-                throw new ArgumentNullException(nameof(array));
-            }
-
-            return ref array[position];
-        }
+        public static ref T ElementAt<T>(ref T[] array, int position) => ref array[position];
 
         /// <summary>
         /// Selects the heigher.

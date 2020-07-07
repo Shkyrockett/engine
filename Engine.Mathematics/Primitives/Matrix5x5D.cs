@@ -29,7 +29,7 @@ namespace Engine
     /// <seealso cref="IMatrix{M, V}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Matrix5x5DConverter))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Matrix5x5D
         : IMatrix<Matrix5x5D, Vector5D>
     {
@@ -200,6 +200,125 @@ namespace Engine
                 M4x0, M4x1, M4x2, M4x3, M4x4
             );
         #endregion Deconstructors
+
+        #region Indexers
+        /// <summary>
+        /// Gets or sets the <see cref="double"/> with the specified index1.
+        /// </summary>
+        /// <value>
+        /// The <see cref="double"/>.
+        /// </value>
+        /// <param name="index1">The index1.</param>
+        /// <param name="index2">The index2.</param>
+        /// <returns></returns>
+        public double this[int index1, int index2]
+        {
+            get
+            {
+                return index1 switch
+                {
+                    0 => index2 switch
+                    {
+                        0 => M0x0,
+                        1 => M0x1,
+                        2 => M0x2,
+                        3 => M0x3,
+                        4 => M0x4,
+                        _ => double.NaN,
+                    },
+                    1 => index2 switch
+                    {
+                        0 => M1x0,
+                        1 => M1x1,
+                        2 => M1x2,
+                        3 => M1x3,
+                        4 => M1x4,
+                        _ => double.NaN,
+                    },
+                    2 => index2 switch
+                    {
+                        0 => M2x0,
+                        1 => M2x1,
+                        2 => M2x2,
+                        3 => M2x3,
+                        4 => M2x4,
+                        _ => double.NaN,
+                    },
+                    3 => index2 switch
+                    {
+                        0 => M3x0,
+                        1 => M3x1,
+                        2 => M3x2,
+                        3 => M3x3,
+                        4 => M3x4,
+                        _ => double.NaN,
+                    },
+                    4 => index2 switch
+                    {
+                        0 => M4x0,
+                        1 => M4x1,
+                        2 => M4x2,
+                        3 => M4x3,
+                        4 => M4x4,
+                        _ => double.NaN,
+                    },
+                    _ => double.NaN,
+                };
+            }
+            set
+            {
+                switch (index1)
+                {
+                    case 0:
+                        switch (index2)
+                        {
+                            case 0: M0x0 = value; break;
+                            case 1: M0x1 = value; break;
+                            case 2: M0x2 = value; break;
+                            case 3: M0x3 = value; break;
+                            case 4: M0x4 = value; break;
+                            default: break;
+                        }
+                        break;
+                    case 1:
+                        switch (index2)
+                        {
+                            case 0: M1x0 = value; break;
+                            case 1: M1x1 = value; break;
+                            case 2: M1x2 = value; break;
+                            case 3: M1x3 = value; break;
+                            case 4: M1x4 = value; break;
+                            default: break;
+                        }
+                        break;
+                    case 2:
+                        switch (index2)
+                        {
+                            case 0: M2x0 = value; break;
+                            case 1: M2x1 = value; break;
+                            case 2: M2x2 = value; break;
+                            case 3: M2x3 = value; break;
+                            case 4: M2x4 = value; break;
+                            default: break;
+                        }
+                        break;
+                    case 4:
+                        switch (index2)
+                        {
+                            case 0: M4x0 = value; break;
+                            case 1: M4x1 = value; break;
+                            case 2: M4x2 = value; break;
+                            case 3: M4x3 = value; break;
+                            case 4: M4x4 = value; break;
+                            default: break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        #endregion
 
         #region Properties
         /// <summary>
@@ -610,6 +729,33 @@ namespace Engine
                 M2x0, M2x1, M2x2, M2x3, M2x4,
                 M3x0, M3x1, M3x2, M3x3, M3x4,
                 M4x0, M4x1, M4x2, M4x3, M4x4);
+
+        /// <summary>
+        /// Gets the number of rows.
+        /// </summary>
+        /// <value>
+        /// The rows.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Rows => 5;
+
+        /// <summary>
+        /// Gets the number of columns.
+        /// </summary>
+        /// <value>
+        /// The columns.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Columns => 5;
+
+        /// <summary>
+        /// Gets the number of cells in the Matrix.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => Rows * Columns;
         #endregion Properties
 
         #region Operators
@@ -1501,6 +1647,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Matrix5x5D)}({nameof(M0x0)}:{M0x0.ToString(format, formatProvider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, formatProvider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, formatProvider)}{s} {nameof(M0x3)}:{M0x3.ToString(format, formatProvider)}{s} {nameof(M0x4)}:{M0x4.ToString(format, formatProvider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, formatProvider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, formatProvider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, formatProvider)}{s} {nameof(M1x3)}:{M1x3.ToString(format, formatProvider)}{s} {nameof(M1x4)}:{M1x4.ToString(format, formatProvider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, formatProvider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, formatProvider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, formatProvider)}{s} {nameof(M2x3)}:{M2x3.ToString(format, formatProvider)}{s} {nameof(M2x4)}:{M2x4.ToString(format, formatProvider)}{s} {nameof(M3x0)}:{M3x0.ToString(format, formatProvider)}{s} {nameof(M3x1)}:{M3x1.ToString(format, formatProvider)}{s} {nameof(M3x2)}:{M3x2.ToString(format, formatProvider)}{s} {nameof(M3x3)}:{M3x3.ToString(format, formatProvider)}{s} {nameof(M3x4)}:{M3x4.ToString(format, formatProvider)}{s} {nameof(M4x0)}:{M4x0.ToString(format, formatProvider)}{s} {nameof(M4x1)}:{M4x1.ToString(format, formatProvider)}{s} {nameof(M4x2)}:{M4x2.ToString(format, formatProvider)}{s} {nameof(M4x3)}:{M4x3.ToString(format, formatProvider)}{s} {nameof(M4x4)}:{M4x4.ToString(format, formatProvider)})";
         }
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
         #endregion
     }
 }

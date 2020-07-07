@@ -30,7 +30,7 @@ namespace Engine
     /// <seealso cref="IMatrix{T, T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Matrix2x2DConverter))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public struct Matrix2x2D
         : IMatrix<Matrix2x2D, Vector2D>
     {
@@ -116,6 +116,64 @@ namespace Engine
             m1x1 = M1x1;
         }
         #endregion Deconstructors
+
+        #region Indexers
+        /// <summary>
+        /// Gets or sets the <see cref="double"/> with the specified index1.
+        /// </summary>
+        /// <value>
+        /// The <see cref="double"/>.
+        /// </value>
+        /// <param name="index1">The index1.</param>
+        /// <param name="index2">The index2.</param>
+        /// <returns></returns>
+        public double this[int index1, int index2]
+        {
+            get
+            {
+                return index1 switch
+                {
+                    0 => index2 switch
+                    {
+                        0 => M0x0,
+                        1 => M0x1,
+                        _ => double.NaN,
+                    },
+                    1 => index2 switch
+                    {
+                        0 => M1x0,
+                        1 => M1x1,
+                        _ => double.NaN,
+                    },
+                    _ => double.NaN,
+                };
+            }
+            set
+            {
+                switch (index1)
+                {
+                    case 0:
+                        switch (index2)
+                        {
+                            case 0: M0x0 = value; break;
+                            case 1: M0x1 = value; break;
+                            default: break;
+                        }
+                        break;
+                    case 1:
+                        switch (index2)
+                        {
+                            case 0: M1x0 = value; break;
+                            case 1: M1x1 = value; break;
+                            default: break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        #endregion
 
         #region Properties
         /// <summary>
@@ -247,6 +305,33 @@ namespace Engine
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsIdentity => IsMatrixIdentity(M0x0, M0x1, M1x0, M1x1);
+
+        /// <summary>
+        /// Gets the number of rows.
+        /// </summary>
+        /// <value>
+        /// The rows.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Rows => 2;
+
+        /// <summary>
+        /// Gets the number of columns.
+        /// </summary>
+        /// <value>
+        /// The columns.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Columns => 2;
+
+        /// <summary>
+        /// Gets the number of cells in the Matrix.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => Rows * Columns;
         #endregion Properties
 
         #region Operators
@@ -729,6 +814,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Matrix2x2D)}({nameof(M0x0)}:{M0x0.ToString(format, formatProvider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, formatProvider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, formatProvider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, formatProvider)})";
         }
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
         #endregion
     }
 }

@@ -129,8 +129,10 @@ namespace Engine
         /// The d roots.
         /// </summary>
         /// <param name="coefficients">The coefficients.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// The <see cref="double[]" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>

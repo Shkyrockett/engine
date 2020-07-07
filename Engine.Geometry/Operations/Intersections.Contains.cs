@@ -150,7 +150,7 @@ namespace Engine
         /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusions Contains(this EllipticalArc2D ellipseArc, Point2D point) => EllipticalArcContainsPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.RadiusA, ellipseArc.RadiusB, ellipseArc.CosAngle, ellipseArc.SinAngle, ellipseArc.CosStartAngle, ellipseArc.SinStartAngle, ellipseArc.CosEndAngle, ellipseArc.SinEndAngle, ellipseArc.SweepAngle, point.X, point.Y, Epsilon);
+        public static Inclusions Contains(this EllipticalArc2D ellipseArc, Point2D point) => EllipticalArcContainsPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.RadiusA, ellipseArc.RadiusB, ellipseArc.CosAngle, ellipseArc.SinAngle, ellipseArc.CosStartAngle, ellipseArc.SinStartAngle, ellipseArc.CosEndAngle, ellipseArc.SinEndAngle, ellipseArc.SweepAngle, point.X, point.Y, double.Epsilon);
 
         /// <summary>
         /// Determines whether the specified <see cref="Rectangle2D"/> is contained withing the region defined by this <see cref="Rectangle2D"/>.
@@ -986,11 +986,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusions PolygonContainsPoint(List<PolygonContour2D> polygons, double pX, double pY, double epsilon = double.Epsilon)
         {
-            if (polygons is null)
-            {
-                throw new ArgumentNullException(nameof(polygons));
-            }
-
             var returnValue = Inclusions.Outside;
 
             foreach (var poly in polygons)

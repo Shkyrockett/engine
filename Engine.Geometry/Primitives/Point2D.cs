@@ -25,12 +25,12 @@ namespace Engine
     /// <summary>
     /// The <see cref="Point2D" /> struct.
     /// </summary>
-    /// <seealso cref="Engine.IShapeSegment" />
-    /// <seealso cref="Engine.IVector{T}" />
+    /// <seealso cref="IShapeSegment" />
+    /// <seealso cref="IVector{T}" />
     /// <seealso cref="IVector{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(Point2DConverter))]
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public class Point2D
         : IShapeSegment, IVector<Point2D>
     {
@@ -141,7 +141,16 @@ namespace Engine
         /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
-        public bool IsEmpty => Abs(X) < Epsilon && Abs(Y) < Epsilon;
+        public bool IsEmpty => Abs(X) < double.Epsilon && Abs(Y) < double.Epsilon;
+
+        /// <summary>
+        /// Gets the number of components in the Vector.
+        /// </summary>
+        /// <value>
+        /// The count.
+        /// </value>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Count => 2;
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="IShapeSegment" /> position should be calculated relative to the last item, or from Origin.
@@ -829,6 +838,14 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(formatProvider);
             return $"{nameof(Point2D)}({nameof(X)}: {X.ToString(format, formatProvider)}{s} {nameof(Y)}: {Y.ToString(format, formatProvider)})";
         }
+
+        /// <summary>
+        /// Gets the debugger display.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string GetDebuggerDisplay() => ToString();
         #endregion
     }
 }

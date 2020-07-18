@@ -1,4 +1,4 @@
-﻿// <copyright file="PointQuadTree.cs" company="Shkyrockett" >
+﻿// <copyright file="PointQuadTree.cs" >
 //     Copyright © 2008 - 2017 Michael Coyle BlueToque. All rights reserved.
 // </copyright>
 // <author id="Michael Coyle">Michael Coyle</author>

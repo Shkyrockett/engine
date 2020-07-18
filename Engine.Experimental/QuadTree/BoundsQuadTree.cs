@@ -1,4 +1,4 @@
-﻿// <copyright file="QuadTree.cs" company="Shkyrockett" >
+﻿// <copyright file="QuadTree.cs" >
 //     Copyright © 2008 - 2017 Michael Coyle BlueToque. All rights reserved.
 // </copyright>
 // <author id="Michael Coyle">Michael Coyle</author>
@@ -79,8 +79,7 @@ namespace Engine.Experimental
         /// <summary>
         /// Get the count of items in the QuadTree
         /// </summary>
-        public int Count
-            => root.Count;
+        public int Count => root.Count;
         #endregion Properties
 
         #region Methods
@@ -88,39 +87,34 @@ namespace Engine.Experimental
         /// Insert the feature into the QuadTree
         /// </summary>
         /// <param name="item"></param>
-        public void Insert(T item)
-            => root.Insert(item);
+        public void Insert(T item) => root.Insert(item);
 
         /// <summary>
         /// Query the QuadTree, returning the items that are in the given area
         /// </summary>
         /// <param name="area"></param>
         /// <returns></returns>
-        public List<T> Query(Rectangle2D area)
-            => root.Query(area);
+        public List<T> Query(Rectangle2D area) => root.Query(area);
 
         /// <summary>
         /// Do the specified action for each item in the quadtree
         /// </summary>
         /// <param name="action"></param>
-        public void ForEach(QTAction action)
-            => root.ForEach(action);
+        public void ForEach(QTAction action) => root.ForEach(action);
 
         /// <summary>
         /// The echo sub tree contents.
         /// Return the contents of this node and all sub-nodes in the tree below this one.
         /// </summary>
         /// <param name="funFind">The funFind.</param>
-        public void EchoSubTreeContents(Find funFind)
-            => root.EchoSubTreeContents(funFind);
+        public void EchoSubTreeContents(Find funFind) => root.EchoSubTreeContents(funFind);
 
         /// <summary>
         /// Delete.
         /// </summary>
         /// <param name="queryArea">The queryArea.</param>
         /// <param name="funFind">The funFind.</param>
-        public void Delete(Rectangle2D queryArea, Find funFind)
-            => root.Delete(queryArea, funFind);
+        public void Delete(Rectangle2D queryArea, Find funFind) => root.Delete(queryArea, funFind);
         #endregion Methods
     }
 }

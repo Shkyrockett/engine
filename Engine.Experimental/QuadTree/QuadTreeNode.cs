@@ -97,7 +97,7 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets the rectangle of this node
         /// </summary>
-        public Rectangle2D Rect
+        public Rectangle2D Bounds
         {
             get { return bounds; }
             protected set { bounds = value; }
@@ -114,7 +114,7 @@ namespace Engine.Experimental
         public QuadTreeNode(QuadTreeNode<T> parentNode, Rectangle2D rect, int maxItems)
         {
             ParentNode = parentNode;
-            Rect = rect;
+            Bounds = rect;
             MaxItems = maxItems;
             IsPartitioned = false;
             Items = new List<QuadTreePositionItem<T>>();
@@ -129,7 +129,7 @@ namespace Engine.Experimental
         public QuadTreeNode(Rectangle2D rect, int maxItems, ResizeDelegate worldResize)
         {
             ParentNode = null;
-            Rect = rect;
+            Bounds = rect;
             MaxItems = maxItems;
             WorldResize = worldResize;
             IsPartitioned = false;
@@ -233,12 +233,12 @@ namespace Engine.Experimental
         protected void Partition()
         {
             // Create the nodes
-            var MidPoint = (Point2D)((Rect.TopLeft + Rect.BottomRight) / 2.0f);
+            var MidPoint = (Point2D)((Bounds.TopLeft + Bounds.BottomRight) / 2.0f);
 
-            TopLeftNode = new QuadTreeNode<T>(this, new Rectangle2D(Rect.TopLeft, MidPoint), MaxItems);
-            TopRightNode = new QuadTreeNode<T>(this, new Rectangle2D(new Point2D(MidPoint.X, Rect.Top), new Point2D(Rect.Right, MidPoint.Y)), MaxItems);
-            BottomLeftNode = new QuadTreeNode<T>(this, new Rectangle2D(new Point2D(Rect.Left, MidPoint.Y), new Point2D(MidPoint.X, Rect.Bottom)), MaxItems);
-            BottomRightNode = new QuadTreeNode<T>(this, new Rectangle2D(MidPoint, Rect.BottomRight), MaxItems);
+            TopLeftNode = new QuadTreeNode<T>(this, new Rectangle2D(Bounds.TopLeft, MidPoint), MaxItems);
+            TopRightNode = new QuadTreeNode<T>(this, new Rectangle2D(new Point2D(MidPoint.X, Bounds.Top), new Point2D(Bounds.Right, MidPoint.Y)), MaxItems);
+            BottomLeftNode = new QuadTreeNode<T>(this, new Rectangle2D(new Point2D(Bounds.Left, MidPoint.Y), new Point2D(MidPoint.X, Bounds.Bottom)), MaxItems);
+            BottomRightNode = new QuadTreeNode<T>(this, new Rectangle2D(MidPoint, Bounds.BottomRight), MaxItems);
 
             IsPartitioned = true;
 
@@ -265,7 +265,7 @@ namespace Engine.Experimental
         {
             if (itemsFound is null) return;
             // test the point against this node
-            if (Rect.Contains(point))
+            if (Bounds.Contains(point))
             {
                 // test the point in each item
                 foreach (var Item in Items)
@@ -467,8 +467,8 @@ namespace Engine.Experimental
                     else if (!ContainsRect(item.Bounds))
                     {
                         WorldResize(new Rectangle2D(
-                             GeometryOperations.Min(Rect.TopLeft, item.Bounds.TopLeft) * 2,
-                             GeometryOperations.Max(Rect.BottomRight, item.Bounds.BottomRight) * 2));
+                             GeometryOperations.Min(Bounds.TopLeft, item.Bounds.TopLeft) * 2,
+                             GeometryOperations.Max(Bounds.BottomRight, item.Bounds.BottomRight) * 2));
                     }
 
                 }
@@ -484,8 +484,7 @@ namespace Engine.Experimental
         /// Handles item destruction
         /// </summary>
         /// <param name="item">The item that is being destroyed</param>
-        public void ItemDestroy(QuadTreePositionItem<T> item)
-            => RemoveItem(item);
+        public void ItemDestroy(QuadTreePositionItem<T> item) => RemoveItem(item);
         #endregion Observer Methods
 
         #region Helper Methods
@@ -497,10 +496,10 @@ namespace Engine.Experimental
         public bool ContainsRect(Rectangle2D rect)
         {
             if (rect is null) return false;
-            return rect.TopLeft.X >= Rect.TopLeft.X &&
-                rect.TopLeft.Y >= Rect.TopLeft.Y &&
-                rect.BottomRight.X <= Rect.BottomRight.X &&
-                rect.BottomRight.Y <= Rect.BottomRight.Y;
+            return rect.TopLeft.X >= Bounds.TopLeft.X &&
+                rect.TopLeft.Y >= Bounds.TopLeft.Y &&
+                rect.BottomRight.X <= Bounds.BottomRight.X &&
+                rect.BottomRight.Y <= Bounds.BottomRight.Y;
         }
         #endregion Helper Methods
     }

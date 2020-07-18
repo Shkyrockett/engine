@@ -1,4 +1,4 @@
-﻿// <copyright file="QuadTreeNode.cs" company="Shkyrockett" >
+﻿// <copyright file="QuadTreeNode.cs" >
 //     Copyright © 2008 - 2017 Michael Coyle BlueToque. All rights reserved.
 // </copyright>
 // <author id="Michael Coyle">Michael Coyle</author>

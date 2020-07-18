@@ -687,7 +687,7 @@ namespace Engine
                 K: a);
         #endregion Bézier Bernstein Basis
 
-        #region Bezier Polynomial From Parametric
+        #region Bézier Polynomial From Parametric
         /// <summary>
         /// Gets the linear polynomial from linear bezier.
         /// </summary>

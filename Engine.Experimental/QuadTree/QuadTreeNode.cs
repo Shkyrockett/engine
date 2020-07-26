@@ -460,7 +460,7 @@ namespace Engine.Experimental
                 if (!PushItemDown(i))
                 {
                     // otherwise, if not root, push up
-                    if (ParentNode != null)
+                    if (ParentNode is not null)
                     {
                         PushItemUp(i);
                     }

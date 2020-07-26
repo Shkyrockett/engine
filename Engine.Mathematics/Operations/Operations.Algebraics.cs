@@ -773,7 +773,7 @@ namespace Engine
             var x = x0;
             const int ACCURACY = 14;
             var min_correction_factor = Pow(10, -ACCURACY);
-            var isBounded = min != null && max != null;
+            var isBounded = min is not null && max is not null;
             if (isBounded)
             {
                 if (min > max)

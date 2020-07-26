@@ -17,22 +17,21 @@ namespace Engine.Experimental
     public class OutRec
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="OutRec"/> class.
         /// </summary>
         public OutRec()
-        {
-        }
+        { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="OutRec"/> class.
         /// </summary>
-        /// <param name="dx"></param>
-        /// <param name="owner"></param>
-        /// <param name="startEdge"></param>
-        /// <param name="endEdge"></param>
-        /// <param name="points"></param>
-        /// <param name="polyPath"></param>
-        /// <param name="flag"></param>
+        /// <param name="dx">The dx.</param>
+        /// <param name="owner">The owner.</param>
+        /// <param name="startEdge">The start edge.</param>
+        /// <param name="endEdge">The end edge.</param>
+        /// <param name="points">The points.</param>
+        /// <param name="polyPath">The poly path.</param>
+        /// <param name="flag">The flag.</param>
         public OutRec(int dx, OutRec owner, Edge startEdge, Edge endEdge, LinkedPoint points, PolyPath polyPath, OutrecFlag flag)
         {
             IDx = dx;
@@ -48,36 +47,57 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets or sets the Idx.
         /// </summary>
+        /// <value>
+        /// The i dx.
+        /// </value>
         public int IDx { get; set; }
 
         /// <summary>
         /// Gets or sets the owner.
         /// </summary>
+        /// <value>
+        /// The owner.
+        /// </value>
         public OutRec Owner { get; set; }
 
         /// <summary>
         /// Gets or sets the start edge.
         /// </summary>
+        /// <value>
+        /// The start edge.
+        /// </value>
         public Edge StartEdge { get; set; }
 
         /// <summary>
         /// Gets or sets the end edge.
         /// </summary>
+        /// <value>
+        /// The end edge.
+        /// </value>
         public Edge EndEdge { get; set; }
 
         /// <summary>
         /// Gets or sets the points.
         /// </summary>
+        /// <value>
+        /// The points.
+        /// </value>
         public LinkedPoint Points { get; set; }
 
         /// <summary>
         /// Gets or sets the poly path.
         /// </summary>
+        /// <value>
+        /// The poly path.
+        /// </value>
         public PolyPath PolyPath { get; set; }
 
         /// <summary>
         /// Gets or sets the flag.
         /// </summary>
+        /// <value>
+        /// The flag.
+        /// </value>
         public OutrecFlag Flag { get; set; }
         #endregion Properties
 
@@ -86,6 +106,11 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="e1">The e1.</param>
         /// <param name="e2">The e2.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// e1
+        /// or
+        /// e2
+        /// </exception>
         public void SetOrientation(Edge e1, Edge e2)
         {
             StartEdge = e1 ?? throw new System.ArgumentNullException(nameof(e1));
@@ -111,7 +136,7 @@ namespace Engine.Experimental
         public void EndOutRec()
         {
             StartEdge.outRec = null;
-            if (EndEdge != null)
+            if (EndEdge is not null)
             {
                 EndEdge.outRec = null;
             }
@@ -128,18 +153,18 @@ namespace Engine.Experimental
         {
             var leftOpt = (LinkedPointTriangle)leftOutpt;
             var rightOrt = (OutRecTri)this;
-            if (leftOpt != null && leftOpt.RightOutrec != null)
+            if (leftOpt is not null && leftOpt.RightOutrec is not null)
             {
                 leftOpt.RightOutrec.LeftOutpt = null;
             }
 
-            if (rightOrt.LeftOutpt != null)
+            if (rightOrt.LeftOutpt is not null)
             {
                 rightOrt.LeftOutpt.RightOutrec = null;
             }
 
             rightOrt.LeftOutpt = leftOpt;
-            if (leftOpt != null)
+            if (leftOpt is not null)
             {
                 leftOpt.RightOutrec = rightOrt;
             }

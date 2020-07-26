@@ -231,7 +231,7 @@ namespace Engine.Tweening
                     }
                 }
 
-                if (time == 0 && timesRepeated == 0 && begin != null)
+                if (time == 0 && timesRepeated == 0 && begin is not null)
                 {
                     begin();
                 }
@@ -265,7 +265,7 @@ namespace Engine.Tweening
                     }
                 }
 
-                if (ease != null)
+                if (ease is not null)
                 {
                     t = ease(t);
                 }
@@ -273,7 +273,7 @@ namespace Engine.Tweening
                 var i = vars.Count;
                 while (i-- > 0)
                 {
-                    if (vars[i] != null)
+                    if (vars[i] is not null)
                     {
                         vars[i].Value = lerpers[i]?.Interpolate(t, vars[i]?.Value, behavior);
                     }
@@ -290,7 +290,7 @@ namespace Engine.Tweening
 
                 update?.Invoke();
 
-                if (doComplete && complete != null)
+                if (doComplete && complete is not null)
                 {
                     complete();
                 }

@@ -127,7 +127,7 @@ namespace Engine
                 if (destinationType == typeof(InstanceDescriptor))
                 {
                     var constructor = typeof(RectangleF).GetConstructor(new Type[] { typeof(float), typeof(float), typeof(float), typeof(float) });
-                    if (constructor != null)
+                    if (constructor is not null)
                     {
                         return new InstanceDescriptor(constructor, new object[] { f.X, f.Y, f.Width, f.Height });
                     }

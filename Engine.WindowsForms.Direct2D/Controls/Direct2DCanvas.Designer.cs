@@ -10,6 +10,10 @@
 
 namespace Engine.Winforms.Direct2D
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.Windows.Forms.UserControl" />
     partial class Direct2DCanvas
     {
         /// <summary> 
@@ -30,7 +34,7 @@ namespace Engine.Winforms.Direct2D
         {
             timer.Stop();
 
-            if (disposing && (components != null))
+            if (disposing && (components is not null))
             {
                 //target.Dispose();
                 components.Dispose();

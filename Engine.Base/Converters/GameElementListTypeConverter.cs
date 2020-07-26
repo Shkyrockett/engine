@@ -73,7 +73,7 @@ namespace Engine
             {
                 foreach (var gameElement in gameElements)
                 {
-                    if (gameElement.Name != null)
+                    if (gameElement.Name is not null)
                     {
                         list.Add(new GameElementDescriptor(gameElement, list.Count));
                     }

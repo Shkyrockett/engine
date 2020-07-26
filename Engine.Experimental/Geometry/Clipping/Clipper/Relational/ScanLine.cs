@@ -16,17 +16,16 @@ namespace Engine.Experimental
     public class ScanLine
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ScanLine" /> class.
         /// </summary>
         public ScanLine()
-        {
-        }
+        { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ScanLine" /> class.
         /// </summary>
-        /// <param name="y"></param>
-        /// <param name="nextScanLine"></param>
+        /// <param name="y">The y.</param>
+        /// <param name="nextScanLine">The next scan line.</param>
         public ScanLine(double y, ScanLine nextScanLine)
         {
             Y = y;
@@ -36,11 +35,17 @@ namespace Engine.Experimental
         /// <summary>
         /// The y intercept.
         /// </summary>
+        /// <value>
+        /// The y.
+        /// </value>
         public double Y { get; set; }
 
         /// <summary>
         /// The next.
         /// </summary>
+        /// <value>
+        /// The next scan line.
+        /// </value>
         public ScanLine NextScanLine { get; set; }
     }
 }

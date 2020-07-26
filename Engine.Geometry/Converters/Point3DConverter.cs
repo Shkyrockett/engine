@@ -113,7 +113,7 @@ namespace Engine
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
                     var constructor = typeof(Point3D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double) });
-                    if (constructor != null)
+                    if (constructor is not null)
                     {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { point.X, point.Y, point.Z });
                     }

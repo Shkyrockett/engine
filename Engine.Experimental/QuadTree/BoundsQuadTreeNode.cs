@@ -293,7 +293,7 @@ namespace Engine.Experimental
         /// <param name="funFind">The funFind.</param>
         public void Delete(Rectangle2D queryArea, BoundsQuadTree<T>.Find funFind)
         {
-            if (Contents != null)
+            if (Contents is not null)
             {
                 foreach (var item in Contents)
                 {

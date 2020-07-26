@@ -338,7 +338,7 @@ namespace Engine
         /// <param name="pX">The pX.</param>
         /// <param name="pY">The pY.</param>
         /// <returns>The <see cref="Inclusions"/>.</returns>
-        public static Inclusions Contains(Func<double, double, double, double, double, double, double, Inclusions> function, double x, double y, double w, double h, double a, double pX, double pY) => (function != null) ? function.Invoke(x, y, w, h, a, pX, pY) : Inclusions.Outside;
+        public static Inclusions Contains(Func<double, double, double, double, double, double, double, Inclusions> function, double x, double y, double w, double h, double a, double pX, double pY) => (function is not null) ? function.Invoke(x, y, w, h, a, pX, pY) : Inclusions.Outside;
 
         /// <summary>
         /// Convert the to string.

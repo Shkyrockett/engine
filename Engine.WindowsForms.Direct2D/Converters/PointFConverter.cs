@@ -118,7 +118,7 @@ namespace Engine
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
                     var constructor = typeof(PointF).GetConstructor(new Type[] { typeof(float), typeof(float) });
-                    if (constructor != null)
+                    if (constructor is not null)
                     {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { f.X, f.Y });
                     }
@@ -143,7 +143,7 @@ namespace Engine
         /// <returns>The <see cref="object"/>.</returns>
         public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues)
         {
-            if (propertyValues != null)
+            if (propertyValues is not null)
             {
                 return new PointF((float)propertyValues["X"], (float)propertyValues["Y"]);
             }

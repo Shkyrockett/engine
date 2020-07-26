@@ -158,7 +158,7 @@ namespace Engine
             => new List<Type>
             (
                 from type in assembly?.GetTypes()
-                where TypeDescriptor.GetProperties(type, new Attribute[] { attribute }) != null
+                where TypeDescriptor.GetProperties(type, new Attribute[] { attribute }) is not null
                 select type
             );
     }

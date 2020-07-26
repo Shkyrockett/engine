@@ -83,7 +83,7 @@ namespace Engine
             {
                 if (disposing)
                 {
-                    if (uiDisplay != null)
+                    if (uiDisplay is not null)
                     {
                         uiDisplay.Dispose();
                     }

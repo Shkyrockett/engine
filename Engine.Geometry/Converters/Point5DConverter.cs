@@ -115,7 +115,7 @@ namespace Engine
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
                     var constructor = typeof(Point5D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double), typeof(double), typeof(double) });
-                    if (constructor != null)
+                    if (constructor is not null)
                     {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { point.X, point.Y, point.Z, point.W, point.V });
                     }
@@ -138,6 +138,6 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="propertyValues">The propertyValues.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues != null ? new Point5D((double)propertyValues[$"{nameof(Point5D.X)}"], (double)propertyValues[$"{nameof(Point5D.Y)}"], (double)propertyValues[$"{nameof(Point5D.Z)}"], (double)propertyValues[$"{nameof(Point5D.W)}"], (double)propertyValues[$"{nameof(Point5D.V)}"]) : (object)null;
+        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues is not null ? new Point5D((double)propertyValues[$"{nameof(Point5D.X)}"], (double)propertyValues[$"{nameof(Point5D.Y)}"], (double)propertyValues[$"{nameof(Point5D.Z)}"], (double)propertyValues[$"{nameof(Point5D.W)}"], (double)propertyValues[$"{nameof(Point5D.V)}"]) : (object)null;
     }
 }

@@ -100,7 +100,7 @@ namespace Engine.File
                 // It's multi-segment, so add the new data to the previously acquired data
                 // Add to previously acquired sys ex data
                 var newSysExData = new byte[sysExData.Length + buffer.Length];
-                if (sysExData != null)
+                if (sysExData is not null)
                 {
                     sysExData.CopyTo(newSysExData, 0);
                 }

@@ -1158,7 +1158,7 @@ namespace Engine
             if (Degree == 1)
             {
                 root = Bisection(min, max);
-                if (root != null)
+                if (root is not null)
                 {
                     roots.Add(root.Value);
                 }
@@ -1173,7 +1173,7 @@ namespace Engine
                 {
                     // find root on [min, droots[0]]
                     root = Bisection(min, droots[0]);
-                    if (root != null)
+                    if (root is not null)
                     {
                         roots.Add(root.Value);
                     }
@@ -1182,7 +1182,7 @@ namespace Engine
                     for (var i = 0; i <= droots.Count - 2; i++)
                     {
                         root = Bisection(droots[i], droots[i + 1]);
-                        if (root != null)
+                        if (root is not null)
                         {
                             roots.Add(root.Value);
                         }
@@ -1190,7 +1190,7 @@ namespace Engine
 
                     // find root on [droots[count-1],xmax]
                     root = Bisection(droots[^1], max);
-                    if (root != null)
+                    if (root is not null)
                     {
                         roots.Add(root.Value);
                     }
@@ -1199,7 +1199,7 @@ namespace Engine
                 {
                     // polynomial is monotone on [min,max], has at most one root
                     root = Bisection(min, max);
-                    if (root != null)
+                    if (root is not null)
                     {
                         roots.Add(root.Value);
                     }

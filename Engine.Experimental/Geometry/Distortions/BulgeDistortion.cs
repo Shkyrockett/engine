@@ -78,7 +78,7 @@ namespace Engine
             var ScaledPoint = point;
 
             GetBoundedPoints(out var UpperBoundPoint, out var LowerBoundPoint, point);
-            var Y = UpperBoundPoint.Y + ((ScaledPoint.Y - sourceBounds.Top) / sourceBounds.Height * Abs(UpperBoundPoint.Y - LowerBoundPoint.Y));
+            var Y = UpperBoundPoint.Y + ((ScaledPoint.Y - sourceBounds.Top) / sourceBounds.Height * Math.Abs(UpperBoundPoint.Y - LowerBoundPoint.Y));
 
             return new Point2D(ScaledPoint.X, Y);
         }
@@ -225,8 +225,8 @@ namespace Engine
             foreach (var original in path.Points)
             {
                 var val = (xFreq * original.X) + (yFreq * original.Y);
-                var xOffset = (int)(xAmp * Sin(val + xSeed));
-                var yOffset = (int)(yAmp * Sin(val + ySeed));
+                var xOffset = (int)(xAmp * Math.Sin(val + xSeed));
+                var yOffset = (int)(yAmp * Math.Sin(val + ySeed));
                 deformed[i++] = new Point2D(original.X + xOffset, original.Y + yOffset);
             }
 

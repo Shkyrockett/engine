@@ -10,6 +10,10 @@
 
 namespace Engine.WindowsForms
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.Windows.Forms.PictureBox" />
     partial class PaletteControl
     {
         /// <summary> 
@@ -25,7 +29,7 @@ namespace Engine.WindowsForms
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (components is not null))
             {
                 components.Dispose();
             }

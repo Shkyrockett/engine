@@ -193,7 +193,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => (points != null) ? (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(points)) : null;
+            => (points is not null) ? (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(points)) : null;
 
         /// <summary>
         /// Gets the area.

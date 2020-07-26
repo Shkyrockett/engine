@@ -94,7 +94,7 @@ namespace Engine
         /// <returns>
         /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
         /// </returns>
-        public bool Equals(VelocityAquired other) => other != null && EqualityComparer<IAcceleration>.Default.Equals(Acceleration, other.Acceleration) && EqualityComparer<IDirection>.Default.Equals(Direction, other.Direction);
+        public bool Equals(VelocityAquired other) => other is not null && EqualityComparer<IAcceleration>.Default.Equals(Acceleration, other.Acceleration) && EqualityComparer<IDirection>.Default.Equals(Direction, other.Direction);
 
         /// <summary>
         /// Returns a hash code for this instance.

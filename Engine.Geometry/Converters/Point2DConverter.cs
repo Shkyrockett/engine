@@ -112,7 +112,7 @@ namespace Engine
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
                     var constructor = typeof(Point2D).GetConstructor(new Type[] { typeof(double), typeof(double) });
-                    if (constructor != null)
+                    if (constructor is not null)
                     {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { point.X, point.Y });
                     }
@@ -135,6 +135,6 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="propertyValues">The propertyValues.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues != null ? new Point2D((double)propertyValues["X"], (double)propertyValues["Y"]) : null;
+        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues is not null ? new Point2D((double)propertyValues["X"], (double)propertyValues["Y"]) : null;
     }
 }

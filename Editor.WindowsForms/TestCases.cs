@@ -57,7 +57,7 @@ namespace Editor
             //DrawParabola(vectorMap);
             //IntersectionsDrawableEllipseEllipseIntersection(vectorMap);
             //EnvelopeWarp(vectorMap);
-            //Clipper(vectorMap);
+            Clipper(vectorMap);
             //ComplexPolygonClipping(vectorMap);
             //PolyClipping(vectorMap);
             //FMartinezSamplesForClipping(vectorMap);
@@ -92,7 +92,7 @@ namespace Editor
             /* Regression Test Cases */
             //SelfIntersectingCubicBezier(vectorMap);
             //GridHitTest(vectorMap);
-            IntersectionsEllipseEllipseIntersection(vectorMap, form);
+            //IntersectionsEllipseEllipseIntersection(vectorMap, form);
             //IntersectionsCircleCircleIntersection(vectorMap);
             //IntersectingsEllipseEllipse(vectorMap, form);
             //IntersectingsEllipseQuadraticSegment(vectorMap, form);

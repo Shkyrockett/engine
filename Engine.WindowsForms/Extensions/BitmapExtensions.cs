@@ -93,7 +93,7 @@ namespace Engine.Imaging
             if (disposing)
             {
                 // free managed resources
-                if (bitmap != null)
+                if (bitmap is not null)
                 {
                     bitmap.UnlockBits(data);
                     bitmap.Dispose();

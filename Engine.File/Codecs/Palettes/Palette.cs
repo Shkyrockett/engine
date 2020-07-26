@@ -590,7 +590,7 @@ namespace Engine.File.Palettes
 
             using var streamReader = new StreamReader(stream);
             string line;
-            while ((line = streamReader.ReadLine()) != null)
+            while ((line = streamReader.ReadLine()) is not null)
             {
                 line = line.Trim();
                 if (line.StartsWith(";", StringComparison.OrdinalIgnoreCase))
@@ -792,7 +792,7 @@ namespace Engine.File.Palettes
         /// <returns>
         ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals([AllowNull] Palette other) => other != null && EqualityComparer<List<IColor>>.Default.Equals(Colors, other.Colors);
+        public bool Equals([AllowNull] Palette other) => other is not null && EqualityComparer<List<IColor>>.Default.Equals(Colors, other.Colors);
 
         /// <summary>
         /// Returns a hash code for this instance.

@@ -40,7 +40,7 @@ namespace Engine
         {
             get
             {
-                if (bounds != null)
+                if (bounds is not null)
                 {
                     return bounds;
                 }

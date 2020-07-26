@@ -90,7 +90,7 @@ namespace Engine.Experimental
         /// </summary>
         protected virtual void CleanUp()
         {
-            while (activeEdgeLink != null)
+            while (activeEdgeLink is not null)
             {
                 DeleteFromAEL(activeEdgeLink);
             }
@@ -127,8 +127,8 @@ namespace Engine.Experimental
                 outRec.Flag = OutrecFlag.Inner;
             }
 
-            //now set orientation ...
-            var swapSideNeeded = false;    //ToDo: recheck this with open paths
+            // Now set orientation ...
+            var swapSideNeeded = false;    // ToDo: recheck this with open paths
             if (e1.IsHorizontal())
             {
                 swapSideNeeded |= e1.top.X > e1.bot.X;
@@ -152,7 +152,7 @@ namespace Engine.Experimental
             }
 
             var op = CreateOutPoint();
-            op.Pt = pt;
+            op.Pt = new(pt);
             op.Next = op;
             op.Prev = op;
             outRec.Points = op;
@@ -167,17 +167,18 @@ namespace Engine.Experimental
         /// <exception cref="EngineException">Error in AddLocalMaxPoly().</exception>
         protected virtual void AddLocalMaxPoly(Edge e1, Edge e2, Point2D Pt)
         {
-            if (!(e2?.IsHotEdge()).Value)
+            if (!e2.IsHotEdge())
             {
                 throw new EngineException("Error in AddLocalMaxPoly().");
             }
 
-            AddOutPoint(e1, Pt);
+            AddOutPoint(e1, new(Pt));
             if (e1?.outRec == e2?.outRec)
             {
                 e1.outRec.EndOutRec();
             }
-            //and to preserve the winding orientation of Outrec ...
+
+            // And to preserve the winding orientation of Outrec ...
             else if (e1.outRec.IDx < e2.outRec.IDx)
             {
                 Edge.JoinOutrecPaths(e1, e2);
@@ -205,11 +206,13 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="e">The e.</param>
         /// <param name="pt">The pt.</param>
-        /// <returns>The <see cref="LinkedPoint"/>.</returns>
+        /// <returns>
+        /// The <see cref="LinkedPoint" />.
+        /// </returns>
         protected virtual LinkedPoint AddOutPoint(Edge e, Point2D pt)
         {
-            //Outrec.Pts: a circular double-linked-list of POutPt.
-            var toStart = (e?.IsStartSide()).Value;
+            // Outrec.Pts: a circular double-linked-list of POutPt.
+            var toStart = e.IsStartSide();
             var opStart = e?.outRec?.Points;
             var opEnd = opStart?.Next;
             if (toStart)
@@ -225,7 +228,7 @@ namespace Engine.Experimental
             }
 
             var opNew = CreateOutPoint();
-            opNew.Pt = pt;
+            opNew.Pt = new(pt);
             opEnd.Prev = opNew;
             opNew.Prev = opStart;
             opNew.Next = opEnd;
@@ -243,7 +246,9 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="ct">The ct.</param>
         /// <param name="ft">The ft.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         protected virtual bool ExecuteInternal(ClippingOperation ct, WindingRule ft)
         {
             if (ct == ClippingOperation.None)
@@ -264,7 +269,7 @@ namespace Engine.Experimental
             {
                 InsertLocalMinimaIntoAEL(y.Value);
                 Edge e;
-                while ((e = PopHorz()) != null)
+                while ((e = PopHorz()) is not null)
                 {
                     ProcessHorizontal(e);
                 }
@@ -275,9 +280,10 @@ namespace Engine.Experimental
                 }
 
                 ProcessIntersections(y.Value);
-                selectedEdgeLink = null;                       // SEL reused to flag horizontals
+                selectedEdgeLink = null; // SEL reused to flag horizontals
                 DoTopOfScanbeam(y.Value);
             }
+
             return true;
         }
 
@@ -286,7 +292,9 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="clipType">The clipType.</param>
         /// <param name="ft">The ft.</param>
-        /// <returns>The <see cref="Polygon2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polygon2D" />.
+        /// </returns>
         public virtual Polygon2D Execute(ClippingOperation clipType, WindingRule ft = WindingRule.EvenOdd)
         {
             try
@@ -295,8 +303,10 @@ namespace Engine.Experimental
                 {
                     return null;
                 }
+
                 return BuildResult(null);
             }
+
             finally { CleanUp(); }
         }
 
@@ -306,7 +316,9 @@ namespace Engine.Experimental
         /// <param name="clipType">The clipType.</param>
         /// <param name="Open">The Open.</param>
         /// <param name="ft">The ft.</param>
-        /// <returns>The <see cref="Polygon2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polygon2D" />.
+        /// </returns>
         public virtual Polygon2D Execute(ClippingOperation clipType, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd)
         {
             try
@@ -318,6 +330,7 @@ namespace Engine.Experimental
 
                 return BuildResult(Open);
             }
+
             finally { CleanUp(); }
         }
 
@@ -328,7 +341,9 @@ namespace Engine.Experimental
         /// <param name="polytree">The polytree.</param>
         /// <param name="Open">The Open.</param>
         /// <param name="ft">The ft.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public virtual bool Execute(ClippingOperation clipType, PolyTree polytree, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd)
         {
             if (Open is null)
@@ -344,7 +359,7 @@ namespace Engine.Experimental
                 }
 
                 polytree.Clear();
-                if (Open != null)
+                if (Open is not null)
                 {
                     Open.Clear();
                 }
@@ -357,7 +372,10 @@ namespace Engine.Experimental
                 BuildResult(polytree, Open);
                 return true;
             }
-            finally { CleanUp(); }
+            finally
+            {
+                CleanUp();
+            }
         }
         #endregion Virtual Methods
 
@@ -371,6 +389,7 @@ namespace Engine.Experimental
                 LocMinimaList.Sort();
                 LocMinListSorted = true;
             }
+
             foreach (var locMin in LocMinimaList)
             {
                 InsertScanline(locMin.Vertex.Point.Y);
@@ -387,7 +406,7 @@ namespace Engine.Experimental
         /// <param name="y">The y.</param>
         private void InsertScanline(double y)
         {
-            // single-linked list: sorted descending, ignoring dupes.
+            // Single-linked list: sorted descending, ignoring dupes.
             if (Scanline is null)
             {
                 Scanline = new ScanLine
@@ -408,14 +427,15 @@ namespace Engine.Experimental
             else
             {
                 var sb2 = Scanline;
-                while (sb2.NextScanLine != null && (y <= sb2.NextScanLine.Y))
+                while (sb2.NextScanLine is not null && (y <= sb2.NextScanLine.Y))
                 {
                     sb2 = sb2.NextScanLine;
                 }
 
                 if (y == sb2.Y)
                 {
-                    return; // IE ignores duplicates
+                    // IE ignores duplicates
+                    return;
                 }
 
                 var newSb = new ScanLine
@@ -423,6 +443,7 @@ namespace Engine.Experimental
                     Y = y,
                     NextScanLine = sb2.NextScanLine
                 };
+
                 sb2.NextScanLine = newSb;
             }
         }
@@ -430,13 +451,16 @@ namespace Engine.Experimental
         /// <summary>
         /// The pop scanline.
         /// </summary>
-        /// <returns>The <see cref="double"/>.</returns>
+        /// <returns>
+        /// The <see cref="double" />.
+        /// </returns>
         private double? PopScanline()
         {
             if (Scanline is null)
             {
                 return null;
             }
+
             var y = Scanline.Y;
             var tmp = Scanline.NextScanLine;
             Scanline = null;
@@ -449,7 +473,7 @@ namespace Engine.Experimental
         /// </summary>
         private void DisposeScanLineList()
         {
-            while (Scanline != null)
+            while (Scanline is not null)
             {
                 var tmp = Scanline.NextScanLine;
                 Scanline = null;
@@ -461,7 +485,9 @@ namespace Engine.Experimental
         /// The pop local minima.
         /// </summary>
         /// <param name="y">The y.</param>
-        /// <returns>The <see cref="LocalMinima"/>.</returns>
+        /// <returns>
+        /// The <see cref="LocalMinima" />.
+        /// </returns>
         private LocalMinima? PopLocalMinima(double y)
         {
             if (CurrentLocMinIdx == LocMinimaList.Count)
@@ -475,6 +501,7 @@ namespace Engine.Experimental
                 CurrentLocMinIdx++;
                 return locMin;
             }
+
             return null;
         }
 
@@ -486,7 +513,7 @@ namespace Engine.Experimental
         /// <param name="isOpen">The isOpen.</param>
         private void AddLocMin(Vertex vert, ClippingRelation relation, bool isOpen)
         {
-            //make sure the vertex is added only once ...
+            // Make sure the vertex is added only once ...
             if ((VertexFlags.LocMin & vert.Flags) != 0)
             {
                 return;
@@ -499,6 +526,7 @@ namespace Engine.Experimental
                 ClippingRelation = relation,
                 IsOpen = isOpen
             };
+
             LocMinimaList.Add(lm);
         }
 
@@ -525,22 +553,24 @@ namespace Engine.Experimental
             var P0IsMaxima = false;
             var goingUp = false;
             var i = 1;
-            // find the first non-horizontal segment in the path ...
+
+            // Find the first non-horizontal segment in the path ...
             while (i < pathLen && path[i].Y == path[0].Y)
             {
                 i++;
             }
 
-            if (i == pathLen) // it's a totally flat path
+            if (i == pathLen) // It's a totally flat path
             {
                 if (!isOpen)
                 {
-                    return;       // Ignore closed paths that have ZERO area.
+                    // Ignore closed paths that have ZERO area.
+                    return;
                 }
             }
             else
             {
-                goingUp = path[i].Y < path[0].Y; // because I'm using an inverted Y-axis display
+                goingUp = path[i].Y < path[0].Y; // Because I'm using an inverted Y-axis display
                 if (goingUp)
                 {
                     i = pathLen - 1;
@@ -579,12 +609,13 @@ namespace Engine.Experimental
                 }
             }
             va.Add(v);
-            //nb: polygon orientation is determined later (see InsertLocalMinimaIntoAEL).
+
+            // Important: Polygon orientation is determined later (see InsertLocalMinimaIntoAEL).
             for (var j = 1; j < pathLen; j++)
             {
                 if (path[j] == v.Point)
                 {
-                    continue; //ie skips duplicates
+                    continue; // IE: skips duplicates
                 }
 
                 var v2 = new Vertex(path[j]);
@@ -603,7 +634,8 @@ namespace Engine.Experimental
                 va.Add(v2);
                 v = v2;
             }
-            //i: index of the last vertex in the path.
+
+            // i: Index of the last vertex in the path.
             v.NextVertex = va[0];
             va[0].PreviousVertex = v;
 
@@ -621,7 +653,7 @@ namespace Engine.Experimental
             }
             else if (goingUp)
             {
-                //going up so find local maxima ...
+                // Going up so find local maxima ...
                 while (v.NextVertex.Point.Y <= v.Point.Y)
                 {
                     v = v.NextVertex;
@@ -630,12 +662,12 @@ namespace Engine.Experimental
                 v.Flags |= VertexFlags.LocMax;
                 if (P0IsMinima)
                 {
-                    AddLocMin(va[0], relation, isOpen); //ie just turned to going up
+                    AddLocMin(va[0], relation, isOpen); // IE: just turned to going up
                 }
             }
             else
             {
-                //going down so find local minima ...
+                // Going down so find local minima...
                 while (v.NextVertex.Point.Y >= v.Point.Y)
                 {
                     v = v.NextVertex;
@@ -672,6 +704,7 @@ namespace Engine.Experimental
 
                 HasOpenPaths = true;
             }
+
             AddPathToVertexList(path, relation, isOpen);
             LocMinListSorted = false;
         }
@@ -701,7 +734,9 @@ namespace Engine.Experimental
         /// <param name="fillType">The fillType.</param>
         /// <param name="clipType">The clipType.</param>
         /// <param name="e">The e.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsContributingClosed(WindingRule fillType, ClippingOperation clipType, Edge e)
         {
@@ -784,9 +819,12 @@ namespace Engine.Experimental
                         }
                     }; break;
                 case ClippingOperation.Xor:
-                    return true; //XOr is always contributing unless open
+                    // XOr is always contributing unless open
+                    return true;
             }
-            return false; //we never get here but this stops a compiler issue.
+
+            // We never get here but this stops a compiler issue.
+            return false;
         }
 
         /// <summary>
@@ -794,7 +832,9 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="clipType">The clipType.</param>
         /// <param name="e">The e.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsContributingOpen(ClippingOperation clipType, Edge e) => clipType switch
         {
@@ -830,12 +870,13 @@ namespace Engine.Experimental
 
                     e2 = e2.nextInAEL;
                 }
+
                 e.windCnt = IsOdd(cnt1) ? 1 : 0;
                 e.windCnt2 = IsOdd(cnt2) ? 1 : 0;
             }
             else
             {
-                //if FClipType in [ctUnion, ctDifference] then e.WindCnt := e.WindDx;
+                // If FClipType in [ctUnion, ctDifference] then e.WindCnt := e.WindDx;
                 while (e2 != e)
                 {
                     if (e2.GetPathType() == ClippingRelation.Clipping)
@@ -859,15 +900,15 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SetWindingLeftEdgeClosed(Edge leftE)
         {
-            //Wind counts generally refer to polygon regions not edges, so here an edge's
-            //WindCnt indicates the higher of the two wind counts of the regions touching
-            //the edge. (Note also that adjacent region wind counts only ever differ
-            //by one, and open paths have no meaningful wind directions or counts.)
-
+            // Wind counts generally refer to polygon regions not edges, so here an edge's
+            // WindCnt indicates the higher of the two wind counts of the regions touching
+            // the edge. (Note also that adjacent region wind counts only ever differ
+            // by one, and open paths have no meaningful wind directions or counts.)
             var e = leftE.prevInAEL;
-            //find the nearest closed path edge of the same PathType in AEL (heading left)
+
+            // Find the nearest closed path edge of the same PathType in AEL (heading left)
             var pt = leftE.GetPathType();
-            while (e != null && (e.GetPathType() != pt || e.IsOpen()))
+            while (e is not null && (e.GetPathType() != pt || e.IsOpen()))
             {
                 e = e.prevInAEL;
             }
@@ -885,52 +926,55 @@ namespace Engine.Experimental
             }
             else
             {
-                //NonZero, Positive, or Negative filling here ...
-                //if e's WindCnt is in the SAME direction as its WindDx, then e is either
-                //an outer left or a hole right boundary, so leftE must be inside 'e'.
-                //(neither e.WindCnt nor e.WindDx should ever be 0)
+                // NonZero, Positive, or Negative filling here ...
+                // if e's WindCnt is in the SAME direction as its WindDx, then e is either
+                // an outer left or a hole right boundary, so leftE must be inside 'e'.
+                // (neither e.WindCnt nor e.WindDx should ever be 0)
                 if (e.windCnt * e.windDx < 0)
                 {
-                    //opposite directions so leftE is outside 'e' ...
+                    // Opposite directions so leftE is outside 'e' ...
                     if (Abs(e.windCnt) > 1)
                     {
-                        //outside prev poly but still inside another.
+                        // Outside prev poly but still inside another.
                         if (e.windDx * leftE.windDx < 0)
                         {
-                            //reversing direction so use the same WC
+                            // Reversing direction so use the same WC
                             leftE.windCnt = e.windCnt;
                         }
                         else
                         {
-                            //otherwise keep 'reducing' the WC by 1 (ie towards 0) ...
+                            // Otherwise keep 'reducing' the WC by 1 (IE towards 0) ...
                             leftE.windCnt = e.windCnt + leftE.windDx;
                         }
                     }
                     else
                     {
-                        //now outside all polys of same PathType so set own WC ...
+                        // Now outside all polys of same PathType so set own WC ...
                         leftE.windCnt = leftE.IsOpen() ? 1 : leftE.windDx;
                     }
                 }
                 else
                 {
-                    //leftE must be inside 'e'
+                    // leftE must be inside 'e'
                     if (e.windDx * leftE.windDx < 0)
                     {
-                        //reversing direction so use the same WC
+                        // Reversing direction so use the same WC
                         leftE.windCnt = e.windCnt;
                     }
                     else
                     {
-                        //otherwise keep 'increasing' the WC by 1 (ie away from 0) ...
+                        // Otherwise keep 'increasing' the WC by 1 (IE away from 0) ...
                         leftE.windCnt = e.windCnt + leftE.windDx;
                     }
                 }
+
                 leftE.windCnt2 = e.windCnt2;
-                e = e.nextInAEL; //ie get ready to calc WindCnt2
+
+                // IE get ready to calc WindCnt2
+                e = e.nextInAEL;
             }
 
-            //update WindCnt2 ...
+            // Update WindCnt2 ...
             if (FillType == WindingRule.EvenOdd)
             {
                 while (e != leftE)
@@ -985,14 +1029,13 @@ namespace Engine.Experimental
                     startEdge = activeEdgeLink;
                 }
 
-                while (startEdge.nextInAEL != null &&
-                  !Edge.E2InsertsBeforeE1(startEdge.nextInAEL, edge))
+                while (startEdge.nextInAEL is not null && !Edge.E2InsertsBeforeE1(startEdge.nextInAEL, edge))
                 {
                     startEdge = startEdge.nextInAEL;
                 }
 
                 edge.nextInAEL = startEdge.nextInAEL;
-                if (startEdge.nextInAEL != null)
+                if (startEdge.nextInAEL is not null)
                 {
                     startEdge.nextInAEL.prevInAEL = edge;
                 }
@@ -1012,8 +1055,9 @@ namespace Engine.Experimental
             Edge leftB;
             Edge rightB;
             LocalMinima? locMin;
+
             // Add any local minima at BotY ...
-            while ((locMin = PopLocalMinima(BotY)) != null)
+            while ((locMin = PopLocalMinima(BotY)) is not null)
             {
                 if ((locMin?.Vertex.Flags & VertexFlags.OpenStart) > 0)
                 {
@@ -1025,9 +1069,9 @@ namespace Engine.Experimental
                     {
                         bot = locMin.Value.Vertex.Point
                     };
-                    leftB.curr = leftB.bot;
-                    leftB.vertTop = locMin?.Vertex.PreviousVertex; //ie descending
-                    leftB.top = leftB.vertTop.Point;
+                    leftB.curr = new(leftB.bot);
+                    leftB.vertTop = locMin?.Vertex.PreviousVertex; // IE descending
+                    leftB.top = new(leftB.vertTop.Point);
                     leftB.windDx = -1;
                     leftB.localMin = locMin.Value;
                     leftB.SetDx();
@@ -1043,9 +1087,10 @@ namespace Engine.Experimental
                     {
                         bot = locMin.Value.Vertex.Point
                     };
-                    rightB.curr = rightB.bot;
-                    rightB.vertTop = locMin.Value.Vertex.NextVertex; //ie ascending
-                    rightB.top = rightB.vertTop.Point;
+
+                    rightB.curr = new(rightB.bot);
+                    rightB.vertTop = locMin.Value.Vertex.NextVertex; // IE. ascending
+                    rightB.top = new(rightB.vertTop.Point);
                     rightB.windDx = 1;
                     rightB.localMin = locMin.Value;
                     rightB.SetDx();
@@ -1053,7 +1098,7 @@ namespace Engine.Experimental
 
                 // Currently LeftB is just the descending bound and RightB is the ascending.
                 // Now if the LeftB isn't on the left of RightB then we need swap them.
-                if (leftB != null && rightB != null)
+                if (leftB is not null && rightB is not null)
                 {
                     if (leftB.IsHorizontal())
                     {
@@ -1093,14 +1138,14 @@ namespace Engine.Experimental
                     contributing = IsContributingClosed(FillType, ClipType, leftB);
                 }
 
-                if (rightB != null)
+                if (rightB is not null)
                 {
                     rightB.windCnt = leftB.windCnt;
                     rightB.windCnt2 = leftB.windCnt2;
                     InsertEdgeIntoAEL(rightB, leftB); // Insert right edge
                     if (contributing)
                     {
-                        AddLocalMinPoly(leftB, rightB, leftB.bot);
+                        AddLocalMinPoly(leftB, rightB, new(leftB.bot));
                     }
 
                     if (rightB.IsHorizontal())
@@ -1114,7 +1159,7 @@ namespace Engine.Experimental
                 }
                 else if (contributing)
                 {
-                    StartOpenPath(leftB, leftB.bot);
+                    StartOpenPath(leftB, new(leftB.bot));
                 }
 
                 if (leftB.IsHorizontal())
@@ -1126,16 +1171,16 @@ namespace Engine.Experimental
                     InsertScanline(leftB.top.Y);
                 }
 
-                if (rightB != null && leftB.nextInAEL != rightB)
+                if (rightB is not null && leftB.nextInAEL != rightB)
                 {
-                    // intersect edges that are between left and right bounds ...
+                    // Intersect edges that are between left and right bounds...
                     var e = rightB.nextInAEL;
                     rightB.MoveEdgeToFollowLeftInAEL(leftB);
                     while (rightB.nextInAEL != e)
                     {
-                        // nb: For calculating winding counts etc, IntersectEdges() assumes
-                        // that rightB will be to the right of e ABOVE the intersection ...
-                        IntersectEdges(rightB, rightB.nextInAEL, rightB.bot);
+                        // Important: For calculating winding counts etc, IntersectEdges() assumes
+                        // that rightB will be to the right of e ABOVE the intersection...
+                        IntersectEdges(rightB, rightB.nextInAEL, new(rightB.bot));
                         SwapPositionsInAEL(ref activeEdgeLink, rightB, rightB.nextInAEL);
                     }
                 }
@@ -1156,7 +1201,9 @@ namespace Engine.Experimental
         /// <summary>
         /// The pop horz.
         /// </summary>
-        /// <returns>The <see cref="Edge"/>.</returns>
+        /// <returns>
+        /// The <see cref="Edge" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private Edge PopHorz()
         {
@@ -1185,7 +1232,7 @@ namespace Engine.Experimental
             e.outRec = outRec;
 
             var op = CreateOutPoint();
-            op.Pt = pt;
+            op.Pt = new(pt);
             op.Next = op;
             op.Prev = op;
             outRec.Points = op;
@@ -1200,17 +1247,18 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void IntersectEdges(Edge e1, Edge e2, Point2D pt)
         {
-            e1.curr = pt;
-            e2.curr = pt;
+            e1.curr = new(pt);
+            e2.curr = new(pt);
 
-            //if either edge is an OPEN path ...
+            // If either edge is an OPEN path ...
             if (HasOpenPaths && (e1.IsOpen() || e2.IsOpen()))
             {
                 if (e1.IsOpen() && e2.IsOpen())
                 {
-                    return; //ignore lines that intersect
+                    return; // Ignore lines that intersect
                 }
-                //the following line just avoids duplicating a whole lot of code ...
+
+                // The following line just avoids duplicating a whole lot of code ...
                 if (e2.IsOpen())
                 {
                     Edge.SwapActives(ref e1, ref e2);
@@ -1230,7 +1278,8 @@ namespace Engine.Experimental
                         if (e1.IsHotEdge() != ((Abs(e2.windCnt) != 1) ||
                           (e1.IsHotEdge() != (e2.windCnt2 != 0))))
                         {
-                            return; //just works!
+                            // Just works!
+                            return;
                         }
 
                         break;
@@ -1244,22 +1293,23 @@ namespace Engine.Experimental
                     case ClippingOperation.None:
                         break;
                 }
-                //toggle contribution ...
+
+                // Toggle contribution ...
                 if (e1.IsHotEdge())
                 {
-                    AddOutPoint(e1, pt);
+                    AddOutPoint(e1, new(pt));
                     e1.TerminateHotOpen();
                 }
                 else
                 {
-                    StartOpenPath(e1, pt);
+                    StartOpenPath(e1, new(pt));
                 }
 
                 return;
             }
 
-            //update winding counts...
-            //assumes that e1 will be to the right of e2 ABOVE the intersection
+            // Update winding counts...
+            // Assumes that e1 will be to the right of e2 ABOVE the intersection
             int oldE1WindCnt, oldE2WindCnt;
             if (e1.localMin.ClippingRelation == e2.localMin.ClippingRelation)
             {
@@ -1334,17 +1384,17 @@ namespace Engine.Experimental
                 if ((oldE1WindCnt != 0 && oldE1WindCnt != 1) || (oldE2WindCnt != 0 && oldE2WindCnt != 1) ||
                   (e1.localMin.ClippingRelation != e2.localMin.ClippingRelation && ClipType != ClippingOperation.Xor))
                 {
-                    AddLocalMaxPoly(e1, e2, pt);
+                    AddLocalMaxPoly(e1, e2, new(pt));
                 }
                 else if (e1.outRec == e2.outRec) //optional
                 {
-                    AddLocalMaxPoly(e1, e2, pt);
-                    AddLocalMinPoly(e1, e2, pt);
+                    AddLocalMaxPoly(e1, e2, new(pt));
+                    AddLocalMinPoly(e1, e2, new(pt));
                 }
                 else
                 {
-                    AddOutPoint(e1, pt);
-                    AddOutPoint(e2, pt);
+                    AddOutPoint(e1, new(pt));
+                    AddOutPoint(e2, new(pt));
                     Edge.SwapOutrecs(e1, e2);
                 }
             }
@@ -1352,7 +1402,7 @@ namespace Engine.Experimental
             {
                 if (oldE2WindCnt == 0 || oldE2WindCnt == 1)
                 {
-                    AddOutPoint(e1, pt);
+                    AddOutPoint(e1, new(pt));
                     Edge.SwapOutrecs(e1, e2);
                 }
             }
@@ -1360,14 +1410,14 @@ namespace Engine.Experimental
             {
                 if (oldE1WindCnt == 0 || oldE1WindCnt == 1)
                 {
-                    AddOutPoint(e2, pt);
+                    AddOutPoint(e2, new(pt));
                     Edge.SwapOutrecs(e1, e2);
                 }
             }
             else if ((oldE1WindCnt == 0 || oldE1WindCnt == 1) &&
               (oldE2WindCnt == 0 || oldE2WindCnt == 1))
             {
-                //neither edge is currently contributing ...
+                // Neither edge is currently contributing ...
                 long e1Wc2, e2Wc2;
                 switch (FillType)
                 {
@@ -1389,7 +1439,7 @@ namespace Engine.Experimental
 
                 if (e1.localMin.ClippingRelation != e2.localMin.ClippingRelation)
                 {
-                    AddLocalMinPoly(e1, e2, pt);
+                    AddLocalMinPoly(e1, e2, new(pt));
                 }
                 else if (oldE1WindCnt == 1 && oldE2WindCnt == 1)
                 {
@@ -1398,14 +1448,14 @@ namespace Engine.Experimental
                         case ClippingOperation.Intersection:
                             if (e1Wc2 > 0 && e2Wc2 > 0)
                             {
-                                AddLocalMinPoly(e1, e2, pt);
+                                AddLocalMinPoly(e1, e2, new(pt));
                             }
 
                             break;
                         case ClippingOperation.Union:
                             if (e1Wc2 <= 0 && e2Wc2 <= 0)
                             {
-                                AddLocalMinPoly(e1, e2, pt);
+                                AddLocalMinPoly(e1, e2, new(pt));
                             }
 
                             break;
@@ -1413,12 +1463,12 @@ namespace Engine.Experimental
                             if (((e1.GetPathType() == ClippingRelation.Clipping) && (e1Wc2 > 0) && (e2Wc2 > 0)) ||
                                 ((e1.GetPathType() == ClippingRelation.Subject) && (e1Wc2 <= 0) && (e2Wc2 <= 0)))
                             {
-                                AddLocalMinPoly(e1, e2, pt);
+                                AddLocalMinPoly(e1, e2, new(pt));
                             }
 
                             break;
                         case ClippingOperation.Xor:
-                            AddLocalMinPoly(e1, e2, pt);
+                            AddLocalMinPoly(e1, e2, new(pt));
                             break;
                         case ClippingOperation.None:
                             break;
@@ -1436,12 +1486,14 @@ namespace Engine.Experimental
         {
             var AelPrev = e.prevInAEL;
             var AelNext = e.nextInAEL;
+
             if (AelPrev is null && AelNext is null && (e != activeEdgeLink))
             {
-                return; //already deleted
+                // Already deleted
+                return;
             }
 
-            if (AelPrev != null)
+            if (AelPrev is not null)
             {
                 AelPrev.nextInAEL = AelNext;
             }
@@ -1450,7 +1502,7 @@ namespace Engine.Experimental
                 activeEdgeLink = AelNext;
             }
 
-            if (AelNext != null)
+            if (AelNext is not null)
             {
                 AelNext.prevInAEL = AelPrev;
             }
@@ -1467,7 +1519,8 @@ namespace Engine.Experimental
         {
             var e = activeEdgeLink;
             selectedEdgeLink = e;
-            while (e != null)
+
+            while (e is not null)
             {
                 e.prevInSEL = e.prevInAEL;
                 e.nextInSEL = e.nextInAEL;
@@ -1482,11 +1535,12 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void UpdateEdgeIntoAEL(ref Edge e)
         {
-            e.bot = e.top;
+            e.bot = new(e.top);
             e.vertTop = e.NextVertex();
-            e.top = e.vertTop.Point;
-            e.curr = e.bot;
+            e.top = new(e.vertTop.Point);
+            e.curr = new(e.bot);
             e.SetDx();
+
             if (!e.IsHorizontal())
             {
                 InsertScanline(e.top.Y);
@@ -1505,16 +1559,17 @@ namespace Engine.Experimental
         {
             Edge next;
             Edge prev;
+
             if (e1.nextInAEL == e2)
             {
                 next = e2.nextInAEL;
-                if (next != null)
+                if (next is not null)
                 {
                     next.prevInAEL = e1;
                 }
 
                 prev = e1.prevInAEL;
-                if (prev != null)
+                if (prev is not null)
                 {
                     prev.nextInAEL = e2;
                 }
@@ -1531,13 +1586,13 @@ namespace Engine.Experimental
             else if (e2.nextInAEL == e1)
             {
                 next = e1.nextInAEL;
-                if (next != null)
+                if (next is not null)
                 {
                     next.prevInAEL = e2;
                 }
 
                 prev = e2.prevInAEL;
-                if (prev != null)
+                if (prev is not null)
                 {
                     prev.nextInAEL = e1;
                 }
@@ -1569,16 +1624,17 @@ namespace Engine.Experimental
         {
             Edge next;
             Edge prev;
+
             if (e1.nextInSEL == e2)
             {
                 next = e2.nextInSEL;
-                if (next != null)
+                if (next is not null)
                 {
                     next.prevInSEL = e1;
                 }
 
                 prev = e1.prevInSEL;
-                if (prev != null)
+                if (prev is not null)
                 {
                     prev.nextInSEL = e2;
                 }
@@ -1595,13 +1651,13 @@ namespace Engine.Experimental
             else if (e2.nextInSEL == e1)
             {
                 next = e1.nextInSEL;
-                if (next != null)
+                if (next is not null)
                 {
                     next.prevInSEL = e2;
                 }
 
                 prev = e2.prevInSEL;
-                if (prev != null)
+                if (prev is not null)
                 {
                     prev.nextInSEL = e1;
                 }
@@ -1630,7 +1686,8 @@ namespace Engine.Experimental
         {
             var e = activeEdgeLink;
             selectedEdgeLink = e;
-            while (e != null)
+
+            while (e is not null)
             {
                 e.prevInSEL = e.prevInAEL;
                 e.nextInSEL = e.nextInAEL;
@@ -1659,7 +1716,8 @@ namespace Engine.Experimental
             }
             finally
             {
-                IntersectList.Clear(); //clean up only needed if there's been an error
+                // Clean up only needed if there's been an error
+                IntersectList.Clear();
             }
         }
 
@@ -1672,14 +1730,14 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void InsertNewIntersectNode(Edge e1, Edge e2, double topY)
         {
-            var pt = Edge.GetIntersectPoint(e1, e2);
+            var pt = new Point2D(Edge.GetIntersectPoint(e1, e2));
 
-            //Rounding errors can occasionally place the calculated intersection
-            //point either below or above the scan-beam, so check and correct ...
+            // Rounding errors can occasionally place the calculated intersection
+            // point either below or above the scan-beam, so check and correct ...
             if (pt.Y > e1.curr.Y)
             {
-                pt.Y = e1.curr.Y;      //E.Curr.Y is still the bottom of scan-beam
-                                       //use the more vertical of the 2 edges to derive pt.X ...
+                pt.Y = e1.curr.Y;      // E.Curr.Y is still the bottom of scan-beam
+                                       // use the more vertical of the 2 edges to derive pt.X ...
                 if (Abs(e1.dx) < Abs(e2.dx))
                 {
                     pt.X = e1.TopX(pt.Y);
@@ -1691,7 +1749,7 @@ namespace Engine.Experimental
             }
             else if (pt.Y < topY)
             {
-                pt.Y = topY;          //TopY = top of scan-beam
+                pt.Y = topY;          // TopY = top of scan-beam
 
                 if (e1.top.Y == topY)
                 {
@@ -1715,8 +1773,9 @@ namespace Engine.Experimental
             {
                 EdgeA = e1,
                 EdgeB = e2,
-                Point = pt
+                Point = new(pt)
             };
+
             IntersectList.Add(node);
         }
 
@@ -1736,7 +1795,6 @@ namespace Engine.Experimental
 
             // Merge sort FActives into their new positions at the top of scan-beam, and
             // create an intersection node every time an edge crosses over another ...
-
             var mul = 1;
             while (true)
             {
@@ -1744,8 +1802,8 @@ namespace Engine.Experimental
                 Edge baseE;
                 Edge prevBase = null;
 
-                // sort successive larger 'mul' count of nodes ...
-                while (first != null)
+                // Sort successive larger 'mul' count of nodes ...
+                while (first is not null)
                 {
                     Edge second;
                     if (mul == 1)
@@ -1769,7 +1827,7 @@ namespace Engine.Experimental
                         first.mergeJump = second.mergeJump;
                     }
 
-                    // now sort first and second groups ...
+                    // Now sort first and second groups ...
                     baseE = first;
                     var lCnt = mul;
                     var rCnt = mul;
@@ -1777,18 +1835,18 @@ namespace Engine.Experimental
                     {
                         if (second.curr.X < first.curr.X)
                         {
-                            // create one or more Intersect nodes
+                            // Create one or more Intersect nodes
                             var tmp = second.prevInSEL;
                             for (var i = 0; i < lCnt; ++i)
                             {
-                                //create a new intersect node...
+                                // Create a new intersect node...
                                 InsertNewIntersectNode(tmp, second, TopY);
                                 tmp = tmp.prevInSEL;
                             }
 
                             if (first == baseE)
                             {
-                                if (prevBase != null)
+                                if (prevBase is not null)
                                 {
                                     prevBase.mergeJump = second;
                                 }
@@ -1800,8 +1858,10 @@ namespace Engine.Experimental
                                     selectedEdgeLink = second;
                                 }
                             }
+
                             tmp = second.nextInSEL;
-                            // now move the out of place edge to it's new position in SEL ...
+
+                            // Now move the out of place edge to it's new position in SEL ...
                             Edge.Insert2Before1InSel(first, second);
                             second = tmp;
                             if (second is null)
@@ -1817,13 +1877,16 @@ namespace Engine.Experimental
                             --lCnt;
                         }
                     }
+
                     first = baseE.mergeJump;
                     prevBase = baseE;
                 }
+
                 if (selectedEdgeLink.mergeJump is null)
                 {
                     break;
                 }
+
                 mul <<= 1;
             }
         }
@@ -1836,14 +1899,15 @@ namespace Engine.Experimental
         {
             foreach (var iNode in IntersectList)
             {
-                IntersectEdges(iNode.EdgeA, iNode.EdgeB, iNode.Point);
+                IntersectEdges(iNode.EdgeA, iNode.EdgeB, new(iNode.Point));
                 SwapPositionsInAEL(ref activeEdgeLink, iNode.EdgeA, iNode.EdgeB);
             }
+
             IntersectList.Clear();
         }
 
         /// <summary>
-        /// The fixup intersection order.
+        /// The fix-up intersection order.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void FixupIntersectionOrder()
@@ -1853,6 +1917,7 @@ namespace Engine.Experimental
             {
                 return;
             }
+
             // It's important that edge intersections are processed from the bottom up,
             // but it's also crucial that intersections only occur between adjacent edges.
             // The first sort here (a quicksort), arranges intersections relative to their
@@ -1877,6 +1942,7 @@ namespace Engine.Experimental
                     IntersectList[i] = IntersectList[j];
                     IntersectList[j] = tmp;
                 }
+
                 SwapPositionsInSEL(ref selectedEdgeLink, IntersectList[i].EdgeA, IntersectList[i].EdgeB);
             }
         }
@@ -1885,73 +1951,76 @@ namespace Engine.Experimental
         /// Process the horizontal.
         /// </summary>
         /// <param name="horz">The horz.</param>
+        /// <remarks>
+        /// Notes: Horizontal edges(HEs) at scan-line intersections(I.E.at the top or
+        /// bottom of a scan-beam) are processed as if layered.The order in which HEs
+        /// are processed doesn't matter. HEs intersect with the bottom vertices of
+        /// other HEs[#] and with non-horizontal edges [*]. Once these intersections
+        /// are completed, intermediate HEs are 'promoted' to the next edge in their
+        /// bounds, and they in turn may be intersected[%] by other HEs.
+        /// *
+        /// E.G.: 3 horizontals at a scan - line:
+        ///                            /   |                     /           /
+        ///     |                     /    | (HE3)o ========%========== o
+        ///         o ======= o(HE2) /     |         /         /
+        /// o ============#=========*======*========#=========o (HE1)
+        ///          /              |        /       |       /
+        /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ProcessHorizontal(Edge horz)
-        /*******************************************************************************
-        * Notes: Horizontal edges (HEs) at scan-line intersections (I.E. at the top or   *
-        * bottom of a scan-beam) are processed as if layered.The order in which HEs    *
-        * are processed doesn't matter. HEs intersect with the bottom vertices of      *
-        * other HEs[#] and with non-horizontal edges [*]. Once these intersections     *
-        * are completed, intermediate HEs are 'promoted' to the next edge in their     *
-        * bounds, and they in turn may be intersected[%] by other HEs.                 *
-        *                                                                              *
-        * E.G.: 3 horizontals at a scan-line: /   |                     /           /  *
-        *              |                     /    |     (HE3)o ========%========== o   *
-        *              o ======= o(HE2)     /     |         /         /                *
-        *          o ============#=========*======*========#=========o (HE1)           *
-        *         /              |        /       |       /                            *
-        *******************************************************************************/
         {
             Point2D pt;
-            // with closed paths, simplify consecutive horizontals into a 'single' edge ...
+
+            // With closed paths, simplify consecutive horizontals into a 'single' edge ...
             if (!horz.IsOpen())
             {
-                pt = horz.bot;
+                pt = new(horz.bot);
                 while (!horz.IsMaxima() && horz.NextVertex().Point.Y == pt.Y)
                 {
                     UpdateEdgeIntoAEL(ref horz);
                 }
 
-                horz.bot = pt;
-                horz.curr = pt;
+                horz.bot = new(pt);
+                horz.curr = new(pt);
             }
+
             Edge maxPair = null;
-            if (horz.IsMaxima() && (!horz.IsOpen() ||
-                ((horz.vertTop.Flags & (VertexFlags.OpenStart | VertexFlags.OpenEnd)) == 0)))
+            if (horz.IsMaxima() && (!horz.IsOpen() || ((horz.vertTop.Flags & (VertexFlags.OpenStart | VertexFlags.OpenEnd)) == 0)))
             {
                 maxPair = horz.GetMaximaPair();
             }
 
             (var isLeftToRight, var horzLeft, var horzRight) = horz.ResetHorzDirection(maxPair);
+
             if (horz.IsHotEdge())
             {
                 AddOutPoint(horz, horz.curr);
             }
 
-            while (true) // loops through consecutive. horizontal edges (if open)
+            while (true) // Loops through consecutive. horizontal edges (if open)
             {
                 Edge e;
                 var isMax = horz.IsMaxima();
                 e = isLeftToRight ? horz.nextInAEL : horz.prevInAEL;
 
-                while (e != null)
+                while (e is not null)
                 {
-                    // break if we've gone past the } of the horizontal ...
-                    if ((isLeftToRight && (e.curr.X > horzRight)) ||
-                      (!isLeftToRight && (e.curr.X < horzLeft)))
+                    // Break if we've gone past the } of the horizontal...
+                    if ((isLeftToRight && (e.curr.X > horzRight)) || (!isLeftToRight && (e.curr.X < horzLeft)))
                     {
                         break;
                     }
-                    // or if we've got to the } of an intermediate horizontal edge ...
+
+                    // Or if we've got to the } of an intermediate horizontal edge...
                     if (e.curr.X == horz.top.X && !isMax && !e.IsHorizontal())
                     {
-                        pt = horz.NextVertex().Point;
-                        if (isLeftToRight && (e.TopX(pt.Y) >= pt.X) ||
-                          (!isLeftToRight && (e.TopX(pt.Y) <= pt.X)))
+                        pt = new(horz.NextVertex().Point);
+                        if (isLeftToRight && (e.TopX(pt.Y) >= pt.X) || (!isLeftToRight && (e.TopX(pt.Y) <= pt.X)))
                         {
                             break;
                         }
                     }
+
                     if (e == maxPair)
                     {
                         if (horz.IsHotEdge())
@@ -1963,30 +2032,31 @@ namespace Engine.Experimental
                         DeleteFromAEL(horz);
                         return;
                     }
+
                     if (isLeftToRight)
                     {
-                        pt = new Point2D(e.curr.X, horz.curr.Y);
-                        IntersectEdges(horz, e, pt);
+                        pt = new(e.curr.X, horz.curr.Y);
+                        IntersectEdges(horz, e, new(pt));
                     }
                     else
                     {
-                        pt = new Point2D(e.curr.X, horz.curr.Y);
-                        IntersectEdges(e, horz, pt);
+                        pt = new(e.curr.X, horz.curr.Y);
+                        IntersectEdges(e, horz, new(pt));
                     }
-                    Edge eNext;
-                    eNext = isLeftToRight ? e.nextInAEL : e.prevInAEL;
+
+                    Edge eNext = isLeftToRight ? e.nextInAEL : e.prevInAEL;
 
                     SwapPositionsInAEL(ref activeEdgeLink, horz, e);
                     e = eNext;
                 }
 
-                // check if we've finished with (consecutive) horizontals ...
+                // Check if we've finished with (consecutive) horizontals...
                 if (isMax || horz.NextVertex().Point.Y != horz.top.Y)
                 {
                     break;
                 }
 
-                // still more horizontals in bound to process ...
+                // Still more horizontals in bound to process...
                 UpdateEdgeIntoAEL(ref horz);
                 (isLeftToRight, horzLeft, horzRight) = horz.ResetHorzDirection(maxPair);
 
@@ -1999,34 +2069,37 @@ namespace Engine.Experimental
 
                     if (horz.IsHotEdge())
                     {
-                        AddOutPoint(horz, horz.bot);
+                        AddOutPoint(horz, new(horz.bot));
                     }
                 }
             }
 
             if (horz.IsHotEdge())
             {
-                AddOutPoint(horz, horz.top);
+                AddOutPoint(horz, new(horz.top));
             }
 
             if (!horz.IsOpen())
             {
-                UpdateEdgeIntoAEL(ref horz); // this is the } of an intermediate horiz.
+                UpdateEdgeIntoAEL(ref horz); // This is the } of an intermediate horiz.
             }
             else if (!horz.IsMaxima())
             {
                 UpdateEdgeIntoAEL(ref horz);
             }
-            else if (maxPair is null)      // ie open at top
+            else if (maxPair is null)      // IE. open at top
             {
                 DeleteFromAEL(horz);
             }
             else if (horz.IsHotEdge())
             {
-                AddLocalMaxPoly(horz, maxPair, horz.top);
+                AddLocalMaxPoly(horz, maxPair, new(horz.top));
             }
-            else { DeleteFromAEL(maxPair); DeleteFromAEL(horz); }
-
+            else
+            {
+                DeleteFromAEL(maxPair);
+                DeleteFromAEL(horz);
+            }
         }
 
         /// <summary>
@@ -2037,20 +2110,21 @@ namespace Engine.Experimental
         private void DoTopOfScanbeam(double Y)
         {
             var e = activeEdgeLink;
-            while (e != null)
+
+            while (e is not null)
             {
-                // nb: E will never be horizontal at this point
+                // Important: E will never be horizontal at this point
                 if (e.top.Y == Y)
                 {
-                    e.curr = e.top; // needed for horizontal processing
+                    e.curr = e.top; // Needed for horizontal processing
                     if (e.IsMaxima())
                     {
-                        e = DoMaxima(e); // TOP OF BOUND (MAXIMA)
+                        e = DoMaxima(e); // Top of bound (Maxima)
                         continue;
                     }
                     else
                     {
-                        // INTERMEDIATE VERTEX ...
+                        // Intermediate Vertex ...
                         UpdateEdgeIntoAEL(ref e);
                         if (e.IsHotEdge())
                         {
@@ -2059,7 +2133,7 @@ namespace Engine.Experimental
 
                         if (e.IsHorizontal())
                         {
-                            PushHorz(e); // horizontals are processed later
+                            PushHorz(e); // Horizontals are processed later
                         }
                     }
                 }
@@ -2068,6 +2142,7 @@ namespace Engine.Experimental
                     e.curr.Y = Y;
                     e.curr.X = e.TopX(Y);
                 }
+
                 e = e.nextInAEL;
             }
         }
@@ -2076,7 +2151,9 @@ namespace Engine.Experimental
         /// Do the maxima.
         /// </summary>
         /// <param name="e">The e.</param>
-        /// <returns>The <see cref="Edge"/>.</returns>
+        /// <returns>
+        /// The <see cref="Edge" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private Edge DoMaxima(Edge e)
         {
@@ -2087,7 +2164,7 @@ namespace Engine.Experimental
             {
                 if (e.IsHotEdge())
                 {
-                    AddOutPoint(e, e.top);
+                    AddOutPoint(e, new(e.top));
                 }
 
                 if (!e.IsHorizontal())
@@ -2099,6 +2176,7 @@ namespace Engine.Experimental
 
                     DeleteFromAEL(e);
                 }
+
                 return eNext;
             }
             else
@@ -2106,12 +2184,12 @@ namespace Engine.Experimental
                 eMaxPair = e.GetMaximaPair();
                 if (eMaxPair is null)
                 {
-                    return eNext; // eMaxPair is horizontal
+                    return eNext; // The eMaxPair is horizontal
                 }
             }
 
-            // only non-horizontal maxima here.
-            // process any edges between maxima pair ...
+            // Only non-horizontal maxima here.
+            // Process any edges between maxima pair ...
             while (eNext != eMaxPair)
             {
                 IntersectEdges(e, eNext, e.top);
@@ -2123,48 +2201,52 @@ namespace Engine.Experimental
             {
                 if (e.IsHotEdge())
                 {
-                    if (eMaxPair != null)
+                    if (eMaxPair is not null)
                     {
-                        AddLocalMaxPoly(e, eMaxPair, e.top);
+                        AddLocalMaxPoly(e, eMaxPair, new(e.top));
                     }
                     else
                     {
-                        AddOutPoint(e, e.top);
+                        AddOutPoint(e, new(e.top));
                     }
                 }
-                if (eMaxPair != null)
+                if (eMaxPair is not null)
                 {
                     DeleteFromAEL(eMaxPair);
                 }
 
                 DeleteFromAEL(e);
-                return ePrev != null ? ePrev.nextInAEL : activeEdgeLink;
+                return ePrev is not null ? ePrev.nextInAEL : activeEdgeLink;
             }
-            // here E.NextInAEL == ENext == EMaxPair ...
+
+            // Here E.NextInAEL == ENext == EMaxPair ...
             if (e.IsHotEdge())
             {
-                AddLocalMaxPoly(e, eMaxPair, e.top);
+                AddLocalMaxPoly(e, eMaxPair, new(e.top));
             }
 
             DeleteFromAEL(e);
             DeleteFromAEL(eMaxPair);
-            return ePrev != null ? ePrev.nextInAEL : activeEdgeLink;
+            return ePrev is not null ? ePrev.nextInAEL : activeEdgeLink;
         }
 
         /// <summary>
         /// Build the result.
         /// </summary>
         /// <param name="openPaths">The openPaths.</param>
-        /// <returns>The <see cref="Polygon2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polygon2D" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private Polygon2D BuildResult(Polygon2D openPaths)
         {
             var closedPaths = new Polygon2D
             {
-                // closedPaths.Clear();
+                //closedPaths.Clear();
                 Capacity = OutRecList.Count
             };
-            if (openPaths != null)
+
+            if (openPaths is not null)
             {
                 openPaths.Clear();
                 openPaths.Capacity = OutRecList.Count;
@@ -2172,11 +2254,12 @@ namespace Engine.Experimental
 
             foreach (var outrec in OutRecList)
             {
-                if (outrec.Points != null)
+                if (outrec.Points is not null)
                 {
                     var op = outrec.Points.Next;
                     var count = op.PointCount();
-                    // fixup for duplicate start and } points ...
+
+                    // Fix-up for duplicate start and } points ...
                     if (op.Pt == outrec.Points.Pt)
                     {
                         count--;
@@ -2193,7 +2276,12 @@ namespace Engine.Experimental
                         {
                             Capacity = count
                         };
-                        for (var i = 0; i < count; i++) { p.Add(op.Pt); op = op.Next; }
+
+                        for (var i = 0; i < count; i++)
+                        {
+                            p.Add(new(op.Pt));
+                            op = op.Next;
+                        }
                         openPaths.Add(p);
                     }
                     else
@@ -2203,12 +2291,18 @@ namespace Engine.Experimental
                             continue;
                         }
 
-                        var p = new PolygonContour2D
+                        var contour = new PolygonContour2D
                         {
                             Capacity = count
                         };
-                        for (var i = 0; i < count; i++) { p.Add(op.Pt); op = op.Next; }
-                        closedPaths.Add(p);
+
+                        for (var i = 0; i < count; i++)
+                        {
+                            contour.Add(new(op.Pt));
+                            op = op.Next;
+                        }
+
+                        closedPaths.Add(contour);
                     }
                 }
             }
@@ -2229,7 +2323,7 @@ namespace Engine.Experimental
                 return;
             }
 
-            if (openPaths != null)
+            if (openPaths is not null)
             {
                 openPaths.Clear();
                 openPaths.Capacity = OutRecList.Count;
@@ -2237,11 +2331,12 @@ namespace Engine.Experimental
 
             foreach (var outrec in OutRecList)
             {
-                if (outrec.Points != null)
+                if (outrec.Points is not null)
                 {
                     var op = outrec.Points.Next;
                     var count = op.PointCount();
-                    // fix-up for duplicate start and end points ...
+
+                    // Fix-up for duplicate start and end points ...
                     if (op.Pt == outrec.Points.Pt)
                     {
                         count--;
@@ -2255,24 +2350,30 @@ namespace Engine.Experimental
                         }
                     }
 
-                    var p = new PolygonContour2D
+                    var contour = new PolygonContour2D
                     {
                         Capacity = count
                     };
-                    for (var i = 0; i < count; i++) { p.Add(op.Pt); op = op.Prev; }
+
+                    for (var i = 0; i < count; i++)
+                    {
+                        contour.Add(new(op.Pt));
+                        op = op.Prev;
+                    }
+
                     if (outrec.Flag == OutrecFlag.Open)
                     {
-                        openPaths.Add(p);
+                        openPaths.Add(contour);
                     }
                     else
                     {
-                        if (outrec.Owner != null && outrec.Owner.PolyPath != null)
+                        if (outrec.Owner is not null && outrec.Owner.PolyPath is not null)
                         {
-                            outrec.PolyPath = outrec.Owner.PolyPath.AddChild(p);
+                            outrec.PolyPath = outrec.Owner.PolyPath.AddChild(contour);
                         }
                         else
                         {
-                            outrec.PolyPath = polyTree.AddChild(p);
+                            outrec.PolyPath = polyTree.AddChild(contour);
                         }
                     }
                 }

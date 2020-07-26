@@ -804,7 +804,7 @@ namespace Engine
             for (var cntr = 2; cntr < polygon?.Count; cntr++)
             {
                 var isLeft = IsLeftOf(new LineSegment2D(polygon[0], polygon[1]), polygon[cntr]);
-                if (isLeft != null)
+                if (isLeft is not null)
                 {
                     // some of the points may be collinear.  That's ok as long as the overall is a polygon
                     return !isLeft.Value;

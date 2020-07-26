@@ -18,18 +18,17 @@ namespace Engine.Experimental
     public class PolyPath
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PolyPath"/> class.
         /// </summary>
         public PolyPath()
-        {
-        }
+        { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PolyPath"/> class.
         /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="children"></param>
-        /// <param name="path"></param>
+        /// <param name="parent">The parent.</param>
+        /// <param name="children">The children.</param>
+        /// <param name="path">The path.</param>
         public PolyPath(PolyPath parent, List<PolyPath> children, PolygonContour2D path)
         {
             Parent = parent;
@@ -41,30 +40,43 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets the parent.
         /// </summary>
+        /// <value>
+        /// The parent.
+        /// </value>
         public PolyPath Parent { get; private set; }
 
         /// <summary>
         /// Gets the children.
         /// </summary>
+        /// <value>
+        /// The children.
+        /// </value>
         public List<PolyPath> Children { get; private set; }
 
         /// <summary>
         /// Gets the path.
         /// </summary>
+        /// <value>
+        /// The path.
+        /// </value>
         public PolygonContour2D Path { get; private set; }
 
         /// <summary>
         /// Gets the child count.
         /// </summary>
-        public int ChildCount
-            => Children.Count;
+        /// <value>
+        /// The child count.
+        /// </value>
+        public int ChildCount => Children.Count;
         #endregion Properties
 
         /// <summary>
         /// Add the child.
         /// </summary>
         /// <param name="p">The p.</param>
-        /// <returns>The <see cref="PolyPath"/>.</returns>
+        /// <returns>
+        /// The <see cref="PolyPath" />.
+        /// </returns>
         public PolyPath AddChild(PolygonContour2D p)
         {
             var child = new PolyPath()
@@ -72,6 +84,7 @@ namespace Engine.Experimental
                 Parent = this,
                 Path = p
             };
+
             Children.Add(child);
             return child;
         }
@@ -79,22 +92,24 @@ namespace Engine.Experimental
         /// <summary>
         /// Clear.
         /// </summary>
-        public void Clear()
-            => Children.Clear();
+        public void Clear() => Children.Clear();
 
         /// <summary>
         /// The is hole node.
         /// </summary>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         internal bool IsHoleNode()
         {
             var result = true;
             var node = Parent;
-            while (node != null)
+            while (node is not null)
             {
                 result = !result;
                 node = node.Parent;
             }
+
             return result;
         }
 
@@ -130,7 +145,9 @@ namespace Engine.Experimental
         /// <summary>
         /// The PolyTree to paths.
         /// </summary>
-        /// <returns>The <see cref="Polygon2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polygon2D" />.
+        /// </returns>
         public Polygon2D PolyTreeToPaths()
         {
             var paths = new Polygon2D();

@@ -114,7 +114,7 @@ namespace Engine
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
                     var constructor = typeof(Size4D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double), typeof(double) });
-                    if (constructor != null)
+                    if (constructor is not null)
                     {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { size4D.Width, size4D.Height, size4D.Depth, size4D.Breadth });
                     }
@@ -137,7 +137,7 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="propertyValues">The propertyValues.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues != null
+        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues is not null
                 ? new Size4D((double)propertyValues[$"{nameof(Size4D.Width)}"], (double)propertyValues[$"{nameof(Size4D.Height)}"], (double)propertyValues[$"{nameof(Size4D.Depth)}"], (double)propertyValues[$"{nameof(Size4D.Breadth)}"])
                 : (object)null;
     }

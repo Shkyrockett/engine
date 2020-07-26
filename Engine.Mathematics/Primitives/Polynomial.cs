@@ -1248,7 +1248,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Normalize(double epsilon = double.Epsilon)
         {
-            //Contract.Ensures(Contract.Result<Polynomial>().Coefficients != null);
+            //Contract.Ensures(Contract.Result<Polynomial>().Coefficients is not null);
             //Contract.EndContractBlock();
 
             var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
@@ -1831,7 +1831,7 @@ namespace Engine
             if (Degree == PolynomialDegree.Linear)
             {
                 root = Bisection(min, max, epsilon);
-                if (root != null)
+                if (root is not null)
                 {
                     roots.Add(root.Value);
                 }
@@ -1844,7 +1844,7 @@ namespace Engine
                 if (droots.Length > 0)
                 {
                     root = Bisection(min, droots[0], epsilon);
-                    if (root != null)
+                    if (root is not null)
                     {
                         roots.Add(root.Value);
                     }
@@ -1852,14 +1852,14 @@ namespace Engine
                     for (var i = 0; i <= droots.Length - 2; i++)
                     {
                         root = Bisection(droots[i], droots[i + 1], epsilon);
-                        if (root != null)
+                        if (root is not null)
                         {
                             roots.Add(root.Value);
                         }
                     }
                     // Find root on [droots[count-1],xmax]
                     root = Bisection(droots[^1], max, epsilon);
-                    if (root != null)
+                    if (root is not null)
                     {
                         roots.Add(root.Value);
                     }
@@ -1868,7 +1868,7 @@ namespace Engine
                 {
                     // Polynomial is monotone on [min,max], has at most one root
                     root = Bisection(min, max, epsilon);
-                    if (root != null)
+                    if (root is not null)
                     {
                         roots.Add(root.Value);
                     }

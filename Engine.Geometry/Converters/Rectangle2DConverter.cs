@@ -124,7 +124,7 @@ namespace Engine
                 if (destinationType == typeof(InstanceDescriptor))
                 {
                     var constructor = typeof(Rectangle2D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double), typeof(double) });
-                    if (constructor != null)
+                    if (constructor is not null)
                     {
                         return new InstanceDescriptor(constructor, new object[] { rectangle2D.X, rectangle2D.Y, rectangle2D.Width, rectangle2D.Height });
                     }

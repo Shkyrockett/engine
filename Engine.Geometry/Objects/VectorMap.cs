@@ -57,7 +57,7 @@ namespace Engine
         /// </summary>
         /// <param name="point">The index point.</param>
         /// <returns>One element of type List{GraphicItem}.</returns>
-        public List<GraphicItem> this[Point2D point] => new List<GraphicItem>(from shape in Items where (shape?.Shape?.Bounds != null) && shape.Shape.Bounds.Contains(point) && shape.Shape.Contains(point) select shape);
+        public List<GraphicItem> this[Point2D point] => new List<GraphicItem>(from shape in Items where (shape?.Shape?.Bounds is not null) && shape.Shape.Bounds.Contains(point) && shape.Shape.Contains(point) select shape);
         #endregion Indexers
 
         #region Properties
@@ -200,7 +200,7 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="GraphicItem"/>.</returns>
-        public GraphicItem SelectItem(Point2D point) => Items?.LastOrDefault(shape => shape.Shape.Bounds != null && shape.Shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point));
+        public GraphicItem SelectItem(Point2D point) => Items?.LastOrDefault(shape => shape.Shape.Bounds is not null && shape.Shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point));
 
         /// <summary>
         /// Select the items.

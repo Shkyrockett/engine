@@ -13,12 +13,16 @@ namespace Engine.Experimental
     /// <summary>
     /// The out rec tri class.
     /// </summary>
+    /// <seealso cref="Engine.Experimental.OutRec" />
     public class OutRecTri
         : OutRec
     {
         /// <summary>
         /// Gets or sets the left outpt.
         /// </summary>
+        /// <value>
+        /// The left outpt.
+        /// </value>
         public LinkedPointTriangle LeftOutpt { get; set; }
     };
 }

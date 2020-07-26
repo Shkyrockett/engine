@@ -290,7 +290,7 @@ namespace Editor
             // Only need to draw the shapes that are on screen.
             foreach (var item in vectorMap[vectorMap.VisibleBounds])
             {
-                if (vectorMap?.SelectedItems != null && vectorMap.SelectedItems.Contains(item))
+                if (vectorMap?.SelectedItems is not null && vectorMap.SelectedItems.Contains(item))
                 {
                     // Render selected items with selection style
                     using var style = new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue);
@@ -303,7 +303,7 @@ namespace Editor
                 }
             }
 
-            if (vectorMap?.RubberbandItems != null)
+            if (vectorMap?.RubberbandItems is not null)
             {
                 foreach (var item in vectorMap?.RubberbandItems)
                 {
@@ -445,7 +445,7 @@ namespace Editor
             // Reference the canvas panel.
             var panel = sender as CanvasPanel;
 
-            if (vectorMap != null)
+            if (vectorMap is not null)
             {
                 // Resize the vector map when the canvas is resized.
                 vectorMap.VisibleBounds = new Rectangle2D(

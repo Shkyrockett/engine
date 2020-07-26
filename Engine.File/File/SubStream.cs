@@ -271,7 +271,7 @@ namespace Engine.File
         protected override void Dispose(bool disposing)
         {
             //base.Dispose(disposing);
-            //if (disposing && baseStream != null)
+            //if (disposing && baseStream is not null)
             //{
             //    try
             //    {

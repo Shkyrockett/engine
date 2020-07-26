@@ -114,7 +114,7 @@ namespace Engine
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
                     var constructor = typeof(Point4D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double), typeof(double) });
-                    if (constructor != null)
+                    if (constructor is not null)
                     {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { point.X, point.Y, point.Z, point.W });
                     }
@@ -137,6 +137,6 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="propertyValues">The propertyValues.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues != null ? new Point4D((double)propertyValues[$"{nameof(Point4D.X)}"], (double)propertyValues[$"{nameof(Point4D.Y)}"], (double)propertyValues[$"{nameof(Point4D.Z)}"], (double)propertyValues[$"{nameof(Point4D.W)}"]) : (object)null;
+        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues is not null ? new Point4D((double)propertyValues[$"{nameof(Point4D.X)}"], (double)propertyValues[$"{nameof(Point4D.Y)}"], (double)propertyValues[$"{nameof(Point4D.Z)}"], (double)propertyValues[$"{nameof(Point4D.W)}"]) : (object)null;
     }
 }

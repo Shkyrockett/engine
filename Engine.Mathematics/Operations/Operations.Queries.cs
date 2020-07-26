@@ -981,7 +981,7 @@ namespace Engine
         /// There are plenty of ways for this to return false even for numbers which
         /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
-        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// Important: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
         /// <returns>
@@ -1014,7 +1014,7 @@ namespace Engine
         /// There are plenty of ways for this to return false even for numbers which
         /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
-        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// Important: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
         /// <returns>
@@ -1063,7 +1063,7 @@ namespace Engine
         /// There are plenty of ways for this to return false even for numbers which
         /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
-        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// Important: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
         /// <param name="value1"> The first double to compare. </param>
@@ -1086,7 +1086,7 @@ namespace Engine
         /// There are plenty of ways for this to return false even for numbers which
         /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
-        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// Important: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
         /// <param name="value1"> The first double to compare. </param>
@@ -1111,7 +1111,7 @@ namespace Engine
         /// There are plenty of ways for this to return false even for numbers which
         /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
-        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// Important: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
         /// <param name="value1"> The first double to compare. </param>
@@ -1134,7 +1134,7 @@ namespace Engine
         /// There are plenty of ways for this to return false even for numbers which
         /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
-        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// Important: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
         /// <param name="value1"> The first double to compare. </param>
@@ -1159,7 +1159,7 @@ namespace Engine
         /// There are plenty of ways for this to return false even for numbers which
         /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
-        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// Important: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
         /// <param name="value1"> The first double to compare. </param>
@@ -1182,7 +1182,7 @@ namespace Engine
         /// There are plenty of ways for this to return false even for numbers which
         /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
-        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// Important: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
         /// <param name="value1"> The first double to compare. </param>
@@ -1207,7 +1207,7 @@ namespace Engine
         /// There are plenty of ways for this to return false even for numbers which
         /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
-        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// Important: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
         /// <param name="value1"> The first double to compare. </param>
@@ -1230,7 +1230,7 @@ namespace Engine
         /// There are plenty of ways for this to return false even for numbers which
         /// are theoretically identical, so no code calling this should fail to work if this
         /// returns false.  This is important enough to repeat:
-        /// NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+        /// Important: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
         /// used for optimizations *only*.
         /// </summary>
         /// <param name="value1"> The first double to compare. </param>

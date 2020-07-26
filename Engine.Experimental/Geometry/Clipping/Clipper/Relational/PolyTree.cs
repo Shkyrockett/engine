@@ -13,6 +13,7 @@ namespace Engine.Experimental
     /// <summary>
     /// The polytree class.
     /// </summary>
+    /// <seealso cref="Engine.Experimental.PolyPath" />
     public class PolyTree
         : PolyPath
     { };

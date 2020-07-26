@@ -1092,7 +1092,7 @@ namespace Engine
         /// <param name="vectors"> The Vector array to transform </param>
         public void Transform(Vector2D[] vectors)
         {
-            if (vectors != null)
+            if (vectors is not null)
             {
                 for (var i = 0; i < vectors.Length; i++)
                 {
@@ -1107,7 +1107,7 @@ namespace Engine
         /// <param name="points"> The Point array to transform </param>
         public void Transform(Point2D[] points)
         {
-            if (points != null)
+            if (points is not null)
             {
                 for (var i = 0; i < points.Length; i++)
                 {

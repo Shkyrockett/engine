@@ -115,7 +115,7 @@ namespace Engine
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
                     var constructor = typeof(Size5D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double), typeof(double), typeof(double), typeof(double) });
-                    if (constructor != null)
+                    if (constructor is not null)
                     {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { size5D.Width, size5D.Height, size5D.Depth, size5D.Breadth, size5D.Length });
                     }
@@ -138,7 +138,7 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="propertyValues">The propertyValues.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues != null
+        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues is not null
                 ? new Size5D((double)propertyValues[$"{nameof(Size5D.Width)}"], (double)propertyValues[$"{nameof(Size5D.Height)}"], (double)propertyValues[$"{nameof(Size5D.Depth)}"], (double)propertyValues[$"{nameof(Size5D.Breadth)}"], (double)propertyValues[$"{nameof(Size5D.Length)}"])
                 : (object)null;
     }

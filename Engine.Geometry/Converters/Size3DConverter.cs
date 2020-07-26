@@ -113,7 +113,7 @@ namespace Engine
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
                     var constructor = typeof(Size3D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double) });
-                    if (constructor != null)
+                    if (constructor is not null)
                     {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { size3D.Width, size3D.Height, size3D.Depth });
                     }
@@ -136,7 +136,7 @@ namespace Engine
         /// <param name="context">The context.</param>
         /// <param name="propertyValues">The propertyValues.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues != null
+        public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues) => propertyValues is not null
                 ? new Size3D((double)propertyValues[$"{nameof(Size3D.Width)}"], (double)propertyValues[$"{nameof(Size3D.Height)}"], (double)propertyValues[$"{nameof(Size3D.Depth)}"])
                 : (object)null;
     }

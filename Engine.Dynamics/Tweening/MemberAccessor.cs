@@ -55,7 +55,7 @@ namespace Engine.Tweening
             var targetType = target.GetType();
             MemberInfo memberInfo;
 
-            if ((memberInfo = targetType.GetField(name, flags)) != null)
+            if ((memberInfo = targetType.GetField(name, flags)) is not null)
             {
                 // Capture the field member info.
                 var fieldInfo = memberInfo as FieldInfo;
@@ -78,7 +78,7 @@ namespace Engine.Tweening
                     setMethod = Expression.Lambda<Action<object, object>>(assignExp, self, value).Compile();
                 }
             }
-            else if ((memberInfo = targetType.GetProperty(name, flags)) != null)
+            else if ((memberInfo = targetType.GetProperty(name, flags)) is not null)
             {
                 // Capture the property member info.
                 var propertyInfo = memberInfo as PropertyInfo;

@@ -219,12 +219,12 @@ namespace Engine
                         e.InOut = prev.OtherInOut;
                     }
 
-                    if (next != null)
+                    if (next is not null)
                     {
                         PossibleIntersection(e, next);
                     }
 
-                    if (prev != null)
+                    if (prev is not null)
                     {
                         PossibleIntersection(e, prev);
                     }
@@ -288,7 +288,7 @@ namespace Engine
                         S.Remove(S.eventSet[otherPos]);
                     }
 
-                    if (next != null && prev != null)
+                    if (next is not null && prev is not null)
                     {
                         PossibleIntersection(next, prev);
                     }
@@ -339,9 +339,9 @@ namespace Engine
 
                 // Uncomment the block below if you're getting errors to do with precision.
                 /*if (Point.distance(pi0,seg0.start) < 0.00000001) pi0 = seg0.start;
-				if (Point.distance(pi0,seg0.end) < 0.00000001) pi0 = seg0.end;
-				if (Point.distance(pi0,seg1.start) < 0.00000001) pi0 = seg1.start;
-				if (Point.distance(pi0,seg1.end) < 0.00000001) pi0 = seg1.end;*/
+                if (Point.distance(pi0,seg0.end) < 0.00000001) pi0 = seg0.end;
+                if (Point.distance(pi0,seg1.start) < 0.00000001) pi0 = seg1.start;
+                if (Point.distance(pi0,seg1.end) < 0.00000001) pi0 = seg1.end;*/
                 return (1, new[] { pi0, pi1 });
             }
 
@@ -369,9 +369,9 @@ namespace Engine
 
                 // Uncomment the block below if you're getting errors to do with precision.
                 /*if (Point.distance(pi0,seg0.start) < 0.00000001) pi0 = seg0.start;
-				if (Point.distance(pi0,seg0.end) < 0.00000001) pi0 = seg0.end;
-				if (Point.distance(pi0,seg1.start) < 0.00000001) pi0 = seg1.start;
-				if (Point.distance(pi0,seg1.end) < 0.00000001) pi0 = seg1.end;*/
+                if (Point.distance(pi0,seg0.end) < 0.00000001) pi0 = seg0.end;
+                if (Point.distance(pi0,seg1.start) < 0.00000001) pi0 = seg1.start;
+                if (Point.distance(pi0,seg1.end) < 0.00000001) pi0 = seg1.end;*/
                 if (imax > 1)
                 {
                     pi1.X = p0.X + (w[1] * d0.I);
@@ -506,7 +506,7 @@ namespace Engine
             if (sortedEvents.Count == 3)
             {
                 sortedEvents[1].Contribution = sortedEvents[1].OtherEvent.Contribution = EdgeContribution.NonContributing;
-                if (sortedEvents[0] != null)         // is the right endpoint the shared point?
+                if (sortedEvents[0] is not null)         // is the right endpoint the shared point?
                 {
                     sortedEvents[0].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
                 }

@@ -113,7 +113,7 @@ namespace Engine
                 {
                     var angle2 = (double)value;
                     var constructor = typeof(Point2D).GetConstructor(new Type[] { typeof(double), typeof(double) });
-                    if (constructor != null)
+                    if (constructor is not null)
                     {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { angle2 });
                     }
@@ -138,7 +138,7 @@ namespace Engine
         ///// <returns></returns>
         //public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues)
         //{
-        //    if (propertyValues != null)
+        //    if (propertyValues is not null)
         //        return (double)propertyValues["value"];
         //    else
         //        return null;

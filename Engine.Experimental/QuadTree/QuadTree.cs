@@ -150,7 +150,7 @@ namespace Engine.Experimental
         /// <param name="ItemsList">The list to add found items to (list will not be cleared first)</param>
         public void GetItems(Point2D Point, ref List<QuadTreePositionItem<T>> ItemsList)
         {
-            if (ItemsList != null)
+            if (ItemsList is not null)
             {
                 root.GetItems(Point, ref ItemsList);
             }
@@ -163,7 +163,7 @@ namespace Engine.Experimental
         /// <param name="ItemsList">The list to add found items to (list will not be cleared first)</param>
         public void GetItems(Rectangle2D Rect, ref List<QuadTreePositionItem<T>> ItemsList)
         {
-            if (ItemsList != null)
+            if (ItemsList is not null)
             {
                 root.GetItems(Rect, ref ItemsList);
             }
@@ -175,7 +175,7 @@ namespace Engine.Experimental
         /// <param name="ItemsList">The list to add found items to (list will not be cleared first)</param>
         public void GetAllItems(ref List<QuadTreePositionItem<T>> ItemsList)
         {
-            if (ItemsList != null)
+            if (ItemsList is not null)
             {
                 root.GetAllItems(ref ItemsList);
             }

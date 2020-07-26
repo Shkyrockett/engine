@@ -16,21 +16,20 @@ namespace Engine.Experimental
     public class LinkedPoint
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="LinkedPoint"/> class.
         /// </summary>
         public LinkedPoint()
-        {
-        }
+        { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="LinkedPoint"/> class.
         /// </summary>
-        /// <param name="pt"></param>
-        /// <param name="next"></param>
-        /// <param name="prev"></param>
+        /// <param name="pt">The pt.</param>
+        /// <param name="next">The next.</param>
+        /// <param name="prev">The previous.</param>
         public LinkedPoint(Point2D pt, LinkedPoint next, LinkedPoint prev)
         {
-            Pt = pt;
+            Pt = new(pt);
             Next = next;
             Prev = prev;
         }
@@ -39,23 +38,34 @@ namespace Engine.Experimental
         /// <summary>
         /// The pt.
         /// </summary>
+        /// <value>
+        /// The pt.
+        /// </value>
         public Point2D Pt { get; set; }
 
         /// <summary>
         /// The next.
         /// </summary>
+        /// <value>
+        /// The next.
+        /// </value>
         public LinkedPoint Next { get; set; }
 
         /// <summary>
         /// The previous.
         /// </summary>
+        /// <value>
+        /// The previous.
+        /// </value>
         public LinkedPoint Prev { get; set; }
         #endregion Properties
 
         /// <summary>
         /// The point count.
         /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         public int PointCount()
         {
             if (this is null)
@@ -83,7 +93,7 @@ namespace Engine.Experimental
             do
             {
                 var opt = (LinkedPointTriangle)op2;
-                if (opt.RightOutrec != null)
+                if (opt.RightOutrec is not null)
                 {
                     opt.RightOutrec.UpdateHelper(null);
                 }
@@ -99,18 +109,18 @@ namespace Engine.Experimental
         /// <param name="op">The op.</param>
         public static void DisposeOutPt(LinkedPoint op)
         {
-            if (op?.Prev != null)
+            if (op?.Prev is not null)
             {
                 op.Prev.Next = op.Next;
             }
 
-            if (op.Next != null)
+            if (op.Next is not null)
             {
                 op.Next.Prev = op.Prev;
             }
 
             var opt = (LinkedPointTriangle)op;
-            if (opt.RightOutrec != null)
+            if (opt.RightOutrec is not null)
             {
                 opt.RightOutrec.LeftOutpt = null;
             }

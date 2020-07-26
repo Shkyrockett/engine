@@ -1341,7 +1341,7 @@ namespace Engine.Experimental
                 bbox.Y.Min = _bbox.Y.Min;
             }
 
-            if (_bbox.Z != null && _bbox.Z.Min < bbox.Z.Min)
+            if (_bbox.Z is not null && _bbox.Z.Min < bbox.Z.Min)
             {
                 bbox.Z.Min = _bbox.Z.Min;
             }
@@ -1356,21 +1356,21 @@ namespace Engine.Experimental
                 bbox.Y.Max = _bbox.Y.Max;
             }
 
-            if (_bbox.Z != null && _bbox.Z.Max > bbox.Z.Max)
+            if (_bbox.Z is not null && _bbox.Z.Max > bbox.Z.Max)
             {
                 bbox.Z.Max = _bbox.Z.Max;
             }
 
             bbox.X.Mid = (bbox.X.Min + bbox.X.Max) / 2d;
             bbox.Y.Mid = (bbox.Y.Min + bbox.Y.Max) / 2d;
-            if (bbox.Z != null)
+            if (bbox.Z is not null)
             {
                 bbox.Z.Mid = (bbox.Z.Min + bbox.Z.Max) / 2d;
             }
 
             bbox.X.Size = bbox.X.Max - bbox.X.Min;
             bbox.Y.Size = bbox.Y.Max - bbox.Y.Min;
-            if (bbox.Z != null)
+            if (bbox.Z is not null)
             {
                 bbox.Z.Size = bbox.Z.Max - bbox.Z.Min;
             }

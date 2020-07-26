@@ -16,6 +16,7 @@ namespace Engine.Experimental
     /// <summary>
     /// ClipperTri
     /// </summary>
+    /// <seealso cref="Engine.Experimental.Clipper" />
     public class ClipperTriangulation
         : Clipper
     {
@@ -40,7 +41,7 @@ namespace Engine.Experimental
         /// <param name="pt">The pt.</param>
         protected override void AddLocalMinPoly(Edge e1, Edge e2, Point2D pt)
         {
-            base.AddLocalMinPoly(e1, e2, pt);
+            base.AddLocalMinPoly(e1, e2, new(pt));
 
             var locMinOr = e1?.outRec;
             (locMinOr.Points as LinkedPointTriangle).Outrec = locMinOr;
@@ -132,7 +133,7 @@ namespace Engine.Experimental
             if (is_outer)
             {
                 var ort = (OutRecTri)e1.outRec;
-                if (ort.LeftOutpt != null)
+                if (ort.LeftOutpt is not null)
                 {
                     outrec.UpdateHelper(null);
                 }
@@ -140,7 +141,7 @@ namespace Engine.Experimental
                 e2?.outRec.UpdateHelper(null);
             }
 
-            base.AddLocalMaxPoly(e1, e2, Pt);
+            base.AddLocalMaxPoly(e1, e2, new(Pt));
 
             if (outrec.Points is null)
             {
@@ -151,11 +152,11 @@ namespace Engine.Experimental
             {
                 var ort = (LinkedPointTriangle)outrec.Points;
                 var ort2 = (LinkedPointTriangle)outrec.Points.Next;
-                if (ort.RightOutrec != null)
+                if (ort.RightOutrec is not null)
                 {
                     ort.RightOutrec.UpdateHelper(null);
                 }
-                else if (ort2.RightOutrec != null)
+                else if (ort2.RightOutrec is not null)
                 {
                     ort2.RightOutrec.UpdateHelper(null);
                 }
@@ -163,40 +164,47 @@ namespace Engine.Experimental
             else
             {
                 var e = e2?.GetRightAdjacentHotEdge();
-                if (e != null)
+                if (e is not null)
                 {
                     e.outRec.UpdateHelper(lastOp);
                 }
 
                 outrec.Points.Update(outrec);
             }
+
             Triangulate(outrec);
         }
 
         /// <summary>
         /// Create the out point.
         /// </summary>
-        /// <returns>The <see cref="LinkedPoint"/>.</returns>
-        protected override LinkedPoint CreateOutPoint() =>
-          //this is a virtual method as descendant classes may need
-          //to produce descendant classes of OutPt ...
-          new LinkedPointTriangle();
+        /// <returns>
+        /// The <see cref="LinkedPoint" />.
+        /// </returns>
+        /// <remarks>
+        /// This is a virtual method as descendant classes may need to produce descendant classes of OutPt ...
+        /// </remarks>
+        protected override LinkedPoint CreateOutPoint() => new LinkedPointTriangle();
 
         /// <summary>
         /// Create the out rec.
         /// </summary>
-        /// <returns>The <see cref="OutRec"/>.</returns>
-        protected override OutRec CreateOutRec() =>
-          //this is a virtual method as descendant classes may need
-          //to produce descendant classes of OutRec ...
-          new OutRecTri();
+        /// <returns>
+        /// The <see cref="OutRec" />.
+        /// </returns>
+        /// <remarks>
+        /// This is a virtual method as descendant classes may need to produce descendant classes of OutRec ...
+        /// </remarks>
+        protected override OutRec CreateOutRec() => new OutRecTri();
 
         /// <summary>
         /// Add the out point.
         /// </summary>
         /// <param name="e">The e.</param>
         /// <param name="pt">The pt.</param>
-        /// <returns>The <see cref="LinkedPoint"/>.</returns>
+        /// <returns>
+        /// The <see cref="LinkedPoint" />.
+        /// </returns>
         protected override LinkedPoint AddOutPoint(Edge e, Point2D pt)
         {
             var result = base.AddOutPoint(e, pt);
@@ -204,15 +212,16 @@ namespace Engine.Experimental
             opt.Outrec = e?.outRec;
             lastOp = result;
             Triangulate(e.outRec);
-            //Triangulate() above may assign Result.OutRecRt so ...
+            // Triangulate() above may assign Result.OutRecRt so ...
             if (e.IsStartSide() && opt.RightOutrec is null)
             {
                 var e2 = e.GetRightAdjacentHotEdge();
-                if (e2 != null)
+                if (e2 is not null)
                 {
                     e2.outRec.UpdateHelper(result);
                 }
             }
+
             return result;
         }
 
@@ -221,7 +230,9 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="clipType">The clipType.</param>
         /// <param name="ft">The ft.</param>
-        /// <returns>The <see cref="Polygon2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polygon2D" />.
+        /// </returns>
         public override Polygon2D Execute(ClippingOperation clipType, WindingRule ft = WindingRule.EvenOdd)
         {
             var tris = new Polygon2D();
@@ -240,6 +251,7 @@ namespace Engine.Experimental
 
                 return tris;
             }
+
             finally { CleanUp(); }
         }
 
@@ -249,9 +261,10 @@ namespace Engine.Experimental
         /// <param name="clipType">The clipType.</param>
         /// <param name="Open">The Open.</param>
         /// <param name="ft">The ft.</param>
-        /// <returns>The <see cref="Polygon2D"/>.</returns>
-        public override Polygon2D Execute(ClippingOperation clipType, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd)
-            => null; //unsupported
+        /// <returns>
+        /// The <see cref="Polygon2D" />.
+        /// </returns>
+        public override Polygon2D Execute(ClippingOperation clipType, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd) => null; //unsupported
 
         /// <summary>
         /// The execute.
@@ -260,9 +273,10 @@ namespace Engine.Experimental
         /// <param name="polytree">The polytree.</param>
         /// <param name="Open">The Open.</param>
         /// <param name="ft">The ft.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Execute(ClippingOperation clipType, PolyTree polytree, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd)
-            => false; //unsupported
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        public override bool Execute(ClippingOperation clipType, PolyTree polytree, Polygon2D Open, WindingRule ft = WindingRule.EvenOdd) => false; //unsupported
         #endregion Overrides
 
         /// <summary>
@@ -270,12 +284,14 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="afterOutPoint">The afterOutPoint.</param>
-        /// <returns>The <see cref="LinkedPointTriangle"/>.</returns>
+        /// <returns>
+        /// The <see cref="LinkedPointTriangle" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private LinkedPointTriangle InsertPoint(Point2D point, LinkedPoint afterOutPoint)
         {
             var result = (LinkedPointTriangle)CreateOutPoint();
-            result.Pt = point;
+            result.Pt = new(point);
             result.Prev = afterOutPoint;
             result.Next = afterOutPoint.Next;
             result.Outrec = (afterOutPoint as LinkedPointTriangle).Outrec;
@@ -298,9 +314,9 @@ namespace Engine.Experimental
             {
                 Capacity = 3
             };
-            p.Add(pt3);
-            p.Add(pt2);
-            p.Add(pt1);
+            p.Add(new(pt3));
+            p.Add(new(pt2));
+            p.Add(new(pt1));
             triangles.Add(p);
         }
 
@@ -339,7 +355,7 @@ namespace Engine.Experimental
                         if (cpval > 0)
                         {
                             opt = (LinkedPointTriangle)op;
-                            if (opt.Outrec != null)
+                            if (opt.Outrec is not null)
                             {
                                 opt.Outrec.UpdateHelper(op2);
                             }
@@ -363,7 +379,7 @@ namespace Engine.Experimental
                 }
 
                 opt = (LinkedPointTriangle)op.Prev;
-                if (opt.Outrec != null)
+                if (opt.Outrec is not null)
                 {
                     opt.Outrec.UpdateHelper(op);
                 }

@@ -109,7 +109,7 @@ namespace Engine
         public void Visit()
         {
             visited = true;
-            if (corresponding != null && !corresponding.visited)
+            if (corresponding is not null && !corresponding.visited)
             {
                 corresponding.Visit();
             }

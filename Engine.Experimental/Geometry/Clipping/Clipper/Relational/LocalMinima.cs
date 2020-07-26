@@ -42,7 +42,7 @@ namespace Engine.Experimental
         /// Gets or sets a flag that determines whether the polygon is an open polyline, or a closed polygon.
         /// </summary>
         /// <value>
-        ///   <see langword="true"/> if this instance is open; otherwise, <see langword="false"/>.
+        ///   <see langword="true" /> if this instance is open; otherwise, <see langword="false" />.
         /// </value>
         public bool IsOpen { get; set; }
         #endregion Properties
@@ -53,7 +53,9 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator ==(LocalMinima left, LocalMinima right) => left.Equals(right);
 
         /// <summary>
@@ -116,8 +118,7 @@ namespace Engine.Experimental
         /// The <see cref="int" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int CompareTo(LocalMinima other)
-            => Compare(this, other);
+        public int CompareTo(LocalMinima other) => Compare(this, other);
 
         /// <summary>
         /// The compare.
@@ -128,8 +129,7 @@ namespace Engine.Experimental
         /// The <see cref="int" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static int Compare(LocalMinima lm1, LocalMinima lm2)
-            => lm2.Vertex.Point.Y.CompareTo(lm1.Vertex.Point.Y); // Soft descending sort
+        private static int Compare(LocalMinima lm1, LocalMinima lm2) => lm2.Vertex.Point.Y.CompareTo(lm1.Vertex.Point.Y); // Soft descending sort
 
         /// <summary>
         /// The equals.

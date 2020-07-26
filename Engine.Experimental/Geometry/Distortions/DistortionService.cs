@@ -8,6 +8,8 @@
 // <summary></summary>
 // <remarks> https://github.com/benmorris44/EnvelopeDistortion </remarks>
 
+using System.Collections.Generic;
+
 namespace Engine
 {
     /// <summary>

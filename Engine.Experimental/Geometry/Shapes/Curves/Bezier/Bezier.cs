@@ -1401,7 +1401,7 @@ namespace Engine
             foreach (var s in bcurves)
             {
                 p = s.Points;
-                s.Points = p[3] != null ? new List<Point2D> { p[3], p[2], p[1], p[0] } : new List<Point2D> { p[2], p[1], p[0] };
+                s.Points = p[3] is not null ? new List<Point2D> { p[3], p[2], p[1], p[0] } : new List<Point2D> { p[2], p[1], p[0] };
                 tcurves.Add(s);
             }
             tcurves.Reverse();

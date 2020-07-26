@@ -55,7 +55,7 @@ namespace Engine.Experimental
         private double cos;
 
         /// <summary>
-        /// nb: miterLim below is a temp field that differs from the MiterLimit property
+        /// Important: miterLim below is a temp field that differs from the MiterLimit property
         /// </summary>
         private double miterLim;
 
@@ -87,7 +87,7 @@ namespace Engine.Experimental
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClipperOffset"/> class.
+        /// Initializes a new instance of the <see cref="ClipperOffset" /> class.
         /// </summary>
         /// <param name="MiterLimit">The MiterLimit.</param>
         /// <param name="ArcTolerance">The ArcTolerance.</param>
@@ -102,21 +102,33 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets or sets the norms.
         /// </summary>
+        /// <value>
+        /// The norms.
+        /// </value>
         private List<Point2D> Norms { get; set; } = new List<Point2D>();
 
         /// <summary>
         /// Gets or sets the nodes.
         /// </summary>
+        /// <value>
+        /// The nodes.
+        /// </value>
         private List<PathNode> Nodes { get; set; } = new List<PathNode>();
 
         /// <summary>
         /// Gets or sets the arc tolerance.
         /// </summary>
+        /// <value>
+        /// The arc tolerance.
+        /// </value>
         public double ArcTolerance { get; set; }
 
         /// <summary>
         /// Gets or sets the miter limit.
         /// </summary>
+        /// <value>
+        /// The miter limit.
+        /// </value>
         public double MiterLimit { get; set; }
         #endregion Properties
 
@@ -164,7 +176,9 @@ namespace Engine.Experimental
         /// The execute.
         /// </summary>
         /// <param name="delta">The delta.</param>
-        /// <returns>The <see cref="Polygon2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polygon2D" />.
+        /// </returns>
         public Polygon2D Execute(double delta)
         {
             var sol = new Polygon2D();
@@ -200,7 +214,9 @@ namespace Engine.Experimental
         /// <param name="delta">The delta.</param>
         /// <param name="jt">The jt.</param>
         /// <param name="et">The et.</param>
-        /// <returns>The <see cref="Polygon2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polygon2D" />.
+        /// </returns>
         public static Polygon2D OffsetPaths(Polygon2D pp, double delta, LineJoin jt, LineEndType et)
         {
             var co = new ClipperOffset();
@@ -228,7 +244,7 @@ namespace Engine.Experimental
 
                 if (lowestIdx < 0)
                 {
-                    ip1 = node.Path[node.LowestIndex];
+                    ip1 = new(node.Path[node.LowestIndex]);
                     lowestIdx = i;
                 }
                 else
@@ -237,7 +253,7 @@ namespace Engine.Experimental
                     if (ip2.Y >= ip1.Y && (ip2.Y > ip1.Y || ip2.X < ip1.X))
                     {
                         lowestIdx = i;
-                        ip1 = ip2;
+                        ip1 = new(ip2);
                     }
                 }
             }
@@ -271,7 +287,7 @@ namespace Engine.Experimental
                     // offsetting with two or more vertices (that would be so close together)
                     // occasionally causes tiny self-intersections due to rounding.
                     // So we offset with just a single vertex here ...
-                    pathOut.Add(new Point2D(
+                    pathOut.Add(new(
                         pathIn[j].X + (Norms[k].X * delta),
                         pathIn[j].Y + (Norms[k].Y * delta)));
                     return;
@@ -288,11 +304,11 @@ namespace Engine.Experimental
 
             if (sinA * delta < 0) // ie a concave offset
             {
-                pathOut.Add(new Point2D(
+                pathOut.Add(new(
                     pathIn[j].X + (Norms[k].X * delta),
                     pathIn[j].Y + (Norms[k].Y * delta)));
                 pathOut.Add(pathIn[j]);
-                pathOut.Add(new Point2D(
+                pathOut.Add(new(
                     pathIn[j].X + (Norms[j].X * delta),
                     pathIn[j].Y + (Norms[j].Y * delta)));
             }
@@ -331,6 +347,7 @@ namespace Engine.Experimental
                         break;
                 }
             }
+
             k = j;
         }
 
@@ -348,19 +365,19 @@ namespace Engine.Experimental
 
             if (delta > 0)
             {
-                pathOut.Add(new Point2D(
+                pathOut.Add(new(
                     pathIn[j].X + (delta * (Norms[k].X - Norms[k].Y)),
                     pathIn[j].Y + (delta * (Norms[k].Y + Norms[k].X))));
-                pathOut.Add(new Point2D(
+                pathOut.Add(new(
                     pathIn[j].X + (delta * (Norms[j].X + Norms[j].Y)),
                     pathIn[j].Y + (delta * (Norms[j].Y - Norms[j].X))));
             }
             else
             {
-                pathOut.Add(new Point2D(
+                pathOut.Add(new(
                     pathIn[j].X + (delta * (Norms[k].X + Norms[k].Y)),
                     pathIn[j].Y + (delta * (Norms[k].Y - Norms[k].X))));
-                pathOut.Add(new Point2D(
+                pathOut.Add(new(
                     pathIn[j].X + (delta * (Norms[j].X - Norms[j].Y)),
                     pathIn[j].Y + (delta * (Norms[j].Y + Norms[j].X))));
             }
@@ -377,7 +394,7 @@ namespace Engine.Experimental
         {
             // see offset_triginometry4.svg
             var q = delta / cosAplus1; //0 < cosAplus1 <= 2
-            pathOut.Add(new Point2D(
+            pathOut.Add(new(
                 pathIn[j].X + ((Norms[k].X + Norms[j].X) * q),
                 pathIn[j].Y + ((Norms[k].Y + Norms[j].Y) * q)));
         }
@@ -390,8 +407,8 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DoRound(int j, int k)
         {
-            var normsj = Norms[j];
-            var normsk = Norms[k];
+            var normsj = new Point2D(Norms[j]);
+            var normsk = new Point2D(Norms[k]);
 
             // ToDo: Figure out what is being accomplished here as Atan2 is slow.
             var a = Atan2(sinA, (normsk.X * normsj.X) + (normsk.Y * normsj.Y));
@@ -403,14 +420,14 @@ namespace Engine.Experimental
             double tempX;
             for (var i = 0; i < steps; ++i)
             {
-                pathOut.Add(new Point2D(
+                pathOut.Add(new(
                     pathj.X + (X * delta),
                     pathj.Y + (Y * delta)));
                 tempX = X;
                 X = (X * cos) - (sin * Y);
                 Y = (tempX * sin) + (Y * cos);
             }
-            pathOut.Add(new Point2D(
+            pathOut.Add(new(
                     pathj.X + (normsj.X * delta),
                     pathj.Y + (normsj.Y * delta)));
         }
@@ -485,7 +502,7 @@ namespace Engine.Experimental
                         var Y = 0.0;
                         for (var j = 1; j <= steps; j++)
                         {
-                            pathOut.Add(new Point2D(
+                            pathOut.Add(new(
                               pathIn[0].X + (X * delta),
                               pathIn[0].Y + (Y * delta)));
                             var X2 = X;
@@ -499,7 +516,7 @@ namespace Engine.Experimental
                         var Y = -1.0;
                         for (var j = 0; j < 4; ++j)
                         {
-                            pathOut.Add(new Point2D(
+                            pathOut.Add(new(
                               pathIn[0].X + (X * delta),
                               pathIn[0].Y + (Y * delta)));
                             if (X < 0)
@@ -534,7 +551,7 @@ namespace Engine.Experimental
                 }
                 else
                 {
-                    Norms.Add(new Point2D(Norms[pathInCnt - 2]));
+                    Norms.Add(new(Norms[pathInCnt - 2]));
                 }
 
                 if (node.EndType == LineEndType.ClosedPolygon)
@@ -561,10 +578,10 @@ namespace Engine.Experimental
                     var n = Norms[pathInCnt - 1];
                     for (var j = pathInCnt - 1; j > 0; j--)
                     {
-                        Norms[j] = new Point2D(-Norms[j - 1].X, -Norms[j - 1].Y);
+                        Norms[j] = new(-Norms[j - 1].X, -Norms[j - 1].Y);
                     }
 
-                    Norms[0] = new Point2D(-n.X, -n.Y);
+                    Norms[0] = new(-n.X, -n.Y);
                     k = 0;
                     for (var j = pathInCnt - 1; j >= 0; j--)
                     {
@@ -585,11 +602,11 @@ namespace Engine.Experimental
                     if (node.EndType == LineEndType.OpenButt)
                     {
                         var j = pathInCnt - 1;
-                        pt1 = new Point2D(
+                        pt1 = new(
                             pathIn[j].X + (Norms[j].X * delta),
                             pathIn[j].Y + (Norms[j].Y * delta));
                         pathOut.Add(pt1);
-                        pt1 = new Point2D(
+                        pt1 = new(
                             pathIn[j].X - (Norms[j].X * delta),
                             pathIn[j].Y - (Norms[j].Y * delta));
                         pathOut.Add(pt1);
@@ -599,7 +616,7 @@ namespace Engine.Experimental
                         var j = pathInCnt - 1;
                         k = pathInCnt - 2;
                         sinA = 0;
-                        Norms[j] = new Point2D(-Norms[j].X, -Norms[j].Y);
+                        Norms[j] = new(-Norms[j].X, -Norms[j].Y);
                         if (node.EndType == LineEndType.OpenSquare)
                         {
                             DoSquare(j, k);
@@ -613,10 +630,10 @@ namespace Engine.Experimental
                     // reverse norms ...
                     for (var j = pathInCnt - 1; j > 0; j--)
                     {
-                        Norms[j] = new Point2D(-Norms[j - 1].X, -Norms[j - 1].Y);
+                        Norms[j] = new(-Norms[j - 1].X, -Norms[j - 1].Y);
                     }
 
-                    Norms[0] = new Point2D(-Norms[1].X, -Norms[1].Y);
+                    Norms[0] = new(-Norms[1].X, -Norms[1].Y);
 
                     k = pathInCnt - 1;
                     for (var j = k - 1; j > 0; --j)
@@ -626,11 +643,11 @@ namespace Engine.Experimental
 
                     if (node.EndType == LineEndType.OpenButt)
                     {
-                        pt1 = new Point2D(
+                        pt1 = new(
                             pathIn[0].X - (Norms[0].X * delta),
                             pathIn[0].Y - (Norms[0].Y * delta));
                         pathOut.Add(pt1);
-                        pt1 = new Point2D(
+                        pt1 = new(
                             pathIn[0].X + (Norms[0].X * delta),
                             pathIn[0].Y + (Norms[0].Y * delta));
                         pathOut.Add(pt1);

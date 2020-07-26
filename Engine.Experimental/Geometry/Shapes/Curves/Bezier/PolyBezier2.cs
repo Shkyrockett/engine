@@ -16,7 +16,7 @@ namespace Engine
         public PolyBezier2(List<Bezier> curves)
         {
             Is3d = false;
-            if (curves != null)
+            if (curves is not null)
             {
                 Curves = curves;
                 Is3d = Curves[0].Is3d;

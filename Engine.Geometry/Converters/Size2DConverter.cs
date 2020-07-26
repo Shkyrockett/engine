@@ -128,7 +128,7 @@ namespace Engine
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
                     var constructor = typeof(Size2D).GetConstructor(new Type[] { typeof(double), typeof(double) });
-                    if (constructor != null)
+                    if (constructor is not null)
                     {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { size2D.Width, size2D.Height });
                     }
@@ -152,7 +152,7 @@ namespace Engine
         /// <param name="propertyValues">The propertyValues.</param>
         /// <returns>The <see cref="object"/>.</returns>
         public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues)
-            => propertyValues != null
+            => propertyValues is not null
             ? new Size2D((double)propertyValues[$"{nameof(Size2D.Width)}"], (double)propertyValues[$"{nameof(Size2D.Height)}"])
             : (object)null;
     }

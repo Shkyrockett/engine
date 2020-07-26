@@ -19,27 +19,39 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets or sets the path.
         /// </summary>
+        /// <value>
+        /// The path.
+        /// </value>
         public PolygonContour2D Path { get; set; }
 
         /// <summary>
         /// Gets or sets the join type.
         /// </summary>
+        /// <value>
+        /// The type of the join.
+        /// </value>
         public LineJoin JoinType { get; set; }
 
         /// <summary>
         /// Gets or sets the end type.
         /// </summary>
+        /// <value>
+        /// The end type.
+        /// </value>
         public LineEndType EndType { get; set; }
 
         /// <summary>
         /// Gets or sets the lowest index.
         /// </summary>
+        /// <value>
+        /// The index of the lowest.
+        /// </value>
         public int LowestIndex { get; set; }
         #endregion Properties
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="PathNode"/> class.
+        /// Initializes a new instance of the <see cref="PathNode" /> class.
         /// </summary>
         /// <param name="p">The p.</param>
         /// <param name="jt">The jt.</param>

@@ -93,7 +93,7 @@ namespace Engine
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing && Bitmap != null)
+            if (disposing && Bitmap is not null)
             {
                 // free managed resources
                 Bitmap.Dispose();

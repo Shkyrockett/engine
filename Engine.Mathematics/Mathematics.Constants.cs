@@ -174,13 +174,13 @@ namespace Engine
         /// </acknowledgment>
         public const double Pau = 1.5d * PI; // 4.7123889803846898576939650749193d;
 
-        /// <summary>
-        /// Represents the ratio of the circumference of a circle to its radius, specified
-        /// by the proposed constant, τ (Tau).
-        /// One Tau or two Pi.
-        /// </summary>
-        /// <value>≈6.28318...</value>
-        public const double Tau = 2d * PI; // 6.283185307179586476925286766559d;
+        ///// <summary>
+        ///// Represents the ratio of the circumference of a circle to its radius, specified
+        ///// by the proposed constant, τ (Tau).
+        ///// One Tau or two Pi.
+        ///// </summary>
+        ///// <value>≈6.28318...</value>
+        //public const double Tau = System.Math.Tau;//2d * PI; // 6.283185307179586476925286766559d;
 
         /// <summary>
         /// One Radian.

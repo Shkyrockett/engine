@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
+using static Engine.Mathematics;
 
 namespace Engine
 {
@@ -171,8 +172,8 @@ namespace Engine
             get { return new Point2D(x, y); }
             set
             {
-                x = value.X;
-                y = value.Y;
+                x = value?.X ?? double.NaN;
+                y = value?.Y?? double.NaN;
                 ClearCache();
                 OnPropertyChanged(nameof(Location));
                 update?.Invoke();
@@ -194,8 +195,8 @@ namespace Engine
             get { return new Point2D(x, y); }
             set
             {
-                x = value.X;
-                y = value.Y;
+                x = value?.X?? double.NaN;
+                y = value?.Y ?? double.NaN;
                 ClearCache();
                 OnPropertyChanged(nameof(Center));
                 update?.Invoke();
@@ -463,7 +464,7 @@ namespace Engine
                         bounds.Right = x + radius;
                     }
 
-                    if ((angleEnd >= Mathematics.HalfPi) && (startAngle <= Mathematics.HalfPi))
+                    if ((angleEnd >= HalfPi) && (startAngle <= HalfPi))
                     {
                         bounds.Top = y - radius;
                     }
@@ -473,12 +474,12 @@ namespace Engine
                         bounds.Left = x - radius;
                     }
 
-                    if ((angleEnd >= Mathematics.Pau) && (startAngle <= Mathematics.Pau))
+                    if ((angleEnd >= Pau) && (startAngle <= Pau))
                     {
                         bounds.Bottom = y + radius;
                     }
 
-                    if ((angleEnd >= Mathematics.Tau) && (startAngle <= Mathematics.Tau))
+                    if ((angleEnd >= Tau) && (startAngle <= Tau))
                     {
                         bounds.Right = x + radius;
                     }

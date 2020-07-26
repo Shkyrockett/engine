@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using static System.Math;
 
 namespace Engine
 {
@@ -77,7 +78,7 @@ namespace Engine
             var ScaledPoint = point;
 
             GetBoundedPoints(out var UpperBoundPoint, out var LowerBoundPoint, point);
-            var Y = UpperBoundPoint.Y + ((ScaledPoint.Y - sourceBounds.Top) / sourceBounds.Height * Math.Abs(UpperBoundPoint.Y - LowerBoundPoint.Y));
+            var Y = UpperBoundPoint.Y + ((ScaledPoint.Y - sourceBounds.Top) / sourceBounds.Height * Abs(UpperBoundPoint.Y - LowerBoundPoint.Y));
 
             return new Point2D(ScaledPoint.X, Y);
         }
@@ -215,17 +216,17 @@ namespace Engine
             const int WarpFactor = 4;
             var xAmp = WarpFactor * width / 300d;
             var yAmp = WarpFactor * height / 50d;
-            var xFreq = Mathematics.Tau / width;
-            var yFreq = Mathematics.Tau / height;
+            var xFreq = Tau / width;
+            var yFreq = Tau / height;
             var deformed = new Point2D[path.Count];
-            var xSeed = rng.NextDouble() * Mathematics.Tau;
-            var ySeed = rng.NextDouble() * Mathematics.Tau;
+            var xSeed = rng.NextDouble() * Tau;
+            var ySeed = rng.NextDouble() * Tau;
             var i = 0;
             foreach (var original in path.Points)
             {
                 var val = (xFreq * original.X) + (yFreq * original.Y);
-                var xOffset = (int)(xAmp * Math.Sin(val + xSeed));
-                var yOffset = (int)(yAmp * Math.Sin(val + ySeed));
+                var xOffset = (int)(xAmp * Sin(val + xSeed));
+                var yOffset = (int)(yAmp * Sin(val + ySeed));
                 deformed[i++] = new Point2D(original.X + xOffset, original.Y + yOffset);
             }
 

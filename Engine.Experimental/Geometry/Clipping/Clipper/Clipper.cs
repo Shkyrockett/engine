@@ -1958,13 +1958,12 @@ namespace Engine.Experimental
         /// other HEs[#] and with non-horizontal edges [*]. Once these intersections
         /// are completed, intermediate HEs are 'promoted' to the next edge in their
         /// bounds, and they in turn may be intersected[%] by other HEs.
-        /// *
-        /// E.G.: 3 horizontals at a scan - line:
-        ///                            /   |                     /           /
-        ///     |                     /    | (HE3)o ========%========== o
-        ///         o ======= o(HE2) /     |         /         /
-        /// o ============#=========*======*========#=========o (HE1)
-        ///          /              |        /       |       /
+		///
+        /// E.G.: 3 horizontals at a scan - line: /   |                     /           /
+        ///                |                     /    |     (HE3)o ========%========== o
+        ///                o ======= o(HE2)     /     |         /         /
+        ///            o ============#=========*======*========#=========o (HE1)
+        ///           /              |        /       |       /
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ProcessHorizontal(Edge horz)

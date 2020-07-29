@@ -4961,6 +4961,7 @@ namespace Engine
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionStates.NoIntersection);
+            const double tolerance = 1e-4;
 
             // Bezout
 
@@ -4989,11 +4990,11 @@ namespace Engine
                 // Square of first cross product.
                 /* x⁴ */ e * e,
                 // Two times the first cross product times the second cross product.
-                /* x³ */ 2 * e * f,
+                /* x³ */ 2d * e * f,
                 /* x² */ ((-yCurveB[0] * v6) + (yCurveA[0] * f * f) + (yCurveA[0] * e * v4) + (e * v5)) / yCurveA[0],
                 /* x¹ */ ((-yCurveB[1] * v6) + (yCurveA[0] * f * v4) + (f * v5)) / yCurveA[0],
                 /* c  */ ((v3 * v6) + (v4 * v5)) / yCurveA[0]
-            ).Trim().Roots().ToArray();
+            ).Trim(tolerance).Roots().ToArray();
 
             Array.Sort(roots);
 
@@ -5007,9 +5008,9 @@ namespace Engine
                 if (s >= 0d && s <= 1d)
                 {
                     // Look for intersections on curve a at the same location.
-                    var xRoots = (xCurveA - point.X).Trim().Roots().ToArray();
+                    var xRoots = (xCurveA - point.X).Trim(tolerance).Roots().ToArray();
                     Array.Sort(xRoots);
-                    var yRoots = (yCurveA - point.Y).Trim().Roots().ToArray();
+                    var yRoots = (yCurveA - point.Y).Trim(tolerance).Roots().ToArray();
                     Array.Sort(yRoots);
 
                     if (xRoots.Length > 0 && yRoots.Length > 0)
@@ -5022,7 +5023,7 @@ namespace Engine
                                 foreach (var yRoot in yRoots)
                                 {
                                     var t = xRoot - yRoot;
-                                    if ((t >= 0d ? t : -t) < epsilon)
+                                    if ((t >= 0d ? t : -t) < tolerance)
                                     {
                                         result.AppendPoint(point);
                                         goto checkRoots; // Break through two levels of foreach loops to exit early. Using goto for performance.
@@ -5030,7 +5031,7 @@ namespace Engine
                                 }
                             }
                         }
-                        checkRoots:;
+                    checkRoots:;
                     }
                 }
             }
@@ -5102,7 +5103,7 @@ namespace Engine
             var result = new Intersection(IntersectionStates.NoIntersection);
 
             // ToDo: The tolerance is off by too much. Need to find the error.
-            var tolerance = 4294967295d * epsilon; // 1e-4;
+            const double tolerance = 1e-4;//4294967295d * epsilon; // 1e-4;
 
             // Bezout
             var cAAx2 = xCurveA[0] * xCurveA[0];
@@ -5135,7 +5136,7 @@ namespace Engine
                 /* x² */ (2d * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[1]) + (2d * yCurveA[2] * xCurveA[0] * yCurveA[0] * xCurveB[1]) + (xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[1]) + (xCurveA[1] * yCurveA[1] * yCurveA[0] * xCurveB[1]) - (2d * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[1]) - (2d * xCurveA[0] * yCurveB[3] * yCurveA[0] * xCurveB[1]) - (2d * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[2]) - (2d * xCurveA[2] * cAAy2 * xCurveB[1]) - (2d * yCurveA[2] * cAAx2 * yCurveB[1]) + (2d * xCurveB[3] * cAAy2 * xCurveB[1]) - (cABy2 * xCurveA[0] * xCurveB[1]) - (cABx2 * yCurveA[0] * yCurveB[1]) + (cBCx2 * cAAy2) + (cAAx2 * ((2d * yCurveB[3] * yCurveB[1]) + cBCy2)),
                 /* x¹ */ (2d * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[2]) + (2d * yCurveA[2] * xCurveA[0] * xCurveB[2] * yCurveA[0]) + (xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[2]) + (xCurveA[1] * yCurveA[1] * xCurveB[2] * yCurveA[0]) - (2d * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[2]) - (2d * xCurveA[0] * yCurveB[3] * xCurveB[2] * yCurveA[0]) - (2d * xCurveA[2] * xCurveB[2] * cAAy2) - (2 * yCurveA[2] * cAAx2 * yCurveB[2]) + (2d * xCurveB[3] * xCurveB[2] * cAAy2) - (cABy2 * xCurveA[0] * xCurveB[2]) - (cABx2 * yCurveA[0] * yCurveB[2]) + (2d * cAAx2 * yCurveB[3] * yCurveB[2]),
                 /* c  */ (-2d * xCurveA[2] * yCurveA[2] * xCurveA[0] * yCurveA[0]) - (xCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0]) - (yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0]) + (2d * xCurveA[2] * xCurveA[0] * yCurveB[3] * yCurveA[0]) + (2d * yCurveA[2] * xCurveB[3] * xCurveA[0] * yCurveA[0]) + (xCurveA[1] * xCurveB[3] * yCurveA[1] * yCurveA[0]) + (xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[3]) - (2d * xCurveB[3] * xCurveA[0] * yCurveB[3] * yCurveA[0]) - (2d * xCurveA[2] * xCurveB[3] * cAAy2) + (xCurveA[2] * cABy2 * xCurveA[0]) + (yCurveA[2] * cABx2 * yCurveA[0]) - (2d * yCurveA[2] * cAAx2 * yCurveB[3]) - (xCurveB[3] * cABy2 * xCurveA[0]) - (cABx2 * yCurveB[3] * yCurveA[0]) + (cACx2 * cAAy2) + (cACy2 * cAAx2) + (cBDx2 * cAAy2) + (cAAx2 * cBDy2)
-            ).Trim().RootsInInterval().ToArray();
+            ).Trim(tolerance).RootsInInterval().ToArray();
 
             Array.Sort(roots);
 
@@ -5145,9 +5146,9 @@ namespace Engine
                    (xCurveB[0] * s * s * s) + (xCurveB[1] * s * s) + (xCurveB[2] * s) + xCurveB[3],
                    (yCurveB[0] * s * s * s) + (yCurveB[1] * s * s) + (yCurveB[2] * s) + yCurveB[3]);
 
-                var xRoots = (xCurveA - point.X).Trim().Roots(epsilon).ToArray();
+                var xRoots = (xCurveA - point.X).Trim(tolerance).Roots(epsilon).ToArray();
                 Array.Sort(xRoots);
-                var yRoots = (yCurveA - point.Y).Trim().Roots().ToArray();
+                var yRoots = (yCurveA - point.Y).Trim(tolerance).Roots().ToArray();
                 Array.Sort(yRoots);
 
                 if (xRoots.Length > 0 && yRoots.Length > 0)
@@ -5166,7 +5167,7 @@ namespace Engine
                             }
                         }
                     }
-                    checkRoots:;
+                checkRoots:;
                 }
             }
 
@@ -5516,7 +5517,7 @@ namespace Engine
             var result = new Intersection(IntersectionStates.NoIntersection);
 
             // Not sure why the difference between the two supposedly same points at different values of t can be so high. It seems to be a lot for floating point rounding. So far it only seems to happen at orthogonal cases.
-            var tolerence = 98838707421d * epsilon; // 0.56183300455876406d
+            var tolerance = 0.56183300455876406d; //98838707421d * epsilon; // 0.56183300455876406d
 
             // Bezout
             (var a, var b) = (xCurve[0] == 0d) ? (xCurve[1], xCurve[2]) : (xCurve[1] / xCurve[0], xCurve[2] / xCurve[0]);
@@ -5535,7 +5536,7 @@ namespace Engine
                 -3d * k,
                 (3d * k * k) + (2d * k * a) + (2d * b),
                 (-k * k * k) - (a * k * k) - (b * k)
-                ).Trim().Roots().ToArray();
+                ).Trim(tolerance).Roots().ToArray();
 
             Array.Sort(roots);
 
@@ -5557,16 +5558,35 @@ namespace Engine
                         (xCurve[0] * s * s * s) + (xCurve[1] * s * s) + (xCurve[2] * s) + xCurve[3],
                         (yCurve[0] * s * s * s) + (yCurve[1] * s * s) + (yCurve[2] * s) + yCurve[3]);
 
-                    for (var i = 0; i < points.Count; i++)
+                    if (s >= 0d && s <= 1d)
                     {
-                        var r = points[i];
-                        if (Abs(point.X - r.X) < tolerence && Abs(point.Y - r.Y) < tolerence)
+                        // Look for intersections on curve a at the same location.
+                        var xRoots = (xCurve - point.X).Trim(tolerance).Roots().ToArray();
+                        Array.Sort(xRoots);
+                        var yRoots = (yCurve - point.Y).Trim(tolerance).Roots().ToArray();
+                        Array.Sort(yRoots);
+
+                        //for (var i = 0; i < points.Count; i++)
+                        foreach (var xRoot in xRoots)
                         {
-                            // ToDo: Should the real resulting point be a lerp halfway between the two points to counteract floating point rounding?
-                            result.Points.Add(point);
-                            break;
+                            if (xRoot >= 0d && xRoot <= 1d)
+                            {
+                                foreach (var yRoot in yRoots)
+                                {
+                                    //var r = points[i];
+                                    //if (Abs(point.X - r.X) < tolerance && Abs(point.Y - r.Y) < tolerance)
+                                    var t = xRoot - yRoot;
+                                    if ((t >= 0d ? t : -t) < tolerance)
+                                    {
+                                        // ToDo: Should the real resulting point be a lerp halfway between the two points to counteract floating point rounding?
+                                        result.Points.Add(point);
+                                        goto checkRoots; // Break through two levels of foreach loops to exit early. Using goto for performance.
+                                    }
+                                }
+                            }
                         }
                     }
+                checkRoots:;
 
                     points.Add(point);
                 }
@@ -5641,7 +5661,7 @@ namespace Engine
             var result = new Intersection(IntersectionStates.NoIntersection);
 
             // ToDo: The tolerance is off by too much. Need to find the error.
-            var tolerance = 4194303 * epsilon;
+            var tolerance = 1e-3;// 4194303 * epsilon;
 
             // Bezout
             var c10x2 = xCurveA[3] * xCurveA[3];
@@ -5694,7 +5714,7 @@ namespace Engine
                 /* x² */ (-xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1]) + (xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1]) + (6d * xCurveA[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0]) - (6d * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1]) - (yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0]) + (yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0]) + (xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[1]) - (xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveB[1] * yCurveA[0]) + (xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1]) + (xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0]) + (xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0]) - (xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1]) - (6d * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0]) - (yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * xCurveB[1] * yCurveA[0]) - (yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveB[2] * yCurveA[0]) - (6d * xCurveA[3] * xCurveB[3] * xCurveB[1] * c13y3) - (2d * xCurveA[3] * c12y3 * xCurveA[0] * xCurveB[1]) + (2d * xCurveB[3] * c12y3 * xCurveA[0] * xCurveB[1]) + (2d * yCurveA[3] * c12x3 * yCurveA[0] * yCurveB[1]) - (6d * xCurveA[3] * yCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2) + (3d * xCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 * yCurveB[1]) - (2d * xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveB[1] * c13y2) - (4d * xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2) + (3d * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2) + (6d * xCurveA[3] * yCurveA[3] * c13x2 * yCurveA[0] * yCurveB[1]) + (6d * xCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 * yCurveB[1]) - (3d * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1]) + (2d * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1]) + (2d * xCurveA[3] * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0]) + (6d * xCurveA[3] * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2) + (6d * xCurveA[3] * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2) + (4d * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1]) + (6d * yCurveA[3] * xCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2) + (2d * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[1]) - (3d * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[1]) + (2d * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[1]) - (3d * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2 * yCurveB[1]) + (2d * xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveB[1] * c13y2) + (xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0] * xCurveB[1]) - (3d * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[1] * c13y2) - (3d * xCurveA[2] * xCurveA[1] * xCurveB[2] * yCurveB[2] * c13y2) + (4d * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2) - (2d * xCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1]) - (6d * yCurveA[3] * xCurveB[3] * c13x2 * yCurveA[0] * yCurveB[1]) - (6d * yCurveA[3] * yCurveB[3] * c13x2 * xCurveB[1] * yCurveA[0]) - (6d * yCurveA[3] * xCurveB[2] * c13x2 * yCurveB[2] * yCurveA[0]) - (2d * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[1]) - (2d * yCurveA[3] * c12x2 * yCurveA[1] * xCurveB[1] * yCurveA[0]) - (xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0] * yCurveB[1]) - (2d * xCurveA[2] * c11y2 * xCurveA[0] * xCurveB[1] * yCurveA[0]) + (3d * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1]) - (2d * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1]) - (2d * xCurveB[3] * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0]) - (6d * xCurveB[3] * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2) - (6d * xCurveB[3] * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2) + (3d * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * xCurveB[1]) + (3d * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 * yCurveB[2]) - (2d * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] * xCurveB[1]) - (2d * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] * yCurveB[2]) - (c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] * xCurveB[1]) + (2d * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1]) - (3d * yCurveA[2] * c21x2 * yCurveA[1] * xCurveA[0] * yCurveA[0]) + (6d * yCurveB[3] * xCurveB[2] * c13x2 * yCurveB[2] * yCurveA[0]) + (2d * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[1]) + (c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0] * yCurveB[1]) + (2d * c12x2 * yCurveB[3] * yCurveA[1] * xCurveB[1] * yCurveA[0]) + (2 * c12x2 * xCurveB[2] * yCurveA[1] * yCurveB[2] * yCurveA[0]) - (3d * xCurveA[3] * c21x2 * c13y3) + (3d * xCurveB[3] * c21x2 * c13y3) + (3d * c10x2 * xCurveB[1] * c13y3) - (3d * c10y2 * c13x3 * yCurveB[1]) + (3d * c20x2 * xCurveB[1] * c13y3) + (c21x2 * c12y3 * xCurveA[0]) + (c11y3 * c13x2 * xCurveB[1]) - (c11x3 * c13y2 * yCurveB[1]) + (3d * yCurveA[3] * c21x2 * xCurveA[0] * c13y2) - (xCurveA[2] * c11y2 * c13x2 * yCurveB[1]) + (xCurveA[2] * c21x2 * yCurveA[1] * c13y2) + (2d * yCurveA[2] * xCurveA[1] * c21x2 * c13y2) + (c11x2 * yCurveA[2] * xCurveB[1] * c13y2) - (xCurveA[1] * c21x2 * c12y2 * yCurveA[0]) - (3d * yCurveB[3] * c21x2 * xCurveA[0] * c13y2) - (3d * c10x2 * xCurveA[0] * c13y2 * yCurveB[1]) + (3d * c10y2 * c13x2 * xCurveB[1] * yCurveA[0]) - (c11x2 * c12y2 * xCurveA[0] * yCurveB[1]) + (c11y2 * c12x2 * xCurveB[1] * yCurveA[0]) - (3d * c20x2 * xCurveA[0] * c13y2 * yCurveB[1]) + (3d * c20y2 * c13x2 * xCurveB[1] * yCurveA[0]) + (c12x2 * yCurveA[1] * xCurveA[0] * ((2d * yCurveB[3] * yCurveB[1]) + c21y2)) + (xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * ((6d * yCurveB[3] * yCurveB[1]) + (3d * c21y2))) + (c12x3 * yCurveA[0] * ((-2d * yCurveB[3] * yCurveB[1]) - c21y2)) + (yCurveA[3] * c13x3 * ((6d * yCurveB[3] * yCurveB[1]) + (3d * c21y2))) + (yCurveA[2] * xCurveA[1] * c13x2 * ((-2d * yCurveB[3] * yCurveB[1]) - c21y2)) + (xCurveA[2] * yCurveA[1] * c13x2 * ((-4d * yCurveB[3] * yCurveB[1]) - (2d * c21y2))) + (xCurveA[3] * c13x2 * yCurveA[0] * ((-6d * yCurveB[3] * yCurveB[1]) - (3d * c21y2))) + (xCurveB[3] * c13x2 * yCurveA[0] * ((6d * yCurveB[3] * yCurveB[1]) + (3d * c21y2))) + (c13x3 * ((-2d * yCurveB[3] * c21y2) - (c20y2 * yCurveB[1]) - (yCurveB[3] * ((2d * yCurveB[3] * yCurveB[1]) + c21y2)))),
                 /* x¹ */ (-xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0]) + (xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0]) + (6d * xCurveA[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (6d * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0]) - (yCurveA[3] * xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) + (yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveA[0]) - (xCurveA[2] * yCurveA[2] * xCurveA[1] * xCurveB[2] * yCurveA[1] * yCurveA[0]) + (xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[2]) + (xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0]) + (6d * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveB[2] * yCurveA[0]) + (xCurveA[2] * yCurveB[3] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0]) - (6d * xCurveB[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[2] * xCurveA[0] * yCurveA[0]) - (6d * xCurveA[3] * xCurveB[3] * xCurveB[2] * c13y3) - (2d * xCurveA[3] * xCurveB[2] * c12y3 * xCurveA[0]) + (6d * yCurveA[3] * yCurveB[3] * c13x3 * yCurveB[2]) + (2d * xCurveB[3] * xCurveB[2] * c12y3 * xCurveA[0]) + (2d * yCurveA[3] * c12x3 * yCurveB[2] * yCurveA[0]) - (2d * c12x3 * yCurveB[3] * yCurveB[2] * yCurveA[0]) - (6d * xCurveA[3] * yCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2) + (3d * xCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[2] * c13y2) - (2d * xCurveA[3] * xCurveA[2] * xCurveB[2] * yCurveA[1] * c13y2) - (4d * xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2) + (3d * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2) + (6d * xCurveA[3] * yCurveA[3] * c13x2 * yCurveB[2] * yCurveA[0]) + (6d * xCurveA[3] * xCurveB[3] * xCurveA[0] * yCurveB[2] * c13y2) - (3d * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2]) + (2d * xCurveA[3] * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0]) + (2d * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2]) + (6d * xCurveA[3] * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2) + (4d * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2]) + (6d * yCurveA[3] * xCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2) + (2d * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[2]) - (3d * yCurveA[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2) + (2d * yCurveA[3] * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0]) - (3d * xCurveA[2] * xCurveB[3] * xCurveA[1] * yCurveB[2] * c13y2) + (2d * xCurveA[2] * xCurveB[3] * xCurveB[2] * yCurveA[1] * c13y2) + (xCurveA[2] * yCurveA[2] * xCurveB[2] * c12y2 * xCurveA[0]) - (3d * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[2] * c13y2) + (4d * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2) - (6d * xCurveA[3] * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0]) - (2d * xCurveA[3] * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0]) - (6d * yCurveA[3] * xCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0]) - (6d * yCurveA[3] * yCurveB[3] * xCurveB[2] * c13x2 * yCurveA[0]) - (2d * yCurveA[3] * c12x2 * xCurveB[2] * yCurveA[1] * yCurveA[0]) - (2d * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[2]) - (xCurveA[2] * yCurveA[2] * c12x2 * yCurveB[2] * yCurveA[0]) - (4d * xCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * yCurveB[2]) - (2d * xCurveA[2] * c11y2 * xCurveB[2] * xCurveA[0] * yCurveA[0]) + (3d * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2]) - (2d * xCurveB[3] * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0]) - (2d * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2]) - (6d * xCurveB[3] * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2) - (2d * yCurveA[2] * xCurveA[1] * yCurveB[3] * c13x2 * yCurveB[2]) + (3d * yCurveA[2] * yCurveB[3] * xCurveB[2] * yCurveA[1] * c13x2) - (2d * xCurveA[1] * yCurveB[3] * xCurveB[2] * c12y2 * xCurveA[0]) - (c11y2 * xCurveA[1] * xCurveB[2] * yCurveA[1] * xCurveA[0]) + (6d * xCurveB[3] * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0]) + (2d * xCurveB[3] * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0]) + (2d * c11x2 * yCurveA[2] * xCurveA[0] * yCurveB[2] * yCurveA[0]) + (c11x2 * xCurveA[1] * yCurveA[1] * yCurveB[2] * yCurveA[0]) + (2d * c12x2 * yCurveB[3] * xCurveB[2] * yCurveA[1] * yCurveA[0]) + (2d * c12x2 * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveB[2]) + (3d * c10x2 * xCurveB[2] * c13y3) - (3d * c10y2 * c13x3 * yCurveB[2]) + (3d * c20x2 * xCurveB[2] * c13y3) + (c11y3 * xCurveB[2] * c13x2) - (c11x3 * yCurveB[2] * c13y2) - (3d * c20y2 * c13x3 * yCurveB[2]) - (xCurveA[2] * c11y2 * c13x2 * yCurveB[2]) + (c11x2 * yCurveA[2] * xCurveB[2] * c13y2) - (3d * c10x2 * xCurveA[0] * yCurveB[2] * c13y2) + (3d * c10y2 * xCurveB[2] * c13x2 * yCurveA[0]) - (c11x2 * c12y2 * xCurveA[0] * yCurveB[2]) + (c11y2 * c12x2 * xCurveB[2] * yCurveA[0]) - (3d * c20x2 * xCurveA[0] * yCurveB[2] * c13y2) + (3d * c20y2 * xCurveB[2] * c13x2 * yCurveA[0]),
                 /* c  */ (xCurveA[3] * yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (xCurveA[3] * yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0]) + (xCurveA[3] * xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0]) - (yCurveA[3] * xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0]) - (xCurveA[3] * xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0]) + (6d * xCurveA[3] * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) + (xCurveA[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0]) - (yCurveA[3] * xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (6d * yCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0]) + (yCurveA[3] * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0]) - (xCurveA[2] * xCurveB[3] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0]) + (xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveB[3] * yCurveA[1] * xCurveA[0]) + (xCurveA[2] * xCurveB[3] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (xCurveB[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0]) - (2 * xCurveA[3] * xCurveB[3] * c12y3 * xCurveA[0]) + (2d * yCurveA[3] * c12x3 * yCurveB[3] * yCurveA[0]) - (3d * xCurveA[3] * yCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2) - (6d * xCurveA[3] * yCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2) + (3d * xCurveA[3] * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2) - (2d * xCurveA[3] * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0]) - (2d * xCurveA[3] * xCurveA[2] * xCurveB[3] * yCurveA[1] * c13y2) - (xCurveA[3] * xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0]) + (3d * xCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[3] * c13y2) - (4d * xCurveA[3] * xCurveB[3] * yCurveA[2] * xCurveA[1] * c13y2) + (3d * yCurveA[3] * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2) + (6d * xCurveA[3] * yCurveA[3] * yCurveB[3] * c13x2 * yCurveA[0]) + (2d * xCurveA[3] * yCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0]) + (2d * xCurveA[3] * xCurveA[2] * c11y2 * xCurveA[0] * yCurveA[0]) + (2d * xCurveA[3] * xCurveB[3] * xCurveA[1] * c12y2 * yCurveA[0]) + (6d * xCurveA[3] * xCurveB[3] * yCurveB[3] * xCurveA[0] * c13y2) - (3d * xCurveA[3] * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2) + (2d * xCurveA[3] * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0]) + (xCurveA[3] * c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0]) + (yCurveA[3] * xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0]) + (4d * yCurveA[3] * xCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2) - (3d * yCurveA[3] * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2) + (2d * yCurveA[3] * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0]) + (2d * yCurveA[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * c13x2) + (xCurveA[2] * xCurveB[3] * yCurveA[2] * c12y2 * xCurveA[0]) - (3d * xCurveA[2] * xCurveB[3] * xCurveA[1] * yCurveB[3] * c13y2) - (2d * xCurveA[3] * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0]) - (6d * yCurveA[3] * xCurveB[3] * yCurveB[3] * c13x2 * yCurveA[0]) - (2d * yCurveA[3] * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0]) - (2d * yCurveA[3] * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0]) - (yCurveA[3] * c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0]) - (2d * yCurveA[3] * c12x2 * yCurveB[3] * yCurveA[1] * xCurveA[0]) - (2d * xCurveA[2] * xCurveB[3] * c11y2 * xCurveA[0] * yCurveA[0]) - (xCurveA[2] * yCurveA[2] * c12x2 * yCurveB[3] * yCurveA[0]) + (3d * xCurveB[3] * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2) - (2d * xCurveB[3] * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0]) - (xCurveB[3] * c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0]) + (3d * c10y2 * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0]) + (3 * xCurveA[2] * xCurveA[1] * c20y2 * xCurveA[0] * yCurveA[0]) + (2 * xCurveB[3] * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0]) - (3 * c10x2 * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) + (2 * c11x2 * yCurveA[2] * yCurveB[3] * xCurveA[0] * yCurveA[0]) + (c11x2 * xCurveA[1] * yCurveB[3] * yCurveA[1] * yCurveA[0]) - (3d * c20x2 * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (c10x3 * c13y3) + (c10y3 * c13x3) + (c20x3 * c13y3) - (c20y3 * c13x3) - (3d * xCurveA[3] * c20x2 * c13y3) - (xCurveA[3] * c11y3 * c13x2) + (3d * c10x2 * xCurveB[3] * c13y3) + (yCurveA[3] * c11x3 * c13y2) + (3d * yCurveA[3] * c20y2 * c13x3) + (xCurveB[3] * c11y3 * c13x2) + (c10x2 * c12y3 * xCurveA[0]) - (3d * c10y2 * yCurveB[3] * c13x3) - (c10y2 * c12x3 * yCurveA[0]) + (c20x2 * c12y3 * xCurveA[0]) - (c11x3 * yCurveB[3] * c13y2) - (c12x3 * c20y2 * yCurveA[0]) - (xCurveA[3] * c11x2 * yCurveA[2] * c13y2) + (yCurveA[3] * xCurveA[2] * c11y2 * c13x2) - (3d * xCurveA[3] * c10y2 * c13x2 * yCurveA[0]) - (xCurveA[3] * c11y2 * c12x2 * yCurveA[0]) + (yCurveA[3] * c11x2 * c12y2 * xCurveA[0]) - (xCurveA[2] * c11y2 * yCurveB[3] * c13x2) + (3d * c10x2 * yCurveA[3] * xCurveA[0] * c13y2) + (c10x2 * xCurveA[2] * yCurveA[1] * c13y2) + (2d * c10x2 * yCurveA[2] * xCurveA[1] * c13y2) - (2d * c10y2 * xCurveA[2] * yCurveA[1] * c13x2) - (c10y2 * yCurveA[2] * xCurveA[1] * c13x2) + (c11x2 * xCurveB[3] * yCurveA[2] * c13y2) - (3d * xCurveA[3] * c20y2 * c13x2 * yCurveA[0]) + (3d * yCurveA[3] * c20x2 * xCurveA[0] * c13y2) + (xCurveA[2] * c20x2 * yCurveA[1] * c13y2) - (2d * xCurveA[2] * c20y2 * yCurveA[1] * c13x2) + (xCurveB[3] * c11y2 * c12x2 * yCurveA[0]) - (yCurveA[2] * xCurveA[1] * c20y2 * c13x2) - (c10x2 * xCurveA[1] * c12y2 * yCurveA[0]) - (3d * c10x2 * yCurveB[3] * xCurveA[0] * c13y2) + (3d * c10y2 * xCurveB[3] * c13x2 * yCurveA[0]) + (c10y2 * c12x2 * yCurveA[1] * xCurveA[0]) - (c11x2 * yCurveB[3] * c12y2 * xCurveA[0]) + (2d * c20x2 * yCurveA[2] * xCurveA[1] * c13y2) + (3d * xCurveB[3] * c20y2 * c13x2 * yCurveA[0]) - (c20x2 * xCurveA[1] * c12y2 * yCurveA[0]) - (3d * c20x2 * yCurveB[3] * xCurveA[0] * c13y2) + (c12x2 * c20y2 * yCurveA[1] * xCurveA[0])
-            ).Trim().RootsInInterval();
+            ).Trim(tolerance).RootsInInterval();
 
             foreach (var s in roots)
             {
@@ -5702,9 +5722,9 @@ namespace Engine
                     (xCurveB[0] * s * s * s) + (xCurveB[1] * s * s) + (xCurveB[2] * s) + xCurveB[3],
                     (yCurveB[0] * s * s * s) + (yCurveB[1] * s * s) + (yCurveB[2] * s) + yCurveB[3]);
 
-                var xRoots = (xCurveA - point.X).Trim().Roots().ToArray();
+                var xRoots = (xCurveA - point.X).Trim(tolerance).Roots().ToArray();
                 Array.Sort(xRoots);
-                var yRoots = (yCurveA - point.Y).Trim().Roots().ToArray();
+                var yRoots = (yCurveA - point.Y).Trim(tolerance).Roots().ToArray();
                 Array.Sort(yRoots);
 
                 // ToDo: Figure out why the xRoots can be larger than 1 or smaller than 0 and still work...
@@ -5726,7 +5746,7 @@ namespace Engine
                             }
                         }
                     }
-                    checkRoots:;
+                checkRoots:;
                 }
             }
 

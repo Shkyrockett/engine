@@ -726,8 +726,7 @@ namespace Engine
             }
 
             // Check if it is within the bounding rectangle.
-            if (pX >= x - r && pX <= x + r
-                && pY >= y - r && pY <= y + r)
+            if (pX >= x - r && pX <= x + r && pY >= y - r && pY <= y + r)
             {
                 // Find the points of the chord.
                 var (startPointX, startPointY) = Interpolators.CircularArc(0, x, y, r, startAngle, sweepAngle);
@@ -741,6 +740,7 @@ namespace Engine
                 {
                     return Inclusions.Boundary;
                 }
+
                 // Check whether the point is on the same side of the chord as the center.
                 else if (Sign(determinant) == Sign(sweepAngle))
                 {

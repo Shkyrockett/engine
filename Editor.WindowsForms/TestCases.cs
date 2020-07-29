@@ -49,36 +49,41 @@ namespace Editor
             _ = backColor;
             boundaryItem = new GraphicItem();
 
+            /* Broken */
+
+            //IntersectionsDrawableEllipseEllipseIntersection(vectorMap);
+            //ComplexPolygonClipping(vectorMap);
+            //PathContourWArcLine(vectorMap);
+            //SplitQuadraticBezier(vectorMap);
+            //SplitCubicBezier(vectorMap);
+            //NearestParameterCubicBezier(vectorMap, tools);
+            //ScanlineIntersections(vectorMap);
+            //WarpGeometry(vectorMap);
+            //GridTests(vectorMap, foreColor, backColor);
+            //Pathfinding(vectorMap, form);
+
             /* Experimental Previews */
 
             //BezierExp(vectorMap);
             //ParametricParabola(vectorMap);
             //Parabola(vectorMap);
             //DrawParabola(vectorMap);
-            //IntersectionsDrawableEllipseEllipseIntersection(vectorMap);
             //EnvelopeWarp(vectorMap);
-            Clipper(vectorMap);
-            //ComplexPolygonClipping(vectorMap);
+            //Clipper(vectorMap);
             //PolyClipping(vectorMap);
             //FMartinezSamplesForClipping(vectorMap);
             //SutherlandHodgman(vectorMap);
-            //PathContourWArcLine(vectorMap);
             //LineSegmentLineSegmentIntersectionT(vectorMap, form, metrics);
             //NearestPoint(vectorMap, form, metrics);
             //SplitLines(vectorMap);
             //SplitRays(vectorMap);
             //SplitLineSegments(vectorMap);
-            //SplitQuadraticBezier(vectorMap);
-            //SplitCubicBezier(vectorMap);
             //RayWork(vectorMap);
             //NearestParameterQuadraticBezier(vectorMap, tools);
-            //NearestParameterCubicBezier(vectorMap, tools);
             //HeartCurve(vectorMap);
-            //ScanlineIntersections(vectorMap);
             //CommonIntersections(vectorMap);
             //CurveFitting(vectorMap);
             //EllipseToBeziers(vectorMap);
-            //WarpGeometry(vectorMap);
             //WindingOrder(vectorMap);
             //PolylineClicking(vectorMap);
             //TextRendering(vectorMap, form, metrics);
@@ -87,10 +92,19 @@ namespace Editor
             //ParametricTesting(vectorMap);
             //ParametricTesting2(vectorMap);
             //ParametricTesting3(vectorMap);
-            //GridTests(vectorMap, foreColor, backColor);
 
             /* Regression Test Cases */
+
             //SelfIntersectingCubicBezier(vectorMap);
+            //IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
+            //IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);
+            //IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
+            //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
+            //IntersectionsCubicBezierQuadraticBezier(vectorMap);
+            //IntersectionsCubicBezierCubicBezier(vectorMap);
+            //IntersectionsTests(vectorMap);
+            //BezierLineIntersections(vectorMap);
+
             //GridHitTest(vectorMap);
             //IntersectionsEllipseEllipseIntersection(vectorMap, form);
             //IntersectionsCircleCircleIntersection(vectorMap);
@@ -100,23 +114,16 @@ namespace Editor
             //EllipticalArcLineSegmentIntersections(vectorMap);
             //EllipticalArcRayIntersections(vectorMap);
             //EllipticalArcLineIntersections(vectorMap);
-            //IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
-            //IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);
-            //IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
-            //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
-            //IntersectionsCubicBezierQuadraticBezier(vectorMap);
-            //IntersectionsCubicBezierCubicBezier(vectorMap);
-            //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
             //CubicBezierHorizontalLineIntersection(vectorMap);
             //SegmentIntersections(vectorMap, form, metrics);
-            //IntersectionsTests(vectorMap);
             //CircularArcBounds(vectorMap);
             //EllipseBound(vectorMap);
             //EllipticalArcBounds(vectorMap);
 
             /* Interactive */
+
             //QuadraticBezierPathFollow(vectorMap, form);
             //CubicBezierPathFollow(vectorMap, form);
             //PathFollow(vectorMap, form);
@@ -124,7 +131,8 @@ namespace Editor
             //Tweenning(vectorMap, form);
             //KaraokeBall(vectorMap, form);
             //Tweens(vectorMap);
-            //Pathfinding(vectorMap, form);
+
+            /* Basic Rendering */
 
             //TrianglePointingRight(vectorMap);
             //PaperPlaneTriangles(vectorMap);

@@ -12,6 +12,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static System.Math;
+using static Engine.Maths;
 
 namespace Engine
 {
@@ -1257,7 +1258,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool NearZero(double value, double epsilon = Mathematics.NearZeroEpsilon)
+        public static bool NearZero(double value, double epsilon = NearZeroEpsilon)
             => (value > -epsilon) && (value < -epsilon);
 
         /// <summary>

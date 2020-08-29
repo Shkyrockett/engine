@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
-using static Engine.Mathematics;
+using static Engine.Maths;
 using static System.Math;
 
 namespace Editor
@@ -106,7 +106,7 @@ namespace Editor
             //BezierLineIntersections(vectorMap);
 
             //GridHitTest(vectorMap);
-            //IntersectionsEllipseEllipseIntersection(vectorMap, form);
+            IntersectionsEllipseEllipseIntersection(vectorMap, form);
             //IntersectionsCircleCircleIntersection(vectorMap);
             //IntersectingsEllipseEllipse(vectorMap, form);
             //IntersectingsEllipseQuadraticSegment(vectorMap, form);

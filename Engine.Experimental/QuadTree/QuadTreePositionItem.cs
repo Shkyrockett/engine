@@ -19,7 +19,7 @@
 // Now get back to making great games!
 // // // // // // // // // // // // //
 
-using static Engine.Mathematics;
+using static Engine.Maths;
 
 namespace Engine.Experimental
 {

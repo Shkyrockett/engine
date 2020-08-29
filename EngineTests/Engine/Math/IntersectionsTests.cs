@@ -335,7 +335,7 @@ namespace EngineTests
 
             foreach (var test in testCases)
             {
-                var result = Intersections.CubicBezierSegmentSelfIntersection(test.Key.AX, test.Key.AY, test.Key.BX, test.Key.BY, test.Key.CX, test.Key.CY, test.Key.DX, test.Key.DY, Mathematics.Epsilon);
+                var result = Intersections.CubicBezierSegmentSelfIntersection(test.Key.AX, test.Key.AY, test.Key.BX, test.Key.BY, test.Key.CX, test.Key.CY, test.Key.DX, test.Key.DY, Maths.Epsilon);
 
                 Assert.AreEqual(test.Value.State, result.State, $"Test case: {test}, Expected: {test.Value}, Actual {result}; Intersection state differs.");
                 Assert.AreEqual(test.Value.Points.Count, result.Count, $"Test case: {test}, Expected: {test.Value}, Actual {result}; Intersection point count differs.");

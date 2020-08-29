@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.BobLyonCommon;
-using static Engine.Mathematics;
+using static Engine.Maths;
 using static Engine.Measurements;
 using static Engine.Operations;
 using static System.Math;

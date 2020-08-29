@@ -1,4 +1,4 @@
-﻿// <copyright file="Mathematics.cs" company="Shkyrockett" >
+﻿// <copyright file="Maths.cs" company="Shkyrockett" >
 //    Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -19,7 +19,7 @@ namespace Engine
     /// <summary>
     /// Extended Math processing library.
     /// </summary>
-    public static partial class Mathematics
+    public static partial class Maths
     {
         #region Random
         /// <summary>

@@ -18,7 +18,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using static Engine.Mathematics;
+using static Engine.Maths;
 using static Engine.Operations;
 
 namespace Engine

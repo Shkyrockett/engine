@@ -1881,7 +1881,7 @@ namespace EngineTests
         public void AverageTest()
         {
             var array = new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var value = Mathematics.Average(array);
+            var value = Maths.Average(array);
             Assert.AreEqual(4.5, value);
         }
 
@@ -1896,7 +1896,7 @@ namespace EngineTests
         public void SumTest()
         {
             var array = new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var value = Mathematics.Sum(array);
+            var value = Maths.Sum(array);
             Assert.AreEqual(45, value);
         }
 

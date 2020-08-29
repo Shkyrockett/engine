@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using static Engine.Mathematics;
+using static Engine.Maths;
 using static System.Math;
 
 namespace Engine
@@ -627,8 +627,8 @@ namespace Engine
             {
                 // Initialize the counter and guesses for the coefficients of quadratic factor: p(x) = x^2 + alfa1*x + beta1
                 // ToDo: The random alphas make this method non-deterministic. Need a better guess method.
-                var alfa1 = Mathematics.Random(OneHalf, 1d);
-                var beta1 = Mathematics.Random(OneHalf, 1d);
+                var alfa1 = Maths.Random(OneHalf, 1d);
+                var beta1 = Maths.Random(OneHalf, 1d);
                 var limit = 1000;
 
                 double delta1;

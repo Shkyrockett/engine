@@ -484,7 +484,7 @@ namespace Engine
             && left?.Y == right?.Y
             && left?.Width == right?.Width
             && left?.Height == right?.Height
-            && Abs(left.Angle - right.Angle) < Mathematics.Epsilon;
+            && Abs(left.Angle - right.Angle) < Maths.Epsilon;
 
         /// <summary>
         /// Tests whether <paramref name="obj" /> is a <see cref="RotatedRectangle2D" /> with the same location and size of this <see cref="Rectangle2D" />.

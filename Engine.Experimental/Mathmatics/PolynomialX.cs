@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Security;
-using static Engine.Mathematics;
+using static Engine.Maths;
 using static Engine.Operations;
 using static System.Math;
 

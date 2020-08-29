@@ -264,7 +264,7 @@ namespace Engine
             {
                 // We're at the beginning of the spline
                 var max = arclen[0];
-                Debug.Assert(target <= max + Mathematics.Epsilon);
+                Debug.Assert(target <= max + Maths.Epsilon);
                 var part = target / max;
                 var tp = part / samplesPerCurve;
                 return new SamplePosition(0, tp);
@@ -274,7 +274,7 @@ namespace Engine
                 // interpolate between two values to see where the index would be if continuous values
                 var min = arclen[index];
                 var max = arclen[index + 1];
-                Debug.Assert(target >= min - Mathematics.Epsilon && target <= max + Mathematics.Epsilon);
+                Debug.Assert(target >= min - Maths.Epsilon && target <= max + Maths.Epsilon);
                 var part = target < min ? 0 : target > max ? 1 : (target - min) / (max - min);
                 var tp = (((index + 1) % samplesPerCurve) + part) / samplesPerCurve;
                 var curveIndex = (index + 1) / samplesPerCurve;

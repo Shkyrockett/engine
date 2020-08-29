@@ -17,7 +17,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using static Engine.Mathematics;
+using static Engine.Maths;
 using static Engine.Operations;
 using static System.Math;
 

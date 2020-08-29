@@ -15,7 +15,7 @@ using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
-using static Engine.Mathematics;
+using static Engine.Maths;
 
 namespace Engine
 {

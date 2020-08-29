@@ -113,7 +113,7 @@ namespace Engine.Tools
                     Angle = Operations.AbsoluteAngle(Line[0].X, Line[0].Y, Line[1].X, Line[1].Y);
 
                     // theta is the angle to rotate to.
-                    Theta = Operations.RoundToMultiple(Angle, Mathematics.HalfPi);
+                    Theta = Operations.RoundToMultiple(Angle, Maths.HalfPi);
 
                     // delta is the difference between the angle and theta which is the angle to rotate to.
                     Delta = Theta - Angle;

@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static Engine.Mathematics;
+using static Engine.Maths;
 using static System.Math;
 
 namespace Engine

@@ -10,7 +10,7 @@
 
 using Engine;
 using System.Collections.Generic;
-using static Engine.Mathematics;
+using static Engine.Maths;
 
 namespace Editor
 {

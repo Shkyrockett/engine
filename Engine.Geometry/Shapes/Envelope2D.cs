@@ -12,7 +12,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using static Engine.Mathematics;
+using static Engine.Maths;
 
 namespace Engine
 {

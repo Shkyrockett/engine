@@ -21,7 +21,7 @@ using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using static Engine.Mathematics;
+using static Engine.Maths;
 using static Engine.Operations;
 using static System.Math;
 

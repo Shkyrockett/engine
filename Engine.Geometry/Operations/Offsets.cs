@@ -11,7 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using static Engine.Mathematics;
+using static Engine.Maths;
 
 namespace Engine
 {

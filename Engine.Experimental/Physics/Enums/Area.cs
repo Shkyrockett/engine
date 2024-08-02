@@ -1,58 +1,57 @@
 ﻿// <copyright file="Areas.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2005 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-namespace Engine
+namespace Engine;
+
+/// <summary>
+/// The areas enum.
+/// </summary>
+public enum Area
 {
     /// <summary>
-    /// The areas enum.
+    /// The SquareKilometer.
     /// </summary>
-    public enum Area
-    {
-        /// <summary>
-        /// The SquareKilometer.
-        /// </summary>
-        SquareKilometer,
+    SquareKilometer,
 
-        /// <summary>
-        /// The Hectare.
-        /// </summary>
-        Hectare,
+    /// <summary>
+    /// The Hectare.
+    /// </summary>
+    Hectare,
 
-        /// <summary>
-        /// The SquareMeter.
-        /// </summary>
-        SquareMeter,
+    /// <summary>
+    /// The SquareMeter.
+    /// </summary>
+    SquareMeter,
 
-        /// <summary>
-        /// The SquareMile.
-        /// </summary>
-        SquareMile,
+    /// <summary>
+    /// The SquareMile.
+    /// </summary>
+    SquareMile,
 
-        /// <summary>
-        /// The Acre.
-        /// </summary>
-        Acre,
+    /// <summary>
+    /// The Acre.
+    /// </summary>
+    Acre,
 
-        /// <summary>
-        /// The SquareYard.
-        /// </summary>
-        SquareYard,
+    /// <summary>
+    /// The SquareYard.
+    /// </summary>
+    SquareYard,
 
-        /// <summary>
-        /// The SquaareFoot.
-        /// </summary>
-        SquaareFoot,
+    /// <summary>
+    /// The SquaareFoot.
+    /// </summary>
+    SquaareFoot,
 
-        /// <summary>
-        /// The SquareInch.
-        /// </summary>
-        SquareInch
-    }
+    /// <summary>
+    /// The SquareInch.
+    /// </summary>
+    SquareInch
 }

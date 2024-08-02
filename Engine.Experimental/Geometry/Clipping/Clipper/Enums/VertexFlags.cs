@@ -8,34 +8,31 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
-using System;
+namespace Engine.Experimental;
 
-namespace Engine.Experimental
+/// <summary>
+/// The vertex flags enum.
+/// </summary>
+[Flags]
+public enum VertexFlags
 {
     /// <summary>
-    /// The vertex flags enum.
+    /// The OpenStart = 1.
     /// </summary>
-    [Flags]
-    public enum VertexFlags
-    {
-        /// <summary>
-        /// The OpenStart = 1.
-        /// </summary>
-        OpenStart = 1,
+    OpenStart = 1,
 
-        /// <summary>
-        /// The OpenEnd = 2.
-        /// </summary>
-        OpenEnd = 2,
+    /// <summary>
+    /// The OpenEnd = 2.
+    /// </summary>
+    OpenEnd = 2,
 
-        /// <summary>
-        /// The LocMax = 4.
-        /// </summary>
-        LocMax = 4,
+    /// <summary>
+    /// The LocMax = 4.
+    /// </summary>
+    LocMax = 4,
 
-        /// <summary>
-        /// The LocMin = 8.
-        /// </summary>
-        LocMin = 8
-    };
-}
+    /// <summary>
+    /// The LocMin = 8.
+    /// </summary>
+    LocMin = 8
+};

@@ -1,18 +1,15 @@
-﻿using System.Windows.Forms;
+﻿namespace MethodTester;
 
-namespace MethodTester
+/// <summary>
+/// 
+/// </summary>
+public partial class FlowVisualValidator : Form
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class FlowVisualValidator : Form
+    public FlowVisualValidator()
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public FlowVisualValidator()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

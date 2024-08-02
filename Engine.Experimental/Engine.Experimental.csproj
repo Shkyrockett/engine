@@ -1,50 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>preview</LangVersion>
-    <Platforms>AnyCPU;x64;x86</Platforms>
-    <Version>0.0.0.1</Version>
-    <Authors>Shkyrockett</Authors>
-    <Description>Experimental Engine components.</Description>
-    <Copyright>Copyright © 2017 - 2020 Shkyrockett</Copyright>
-    <RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
-    <DocumentationFile>$(OutputPath)$(TargetFramework)\Engine.Experimental.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<Description>Experimental Engine components.</Description>
+		<OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <Optimize>true</Optimize>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\.editorconfig" Link="Properties\.editorconfig" />
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />
-    <ProjectReference Include="..\Engine.Calendar\Engine.Calendar.csproj" />
-    <ProjectReference Include="..\Engine.Chromatics\Engine.Chromatics.csproj" />
-    <ProjectReference Include="..\Engine.Dynamics\Engine.Dynamics.csproj" />
-    <ProjectReference Include="..\Engine.File\Engine.File.csproj" />
-    <ProjectReference Include="..\Engine.Geometry\Engine.Geometry.csproj" />
-    <ProjectReference Include="..\Engine.Mathematics\Engine.Mathematics.csproj" />
-    <ProjectReference Include="..\Engine.Physics\Engine.Physics.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />
+		<ProjectReference Include="..\Engine.Calendar\Engine.Calendar.csproj" />
+		<ProjectReference Include="..\Engine.Chromatics\Engine.Chromatics.csproj" />
+		<ProjectReference Include="..\Engine.Dynamics\Engine.Dynamics.csproj" />
+		<ProjectReference Include="..\Engine.File\Engine.File.csproj" />
+		<ProjectReference Include="..\Engine.Geometry\Engine.Geometry.csproj" />
+		<ProjectReference Include="..\Engine.Mathematics\Engine.Mathematics.csproj" />
+		<ProjectReference Include="..\Engine.Physics\Engine.Physics.csproj" />
+	</ItemGroup>
 
 </Project>

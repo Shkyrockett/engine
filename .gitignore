@@ -28,6 +28,7 @@ mono_crash.*
 Any CPU/
 x64/
 x86/
+[Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
@@ -35,6 +36,7 @@ build/
 [Bb]uilds/
 [Bb]in/
 [Oo]bj/
+[Oo]ut/
 [Ll]og/
 [Ll]ogs/
 
@@ -68,6 +70,9 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 **/Properties/launchSettings.json
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
 
 # StyleCop
 StyleCopReport.xml
@@ -148,6 +153,11 @@ _TeamCity*
 # AxoCover is a Code Coverage Tool
 .axoCover/*
 !.axoCover/settings.json
+
+# Coverlet is a free, cross platform Code Coverage Tool
+coverage*.json
+coverage*.xml
+coverage*.info
 
 # Visual Studio code coverage results
 *.coverage
@@ -235,6 +245,8 @@ _pkginfo.txt
 !?*.[Cc]ache/
 
 # Others
+sql/
+*.[Cc]ache
 ClientBin/
 [Ss]tyle[Cc]op.*
 ~$*
@@ -320,6 +332,9 @@ paket-files/
 .idea/
 *.sln.iml
 
+# CodeRush
+.cr/
+
 # CodeRush personal settings
 .cr/personal
 
@@ -369,6 +384,9 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Fody - auto-generated XML schema
+FodyWeavers.xsd
 
 # Ignore the reports for now.
 reports/

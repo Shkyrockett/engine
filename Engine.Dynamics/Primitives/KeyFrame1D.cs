@@ -1,9 +1,8 @@
-﻿namespace Engine
+﻿namespace Engine;
+
+/// <summary>
+/// 
+/// </summary>
+public class KeyFrame1D
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class KeyFrame1D
-    {
-    }
 }

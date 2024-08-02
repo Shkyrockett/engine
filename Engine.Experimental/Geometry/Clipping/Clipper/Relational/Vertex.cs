@@ -8,56 +8,55 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
-namespace Engine.Experimental
+namespace Engine.Experimental;
+
+/// <summary>
+/// The vertex class.
+/// </summary>
+public class Vertex
 {
+    #region Constructors
     /// <summary>
-    /// The vertex class.
+    /// Initializes a new instance of the <see cref="Vertex" /> class.
     /// </summary>
-    public class Vertex
+    /// <param name="point">The vertex point.</param>
+    public Vertex(Point2D point)
     {
-        #region Constructors
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Vertex" /> class.
-        /// </summary>
-        /// <param name="point">The vertex point.</param>
-        public Vertex(Point2D point)
-        {
-            Point = new(point);
-        }
-        #endregion Constructors
-
-        #region Properties
-        /// <summary>
-        /// Gets or sets the point.
-        /// </summary>
-        /// <value>
-        /// The point.
-        /// </value>
-        public Point2D Point { get; set; }
-
-        /// <summary>
-        /// Gets or sets the next vertex.
-        /// </summary>
-        /// <value>
-        /// The next vertex.
-        /// </value>
-        public Vertex NextVertex { get; set; }
-
-        /// <summary>
-        /// Gets or sets the previous vertex.
-        /// </summary>
-        /// <value>
-        /// The previous vertex.
-        /// </value>
-        public Vertex PreviousVertex { get; set; }
-
-        /// <summary>
-        /// Gets or sets the vertex flags.
-        /// </summary>
-        /// <value>
-        /// The flags.
-        /// </value>
-        public VertexFlags Flags { get; set; }
-        #endregion Properties
+        Point = new(point);
     }
+    #endregion Constructors
+
+    #region Properties
+    /// <summary>
+    /// Gets or sets the point.
+    /// </summary>
+    /// <value>
+    /// The point.
+    /// </value>
+    public Point2D Point { get; set; }
+
+    /// <summary>
+    /// Gets or sets the next vertex.
+    /// </summary>
+    /// <value>
+    /// The next vertex.
+    /// </value>
+    public Vertex NextVertex { get; set; }
+
+    /// <summary>
+    /// Gets or sets the previous vertex.
+    /// </summary>
+    /// <value>
+    /// The previous vertex.
+    /// </value>
+    public Vertex PreviousVertex { get; set; }
+
+    /// <summary>
+    /// Gets or sets the vertex flags.
+    /// </summary>
+    /// <value>
+    /// The flags.
+    /// </value>
+    public VertexFlags Flags { get; set; }
+    #endregion Properties
 }

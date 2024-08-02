@@ -1,46 +1,47 @@
 ﻿// <copyright file="ITemperature.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2005 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-namespace Engine
+namespace Engine;
+
+using System.ComponentModel;
+using System.Numerics;
+
+/// <summary>
+/// The ITemperature interface.
+/// </summary>
+public interface ITemperature<T>
+    where T : INumber<T>
 {
-    using System.ComponentModel;
+    /// <summary>
+    /// Gets the value.
+    /// </summary>
+    /// <value>The <see cref="T"/>.</value>
+    T Value { get; /*set;*/ }
+
+    ///// <summary>
+    ///// 
+    ///// </summary>
+    //[EditorBrowsable(EditorBrowsableState.Never)]
+    //string Name { get; }
 
     /// <summary>
-    /// The ITemperature interface.
+    /// Gets the abbreviation.
     /// </summary>
-    public interface ITemperature
-    {
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <value>The <see cref="double"/>.</value>
-        double Value { get; /*set;*/ }
+    /// <value>The <see cref="string"/>.</value>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    string Abbreviation { get; }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        //string Name { get; }
-
-        /// <summary>
-        /// Gets the abbreviation.
-        /// </summary>
-        /// <value>The <see cref="string"/>.</value>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        string Abbreviation { get; }
-
-        /// <returns></returns>
-        /// <summary>
-        /// The to string.
-        /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
-        string ToString();
-    }
+    /// <returns></returns>
+    /// <summary>
+    /// The to string.
+    /// </summary>
+    /// <returns>The <see cref="string"/>.</returns>
+    string ToString();
 }

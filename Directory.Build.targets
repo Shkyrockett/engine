@@ -1,0 +1,25 @@
+<Project>
+
+	<!-- Since .targets files are imported late in the build order, set dependent properties here where they can pick up customizations from individual projects. -->
+
+	<PropertyGroup Label="Basic build">
+		<!-- In the .targets file because DefineConstants can be overwritten in the .proj files. -->
+		<PlatformTarget>$(Platform)</PlatformTarget>
+		<!-- Add a processor directive switch for the build platform ID. -->
+		<DefineConstants>$(DefineConstants);$(Platform)</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Intrinsics">
+		<!-- In the .targets file because DefineConstants can be overwritten in the .proj files. -->
+		<!-- Intrinsics support started in .NET Core. -->
+		<HasIntrinsics Condition="'$(TargetsNetCoreApp)'=='true'">true</HasIntrinsics>
+		<!-- Add compiler deffine for Intrinsics. -->
+		<DefineConstants Condition="'$(HasIntrinsics)'=='true'">$(DefineConstants);HAS_INTRINSICS</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Symbols, Docs">
+		<!-- We need the comment XML for both debug and release. Might as well have it for all libraries. -->
+		<DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+
+</Project>

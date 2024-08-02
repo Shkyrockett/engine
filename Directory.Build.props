@@ -1,0 +1,92 @@
+<Project>
+
+	<!-- Since .props files are imported early in the build order, set reliant properties here where individual projects can pick up and can override customizations. -->
+
+	<PropertyGroup Label="Basic Build">
+		<TargetFramework>net9.0</TargetFramework>
+		<Platforms>AnyCPU;ARM32;ARM64;x64;x86</Platforms>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<NeutralResourcesLanguage>en-US</NeutralResourcesLanguage>
+		<LangVersion>preview</LangVersion>
+		<AnalysisLevel>preview</AnalysisLevel>
+		<EnablePreviewFeatures>true</EnablePreviewFeatures>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<TieredCompilation>true</TieredCompilation>
+		<Deterministic>true</Deterministic>
+		<VersionPrefix>0.0.0.1</VersionPrefix>
+		<VersionSuffix>Alpha</VersionSuffix>
+		<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Label="NuGet Package">
+		<Authors>Shkyrockett</Authors>
+		<Company>$(Authors)</Company>
+		<Version>$(VersionPrefix)-$(VersionSuffix)</Version>
+		<FileVersion>$(Version)</FileVersion>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+		<Copyright>Copyright © 2013 - 2024 $(Company). All rights reserved.</Copyright>
+		<RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
+		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+		<PackageReleaseNotes>$(RepositoryUrl)/releases</PackageReleaseNotes>
+		<PackageIcon></PackageIcon>
+		<PackageTags></PackageTags>
+		<Description></Description>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Symbols, docs">
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<IlcGenerateMstatFile>true</IlcGenerateMstatFile>
+		<IlcGenerateDgmlFile>true</IlcGenerateDgmlFile>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<Optimize>false</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<DebugType>None</DebugType>
+		<Optimize>true</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Target Frameworks">
+		<TargetsUap Condition="$(TargetFramework.StartsWith('uap'))">true</TargetsUap>
+		<TargetsNetStandard Condition="$(TargetFramework.StartsWith('netstandard'))">true</TargetsNetStandard>
+		<!-- Hack condition to select .NET framework target framework monikers. -->
+		<TargetsNetFx Condition="$(TargetFramework.StartsWith('net')) And !$(TargetFramework.Contains('.'))">true</TargetsNetFx>
+		<TargetsNetCoreApp Condition="$(TargetFramework.StartsWith('netcoreapp.'))">true</TargetsNetCoreApp>
+		<!-- Hack condition to select .NET 5+ target framework monikers. -->
+		<TargetsNetCoreApp Condition="$(TargetFramework.StartsWith('net')) And $(TargetFramework.Contains('.'))">true</TargetsNetCoreApp>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<None Include="..\.editorconfig" Link="Properties\.editorconfig" />
+		<None Include="..\LICENSE.md" Link="Properties\LICENSE.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md" Link="Properties\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="CommunityToolkit.HighPerformance" Version="8.2.2" />
+		<PackageReference Update="DotNet.ReproducibleBuilds" Version="1.2.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+</Project>

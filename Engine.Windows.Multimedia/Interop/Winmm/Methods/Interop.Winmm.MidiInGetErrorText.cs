@@ -24,7 +24,7 @@ internal static partial class Interop
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingeterrortext
         /// </acknowledgment>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiInGetErrorText", ExactSpelling = true, CharSet = CharSet.Auto)]
         private static extern MmResult MidiInGetErrorText(int err, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpText, int uSize);
     }

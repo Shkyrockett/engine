@@ -8,26 +8,25 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
-namespace Engine.Experimental
+namespace Engine.Experimental;
+
+/// <summary>
+/// The out record join mode flag enum.
+/// </summary>
+public enum OutrecFlag
 {
     /// <summary>
-    /// The out record join mode flag enum.
+    /// The Inner.
     /// </summary>
-    public enum OutrecFlag
-    {
-        /// <summary>
-        /// The Inner.
-        /// </summary>
-        Inner,
+    Inner,
 
-        /// <summary>
-        /// The Outer.
-        /// </summary>
-        Outer,
+    /// <summary>
+    /// The Outer.
+    /// </summary>
+    Outer,
 
-        /// <summary>
-        /// The Open.
-        /// </summary>
-        Open
-    };
-}
+    /// <summary>
+    /// The Open.
+    /// </summary>
+    Open
+};

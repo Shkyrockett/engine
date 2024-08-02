@@ -1,46 +1,45 @@
 ﻿// <copyright file="RenderFont.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2017 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-namespace Engine
+namespace Engine;
+
+/// <summary>
+/// The render font class.
+/// </summary>
+public class RenderFont
 {
     /// <summary>
-    /// The render font class.
+    /// Initializes a new instance of the <see cref="RenderFont"/> class.
     /// </summary>
-    public class RenderFont
+    /// <param name="name">The name.</param>
+    /// <param name="size">The size.</param>
+    /// <param name="textStyle">The textStyle.</param>
+    public RenderFont(string name, double size, TextStyles textStyle)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RenderFont"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="size">The size.</param>
-        /// <param name="textStyle">The textStyle.</param>
-        public RenderFont(string name, double size, TextStyles textStyle)
-        {
-            Name = name;
-            Size = size;
-            Style = textStyle;
-        }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the size.
-        /// </summary>
-        public double Size { get; set; }
-
-        /// <summary>
-        /// Gets or sets the style.
-        /// </summary>
-        public TextStyles Style { get; set; }
+        Name = name;
+        Size = size;
+        Style = textStyle;
     }
+
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size.
+    /// </summary>
+    public double Size { get; set; }
+
+    /// <summary>
+    /// Gets or sets the style.
+    /// </summary>
+    public TextStyles Style { get; set; }
 }

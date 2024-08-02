@@ -1,95 +1,94 @@
-﻿namespace Engine
-{
-    ///// <summary>
-    ///// A complex polygon is represented by many contours (i.e. simple polygons).
-    ///// </summary>
-    //public class Polygon2D
-    //{
-    //    /// <summary>
-    //    /// The contours.
-    //    /// </summary>
-    //    public List<PolygonContour2D> contours = new List<PolygonContour2D>();
+﻿namespace Engine;
 
-    //    /// <summary>
-    //    /// The bounds.
-    //    /// </summary>
-    //    public Rectangle2D bounds;
+///// <summary>
+///// A complex polygon is represented by many contours (i.e. simple polygons).
+///// </summary>
+//public class Polygon2D
+//{
+//    /// <summary>
+//    /// The contours.
+//    /// </summary>
+//    public List<PolygonContour2D> contours = new List<PolygonContour2D>();
 
-    //    /// <summary>
-    //    /// Initializes a new instance of the <see cref="Polygon2D"/> class.
-    //    /// </summary>
-    //    public Polygon2D()
-    //    {
-    //        contours = new List<PolygonContour2D>();
-    //    }
+//    /// <summary>
+//    /// The bounds.
+//    /// </summary>
+//    public Rectangle2D bounds;
 
-    //    /// <summary>
-    //    /// Gets the vertices count.
-    //    /// </summary>
-    //    public int VerticesCount
-    //    {
-    //        get
-    //        {
-    //            var verticesCount = 0;
-    //            foreach (var c in contours)
-    //            {
-    //                verticesCount += c.Points.Count;
-    //            }
+//    /// <summary>
+//    /// Initializes a new instance of the <see cref="Polygon2D"/> class.
+//    /// </summary>
+//    public Polygon2D()
+//    {
+//        contours = new List<PolygonContour2D>();
+//    }
 
-    //            return verticesCount;
-    //        }
-    //    }
+//    /// <summary>
+//    /// Gets the vertices count.
+//    /// </summary>
+//    public int VerticesCount
+//    {
+//        get
+//        {
+//            var verticesCount = 0;
+//            foreach (var c in contours)
+//            {
+//                verticesCount += c.Points.Count;
+//            }
 
-    //    /// <summary>
-    //    /// Gets the bounds.
-    //    /// </summary>
-    //    public Rectangle2D Bounds
-    //    {
-    //        get
-    //        {
-    //            if (bounds is not null)
-    //            {
-    //                return bounds;
-    //            }
+//            return verticesCount;
+//        }
+//    }
 
-    //            Rectangle2D bb = null;
-    //            foreach (var c in contours)
-    //            {
-    //                var cBB = c.Bounds;
-    //                bb = bb is null ? cBB : bb.Union(cBB);
-    //            }
+//    /// <summary>
+//    /// Gets the bounds.
+//    /// </summary>
+//    public Rectangle2D Bounds
+//    {
+//        get
+//        {
+//            if (bounds is not null)
+//            {
+//                return bounds;
+//            }
 
-    //            bounds = bb;
-    //            return bounds;
-    //        }
-    //    }
+//            Rectangle2D bb = null;
+//            foreach (var c in contours)
+//            {
+//                var cBB = c.Bounds;
+//                bb = bb is null ? cBB : bb.Union(cBB);
+//            }
 
-    //    /// <summary>
-    //    /// Add.
-    //    /// </summary>
-    //    /// <param name="c">The c.</param>
-    //    public void Add(PolygonContour2D c)
-    //        => contours.Add(c);
+//            bounds = bb;
+//            return bounds;
+//        }
+//    }
 
-    //    /// <summary>
-    //    /// Clone.
-    //    /// </summary>
-    //    /// <returns>The <see cref="Polygon2D"/>.</returns>
-    //    public Polygon2D Clone()
-    //    {
-    //        var poly = new Polygon2D();
-    //        foreach (var cont in contours)
-    //        {
-    //            var c = new PolygonContour2D();
-    //            foreach (var p in cont.Points)
-    //            {
-    //                c.Add(new Point2D(p));
-    //            }
+//    /// <summary>
+//    /// Add.
+//    /// </summary>
+//    /// <param name="c">The c.</param>
+//    public void Add(PolygonContour2D c)
+//        => contours.Add(c);
 
-    //            poly.Add(c);
+//    /// <summary>
+//    /// Clone.
+//    /// </summary>
+//    /// <returns>The <see cref="Polygon2D"/>.</returns>
+//    public Polygon2D Clone()
+//    {
+//        var poly = new Polygon2D();
+//        foreach (var cont in contours)
+//        {
+//            var c = new PolygonContour2D();
+//            foreach (var p in cont.Points)
+//            {
+//                c.Add(new Point2D(p));
+//            }
 
-    //        }
-    //        return poly;
-    //    }
-    //}
-}
+//            poly.Add(c);
+
+//        }
+//        return poly;
+//    }
+//}

@@ -1,30 +1,29 @@
 ﻿// <copyright file="IFillable.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2017 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-namespace Engine
+namespace Engine;
+
+/// <summary>
+/// The IFillable interface.
+/// </summary>
+public interface IFillable
 {
     /// <summary>
-    /// The IFillable interface.
+    /// Gets or sets the color.
     /// </summary>
-    public interface IFillable
-    {
-        /// <summary>
-        /// Gets or sets the color.
-        /// </summary>
-        /// <value>The <see cref="IColor"/>.</value>
-        IColor Color { get; set; }
+    /// <value>The <see cref="IColor"/>.</value>
+    IColor Color { get; set; }
 
-        /// <summary>
-        /// Gets or sets the fill mode.
-        /// </summary>
-        /// <value>The <see cref="FillMode"/>.</value>
-        FillMode FillMode { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the fill mode.
+    /// </summary>
+    /// <value>The <see cref="FillMode"/>.</value>
+    FillMode FillMode { get; set; }
 }

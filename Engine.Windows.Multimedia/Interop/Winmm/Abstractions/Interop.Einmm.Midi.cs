@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -24,7 +23,7 @@ internal static partial class Interop
             /// or
             /// An invalid handle was provided to connect to a MIDI device.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static IntPtr MidiConnect(IntPtr midiInputHandle) => (Winmm.MidiConnect(midiInputHandle, out IntPtr midiOutputHandle, IntPtr.Zero)) switch
             {
                 MmResult.NoError => midiOutputHandle,
@@ -41,7 +40,7 @@ internal static partial class Interop
             /// The MIDI output handle.
             /// </returns>
             /// <exception cref="System.Exception">An invalid handle was provided to disconnect a MIDI device.</exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static IntPtr MidiDisconnect(IntPtr midiInputHandle) => (Winmm.MidiDisconnect(midiInputHandle, out var midiOutputHandle, IntPtr.Zero)) switch
             {
                 MmResult.NoError => midiOutputHandle,
@@ -66,7 +65,7 @@ internal static partial class Interop
             /// or
             /// The system is unable to allocate or lock memory.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiInAddBuffer(IntPtr midiInputHandle, MIDIHDR midiInHeader) => (Winmm.MidiInAddBuffer(midiInputHandle, ref midiInHeader, Marshal.SizeOf(midiInHeader))) switch
             {
                 MmResult.NoError => true,
@@ -90,7 +89,7 @@ internal static partial class Interop
             /// or
             /// The system is unable to allocate or lock memory.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiInClose(IntPtr midiInputHandle) => (MidiInClose_(midiInputHandle)) switch
             {
                 MmResult.NoError => true,
@@ -105,7 +104,7 @@ internal static partial class Interop
             /// </summary>
             /// <param name="midiInDeviceNumber">The midi in device number.</param>
             /// <returns></returns>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public unsafe static MidiInCapabilities MidiInGetDevCaps(int midiInDeviceNumber)
             {
                 var capabilities = new MidiInCapabilities();
@@ -135,7 +134,7 @@ internal static partial class Interop
             /// or
             /// The system is unable to allocate or lock memory.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static string MidiInGetErrorText(int error)
             {
                 var sb = new StringBuilder(MaxErrorLength);
@@ -158,7 +157,7 @@ internal static partial class Interop
             /// <exception cref="Exception">The Midi Device is not ready to connect to.
             /// or
             /// An invalid handle was provided to connect to a MIDI device.</exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static int MidiInGetID(IntPtr midiInputHandle) => (Winmm.MidiInGetID(midiInputHandle, out var deviceID)) switch
             {
                 MmResult.NoError => deviceID,
@@ -176,7 +175,7 @@ internal static partial class Interop
             /// <param name="paramerter1">The paramerter1.</param>
             /// <param name="paramerter2">The paramerter2.</param>
             /// <returns></returns>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiInMessage(IntPtr midiInputHandle, int message, IntPtr paramerter1, IntPtr paramerter2) => (MidiInMessage_(midiInputHandle, message, paramerter1, paramerter2)) switch
             {
                 MmResult.NoError => true,
@@ -202,7 +201,7 @@ internal static partial class Interop
             /// or
             /// Unable to allocate or lock memory.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static IntPtr MidiInOpen(int deviceNo, MidiInCallback callback, MidiInOpenFlags openFlags = MidiInOpenFlags.CALLBACK_FUNCTION) => Winmm.MidiInOpen(out var hMidiIn, (IntPtr)deviceNo, callback, IntPtr.Zero, openFlags) switch
             {
                 MmResult.NoError => hMidiIn,
@@ -232,7 +231,7 @@ internal static partial class Interop
             /// or
             /// Unable to allocate or lock memory.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static IntPtr MidiInOpenWindow(int deviceNo, IntPtr callback, MidiInOpenFlags openFlags = MidiInOpenFlags.CALLBACK_WINDOW) => Winmm.MidiInOpenWindow(out var hMidiIn, (IntPtr)deviceNo, callback, IntPtr.Zero, openFlags) switch
             {
                 MmResult.NoError => hMidiIn,
@@ -259,7 +258,7 @@ internal static partial class Interop
             /// The specified pointer or structure is invalid.
             /// or
             /// The system is unable to allocate or lock memory.</exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static MIDIHDR MidiInPrepareHeader(IntPtr midiInputHandle, MIDIHDR midiInHeader) => (Winmm.MidiInPrepareHeader(midiInputHandle, ref midiInHeader, Marshal.SizeOf(midiInHeader))) switch
             {
                 MmResult.NoError => midiInHeader,
@@ -275,7 +274,7 @@ internal static partial class Interop
             /// <param name="midiInputHandle">The midi input handle.</param>
             /// <returns></returns>
             /// <exception cref="Exception">The specified device handle is invalid.</exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiInReset(IntPtr midiInputHandle) => (MidiInReset_(midiInputHandle)) switch
             {
                 MmResult.NoError => true,
@@ -289,7 +288,7 @@ internal static partial class Interop
             /// <param name="midiInputHandle">The midi input handle.</param>
             /// <returns></returns>
             /// <exception cref="Exception">The specified device handle is invalid.</exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiInStart(IntPtr midiInputHandle) => (MidiInStart_(midiInputHandle)) switch
             {
                 MmResult.NoError => true,
@@ -303,7 +302,7 @@ internal static partial class Interop
             /// <param name="midiInputHandle">The midi input handle.</param>
             /// <returns></returns>
             /// <exception cref="Exception">The specified device handle is invalid.</exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiInStop(IntPtr midiInputHandle) => (MidiInStop_(midiInputHandle)) switch
             {
                 MmResult.NoError => true,
@@ -324,7 +323,7 @@ internal static partial class Interop
             /// or
             /// The system is unable to allocate or lock memory.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static MIDIHDR MidiInUnprepareHeader(IntPtr midiInputHandle, MIDIHDR midiInHeader) => (Winmm.MidiInPrepareHeader(midiInputHandle, ref midiInHeader, Marshal.SizeOf(midiInHeader))) switch
             {
                 MmResult.NoError => midiInHeader,
@@ -349,7 +348,7 @@ internal static partial class Interop
             /// or
             /// The system is unable to allocate or lock memory.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiOutCacheDrumPatches(IntPtr midiOutputHandle, int patch, IntPtr keyArray, MidiCacheFlags flags) => (MidiOutCacheDrumPatches_(midiOutputHandle, patch, keyArray, flags)) switch
             {
                 MmResult.NoError => true,
@@ -380,7 +379,7 @@ internal static partial class Interop
             /// or
             /// The specified device does not support patch caching.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiOutCachePatches(IntPtr midiOutputHandle, int bank, IntPtr patchArray, MidiCacheFlags flags) => (MidiOutCachePatches_(midiOutputHandle, bank, patchArray, flags)) switch
             {
                 MmResult.NoError => true,
@@ -398,7 +397,7 @@ internal static partial class Interop
             /// <param name="midiOutputHandle">The midi output handle.</param>
             /// <returns></returns>
             /// <exception cref="Exception">The specified device handle is invalid.</exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiOutClose(IntPtr midiOutputHandle) => (MidiOutClose_(midiOutputHandle)) switch
             {
                 MmResult.NoError => true,
@@ -413,7 +412,7 @@ internal static partial class Interop
             /// </summary>
             /// <param name="midiOutDeviceNumber">The midi out device number.</param>
             /// <returns></returns>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static MidiOutCapabilities MidiOutGetDevCaps(int midiOutDeviceNumber)
             {
                 var caps = new MidiOutCapabilities();
@@ -439,7 +438,7 @@ internal static partial class Interop
             /// or
             /// The specified pointer or structure is invalid.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static string MidiOutGetErrorText(IntPtr error)
             {
                 var sb = new StringBuilder(MaxErrorLength);
@@ -457,7 +456,7 @@ internal static partial class Interop
             /// </summary>
             /// <param name="midiOutputHandle">The midi output handle.</param>
             /// <returns></returns>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static int MidiOutGetID(IntPtr midiOutputHandle) => Winmm.MidiOutGetID(midiOutputHandle, out var deviceID) switch
             {
                 MmResult.NoError => deviceID,
@@ -471,7 +470,7 @@ internal static partial class Interop
             /// Retrieves the number of MIDI output devices present in the system.
             /// </summary>
             /// <returns></returns>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static int MidiOutGetNumDevs() => MidiOutGetNumDevs_();
 
             /// <summary>
@@ -504,7 +503,7 @@ internal static partial class Interop
             /// <param name="midiOutputHandle">The midi output handle.</param>
             /// <param name="midiOutHeader">The midi out header.</param>
             /// <returns></returns>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static MIDIHDR MidiOutLongMsg(IntPtr midiOutputHandle, ref MIDIHDR midiOutHeader) => Winmm.MidiOutLongMsg(midiOutputHandle, ref midiOutHeader, Marshal.SizeOf(midiOutHeader)) switch
             {
                 MmResult.NoError => midiOutHeader,
@@ -523,7 +522,7 @@ internal static partial class Interop
             /// <param name="param1">The param1.</param>
             /// <param name="param2">The param2.</param>
             /// <returns></returns>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiOutMessage(IntPtr midiOutputHandle, int message, int param1, int param2) => Winmm.MidiOutMessage(midiOutputHandle, message, (IntPtr)param1, (IntPtr)param2) switch
             {
                 MmResult.NoError => true,
@@ -548,7 +547,7 @@ internal static partial class Interop
             /// or
             /// Unable to allocate or lock memory.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static IntPtr MidiOutOpen(int deviceNo, MidiOutCallback callback, MidiOutOpenFlags openFlag = MidiOutOpenFlags.CALLBACK_FUNCTION) => Winmm.MidiOutOpen(out var midiOutputHandle, (IntPtr)deviceNo, callback, IntPtr.Zero, openFlag) switch
             {
                 MmResult.NoError => midiOutputHandle,
@@ -565,7 +564,7 @@ internal static partial class Interop
             /// </summary>
             /// <param name="midiOutputHandle">The midi output handle.</param>
             /// <param name="lpMidiOutHdr">The lp midi out HDR.</param>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static MIDIHDR MidiOutPrepareHeader(IntPtr midiOutputHandle, ref MIDIHDR midiOutHeader) => Winmm.MidiOutPrepareHeader(midiOutputHandle, ref midiOutHeader, Marshal.SizeOf(midiOutHeader)) switch
             {
                 MmResult.NoError => midiOutHeader,
@@ -580,7 +579,7 @@ internal static partial class Interop
             /// </summary>
             /// <param name="midiOutputHandle">The midi output handle.</param>
             /// <returns></returns>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiOutReset(IntPtr midiOutputHandle) => MidiOutReset_(midiOutputHandle) switch
             {
                 MmResult.NoError => true,
@@ -596,7 +595,7 @@ internal static partial class Interop
             /// <param name="right">The right.</param>
             /// <returns></returns>
             /// <exception cref="Exception">The specified device handle is invalid.</exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiOutSetVolume(IntPtr midiOutputHandle, short left, short right) => Winmm.MidiOutSetVolume(midiOutputHandle, (right & 0x0000FFFF) | (left << 16)) switch
             {
                 MmResult.NoError => true,
@@ -612,7 +611,7 @@ internal static partial class Interop
             /// <param name="midiOutputHandle">The midi output handle.</param>
             /// <param name="message">The message.</param>
             /// <returns></returns>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiOutShortMsg(IntPtr midiOutputHandle, int message) => Winmm.MidiOutSetVolume(midiOutputHandle, message) switch
             {
                 MmResult.NoError => true,
@@ -635,7 +634,7 @@ internal static partial class Interop
             /// or
             /// The specified pointer or structure is invalid.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiOutUnprepareHeader(IntPtr midiOutputHandle, ref MIDIHDR midiOutHdr) => Winmm.MidiOutUnprepareHeader(midiOutputHandle, ref midiOutHdr, Marshal.SizeOf(midiOutHdr)) switch
             {
                 MmResult.NoError => true,
@@ -651,7 +650,7 @@ internal static partial class Interop
             /// <param name="midiStream">The midi stream.</param>
             /// <returns></returns>
             /// <exception cref="Exception">The specified device handle is invalid.</exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiStreamClose(IntPtr midiStream) => MidiStreamClose_(midiStream) switch
             {
                 MmResult.NoError => true,
@@ -675,7 +674,7 @@ internal static partial class Interop
             /// or
             /// The system is unable to allocate or lock memory.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static IntPtr MidiStreamOpen(IntPtr deviceID, int midi, IntPtr callback, IntPtr instance, MidiOutOpenFlags midiOpenFlags) => Winmm.MidiStreamOpen(out var midiOutputHandle, deviceID, midi, callback, instance, midiOpenFlags) switch
             {
                 MmResult.NoError => midiOutputHandle,
@@ -702,7 +701,7 @@ internal static partial class Interop
             /// or
             /// The specified pointer or structure is invalid.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiStreamOut(IntPtr midiStream, ref MIDIHDR midiHeader) => Winmm.MidiStreamOut(midiStream, ref midiHeader, Marshal.SizeOf(midiHeader)) switch
             {
                 MmResult.NoError => true,
@@ -720,7 +719,7 @@ internal static partial class Interop
             /// <param name="midiStream">The midi stream.</param>
             /// <returns></returns>
             /// <exception cref="Exception">The specified device handle is invalid.</exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiStreamPause(IntPtr midiStream) => MidiStreamPause_(midiStream) switch
             {
                 MmResult.NoError => true,
@@ -738,7 +737,7 @@ internal static partial class Interop
             /// or
             /// The specified pointer or structure is invalid.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static MMTIME MidiStreamPosition(IntPtr midiStream)
             {
                 var lpmmt = new MMTIME();
@@ -763,7 +762,7 @@ internal static partial class Interop
             /// or
             /// The specified pointer or structure is invalid.
             /// </exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiStreamProperty(IntPtr midiStream, IntPtr propData, StreamPropertFlags propertyFlags) => MidiStreamProperty_(midiStream, propData, propertyFlags) switch
             {
                 MmResult.NoError => true,
@@ -778,7 +777,7 @@ internal static partial class Interop
             /// <param name="midiStream">The midi stream.</param>
             /// <returns></returns>
             /// <exception cref="Exception">The specified device handle is invalid.</exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiStreamRestart(IntPtr midiStream) => MidiStreamRestart_(midiStream) switch
             {
                 MmResult.NoError => true,
@@ -792,7 +791,7 @@ internal static partial class Interop
             /// <param name="midiStream">The midi stream.</param>
             /// <returns></returns>
             /// <exception cref="Exception">The specified device handle is invalid.</exception>
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static bool MidiStreamStop(IntPtr midiStream) => MidiStreamStop_(midiStream) switch
             {
                 MmResult.NoError => true,

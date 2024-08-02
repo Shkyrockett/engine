@@ -1,5 +1,5 @@
 ﻿// <copyright file="SegmentComparators.cs" >
-//     Copyright © 2012 Francisco Martínez del Río. All rights reserved.
+// Copyright © 2012 Francisco Martínez del Río. All rights reserved.
 // </copyright>
 // <author id="fmartin@ujaen.es">Francisco Martínez del Río</author>
 // <license>
@@ -8,597 +8,594 @@
 // <summary></summary>
 // <remarks> http://www4.ujaen.es/~fmartin/bool_op.html </remarks>
 
-using System;
-using System.Collections.Generic;
 using static Engine.SegmentComparators;
 
-namespace Engine
+namespace Engine;
+
+/// <summary>
+/// This class contains methods for computing clipping operations on polygons. 
+/// It implements the algorithm for polygon intersection given by Francisco Martínez del Río.
+/// </summary>
+public class MartinezPolygonClipper
 {
+    #region Fields
     /// <summary>
-    /// This class contains methods for computing clipping operations on polygons. 
-    /// It implements the algorithm for polygon intersection given by Francisco Martínez del Río.
+    /// The subject.
     /// </summary>
-    public class MartinezPolygonClipper
+    private readonly Polygon2D subject;
+
+    /// <summary>
+    /// The clipping.
+    /// </summary>
+    private readonly Polygon2D clipping;
+
+    /// <summary>
+    /// The event queue.
+    /// </summary>
+    private readonly EventQueue eventQueue;
+    #endregion Fields
+
+    #region Constructors
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MartinezPolygonClipper"/> class.
+    /// </summary>
+    /// <param name="subject">The subject.</param>
+    /// <param name="clipping">The clipping.</param>
+    public MartinezPolygonClipper(Polygon2D subject, Polygon2D clipping)
     {
-        #region Fields
-        /// <summary>
-        /// The subject.
-        /// </summary>
-        private readonly Polygon2D subject;
+        this.subject = subject;
+        this.clipping = clipping;
+        eventQueue = new EventQueue();
+    }
+    #endregion Constructors
 
-        /// <summary>
-        /// The clipping.
-        /// </summary>
-        private readonly Polygon2D clipping;
+    /// <summary>
+    /// Computes the polygon operation given by operation.
+    /// See <see cref="ClippingOperation"/> for the operation codes.
+    /// </summary>
+    /// <param name="operation">A value specifying which boolean operation to compute.</param>
+    /// <returns>The resulting polygon from the specified clipping operation.</returns>
+    public Polygon2D Compute(ClippingOperation operation)
+    {
+        var result = new Polygon2D();
 
-        /// <summary>
-        /// The event queue.
-        /// </summary>
-        private readonly EventQueue eventQueue;
-        #endregion Fields
-
-        #region Constructors
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MartinezPolygonClipper"/> class.
-        /// </summary>
-        /// <param name="subject">The subject.</param>
-        /// <param name="clipping">The clipping.</param>
-        public MartinezPolygonClipper(Polygon2D subject, Polygon2D clipping)
+        // Test 1 for trivial result case
+        if (subject.Contours.Count * clipping.Contours.Count == 0)
         {
-            this.subject = subject;
-            this.clipping = clipping;
-            eventQueue = new EventQueue();
+            // At least one of the polygons is empty
+            switch (operation)
+            {
+                case ClippingOperation.Difference:
+                    result = subject;
+                    break;
+                case ClippingOperation.Union:
+                case ClippingOperation.Xor:
+                    result = (subject.Contours.Count == 0) ? clipping : subject;
+                    break;
+                default:
+                    break;
+            }
+
+            return result;
         }
-        #endregion Constructors
 
-        /// <summary>
-        /// Computes the polygon operation given by operation.
-        /// See <see cref="ClippingOperation"/> for the operation codes.
-        /// </summary>
-        /// <param name="operation">A value specifying which boolean operation to compute.</param>
-        /// <returns>The resulting polygon from the specified clipping operation.</returns>
-        public Polygon2D Compute(ClippingOperation operation)
+        var subjectBB = subject.Bounds;
+        var clippingBB = clipping.Bounds;
+
+        // Test 2 for trivial result case
+        if (!(subjectBB?.IntersectsWith(clippingBB) ?? false))
         {
-            var result = new Polygon2D();
-
-            // Test 1 for trivial result case
-            if (subject.Contours.Count * clipping.Contours.Count == 0)
+            // the bounding boxes do not overlap
+            switch (operation)
             {
-                // At least one of the polygons is empty
-                switch (operation)
-                {
-                    case ClippingOperation.Difference:
-                        result = subject;
-                        break;
-                    case ClippingOperation.Union:
-                    case ClippingOperation.Xor:
-                        result = (subject.Contours.Count == 0) ? clipping : subject;
-                        break;
-                    default:
-                        break;
-                }
+                case ClippingOperation.Difference:
+                    result = subject;
+                    break;
+                case ClippingOperation.Union:
+                case ClippingOperation.Xor:
+                    result = subject;
+                    foreach (var c in clipping.Contours)
+                    {
+                        result.Add(c);
+                    }
 
-                return result;
+                    break;
+                default:
+                    break;
             }
 
-            var subjectBB = subject.Bounds;
-            var clippingBB = clipping.Bounds;
+            return result;
+        }
 
-            // Test 2 for trivial result case
-            if (!(subjectBB?.IntersectsWith(clippingBB) ?? false))
+        // Add each segment to the eventQueue, sorted from left to right.
+        foreach (var sCont in subject.Contours)
+        {
+            for (var pParse1 = 0; pParse1 < sCont.Points.Count; pParse1++)
             {
-                // the bounding boxes do not overlap
-                switch (operation)
-                {
-                    case ClippingOperation.Difference:
-                        result = subject;
-                        break;
-                    case ClippingOperation.Union:
-                    case ClippingOperation.Xor:
-                        result = subject;
-                        foreach (var c in clipping.Contours)
-                        {
-                            result.Add(c);
-                        }
+                ProcessSegment(sCont.Segment(pParse1), ClippingRelation.Subject);
+            }
+        }
 
-                        break;
-                    default:
-                        break;
-                }
+        foreach (var cCont in clipping.Contours)
+        {
+            for (var pParse2 = 0; pParse2 < cCont.Points.Count; pParse2++)
+            {
+                ProcessSegment(cCont.Segment(pParse2), ClippingRelation.Clipping);
+            }
+        }
 
-                return result;
+        var connector = new Connector();
+
+        // This is the SweepLine. That is, we go through all the polygon edges
+        // by sweeping from left to right.
+        var S = new SweepEventSet();
+
+        SweepEvent e;
+        var minMaxX = Math.Min(subjectBB.Right, clippingBB.Right);
+
+        SweepEvent prev = null, next = null;
+
+        while (!eventQueue.IsEmpty)
+        {
+            e = eventQueue.Dequeue();
+
+            // Optimization 2
+            if ((operation == ClippingOperation.Intersection && (e.Point.X > minMaxX)) || (operation == ClippingOperation.Difference && e.Point.X > subjectBB.Right))
+            {
+                return connector.ToPolygon();
             }
 
-            // Add each segment to the eventQueue, sorted from left to right.
-            foreach (var sCont in subject.Contours)
+            if (operation == ClippingOperation.Union && (e.Point.X > minMaxX))
             {
-                for (var pParse1 = 0; pParse1 < sCont.Points.Count; pParse1++)
+                if (!e.IsLeft)
                 {
-                    ProcessSegment(sCont.Segment(pParse1), ClippingRelation.Subject);
-                }
-            }
-
-            foreach (var cCont in clipping.Contours)
-            {
-                for (var pParse2 = 0; pParse2 < cCont.Points.Count; pParse2++)
-                {
-                    ProcessSegment(cCont.Segment(pParse2), ClippingRelation.Clipping);
-                }
-            }
-
-            var connector = new Connector();
-
-            // This is the SweepLine. That is, we go through all the polygon edges
-            // by sweeping from left to right.
-            var S = new SweepEventSet();
-
-            SweepEvent e;
-            var minMaxX = Math.Min(subjectBB.Right, clippingBB.Right);
-
-            SweepEvent prev = null, next = null;
-
-            while (!eventQueue.IsEmpty)
-            {
-                e = eventQueue.Dequeue();
-
-                // Optimization 2
-                if ((operation == ClippingOperation.Intersection && (e.Point.X > minMaxX)) || (operation == ClippingOperation.Difference && e.Point.X > subjectBB.Right))
-                {
-                    return connector.ToPolygon();
+                    connector.Add(e.Segment());
                 }
 
-                if (operation == ClippingOperation.Union && (e.Point.X > minMaxX))
+                while (!eventQueue.IsEmpty)
                 {
+                    e = eventQueue.Dequeue();
                     if (!e.IsLeft)
                     {
                         connector.Add(e.Segment());
                     }
-
-                    while (!eventQueue.IsEmpty)
-                    {
-                        e = eventQueue.Dequeue();
-                        if (!e.IsLeft)
-                        {
-                            connector.Add(e.Segment());
-                        }
-                    }
-
-                    return connector.ToPolygon();
                 }
 
-                if (e.IsLeft)
+                return connector.ToPolygon();
+            }
+
+            if (e.IsLeft)
+            {
+                var pos = S.Insert(e);
+
+                prev = (pos > 0) ? S.eventSet[pos - 1] : null;
+                next = (pos < S.eventSet.Count - 1) ? S.eventSet[pos + 1] : null;
+
+                if (prev is null)
                 {
-                    var pos = S.Insert(e);
-
-                    prev = (pos > 0) ? S.eventSet[pos - 1] : null;
-                    next = (pos < S.eventSet.Count - 1) ? S.eventSet[pos + 1] : null;
-
-                    if (prev is null)
+                    e.OtherInOut = e.InOut = false;
+                }
+                else if (prev.Contribution != EdgeContribution.Normal)
+                {
+                    if (pos - 2 < 0)
                     {
+                        // Not sure how to handle the case when pos - 2 < 0, but judging
+                        // from the C++ implementation this looks like how it should be handled.
                         e.OtherInOut = e.InOut = false;
-                    }
-                    else if (prev.Contribution != EdgeContribution.Normal)
-                    {
-                        if (pos - 2 < 0)
+                        if (prev.BelongsTo != e.BelongsTo)
                         {
-                            // Not sure how to handle the case when pos - 2 < 0, but judging
-                            // from the C++ implementation this looks like how it should be handled.
-                            e.OtherInOut = e.InOut = false;
-                            if (prev.BelongsTo != e.BelongsTo)
-                            {
-                                e.OtherInOut = true;
-                            }
-                            else
-                            {
-                                e.InOut = true;
-                            }
+                            e.OtherInOut = true;
                         }
                         else
                         {
-                            var prevTwo = S.eventSet[pos - 2];
-                            if (prev.BelongsTo == e.BelongsTo)
-                            {
-                                e.InOut = !prev.InOut;
-                                e.OtherInOut = !prevTwo.InOut;
-                            }
-                            else
-                            {
-                                e.InOut = !prevTwo.InOut;
-                                e.OtherInOut = !prev.InOut;
-                            }
+                            e.InOut = true;
                         }
-                    }
-                    else if (e.BelongsTo == prev.BelongsTo)
-                    {
-                        e.OtherInOut = prev.OtherInOut;
-                        e.InOut = !prev.InOut;
                     }
                     else
                     {
-                        e.OtherInOut = !prev.InOut;
-                        e.InOut = prev.OtherInOut;
+                        var prevTwo = S.eventSet[pos - 2];
+                        if (prev.BelongsTo == e.BelongsTo)
+                        {
+                            e.InOut = !prev.InOut;
+                            e.OtherInOut = !prevTwo.InOut;
+                        }
+                        else
+                        {
+                            e.InOut = !prevTwo.InOut;
+                            e.OtherInOut = !prev.InOut;
+                        }
                     }
-
-                    if (next is not null)
-                    {
-                        PossibleIntersection(e, next);
-                    }
-
-                    if (prev is not null)
-                    {
-                        PossibleIntersection(e, prev);
-                    }
+                }
+                else if (e.BelongsTo == prev.BelongsTo)
+                {
+                    e.OtherInOut = prev.OtherInOut;
+                    e.InOut = !prev.InOut;
                 }
                 else
                 {
-                    var otherPos = S.eventSet.IndexOf(e.OtherEvent);
-
-                    if (otherPos != -1)
-                    {
-                        prev = (otherPos > 0) ? S.eventSet[otherPos - 1] : null;
-                        next = (otherPos < S.eventSet.Count - 1) ? S.eventSet[otherPos + 1] : null;
-                    }
-
-                    switch (e.Contribution)
-                    {
-                        case EdgeContribution.Normal:
-                            switch (operation)
-                            {
-                                case ClippingOperation.Intersection:
-                                    if (e.OtherEvent.OtherInOut)
-                                    {
-                                        connector.Add(e.Segment());
-                                    }
-
-                                    break;
-                                case ClippingOperation.Union:
-                                    if (!e.OtherEvent.OtherInOut)
-                                    {
-                                        connector.Add(e.Segment());
-                                    }
-
-                                    break;
-                                case ClippingOperation.Difference:
-                                    if (((e.BelongsTo == ClippingRelation.Subject) && (!e.OtherEvent.OtherInOut)) || (e.BelongsTo == ClippingRelation.Clipping && e.OtherEvent.OtherInOut))
-                                    {
-                                        connector.Add(e.Segment());
-                                    }
-
-                                    break;
-                            }
-                            break;
-                        case EdgeContribution.SameTransition:
-                            if (operation == ClippingOperation.Intersection || operation == ClippingOperation.Union)
-                            {
-                                connector.Add(e.Segment());
-                            }
-
-                            break;
-                        case EdgeContribution.DifferentTransition:
-                            if (operation == ClippingOperation.Difference)
-                            {
-                                connector.Add(e.Segment());
-                            }
-
-                            break;
-                    }
-
-                    if (otherPos != -1)
-                    {
-                        S.Remove(S.eventSet[otherPos]);
-                    }
-
-                    if (next is not null && prev is not null)
-                    {
-                        PossibleIntersection(next, prev);
-                    }
+                    e.OtherInOut = !prev.InOut;
+                    e.InOut = prev.OtherInOut;
                 }
-            }
 
-            return connector.ToPolygon();
-        }
-
-        /// <summary>
-        /// Find the intersection.
-        /// </summary>
-        /// <param name="seg0">The seg0.</param>
-        /// <param name="seg1">The seg1.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        private static (int, Point2D[]) FindIntersection(LineSegment2D seg0, LineSegment2D seg1)
-        {
-            var pi0 = new Point2D();
-            var pi1 = new Point2D();
-
-            var p0 = seg0.A;
-            var d0 = new Vector2D(seg0.B.X - p0.X, seg0.B.Y - p0.Y);
-            var p1 = seg1.A;
-            var d1 = new Vector2D(seg1.B.X - p1.X, seg1.B.Y - p1.Y);
-            const double sqrEpsilon = 0.0000001d; // Antes 0.001
-            var E = new Vector2D(p1.X - p0.X, p1.Y - p0.Y);
-            var cross = (d0.I * d1.J) - (d0.J * d1.I);
-            var sqrCross = cross * cross;
-            var sqrLen0 = d0.Length;
-            var sqrLen1 = d1.Length;
-
-            if (sqrCross > sqrEpsilon * sqrLen0 * sqrLen1)
-            {
-                // lines of the segments are not parallel
-                var s = ((E.I * d1.J) - (E.J * d1.I)) / cross;
-                if ((s < 0) || (s > 1))
+                if (next is not null)
                 {
-                    return (0, new[] { pi0, pi1 });
+                    PossibleIntersection(e, next);
                 }
-                var t = ((E.I * d0.J) - (E.J * d0.I)) / cross;
-                if ((t < 0) || (t > 1))
+
+                if (prev is not null)
                 {
-                    return (0, new[] { pi0, pi1 });
-                }
-                // intersection of lines is a point an each segment
-                pi0.X = p0.X + (s * d0.I);
-                pi0.Y = p0.Y + (s * d0.J);
-
-                // Uncomment the block below if you're getting errors to do with precision.
-                /*if (Point.distance(pi0,seg0.start) < 0.00000001) pi0 = seg0.start;
-                if (Point.distance(pi0,seg0.end) < 0.00000001) pi0 = seg0.end;
-                if (Point.distance(pi0,seg1.start) < 0.00000001) pi0 = seg1.start;
-                if (Point.distance(pi0,seg1.end) < 0.00000001) pi0 = seg1.end;*/
-                return (1, new[] { pi0, pi1 });
-            }
-
-            // lines of the segments are parallel
-            var sqrLenE = E.Length;
-            cross = (E.I * d0.J) - (E.J * d0.I);
-            sqrCross = cross * cross;
-            if (sqrCross > sqrEpsilon * sqrLen0 * sqrLenE)
-            {
-                // lines of the segment are different
-                return (0, new[] { pi0, pi1 });
-            }
-
-            // Lines of the segments are the same. Need to test for overlap of segments.
-            var s0 = ((d0.I * E.I) + (d0.J * E.J)) / sqrLen0;  // so = Dot (D0, E) * sqrLen0
-            var s1 = s0 + (((d0.I * d1.I) + (d0.J * d1.J)) / sqrLen0);  // s1 = s0 + Dot (D0, D1) * sqrLen0
-            var smin = Math.Min(s0, s1);
-            var smax = Math.Max(s0, s1);
-            (var imax, var w) = FindIntersection(0.0, 1.0, smin, smax);
-
-            if (imax > 0)
-            {
-                pi0.X = p0.X + (w[0] * d0.I);
-                pi0.Y = p0.Y + (w[0] * d0.J);
-
-                // Uncomment the block below if you're getting errors to do with precision.
-                /*if (Point.distance(pi0,seg0.start) < 0.00000001) pi0 = seg0.start;
-                if (Point.distance(pi0,seg0.end) < 0.00000001) pi0 = seg0.end;
-                if (Point.distance(pi0,seg1.start) < 0.00000001) pi0 = seg1.start;
-                if (Point.distance(pi0,seg1.end) < 0.00000001) pi0 = seg1.end;*/
-                if (imax > 1)
-                {
-                    pi1.X = p0.X + (w[1] * d0.I);
-                    pi1.Y = p0.Y + (w[1] * d0.J);
-                }
-            }
-
-            return (imax, new[] { pi0, pi1 });
-        }
-
-        /// <summary>
-        /// Find the intersection.
-        /// </summary>
-        /// <param name="u0">The u0.</param>
-        /// <param name="u1">The u1.</param>
-        /// <param name="v0">The v0.</param>
-        /// <param name="v1">The v1.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        private static (int, double[] w) FindIntersection(double u0, double u1, double v0, double v1)
-        {
-            var w = new double[2];
-            if ((u1 < v0) || (u0 > v1))
-            {
-                return (0, w);
-            }
-
-            if (u1 > v0)
-            {
-                if (u0 < v1)
-                {
-                    w[0] = (u0 < v0) ? v0 : u0;
-                    w[1] = (u1 > v1) ? v1 : u1;
-                    return (2, w);
-                }
-                else
-                {
-                    // u0 == v1
-                    w[0] = u0;
-                    return (1, w);
+                    PossibleIntersection(e, prev);
                 }
             }
             else
             {
-                // u1 == v0
-                w[0] = u1;
+                var otherPos = S.eventSet.IndexOf(e.OtherEvent);
+
+                if (otherPos != -1)
+                {
+                    prev = (otherPos > 0) ? S.eventSet[otherPos - 1] : null;
+                    next = (otherPos < S.eventSet.Count - 1) ? S.eventSet[otherPos + 1] : null;
+                }
+
+                switch (e.Contribution)
+                {
+                    case EdgeContribution.Normal:
+                        switch (operation)
+                        {
+                            case ClippingOperation.Intersection:
+                                if (e.OtherEvent.OtherInOut)
+                                {
+                                    connector.Add(e.Segment());
+                                }
+
+                                break;
+                            case ClippingOperation.Union:
+                                if (!e.OtherEvent.OtherInOut)
+                                {
+                                    connector.Add(e.Segment());
+                                }
+
+                                break;
+                            case ClippingOperation.Difference:
+                                if (((e.BelongsTo == ClippingRelation.Subject) && (!e.OtherEvent.OtherInOut)) || (e.BelongsTo == ClippingRelation.Clipping && e.OtherEvent.OtherInOut))
+                                {
+                                    connector.Add(e.Segment());
+                                }
+
+                                break;
+                        }
+                        break;
+                    case EdgeContribution.SameTransition:
+                        if (operation == ClippingOperation.Intersection || operation == ClippingOperation.Union)
+                        {
+                            connector.Add(e.Segment());
+                        }
+
+                        break;
+                    case EdgeContribution.DifferentTransition:
+                        if (operation == ClippingOperation.Difference)
+                        {
+                            connector.Add(e.Segment());
+                        }
+
+                        break;
+                }
+
+                if (otherPos != -1)
+                {
+                    S.Remove(S.eventSet[otherPos]);
+                }
+
+                if (next is not null && prev is not null)
+                {
+                    PossibleIntersection(next, prev);
+                }
+            }
+        }
+
+        return connector.ToPolygon();
+    }
+
+    /// <summary>
+    /// Find the intersection.
+    /// </summary>
+    /// <param name="seg0">The seg0.</param>
+    /// <param name="seg1">The seg1.</param>
+    /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+    private static (int, Point2D[]) FindIntersection(LineSegment2D seg0, LineSegment2D seg1)
+    {
+        var pi0 = new Point2D();
+        var pi1 = new Point2D();
+
+        var p0 = seg0.A;
+        var d0 = new Vector2D(seg0.B.X - p0.X, seg0.B.Y - p0.Y);
+        var p1 = seg1.A;
+        var d1 = new Vector2D(seg1.B.X - p1.X, seg1.B.Y - p1.Y);
+        const double sqrEpsilon = 0.0000001d; // Antes 0.001
+        var E = new Vector2D(p1.X - p0.X, p1.Y - p0.Y);
+        var cross = (d0.I * d1.J) - (d0.J * d1.I);
+        var sqrCross = cross * cross;
+        var sqrLen0 = d0.Length;
+        var sqrLen1 = d1.Length;
+
+        if (sqrCross > sqrEpsilon * sqrLen0 * sqrLen1)
+        {
+            // lines of the segments are not parallel
+            var s = ((E.I * d1.J) - (E.J * d1.I)) / cross;
+            if ((s < 0) || (s > 1))
+            {
+                return (0, [pi0, pi1]);
+            }
+            var t = ((E.I * d0.J) - (E.J * d0.I)) / cross;
+            if ((t < 0) || (t > 1))
+            {
+                return (0, [pi0, pi1]);
+            }
+            // intersection of lines is a point an each segment
+            pi0.X = p0.X + (s * d0.I);
+            pi0.Y = p0.Y + (s * d0.J);
+
+            // Uncomment the block below if you're getting errors to do with precision.
+            /*if (Point.distance(pi0,seg0.start) < 0.00000001) pi0 = seg0.start;
+            if (Point.distance(pi0,seg0.end) < 0.00000001) pi0 = seg0.end;
+            if (Point.distance(pi0,seg1.start) < 0.00000001) pi0 = seg1.start;
+            if (Point.distance(pi0,seg1.end) < 0.00000001) pi0 = seg1.end;*/
+            return (1, [pi0, pi1]);
+        }
+
+        // lines of the segments are parallel
+        var sqrLenE = E.Length;
+        cross = (E.I * d0.J) - (E.J * d0.I);
+        sqrCross = cross * cross;
+        if (sqrCross > sqrEpsilon * sqrLen0 * sqrLenE)
+        {
+            // lines of the segment are different
+            return (0, [pi0, pi1]);
+        }
+
+        // Lines of the segments are the same. Need to test for overlap of segments.
+        var s0 = ((d0.I * E.I) + (d0.J * E.J)) / sqrLen0;  // so = Dot (D0, E) * sqrLen0
+        var s1 = s0 + (((d0.I * d1.I) + (d0.J * d1.J)) / sqrLen0);  // s1 = s0 + Dot (D0, D1) * sqrLen0
+        var smin = Math.Min(s0, s1);
+        var smax = Math.Max(s0, s1);
+        (var imax, var w) = FindIntersection(0.0, 1.0, smin, smax);
+
+        if (imax > 0)
+        {
+            pi0.X = p0.X + (w[0] * d0.I);
+            pi0.Y = p0.Y + (w[0] * d0.J);
+
+            // Uncomment the block below if you're getting errors to do with precision.
+            /*if (Point.distance(pi0,seg0.start) < 0.00000001) pi0 = seg0.start;
+            if (Point.distance(pi0,seg0.end) < 0.00000001) pi0 = seg0.end;
+            if (Point.distance(pi0,seg1.start) < 0.00000001) pi0 = seg1.start;
+            if (Point.distance(pi0,seg1.end) < 0.00000001) pi0 = seg1.end;*/
+            if (imax > 1)
+            {
+                pi1.X = p0.X + (w[1] * d0.I);
+                pi1.Y = p0.Y + (w[1] * d0.J);
+            }
+        }
+
+        return (imax, new[] { pi0, pi1 });
+    }
+
+    /// <summary>
+    /// Find the intersection.
+    /// </summary>
+    /// <param name="u0">The u0.</param>
+    /// <param name="u1">The u1.</param>
+    /// <param name="v0">The v0.</param>
+    /// <param name="v1">The v1.</param>
+    /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+    private static (int, double[] w) FindIntersection(double u0, double u1, double v0, double v1)
+    {
+        var w = new double[2];
+        if ((u1 < v0) || (u0 > v1))
+        {
+            return (0, w);
+        }
+
+        if (u1 > v0)
+        {
+            if (u0 < v1)
+            {
+                w[0] = (u0 < v0) ? v0 : u0;
+                w[1] = (u1 > v1) ? v1 : u1;
+                return (2, w);
+            }
+            else
+            {
+                // u0 == v1
+                w[0] = u0;
                 return (1, w);
             }
         }
-
-        /// <summary>
-        /// The possible intersection.
-        /// </summary>
-        /// <param name="e1">The e1.</param>
-        /// <param name="e2">The e2.</param>
-        private void PossibleIntersection(SweepEvent e1, SweepEvent e2)
+        else
         {
-            //if ((e1.pl == e2.pl)) // Uncomment these two lines if self-intersecting polygons are not allowed
-            //    return false;
+            // u1 == v0
+            w[0] = u1;
+            return (1, w);
+        }
+    }
 
-            (var numIntersections, var ip) = FindIntersection(e1.Segment(), e2.Segment());
-            var ip1 = ip[0];
-            //var ip2 = ip[1];
+    /// <summary>
+    /// The possible intersection.
+    /// </summary>
+    /// <param name="e1">The e1.</param>
+    /// <param name="e2">The e2.</param>
+    private void PossibleIntersection(SweepEvent e1, SweepEvent e2)
+    {
+        //if ((e1.pl == e2.pl)) // Uncomment these two lines if self-intersecting polygons are not allowed
+        //    return false;
 
-            if (numIntersections == 0)
+        (var numIntersections, var ip) = FindIntersection(e1.Segment(), e2.Segment());
+        var ip1 = ip[0];
+        //var ip2 = ip[1];
+
+        if (numIntersections == 0)
+        {
+            return;
+        }
+
+        if ((numIntersections == 1) && (e1.Point.Equals(e2.Point) || e1.OtherEvent.Point.Equals(e2.OtherEvent.Point)))
+        {
+            return;
+        }
+
+        if (numIntersections == 2 && e1.Point.Equals(e2.Point))
+        {
+            return;
+        }
+
+        if (numIntersections == 1)
+        {
+            if (!e1.Point.Equals(ip1) && !e1.OtherEvent.Point.Equals(ip1))
             {
-                return;
+                DivideSegment(e1, ip1);
             }
 
-            if ((numIntersections == 1) && (e1.Point.Equals(e2.Point) || e1.OtherEvent.Point.Equals(e2.OtherEvent.Point)))
+            if (!e2.Point.Equals(ip1) && !e2.OtherEvent.Point.Equals(ip1))
             {
-                return;
+                DivideSegment(e2, ip1);
             }
 
-            if (numIntersections == 2 && e1.Point.Equals(e2.Point))
-            {
-                return;
-            }
+            return;
+        }
 
-            if (numIntersections == 1)
-            {
-                if (!e1.Point.Equals(ip1) && !e1.OtherEvent.Point.Equals(ip1))
-                {
-                    DivideSegment(e1, ip1);
-                }
+        var sortedEvents = new List<SweepEvent>();
+        if (e1.Point.Equals(e2.Point))
+        {
+            sortedEvents.Add(null); // WTF
+        }
+        else if (SweepEventComp(e1, e2) > 0)
+        {
+            sortedEvents.Add(e2);
+            sortedEvents.Add(e1);
+        }
+        else
+        {
+            sortedEvents.Add(e1);
+            sortedEvents.Add(e2);
+        }
 
-                if (!e2.Point.Equals(ip1) && !e2.OtherEvent.Point.Equals(ip1))
-                {
-                    DivideSegment(e2, ip1);
-                }
+        if (e1.OtherEvent.Point.Equals(e2.OtherEvent.Point))
+        {
+            sortedEvents.Add(null);
+        }
+        else if (SweepEventComp(e1.OtherEvent, e2.OtherEvent) > 0)
+        {
+            sortedEvents.Add(e2.OtherEvent);
+            sortedEvents.Add(e1.OtherEvent);
+        }
+        else
+        {
+            sortedEvents.Add(e1.OtherEvent);
+            sortedEvents.Add(e2.OtherEvent);
+        }
 
-                return;
-            }
+        if (sortedEvents.Count == 2)
+        {
+            e1.Contribution = e1.OtherEvent.Contribution = EdgeContribution.NonContributing;
+            e2.Contribution = e2.OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
+            return;
+        }
 
-            var sortedEvents = new List<SweepEvent>();
-            if (e1.Point.Equals(e2.Point))
-            {
-                sortedEvents.Add(null); // WTF
-            }
-            else if (SweepEventComp(e1, e2) > 0)
-            {
-                sortedEvents.Add(e2);
-                sortedEvents.Add(e1);
-            }
-            else
-            {
-                sortedEvents.Add(e1);
-                sortedEvents.Add(e2);
-            }
-
-            if (e1.OtherEvent.Point.Equals(e2.OtherEvent.Point))
-            {
-                sortedEvents.Add(null);
-            }
-            else if (SweepEventComp(e1.OtherEvent, e2.OtherEvent) > 0)
-            {
-                sortedEvents.Add(e2.OtherEvent);
-                sortedEvents.Add(e1.OtherEvent);
-            }
-            else
-            {
-                sortedEvents.Add(e1.OtherEvent);
-                sortedEvents.Add(e2.OtherEvent);
-            }
-
-            if (sortedEvents.Count == 2)
-            {
-                e1.Contribution = e1.OtherEvent.Contribution = EdgeContribution.NonContributing;
-                e2.Contribution = e2.OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
-                return;
-            }
-
-            if (sortedEvents.Count == 3)
-            {
-                sortedEvents[1].Contribution = sortedEvents[1].OtherEvent.Contribution = EdgeContribution.NonContributing;
-                if (sortedEvents[0] is not null)         // is the right endpoint the shared point?
-                {
-                    sortedEvents[0].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
-                }
-                else                                // the shared point is the left endpoint
-                {
-                    sortedEvents[2].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
-                }
-
-                DivideSegment(sortedEvents[0] ?? sortedEvents[2].OtherEvent, sortedEvents[1].Point);
-                return;
-            }
-
-            if (sortedEvents[0] != sortedEvents[3].OtherEvent)
-            { // no segment includes totally the otherSE one
-                sortedEvents[1].Contribution = EdgeContribution.NonContributing;
-                sortedEvents[2].Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
-
-                DivideSegment(sortedEvents[0], sortedEvents[1].Point);
-
-                DivideSegment(sortedEvents[1], sortedEvents[2].Point);
-                return;
-            }
-
+        if (sortedEvents.Count == 3)
+        {
             sortedEvents[1].Contribution = sortedEvents[1].OtherEvent.Contribution = EdgeContribution.NonContributing;
+            if (sortedEvents[0] is not null)         // is the right endpoint the shared point?
+            {
+                sortedEvents[0].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
+            }
+            else                                // the shared point is the left endpoint
+            {
+                sortedEvents[2].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
+            }
+
+            DivideSegment(sortedEvents[0] ?? sortedEvents[2].OtherEvent, sortedEvents[1].Point);
+            return;
+        }
+
+        if (sortedEvents[0] != sortedEvents[3].OtherEvent)
+        { // no segment includes totally the otherSE one
+            sortedEvents[1].Contribution = EdgeContribution.NonContributing;
+            sortedEvents[2].Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
 
             DivideSegment(sortedEvents[0], sortedEvents[1].Point);
-            sortedEvents[3].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
 
-            DivideSegment(sortedEvents[3].OtherEvent, sortedEvents[2].Point);
+            DivideSegment(sortedEvents[1], sortedEvents[2].Point);
+            return;
         }
 
-        /// <summary>
-        /// The divide segment.
-        /// </summary>
-        /// <param name="e">The e.</param>
-        /// <param name="p">The p.</param>
-        private void DivideSegment(SweepEvent e, Point2D p)
+        sortedEvents[1].Contribution = sortedEvents[1].OtherEvent.Contribution = EdgeContribution.NonContributing;
+
+        DivideSegment(sortedEvents[0], sortedEvents[1].Point);
+        sortedEvents[3].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
+
+        DivideSegment(sortedEvents[3].OtherEvent, sortedEvents[2].Point);
+    }
+
+    /// <summary>
+    /// The divide segment.
+    /// </summary>
+    /// <param name="e">The e.</param>
+    /// <param name="p">The p.</param>
+    private void DivideSegment(SweepEvent e, Point2D p)
+    {
+        var left = new SweepEvent(true, p, e.OtherEvent, e.BelongsTo, e.OtherEvent.Contribution);
+        var right = new SweepEvent(false, p, e, e.BelongsTo, e.Contribution);
+
+        if (SweepEventComp(left, e.OtherEvent) > 0)
         {
-            var left = new SweepEvent(true, p, e.OtherEvent, e.BelongsTo, e.OtherEvent.Contribution);
-            var right = new SweepEvent(false, p, e, e.BelongsTo, e.Contribution);
-
-            if (SweepEventComp(left, e.OtherEvent) > 0)
-            {
-                e.OtherEvent.IsLeft = true;
-                e.IsLeft = false;
-            }
-
-            e.OtherEvent.OtherEvent = left;
-            e.OtherEvent = right;
-
-            eventQueue.Enqueue(left);
-            eventQueue.Enqueue(right);
+            e.OtherEvent.IsLeft = true;
+            e.IsLeft = false;
         }
 
-        /// <summary>
-        /// Process the segment.
-        /// </summary>
-        /// <param name="segment">The segment.</param>
-        /// <param name="polyType">The polyType.</param>
-        private void ProcessSegment(LineSegment2D segment, ClippingRelation polyType)
+        e.OtherEvent.OtherEvent = left;
+        e.OtherEvent = right;
+
+        eventQueue.Enqueue(left);
+        eventQueue.Enqueue(right);
+    }
+
+    /// <summary>
+    /// Process the segment.
+    /// </summary>
+    /// <param name="segment">The segment.</param>
+    /// <param name="polyType">The polyType.</param>
+    private void ProcessSegment(LineSegment2D segment, ClippingRelation polyType)
+    {
+        if (segment.A.Equals(segment.B)) // Possible degenerate condition.
         {
-            if (segment.A.Equals(segment.B)) // Possible degenerate condition.
-            {
-                return;
-            }
-
-            var e1 = new SweepEvent(true, segment.A, null, polyType);
-            var e2 = new SweepEvent(true, segment.B, e1, polyType);
-            e1.OtherEvent = e2;
-
-            if (e1.Point.X < e2.Point.X)
-            {
-                e2.IsLeft = false;
-            }
-            else if (e1.Point.X > e2.Point.X)
-            {
-                e1.IsLeft = false;
-            }
-            else if (e1.Point.Y < e2.Point.Y)
-            {
-                // the segment isLeft vertical. The bottom endpoint isLeft the isLeft endpoint 
-                e2.IsLeft = false;
-            }
-            else
-            {
-                e1.IsLeft = false;
-            }
-
-            // Pushing it so the queue is sorted from left to right, with object on the left
-            // having the highest priority.
-            eventQueue.Enqueue(e1);
-            eventQueue.Enqueue(e2);
+            return;
         }
+
+        var e1 = new SweepEvent(true, segment.A, null, polyType);
+        var e2 = new SweepEvent(true, segment.B, e1, polyType);
+        e1.OtherEvent = e2;
+
+        if (e1.Point.X < e2.Point.X)
+        {
+            e2.IsLeft = false;
+        }
+        else if (e1.Point.X > e2.Point.X)
+        {
+            e1.IsLeft = false;
+        }
+        else if (e1.Point.Y < e2.Point.Y)
+        {
+            // the segment isLeft vertical. The bottom endpoint isLeft the isLeft endpoint 
+            e2.IsLeft = false;
+        }
+        else
+        {
+            e1.IsLeft = false;
+        }
+
+        // Pushing it so the queue is sorted from left to right, with object on the left
+        // having the highest priority.
+        eventQueue.Enqueue(e1);
+        eventQueue.Enqueue(e2);
     }
 }

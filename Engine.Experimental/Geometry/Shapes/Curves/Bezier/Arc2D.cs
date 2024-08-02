@@ -6,31 +6,30 @@
   This code is MIT licensed.
 */
 
-namespace Engine
+namespace Engine;
+
+/// <summary>
+/// The arc1 class.
+/// </summary>
+public class Arc2D
 {
     /// <summary>
-    /// The arc1 class.
+    /// Gets or sets the center.
     /// </summary>
-    public class Arc2D
-    {
-        /// <summary>
-        /// Gets or sets the center.
-        /// </summary>
-        public Point2D Center { get; internal set; }
+    public Point2D Center { get; internal set; }
 
-        /// <summary>
-        /// Gets or sets the radius.
-        /// </summary>
-        public double Radius { get; internal set; }
+    /// <summary>
+    /// Gets or sets the radius.
+    /// </summary>
+    public double Radius { get; internal set; }
 
-        /// <summary>
-        /// Gets or sets the e.
-        /// </summary>
-        public double End { get; internal set; }
+    /// <summary>
+    /// Gets or sets the e.
+    /// </summary>
+    public double End { get; internal set; }
 
-        /// <summary>
-        /// Gets or sets the s.
-        /// </summary>
-        public double Start { get; internal set; }
-    }
+    /// <summary>
+    /// Gets or sets the s.
+    /// </summary>
+    public double Start { get; internal set; }
 }

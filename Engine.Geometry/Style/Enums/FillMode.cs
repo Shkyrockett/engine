@@ -1,28 +1,27 @@
 ﻿// <copyright file="FillMode.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2017 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-namespace Engine
+namespace Engine;
+
+/// <summary>
+/// The fill mode enum.
+/// </summary>
+public enum FillMode
 {
     /// <summary>
-    /// The fill mode enum.
+    /// The Alternate.
     /// </summary>
-    public enum FillMode
-    {
-        /// <summary>
-        /// The Alternate.
-        /// </summary>
-        Alternate,
+    Alternate,
 
-        /// <summary>
-        /// The Winding.
-        /// </summary>
-        Winding
-    }
+    /// <summary>
+    /// The Winding.
+    /// </summary>
+    Winding
 }

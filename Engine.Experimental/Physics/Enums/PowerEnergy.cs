@@ -1,58 +1,57 @@
 ﻿// <copyright file="Powers.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2005 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-namespace Engine
+namespace Engine;
+
+/// <summary>
+/// The powers enum.
+/// </summary>
+public enum PowerEnergy
 {
     /// <summary>
-    /// The powers enum.
+    /// The Watt.
     /// </summary>
-    public enum PowerEnergy
-    {
-        /// <summary>
-        /// The Watt.
-        /// </summary>
-        Watt,
+    Watt,
 
-        /// <summary>
-        /// The Kilowatt.
-        /// </summary>
-        Kilowatt,
+    /// <summary>
+    /// The Kilowatt.
+    /// </summary>
+    Kilowatt,
 
-        /// <summary>
-        /// The Megawatt.
-        /// </summary>
-        Megawatt,
+    /// <summary>
+    /// The Megawatt.
+    /// </summary>
+    Megawatt,
 
-        /// <summary>
-        /// The Gigawatt.
-        /// </summary>
-        Gigawatt,
+    /// <summary>
+    /// The Gigawatt.
+    /// </summary>
+    Gigawatt,
 
-        /// <summary>
-        /// The Terawatt.
-        /// </summary>
-        Terawatt,
+    /// <summary>
+    /// The Terawatt.
+    /// </summary>
+    Terawatt,
 
-        /// <summary>
-        /// The Petawatt.
-        /// </summary>
-        Petawatt,
+    /// <summary>
+    /// The Petawatt.
+    /// </summary>
+    Petawatt,
 
-        /// <summary>
-        /// The Exawatt.
-        /// </summary>
-        Exawatt,
+    /// <summary>
+    /// The Exawatt.
+    /// </summary>
+    Exawatt,
 
-        /// <summary>
-        /// The Horsepower.
-        /// </summary>
-        Horsepower
-    }
+    /// <summary>
+    /// The Horsepower.
+    /// </summary>
+    Horsepower
 }

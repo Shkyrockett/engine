@@ -8,151 +8,148 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
-using System.Collections.Generic;
+namespace Engine.Experimental;
 
-namespace Engine.Experimental
+/// <summary>
+/// PolyTree and PolyNode classes
+/// </summary>
+public class PolyPath
 {
     /// <summary>
-    /// PolyTree and PolyNode classes
+    /// Initializes a new instance of the <see cref="PolyPath"/> class.
     /// </summary>
-    public class PolyPath
+    public PolyPath()
+    { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PolyPath"/> class.
+    /// </summary>
+    /// <param name="parent">The parent.</param>
+    /// <param name="children">The children.</param>
+    /// <param name="path">The path.</param>
+    public PolyPath(PolyPath parent, List<PolyPath> children, PolygonContour2D path)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PolyPath"/> class.
-        /// </summary>
-        public PolyPath()
-        { }
+        Parent = parent;
+        Children = children;
+        Path = path;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PolyPath"/> class.
-        /// </summary>
-        /// <param name="parent">The parent.</param>
-        /// <param name="children">The children.</param>
-        /// <param name="path">The path.</param>
-        public PolyPath(PolyPath parent, List<PolyPath> children, PolygonContour2D path)
+    #region Properties
+    /// <summary>
+    /// Gets the parent.
+    /// </summary>
+    /// <value>
+    /// The parent.
+    /// </value>
+    public PolyPath Parent { get; private set; }
+
+    /// <summary>
+    /// Gets the children.
+    /// </summary>
+    /// <value>
+    /// The children.
+    /// </value>
+    public List<PolyPath> Children { get; private set; }
+
+    /// <summary>
+    /// Gets the path.
+    /// </summary>
+    /// <value>
+    /// The path.
+    /// </value>
+    public PolygonContour2D Path { get; private set; }
+
+    /// <summary>
+    /// Gets the child count.
+    /// </summary>
+    /// <value>
+    /// The child count.
+    /// </value>
+    public int ChildCount => Children.Count;
+    #endregion Properties
+
+    /// <summary>
+    /// Add the child.
+    /// </summary>
+    /// <param name="p">The p.</param>
+    /// <returns>
+    /// The <see cref="PolyPath" />.
+    /// </returns>
+    public PolyPath AddChild(PolygonContour2D p)
+    {
+        var child = new PolyPath()
         {
-            Parent = parent;
-            Children = children;
-            Path = path;
+            Parent = this,
+            Path = p
+        };
+
+        Children.Add(child);
+        return child;
+    }
+
+    /// <summary>
+    /// Clear.
+    /// </summary>
+    public void Clear() => Children.Clear();
+
+    /// <summary>
+    /// The is hole node.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="bool" />.
+    /// </returns>
+    internal bool IsHoleNode()
+    {
+        var result = true;
+        var node = Parent;
+        while (node is not null)
+        {
+            result = !result;
+            node = node.Parent;
         }
 
-        #region Properties
-        /// <summary>
-        /// Gets the parent.
-        /// </summary>
-        /// <value>
-        /// The parent.
-        /// </value>
-        public PolyPath Parent { get; private set; }
+        return result;
+    }
 
-        /// <summary>
-        /// Gets the children.
-        /// </summary>
-        /// <value>
-        /// The children.
-        /// </value>
-        public List<PolyPath> Children { get; private set; }
+    //the following two methods are really only for debugging ...
 
-        /// <summary>
-        /// Gets the path.
-        /// </summary>
-        /// <value>
-        /// The path.
-        /// </value>
-        public PolygonContour2D Path { get; private set; }
-
-        /// <summary>
-        /// Gets the child count.
-        /// </summary>
-        /// <value>
-        /// The child count.
-        /// </value>
-        public int ChildCount => Children.Count;
-        #endregion Properties
-
-        /// <summary>
-        /// Add the child.
-        /// </summary>
-        /// <param name="p">The p.</param>
-        /// <returns>
-        /// The <see cref="PolyPath" />.
-        /// </returns>
-        public PolyPath AddChild(PolygonContour2D p)
+    /// <summary>
+    /// Add the PolyNode to paths.
+    /// </summary>
+    /// <param name="pp">The pp.</param>
+    /// <param name="paths">The paths.</param>
+    private static void AddPolyNodeToPaths(PolyPath pp, Polygon2D paths)
+    {
+        var cnt = pp.Path.Count;
+        if (cnt > 0)
         {
-            var child = new PolyPath()
+            var p = new PolygonContour2D
             {
-                Parent = this,
-                Path = p
+                Capacity = cnt
             };
-
-            Children.Add(child);
-            return child;
-        }
-
-        /// <summary>
-        /// Clear.
-        /// </summary>
-        public void Clear() => Children.Clear();
-
-        /// <summary>
-        /// The is hole node.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="bool" />.
-        /// </returns>
-        internal bool IsHoleNode()
-        {
-            var result = true;
-            var node = Parent;
-            while (node is not null)
+            foreach (var ip in pp.Path)
             {
-                result = !result;
-                node = node.Parent;
+                p.Add(ip);
             }
 
-            return result;
+            paths.Add(p);
         }
-
-        //the following two methods are really only for debugging ...
-
-        /// <summary>
-        /// Add the PolyNode to paths.
-        /// </summary>
-        /// <param name="pp">The pp.</param>
-        /// <param name="paths">The paths.</param>
-        private static void AddPolyNodeToPaths(PolyPath pp, Polygon2D paths)
+        foreach (var polyp in pp.Children)
         {
-            var cnt = pp.Path.Count;
-            if (cnt > 0)
-            {
-                var p = new PolygonContour2D
-                {
-                    Capacity = cnt
-                };
-                foreach (var ip in pp.Path)
-                {
-                    p.Add(ip);
-                }
-
-                paths.Add(p);
-            }
-            foreach (var polyp in pp.Children)
-            {
-                AddPolyNodeToPaths(polyp, paths);
-            }
+            AddPolyNodeToPaths(polyp, paths);
         }
+    }
 
-        /// <summary>
-        /// The PolyTree to paths.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="Polygon2D" />.
-        /// </returns>
-        public Polygon2D PolyTreeToPaths()
-        {
-            var paths = new Polygon2D();
-            AddPolyNodeToPaths(this, paths);
-            return paths;
-        }
+    /// <summary>
+    /// The PolyTree to paths.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="Polygon2D" />.
+    /// </returns>
+    public Polygon2D PolyTreeToPaths()
+    {
+        var paths = new Polygon2D();
+        AddPolyNodeToPaths(this, paths);
+        return paths;
     }
 }

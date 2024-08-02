@@ -1,35 +1,32 @@
 ﻿// <copyright file="Resources.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2005 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-using System.Collections.Generic;
+namespace Engine;
 
-namespace Engine
+/// <summary>
+/// The resources class.
+/// </summary>
+public class Resources
 {
     /// <summary>
-    /// The resources class.
+    /// The fonts.
     /// </summary>
-    public class Resources
-    {
-        /// <summary>
-        /// The fonts.
-        /// </summary>
-        public List<Sprite> Fonts;
+    public List<Sprite> Fonts;
 
-        /// <summary>
-        /// The sprites.
-        /// </summary>
-        public List<Sprite> Sprites;
+    /// <summary>
+    /// The sprites.
+    /// </summary>
+    public List<Sprite> Sprites;
 
-        /// <summary>
-        /// The audio.
-        /// </summary>
-        public List<IAudio> Audio;
-    }
+    /// <summary>
+    /// The audio.
+    /// </summary>
+    public List<IAudio> Audio;
 }

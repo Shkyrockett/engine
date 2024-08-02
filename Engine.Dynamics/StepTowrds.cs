@@ -1,9 +1,8 @@
-﻿namespace Engine
+﻿namespace Engine;
+
+/// <summary>
+/// 
+/// </summary>
+public static class StepTowards
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public static class StepTowards
-    {
-    }
 }

@@ -1,26 +1,23 @@
-﻿using System;
+﻿namespace Engine.Experimental;
 
-namespace Engine.Experimental
+/// <summary>
+/// The symmetries enum.
+/// </summary>
+[Flags]
+public enum Symmetries
 {
     /// <summary>
-    /// The symmetries enum.
+    /// The Translation.
     /// </summary>
-    [Flags]
-    public enum Symmetries
-    {
-        /// <summary>
-        /// The Translation.
-        /// </summary>
-        Translation,
+    Translation,
 
-        /// <summary>
-        /// The Reflection.
-        /// </summary>
-        Reflection,
+    /// <summary>
+    /// The Reflection.
+    /// </summary>
+    Reflection,
 
-        /// <summary>
-        /// The Rotation.
-        /// </summary>
-        Rotation
-    }
+    /// <summary>
+    /// The Rotation.
+    /// </summary>
+    Rotation
 }

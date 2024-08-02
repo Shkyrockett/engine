@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 internal static partial class Interop
@@ -29,7 +28,7 @@ internal static partial class Interop
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutcachedrumpatches
         /// </acknowledgment>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutCacheDrumPatches", ExactSpelling = true)]
         private static extern MmResult MidiOutCacheDrumPatches_(IntPtr hMidiOut, int uPatch, IntPtr lpKeyArray, MidiCacheFlags uFlags);
     }

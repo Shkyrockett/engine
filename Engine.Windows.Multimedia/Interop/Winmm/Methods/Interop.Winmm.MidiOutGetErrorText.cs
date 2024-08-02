@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -21,7 +20,7 @@ internal static partial class Interop
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgeterrortext
         /// </acknowledgment>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiOutGetErrorText", ExactSpelling = true)]
         private static extern MmResult MidiOutGetErrorText(IntPtr err, StringBuilder lpText, int uSize);
     }

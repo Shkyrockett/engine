@@ -1,78 +1,77 @@
 ﻿// <copyright file="Units.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2005 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-namespace Engine
+namespace Engine;
+
+/// <summary>
+/// The units enum.
+/// </summary>
+public enum Unit
 {
     /// <summary>
-    /// The units enum.
+    /// The Length.
     /// </summary>
-    public enum Unit
-    {
-        /// <summary>
-        /// The Length.
-        /// </summary>
-        Length,
+    Length,
 
-        /// <summary>
-        /// The Mass.
-        /// </summary>
-        Mass,
+    /// <summary>
+    /// The Mass.
+    /// </summary>
+    Mass,
 
-        /// <summary>
-        /// The Temperature.
-        /// </summary>
-        Temperature,
+    /// <summary>
+    /// The Temperature.
+    /// </summary>
+    Temperature,
 
-        /// <summary>
-        /// The Speed.
-        /// </summary>
-        Speed,
+    /// <summary>
+    /// The Speed.
+    /// </summary>
+    Speed,
 
-        /// <summary>
-        /// The Volume.
-        /// </summary>
-        Volume,
+    /// <summary>
+    /// The Volume.
+    /// </summary>
+    Volume,
 
-        /// <summary>
-        /// The Area.
-        /// </summary>
-        Area,
+    /// <summary>
+    /// The Area.
+    /// </summary>
+    Area,
 
-        /// <summary>
-        /// The Time.
-        /// </summary>
-        Time,
+    /// <summary>
+    /// The Time.
+    /// </summary>
+    Time,
 
-        /// <summary>
-        /// The Angle.
-        /// </summary>
-        Angle,
+    /// <summary>
+    /// The Angle.
+    /// </summary>
+    Angle,
 
-        /// <summary>
-        /// The Energy.
-        /// </summary>
-        Energy,
+    /// <summary>
+    /// The Energy.
+    /// </summary>
+    Energy,
 
-        /// <summary>
-        /// The Power.
-        /// </summary>
-        Power,
+    /// <summary>
+    /// The Power.
+    /// </summary>
+    Power,
 
-        /// <summary>
-        /// The DigitalStorage.
-        /// </summary>
-        DigitalStorage,
+    /// <summary>
+    /// The DigitalStorage.
+    /// </summary>
+    DigitalStorage,
 
-        /// <summary>
-        /// The FuelConsumption.
-        /// </summary>
-        FuelConsumption,
-    }
+    /// <summary>
+    /// The FuelConsumption.
+    /// </summary>
+    FuelConsumption,
 }

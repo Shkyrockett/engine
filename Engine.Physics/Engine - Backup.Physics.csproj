@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <Platforms>AnyCPU;ARM32;ARM64;x64;x86</Platforms>
+    <Version>0.0.0.1</Version>
+    <Authors>Shkyrockett</Authors>
+    <Description>Physics plug in library for Engine.</Description>
+    <Copyright>Copyright © 2013 - 2024 Shkyrockett</Copyright>
+    <RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <DocumentationFile>$(OutputPath)$(TargetFramework)\Engine.Physics.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link="Properties\.editorconfig" />
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />
+    <ProjectReference Include="..\Engine.Geometry\Engine.Geometry.csproj" />
+    <ProjectReference Include="..\Engine.Mathematics\Engine.Mathematics.csproj" />
+  </ItemGroup>
+
+</Project>

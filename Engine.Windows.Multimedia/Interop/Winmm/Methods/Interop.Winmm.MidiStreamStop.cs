@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 internal static partial class Interop
@@ -21,7 +20,7 @@ internal static partial class Interop
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamstop
         /// </acknowledgment>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiStreamStop", ExactSpelling = true)]
         private static extern MmResult MidiStreamStop_(IntPtr hMidiStream);
     }

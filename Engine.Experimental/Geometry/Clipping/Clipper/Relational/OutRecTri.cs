@@ -8,21 +8,20 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
-namespace Engine.Experimental
+namespace Engine.Experimental;
+
+/// <summary>
+/// The out rec tri class.
+/// </summary>
+/// <seealso cref="Engine.Experimental.OutRec" />
+public class OutRecTri
+    : OutRec
 {
     /// <summary>
-    /// The out rec tri class.
+    /// Gets or sets the left outpt.
     /// </summary>
-    /// <seealso cref="Engine.Experimental.OutRec" />
-    public class OutRecTri
-        : OutRec
-    {
-        /// <summary>
-        /// Gets or sets the left outpt.
-        /// </summary>
-        /// <value>
-        /// The left outpt.
-        /// </value>
-        public LinkedPointTriangle LeftOutpt { get; set; }
-    };
-}
+    /// <value>
+    /// The left outpt.
+    /// </value>
+    public LinkedPointTriangle LeftOutpt { get; set; }
+};

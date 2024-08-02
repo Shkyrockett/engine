@@ -67,11 +67,11 @@ Code files should start with an XML copyright header like the following, to indi
 
 ```csharp
 // <copyright file="Filenme.cs" >
-//     Copyright © Year Copyright holder. All rights reserved.
+// Copyright © Year Copyright holder. All rights reserved.
 // </copyright>
 // <author id="username">Author</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 ```
@@ -648,7 +648,7 @@ If the Structs/Classes are also relational merge with the Relational Comparisons
         /// <param name="left">The object to comare.</param>
         /// <param name="right">The object to compare against.</param>
         /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public static bool Compare(ComparableObject left, ComparableObject right) => Equals(left, right);
 
         /// <summary>
@@ -665,7 +665,7 @@ If the Structs/Classes are also relational merge with the Relational Comparisons
         /// an exact comparison between two values which are logically equal may fail.
         /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
         /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public static bool Equals(ComparableObject left, ComparableObject right)
             => left?.A == right?.A
              & left?.B == right?.B
@@ -684,7 +684,7 @@ If the Structs/Classes are also relational merge with the Relational Comparisons
         /// an exact comparison between two values which are logically equal may fail.
         /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
         /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public override bool Equals(object obj)
             => obj is ComparableObject && Equals(this, (ComparableObject)obj);
 
@@ -701,7 +701,7 @@ If the Structs/Classes are also relational merge with the Relational Comparisons
         /// an exact comparison between two values which are logically equal may fail.
         /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
         /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public bool Equals(ComparableObject value) => Equals(this, value);
 
         #endregion
@@ -843,7 +843,7 @@ If the Structs/Classes are also relational merge with the Equality Comparisons a
         /// an exact comparison between two values which are logically equal may fail.
         /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
         /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public int CompareTo(object other)
             => other is null ? 1 : other is ComparableObject ? CompareTo((ComparableObject)other) : throw new ArgumentException("Object must be an ComparableObject.", nameof(other));
 
@@ -862,7 +862,7 @@ If the Structs/Classes are also relational merge with the Equality Comparisons a
         /// an exact comparison between two values which are logically equal may fail.
         /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
         /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public int CompareTo(ComparableObject other)
             => Compare(this, other);
 
@@ -877,7 +877,7 @@ If the Structs/Classes are also relational merge with the Equality Comparisons a
         /// zero if the left <see cref="ComparableObject"/> is the same value as the right <see cref="ComparableObject"/>, or a value greater than zero if the left
         /// <see cref="ComparableObject"/> is greater than the right <see cref="ComparableObject"/>.
         /// </returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         private static int Compare(ComparableObject left, ComparableObject right)
             => right.A.CompareTo(left.A);
 
@@ -1127,7 +1127,7 @@ The c# compiler has been given an attribute flag that can provide a hint to the 
 For right now AggressiveInlining is being used on most of the library methods. Though it would be good to test to see if it actually does help, and in which cases.
 
 ```csharp
-[MethodImpl(MethodImplOptions.AggressiveInlining)]
+[MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
 public static method()
 {}
 ```

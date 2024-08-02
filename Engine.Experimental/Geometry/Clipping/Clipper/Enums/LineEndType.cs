@@ -8,36 +8,35 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
-namespace Engine.Experimental
+namespace Engine.Experimental;
+
+/// <summary>
+/// The end type enum.
+/// </summary>
+public enum LineEndType
 {
     /// <summary>
-    /// The end type enum.
+    /// The shape is a closed polygon.
     /// </summary>
-    public enum LineEndType
-    {
-        /// <summary>
-        /// The shape is a closed polygon.
-        /// </summary>
-        ClosedPolygon,
+    ClosedPolygon,
 
-        /// <summary>
-        /// The shape is an open polyline. Use Joined ends.
-        /// </summary>
-        OpenJoined,
+    /// <summary>
+    /// The shape is an open polyline. Use Joined ends.
+    /// </summary>
+    OpenJoined,
 
-        /// <summary>
-        /// The shape is an open polyline. Use Butt ends.
-        /// </summary>
-        OpenButt,
+    /// <summary>
+    /// The shape is an open polyline. Use Butt ends.
+    /// </summary>
+    OpenButt,
 
-        /// <summary>
-        /// The shape is an open polyline. Use Square ends.
-        /// </summary>
-        OpenSquare,
+    /// <summary>
+    /// The shape is an open polyline. Use Square ends.
+    /// </summary>
+    OpenSquare,
 
-        /// <summary>
-        /// The shape is an open polyline. Use Round ends.
-        /// </summary>
-        OpenRound
-    };
-}
+    /// <summary>
+    /// The shape is an open polyline. Use Round ends.
+    /// </summary>
+    OpenRound
+};

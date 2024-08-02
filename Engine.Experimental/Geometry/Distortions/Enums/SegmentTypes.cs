@@ -1,33 +1,32 @@
-﻿namespace Engine
+﻿namespace Engine;
+
+/// <summary>
+/// The segment types enum.
+/// </summary>
+internal enum SegmentTypes
 {
     /// <summary>
-    /// The segment types enum.
+    /// The move.
     /// </summary>
-    internal enum SegmentTypes
-    {
-        /// <summary>
-        /// The move.
-        /// </summary>
-        move,
+    move,
 
-        /// <summary>
-        /// The line.
-        /// </summary>
-        line,
+    /// <summary>
+    /// The line.
+    /// </summary>
+    line,
 
-        /// <summary>
-        /// The quad.
-        /// </summary>
-        quad,
+    /// <summary>
+    /// The quad.
+    /// </summary>
+    quad,
 
-        /// <summary>
-        /// The cubic.
-        /// </summary>
-        cubic,
+    /// <summary>
+    /// The cubic.
+    /// </summary>
+    cubic,
 
-        /// <summary>
-        /// The close.
-        /// </summary>
-        close
-    }
+    /// <summary>
+    /// The close.
+    /// </summary>
+    close
 }

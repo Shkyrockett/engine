@@ -1,33 +1,32 @@
 ﻿// <copyright file="IStyle.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2005 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
 using System.ComponentModel;
 
-namespace Engine
+namespace Engine;
+
+/// <summary>
+/// The IStyle interface.
+/// </summary>
+[TypeConverter(typeof(ExpandableObjectConverter))]
+public interface IStyle
 {
     /// <summary>
-    /// The IStyle interface.
+    /// Gets the fill.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
-    public interface IStyle
-    {
-        /// <summary>
-        /// Gets the fill.
-        /// </summary>
-        /// <value>The <see cref="IFillable"/>.</value>
-        IFillable Fill { get; }
+    /// <value>The <see cref="IFillable"/>.</value>
+    IFillable Fill { get; }
 
-        /// <summary>
-        /// Gets the stroke.
-        /// </summary>
-        /// <value>The <see cref="IStroke"/>.</value>
-        IStroke Stroke { get; }
-    }
+    /// <summary>
+    /// Gets the stroke.
+    /// </summary>
+    /// <value>The <see cref="IStroke"/>.</value>
+    IStroke Stroke { get; }
 }

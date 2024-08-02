@@ -1,9 +1,8 @@
-﻿namespace Engine
+﻿namespace Engine;
+
+/// <summary>
+/// 
+/// </summary>
+public static class Mirrors
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public static class Mirrors
-    {
-    }
 }

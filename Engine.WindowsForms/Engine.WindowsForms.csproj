@@ -1,55 +1,39 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
-    <LangVersion>preview</LangVersion>
-    <Platforms>AnyCPU;x64;x86</Platforms>
-    <Version>0.0.0.1</Version>
-    <Authors>Shkyrockett</Authors>
-    <Description>Windows Interoperability library for Engine.</Description>
-    <Copyright>Copyright © 2013 - 2020 Shkyrockett</Copyright>
-    <RepositoryUrl>https://github.com/Shkyrockett/engine</RepositoryUrl>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
-    <DocumentationFile>$(OutputPath)$(TargetFramework)\Engine.WindowsForms.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<!-- Override the target framework to include -windows. -->
+		<TargetFramework>$(TargetFramework)-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<Description>Windows Interoperability library for Engine.</Description>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<Compile Update="Properties\Settings.Designer.cs">
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+		<None Update="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <Optimize>true</Optimize>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\.editorconfig" Link="Properties\.editorconfig" />
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Engine.File\Engine.File.csproj" />
-    <ProjectReference Include="..\Engine.Geometry\Engine.Geometry.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Engine.File\Engine.File.csproj" />
+		<ProjectReference Include="..\Engine.Geometry\Engine.Geometry.csproj" />
+	</ItemGroup>
 
 </Project>

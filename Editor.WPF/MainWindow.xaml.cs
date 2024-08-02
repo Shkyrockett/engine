@@ -1,25 +1,24 @@
 ﻿using System.Windows;
 
-namespace Editor.WPF
+namespace Editor.WPF;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// 
     /// </summary>
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ButtonExit_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
+        InitializeComponent();
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ButtonExit_Click(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
 }

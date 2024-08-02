@@ -1,15 +1,14 @@
-﻿namespace Engine.Experimental
+﻿namespace Engine.Experimental;
+
+/// <summary>
+/// The INodeItem interface.
+/// </summary>
+public interface INodeItem
+    : IPrimitive
 {
     /// <summary>
-    /// The INodeItem interface.
+    /// Gets or sets the elements.
     /// </summary>
-    public interface INodeItem
-        : IPrimitive
-    {
-        /// <summary>
-        /// Gets or sets the elements.
-        /// </summary>
-        /// <value>The <see cref="int"/>.</value>
-        int Elements { get; set; }
-    }
+    /// <value>The <see cref="int"/>.</value>
+    int Elements { get; set; }
 }

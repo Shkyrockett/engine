@@ -1,26 +1,23 @@
 ﻿// <copyright file="IBitmap.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2005 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-using System.IO;
+namespace Engine;
 
-namespace Engine
+/// <summary>
+/// The IBitmap interface.
+/// </summary>
+public interface IBitmap
 {
     /// <summary>
-    /// The IBitmap interface.
+    /// Gets or sets the stream.
     /// </summary>
-    public interface IBitmap
-    {
-        /// <summary>
-        /// Gets or sets the stream.
-        /// </summary>
-        /// <value>The <see cref="Stream"/>.</value>
-        Stream Stream { get; set; }
-    }
+    /// <value>The <see cref="Stream"/>.</value>
+    Stream Stream { get; set; }
 }

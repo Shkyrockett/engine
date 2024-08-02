@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 internal static partial class Interop
@@ -20,7 +19,7 @@ internal static partial class Interop
         /// <acknowledgment>
         /// https://docs.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamrestart
         /// </acknowledgment>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiStreamRestart", ExactSpelling = true)]
         private static extern MmResult MidiStreamRestart_(IntPtr hMidiStream);
     }

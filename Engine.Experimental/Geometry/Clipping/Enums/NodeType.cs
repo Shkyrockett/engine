@@ -1,5 +1,5 @@
 ﻿// <copyright file="NodeType.cs" company="angusj" version="6.4.0" date="2 July 2015" >
-//    Copyright (c) 2010 - 2015 Angus Johnson. All rights reserved.
+// Copyright (c) 2010 - 2015 Angus Johnson. All rights reserved.
 // </copyright>
 // <license href="http://www.boost.org/LICENSE_1_0.txt">
 //    Use, modification & distribution is subject to Boost Software License Version 1.
@@ -22,27 +22,26 @@
 // </seealso>
 // <summary></summary>
 
-namespace Engine
+namespace Engine;
+
+/// <summary>
+/// The node type enum.
+/// </summary>
+public enum NodeType
+    : byte
 {
     /// <summary>
-    /// The node type enum.
+    /// The Any.
     /// </summary>
-    public enum NodeType
-        : byte
-    {
-        /// <summary>
-        /// The Any.
-        /// </summary>
-        Any,
+    Any,
 
-        /// <summary>
-        /// The Open.
-        /// </summary>
-        Open,
+    /// <summary>
+    /// The Open.
+    /// </summary>
+    Open,
 
-        /// <summary>
-        /// The Closed.
-        /// </summary>
-        Closed
-    }
+    /// <summary>
+    /// The Closed.
+    /// </summary>
+    Closed
 }

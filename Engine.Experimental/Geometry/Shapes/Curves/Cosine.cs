@@ -1,74 +1,72 @@
 ﻿// <copyright file="Cosine.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2005 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-using System;
 using System.Runtime.Serialization;
 
-namespace Engine
+namespace Engine;
+
+/// <summary>
+/// The cosine class.
+/// </summary>
+[DataContract, Serializable]
+//[GraphicsObject]
+public class Cosine
+    : Shape2D
 {
     /// <summary>
-    /// The cosine class.
+    /// Initializes a new instance of the <see cref="Cosine"/> class.
     /// </summary>
-    [DataContract, Serializable]
-    //[GraphicsObject]
-    public class Cosine
-        : Shape2D
+    public Cosine()
+        : this(Point2D.Empty, Point2D.Empty)
+    { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Cosine"/> class.
+    /// </summary>
+    /// <param name="a">The a.</param>
+    /// <param name="b">The b.</param>
+    public Cosine(Point2D a, Point2D b)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Cosine"/> class.
-        /// </summary>
-        public Cosine()
-            : this(Point2D.Empty, Point2D.Empty)
-        { }
+        A = a;
+        B = b;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Cosine"/> class.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        public Cosine(Point2D a, Point2D b)
+    /// <summary>
+    /// Gets or sets the a.
+    /// </summary>
+    public Point2D A { get; set; }
+
+    /// <summary>
+    /// Gets or sets the b.
+    /// </summary>
+    public Point2D B { get; set; }
+
+    /// <summary>
+    /// Function For cosine interpolated Line
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns>Returns the interpolated point of the index value.</returns>
+
+    public override Point2D Interpolate(double t) => new(Interpolators.Cosine(t, A.X, A.Y, B.X, B.Y));
+
+    /// <summary>
+    /// The to string.
+    /// </summary>
+    /// <returns>The <see cref="string"/>.</returns>
+    public override string ToString()
+    {
+        if (this is null)
         {
-            A = a;
-            B = b;
+            return nameof(Cosine);
         }
 
-        /// <summary>
-        /// Gets or sets the a.
-        /// </summary>
-        public Point2D A { get; set; }
-
-        /// <summary>
-        /// Gets or sets the b.
-        /// </summary>
-        public Point2D B { get; set; }
-
-        /// <summary>
-        /// Function For cosine interpolated Line
-        /// </summary>
-        /// <param name="t"></param>
-        /// <returns>Returns the interpolated point of the index value.</returns>
-
-        public override Point2D Interpolate(double t) => new Point2D(Interpolators.Cosine(t, A.X, A.Y, B.X, B.Y));
-
-        /// <summary>
-        /// The to string.
-        /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString()
-        {
-            if (this is null)
-            {
-                return nameof(Cosine);
-            }
-
-            return $"{nameof(Cosine)}{{{nameof(A)}={A},{nameof(B)}={B}}}";
-        }
+        return $"{nameof(Cosine)}{{{nameof(A)}={A},{nameof(B)}={B}}}";
     }
 }

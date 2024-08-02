@@ -38,3 +38,6 @@ dotnet_diagnostic.CS8632.severity = none
 
 # CA1714: Flags enums should have plural names
 dotnet_diagnostic.CA1714.severity = none
+
+# IDE0130: Namespace does not match folder structure
+dotnet_style_namespace_match_folder = false

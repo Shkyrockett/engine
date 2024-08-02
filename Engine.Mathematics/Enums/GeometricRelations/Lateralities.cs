@@ -1,32 +1,29 @@
 ﻿// <copyright file="Laterality.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2016 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-using System;
+namespace Engine;
 
-namespace Engine
+/// <summary>
+/// The laterality enum.
+/// </summary>
+[Flags]
+public enum Lateralities
+    : sbyte
 {
     /// <summary>
-    /// The laterality enum.
+    /// Left.
     /// </summary>
-    [Flags]
-    public enum Lateralities
-        : sbyte
-    {
-        /// <summary>
-        /// Left.
-        /// </summary>
-        Left = 1,
+    Left = 1,
 
-        /// <summary>
-        /// Right.
-        /// </summary>
-        Right = 2,
-    }
+    /// <summary>
+    /// Right.
+    /// </summary>
+    Right = 2,
 }

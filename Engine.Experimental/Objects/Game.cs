@@ -1,76 +1,73 @@
 ﻿// <copyright file="Game.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2005 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-using System.Collections.Generic;
+namespace Engine;
 
-namespace Engine
+/// <summary>
+/// Root game object.
+/// </summary>
+public class Game
+    : IGameElement
 {
     /// <summary>
-    /// Root game object.
+    /// Initializes a new instance of the <see cref="Game"/> class.
     /// </summary>
-    public class Game
-        : IGameElement
+    public Game()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Game"/> class.
-        /// </summary>
-        public Game()
-        {
-            Name = nameof(Game);
-            DisplayName = nameof(Game);
-            Scenes = new List<Scene>();
-            Actors = new List<Actor>();
-            ActorsDialog = new List<ActorDialog>();
-            Audio = new List<IAudio>();
-            Graphics = new List<IBitmap>();
-            Variables = new Dictionary<string, object>();
-        }
-
-        /// <summary>
-        /// Gets or sets the name of the game.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the display name for the editor designer.
-        /// </summary>
-        public string DisplayName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the list of scenes 
-        /// </summary>
-        public List<Scene> Scenes { get; set; }
-
-        /// <summary>
-        /// Gets or sets the actors.
-        /// </summary>
-        public List<Actor> Actors { get; set; }
-
-        /// <summary>
-        /// Gets or sets the actors dialog.
-        /// </summary>
-        public List<ActorDialog> ActorsDialog { get; set; }
-
-        /// <summary>
-        /// Gets or sets the audio.
-        /// </summary>
-        public List<IAudio> Audio { get; set; }
-
-        /// <summary>
-        /// Gets or sets the graphics.
-        /// </summary>
-        public List<IBitmap> Graphics { get; set; }
-
-        /// <summary>
-        /// Gets or sets the variables.
-        /// </summary>
-        public Dictionary<string, object> Variables { get; set; }
+        Name = nameof(Game);
+        DisplayName = nameof(Game);
+        Scenes = [];
+        Actors = [];
+        ActorsDialog = [];
+        Audio = [];
+        Graphics = [];
+        Variables = [];
     }
+
+    /// <summary>
+    /// Gets or sets the name of the game.
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the display name for the editor designer.
+    /// </summary>
+    public string DisplayName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the list of scenes 
+    /// </summary>
+    public List<Scene> Scenes { get; set; }
+
+    /// <summary>
+    /// Gets or sets the actors.
+    /// </summary>
+    public List<Actor> Actors { get; set; }
+
+    /// <summary>
+    /// Gets or sets the actors dialog.
+    /// </summary>
+    public List<ActorDialog> ActorsDialog { get; set; }
+
+    /// <summary>
+    /// Gets or sets the audio.
+    /// </summary>
+    public List<IAudio> Audio { get; set; }
+
+    /// <summary>
+    /// Gets or sets the graphics.
+    /// </summary>
+    public List<IBitmap> Graphics { get; set; }
+
+    /// <summary>
+    /// Gets or sets the variables.
+    /// </summary>
+    public Dictionary<string, object> Variables { get; set; }
 }

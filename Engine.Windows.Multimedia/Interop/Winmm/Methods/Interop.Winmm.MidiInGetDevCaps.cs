@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 internal static partial class Interop
@@ -25,7 +24,7 @@ internal static partial class Interop
         /// <acknowledgment>
         /// https://docs.microsoft.com/en-us/windows/win32/api/mmeapi/nf-mmeapi-midiingetdevcaps
         /// </acknowledgment>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         [DllImport(Libraries.Winmm, EntryPoint = "midiInGetDevCaps", ExactSpelling = true, CharSet = CharSet.Auto)]
         private static extern MmResult MidiInGetDevCaps(IntPtr deviceId, out MidiInCapabilities capabilities, int size);
     }

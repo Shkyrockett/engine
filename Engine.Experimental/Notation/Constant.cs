@@ -1,34 +1,31 @@
 ﻿// <copyright file="Constant.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2005 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-using System.Collections.Generic;
+namespace Engine.MathNotation;
 
-namespace Engine.MathNotation
+/// <summary>
+/// The constant class.
+/// </summary>
+public class Constant
+    : Term
 {
     /// <summary>
-    /// The constant class.
+    /// Initializes a new instance of the <see cref="Constant"/> class.
     /// </summary>
-    public class Constant
-        : Term
+    public Constant()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Constant"/> class.
-        /// </summary>
-        public Constant()
-        {
-            Variables = new List<Variable>();
-        }
-
-        /// <summary>
-        /// Gets or sets the variables.
-        /// </summary>
-        public new List<Variable> Variables { get; set; }
+        Variables = [];
     }
+
+    /// <summary>
+    /// Gets or sets the variables.
+    /// </summary>
+    public new List<Variable> Variables { get; set; }
 }

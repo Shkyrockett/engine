@@ -1,34 +1,33 @@
-﻿namespace Engine.Experimental
+﻿namespace Engine.Experimental;
+
+/// <summary>
+/// The tile shape enum.
+/// </summary>
+public enum TileShape
+    : byte
 {
     /// <summary>
-    /// The tile shape enum.
+    /// The Unknown shape.
     /// </summary>
-    public enum TileShape
-        : byte
-    {
-        /// <summary>
-        /// The Unknown shape.
-        /// </summary>
-        Unknown,
+    Unknown,
 
-        /// <summary>
-        /// The Triangular shape.
-        /// </summary>
-        Triangular = 3,
+    /// <summary>
+    /// The Triangular shape.
+    /// </summary>
+    Triangular = 3,
 
-        /// <summary>
-        /// The Quadrilateral shape.
-        /// </summary>
-        Quadrilateral = 4,
+    /// <summary>
+    /// The Quadrilateral shape.
+    /// </summary>
+    Quadrilateral = 4,
 
-        /// <summary>
-        /// The Pentagonal shape.
-        /// </summary>
-        Pentagonal = 5,
+    /// <summary>
+    /// The Pentagonal shape.
+    /// </summary>
+    Pentagonal = 5,
 
-        /// <summary>
-        /// The Hexagonal shape.
-        /// </summary>
-        Hexagonal = 6
-    }
+    /// <summary>
+    /// The Hexagonal shape.
+    /// </summary>
+    Hexagonal = 6
 }

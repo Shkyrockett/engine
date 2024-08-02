@@ -1,25 +1,22 @@
 ﻿// <copyright file="Heart.cs" company="Shkyrockett" >
-//     Copyright © 2015 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2015 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
-using System.Collections.Generic;
+namespace Engine;
 
-namespace Engine
+/// <summary>
+/// The hyperbola class.
+/// </summary>
+public class Hyperbola
 {
     /// <summary>
-    /// The hyperbola class.
+    /// Gets or sets the points.
     /// </summary>
-    public class Hyperbola
-    {
-        /// <summary>
-        /// Gets or sets the points.
-        /// </summary>
-        public List<Point2D> Points { get; set; }
-    }
+    public List<Point2D> Points { get; set; }
 }

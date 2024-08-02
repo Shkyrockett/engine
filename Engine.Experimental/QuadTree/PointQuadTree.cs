@@ -1,5 +1,5 @@
 ﻿// <copyright file="PointQuadTree.cs" >
-//     Copyright © 2008 - 2017 Michael Coyle BlueToque. All rights reserved.
+// Copyright © 2008 - 2017 Michael Coyle BlueToque. All rights reserved.
 // </copyright>
 // <author id="Michael Coyle">Michael Coyle</author>
 // <license>
@@ -25,101 +25,98 @@
 // </references>
 // <remarks></remarks>
 
-using System.Collections.Generic;
+namespace Engine.Experimental;
 
-namespace Engine.Experimental
+/// <summary>
+/// The point quad tree class.
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public class PointQuadTree<T>
+    where T : ILocatable
 {
+    #region Fields
     /// <summary>
-    /// The point quad tree class.
+    /// The root QuadTreeNode
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class PointQuadTree<T>
-        where T : ILocatable
+    private readonly PointQuadTreeNode<T> root;
+
+    /// <summary>
+    /// The bounds of this QuadTree
+    /// </summary>
+    private readonly Rectangle2D rectangle;
+    #endregion Fields
+
+    #region Delegates
+    /// <summary>
+    /// An delegate that performs an action on a QuadTreeNode
+    /// </summary>
+    /// <param name="obj"></param>
+    public delegate void QTAction(PointQuadTreeNode<T> obj);
+
+    /// <summary>
+    /// Find.
+    /// </summary>
+    /// <param name="item">The item to find.</param>
+    /// <returns>The <see cref="bool"/>.</returns>
+    public delegate bool Find(T item);
+    #endregion Delegates
+
+    #region Constructors
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PointQuadTree{T}"/> class.
+    /// </summary>
+    /// <param name="rectangle">The rectangle.</param>
+    public PointQuadTree(Rectangle2D rectangle)
     {
-        #region Fields
-        /// <summary>
-        /// The root QuadTreeNode
-        /// </summary>
-        private readonly PointQuadTreeNode<T> root;
-
-        /// <summary>
-        /// The bounds of this QuadTree
-        /// </summary>
-        private readonly Rectangle2D rectangle;
-        #endregion Fields
-
-        #region Delegates
-        /// <summary>
-        /// An delegate that performs an action on a QuadTreeNode
-        /// </summary>
-        /// <param name="obj"></param>
-        public delegate void QTAction(PointQuadTreeNode<T> obj);
-
-        /// <summary>
-        /// Find.
-        /// </summary>
-        /// <param name="item">The item to find.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        public delegate bool Find(T item);
-        #endregion Delegates
-
-        #region Constructors
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PointQuadTree{T}"/> class.
-        /// </summary>
-        /// <param name="rectangle">The rectangle.</param>
-        public PointQuadTree(Rectangle2D rectangle)
-        {
-            this.rectangle = rectangle;
-            root = new PointQuadTreeNode<T>(this.rectangle);
-        }
-        #endregion Constructors
-
-        #region Properties
-        /// <summary>
-        /// Get the count of items in the QuadTree
-        /// </summary>
-        public int Count
-            => root.Count;
-        #endregion Properties
-
-        #region Methods
-        /// <summary>
-        /// Insert the feature into the QuadTree
-        /// </summary>
-        /// <param name="item"></param>
-        public void Insert(T item)
-            => root.Insert(item);
-
-        /// <summary>
-        /// Query the QuadTree, returning the items that are in the given area
-        /// </summary>
-        /// <param name="area"></param>
-        /// <returns></returns>
-        public List<T> Query(Rectangle2D area)
-            => root.Query(area);
-
-        /// <summary>
-        /// Do the specified action for each item in the quadtree
-        /// </summary>
-        /// <param name="action"></param>
-        public void ForEach(QTAction action)
-            => root.ForEach(action);
-
-        /// <summary>
-        /// Return the contents of this node and all sub-nodes in the tree below this one.
-        /// </summary>
-        /// <param name="funFind">The funFind.</param>
-        public void EchoSubTreeContents(Find funFind)
-            => root.EchoSubTreeContents(funFind);
-
-        /// <summary>
-        /// Delete.
-        /// </summary>
-        /// <param name="queryArea">The queryArea.</param>
-        /// <param name="funFind">The funFind.</param>
-        public void Delete(Rectangle2D queryArea, Find funFind)
-            => root.Delete(queryArea, funFind);
-        #endregion Methods
+        this.rectangle = rectangle;
+        root = new PointQuadTreeNode<T>(this.rectangle);
     }
+    #endregion Constructors
+
+    #region Properties
+    /// <summary>
+    /// Get the count of items in the QuadTree
+    /// </summary>
+    public int Count
+        => root.Count;
+    #endregion Properties
+
+    #region Methods
+    /// <summary>
+    /// Insert the feature into the QuadTree
+    /// </summary>
+    /// <param name="item"></param>
+    public void Insert(T item)
+        => root.Insert(item);
+
+    /// <summary>
+    /// Query the QuadTree, returning the items that are in the given area
+    /// </summary>
+    /// <param name="area"></param>
+    /// <returns></returns>
+    public List<T> Query(Rectangle2D area)
+        => root.Query(area);
+
+    /// <summary>
+    /// Do the specified action for each item in the quadtree
+    /// </summary>
+    /// <param name="action"></param>
+    public void ForEach(QTAction action)
+        => root.ForEach(action);
+
+    /// <summary>
+    /// Return the contents of this node and all sub-nodes in the tree below this one.
+    /// </summary>
+    /// <param name="funFind">The funFind.</param>
+    public void EchoSubTreeContents(Find funFind)
+        => root.EchoSubTreeContents(funFind);
+
+    /// <summary>
+    /// Delete.
+    /// </summary>
+    /// <param name="queryArea">The queryArea.</param>
+    /// <param name="funFind">The funFind.</param>
+    public void Delete(Rectangle2D queryArea, Find funFind)
+        => root.Delete(queryArea, funFind);
+    #endregion Methods
 }

@@ -1,45 +1,44 @@
 ﻿// <copyright file="MidiFileFormat.cs" company="Shkyrockett">
-//     Copyright © 2016 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2016 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <notes></notes>
 // <references>
 // </references>
 
-namespace Engine.File
+namespace Engine.File;
+
+/// <summary>
+/// Midi File Format Enumeration.
+/// </summary>
+public enum MidiFileFormat
 {
     /// <summary>
-    /// Midi File Format Enumeration.
+    /// Format has not been set.
     /// </summary>
-    public enum MidiFileFormat
-    {
-        /// <summary>
-        /// Format has not been set.
-        /// </summary>
-        None,
+    None,
 
-        /// <summary>
-        /// Midi karaoke file.
-        /// </summary>
-        Kar,
+    /// <summary>
+    /// Midi karaoke file.
+    /// </summary>
+    Kar,
 
-        /// <summary>
-        /// Midi file.
-        /// </summary>
-        Midi,
+    /// <summary>
+    /// Midi file.
+    /// </summary>
+    Midi,
 
-        /// <summary>
-        /// RMI, Riff based Midi File.
-        /// </summary>
-        RiffMidi,
+    /// <summary>
+    /// RMI, Riff based Midi File.
+    /// </summary>
+    RiffMidi,
 
-        /// <summary>
-        /// Unknown filetype.
-        /// </summary>
-        Unknown,
-    }
+    /// <summary>
+    /// Unknown filetype.
+    /// </summary>
+    Unknown,
 }

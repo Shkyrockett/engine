@@ -47,7 +47,7 @@ internal static partial class Interop
             /// <value>
             /// The manufacturer.
             /// </value>
-            public Manufacturers Manufacturer => (Manufacturers)manufacturerId;
+            public readonly Manufacturers Manufacturer => (Manufacturers)manufacturerId;
 
             /// <summary>
             /// Gets the product identifier (manufacturer specific)
@@ -55,7 +55,7 @@ internal static partial class Interop
             /// <value>
             /// The product identifier.
             /// </value>
-            public int ProductId => productId;
+            public readonly int ProductId => productId;
 
             /// <summary>
             /// Gets the product name
@@ -63,7 +63,7 @@ internal static partial class Interop
             /// <value>
             /// The name of the product.
             /// </value>
-            public string ProductName => productName;
+            public readonly string ProductName => productName;
         }
     }
 }

@@ -1,47 +1,48 @@
 ﻿// <copyright file="IAcceleration.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2020 Shkyrockett. All rights reserved.
+// Copyright © 2005 - 2024 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
-//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
 // <remarks></remarks>
 
 using System.ComponentModel;
+using System.Numerics;
 
-namespace Engine
+namespace Engine;
+
+/// <summary>
+/// The IAcceleration interface.
+/// </summary>
+public interface IAcceleration<T>
+    where T : INumber<T>
 {
     /// <summary>
-    /// The IAcceleration interface.
+    /// Gets the value.
     /// </summary>
-    public interface IAcceleration
-    {
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <value>The <see cref="double"/>.</value>
-        double Value { get; /*set;*/ }
+    /// <value>The <see cref="double"/>.</value>
+    T Value { get; /*set;*/ }
 
-        ///// <summary>
-        ///// Gets the name.
-        ///// </summary>
-        ///// <value>The <see cref="string"/>.</value>
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        //string Name { get; }
+    ///// <summary>
+    ///// Gets the name.
+    ///// </summary>
+    ///// <value>The <see cref="string"/>.</value>
+    //[EditorBrowsable(EditorBrowsableState.Never)]
+    //string Name { get; }
 
-        /// <summary>
-        /// Gets the abbreviation.
-        /// </summary>
-        /// <value>The <see cref="string"/>.</value>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        string Abbreviation { get; }
+    /// <summary>
+    /// Gets the abbreviation.
+    /// </summary>
+    /// <value>The <see cref="string"/>.</value>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    string Abbreviation { get; }
 
-        /// <returns></returns>
-        /// <summary>
-        /// The to string.
-        /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
-        string ToString();
-    }
+    /// <returns></returns>
+    /// <summary>
+    /// The to string.
+    /// </summary>
+    /// <returns>The <see cref="string"/>.</returns>
+    string ToString();
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-internal static partial class Interop
+﻿internal static partial class Interop
 {
     internal static partial class Winmm
     {
